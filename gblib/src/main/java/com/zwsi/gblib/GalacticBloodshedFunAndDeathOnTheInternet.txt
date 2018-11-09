@@ -1,0 +1,220 @@
+From https://archive.org/details/GalacticBloodshedFunAndDeathOnTheInternet
+Uploaded there 2008 by Billy Barron. Probably written 1992.
+
+Galactic Bloodshed: Fun and Death on the Internet
+by Billy Barron, University of North Texas (billy@unt.edu) aka the Sea Kings
+    aka the Slinkies aka Bovine Combustion
+
+The first thing to say about Galactic Bloodshed (GB) is that it is not that
+bloody (more on this later).  GB is a TCP/IP based, multiuser galactic
+colonization and conquest game.  If you have played Empire, imagine Empire in
+space.  Normally there are several games being run on the Internet and lots of
+people having fun at any given time.
+
+Implementation
+
+GB uses a client-server architecture.  There is one major client known as GB II.
+On the server side, there have been two major and many minor versions of the
+server.  The original server, which is still being updated regularly, is
+called GB and the major derivate is known as HAP (Heirarchical Astronomy
+Project).  The future of HAP is in doubt right now due to a job change on the
+part of the major developer.  The differences between HAP and GB are obvious
+to the players, but are trivial at the level of detail I'm covering here.  All
+code is written in C with the exception of a few supplemental programs that are
+not a standard part of the GB distribution.  Unfortunately, the code tends to be rather buggy.
+Most of the bugs are the minor annoying type of bugs instead of the total
+disaster type though they exist also.  Additionally, some versions of the client are
+incompatible with some versions of the server.  The server is well known for
+memory leaks, and it is in God's (the person running the game) best interest to
+restart the server every few days.  Many games have ended due to database
+corruption instead of having an actual victor.
+
+For running the server, it is very important to keep the game database smaller
+than the size of free RAM on the server machine.  If the database is too big,
+the server will thrash at times.  This not only slows the game down, but the
+whole server machine.
+
+Basic Rules
+
+GB operates on an update (or turn) basis.  Each update is also broken into
+movements.  When a player performs an action, it may occur immediately or wait
+until the next movement or update.  An example of an immediate action is firing
+a laser or loading cargo into a ship.  On movements, ships actually move.  On
+an update, ships move, jump through hyperspace, populations increase or
+decrease, pollution increases, technology level goes up, taxes are earned, and
+maintenance is paid among other things.
+
+Actions points (APs) play an important part in the game.  Each solar system and
+the galactic level earn APs on every update for a player based on population
+and number of ships.  Almost any action uses APs.  When you run out of APs in a
+system, you are unable to do anything in that system.  APs can be reallocated
+from the galactic (global) level to a particular system, but that is usually
+reserved for important situations as global APs are a rare and precious
+commodity.
+
+At the beginning of the game, a player selects the type of race and home planet
+he would like.  There are two major types of races: mesomorphs (metamorphs) and
+techies.  Techies are normal humaniod races.  Mesos can absorp people, have a
+lower intelligence (at least to start with), have group consciousness, and have
+space pods.  A space pod flies to a remote solar system and explodes sending
+spores which land on planets and absorp population.  In the earlier days of GB,
+mesos had an enormous advantage and almost always won games.  Then point based
+race creation came along which equalized things.  Home worlds range from
+asteriods to gas giants though the players on tiny planets tend to not do well.
+
+In the early phases of the game, it is important to build large populations on
+as many planets as possible.  This involves investing in
+technology, exploration, and developing planets.  A common mistake by many
+techie races at this stage of the game is to wait until they have hyperdrive to
+explore other systems.  Properly built sublight ships will arrive in other
+systems long before the player has hyperdrive.  I have noticed two trends regarding
+starting location.  The first is
+that the races that do not have nearby neighbors do extremely well unless they
+are poorly played.  The other is that races that start on the edge of the
+galaxy either do extremely well or get stomped quickly.  The reason is that the
+race either gets surrounded early on and dies off, or survives and then in the
+later stages of the game has less fronts to fight on.  For example, in the
+fall 92 UNM game, all of the major races started on the edge of the galaxy.
+
+The game from there goes in the next stage where players begin meeting each
+other and either fighting or forming alliances.  As the games progresses, some
+races die off and a few players or
+alliances usually start dominating the game.  Ships, also, get more and more
+powerful.
+
+Another method of playing is known as the blitz.  In a blitz game, updates
+happen every few minutes and the game lasts one night or weekend.  I'm going to
+ignore blitzes for this article and concentrate on regular games, but most of
+the material here applies to blitzes as well as regular games.
+
+Winners & Losers
+
+Several factors distinguish the winners from the losers.  Luck of the draw
+(starting location and the random number generator) does play a big part in
+the game.  However, even so certain players almost always do well and others
+always do poorly.
+
+Good players always try to be on immediately following an update.  On an
+update, ships jump through hyperspace, pods explode, and populations increase.
+When ships jump through hyperspace, they will often immediately be involved in
+a space battle.  Your ships will automatically defend themselves if you are not
+on.  However, manually handling your ships' firing works much better than the
+primitive automatic algorithm.  When pods explode or populations increase,
+ground combat may occur.  It is advantegous to be the attacker in almost all
+cases because you can try to capture enemy ships instead of vice versa.
+
+Good players spend more time playing.  Almost always the races that get more
+attention do better.  Especially the area of planetary development suffers with
+limited attention.  However, GB can be addicting and dangerous to the rest of
+your life.  Working full-time and being a top GB player is doable.  Working
+full-time, having a girlfriend, and being a top GB player would be tough (I
+couldn't do it).
+
+Good players learn timesaving measures to offset playing too much to a degree.
+Using client macros is a must for such things as building ships and launching
+pods.  The other reason I used macros was, on occasion, I would plan battles
+out before the update and write a macro.  After the update, I would immediately
+execute the macro which would make attacks faster than the enemy could respond.
+The opttech package is a must for calculating investments.  There are some
+crypt breaking and automated people moving code in existance, but may not be
+publically available.  Automatic playing programs, known as cyborgs, also exist
+but have been banned from many GB games.
+
+Good players report bugs to God and gets God's opinion on whether or not they
+should be used.  Many player try to keep bugs secret, but usually someone else
+figures out what is going on and reports it.  The player, who was using the
+bug to their advantage, usually ends up get
+penalized and incurs the wrath of the other players in the game.  Also, allies
+sometimes desert these people.
+
+Good players do not use the default ship configurations in general.  To begin with, some
+of the defaults are not well balanced and some of the ship types are useless in
+my opinion. I went one game without building a single explorer or destroyer and
+used interesting low-tech cargo ships and tanker configurations.  Also,
+specialized ships are very useful.  The high armor shuttle for landing on those
+highly defended planets is a good one.  A real game example of this was the time an
+enemy used up most of his defensive capability on attacking my highly armored
+cargo ships.  Then my and my ally's weakly armored, but heavily armed, fleet of
+battleships, missiles, space mines, and Orbital Assault Platforms (OAPs) came
+in and easily took over the system.
+
+Good players come up with surprises.  One strategy, which is now well known,
+but was a shocker in its early use was the "no destruct" missile.  In this
+strategy, you build two types of missiles.  The first ones are the usual
+configuration.  The second type are cheap missiles that have no explosion
+capability (the "no destruct" missiles).  In battle, you launch the "no
+destruct" missiles first.  The enemy usually flees or expends a lot of
+firepower on these harmless missiles leaving them vunerable to your real
+attack.
+
+Good players do not give out too much information about their race.  If the
+enemy knows where your home world is and all your factories are, then you are
+not in as good a defensive position.
+
+Good players know how to play GB politics.  This is the real meat of the game.
+One of the most famous races of all times was Erk in the summer 91 Berkeley
+game.  The ultrapowerful Erk had made enemies out of basically every other race in
+the game with one exception.  By the end of the game, Erk was no longer the top
+ranked player due to overwhelming odds.  The counterexample was Bovine
+Combustion in the summer 91 UNM game.  The Bovines were another runaway leader
+(partly due to incredible racial statistics) though not as much as Erk, but the
+Bovines found some relatively strong allies including the third ranked player
+and held on to the top ranking.
+
+The formation of alliances is an important step.  A good alliance consists of
+races that all have a useful characteristic that is missing from the other
+races.  This could be raw materials (resources), fuel, ground fighting ability,
+high technology level, manpower, or strategic location.
+
+However, alliances are not always what they appear.  An example was the fall 91
+UNM where the Slinkies (me), the Phreddies, and the Rats plus a couple of other
+minor races were involved in a secret alliance from very early on in the
+game.  We had planned out in detail how to confuse, divide, and conquer the
+universe.  The Phreddies attacked many of their allies disabling them and
+leaving them open to attack from the Rats.  I publically called the Phreddies
+scum and declared neutrality with them (we had been allies up until then).
+This allowed me to maintain good relations with the enemies of the Rats and
+Phreddies and gather intelligence on their plans.  There is an interesting
+story on how the secret alliance had discussions during the game without the
+other races being able to tell that, but I am keeping this trick to myself for
+future games.  :-)  A little later on, the Phreddies blew up one of my ships,
+which happened to be out of fuel and useless anyway, to firmly plant the idea
+that we were not getting along in the minds of other races.  However, at the same
+time, the Phreddies were secretly building ships for me.  The point of this
+game description was to show the lengths that people will go to win.  This
+particular alliance was rather effective though there were some near disasters
+like when my close public ally, the Sons of ET, tried to start a war against
+the Rats.  In another game I was in, a triple agent existed at one point.
+
+Internet Implications
+
+GB does have an impact on the Internet traffic load.  Games are on different
+port numbers so there is no way to calculate the its overall impact on the
+network.  It is safe to say that a GB session is roughly equivalent to a
+high-use telnet session.  It's also safe to say that the majority of the
+traffic is on the NSFNET backbone and not CIX in the US.  Over 90% of the
+traffic during a GB session (byte wise) is from the server to the client.  It
+should be noted that players with faster Internet access to the server have a
+slight advantage over further away players.  This is especially true when
+transatlantic links are involved.
+
+How to start Playing
+
+Hopefully, by now, you somewhat have a general feeling of how the game works.
+The first step is to start reading alt.games.gb.  The FAQ will fill in a lot of
+the gaps in this article.  The client and server code is available for
+anonymous FTP on scam.berkeley.edu.  The HAP version can be found on
+morticia.cnns.unt.edu.
+
+Then you have to find a game.  The best thing to do is to wait for a new game
+starting up.  They are usually posted on alt.games.gb.  Sometimes there are
+newbie games.  Please, however, do not play unless you are sure that you can
+regularly spend the time playing.  If you turn out to be wrong, give your race
+over to another player.  Races dropping out in the middle of the game can
+unbalance a game pretty badly.
+
+Conclusion
+
+GB is fun, but dangerously addictive.  Also, it demands serious time
+commitments from its players.  If you decide to play, just remember it is only
+a game.

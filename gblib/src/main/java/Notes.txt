@@ -1,0 +1,66 @@
+Roadmap
+*******
+
+Code
+- JUnit Tests
+
+Planet
+- multiple races per planet
+- Environment and impact on breeding
+- Resources. Money, other.
+
+Systems
+- Planet locations, render, and movement
+
+Universe
+- System Locations and render
+- Statistics on population,
+
+Races
+- Statistics on population, resources, etc.
+- Second race in test
+
+Units
+- Pods
+- Planetary units
+- Ships
+
+Interactivity
+- launch pods
+- land battle (can do this for morphs with pods only)
+- build ships
+- move ships
+- ship battle
+
+
+Frontend
+- Run GBTest on phone (text based)
+- Interactive, text based frontend (?)
+- Start to work on graphics renderers
+- Interactive Graphics
+
+
+//
+// Sources used
+// Notes.txt: http://www.jongware.com/galaxy1.html
+// FAQ: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
+
+// Must include following file: https://github.com/kaladron/galactic-bloodshed/blob/master/LICENSE
+// List of Planet Names: https://github.com/kaladron/galactic-bloodshed/blob/master/data/planet.list
+// List of Stars: https://github.com/kaladron/galactic-bloodshed/blob/master/data/star.list
+
+
+Log
+***
+
+2018-11-09
+Scrollable TextView in App displays output of text. Refactored classes out of a single file into multiple.
+
+2018-11-08
+Started this Log. Finally Enabled Hyper-V. It's under "Security" in the BIOS! Emulator is now running faster.
+
+
+
+
+
+
