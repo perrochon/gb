@@ -1,7 +1,7 @@
 // Copyright 2018 Louis Perrochon. All rights reserved
 
 /* GBTest runs step by step through a GB scenario using only what's in GBLib.
-   It's a big, manual GBLib integration test. Pass criteria are making sure it finishes, and glance over the output
+   It's a big, manual GBLib integration test. Pass criteria are making sure it finishes, and glance over the output.
  */
 
 package com.zwsi.gblib;
