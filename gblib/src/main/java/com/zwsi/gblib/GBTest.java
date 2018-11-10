@@ -2,7 +2,7 @@
 
 /* GBTest runs step by step through a GB scenario using only what's in GBLib.
    It's a big, manual GBLib integration test. Pass criteria are making sure it finishes, and glance over the output.
-   Test line to figure out why Github doesn't show changes
+   Test line to figure out why Github doesn't show changes. Had to do "git push" TIL.
  */
 
 package com.zwsi.gblib;
