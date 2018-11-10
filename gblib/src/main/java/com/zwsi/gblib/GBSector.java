@@ -4,12 +4,15 @@
 
 package com.zwsi.gblib;
 
-// Data
 class GBSector {
-    // setters and getters. Easy for primitive types and String, but careful with complex objects.
     int type = -1;        // nonexisting type
+    String type_symbol = " ";
     int population = 0;   // nobody lives here (yet)
-    GBRace race = null;  // Controlling race. we only want object reference to the race, not a copy of the object.
+    GBRace owner = null;  // Controlling race. we only want object reference to the race, not a copy of the object.
+
+    GBSector() {
+
+    }
 
     String consoleDraw(GBData data) {
         if (population == 0) {

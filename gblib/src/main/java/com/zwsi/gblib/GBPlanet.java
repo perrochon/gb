@@ -33,7 +33,7 @@ class GBPlanet {
         System.out.println("\n    " + name + " of type " + data.planetTypeToString(type) + " and size " + height + "x" + width + "\n");
 
         for (int h = 0; h < height; h++) {
-            System.out.print("  ");
+            System.out.print("    ");
             for (int w = 0; w < width; w++) {
                 System.out.print(sectors[h][w].consoleDraw(data));
             }
@@ -67,9 +67,9 @@ class GBPlanet {
             for (int w = 0; w < width; w++) {
                 if (sectors[h][w].population > 0) {
                     GBDebug.l3("Found population of " + sectors[h][w].population + " in sector [" + h + "][" + w + "]");
-                    sectors[h][w].population = (sectors[h][w].population * (100 + sectors[h][w].race.birthrate)) / 100;
+                    sectors[h][w].population = (sectors[h][w].population * (100 + sectors[h][w].owner.birthrate)) / 100;
                     GBDebug.l3("New population is " + sectors[h][w].population);
-                    race = sectors[h][w].race;
+                    race = sectors[h][w].owner;
                 }
             }
         }
@@ -87,7 +87,7 @@ class GBPlanet {
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
                 if (sectors[h][w].population > 0) {
-                    int movers = ((sectors[h][w].population * sectors[h][w].race.explore) / 800) * 8; // get a multiple of 8, so no rounding below
+                    int movers = ((sectors[h][w].population * sectors[h][w].owner.explore) / 800) * 8; // get a multiple of 8, so no rounding below
                     GBDebug.l3("Moving " + movers + " out of population of " + sectors[h][w].population + " in sector [" + h + "][" + w + "]");
 
                     // Moving
@@ -119,7 +119,7 @@ class GBPlanet {
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
                 sectors[h][w].population += delta[h][w]; // TODO: this won't work with multiple races . Write tests that test single race migration before fixing
-                sectors[h][w].race = race; // TODO assumes a single race on planet
+                sectors[h][w].owner = race; // TODO assumes a single race on planet
             }
         }
     }

@@ -2,6 +2,7 @@
 
 // GBStar deals with anything on the star system wide level
 
+
 package com.zwsi.gblib;
 
 class GBStar {

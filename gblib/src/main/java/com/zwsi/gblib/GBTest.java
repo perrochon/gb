@@ -16,7 +16,7 @@ public class GBTest {
         System.out.println("Welcome to GB Test");
 
         GBDebug.l1("Making Universe");
-        GBUniverse universe = new GBUniverse(1);
+        GBUniverse universe = new GBUniverse(2, 2);
 
         // universe.consoleDraw();
 
@@ -29,17 +29,7 @@ public class GBTest {
 
         GBDebug.l1("Creating Intelligent Live");
 
-        // Temporary hack
-        GBRace first = new GBRace("Xenos");
-        GBSector firstSector = universe.starsArray[0].planetsArray[0].sectors[0][0];
-        firstSector.population = 100;
-        firstSector.race = first;
-
-        //let them spread...
-        for (int i = 1; i < 5; i++) {
-            universe.starsArray[0].planetsArray[0].doPlanet();
-            //universe.consoleDraw();
-        }
+        universe.doUniverse();
 
         GBDebug.l1("Drawing Universe with some population (first star, first planet)");
         universe.consoleDraw();
