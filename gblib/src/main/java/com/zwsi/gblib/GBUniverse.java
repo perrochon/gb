@@ -1,35 +1,42 @@
+
 package com.zwsi.gblib;
 
 public class GBUniverse {
 
-    private int numberOfSystems; // how many star Systems in the Universe
-    GBSystem[] systemsArray; // the star Systems // TODO make private an return copy in getter
+    GBData data;
+    GBStar[] starsArray; // the star Systems // TODO make private an return copy in getter
+    int numberOfStars; // how many star Systems in the Universe
 
-    GBUniverse(int numberOfSystems) {
-        this.numberOfSystems = numberOfSystems;
-        systemsArray = new GBSystem[numberOfSystems];
-        GBDebug.l1("Universe Created");
+    GBUniverse(int numberOfStars) {
+
+        this.numberOfStars = numberOfStars;
+        starsArray = new GBStar[numberOfStars];
+        data = new GBData();
+
+        // Place Stars
+        GBDebug.l3("Making Stars");
+        makeStars(data);
+
+        GBDebug.l3("Universe made");
     }
 
     void consoleDraw() {
-        System.out.println("============");
+        System.out.println("=============================================");
         System.out.println("The Universe");
-        System.out.println("============");
-        System.out.println("The Universe contains " + numberOfSystems + " star system(s).\n");
+        System.out.println("=============================================");
+        System.out.println("The Universe contains " + numberOfStars + " star(s).\n");
 
-        for (GBSystem i : systemsArray) {
+        for (GBStar i : starsArray) {
             if (i != null) {
-                i.consoleDraw();
+                i.consoleDraw(data);
             }
         }
     }
 
-    void randomPopulate() {
-        GBDebug.l3("Randomly Populating Universe");
-
-        for (int i = 0; i < systemsArray.length; i++) {
-            systemsArray[i] = new GBSystem();
-            systemsArray[i].randomPopulate();
+    private void makeStars(GBData data) {
+        GBDebug.l3("Making Stars");
+        for (int i = 0; i < numberOfStars; i++) {
+            starsArray[i] = new GBStar(data);
         }
 
     }

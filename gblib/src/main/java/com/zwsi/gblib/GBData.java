@@ -1,16 +1,24 @@
 // Copyright 2018 Louis Perrochon. All rights reserved
 
-package com.zwsi.gblib;
-
-import java.util.Random;
-
 // GBData contain
 //  - All the data // TODO read data from a config file or other external data source
 //    includes names, types and other attributes of stars, planets, sectors
 //  - All the creation logic for stars, planets, sectors
+//
+// GB Data is a separate class because later we want to read this from a config file, etc.
+
+package com.zwsi.gblib;
+
+import java.util.Random;
+
+
 class GBData {
 
+    private Random rand;
 
+    GBData() {
+        rand = new Random(1);
+    }
 
     // Stars and Systems // TODO clean up stars vs systems. Used interchangeably right now
     // List of Stars from: https://github.com/kaladron/galactic-bloodshed/blob/master/data/star.list
@@ -50,37 +58,30 @@ class GBData {
             {1, 2, 2, 3, 3, 3, 4, 4, 4, 6}, // Airless
             {4, 4, 4, 4, 4, 4, 4, 4, 4, 6}  // Asteroid
     };
-    static private Random rand;
-
-    static {
-        // TODO if production, don't provide a seed
-        rand = new Random(1);
-    }
-
-    static String selectSystemName() {
+    String selectSystemName() {
         // TODO no dupes - not a high priority, real world may have duplicates...
         int n = rand.nextInt(starNames.length);
         return starNames[n];
     }
 
-    static String selectPlanetName() {
+    String selectPlanetName() {
         // TODO no dupes - not a high priority, real world may have duplicates...
         int n = rand.nextInt(planetNames.length);
         return planetNames[n];
     }
 
-    static int selectPlanetType() {
+    int selectPlanetType() {
         // TODO specified distribution, instead of random
         int n = rand.nextInt(planetTypesNames.length);
         return n;
     }
 
-    static String planetTypeToString(int n) {
+    String planetTypeToString(int n) {
         return planetTypesNames[n];
     }
 
     // Coordinates are [down][right] with [0][0] top left.
-    static GBSector[][] getSectors(int planetType) {
+    GBSector[][] getSectors(int planetType) {
         // TODO size dependent on planet type
         int height; // height (lattitudinal) of planet
         int width; // width (longitudinal) of planet
@@ -88,7 +89,7 @@ class GBData {
         GBDebug.l3(planetTypesSize[planetType][0] + "-" + planetTypesSize[planetType][1]);
         height = rand.nextInt(planetTypesSize[planetType][1] - planetTypesSize[planetType][0]) + planetTypesSize[planetType][0];
         width = height * 2;
-        GBDebug.l3("Size of this " + GBData.planetTypeToString(planetType) + " type planet is " + height + "x" + width);
+        GBDebug.l3("Size of this " + planetTypeToString(planetType) + " type planet is " + height + "x" + width);
         GBSector sectors[][] = new GBSector[height][width];
 
         for (int h = 0; h < height; h++) {
@@ -100,11 +101,11 @@ class GBData {
         return sectors;
     }
 
-    public static String sectorTypeToString(int n) {
+    static String sectorTypeToString(int n) {
         return sectorTypesNames[n];
     }
 
-    static String sectorTypeToSymbol(int n) {
+    String sectorTypeToSymbol(int n) {
         return sectorTypesConsole[n];
     }
 

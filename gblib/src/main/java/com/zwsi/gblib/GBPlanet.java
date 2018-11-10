@@ -1,21 +1,27 @@
+// Copyright 2018 Louis Perrochon. All rights reserved
+
+// GBPlanet deals with anything on the planetary level
+
 package com.zwsi.gblib;
 
 class GBPlanet {
 
-    // Planets are rectangles with wrap arounds on the sides. Think Mercator.
-    GBSector[][] sectors; // TODO make private an return copy in getter. Then keep track of planetwide population as changes happen.
     private String name; // name of this planet
     private int type; // type of this planet
     private int height;
     private int width;
 
-    GBPlanet() {
-        name = GBData.selectPlanetName();
-        type = GBData.selectPlanetType();
-        sectors = GBData.getSectors(type);
+    // Planets are rectangles with wrap arounds on the sides. Think Mercator.
+    GBSector[][] sectors; // TODO make private an return copy in getter. Then keep track of planetwide population as changes happen.
+
+    GBPlanet(GBData data) {
+        name = data.selectPlanetName();
+        type = data.selectPlanetType();
+        sectors = data.getSectors(type);
         height = sectors.length;
         width = sectors[0].length;
-        GBDebug.l3("Created Planet " + name + " of type " + GBData.planetTypeToString(type) + ". Planet size is " + height + "x" + width);
+
+        GBDebug.l3("Made Planet " + name + " of type " + data.planetTypeToString(type) + ". Planet size is " + height + "x" + width);
 
     }
 
@@ -23,13 +29,13 @@ class GBPlanet {
         return name;
     }
 
-    void consoleDraw() {
-        System.out.println("\n    " + name + " of type " + GBData.planetTypeToString(type) + " and size " + height + "x" + width + "\n");
+    void consoleDraw(GBData data) {
+        System.out.println("\n    " + name + " of type " + data.planetTypeToString(type) + " and size " + height + "x" + width + "\n");
 
         for (int h = 0; h < height; h++) {
             System.out.print("  ");
             for (int w = 0; w < width; w++) {
-                System.out.print(sectors[h][w].consoleDraw());
+                System.out.print(sectors[h][w].consoleDraw(data));
             }
             System.out.println();
         }
