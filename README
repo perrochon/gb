@@ -5,4 +5,4 @@ Directories
 gblib: contains all the game logic.
 app: (Android) frontend.
 
-The rest are various Android Studio files.
+The rest are various Android Studio files. Not sure yet what they all do :-)
