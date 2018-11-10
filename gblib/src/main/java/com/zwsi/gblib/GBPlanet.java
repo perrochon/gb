@@ -53,6 +53,7 @@ class GBPlanet {
         return (x + 1) % sectors[0].length;
     }
 
+
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/doplanet.cc
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/dosector.cc
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/perm.cc
@@ -71,7 +72,6 @@ class GBPlanet {
                     race = sectors[h][w].race;
                 }
             }
-            System.out.println();
         }
 
         // Migration
