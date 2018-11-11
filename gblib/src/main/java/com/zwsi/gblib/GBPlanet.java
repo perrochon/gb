@@ -12,7 +12,7 @@ class GBPlanet {
     private int width;
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
-    GBSector[][] sectors; // TODO make private an return copy in getter. Then keep track of planetwide population as changes happen.
+    GBSector[][] sectors; //
 
     GBPlanet(GBData data) {
         name = data.selectPlanetName();
@@ -21,7 +21,8 @@ class GBPlanet {
         height = sectors.length;
         width = sectors[0].length;
 
-        GBDebug.l3("Made Planet " + name + " of type " + data.planetTypeToString(type) + ". Planet size is " + height + "x" + width);
+        GBDebug.l3("Made Planet " + name + " of type " + data.planetTypeToString(type)
+                + ". Planet size is " + height + "x" + width);
 
     }
 
@@ -30,7 +31,8 @@ class GBPlanet {
     }
 
     void consoleDraw(GBData data) {
-        System.out.println("\n    " + name + " of type " + data.planetTypeToString(type) + " and size " + height + "x" + width + "\n");
+        System.out.println("\n    " + name + " of type " + data.planetTypeToString(type)
+                + " and size " + height + "x" + width + "\n");
 
         for (int h = 0; h < height; h++) {
             System.out.print("    ");
@@ -75,8 +77,9 @@ class GBPlanet {
         }
 
         // Migration
-        // [kaladron] did one sector at a time in random order, then moved population out into random directions. So
-        // in race conditions, it was random who populated a random sector
+        // [kaladron] did one sector at a time in random order, then moved population out into random directions.
+        // In race conditions, it was random who populated a random sector
+        // TODO multiple races/planet: Add sectors to a a collection (with x,y), shuffle, iterate. RIP delta
         int[][] delta = new int[height][width];
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
@@ -87,8 +90,10 @@ class GBPlanet {
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
                 if (sectors[h][w].population > 0) {
-                    int movers = ((sectors[h][w].population * sectors[h][w].owner.explore) / 800) * 8; // get a multiple of 8, so no rounding below
-                    GBDebug.l3("Moving " + movers + " out of population of " + sectors[h][w].population + " in sector [" + h + "][" + w + "]");
+                    int movers = ((sectors[h][w].population * sectors[h][w].owner.explore) / 800) * 8;
+                    // get a multiple of 8, so no rounding below
+                    GBDebug.l3("Moving " + movers + " out of population of " + sectors[h][w].population
+                            + " in sector [" + h + "][" + w + "]");
 
                     // Moving
                     delta[h][w] -= movers;
@@ -118,8 +123,8 @@ class GBPlanet {
         }
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
-                sectors[h][w].population += delta[h][w]; // TODO: this won't work with multiple races . Write tests that test single race migration before fixing
-                sectors[h][w].owner = race; // TODO assumes a single race on planet
+                sectors[h][w].population += delta[h][w];
+                sectors[h][w].owner = race;
             }
         }
     }

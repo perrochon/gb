@@ -63,13 +63,13 @@ public class GBUniverse {
         // Temporary hack
 
         GBSector sector;
-        racesArray[0]= new GBRace("Xenos", 50, 20);
+        racesArray[0]= new GBRace(1,"Xenos", 50, 20);
         sector = starsArray[0].planetsArray[0].sectors[0][0];
         sector.population = 100;
         sector.owner = racesArray[0];
 
         if (numberOfStars > 1) {
-            racesArray[1] = new GBRace("Aliens", 100, 10);
+            racesArray[1] = new GBRace(2,"Aliens", 100, 10);
             sector = starsArray[1].planetsArray[0].sectors[0][0];
             sector.population = 100;
             sector.owner = racesArray[1];

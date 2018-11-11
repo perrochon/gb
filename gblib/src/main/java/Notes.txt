@@ -53,6 +53,9 @@ Frontend
 Log
 ***
 
+2018-11-10
+More refactoring. Two races. Buttons!
+
 2018-11-09
 Scrollable TextView in App displays output of text. Refactored classes out of a single file into multiple.
 

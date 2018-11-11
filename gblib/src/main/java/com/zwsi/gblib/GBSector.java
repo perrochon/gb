@@ -16,10 +16,11 @@ class GBSector {
 
     String consoleDraw(GBData data) {
         if (population == 0) {
-            return " " + data.sectorTypeToSymbol(type) + " ";
+            return " " + type_symbol + " ";
         } else {
             //return " \u001B[7m" + GBData.sectorTypeToSymbol(type) + "\u001B[m ";
-            return " [" + data.sectorTypeToSymbol(type) + "]";
+            //return " [" + type_symbol + "]";
+            return " " + Integer.toString(owner.id) + " ";
         }
     }
 

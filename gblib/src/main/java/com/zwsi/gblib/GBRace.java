@@ -14,6 +14,7 @@ package com.zwsi.gblib;
 class GBRace {
 
     String name;
+    int id;
     int absorption;
     int birthrate; // 00...100 (originally 0..1?)
     int explore;    // adventurism 00..100 (originally percent)
@@ -22,7 +23,8 @@ class GBRace {
 
     // Add more as code uses them...
 
-    GBRace(String name, int birthrate, int explore) {
+    GBRace(int id, String name, int birthrate, int explore) {
+        this.id = id;
         this.name = name;
         this.birthrate = birthrate;
         this.explore = explore;

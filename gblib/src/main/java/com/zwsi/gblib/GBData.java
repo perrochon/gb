@@ -96,6 +96,7 @@ class GBData {
             for (int w = 0; w < width; w++) {
                 sectors[h][w] = new GBSector();
                 sectors[h][w].type = sectorTypesChance[planetType][rand.nextInt(10)];
+                sectors[h][w].type_symbol = sectorTypesConsole[sectors[h][w].type];
             }
         }
         return sectors;
