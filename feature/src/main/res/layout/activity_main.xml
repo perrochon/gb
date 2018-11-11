@@ -5,46 +5,63 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity" tools:layout_editor_absoluteY="25dp">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="659dp"
+            android:id="@+id/scrollView2"
+            app:layout_constraintBottom_toTopOf="@+id/editText" android:layout_marginBottom="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginRight="8dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical" android:gravity="bottom">
+            <TextView
+                    android:id="@+id/output"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:scrollbars="vertical"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/DoButton" android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginBottom="24dp"/>
+        </LinearLayout>
+    </ScrollView>
     <ImageView
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/orionnebula"
             android:alpha="0.6" android:id="@+id/imageView" android:contentDescription="Orion Nebula"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+    />
 
-    <TextView
-            android:id="@+id/output"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:gravity="bottom"
-            android:scrollbars="vertical"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/button2" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" android:layout_marginTop="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginBottom="24dp"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/editText"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/button2" android:layout_marginRight="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/output" android:layout_marginTop="16dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"/>
     <Button
             android:text="@string/button_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"
-            app:layout_constraintEnd_toEndOf="parent" android:onClick="sendCreate"/>
+            android:id="@+id/CreateButton"
+            android:onClick="sendCreate"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button2" app:layout_constraintEnd_toStartOf="@+id/button" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/button" android:text="@string/button_Do"
-            android:onClick="sendDo"/>
+            android:id="@+id/DoButton"
+            android:text="@string/button_Do"
+            android:onClick="sendDo"
+            app:layout_constraintTop_toBottomOf="@+id/CreateButton"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="8dp"/>
 
 </android.support.constraint.ConstraintLayout>
