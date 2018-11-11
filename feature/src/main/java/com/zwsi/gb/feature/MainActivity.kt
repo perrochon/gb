@@ -48,12 +48,16 @@ class MainActivity : AppCompatActivity() {
 //            putExtra(EXTRA_MESSAGE, message)
 //        }
 //        startActivity(intent)
+
+        //output.setText("Pressed Create")
+
         tester.makeUniverse()
 
     }
 
     /** Called when the user taps the Do button */
     fun sendDo(view: View) {
+        //output.setText("Pressed Do")
         tester.doUniverse()
     }
 
