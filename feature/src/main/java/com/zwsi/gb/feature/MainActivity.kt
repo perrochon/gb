@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.view.View
 import android.widget.EditText
+import com.zwsi.gblib.GBTest
 import kotlinx.android.synthetic.main.activity_main.*
 
 // To redirect stdout to the text view
@@ -16,6 +17,8 @@ import java.io.PrintStream
 
 
 class MainActivity : AppCompatActivity() {
+
+    var tester: GBTest = GBTest()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,16 +42,21 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Create button */
     fun sendCreate(view: View) {
-        val editText = findViewById<EditText>(R.id.editText)
-        val message = editText.text.toString()
-        val intent = Intent(this, CreateUniverseActivity::class.java).apply {
-            putExtra(EXTRA_MESSAGE, message)
-        }
-        startActivity(intent)
-//        com.zwsi.gblib.GBTest.main(arrayOf(""))
+//        val editText = findViewById<EditText>(R.id.editText)
+//        val message = editText.text.toString()
+//        val intent = Intent(this, CreateUniverseActivity::class.java).apply {
+//            putExtra(EXTRA_MESSAGE, message)
+//        }
+//        startActivity(intent)
+        tester.makeUniverse()
+
     }
 
     /** Called when the user taps the Do button */
     fun sendDo(view: View) {
+        tester.doUniverse()
     }
+
+
+
 }

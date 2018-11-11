@@ -11,28 +11,31 @@ import java.lang.String;
 
 public class GBTest {
 
+    GBUniverse universe;
+    int gameTurns = 0;
+
+    public GBTest(){
+    }
+
+    public void makeUniverse() {
+        GBDebug.l1("Making Universe");
+        universe = new GBUniverse(2, 2);
+        universe.consoleDraw();
+    }
+
+    public void doUniverse() {
+        gameTurns ++;
+        GBDebug.l1("Runing Game Turn" + gameTurns);
+        universe.doUniverse();
+        universe.consoleDraw();
+    }
+
     public static void main(String[] args) {
 
         System.out.println("Welcome to GB Test");
-
-        GBDebug.l1("Making Universe");
-        GBUniverse universe = new GBUniverse(2, 2);
-
-        // universe.consoleDraw();
-
-
-
-        GBDebug.l2("Drawing universe (pre intelligent live)");
-        universe.consoleDraw();
-
-        //Place people
-
-        GBDebug.l1("Creating Intelligent Live");
-
-        universe.doUniverse();
-
-        GBDebug.l1("Drawing Universe with some population (first star, first planet)");
-        universe.consoleDraw();
+        GBTest tester = new GBTest();
+        tester.makeUniverse();
+        tester.doUniverse();
 
     }
 }
