@@ -26,17 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         // Doing this the simple way with scrolling TextView.
         // May need to upgrade to ScrollView to get kinetic scroll
-        output.setMovementMethod(android.text.method.ScrollingMovementMethod())
-
-//        System.setOut(PrintStream(object:OutputStream() {
-//            internal var outputStream = ByteArrayOutputStream()
-//            @Throws(IOException::class)
-//            override fun write(oneByte:Int) {
-//                outputStream.write(oneByte)
-//                output.setText(String(outputStream.toByteArray()))
-//            }
-//        }))
-
+        //output.setMovementMethod(android.text.method.ScrollingMovementMethod())
 
     }
 
@@ -49,31 +39,51 @@ class MainActivity : AppCompatActivity() {
 //        }
 //        startActivity(intent)
 
-            Thread(Runnable {
-                tester.makeUniverse()
-                view.post {
-                    output.append("Universe Made\n")
-                }
-            }).start()
+        output.setText("")
+
+        Thread(Runnable {
+
+            // Capture output from tester in an byte array
+            val baos = ByteArrayOutputStream()
+            val ps = PrintStream(baos)
+            System.setOut(ps)
+
+            tester.makeUniverse()
+
+            System.out.flush()
+
+            view.post {
+                output.append(baos.toString())
+            }
 
 
-        //tester.makeUniverse()
+        }).start()
 
     }
 
     /** Called when the user taps the Do button */
     fun sendDo(view: View) {
 
+        output.setText("")
+
         Thread(Runnable {
+
+            // Capture output from tester in an byte array
+            val baos = ByteArrayOutputStream()
+            val ps = PrintStream(baos)
+            System.setOut(ps)
+
             tester.doUniverse()
+
+            System.out.flush()
+
             view.post {
-                output.append("Universe Done\n")
+                output.append(baos.toString())
             }
+
         }).start()
 
 
-        output.setText("")
-        tester.doUniverse()
     }
 
 
