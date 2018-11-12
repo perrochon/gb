@@ -28,34 +28,47 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //val planet = findViewById<ImageView>(R.id.planet)
-        //planet.setImageResource(R.drawable.ice)
-
-
         val planet = findViewById<ImageView>(R.id.planet)
-        //val b = BitmapFactory.decodeResource(R.drawable.ice, R.drawable.ice)
-        //image.setImageBitmap(b)
 
-        val image1 = BitmapFactory.decodeResource(getResources(), R.drawable.forest)
-        val image2 = BitmapFactory.decodeResource(getResources(), R.drawable.ice)
-        //planet.setImageBitmap(image1)
 
-        val merged = Bitmap.createBitmap(100, 50, image1.config)
+        val d = BitmapFactory.decodeResource(getResources(), R.drawable.desert)
+        val f = BitmapFactory.decodeResource(getResources(), R.drawable.forest)
+        val g = BitmapFactory.decodeResource(getResources(), R.drawable.gas)
+        val i = BitmapFactory.decodeResource(getResources(), R.drawable.ice)
+        val l = BitmapFactory.decodeResource(getResources(), R.drawable.land)
+        val m = BitmapFactory.decodeResource(getResources(), R.drawable.mountain)
+        val r = BitmapFactory.decodeResource(getResources(), R.drawable.rock)
+        val w = BitmapFactory.decodeResource(getResources(), R.drawable.water)
+
+
+        val merged = Bitmap.createBitmap(300, 200, d.config)
         val canvas = Canvas(merged)
-        canvas.drawBitmap(image1, 0f, 0f, null)
-        canvas.drawBitmap(image2, 50f, 0f, null)
+        canvas.drawBitmap(i, 0f, 0f, null)
+        canvas.drawBitmap(i, 50f, 0f, null)
+        canvas.drawBitmap(i, 150f, 0f, null)
+        canvas.drawBitmap(m, 200f, 0f, null)
+        canvas.drawBitmap(m, 250f, 0f, null)
+        canvas.drawBitmap(i, 300f, 0f, null)
+        canvas.drawBitmap(l, 0f, 50f, null)
+        canvas.drawBitmap(l, 50f, 50f, null)
+        canvas.drawBitmap(l, 150f, 50f, null)
+        canvas.drawBitmap(f, 200f, 50f, null)
+        canvas.drawBitmap(f, 250f, 50f, null)
+        canvas.drawBitmap(w, 300f, 50f, null)
+        canvas.drawBitmap(w, 0f, 100f, null)
+        canvas.drawBitmap(l, 50f, 100f, null)
+        canvas.drawBitmap(l, 150f, 100f, null)
+        canvas.drawBitmap(l, 200f, 100f, null)
+        canvas.drawBitmap(i, 250f, 100f, null)
+        canvas.drawBitmap(w, 300f, 100f, null)
+        canvas.drawBitmap(w, 0f, 100f, null)
+        canvas.drawBitmap(r, 50f, 100f, null)
+        canvas.drawBitmap(r, 150f, 100f, null)
+        canvas.drawBitmap(i, 200f, 100f, null)
+        canvas.drawBitmap(i, 250f, 100f, null)
+        canvas.drawBitmap(i, 300f, 100f, null)
 
         planet.setImageBitmap(merged)
-
-
-        //    Bitmap bitmap;
-        ////Convert bitmap to drawable
-        //    Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-        //    planet.setImageDrawable(drawable);
-
-        // that's a bit more complex, use Bitmap.createBitmap(int width, int height, Bitmap.Config config);
-        // to create a mutable bitmap with the size you want, create a new canvas with new Canvas(bitmap);
-        // to create a canvas into that bitmap, and use canvas.drawBitmap(...) to draw the 4 bitmaps into the final one.
 
     }
 
