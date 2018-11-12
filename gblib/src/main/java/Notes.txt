@@ -49,6 +49,9 @@ Frontend
 // List of Planet Names: https://github.com/kaladron/galactic-bloodshed/blob/master/data/planet.list
 // List of Stars: https://github.com/kaladron/galactic-bloodshed/blob/master/data/star.list
 
+// Terrain Assets
+https://assetstore.unity.com/packages/2d/environments/painted-2d-terrain-tiles-basic-set-45675
+
 
 Log
 ***

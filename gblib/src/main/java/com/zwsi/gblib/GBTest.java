@@ -42,7 +42,7 @@ public class GBTest {
 
 class GBDebug {
 
-    private static final int DEBUG_LEVEL = 0;  // 0 quiet, 1 minimal, 2 verbose, 3 everything
+    private static final int DEBUG_LEVEL = 1;  // 0 quiet, 1 minimal, 2 verbose, 3 everything
 
     static void l1(String message) {
         if (DEBUG_LEVEL >= 1) {

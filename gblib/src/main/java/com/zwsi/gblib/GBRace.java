@@ -184,3 +184,44 @@ there are 11 basic attributes for each race:
 
 */
 
+/* Old Man's War
+
+https://en.wikipedia.org/wiki/Old_Man%27s_War#Alien_species copied 11/11/2018
+
+Consu
+The Consu are a fierce, technologically advanced, and strongly religious alien race. They believe in helping deserving
+races reach "Ungkat", a state of perfection for a whole race.[7][8] The Consu are the most advanced alien race presented
+in the Old Man's War.[8] Their home system is surrounded by a Dyson sphere, which harnesses all the energy output of its
+local sun, a dwarf star, to make it impenetrable to the weapons and technology of every other known species. The Consu
+possess technology so advanced that even the CDF is unable to reverse-engineer or even fully understand it, such as
+tachyon detectors. Despite being the most technologically advanced out of all the alien races presented in the novel, in
+any conflict the Consu will scale their weapons technology to that of their opponent in order to keep the battle fair.[9]
+Unlike other alien species, the Consu do not fight for territory, but for religious motives, believing that any aliens
+killed by Consu warriors are thereby guaranteed another place in the cycle of creation. The Consu rarely meet with
+outsiders and any individual that does is inevitably a criminal or other undesirable. Following the meeting, the Consu
+is killed and its atoms shot into a black hole so that they can't defile any other Consu.
+
+Covandu
+The Covandu are a liliputian species, the tallest only measuring an inch, but otherwise very similar to humans. Their
+aggression in colonizing planets is similar to humans' as well, sometimes causing conflict. One human colony was taken
+over by Covandu when it was abandoned due to a virus (which did not affect the Covandu). After developing a vaccine,
+humans returned to take it back by force.
+
+They are gifted in the arts, specifically poetry and drama.[10]
+
+Rraey
+The Rraey are a species described in Old Man's War as being considerably less advanced than the CDF. They consider
+humans as a part of a "balanced breakfast" and are even known to have celebrity chefs showing how to best butcher a
+human. They became a serious problem for the CDF after acquiring technology from the Consu to predict the trajectory of
+a vessel's skip drives, a feat that was previously considered impossible. The only physical description of them is a
+mention that they have a head and limbs and "muscular bird-like legs".[11] They developed a craving for humans, going as
+far as creating many dishes for different parts of the body. They are a few decades behind the CDF in terms of
+technology and weaponry, but nonetheless, still considered a threat to the CDF. The skip drive detection device given
+to them by the Consu enabled them to wipe out an entire fleet of CDF ships without any casualties to their own.
+
+Whaidian
+The Whaidians are an alien species that have an appearance similar to that of a "cross between black bear and a large
+flying squirrel." Their home consists of small planets that are linked together. They are artistically gifted and are
+nearly as technologically advanced as the CDF. For this reason they are targeted by the CDF and their spaceport is
+completely destroyed by a fleet of CDF ships. [12]
+ */
