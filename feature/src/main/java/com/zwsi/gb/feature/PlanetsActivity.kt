@@ -12,6 +12,7 @@ import android.support.constraint.ConstraintLayout
 import android.widget.TextView
 import android.support.constraint.ConstraintSet
 import android.support.v4.view.ViewCompat
+import android.widget.LinearLayout.SHOW_DIVIDER_MIDDLE
 
 
 class PlanetsActivity : AppCompatActivity() {
@@ -46,9 +47,15 @@ class PlanetsActivity : AppCompatActivity() {
 
         planet.setImageBitmap(merged)
 
+        val stats = findViewById<TextView>(R.id.homePlanetStats)
+        val color = stats.textColors
+        val size = stats.textSize
+
 
         // Now add the other planets below
-        val linearLayout1 = findViewById(R.id.planetsLinearLayout) as LinearLayout
+        val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
+        //planetList.showDividers = SHOW_DIVIDER_MIDDLE
+        //planetList.showDividers
 
         val universe = GBTest.getUniverse()
         val stars = universe.getStars()
@@ -57,7 +64,7 @@ class PlanetsActivity : AppCompatActivity() {
             for (p in planets) {
 
                 val constraintLayout = ConstraintLayout(this)
-                linearLayout1.addView(constraintLayout)
+                planetList.addView(constraintLayout)
 
                 planet = ImageView(this)
                 planet.imageAlpha = 255
@@ -77,9 +84,11 @@ class PlanetsActivity : AppCompatActivity() {
                 constraintLayout.addView(planet)
 
                 val planetStats = TextView(this)
-                planetStats.setText("Planet: " + p.name +"\n")
-                planetStats.append("Type: "+ p.type_string +"\n")
-                planetStats.setTextSize(14f)
+                planetStats.setTextColor(color) // copy colors from home planet
+                planetStats.setTextSize(size)
+                planetStats.setTextSize(14f)  // TODO: debug the above. It should copy from the Home Planet
+                planetStats.setText(p.name + " (" + p.type_string + ")," + s.getName() + " system\n")
+                planetStats.append("Size :" + p.size + "\n")
                 planetStats.setId(ViewCompat.generateViewId()) // Needs to have an ID. View.setId() is API level 17+
                 constraintLayout.addView(planetStats)
 
@@ -95,10 +104,16 @@ class PlanetsActivity : AppCompatActivity() {
 
                 //cs.centerVertically(planet.id,planetStats.id)
 
-                // why does this work left/right but not right/left?
-                cs.connect(planet.getId(), ConstraintSet.LEFT, planetStats.id, ConstraintSet.RIGHT, 16)
+
+                cs.connect(planetStats.getId(), ConstraintSet.LEFT, planet.getId(), ConstraintSet.RIGHT, 16)
 
                 cs.applyTo(constraintLayout)
+
+                val divider = ImageView(this)
+                val lp = LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 5) // TODO: Why fully qualified
+                lp.setMargins(10, 10, 10, 10)
+                divider.layoutParams = lp
+                planetList.addView(divider)
 
             }
         }

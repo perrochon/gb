@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-
     }
 
     /** Called when the user taps the Create button */
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
             System.out.flush()
 
-            view.post { // This is going to the button's UI thread, but that's the same as the ScrollView
+            view.post { // This is going to the button's UI thread, which is the same as the ScrollView
                 output.append(baos.toString())
             }
 
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
             System.out.flush()
 
-            view.post { // This is going to the button's UI thread, but that's the same as the ScrollView
+            view.post { // This is going to the button's UI thread, which is the same as the ScrollView
                 output.append(baos.toString())
             }
 

@@ -21,7 +21,7 @@ public class GBStar {
 
     }
 
-    private String getName() {
+    public String getName() {
         return name;
     }
 

@@ -42,6 +42,8 @@ public class GBPlanet {
         return name;
     }
 
+    public int getSize() { return width * height; }
+
     void consoleDraw(GBData data) {
         System.out.println("\n    " + name + " of type " + data.planetTypeToString(type)
                 + " and size " + height + "x" + width + "\n");
