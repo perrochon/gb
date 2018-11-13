@@ -6,3 +6,7 @@ gblib: contains all the game logic.
 app: (Android) frontend.
 
 The rest are various Android Studio files. Not sure yet what they all do :-)
+
+There remains lots to do here to make this better code, from tests to thread safety.
+Much more to make it a better app, from accessibility to responsiveness.
+But the initial focus is on learning Android, Kotlin, and adding functionality.
