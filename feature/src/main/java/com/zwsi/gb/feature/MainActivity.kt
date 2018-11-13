@@ -87,4 +87,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /** Called when the user taps the Planets button */
+    fun sendStars(view: View) {
+        val intent = Intent(this, StarsActivity::class.java)
+        startActivity(intent)
+    }
+
 }

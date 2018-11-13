@@ -12,6 +12,8 @@
         </activity>
         <activity android:name=".PlanetsActivity">
         </activity>
+        <activity android:name=".StarsActivity">
+        </activity>
     </application>
 
 </manifest>
