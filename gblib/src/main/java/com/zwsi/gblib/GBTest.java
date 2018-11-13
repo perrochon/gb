@@ -19,7 +19,7 @@ public class GBTest {
 
     public static void makeUniverse() {
         GBDebug.l1("Making Universe");
-        universe = new GBUniverse(2, 2);
+        universe = new GBUniverse(30, 2);
         universe.consoleDraw();
     }
 
