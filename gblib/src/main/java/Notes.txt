@@ -56,6 +56,12 @@ https://assetstore.unity.com/packages/2d/environments/painted-2d-terrain-tiles-b
 Log
 ***
 
+2018-11-12
+Creating second activity to deal with planets so we can have a ScrollView of planets
+
+2018-11-11
+Working on rendering one hard coded planet
+
 2018-11-10
 More refactoring. Two races. Buttons!
 

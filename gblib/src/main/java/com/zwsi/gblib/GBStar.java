@@ -5,7 +5,7 @@
 
 package com.zwsi.gblib;
 
-class GBStar {
+public class GBStar {
 
     private String name; // name of this system
 

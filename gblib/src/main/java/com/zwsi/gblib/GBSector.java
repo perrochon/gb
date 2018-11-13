@@ -4,7 +4,7 @@
 
 package com.zwsi.gblib;
 
-class GBSector {
+public class GBSector {
     int type = -1;        // nonexisting type
     String type_symbol = " ";
     int population = 0;   // nobody lives here (yet)

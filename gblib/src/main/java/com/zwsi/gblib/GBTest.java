@@ -11,23 +11,27 @@ import java.lang.String;
 
 public class GBTest {
 
-    GBUniverse universe;
-    int gameTurns = 0;
+    static GBUniverse universe;
+    static int gameTurns = 0;
 
     public GBTest(){
     }
 
-    public void makeUniverse() {
+    public static void makeUniverse() {
         GBDebug.l1("Making Universe");
         universe = new GBUniverse(2, 2);
         universe.consoleDraw();
     }
 
-    public void doUniverse() {
+    public static void doUniverse() {
         gameTurns ++;
         GBDebug.l1("Runing Game Turn " + gameTurns);
         universe.doUniverse();
         universe.consoleDraw();
+    }
+
+    public static GBUniverse getUniverse() {
+        return universe;
     }
 
     public static void main(String[] args) {

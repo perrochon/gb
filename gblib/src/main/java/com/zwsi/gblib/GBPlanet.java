@@ -4,12 +4,12 @@
 
 package com.zwsi.gblib;
 
-class GBPlanet {
+public class GBPlanet {
 
     private String name; // name of this planet
     private int type; // type of this planet
-    private int height;
-    private int width;
+    int height;
+    int width;
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     GBSector[][] sectors; //

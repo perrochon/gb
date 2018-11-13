@@ -78,9 +78,25 @@ public class GBUniverse {
     }
 
     void doUniverse() {
+        for (GBStar s : starsArray) {
+            for (GBPlanet p : s.planetsArray) {
+                p.doPlanet();
+            }
+        }
 
-        starsArray[0].planetsArray[0].doPlanet();
-        starsArray[1].planetsArray[0].doPlanet();
     }
+
+    public GBStar[] getStars() {
+        return starsArray;
+    }
+
+    public GBPlanet[] getPlanets(GBStar s) {
+        return s.planetsArray;
+    }
+
+    public GBSector[][] getSectors(GBPlanet p) {
+        return p.sectors;
+    }
+
 
 }
