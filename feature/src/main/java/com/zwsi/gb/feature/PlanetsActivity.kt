@@ -8,6 +8,11 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.zwsi.gblib.GBTest
+import android.support.constraint.ConstraintLayout
+import android.widget.TextView
+import android.support.constraint.ConstraintSet
+import android.support.v4.view.ViewCompat
+
 
 class PlanetsActivity : AppCompatActivity() {
 
@@ -50,9 +55,14 @@ class PlanetsActivity : AppCompatActivity() {
         for (s in stars) {
             val planets = universe.getPlanets(s)
             for (p in planets) {
+
+                val constraintLayout = ConstraintLayout(this)
+                linearLayout1.addView(constraintLayout)
+
                 planet = ImageView(this)
                 merged = Bitmap.createBitmap(p.getWidth()*50, p.getHeight()*50, d.config)
                 canvas = Canvas(merged)
+
 
                 val sectors = universe.getSectors(p)
                 for (h in 0 until sectors.size) {
@@ -62,7 +72,33 @@ class PlanetsActivity : AppCompatActivity() {
                 }
 
                 planet.setImageBitmap(merged)
-                linearLayout1.addView(planet)
+                planet.setId(ViewCompat.generateViewId()) // Needs to have an ID. View.setId() is API level 17+
+                constraintLayout.addView(planet)
+
+                val planetStats = TextView(this)
+                planetStats.setText("Planet: " + p.name +"\n")
+                planetStats.append("Type: "+ p.type_string +"\n")
+                planetStats.setTextSize(14f)
+                planetStats.setId(ViewCompat.generateViewId()) // Needs to have an ID. View.setId() is API level 17+
+                constraintLayout.addView(planetStats)
+
+                val cs = ConstraintSet()
+                cs.clone(constraintLayout)
+
+                cs.constrainHeight(planet.id,200)
+                cs.constrainWidth(planet.id,400)
+                //cs.connect(planet.id,ConstraintSet.TOP,constraintLayout.id,ConstraintSet.TOP,16)
+                //cs.connect(planet.id,ConstraintSet.BOTTOM,constraintLayout.id,ConstraintSet.BOTTOM,16)
+                //cs.connect(planet.id,ConstraintSet.LEFT,constraintLayout.id,ConstraintSet.LEFT,16)
+                //cs.connect(planet.id,ConstraintSet.RIGHT,constraintLayout.id,ConstraintSet.RIGHT,16)
+
+                //cs.centerVertically(planet.id,planetStats.id)
+
+                // why does this work left/right but not right/left?
+                cs.connect(planet.getId(), ConstraintSet.LEFT, planetStats.id, ConstraintSet.RIGHT, 16)
+
+                cs.applyTo(constraintLayout)
+
             }
         }
 

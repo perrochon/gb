@@ -6,8 +6,9 @@ package com.zwsi.gblib;
 
 public class GBPlanet {
 
-    private String name; // name of this planet
+    public String name; // name of this planet
     private int type; // type of this planet
+    public String type_string;
 
     public int getHeight() {
         return height;
@@ -27,6 +28,7 @@ public class GBPlanet {
     GBPlanet(GBData data) {
         name = data.selectPlanetName();
         type = data.selectPlanetType();
+        type_string = data.planetTypeToString(type);
         sectors = data.getSectors(type);
         height = sectors.length;
         width = sectors[0].length;
