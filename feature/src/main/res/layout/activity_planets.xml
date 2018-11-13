@@ -7,6 +7,14 @@
         android:layout_height="match_parent"
         tools:context="com.zwsi.gb.feature.PlanetsActivity">
 
+    <ImageView
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/orionnebula"
+            android:alpha="1" android:id="@+id/imageView" android:contentDescription="@string/orion_nebula"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="match_parent"/>
     <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp" android:layout_marginTop="8dp"
@@ -28,7 +36,7 @@
                         android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
                         app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                />
+                        android:alpha="255"/>
                 <TextView
                         android:text="Home Planet"
                         android:layout_width="wrap_content"
@@ -36,16 +44,10 @@
                         app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp" android:textSize="14sp"
                         app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"/>
+                        app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
+                        android:alpha="255" android:autoText="false"
+                        android:textColor="@android:color/holo_orange_light"/>
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
-    <ImageView
-            android:layout_width="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/orionnebula"
-            android:alpha="0.6" android:id="@+id/imageView" android:contentDescription="@string/orion_nebula"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="match_parent"/>
 </android.support.constraint.ConstraintLayout>

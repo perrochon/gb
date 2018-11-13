@@ -60,6 +60,7 @@ class PlanetsActivity : AppCompatActivity() {
                 linearLayout1.addView(constraintLayout)
 
                 planet = ImageView(this)
+                planet.imageAlpha = 255
                 merged = Bitmap.createBitmap(p.getWidth()*50, p.getHeight()*50, d.config)
                 canvas = Canvas(merged)
 
