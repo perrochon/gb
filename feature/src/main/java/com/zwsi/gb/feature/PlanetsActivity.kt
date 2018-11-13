@@ -15,7 +15,7 @@ class PlanetsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planets)
 
-        val homePlanetImageView = findViewById<ImageView>(R.id.homeplanet)
+        var planet = findViewById<ImageView>(R.id.homeplanet)
 
         val d = BitmapFactory.decodeResource(getResources(), R.drawable.desert)
         val f = BitmapFactory.decodeResource(getResources(), R.drawable.forest)
@@ -25,78 +25,44 @@ class PlanetsActivity : AppCompatActivity() {
         val m = BitmapFactory.decodeResource(getResources(), R.drawable.mountain)
         val r = BitmapFactory.decodeResource(getResources(), R.drawable.rock)
         val w = BitmapFactory.decodeResource(getResources(), R.drawable.water)
+        val bitmaps = arrayOf(w,l,g,d,m,f,i,r)
 
-        val merged = Bitmap.createBitmap(300, 200, d.config)
-        val canvas = Canvas(merged)
-        canvas.drawBitmap(i, 0f, 0f, null)
-        canvas.drawBitmap(i, 50f, 0f, null)
-        canvas.drawBitmap(i, 150f, 0f, null)
-        canvas.drawBitmap(m, 200f, 0f, null)
-        canvas.drawBitmap(m, 250f, 0f, null)
-        canvas.drawBitmap(i, 300f, 0f, null)
-        canvas.drawBitmap(l, 0f, 50f, null)
-        canvas.drawBitmap(l, 50f, 50f, null)
-        canvas.drawBitmap(l, 150f, 50f, null)
-        canvas.drawBitmap(f, 200f, 50f, null)
-        canvas.drawBitmap(f, 250f, 50f, null)
-        canvas.drawBitmap(w, 300f, 50f, null)
-        canvas.drawBitmap(w, 0f, 100f, null)
-        canvas.drawBitmap(l, 50f, 100f, null)
-        canvas.drawBitmap(l, 150f, 100f, null)
-        canvas.drawBitmap(l, 200f, 100f, null)
-        canvas.drawBitmap(i, 250f, 100f, null)
-        canvas.drawBitmap(w, 300f, 100f, null)
-        canvas.drawBitmap(w, 0f, 100f, null)
-        canvas.drawBitmap(r, 50f, 100f, null)
-        canvas.drawBitmap(r, 150f, 100f, null)
-        canvas.drawBitmap(i, 200f, 100f, null)
-        canvas.drawBitmap(i, 250f, 100f, null)
-        canvas.drawBitmap(i, 300f, 100f, null)
+        var merged = Bitmap.createBitmap(200, 100, d.config)
+        var canvas = Canvas(merged)
 
-        homePlanetImageView.setImageBitmap(merged)
+        canvas.drawBitmap(bitmaps[0], 0f, 0f, null)
+        canvas.drawBitmap(bitmaps[1], 50f, 0f, null)
+        canvas.drawBitmap(bitmaps[2], 100f, 0f, null)
+        canvas.drawBitmap(bitmaps[3], 150f, 0f, null)
+        canvas.drawBitmap(bitmaps[4], 0f, 50f, null)
+        canvas.drawBitmap(bitmaps[5], 50f, 50f, null)
+        canvas.drawBitmap(bitmaps[6], 100f, 50f, null)
+        canvas.drawBitmap(bitmaps[7], 150f, 50f, null)
+
+        planet.setImageBitmap(merged)
+
 
         // Now add the other planets below
         val linearLayout1 = findViewById(R.id.planetsLinearLayout) as LinearLayout
-
-        for (x in 0..2) {
-            val planet = ImageView(this)
-
-            val merged = Bitmap.createBitmap(300, 200, d.config)
-            val canvas = Canvas(merged)
-            canvas.drawBitmap(i, 0f, 0f, null)
-            canvas.drawBitmap(i, 50f, 0f, null)
-            canvas.drawBitmap(i, 150f, 0f, null)
-            canvas.drawBitmap(m, 200f, 0f, null)
-            canvas.drawBitmap(m, 250f, 0f, null)
-            canvas.drawBitmap(i, 300f, 0f, null)
-            canvas.drawBitmap(l, 0f, 50f, null)
-            canvas.drawBitmap(l, 50f, 50f, null)
-            canvas.drawBitmap(l, 150f, 50f, null)
-            canvas.drawBitmap(f, 200f, 50f, null)
-            canvas.drawBitmap(f, 250f, 50f, null)
-            canvas.drawBitmap(w, 300f, 50f, null)
-
-            planet.setImageBitmap(merged)
-
-            linearLayout1.addView(planet)
-        }
-
-
-
 
         val universe = GBTest.getUniverse()
         val stars = universe.getStars()
         for (s in stars) {
             val planets = universe.getPlanets(s)
             for (p in planets) {
+                planet = ImageView(this)
+                merged = Bitmap.createBitmap(p.getWidth()*50, p.getHeight()*50, d.config)
+                canvas = Canvas(merged)
+
                 val sectors = universe.getSectors(p)
-                for (h in 0 until sectors.size-1) {
-                    for (w in 0 until sectors[h].size-1) {
-                        print(sectors[h][w].toString())
+                for (h in 0 until sectors.size) {
+                    for (w in 0 until sectors[h].size) {
+                        canvas.drawBitmap(bitmaps[sectors[h][w].type],w*50f,h*50f,null)
                     }
                 }
 
-
+                planet.setImageBitmap(merged)
+                linearLayout1.addView(planet)
             }
         }
 

@@ -8,7 +8,17 @@ public class GBPlanet {
 
     private String name; // name of this planet
     private int type; // type of this planet
+
+    public int getHeight() {
+        return height;
+    }
+
     int height;
+
+    public int getWidth() {
+        return width;
+    }
+
     int width;
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.

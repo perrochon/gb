@@ -46,8 +46,9 @@ class GBData {
     // Sectors
     // Planets are rectangles of sectors with wrap arounds on the sides. Think Mercator.
     // Sector Types from: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
-    private static String[] sectorTypesNames = {"Water", "Land", "Gas", "Desert", "Mountain", "Forest", "Ice"};
-    private static String[] sectorTypesConsole = {"~", ".", "@", "-", "^", "*", "#"}; // TODO double check these against source
+    // Source had 7 types, added 8th type "rock" because I had a bitmap, and because asteroids and mountains are different
+    private static String[] sectorTypesNames = {"Water", "Land", "Gas", "Desert", "Mountain", "Forest", "Ice", "Rock"};
+    private static String[] sectorTypesConsole = {"~", ".", "@", "-", "^", "*", "#", "x"}; // TODO double check these against source
     private static int[][] sectorTypesChance = {
             {0, 0, 0, 0, 1, 1, 1, 1, 5, 6}, // M Class
             {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}, // Jovian
@@ -56,7 +57,7 @@ class GBData {
             {5, 5, 5, 5, 5, 5, 5, 5, 5, 2}, // Forest
             {1, 1, 6, 6, 6, 6, 6, 6, 6, 6}, // Iceball
             {1, 2, 2, 3, 3, 3, 4, 4, 4, 6}, // Airless
-            {4, 4, 4, 4, 4, 4, 4, 4, 4, 6}  // Asteroid
+            {7, 7, 7, 7, 7, 7, 7, 7, 6, 6}  // Asteroid
     };
     String selectSystemName() {
         // TODO no dupes - not a high priority, real world may have duplicates...
