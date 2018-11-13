@@ -7,6 +7,11 @@ package com.zwsi.gblib;
 public class GBSector {
     public int type = -1;        // nonexisting type
     String type_symbol = " ";
+
+    public int getPopulation() {
+        return population;
+    }
+
     int population = 0;   // nobody lives here (yet)
     GBRace owner = null;  // Controlling race. we only want object reference to the race, not a copy of the object.
 

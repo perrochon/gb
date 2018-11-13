@@ -50,6 +50,8 @@ class PlanetsActivity : AppCompatActivity() {
         val stats = findViewById<TextView>(R.id.homePlanetStats)
         val color = stats.textColors
         val size = stats.textSize
+        val paint = stats.paint
+        paint.textSize = 30f
 
 
         // Now add the other planets below
@@ -76,6 +78,10 @@ class PlanetsActivity : AppCompatActivity() {
                 for (h in 0 until sectors.size) {
                     for (w in 0 until sectors[h].size) {
                         canvas.drawBitmap(bitmaps[sectors[h][w].type],w*50f,h*50f,null)
+                        val population = sectors[h][w].population
+                        if (population > 0) {
+                            canvas.drawText(population.toString(), w * 50f, h * 50f + 40f, paint)
+                        }
                     }
                 }
 
