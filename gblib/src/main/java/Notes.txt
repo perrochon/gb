@@ -58,7 +58,8 @@ Log
 2018-11-13
 Android Studio couldn't write settings anymore. Couldn't restart. Windows reboot failed with Bitlock error. Recovery
 took only the morning, mostly because it came back and I don't really know why.
-Then fixed z coordinates in main, and text colors. More readable and vivid now, but not ideal
+Also fixed z coordinates in main, and text colors. More readable and vivid now, but not ideal
+Third activity StarsView which required updating the gblib with star coordinates and an algo to distribute stars
 
 2018-11-12
 Creating second activity to deal with planets so we can have a ScrollView of planets

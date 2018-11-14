@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import com.zwsi.gblib.GBTest
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        var version = findViewById<TextView>(R.id.version)
+        version.setText("0.0.39") // for now: 0.0.~ #commits...
     }
 
     /** Called when the user taps the Create button */
