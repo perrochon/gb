@@ -24,11 +24,8 @@ class PlanetsActivity : AppCompatActivity() {
         var planet = findViewById<ImageView>(R.id.homeplanet)
 
         val d = BitmapFactory.decodeResource(getResources(), R.drawable.desert)
-
         val f = BitmapFactory.decodeResource(getResources(), R.drawable.forest)
-
         val g = BitmapFactory.decodeResource(getResources(), R.drawable.gas)
-
         val i = BitmapFactory.decodeResource(getResources(), R.drawable.ice)
         val l = BitmapFactory.decodeResource(getResources(), R.drawable.land)
         val m = BitmapFactory.decodeResource(getResources(), R.drawable.mountain)

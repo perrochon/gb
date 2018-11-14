@@ -8,7 +8,8 @@
 // GB Data is a separate class because later we want to read this from a config file, etc.
 
 package com.zwsi.gblib;
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
@@ -19,6 +20,8 @@ class GBData {
     GBData() {
         rand = new Random(1);
     }
+
+    static final int NumberOfStars = 17;
 
     // Stars and Systems // TODO clean up stars vs systems. Used interchangeably right now
     // List of Stars from: https://github.com/kaladron/galactic-bloodshed/blob/master/data/star.list
@@ -63,6 +66,38 @@ class GBData {
         // TODO no dupes - not a high priority, real world may have duplicates...
         int n = rand.nextInt(starNames.length);
         return starNames[n];
+    }
+
+    static final int UNIVERSE_X = 1000;
+    static final int UNIVERSE_Y = 1000;
+
+    static ArrayList<Integer> areas = new ArrayList();
+
+    int[] getSystemCoordinates() {
+        // TODO Make sure systems are apart from each other
+        double nos = (double) NumberOfStars;
+        int dim = (int) java.lang.Math.ceil(java.lang.Math.sqrt(nos)); // dimensions of our raster
+
+        if (areas.isEmpty()) {
+            // Create n sectors where n is the smalles square number bigger than numberOfStars
+            for (int i=0; i<dim*dim; i++) {
+                areas.add(i,i);
+            }
+            Collections.shuffle(areas); //Shuffle
+        }
+        // Ok so we have a nice random array. Let's pick an area and put a star
+
+        int coordinates[] = new int[2];
+        int area = areas.remove(0);
+
+        int areaX= area % dim;
+        int areaY= area / dim;
+
+        coordinates[0]=rand.nextInt(UNIVERSE_X/dim)+areaX*UNIVERSE_X/dim;
+        coordinates[1]=rand.nextInt(UNIVERSE_Y/dim)+areaY*UNIVERSE_Y/dim;
+
+        return coordinates;
+
     }
 
     String selectPlanetName() {

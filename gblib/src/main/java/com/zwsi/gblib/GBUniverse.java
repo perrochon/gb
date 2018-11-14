@@ -10,9 +10,12 @@ public class GBUniverse {
     GBRace[] racesArray; // the star Systems //
     int numberOfRaces; // how many star Systems in the Universe
 
-    GBUniverse(int numberOfStars, int numberOfRaces) {
+    public int getUniverseMaxX() { return GBData.UNIVERSE_X;}
+    public int getUniverseMaxY() { return GBData.UNIVERSE_Y;}
 
-        this.numberOfStars = numberOfStars;
+    GBUniverse(int numberOfRaces) {
+
+        this.numberOfStars = GBData.NumberOfStars;
         starsArray = new GBStar[numberOfStars];
         this.numberOfRaces = numberOfRaces;
         racesArray = new GBRace[numberOfRaces];
@@ -53,6 +56,7 @@ public class GBUniverse {
         GBDebug.l3("Making Stars");
         for (int i = 0; i < numberOfStars; i++) {
             starsArray[i] = new GBStar(data);
+
         }
 
     }
