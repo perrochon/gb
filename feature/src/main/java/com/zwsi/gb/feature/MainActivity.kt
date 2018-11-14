@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var version = findViewById<TextView>(R.id.version)
-        version.setText("0.0.0.40") // for now: 0.0.0.~ #commits...
+        version.setText("0.0.0.42") // for now: 0.0.0.~ #commits...
     }
 
     /** Called when the user taps the Create button */
@@ -89,9 +89,15 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    /** Called when the user taps the Planets button */
+    /** Called when the user taps the Stars button */
     fun sendStars(view: View) {
         val intent = Intent(this, StarsActivity::class.java)
+        startActivity(intent)
+    }
+
+    /** Called when the user taps the Home button */
+    fun sendHome(view: View) {
+        val intent = Intent(this, PlanetActivity::class.java)
         startActivity(intent)
     }
 

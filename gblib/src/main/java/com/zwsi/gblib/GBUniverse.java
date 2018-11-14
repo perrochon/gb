@@ -92,15 +92,15 @@ public class GBUniverse {
 
     public GBStar[] getStars() {
         return starsArray;
-    }
+    } // TODO need to figure out where these live
 
     public GBPlanet[] getPlanets(GBStar s) {
         return s.planetsArray;
-    }
+    } // TODO should this be Star? But what about getting all the planets?
 
     public GBSector[][] getSectors(GBPlanet p) {
         return p.sectors;
-    }
+    } //TODO should this be in planet? Or Data?
 
 
 }

@@ -1,8 +1,15 @@
 Roadmap
 *******
 
-Code
+Code Quality
+- Access and visibility in gblib
 - JUnit Tests
+
+
+Features (enable first)
+-view planet
+-make pods (make, load, launch)
+-Do Pod Movements...
 
 Planet
 - multiple races per planet
@@ -13,8 +20,7 @@ Systems
 - Planet locations, render, and movement
 
 Universe
-- System Locations and render
-- Statistics on population,
+- Statistics on population, etc.
 
 Races
 - Statistics on population, resources, etc.
@@ -32,12 +38,9 @@ Interactivity
 - move ships
 - ship battle
 
-
 Frontend
+- Handle killed process. Need to persist Universe?
 - Run GBTest on phone (text based)
-- Interactive, text based frontend (?)
-- Start to work on graphics renderers
-- Interactive Graphics
 
 
 //

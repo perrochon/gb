@@ -21,8 +21,7 @@ class PlanetsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planets)
 
-        var planet = findViewById<ImageView>(R.id.homeplanet)
-
+        // Get Bitmaps - TODO factor out, this code exists twice. But where to?
         val d = BitmapFactory.decodeResource(getResources(), R.drawable.desert)
         val f = BitmapFactory.decodeResource(getResources(), R.drawable.forest)
         val g = BitmapFactory.decodeResource(getResources(), R.drawable.gas)
@@ -33,7 +32,10 @@ class PlanetsActivity : AppCompatActivity() {
         val w = BitmapFactory.decodeResource(getResources(), R.drawable.water)
         val bitmaps = arrayOf(w,l,g,d,m,f,i,r)
 
-        var merged = Bitmap.createBitmap(200, 100, d.config)
+        // Get a View to draw planet on, then draw planet
+        // Until we have a proper home planet, we draw a small planet with one sector each for testing
+        var planetView = findViewById<ImageView>(R.id.homeplanet)
+        var merged = Bitmap.createBitmap(400, 100, d.config)
         var canvas = Canvas(merged)
 
         canvas.drawBitmap(bitmaps[0], 0f, 0f, null)
@@ -45,7 +47,7 @@ class PlanetsActivity : AppCompatActivity() {
         canvas.drawBitmap(bitmaps[6], 100f, 50f, null)
         canvas.drawBitmap(bitmaps[7], 150f, 50f, null)
 
-        planet.setImageBitmap(merged)
+        planetView.setImageBitmap(merged)
 
         val stats = findViewById<TextView>(R.id.homePlanetStats)
         val color = stats.textColors
@@ -54,10 +56,9 @@ class PlanetsActivity : AppCompatActivity() {
         paint.textSize = 30f
 
 
-        // Now add the other planets below
+        // Now add more planets below
+        // For now we show all planets, but eventually each race only sees what they can see
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
-        //planetList.showDividers = SHOW_DIVIDER_MIDDLE
-        //planetList.showDividers
 
         val universe = GBTest.getUniverse()
         val stars = universe.getStars()
@@ -68,8 +69,8 @@ class PlanetsActivity : AppCompatActivity() {
                 val constraintLayout = ConstraintLayout(this)
                 planetList.addView(constraintLayout)
 
-                planet = ImageView(this)
-                planet.imageAlpha = 255
+                planetView = ImageView(this)
+                planetView.imageAlpha = 255
                 merged = Bitmap.createBitmap(p.getWidth()*50, p.getHeight()*50, d.config)
                 canvas = Canvas(merged)
 
@@ -85,9 +86,9 @@ class PlanetsActivity : AppCompatActivity() {
                     }
                 }
 
-                planet.setImageBitmap(merged)
-                planet.setId(ViewCompat.generateViewId()) // Needs to have an ID. View.setId() is API level 17+
-                constraintLayout.addView(planet)
+                planetView.setImageBitmap(merged)
+                planetView.setId(ViewCompat.generateViewId()) // Needs to have an ID. View.setId() is API level 17+
+                constraintLayout.addView(planetView)
 
                 val planetStats = TextView(this)
                 planetStats.setTextColor(color) // copy colors from home planet
@@ -101,8 +102,8 @@ class PlanetsActivity : AppCompatActivity() {
                 val cs = ConstraintSet()
                 cs.clone(constraintLayout)
 
-                cs.constrainHeight(planet.id,200)
-                cs.constrainWidth(planet.id,400)
+                cs.constrainHeight(planetView.id,200)
+                cs.constrainWidth(planetView.id,400)
                 //cs.connect(planet.id,ConstraintSet.TOP,constraintLayout.id,ConstraintSet.TOP,16)
                 //cs.connect(planet.id,ConstraintSet.BOTTOM,constraintLayout.id,ConstraintSet.BOTTOM,16)
                 //cs.connect(planet.id,ConstraintSet.LEFT,constraintLayout.id,ConstraintSet.LEFT,16)
@@ -111,7 +112,7 @@ class PlanetsActivity : AppCompatActivity() {
                 //cs.centerVertically(planet.id,planetStats.id)
 
 
-                cs.connect(planetStats.getId(), ConstraintSet.LEFT, planet.getId(), ConstraintSet.RIGHT, 16)
+                cs.connect(planetStats.getId(), ConstraintSet.LEFT, planetView.getId(), ConstraintSet.RIGHT, 16)
 
                 cs.applyTo(constraintLayout)
 
