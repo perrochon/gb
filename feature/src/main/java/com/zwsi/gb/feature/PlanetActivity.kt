@@ -5,11 +5,16 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBTest
 
 class PlanetActivity : AppCompatActivity() {
+
+    lateinit var p: GBPlanet
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +33,13 @@ class PlanetActivity : AppCompatActivity() {
         val bitmaps = arrayOf(w,l,g,d,m,f,i,r)
 
         val intent = getIntent()
-        val starID:Int = intent.getIntExtra("star", 0)
-        val planetID:Int = intent.getIntExtra("planet", 0)
+        val starID = intent.getIntExtra("star", -1)
+        val planetID = intent.getIntExtra("planet", -1)
 
         val universe = GBTest.getUniverse()
         val stars = universe.getStars()
         val planets = universe.getPlanets(stars[starID])
-        val p = planets[planetID]
+        p = planets[planetID]
 
         // Get the View to draw planet on, then draw planet
         //
@@ -68,4 +73,18 @@ class PlanetActivity : AppCompatActivity() {
         planetStats.append("Size :" + p.size + "\n")
 
     }
+
+    /** Called when the user taps the Planets button */
+    fun colonize0(view: View) {
+        val universe = GBTest.getUniverse()
+        universe.landPopulation(p, 0)
+    }
+
+    /** Called when the user taps the Stars button */
+    fun colonize1(view: View) {
+        val universe = GBTest.getUniverse()
+        universe.landPopulation(p, 0)
+
+    }
+
 }

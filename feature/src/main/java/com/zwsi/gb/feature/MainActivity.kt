@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     /** Called when the user taps the Create button */
     fun sendCreate(view: View) {
 
