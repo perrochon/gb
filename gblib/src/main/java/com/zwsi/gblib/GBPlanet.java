@@ -7,6 +7,10 @@ package com.zwsi.gblib;
 public class GBPlanet {
 
     public String name; // name of this planet
+
+    public int getIndex() { return index; }
+
+    int index; // which position in star's planet array
     private int type; // type of this planet
     public String type_string;
 

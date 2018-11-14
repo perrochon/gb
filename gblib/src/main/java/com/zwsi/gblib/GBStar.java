@@ -8,7 +8,12 @@ package com.zwsi.gblib;
 public class GBStar {
 
     private String name; // name of this system
+
+    public int getIndex() { return index; }
+    int index; // which position in Universe's star array
+
     private int numberOfPlanets = 2; // how many Planets in this solar Systems
+
 
     public int getX() {
         return x;
@@ -58,6 +63,7 @@ public class GBStar {
 
         for (int i = 0; i < planetsArray.length; i++) {
             planetsArray[i] = new GBPlanet(data);
+            planetsArray[i].index = i;
         }
 
     }

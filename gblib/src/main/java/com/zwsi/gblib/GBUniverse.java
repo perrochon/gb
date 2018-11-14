@@ -56,7 +56,7 @@ public class GBUniverse {
         GBDebug.l3("Making Stars");
         for (int i = 0; i < numberOfStars; i++) {
             starsArray[i] = new GBStar(data);
-
+            starsArray[i].index = i;
         }
 
     }

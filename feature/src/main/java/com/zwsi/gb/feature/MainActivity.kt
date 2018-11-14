@@ -114,6 +114,8 @@ class MainActivity : AppCompatActivity() {
     /** Called when the user taps the Home button */
     fun sendHome(view: View) {
         val intent = Intent(this, PlanetActivity::class.java)
+        intent.putExtra("star", 0)
+        intent.putExtra("planet", 0)
         startActivity(intent)
     }
 

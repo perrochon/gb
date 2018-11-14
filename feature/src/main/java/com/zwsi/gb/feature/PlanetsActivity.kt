@@ -1,5 +1,6 @@
 package com.zwsi.gb.feature
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -115,6 +116,14 @@ class PlanetsActivity : AppCompatActivity() {
                 cs.connect(planetStats.getId(), ConstraintSet.LEFT, planetView.getId(), ConstraintSet.RIGHT, 16)
 
                 cs.applyTo(constraintLayout)
+
+                constraintLayout.setOnClickListener {
+                    val intent = Intent(this, PlanetActivity::class.java)
+                    intent.putExtra("star", s.index)
+                    intent.putExtra("planet", p.index)
+                    startActivity(intent)
+                }
+
 
                 val divider = ImageView(this)
                 val lp = LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 5) // TODO: Why fully qualified

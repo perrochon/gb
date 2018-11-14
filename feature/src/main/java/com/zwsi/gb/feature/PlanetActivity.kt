@@ -27,11 +27,14 @@ class PlanetActivity : AppCompatActivity() {
         val w = BitmapFactory.decodeResource(getResources(), R.drawable.water)
         val bitmaps = arrayOf(w,l,g,d,m,f,i,r)
 
-        // Get the first planet. We should pass in the planet, though.
+        val intent = getIntent()
+        val starID:Int = intent.getIntExtra("star", 0)
+        val planetID:Int = intent.getIntExtra("planet", 0)
+
         val universe = GBTest.getUniverse()
         val stars = universe.getStars()
-        val planets = universe.getPlanets(stars[0])
-        val p = planets[0]
+        val planets = universe.getPlanets(stars[starID])
+        val p = planets[planetID]
 
         // Get the View to draw planet on, then draw planet
         //
