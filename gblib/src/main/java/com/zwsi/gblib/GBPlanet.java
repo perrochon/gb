@@ -26,6 +26,12 @@ public class GBPlanet {
 
     int width;
 
+    public String getOwner() {
+        if (sectors[0][0].owner == null) {
+            return "none";
+        } else return sectors[0][0].owner.name;
+    }
+
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     GBSector[][] sectors; //
 

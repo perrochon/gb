@@ -67,14 +67,14 @@ public class GBUniverse {
         // Temporary hack
 
         GBSector sector;
-        racesArray[0]= new GBRace(1,"Xenos", 50, 20);
+        racesArray[0]= new GBRace(0,"Xenos", 50, 20);
         racesArray[0].index = 0;
         sector = starsArray[0].planetsArray[0].sectors[0][0];
         sector.population = 100;
         sector.owner = racesArray[0];
 
         if (numberOfStars > 1) {
-            racesArray[1] = new GBRace(2,"Impi", 100, 10);
+            racesArray[1] = new GBRace(1,"Impi", 100, 10);
             racesArray[1].index = 1;
             sector = starsArray[1].planetsArray[0].sectors[0][0];
             sector.population = 100;
@@ -83,9 +83,10 @@ public class GBUniverse {
 
     }
 
-    public void landPopulation(GBPlanet p, int raceID){
-        p.sectors[0][0].population = 1;
-        p.sectors[0][0].owner=racesArray[raceID];
+    public void landPopulation(GBPlanet p, int raceIndex){
+        GBDebug.l3("Landing " + racesArray[raceIndex].name + " on " + p.name + "");
+        p.sectors[0][0].population = 10;
+        p.sectors[0][0].owner=racesArray[raceIndex];
     }
 
 

@@ -18,7 +18,7 @@ class GBData {
     private Random rand;
 
     GBData() {
-        rand = new Random(1);
+        rand = new Random();
     }
 
     static final int NumberOfStars = 17;

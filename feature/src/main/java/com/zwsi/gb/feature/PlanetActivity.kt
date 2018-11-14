@@ -71,6 +71,7 @@ class PlanetActivity : AppCompatActivity() {
         planetStats.append("System :" + stars[0].getName() + "\n")
         planetStats.append("Type :" + p.type_string + "\n")
         planetStats.append("Size :" + p.size + "\n")
+        planetStats.append("Owner:" + p.owner + "\n")
 
     }
 
@@ -83,7 +84,7 @@ class PlanetActivity : AppCompatActivity() {
     /** Called when the user taps the Stars button */
     fun colonize1(view: View) {
         val universe = GBTest.getUniverse()
-        universe.landPopulation(p, 0)
+        universe.landPopulation(p, 1)
 
     }
 

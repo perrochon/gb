@@ -42,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@+id/PlanetStats"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/colonize1"
-            app:layout_constraintHorizontal_bias="0.302"/>
+            app:layout_constraintHorizontal_bias="0.302" android:onClick="colonize0"/>
     <Button
             android:text="Impi"
             android:layout_width="wrap_content"

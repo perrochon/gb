@@ -14,7 +14,7 @@ package com.zwsi.gblib;
 class GBRace {
 
     String name;
-    int index;
+    int index=-1;
     int id;
     int absorption;
     int birthrate; // 00...100 (originally 0..1?)
