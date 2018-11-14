@@ -73,7 +73,7 @@ public class GBUniverse {
         sector.owner = racesArray[0];
 
         if (numberOfStars > 1) {
-            racesArray[1] = new GBRace(2,"Aliens", 100, 10);
+            racesArray[1] = new GBRace(2,"Impi", 100, 10);
             sector = starsArray[1].planetsArray[0].sectors[0][0];
             sector.population = 100;
             sector.owner = racesArray[1];
