@@ -11,7 +11,7 @@ import java.lang.String;
 
 public class GBTest {
 
-    static GBUniverse universe;
+    static GBUniverse universe = null;
     static int gameTurns = 0;
 
     public GBTest(){

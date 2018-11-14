@@ -1,15 +1,16 @@
 Roadmap
 *******
 
-Code Quality
-- Access and visibility in gblib
-- JUnit Tests
-
-
 Features (enable first)
 -view planet
 -make pods (make, load, launch)
 -Do Pod Movements...
+
+Code Quality
+- Access and visibility in gblib
+- Use Application for global state in Android: https://developer.android.com/reference/android/app/Application
+- JUnit Tests
+
 
 Planet
 - multiple races per planet
@@ -42,9 +43,11 @@ Frontend
 - Handle killed process. Need to persist Universe?
 - Run GBTest on phone (text based)
 
+// Dealing with Killed applications, and destroyed activities...
+https://stackoverflow.com/questions/29701660/can-i-detect-if-android-has-killed-the-application-task-process-from-a-notific
 
 //
-// Sources used
+// Content Sources used
 // Notes.txt: http://www.jongware.com/galaxy1.html
 // FAQ: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
 

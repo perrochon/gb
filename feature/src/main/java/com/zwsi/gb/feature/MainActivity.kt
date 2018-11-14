@@ -9,10 +9,12 @@ import android.graphics.Canvas
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gblib.GBTest
+import com.zwsi.gblib.GBUniverse
 import kotlinx.android.synthetic.main.activity_main.*
 
 // To redirect stdout to the text view
@@ -31,7 +33,21 @@ class MainActivity : AppCompatActivity() {
 
         var version = findViewById<TextView>(R.id.version)
         version.setText("0.0.0.42") // for now: 0.0.0.~ #commits...
+
+
+        if (GBTest.getUniverse() == null) {
+
+            Thread(Runnable {
+
+                GBTest.makeUniverse()
+
+            }).start()
+
+        }
+
     }
+
+
 
     /** Called when the user taps the Create button */
     fun sendCreate(view: View) {
