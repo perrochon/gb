@@ -33,17 +33,10 @@ class GBTest {
             println("Welcome to GB Test")
             val tester = GBTest()
             GBTest.Companion.makeUniverse()
-            GBTest.Companion.doUniverse()
-            GBTest.Companion.doUniverse()
-            GBTest.Companion.doUniverse()
-            GBTest.Companion.doUniverse()
-            GBTest.Companion.doUniverse()
-            GBTest.Companion.doUniverse()
-            GBTest.Companion.doUniverse()
-            GBTest.Companion.doUniverse()
-            GBTest.Companion.doUniverse()
-            GBTest.Companion.doUniverse()
-            GBTest.Companion.doUniverse()
+            for (i in 0..99 ) GBTest.Companion.doUniverse()
+            println()
+            println("$gameTurns game turns done.")
+
 
         }
     }

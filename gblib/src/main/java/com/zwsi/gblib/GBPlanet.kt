@@ -135,7 +135,7 @@ class GBPlanet (val sId: Int) {
                     } else {
                         delta[h + 1][w] += movers / 4
                     }
-                    //GBDebug.l3("New population is " + sectors[h][w].population);
+                    GBDebug.l3("New population is " + sectors[h][w]!!.population);
 
 
                 } // if
@@ -143,12 +143,12 @@ class GBPlanet (val sId: Int) {
             }// for
 
         }
-//        for (h in 0 until height) {
-//            for (w in 0 until width) {
-//                sectors[h][w]!!.population += delta[h][w]
-//                sectors[h][w]!!.setOwner(sectors[0][0]!!.getOwner()) // TODO Fix. Owner of first sector matters
-//            }
-//        }
+        for (h in 0 until height) {
+            for (w in 0 until width) {
+                //sectors[h][w]!!.population += delta[h][w]
+                //sectors[h][w]!!.setOwner(sectors[0][0]!!.getOwner()) // TODO Fix.
+            }
+        }
     }
 
 
