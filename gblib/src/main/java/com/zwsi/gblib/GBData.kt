@@ -59,7 +59,7 @@ class GBData {
 
         // Get random, but universally distributed coordinates for stars
         // Approach: break up the universe into n areas of equal size, and put one star in each area
-        // where n is the smalles square number bigger than numberOfStars. Then shuffle the areas
+        // where n is the smallest square number bigger than numberOfStars. Then shuffle the areas
         private var areas: ArrayList<Int> = ArrayList() // we fill it up on first call to GetStarCoordinates
 
         fun getStarCoordinates() : IntArray {
@@ -77,11 +77,15 @@ class GBData {
             val coordinates = IntArray(size = 2)
             val area = areas.removeAt(0)
 
-            val areaX = area % dim
-            val areaY = area / dim
+            val areaX = area % dim   // coordinates of the chosen area
+            val areaY = area / dim   // coordinates of the chosen area
+            val areaWidth = UniverseMaxX / dim
+            val areaHeight = UniverseMaxY / dim
+            val marginX = areaWidth / 10 // no star in the edge of the area
+            val marginY = areaHeight / 10 // no star in the edge of the area
 
-            coordinates[0] = rand.nextInt(UniverseMaxX / dim) + areaX * UniverseMaxX / dim
-            coordinates[1] = rand.nextInt(UniverseMaxY / dim) + areaY * UniverseMaxY / dim
+            coordinates[0] = rand.nextInt(areaWidth - 2*marginX) + areaX * areaWidth + marginX
+            coordinates[1] = rand.nextInt(areaHeight - 2*marginY) + areaY * areaHeight + marginY
 
             return coordinates
 
