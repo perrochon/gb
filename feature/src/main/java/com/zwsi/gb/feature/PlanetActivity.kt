@@ -44,7 +44,7 @@ class PlanetActivity : AppCompatActivity() {
         // Get the View to draw planet on, then draw planet
         //
         var planetView = findViewById<ImageView>(R.id.PlanetView)
-        val merged = Bitmap.createBitmap(p.getWidth()*50, p.getHeight()*50, d.config)
+        val merged = Bitmap.createBitmap(p.width *50, p.height *50, d.config)
         var canvas = Canvas(merged)
 
         val planetStats = findViewById<TextView>(R.id.PlanetStats)
@@ -71,7 +71,7 @@ class PlanetActivity : AppCompatActivity() {
         planetStats.append("System :" + stars[0].getName() + "\n")
         planetStats.append("Type :" + p.type + "\n")
         planetStats.append("Size :" + p.size + "\n")
-        planetStats.append("Owner:" + p.owner + "\n")
+        planetStats.append("Owner:" + p.ownerName + "\n")
 
     }
 

@@ -30,6 +30,9 @@ internal class GBData {
         fun getUniverseMaxX():Int { return UniverseMaxX}
         fun getUniverseMaxY():Int { return UniverseMaxY}
 
+        private var nextGlobalID = 1000
+        fun getNextGlobalId(): Int { return nextGlobalID++}
+
         fun selectStarNameIdx(): Int {
             // TODO no dupes in System Names - not a high priority, real world may have duplicates...
             return rand.nextInt(starNames.size)
@@ -55,6 +58,10 @@ internal class GBData {
 
         fun planetTypeFromIdx(n: Int): String {
             return planetTypesNames[n]
+        }
+
+        fun sectorTypeConsoleFromIdx(n: Int): String {
+            return sectorTypesConsole[n]
         }
 
         // Get random, but universally distributed coordinates for stars

@@ -71,7 +71,7 @@ class PlanetsActivity : AppCompatActivity() {
 
                 planetView = ImageView(this)
                 planetView.imageAlpha = 255
-                merged = Bitmap.createBitmap(p.getWidth()*50, p.getHeight()*50, d.config)
+                merged = Bitmap.createBitmap(p.width *50, p.height *50, d.config)
                 canvas = Canvas(merged)
 
 
@@ -118,8 +118,8 @@ class PlanetsActivity : AppCompatActivity() {
 
                 constraintLayout.setOnClickListener {
                     val intent = Intent(this, PlanetActivity::class.java)
-                    intent.putExtra("star", s.index)
-                    intent.putExtra("planet", p.index)
+                    intent.putExtra("star", s.uId)
+                    intent.putExtra("planet", p.sId)
                     startActivity(intent)
                 }
 

@@ -60,7 +60,10 @@ https://assetstore.unity.com/packages/2d/environments/painted-2d-terrain-tiles-b
 Log
 ***
 
-2018-11014
+2018-11-15
+Migrating Java to Kotlin. Cleaning up lots of stuff while at it, like moving static data into GBData.
+
+2018-11-14
 Single planet view and colonize (through teleportation! saves implementing ships). Now have minimal "colonize the
 universe functionality". Code is in bad shape, so starting to clean up. Don't want to add more functionality this way.
 Need to refactor, and planning to switch everything to Kotlin. GDrive installs on all my phones broke, but work on other

@@ -35,6 +35,16 @@ class GBTest {
             val tester = GBTest()
             GBTest.Companion.makeUniverse()
             GBTest.Companion.doUniverse()
+            GBTest.Companion.doUniverse()
+            GBTest.Companion.doUniverse()
+            GBTest.Companion.doUniverse()
+            GBTest.Companion.doUniverse()
+            GBTest.Companion.doUniverse()
+            GBTest.Companion.doUniverse()
+            GBTest.Companion.doUniverse()
+            GBTest.Companion.doUniverse()
+            GBTest.Companion.doUniverse()
+            GBTest.Companion.doUniverse()
 
         }
     }

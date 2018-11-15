@@ -11,9 +11,12 @@
 
 package com.zwsi.gblib
 
-class GBRace(val idx: Int) {
+class GBRace(val uid: Int, val idx: Int) {
 
-    var id: Int = -1 // for now
+    // sId is the "starID" (aka orbit), which planet of the parent star is this 0..
+    // idx is the number to go look up in GBData. This will go away with race design
+
+    val id: Int
     val name: String
     val birthrate: Int
     val explore: Int
@@ -21,11 +24,11 @@ class GBRace(val idx: Int) {
     // val planets: Array<GBPlanet>? = null
 
     init {
-        id = GBData.Companion.getRaceExplore(idx)
-        name = GBData.Companion.getRaceName(idx)
-        birthrate = GBData.Companion.getRaceBirthrate(idx)
-        explore = GBData.Companion.getRaceExplore(idx)
-        absorption= GBData.Companion.getRaceAbsorption(idx)
+        id = GBData.getNextGlobalId()
+        name = GBData.getRaceName(idx)
+        birthrate = GBData.getRaceBirthrate(idx)
+        explore = GBData.getRaceExplore(idx)
+        absorption= GBData.getRaceAbsorption(idx)
 
         GBDebug.l2("Created Race $name with birthrate $birthrate")
 

@@ -7,6 +7,9 @@ package com.zwsi.gblib;
 
 public class GBStar {
 
+    public int uId; // sId is the "starID" (aka orbit), which planet of the parent star is this 0..
+
+
     private int nameIdx;
     private String name; // name of this system
 
@@ -29,7 +32,8 @@ public class GBStar {
 
     GBPlanet[] planetsArray = new GBPlanet[numberOfPlanets]; // the solar Systems // TODO make private an return copy in getter
 
-    GBStar(GBData data) {
+    GBStar(int _uId) {
+        uId = _uId;
         nameIdx = GBData.Companion.selectStarNameIdx();
         name = GBData.Companion.starNameFromIdx(nameIdx);
         makePlanets();
@@ -46,15 +50,16 @@ public class GBStar {
         return name;
     }
 
-    void consoleDraw(GBData data) {
+    void consoleDraw() {
         System.out.println("\n  " + "====================");
         System.out.println("  " + name + " System");
         System.out.println("  " + "====================");
         System.out.println("  The " + name + " system contains " + numberOfPlanets + " planet(s).");
 
         for (GBPlanet i : planetsArray) {
+
             if (i != null) {
-                i.consoleDraw(data);
+               i.consoleDraw();
             }
         }
 
@@ -64,8 +69,7 @@ public class GBStar {
         GBDebug.INSTANCE.l3("Making Planets for star " + name);
 
         for (int i = 0; i < planetsArray.length; i++) {
-            planetsArray[i] = new GBPlanet();
-            planetsArray[i].index = i;
+            planetsArray[i] = new GBPlanet(i);
         }
 
     }

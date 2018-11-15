@@ -4,7 +4,6 @@ package com.zwsi.gblib;
 public class GBUniverse {
 
     // All these variables are package private, because (for now?) we trust the package
-    GBData data;
     GBStar[] starsArray; // the star Systems //
     int numberOfStars; // how many star Systems in the Universe
     GBRace[] racesArray; // the star Systems //
@@ -19,8 +18,6 @@ public class GBUniverse {
         starsArray = new GBStar[numberOfStars];
         this.numberOfRaces = numberOfRaces;
         racesArray = new GBRace[numberOfRaces];
-
-        data = new GBData();
 
         // Place Stars
         GBDebug.INSTANCE.l3("Making Stars");
@@ -39,7 +36,7 @@ public class GBUniverse {
 
         for (GBStar i : starsArray) {
             if (i != null) {
-                i.consoleDraw(data);
+                i.consoleDraw();
             }
         }
         System.out.println("The Universe contains " + numberOfRaces + " race(s).\n");
@@ -55,7 +52,7 @@ public class GBUniverse {
     private void makeStars() {
         GBDebug.INSTANCE.l3("Making Stars");
         for (int i = 0; i < numberOfStars; i++) {
-            starsArray[i] = new GBStar(data);
+            starsArray[i] = new GBStar(i);
             starsArray[i].index = i;
         }
 
@@ -67,24 +64,24 @@ public class GBUniverse {
         // Temporary hack
 
         GBSector sector;
-        racesArray[0]= new GBRace(0);
-        sector = starsArray[0].planetsArray[0].sectors[0][0];
-        sector.population = 100;
-        sector.owner = racesArray[0];
+        racesArray[0]= new GBRace(0, 0);
+        sector = starsArray[0].planetsArray[0].getSectors()[0][0];
+        sector.setPopulation(100);
+        sector.setOwner(racesArray[0]);
 
         if (numberOfStars > 1) {
-            racesArray[1] = new GBRace(1);
-            sector = starsArray[1].planetsArray[0].sectors[0][0];
-            sector.population = 100;
-            sector.owner = racesArray[1];
+            racesArray[1] = new GBRace(1,1);
+            sector = starsArray[1].planetsArray[0].getSectors()[0][0];
+            sector.setPopulation(100);
+            sector.setOwner(racesArray[1]);
         }
 
     }
 
     public void landPopulation(GBPlanet p, int raceIndex){
-        GBDebug.INSTANCE.l3("Landing " + racesArray[raceIndex].getName() + " on " + p.name + "");
-        p.sectors[0][0].population = 10;
-        p.sectors[0][0].owner=racesArray[raceIndex];
+        GBDebug.INSTANCE.l3("Landing " + racesArray[raceIndex].getName() + " on " + p.getName() + "");
+        p.getSectors()[0][0].setPopulation(10);
+        p.getSectors()[0][0].setOwner(racesArray[raceIndex]);
     }
 
 
@@ -106,7 +103,7 @@ public class GBUniverse {
     } // TODO should this be Star? But what about getting all the planets?
 
     public GBSector[][] getSectors(GBPlanet p) {
-        return p.sectors;
+        return p.getSectors();
     } //TODO should this be in planet? Or Data?
 
 
