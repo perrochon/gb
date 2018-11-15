@@ -1,0 +1,22 @@
+Last Update 2018-11-15
+
+Kill existing versions of app
+Start App
+Click on Stars -> Are they well distributed
+Back
+Click on Planets -> Two should be populated
+Click on empty planet
+Click on "Impi" -> Nothing changes in view (bug)
+Back
+Back
+Click on Planets -> Should see population
+Click on same empty planet -> Should see population
+Back
+Back
+Click on Do -> watch text
+Click on Planets -> Should see increased population
+Click on Home
+Back
+Click on Create -> watch text
+Back
+
