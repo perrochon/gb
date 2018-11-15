@@ -11,7 +11,7 @@ package com.zwsi.gblib
 
 import java.util.*
 
-class GBData {
+internal class GBData {
 
     init {} // Eventually we may be able to get rid of this, and be an object only
 
