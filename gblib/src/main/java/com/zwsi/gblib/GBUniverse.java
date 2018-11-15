@@ -10,8 +10,8 @@ public class GBUniverse {
     GBRace[] racesArray; // the star Systems //
     int numberOfRaces; // how many star Systems in the Universe
 
-    public int getUniverseMaxX() { return GBData.Companion.getUNIVERSE_X();}
-    public int getUniverseMaxY() { return GBData.Companion.getUNIVERSE_Y();}
+    public int getUniverseMaxX() { return GBData.Companion.getUniverseMaxX();}
+    public int getUniverseMaxY() { return GBData.Companion.getUniverseMaxY();}
 
     GBUniverse(int numberOfRaces) {
 

@@ -9,9 +9,7 @@
 
 package com.zwsi.gblib
 
-import java.util.ArrayList
-import java.util.Collections
-import java.util.Random
+import java.util.*
 
 class GBData {
 
@@ -25,12 +23,12 @@ class GBData {
         private val rand = Random() // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
         private const val NumberOfStars = 25
-        private const val UNIVERSE_X = 1000
-        private const val UNIVERSE_Y = 1000
+        private const val UniverseMaxX = 1000
+        private const val UniverseMaxY = 1000
 
         fun getNumberOfStars():Int { return NumberOfStars}
-        fun getUNIVERSE_X():Int { return UNIVERSE_X}
-        fun getUNIVERSE_Y():Int { return UNIVERSE_Y}
+        fun getUniverseMaxX():Int { return UniverseMaxX}
+        fun getUniverseMaxY():Int { return UniverseMaxY}
 
         fun selectStarNameIdx(): Int {
             // TODO no dupes in System Names - not a high priority, real world may have duplicates...
@@ -82,8 +80,8 @@ class GBData {
             val areaX = area % dim
             val areaY = area / dim
 
-            coordinates[0] = rand.nextInt(UNIVERSE_X / dim) + areaX * UNIVERSE_X / dim
-            coordinates[1] = rand.nextInt(UNIVERSE_Y / dim) + areaY * UNIVERSE_Y / dim
+            coordinates[0] = rand.nextInt(UniverseMaxX / dim) + areaX * UniverseMaxX / dim
+            coordinates[1] = rand.nextInt(UniverseMaxY / dim) + areaY * UniverseMaxY / dim
 
             return coordinates
 
