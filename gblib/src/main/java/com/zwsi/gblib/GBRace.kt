@@ -27,7 +27,8 @@ class GBRace(val idx: Int) {
         explore = GBData.Companion.getRaceExplore(idx)
         absorption= GBData.Companion.getRaceAbsorption(idx)
 
-        //GBDebug.l2("Created Race $name with birthrate $birthrate")
+        GBDebug.l2("Created Race $name with birthrate $birthrate")
+
     }
 
     fun consoleDraw() {
