@@ -13,7 +13,6 @@ class GBTest {
         var universe: GBUniverse? = null
             private set
         private var gameTurns = 0
-
         fun makeUniverse() {
             GBDebug.l1("Making Universe")
             universe = GBUniverse(2)
