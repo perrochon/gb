@@ -61,9 +61,9 @@ class PlanetsActivity : AppCompatActivity() {
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
 
         val universe = GBTest!!.universe
-        val stars = universe!!.getStars()
+        val stars = universe!!.stars
         for (s in stars) {
-            val planets = universe.getPlanets(s)
+            val planets = universe!!.getPlanets(s!!)
             for (p in planets) {
 
                 val constraintLayout = ConstraintLayout(this)
@@ -71,15 +71,15 @@ class PlanetsActivity : AppCompatActivity() {
 
                 planetView = ImageView(this)
                 planetView.imageAlpha = 255
-                merged = Bitmap.createBitmap(p.width *50, p.height *50, d.config)
+                merged = Bitmap.createBitmap(p!!.width *50, p!!.height *50, d.config)
                 canvas = Canvas(merged)
 
 
-                val sectors = universe!!.getSectors(p)
+                val sectors = universe!!.getSectors(p!!)
                 for (h in 0 until sectors.size) {
                     for (w in 0 until sectors[h].size) {
-                        canvas.drawBitmap(bitmaps[sectors[h][w].type],w*50f,h*50f,null)
-                        val population = sectors[h][w].population
+                        canvas.drawBitmap(bitmaps[sectors[h][w]!!.type],w*50f,h*50f,null)
+                        val population = sectors[h][w]!!.population
                         if (population > 0) {
                             canvas.drawText(population.toString(), w * 50f, h * 50f + 40f, paint)
                         }
@@ -94,8 +94,8 @@ class PlanetsActivity : AppCompatActivity() {
                 planetStats.setTextColor(color) // copy colors from home planet
                 planetStats.setTextSize(size)
                 planetStats.setTextSize(14f)  // TODO: debug the above. It should copy from the Home Planet
-                planetStats.setText(p.name + " (" + p.type + "), " + s.name + " system\n")
-                planetStats.append("Size :" + p.size + "\n")
+                planetStats.setText(p!!.name + " (" + p!!.type + "), " + s!!.name + " system\n")
+                planetStats.append("Size :" + p!!.size + "\n")
                 planetStats.setId(ViewCompat.generateViewId()) // Needs to have an ID. View.setId() is API level 17+
                 constraintLayout.addView(planetStats)
 
@@ -119,7 +119,7 @@ class PlanetsActivity : AppCompatActivity() {
                 constraintLayout.setOnClickListener {
                     val intent = Intent(this, PlanetActivity::class.java)
                     intent.putExtra("star", s.uId)
-                    intent.putExtra("planet", p.sId)
+                    intent.putExtra("planet", p!!.sId)
                     startActivity(intent)
                 }
 

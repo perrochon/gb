@@ -37,9 +37,9 @@ class PlanetActivity : AppCompatActivity() {
         val planetID = intent.getIntExtra("planet", -1)
 
         val universe = GBTest.universe
-        val stars = universe!!.getStars()
-        val planets = universe!!.getPlanets(stars[starID])
-        p = planets[planetID]
+        val stars = universe!!.stars
+        val planets = universe!!.getPlanets(stars[starID]!!)
+        p = planets[planetID]!!
 
         // Get the View to draw planet on, then draw planet
         //
@@ -56,8 +56,8 @@ class PlanetActivity : AppCompatActivity() {
         val sectors = universe.getSectors(p)
         for (h in 0 until sectors.size) {
             for (w in 0 until sectors[h].size) {
-                canvas.drawBitmap(bitmaps[sectors[h][w].type],w*50f,h*50f,null)
-                val population = sectors[h][w].population
+                canvas.drawBitmap(bitmaps[sectors[h][w]!!.type],w*50f,h*50f,null)
+                val population = sectors[h][w]!!.population
                 if (population > 0) {
                     canvas.drawText(population.toString(), w * 50f, h * 50f + 40f, paint)
                 }
@@ -68,7 +68,7 @@ class PlanetActivity : AppCompatActivity() {
 
         planetStats.setText("\n")
         planetStats.append("Name :" + p.name + "\n")
-        planetStats.append("System :" + stars[0].name + "\n")
+        planetStats.append("System :" + stars[0]!!.name + "\n")
         planetStats.append("Type :" + p.type + "\n")
         planetStats.append("Size :" + p.size + "\n")
         planetStats.append("Owner:" + p.ownerName + "\n")

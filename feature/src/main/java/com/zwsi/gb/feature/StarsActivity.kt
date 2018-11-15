@@ -35,10 +35,10 @@ class StarsActivity : AppCompatActivity() {
         var merged = Bitmap.createBitmap(universe!!.universeMaxX, universe!!.universeMaxY, bs.config);
         var canvas = Canvas(merged);
 
-        val stars = universe!!.getStars()
+        val stars = universe!!.stars
         for (s in stars) {
-            canvas.drawBitmap(bs, s.x.toFloat(), s.y.toFloat(), null)
-            canvas.drawText(s.name,s.x.toFloat() + 30, s.y.toFloat()+10, paint)
+            canvas.drawBitmap(bs, s!!.x.toFloat(), s.y.toFloat(), null)
+            canvas.drawText(s!!.name,s!!.x.toFloat() + 30, s!!.y.toFloat()+10, paint)
         }
 
         starField.setImageBitmap(merged)
