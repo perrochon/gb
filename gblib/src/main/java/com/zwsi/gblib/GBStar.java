@@ -7,6 +7,7 @@ package com.zwsi.gblib;
 
 public class GBStar {
 
+    private int nameIdx;
     private String name; // name of this system
 
     public int getIndex() { return index; }
@@ -29,12 +30,13 @@ public class GBStar {
     GBPlanet[] planetsArray = new GBPlanet[numberOfPlanets]; // the solar Systems // TODO make private an return copy in getter
 
     GBStar(GBData data) {
-        name = data.selectSystemName();
-        makePlanets(data);
+        nameIdx = GBData.Companion.selectStarNameIdx();
+        name = GBData.Companion.starNameFromIdx(nameIdx);
+        makePlanets();
 
         GBDebug.l3("Made System " + name);
 
-        int[] coordinates = data.getSystemCoordinates(); //TODO This is accessing a member variable from the caller. Not good
+        int[] coordinates = GBData.Companion.getStarCoordinates();
         x = coordinates[0];
         y = coordinates[1];
 
@@ -58,11 +60,11 @@ public class GBStar {
 
     }
 
-    private void makePlanets(GBData data) {
+    private void makePlanets() {
         GBDebug.l3("Making Planets for star " + name);
 
         for (int i = 0; i < planetsArray.length; i++) {
-            planetsArray[i] = new GBPlanet(data);
+            planetsArray[i] = new GBPlanet();
             planetsArray[i].index = i;
         }
 

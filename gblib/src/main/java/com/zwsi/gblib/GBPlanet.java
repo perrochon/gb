@@ -6,13 +6,14 @@ package com.zwsi.gblib;
 
 public class GBPlanet {
 
+    private int nameIdx;
     public String name; // name of this planet
 
     public int getIndex() { return index; }
 
     int index; // which position in star's planet array
-    private int type; // type of this planet
-    public String type_string;
+    private int typeIdx; // typeIdx of this planet
+    public String type;
 
     public int getHeight() {
         return height;
@@ -35,15 +36,16 @@ public class GBPlanet {
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     GBSector[][] sectors; //
 
-    GBPlanet(GBData data) {
-        name = data.selectPlanetName();
-        type = data.selectPlanetType();
-        type_string = data.planetTypeToString(type);
-        sectors = data.getSectors(type);
+    GBPlanet() {
+        nameIdx = GBData.Companion.selectPlanetNameIdx();
+        name = GBData.Companion.planetNameFromIdx(nameIdx);
+        typeIdx = GBData.Companion.selectPlanetTypeIdx();
+        type = GBData.Companion.planetTypeFromIdx(typeIdx);
+        sectors = GBData.Companion.getSectors(typeIdx);
         height = sectors.length;
         width = sectors[0].length;
 
-        GBDebug.l3("Made Planet " + name + " of type " + data.planetTypeToString(type)
+        GBDebug.l3("Made Planet " + name + " of typeIdx " + type
                 + ". Planet size is " + height + "x" + width);
 
     }
@@ -55,7 +57,7 @@ public class GBPlanet {
     public int getSize() { return width * height; }
 
     void consoleDraw(GBData data) {
-        System.out.println("\n    " + name + " of type " + data.planetTypeToString(type)
+        System.out.println("\n    " + name + " of typeIdx " + type
                 + " and size " + height + "x" + width + "\n");
 
         for (int h = 0; h < height; h++) {
@@ -169,7 +171,7 @@ Jovian -     - These planets are 100% gaseous, and they are usually
                up a large population for taxation and tech purposes.
                Also, ships in orbit around Jovians add fuel to their
                holds every update (tankers are twice as efficient at this),
-               so even if you're not a Jovian-type race, having one of
+               so even if you're not a Jovian-typeIdx race, having one of
                these nearby can be a tremendous asset.
 
 Water -      - These are largely water planets, and I've found that they
@@ -183,7 +185,7 @@ Desert -     - These planets are usually 80% desert and 15% mtn/land.  They
                their size range is much like Class M planets.
 
 Forest -     - These planets are almost entirely covered in forest, which is
-               the rarest sector type.  Resource content is fairly good.
+               the rarest sector typeIdx.  Resource content is fairly good.
                Size range is between Water planets and Class M's.  Fertility
                is higher than on a normal class M.
 

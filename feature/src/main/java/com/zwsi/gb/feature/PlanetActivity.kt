@@ -69,7 +69,7 @@ class PlanetActivity : AppCompatActivity() {
         planetStats.setText("\n")
         planetStats.append("Name :" + p.name + "\n")
         planetStats.append("System :" + stars[0].getName() + "\n")
-        planetStats.append("Type :" + p.type_string + "\n")
+        planetStats.append("Type :" + p.type + "\n")
         planetStats.append("Size :" + p.size + "\n")
         planetStats.append("Owner:" + p.owner + "\n")
 

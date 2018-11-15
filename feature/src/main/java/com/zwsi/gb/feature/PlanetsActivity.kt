@@ -13,7 +13,6 @@ import android.support.constraint.ConstraintLayout
 import android.widget.TextView
 import android.support.constraint.ConstraintSet
 import android.support.v4.view.ViewCompat
-import android.widget.LinearLayout.SHOW_DIVIDER_MIDDLE
 
 
 class PlanetsActivity : AppCompatActivity() {
@@ -95,7 +94,7 @@ class PlanetsActivity : AppCompatActivity() {
                 planetStats.setTextColor(color) // copy colors from home planet
                 planetStats.setTextSize(size)
                 planetStats.setTextSize(14f)  // TODO: debug the above. It should copy from the Home Planet
-                planetStats.setText(p.name + " (" + p.type_string + "), " + s.getName() + " system\n")
+                planetStats.setText(p.name + " (" + p.type + "), " + s.getName() + " system\n")
                 planetStats.append("Size :" + p.size + "\n")
                 planetStats.setId(ViewCompat.generateViewId()) // Needs to have an ID. View.setId() is API level 17+
                 constraintLayout.addView(planetStats)
