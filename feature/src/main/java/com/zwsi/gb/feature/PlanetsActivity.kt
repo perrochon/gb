@@ -60,8 +60,8 @@ class PlanetsActivity : AppCompatActivity() {
         // For now we show all planets, but eventually each race only sees what they can see
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
 
-        val universe = GBTest.getUniverse()
-        val stars = universe.getStars()
+        val universe = GBTest!!.universe
+        val stars = universe!!.getStars()
         for (s in stars) {
             val planets = universe.getPlanets(s)
             for (p in planets) {
@@ -75,7 +75,7 @@ class PlanetsActivity : AppCompatActivity() {
                 canvas = Canvas(merged)
 
 
-                val sectors = universe.getSectors(p)
+                val sectors = universe!!.getSectors(p)
                 for (h in 0 until sectors.size) {
                     for (w in 0 until sectors[h].size) {
                         canvas.drawBitmap(bitmaps[sectors[h][w].type],w*50f,h*50f,null)

@@ -17,7 +17,7 @@ class StarsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stars)
 
-        var universe = GBTest.getUniverse()
+        var universe = GBTest.universe
 
         var starField = findViewById<ImageView>(R.id.starField)
 
@@ -32,10 +32,10 @@ class StarsActivity : AppCompatActivity() {
 
         val bs = BitmapFactory.decodeResource(getResources(), R.drawable.star)
 
-        var merged = Bitmap.createBitmap(universe.universeMaxX, universe.universeMaxY, bs.config);
+        var merged = Bitmap.createBitmap(universe!!.universeMaxX, universe!!.universeMaxY, bs.config);
         var canvas = Canvas(merged);
 
-        val stars = universe.getStars()
+        val stars = universe!!.getStars()
         for (s in stars) {
             canvas.drawBitmap(bs, s.getX().toFloat(), s.getY().toFloat(), null)
             canvas.drawText(s.name,s.getX().toFloat() + 30, s.getY().toFloat()+10, paint)

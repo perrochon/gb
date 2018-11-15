@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         version.setText("0.0.0.46") // for now: 0.0.0.~ #commits...
 
 
-        if (GBTest.getUniverse() == null) {
+        if (GBTest.universe == null) {
 
             Thread(Runnable {
 

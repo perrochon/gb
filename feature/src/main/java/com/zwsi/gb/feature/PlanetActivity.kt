@@ -36,9 +36,9 @@ class PlanetActivity : AppCompatActivity() {
         val starID = intent.getIntExtra("star", -1)
         val planetID = intent.getIntExtra("planet", -1)
 
-        val universe = GBTest.getUniverse()
-        val stars = universe.getStars()
-        val planets = universe.getPlanets(stars[starID])
+        val universe = GBTest.universe
+        val stars = universe!!.getStars()
+        val planets = universe!!.getPlanets(stars[starID])
         p = planets[planetID]
 
         // Get the View to draw planet on, then draw planet
@@ -77,14 +77,14 @@ class PlanetActivity : AppCompatActivity() {
 
     /** Called when the user taps the Planets button */
     fun colonize0(view: View) {
-        val universe = GBTest.getUniverse()
-        universe.landPopulation(p, 0)
+        val universe = GBTest.universe
+        universe!!.landPopulation(p, 0)
     }
 
     /** Called when the user taps the Stars button */
     fun colonize1(view: View) {
-        val universe = GBTest.getUniverse()
-        universe.landPopulation(p, 1)
+        val universe = GBTest.universe
+        universe!!.landPopulation(p, 1)
 
     }
 
