@@ -25,7 +25,7 @@ public class GBSector {
         } else {
             //return " \u001B[7m" + GBData.sectorTypeToSymbol(type) + "\u001B[m ";
             //return " [" + type_symbol + "]";
-            return " " + Integer.toString(owner.id) + " ";
+            return " " + Integer.toString(owner.getId()) + " ";
         }
     }
 

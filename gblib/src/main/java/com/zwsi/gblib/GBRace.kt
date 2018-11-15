@@ -9,38 +9,33 @@
 // Output of 'profile': https://sourceforge.net/p/gbp/wiki/Home/
 // See comment at end of file for some related/copied information
 
-package com.zwsi.gblib;
+package com.zwsi.gblib
 
-class GBRace {
+internal class GBRace
+// Add more as code uses them...
 
-    String name;
-    int index=-1;
-    int id;
-    int absorption;
-    int birthrate; // 00...100 (originally 0..1?)
-    int explore;    // adventurism 00..100 (originally percent)
+    (
+    var id: Int, var name: String, var birthrate: Int // 00...100 (originally 0..1?)
+    , var explore: Int    // adventurism 00..100 (originally percent)
+) {
+    var index = -1
+    var absorption: Int = 0
 
-    GBPlanet[] planets;
+    var planets: Array<GBPlanet>? = null
 
-    // Add more as code uses them...
-
-    GBRace(int id, String name, int birthrate, int explore) {
-        this.id = id;
-        this.name = name;
-        this.birthrate = birthrate;
-        this.explore = explore;
-        GBDebug.l2("Created Race " + name + " with birthrate " + birthrate);
+    init {
+        //GBDebug.l2("Created Race $name with birthrate $birthrate")
     }
 
-    void consoleDraw(GBData data) {
+    fun consoleDraw(data: GBData) {
 
-        System.out.println("");
-        System.out.println("    ====================");
-        System.out.println("    " + name + " Race");
-        System.out.println("    ====================");
-        System.out.println("    absorbtion: "+ absorption);
-        System.out.println("    birthrate:  "+ birthrate);
-        System.out.println("    explore:    "+ explore);
+        println("")
+        println("    ====================")
+        println("    $name Race")
+        println("    ====================")
+        println("    absorbtion: $absorption")
+        println("    birthrate:  $birthrate")
+        println("    explore:    $explore")
     }
 
 }

@@ -30,7 +30,7 @@ public class GBPlanet {
     public String getOwner() {
         if (sectors[0][0].owner == null) {
             return "none";
-        } else return sectors[0][0].owner.name;
+        } else return sectors[0][0].owner.getName();
     }
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
@@ -94,7 +94,7 @@ public class GBPlanet {
             for (int w = 0; w < width; w++) {
                 if (sectors[h][w].population > 0) {
                     GBDebug.l3("Found population of " + sectors[h][w].population + " in sector [" + h + "][" + w + "]");
-                    sectors[h][w].population = (sectors[h][w].population * (100 + sectors[h][w].owner.birthrate)) / 100;
+                    sectors[h][w].population = (sectors[h][w].population * (100 + sectors[h][w].owner.getBirthrate())) / 100;
                     GBDebug.l3("New population is " + sectors[h][w].population);
                     race = sectors[h][w].owner;
                 }
@@ -115,7 +115,7 @@ public class GBPlanet {
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
                 if (sectors[h][w].population > 0) {
-                    int movers = ((sectors[h][w].population * sectors[h][w].owner.explore) / 800) * 8;
+                    int movers = ((sectors[h][w].population * sectors[h][w].owner.getExplore()) / 800) * 8;
                     // get a multiple of 8, so no rounding below
                     GBDebug.l3("Moving " + movers + " out of population of " + sectors[h][w].population
                             + " in sector [" + h + "][" + w + "]");
