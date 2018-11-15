@@ -157,7 +157,24 @@ internal class GBData {
             intArrayOf(1, 7, 7, 3, 3, 3, 4, 4, 4, 6), // Airless
             intArrayOf(7, 7, 7, 7, 7, 7, 7, 7, 6, 6)  // Asteroid
         )
+
+        // Races
+        data class RaceData(val name: String,
+                            val birthrate: Int, // 00...100 (originally 0..1?)
+                            val explore: Int, // adventurism 00..100 (originally percent)
+                            val absorption: Int)
+
+        private val races = hashMapOf(
+            0 to RaceData("Xenos", 50, 20, 20),
+            1 to RaceData("Inti", 20, 50, 10))
+
+        fun getRaceName (idx: Int) : String { return races.get(idx)!!.name}
+        fun getRaceBirthrate (idx: Int) : Int { return races.get(idx)!!.birthrate}
+        fun getRaceExplore (idx: Int) : Int { return races.get(idx)!!.explore}
+        fun getRaceAbsorption (idx: Int) : Int { return races.get(idx)!!.absorption}
     }
+
+
 
 
 }

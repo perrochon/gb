@@ -11,18 +11,22 @@
 
 package com.zwsi.gblib
 
-internal class GBRace
-// Add more as code uses them...
+class GBRace(val idx: Int) {
 
-    (
-    var id: Int, var name: String, var birthrate: Int // 00...100 (originally 0..1?)
-    , var explore: Int    // adventurism 00..100 (originally percent)
-) {
-    var index = -1
-    var absorption: Int = 0
-    var planets: Array<GBPlanet>? = null
+    var id: Int = -1 // for now
+    val name: String
+    val birthrate: Int
+    val explore: Int
+    val absorption: Int
+    // val planets: Array<GBPlanet>? = null
 
     init {
+        id = GBData.Companion.getRaceExplore(idx)
+        name = GBData.Companion.getRaceName(idx)
+        birthrate = GBData.Companion.getRaceBirthrate(idx)
+        explore = GBData.Companion.getRaceExplore(idx)
+        absorption= GBData.Companion.getRaceAbsorption(idx)
+
         //GBDebug.l2("Created Race $name with birthrate $birthrate")
     }
 
