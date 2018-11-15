@@ -46,7 +46,7 @@ public class GBUniverse {
 
         for (GBRace i : racesArray) {
             if (i != null) {
-                i.consoleDraw(data);
+                i.consoleDraw();
             }
         }
 

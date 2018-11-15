@@ -20,15 +20,13 @@ internal class GBRace
 ) {
     var index = -1
     var absorption: Int = 0
-
     var planets: Array<GBPlanet>? = null
 
     init {
         //GBDebug.l2("Created Race $name with birthrate $birthrate")
     }
 
-    fun consoleDraw(data: GBData) {
-
+    fun consoleDraw() {
         println("")
         println("    ====================")
         println("    $name Race")
