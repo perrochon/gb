@@ -53,7 +53,6 @@ public class GBUniverse {
         GBDebug.INSTANCE.l3("Making Stars");
         for (int i = 0; i < numberOfStars; i++) {
             starsArray[i] = new GBStar(i);
-            starsArray[i].index = i;
         }
 
     }
@@ -65,13 +64,13 @@ public class GBUniverse {
 
         GBSector sector;
         racesArray[0]= new GBRace(0, 0);
-        sector = starsArray[0].planetsArray[0].getSectors()[0][0];
+        sector = starsArray[0].getPlanetsArray()[0].getSectors()[0][0];
         sector.setPopulation(100);
         sector.setOwner(racesArray[0]);
 
         if (numberOfStars > 1) {
             racesArray[1] = new GBRace(1,1);
-            sector = starsArray[1].planetsArray[0].getSectors()[0][0];
+            sector = starsArray[1].getPlanetsArray()[0].getSectors()[0][0];
             sector.setPopulation(100);
             sector.setOwner(racesArray[1]);
         }
@@ -87,7 +86,7 @@ public class GBUniverse {
 
     void doUniverse() {
         for (GBStar s : starsArray) {
-            for (GBPlanet p : s.planetsArray) {
+            for (GBPlanet p : s.getPlanetsArray()) {
                 p.doPlanet();
             }
         }
@@ -99,7 +98,7 @@ public class GBUniverse {
     } // TODO need to figure out where these live
 
     public GBPlanet[] getPlanets(GBStar s) {
-        return s.planetsArray;
+        return s.getPlanetsArray();
     } // TODO should this be Star? But what about getting all the planets?
 
     public GBSector[][] getSectors(GBPlanet p) {

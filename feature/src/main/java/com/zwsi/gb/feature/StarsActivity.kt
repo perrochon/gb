@@ -37,8 +37,8 @@ class StarsActivity : AppCompatActivity() {
 
         val stars = universe!!.getStars()
         for (s in stars) {
-            canvas.drawBitmap(bs, s.getX().toFloat(), s.getY().toFloat(), null)
-            canvas.drawText(s.name,s.getX().toFloat() + 30, s.getY().toFloat()+10, paint)
+            canvas.drawBitmap(bs, s.x.toFloat(), s.y.toFloat(), null)
+            canvas.drawText(s.name,s.x.toFloat() + 30, s.y.toFloat()+10, paint)
         }
 
         starField.setImageBitmap(merged)
