@@ -132,7 +132,5 @@ class PlanetsActivity : AppCompatActivity() {
 
             }
         }
-
-
     }
 }

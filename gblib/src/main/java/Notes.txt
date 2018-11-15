@@ -61,7 +61,8 @@ Log
 ***
 
 2018-11-15
-Migrating Java to Kotlin. Cleaning up lots of stuff while at it, like moving static data into GBData.
+Fully Migrating Java to Kotlin. Cleaning up lots of stuff while at it, like moving static data into GBData. Migration
+broke badly, and it was not clean with race allocation to sector, so commented out right now.
 
 2018-11-14
 Single planet view and colonize (through teleportation! saves implementing ships). Now have minimal "colonize the
