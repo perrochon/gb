@@ -34,7 +34,7 @@ public class GBStar {
         name = GBData.Companion.starNameFromIdx(nameIdx);
         makePlanets();
 
-        GBDebug.l3("Made System " + name);
+        GBDebug.INSTANCE.l3("Made System " + name);
 
         int[] coordinates = GBData.Companion.getStarCoordinates();
         x = coordinates[0];
@@ -61,7 +61,7 @@ public class GBStar {
     }
 
     private void makePlanets() {
-        GBDebug.l3("Making Planets for star " + name);
+        GBDebug.INSTANCE.l3("Making Planets for star " + name);
 
         for (int i = 0; i < planetsArray.length; i++) {
             planetsArray[i] = new GBPlanet();

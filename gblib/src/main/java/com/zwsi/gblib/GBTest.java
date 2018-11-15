@@ -16,14 +16,14 @@ public class GBTest {
     }
 
     public static void makeUniverse() {
-        GBDebug.l1("Making Universe");
+        GBDebug.INSTANCE.l1("Making Universe");
         universe = new GBUniverse( 2);
         universe.consoleDraw();
     }
 
     public static void doUniverse() {
         gameTurns ++;
-        GBDebug.l1("Runing Game Turn " + gameTurns);
+        GBDebug.INSTANCE.l1("Runing Game Turn " + gameTurns);
         universe.doUniverse();
         universe.consoleDraw();
     }

@@ -45,7 +45,7 @@ public class GBPlanet {
         height = sectors.length;
         width = sectors[0].length;
 
-        GBDebug.l3("Made Planet " + name + " of typeIdx " + type
+        GBDebug.INSTANCE.l3("Made Planet " + name + " of typeIdx " + type
                 + ". Planet size is " + height + "x" + width);
 
     }
@@ -85,7 +85,7 @@ public class GBPlanet {
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/dosector.cc
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/perm.cc
     void doPlanet() {
-        GBDebug.l2("Running Year on planet " + name);
+        GBDebug.INSTANCE.l2("Running Year on planet " + name);
 
         GBRace race = null; // TODO this works while there is only one race...
 
@@ -93,9 +93,9 @@ public class GBPlanet {
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
                 if (sectors[h][w].population > 0) {
-                    GBDebug.l3("Found population of " + sectors[h][w].population + " in sector [" + h + "][" + w + "]");
+                    GBDebug.INSTANCE.l3("Found population of " + sectors[h][w].population + " in sector [" + h + "][" + w + "]");
                     sectors[h][w].population = (sectors[h][w].population * (100 + sectors[h][w].owner.getBirthrate())) / 100;
-                    GBDebug.l3("New population is " + sectors[h][w].population);
+                    GBDebug.INSTANCE.l3("New population is " + sectors[h][w].population);
                     race = sectors[h][w].owner;
                 }
             }
@@ -117,7 +117,7 @@ public class GBPlanet {
                 if (sectors[h][w].population > 0) {
                     int movers = ((sectors[h][w].population * sectors[h][w].owner.getExplore()) / 800) * 8;
                     // get a multiple of 8, so no rounding below
-                    GBDebug.l3("Moving " + movers + " out of population of " + sectors[h][w].population
+                    GBDebug.INSTANCE.l3("Moving " + movers + " out of population of " + sectors[h][w].population
                             + " in sector [" + h + "][" + w + "]");
 
                     // Moving

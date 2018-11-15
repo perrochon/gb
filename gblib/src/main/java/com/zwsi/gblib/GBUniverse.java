@@ -23,12 +23,12 @@ public class GBUniverse {
         data = new GBData();
 
         // Place Stars
-        GBDebug.l3("Making Stars");
+        GBDebug.INSTANCE.l3("Making Stars");
         makeStars();
 
         makeRaces();
 
-        GBDebug.l3("Universe made");
+        GBDebug.INSTANCE.l3("Universe made");
     }
 
     void consoleDraw() {
@@ -53,7 +53,7 @@ public class GBUniverse {
     }
 
     private void makeStars() {
-        GBDebug.l3("Making Stars");
+        GBDebug.INSTANCE.l3("Making Stars");
         for (int i = 0; i < numberOfStars; i++) {
             starsArray[i] = new GBStar(data);
             starsArray[i].index = i;
@@ -62,7 +62,7 @@ public class GBUniverse {
     }
 
     private void makeRaces() {
-        GBDebug.l3("Making Races");
+        GBDebug.INSTANCE.l3("Making Races");
 
         // Temporary hack
 
@@ -82,7 +82,7 @@ public class GBUniverse {
     }
 
     public void landPopulation(GBPlanet p, int raceIndex){
-        GBDebug.l3("Landing " + racesArray[raceIndex].getName() + " on " + p.name + "");
+        GBDebug.INSTANCE.l3("Landing " + racesArray[raceIndex].getName() + " on " + p.name + "");
         p.sectors[0][0].population = 10;
         p.sectors[0][0].owner=racesArray[raceIndex];
     }
