@@ -35,9 +35,9 @@ class GBRace(val idx: Int) {
         println("    ====================")
         println("    $name Race")
         println("    ====================")
-        println("    absorbtion: $absorption")
         println("    birthrate:  $birthrate")
         println("    explore:    $explore")
+        println("    absorbtion: $absorption")
     }
 
 }
