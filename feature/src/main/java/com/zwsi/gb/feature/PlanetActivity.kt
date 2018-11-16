@@ -48,9 +48,8 @@ class PlanetActivity : AppCompatActivity() {
         var canvas = Canvas(merged)
 
         val planetStats = findViewById<TextView>(R.id.PlanetStats)
-        val color = planetStats.textColors
-        val size = planetStats.textSize
         val paint = planetStats.paint
+        paint.textSize = 20f
 
 
         for (i in 0 until p.sectors.size) {
@@ -64,7 +63,16 @@ class PlanetActivity : AppCompatActivity() {
                     p.sectorY(i) * 50f + 40f,
                     paint
                 )
+                canvas.drawText(
+                    p.sectors[i].getOwner()!!.name.substring(0,1),
+                    p.sectorX(i) * 50f + 20,
+                    p.sectorY(i) * 50f + 20f,
+                    paint
+                )
+
             }
+
+
         }
 
         planetView.setImageBitmap(merged)

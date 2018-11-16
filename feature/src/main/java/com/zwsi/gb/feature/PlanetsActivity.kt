@@ -35,7 +35,7 @@ class PlanetsActivity : AppCompatActivity() {
         // Get a View to draw planet on, then draw planet
         // Until we have a proper home planet, we draw a small planet with one sector each for testing
         var planetView = findViewById<ImageView>(R.id.homeplanet)
-        var merged = Bitmap.createBitmap(400, 100, d.config)
+        var merged = Bitmap.createBitmap(200, 100, d.config)
         var canvas = Canvas(merged)
 
         canvas.drawBitmap(bitmaps[0], 0f, 0f, null)
@@ -53,7 +53,7 @@ class PlanetsActivity : AppCompatActivity() {
         val color = stats.textColors
         val size = stats.textSize
         val paint = stats.paint
-        paint.textSize = 30f
+        paint.textSize = 20f
 
 
         // Now add more planets below
@@ -83,6 +83,12 @@ class PlanetsActivity : AppCompatActivity() {
                             p.sectors[i].getPopulation().toString(),
                             p.sectorX(i) * 50f,
                             p.sectorY(i) * 50f + 40f,
+                            paint
+                        )
+                        canvas.drawText(
+                            p.sectors[i].getOwner()!!.name.substring(0,1),
+                            p.sectorX(i) * 50f + 20,
+                            p.sectorY(i) * 50f + 20f,
                             paint
                         )
                     }

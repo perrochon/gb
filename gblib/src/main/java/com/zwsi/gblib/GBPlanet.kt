@@ -44,7 +44,7 @@ class GBPlanet (val sId: Int) {
         // Make Sectors
         // Get random width and corresponding height within type appropriate bounds (e.g. jovians are bigger
         height = GBData.selectPlanetHeight(typeIdx)
-        width = GBData.selectPlanetWidth(typeIdx)
+        width = GBData.selectPlanetWidth(height)
 
         sectors = Array(width*height) { GBSector() }
 

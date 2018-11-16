@@ -38,7 +38,7 @@
                         android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
                         android:alpha="255"/>
                 <TextView
-                        android:text="Home Planet"
+                        android:text="All The Sectors"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/homePlanetStats"
                         app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"

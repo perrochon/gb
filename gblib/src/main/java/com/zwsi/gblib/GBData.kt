@@ -70,10 +70,8 @@ internal class GBData {
             return GBData.rand.nextInt(hi - low) + low
         }
 
-        fun selectPlanetWidth(typeIdx: Int): Int {
-            val low = planetTypesSize[typeIdx][0] * 2
-            val hi = planetTypesSize[typeIdx][1] * 2
-            return GBData.rand.nextInt(hi - low) + low
+        fun selectPlanetWidth(height: Int): Int {
+            return height * 2
         }
 
         // Get random, but universally distributed coordinates for stars
@@ -133,7 +131,7 @@ internal class GBData {
         val planetTypesSize = arrayOf(
             // min height, max height. Width will be within 2x height range
             intArrayOf(4, 6), // M Class
-            intArrayOf(5, 7), // Jovian
+            intArrayOf(6, 8), // Jovian
             intArrayOf(4, 6), // Water
             intArrayOf(4, 6), // Desert
             intArrayOf(3, 5), // Forest
@@ -175,8 +173,6 @@ internal class GBData {
         fun getRaceExplore (idx: Int) : Int { return races.get(idx)!!.explore}
         fun getRaceAbsorption (idx: Int) : Int { return races.get(idx)!!.absorption}
     }
-
-
 
 
 }
