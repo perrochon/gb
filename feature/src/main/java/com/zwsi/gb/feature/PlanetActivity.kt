@@ -77,6 +77,8 @@ class PlanetActivity : AppCompatActivity() {
 
         planetView.setImageBitmap(merged)
 
+        paint.textSize = 40f
+
         planetStats.setText("\n")
         planetStats.append("Name :" + p.name + "\n")
         planetStats.append("System :" + stars[0]!!.name + "\n")

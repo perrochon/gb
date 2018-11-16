@@ -1,5 +1,6 @@
 Last Update 2018-11-15
 
+
 Kill existing versions of app
 Start App
 Click on Stars -> Are they well distributed
@@ -20,3 +21,4 @@ Back
 Click on Create -> watch text
 Back
 
+Regression: Population no longer migrates
