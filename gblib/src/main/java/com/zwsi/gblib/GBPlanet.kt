@@ -105,8 +105,8 @@ class GBPlanet (val sId: Int) {
     }
 
     private fun south(x: Int): Int {
-        return if (x / width == height )
-            height
+        return if (x / width == height-1 )
+            height-1
         else
             x + width
     }
@@ -124,13 +124,13 @@ class GBPlanet (val sId: Int) {
         //Reproduction
         for (i in 0 until width * height) {
 
-            if (sectors[i].population > 0) {
+            if (sectors[i].getPopulation() > 0) {
 
-                GBDebug.l3("Found population of ${sectors[i].population} in sector [${sectorX(i)}][${sectorY(i)}] - growing")
+                GBDebug.l3("Found population of ${sectors[i].getPopulation()} in sector [${sectorX(i)}][${sectorY(i)}] - growing")
 
                 sectors[i].growPopulation()
 
-                GBDebug.l3("New Population is ${sectors[i].population}")
+                GBDebug.l3("New Population is ${sectors[i].getPopulation()}")
 
             }
         }
@@ -143,11 +143,11 @@ class GBPlanet (val sId: Int) {
 
             var from = temps2[i]
 
-            if (sectors[from].population > 0) {
+            if (sectors[from].getPopulation() > 0) {
 
-                GBDebug.l3("Found population of ${sectors[from].population} in sector [${sectorX(from)}][${sectorY(from)}] - migrating")
+                GBDebug.l3("Found population of ${sectors[from].getPopulation()} in sector [${sectorX(from)}][${sectorY(from)}] - migrating")
 
-                val movers = sectors[from].population * sectors[from].getOwner()!!.explore / 100
+                val movers = sectors[from].getPopulation() * sectors[from].getOwner()!!.explore / 100
 
                 when(GBData.rand.nextInt(4)){
                     0 -> migratePopulation(movers, from, east(from))
@@ -163,23 +163,31 @@ class GBPlanet (val sId: Int) {
     fun migratePopulation(number: Int, from: Int, to: Int) {
         // attempt to migrate population
 
+        GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}]")
+
         if(sectors[to].getOwner() == null) {
             //moving into an empty sector
             GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Explore $number move")
-            sectors[from].population -= number
-            sectors[to].population += number
-            sectors[to].setOwner(sectors[from].getOwner())
+            sectors[from].changePopulation(-number)
+            sectors[to].setPopulation(sectors[from].getOwner()!!,number)
+
         } else if (sectors[to].getOwner() == sectors[from].getOwner()) {
             //moving to a friendly sector
             GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Reloc! $number move")
-            sectors[from].population -= number
-            sectors[to].population += number
+            sectors[from].changePopulation(-number)
+            sectors[to].changePopulation(+number)
+
         } else {
             // moving to an enemy sector
             // We have a very simple form of war: They all die
             GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Attack! $number die")
-            sectors[from].population -= number
+            sectors[from].changePopulation(-number)
         }
+    }
+
+    fun landPopulation(r: GBRace, number: Int) {
+        GBDebug.l3("GBPlanet: Landing $number of ${r.name}")
+        sectors[GBData.rand.nextInt(width*height)].landPopulation(r, number)
     }
 
 

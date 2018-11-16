@@ -63,23 +63,24 @@ class GBUniverse internal constructor(
 
         var sector: GBSector
         racesArray[0] = GBRace(0, 0)
-        sector = stars[0]!!.planetsArray[0]!!.sectors[0]
-        sector.population = 100
-        sector.setOwner(racesArray[0])
+        landPopulation(stars[0]!!.planetsArray[0]!!, racesArray[0]!!.uId)
 
         if (numberOfStars > 1) {
             racesArray[1] = GBRace(1, 1)
-            sector = stars[1]!!.planetsArray[0]!!.sectors[0]
-            sector.population = 100
-            sector.setOwner(racesArray[1])
+            landPopulation(stars[1]!!.planetsArray[0]!!, racesArray[1]!!.uId)
+
+        }
+
+        if (numberOfStars > 2) {
+            landPopulation(stars[2]!!.planetsArray[0]!!, racesArray[0]!!.uId)
+            landPopulation(stars[2]!!.planetsArray[0]!!, racesArray[1]!!.uId)
         }
 
     }
 
-    fun landPopulation(p: GBPlanet, raceIndex: Int) {
-        GBDebug.l3("Landing " + racesArray[raceIndex]!!.name + " on " + p.name + "")
-        p.sectors[0].population = 10
-        p.sectors[0].setOwner(racesArray[raceIndex])
+    fun landPopulation(p: GBPlanet, uId: Int) {
+        GBDebug.l3("GBUniverse: Landing 100 of " + racesArray[uId]!!.name + " on " + p.name + "")
+        p.landPopulation(racesArray[uId]!!, 100)
     }
 
 

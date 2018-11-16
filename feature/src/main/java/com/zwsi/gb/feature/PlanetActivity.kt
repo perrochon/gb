@@ -57,9 +57,9 @@ class PlanetActivity : AppCompatActivity() {
 
             canvas.drawBitmap(bitmaps[p.sectors[i].type],p.sectorX(i) * 50f,p.sectorY(i) *50f,null)
 
-            if (p.sectors[i].population > 0) {
+            if (p.sectors[i].getPopulation() > 0) {
                 canvas.drawText(
-                    p.sectors[i].population.toString(),
+                    p.sectors[i].getPopulation().toString(),
                     p.sectorX(i) * 50f,
                     p.sectorY(i) * 50f + 40f,
                     paint

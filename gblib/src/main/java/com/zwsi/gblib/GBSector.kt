@@ -11,7 +11,18 @@ class GBSector constructor() {
     internal var type_symbol = "?"
         get() = GBData.sectorTypeConsoleFromIdx(type)
 
-    var population = 0
+    private var population = 0
+
+    fun setPopulation(r:GBRace, number: Int) {
+        population = number
+        setOwner(r)
+    }
+    fun getPopulation(): Int {
+        return population
+    }
+    fun changePopulation(number: Int) {
+        population += number
+    }
 
     private var owner: GBRace? = null
     private var ownerID: Int = -1
@@ -20,7 +31,16 @@ class GBSector constructor() {
     fun setOwner(r: GBRace?) {
         owner = r
         ownerID = r!!.uId
-        ownerName = r!!.name
+        ownerName = r.name
+    }
+
+    fun landPopulation(r: GBRace, number: Int) {
+        GBDebug.l3("GBSector: Landing $number of ${r.name}")
+        if (owner != null) {
+            // Can't land on populated sector. They all die...
+            return
+        }
+        setPopulation(r, number)
     }
 
     fun growPopulation() {
@@ -39,7 +59,7 @@ class GBSector constructor() {
         } else {
             //return " \u001B[7m $type_symbol \u001B[m ";
             return " $ownerID "
-            return "[$type_symbol]"
+            //return "[$type_symbol]"
 
         }
     }
