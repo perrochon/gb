@@ -20,9 +20,9 @@ internal class GBData {
         // TODO these public methods be internal if the whole lib is Kotlin? Nobody outside the lib should call GBData
         // TODO once only Kotlin calls this code, do we still need to call it with ..Companion..
 
-        private val rand = Random() // Our RNG. We could seed it for testing. Make it var, and assign in init block?
+        val rand = Random() // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
-        private const val NumberOfStars = 2
+        private const val NumberOfStars = 24
         private const val UniverseMaxX = 1000
         private const val UniverseMaxY = 1000
 
@@ -64,9 +64,22 @@ internal class GBData {
             return sectorTypesConsole[n]
         }
 
+        fun selectPlanetHeight(typeIdx: Int): Int {
+            val low = planetTypesSize[typeIdx][0]
+            val hi = planetTypesSize[typeIdx][1]
+            return GBData.rand.nextInt(hi - low) + low
+        }
+
+        fun selectPlanetWidth(typeIdx: Int): Int {
+            val low = planetTypesSize[typeIdx][0] * 2
+            val hi = planetTypesSize[typeIdx][1] * 2
+            return GBData.rand.nextInt(hi - low) + low
+        }
+
         // Get random, but universally distributed coordinates for stars
         // Approach: break up the universe into n areas of equal size, and put one star in each area
-        // where n is the smallest square number bigger than numberOfStars. Then shuffle the areas
+        // where n is the smallest square number bigger than numberOfStars. Then shuffle the areas as some will remain
+        // empty.
         private var areas: ArrayList<Int> = ArrayList() // we fill it up on first call to GetStarCoordinates
 
         fun getStarCoordinates() : IntArray {
@@ -75,6 +88,9 @@ internal class GBData {
             val dim = java.lang.Math.ceil(java.lang.Math.sqrt(nos)).toInt()
 
             if (areas.isEmpty()) {
+
+                // TODO Does this work? areas = IntArray(dim * dim) { i -> i-0}
+
                 for (i in 0 until dim * dim) {
                     areas.add(i, i)
                 }
@@ -98,27 +114,6 @@ internal class GBData {
 
         }
 
-        // Get random, but type appropriate sectors
-        // Coordinates are [down][right] with [0][0] top left.
-        fun getSectors(planetType: Int): Array<Array<GBSector?>> {
-
-            val height = rand.nextInt(planetTypesSize[planetType][1] - planetTypesSize[planetType][0]) +
-                    planetTypesSize[planetType][0]
-            val width = height * 2
-
-            val sectors = Array (height) { arrayOfNulls<GBSector?> (width)  }
-
-            for (h in 0 until height) {
-                for (w in 0 until width) {
-                    sectors[h][w] = GBSector()
-                    sectors[h][w]?.type = sectorTypesChance[planetType][rand.nextInt(10)]
-                    //sectors[h][w]?.type_symbol = sectorTypesConsole[sectors[h][w]?.type]
-                    sectors[h][w]?.type_symbol = sectorTypesConsole[0]
-                }
-            }
-            return sectors
-        }
-
         // Stars
         // Stars from: https://github.com/kaladron/galactic-bloodshed/blob/master/data/star.list
         private val starNames = arrayOf(
@@ -135,8 +130,8 @@ internal class GBData {
         private val planetTypesNames =
             arrayOf("M Class", "Jovian", "Water", "Desert", "Forest", "Iceball", "Airless", "Asteroid")
 
-        private val planetTypesSize = arrayOf(
-            // min height, max height. Width will be 2x height
+        val planetTypesSize = arrayOf(
+            // min height, max height. Width will be within 2x height range
             intArrayOf(4, 6), // M Class
             intArrayOf(5, 7), // Jovian
             intArrayOf(4, 6), // Water
@@ -154,7 +149,7 @@ internal class GBData {
         //private val sectorTypesNames = arrayOf("Water", "Land", "Gas", "Desert", "Mountain", "Forest", "Ice", "Rock")
         private val sectorTypesConsole =
             arrayOf("~", ".", "@", "-", "^", "*", "#", "x") // TODO double check these against source
-        private val sectorTypesChance = arrayOf(
+        val sectorTypesChance = arrayOf(
             intArrayOf(0, 0, 0, 0, 1, 1, 1, 1, 5, 6), // M Class
             intArrayOf(2, 2, 2, 2, 2, 2, 2, 2, 2, 2), // Jovian
             intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 4), // Water

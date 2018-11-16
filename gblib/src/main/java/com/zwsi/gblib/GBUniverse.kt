@@ -63,13 +63,13 @@ class GBUniverse internal constructor(
 
         var sector: GBSector
         racesArray[0] = GBRace(0, 0)
-        sector = stars[0]!!.planetsArray[0]!!.sectors[0][0]!!
+        sector = stars[0]!!.planetsArray[0]!!.sectors[0]
         sector.population = 100
         sector.setOwner(racesArray[0])
 
         if (numberOfStars > 1) {
             racesArray[1] = GBRace(1, 1)
-            sector = stars[1]!!.planetsArray[0]!!.sectors[0][0]!!
+            sector = stars[1]!!.planetsArray[0]!!.sectors[0]
             sector.population = 100
             sector.setOwner(racesArray[1])
         }
@@ -78,8 +78,8 @@ class GBUniverse internal constructor(
 
     fun landPopulation(p: GBPlanet, raceIndex: Int) {
         GBDebug.l3("Landing " + racesArray[raceIndex]!!.name + " on " + p.name + "")
-        p.sectors[0][0]!!.population = 10
-        p.sectors[0][0]!!.setOwner(racesArray[raceIndex])
+        p.sectors[0].population = 10
+        p.sectors[0].setOwner(racesArray[raceIndex])
     }
 
 
@@ -96,7 +96,7 @@ class GBUniverse internal constructor(
         return s!!.planetsArray
     } // TODO should this be Star? But what about getting all the planets?
 
-    fun getSectors(p: GBPlanet): Array<Array<GBSector?>> {
+    fun getSectors(p: GBPlanet): Array<GBSector> {
         return p!!.sectors
     } //TODO should this be in planet? Or Data?
 

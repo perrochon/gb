@@ -53,14 +53,17 @@ class PlanetActivity : AppCompatActivity() {
         val paint = planetStats.paint
 
 
-        val sectors = universe.getSectors(p)
-        for (h in 0 until sectors.size) {
-            for (w in 0 until sectors[h].size) {
-                canvas.drawBitmap(bitmaps[sectors[h][w]!!.type],w*50f,h*50f,null)
-                val population = sectors[h][w]!!.population
-                if (population > 0) {
-                    canvas.drawText(population.toString(), w * 50f, h * 50f + 40f, paint)
-                }
+        for (i in 0 until p.sectors.size) {
+
+            canvas.drawBitmap(bitmaps[p.sectors[i].type],p.sectorX(i) * 50f,p.sectorY(i) *50f,null)
+
+            if (p.sectors[i].population > 0) {
+                canvas.drawText(
+                    p.sectors[i].population.toString(),
+                    p.sectorX(i) * 50f,
+                    p.sectorY(i) * 50f + 40f,
+                    paint
+                )
             }
         }
 

@@ -4,11 +4,14 @@
 
 package com.zwsi.gblib
 
-class GBPlanet (val sId: Int) {
+import java.lang.Math.sqrt
 
+class GBPlanet (val sId: Int) {
     // sId is the "starID" (aka orbit), which planet of the parent star is this 0..
+
     val id: Int
-    // val uId: Int // self-enter in universe's list of planets and assign uId
+
+    // TODO val uId: Int // self-enter in universe's list of planets and assign uId
 
     private val nameIdx: Int
     val name: String
@@ -18,15 +21,14 @@ class GBPlanet (val sId: Int) {
     val type: String
         get() = GBData.planetTypeFromIdx(typeIdx)
 
-    val ownerName: String //
-        get() = if (sectors[0][0]!!.getOwner() == null) {
-            "<unclaimed>"
-        } else {
-            sectors[0][0]!!.getOwner()!!.name
-        }
+    val owner: GBRace? = null;
+
+    val ownerName: String
+    get() = owner?.name ?: "<not owned>"
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
-    var sectors: Array<Array<GBSector?>>
+    // Sector are stored in a straight array, which makes some things easier (other's not so)
+    var sectors: Array<GBSector>
     var height: Int
     var width: Int
 
@@ -38,16 +40,24 @@ class GBPlanet (val sId: Int) {
         id = GBData.getNextGlobalId()
         nameIdx = GBData.selectPlanetNameIdx()
         typeIdx = GBData.selectPlanetTypeIdx()
-        sectors = GBData.getSectors(typeIdx)
-        height = sectors.size
-        width = sectors[0].size
+
+        // Make Sectors
+        // Get random width and corresponding height within type appropriate bounds (e.g. jovians are bigger
+        height = GBData.selectPlanetHeight(typeIdx)
+        width = GBData.selectPlanetWidth(typeIdx)
+
+        sectors = Array(width*height) { GBSector() }
+
+        for (i in 0 until width*height) {
+            sectors[i].type = GBData.sectorTypesChance[typeIdx][GBData.rand.nextInt(10)]
+        }
 
         GBDebug.l3(
             "Made Planet " + name + " of typeIdx " + type
                     + ". Planet size is " + height + "x" + width
         )
-
     }
+
 
     fun consoleDraw() {
         println(
@@ -55,102 +65,184 @@ class GBPlanet (val sId: Int) {
                     + " and size " + height + "x" + width + "\n"
         )
 
-        for (h in 0 until height) {
-            print("    ")
-            for (w in 0 until width) {
-                print(sectors[h][w]!!.consoleDraw())
-            }
-            println()
+        for (i in 0 until width*height) {
+            if (sectorX(i) == 0)
+                print("    ")
+
+            print(sectors[i].consoleDraw())
+
+            if (sectorX(i) == width - 1)
+               println()
         }
 
     }
 
+
+    fun sectorX(i: Int): Int {
+        return i % width
+    }
+
+    fun sectorY(i: Int): Int {
+        return i / width
+    }
+
     private fun west(x: Int): Int {
-        return if (x == 0)
-            sectors[0].size - 1
+        return if (x % width == 0)
+            width-1
         else
             x - 1
     }
 
     private fun east(x: Int): Int {
-        return (x + 1) % sectors[0].size
+        return (x + 1) % width
+    }
+
+    private fun north(x: Int): Int {
+        return if (x / width == 0 )  // north of northpole loops back to itself
+            0
+        else
+            x - width
+    }
+
+    private fun south(x: Int): Int {
+        return if (x / width == height )
+            height
+        else
+            x + width
     }
 
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/doplanet.cc
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/dosector.cc
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/perm.cc
     fun doPlanet() {
+
+
         GBDebug.l2("Running Year on planet $name")
 
         var race: GBRace? = null // TODO this works while there is only one race...
 
         //Reproduction
-        for (h in 0 until height) {
-            for (w in 0 until width) {
-                if (sectors[h][w]!!.population > 0) {
-                    GBDebug.l3("Found population of " + sectors[h][w]!!.population + " in sector [" + h + "][" + w + "]")
-                    sectors[h][w]!!.population = sectors[h][w]!!.population * (100 + sectors[h][w]!!.getOwner()!!.birthrate) / 100
-                    GBDebug.l3("New population is " + sectors[h][w]!!.population)
+        for (i in 0 until width * height) {
 
+            if (sectors[i].population > 0) {
+
+                GBDebug.l3("Found population of ${sectors[i].population} in sector [${sectorX(i)}][${sectorY(i)}] - growing")
+
+                sectors[i].growPopulation()
+
+                GBDebug.l3("New Population is ${sectors[i].population}")
+
+            }
+        }
+
+        val temps = IntArray(width*height) { i -> i - 0 }
+        val temps2 = temps.toCollection(ArrayList())
+        temps2.shuffle()
+
+        for (i in 0 until width * height) {
+
+            var from = temps2[i]
+
+            if (sectors[from].population > 0) {
+
+                GBDebug.l3("Found population of ${sectors[from].population} in sector [${sectorX(from)}][${sectorY(from)}] - migrating")
+
+                val movers = sectors[from].population * sectors[from].getOwner()!!.explore / 100
+
+                when(GBData.rand.nextInt(4)){
+                    0 -> migratePopulation(movers, from, east(from))
+                    1 -> migratePopulation(movers, from, west(from))
+                    2 -> migratePopulation(movers, from, north(from))
+                    3 -> migratePopulation(movers, from, south(from))
                 }
-            }
-        }
 
-        // Migration
-        // [kaladron] did one sector at a time in random order, then moved population out into random directions.
-        // In race conditions, it was random who populated a random sector
-        // TODO multiple races/planet: Add sectors to a a collection (with x,y), shuffle, iterate. RIP delta
-        val delta = Array(height) { IntArray(width) }
-        for (h in 0 until height) {
-            for (w in 0 until width) {
-                delta[h][w] = 0
-            }
-        }
-
-        for (h in 0 until height) {
-            for (w in 0 until width) {
-                if (sectors[h][w]!!.population > 0) {
-                    val movers = sectors[h][w]!!.population * sectors[h][w]!!.getOwner()!!.explore / 800 * 8
-                    // get a multiple of 8, so no rounding below
-                    GBDebug.l3(
-                        "Moving " + movers + " out of population of " + sectors[h][w]!!.population
-                                + " in sector [" + h + "][" + w + "]"
-                    )
-
-                    // Moving
-                    delta[h][w] -= movers
-                    delta[h][west(w)] += movers / 4
-                    delta[h][east(w)] += movers / 4
-
-                    if (h == 0) {
-                        delta[h][west(w)] += movers / 8
-                        delta[h][east(w)] += movers / 8
-                    } else {
-                        delta[h - 1][w] += movers / 4
-                    }
-
-                    if (h == height - 1) {
-                        delta[h][west(w)] += movers / 8
-                        delta[h][east(w)] += movers / 8
-                    } else {
-                        delta[h + 1][w] += movers / 4
-                    }
-                    GBDebug.l3("New population is " + sectors[h][w]!!.population);
-
-
-                } // if
-
-            }// for
-
-        }
-        for (h in 0 until height) {
-            for (w in 0 until width) {
-                //sectors[h][w]!!.population += delta[h][w]
-                //sectors[h][w]!!.setOwner(sectors[0][0]!!.getOwner()) // TODO Fix.
             }
         }
     }
 
+    fun migratePopulation(number: Int, from: Int, to: Int) {
+        // attempt to migrate population
+
+        if(sectors[to].getOwner() == null) {
+            //moving into an empty sector
+            GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Explore $number move")
+            sectors[from].population -= number
+            sectors[to].population += number
+            sectors[to].setOwner(sectors[from].getOwner())
+        } else if (sectors[to].getOwner() == sectors[from].getOwner()) {
+            //moving to a friendly sector
+            GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Reloc! $number move")
+            sectors[from].population -= number
+            sectors[to].population += number
+        } else {
+            // moving to an enemy sector
+            // We have a very simple form of war: They all die
+            GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Attack! $number die")
+            sectors[from].population -= number
+        }
+    }
+
+
+    /*
+
+    // Migration
+    // [kaladron] did one sector at a time in random order, then moved population out into random directions.
+    // In race conditions, it was random who populated a random sector
+    // TODO multiple races/planet: Add sectors to a a collection (with x,y), shuffle, iterate. RIP delta
+    val delta = Array(height) { IntArray(width) }
+    for (h in 0 until height) {
+        for (w in 0 until width) {
+            delta[h][w] = 0
+        }
+    }
+
+    for (h in 0 until height) {
+        for (w in 0 until width) {
+            if (sectors[h][w]!!.population > 0) {
+                val movers = sectors[h][w]!!.population * sectors[h][w]!!.getOwner()!!.explore / 800 * 8
+                // get a multiple of 8, so no rounding below
+                GBDebug.l3(
+                    "Moving " + movers + " out of population of " + sectors[h][w]!!.population
+                            + " in sector [" + h + "][" + w + "]"
+                )
+
+                // Moving
+                delta[h][w] -= movers
+                delta[h][west(w)] += movers / 4
+                delta[h][east(w)] += movers / 4
+
+                if (h == 0) {
+                    delta[h][west(w)] += movers / 8
+                    delta[h][east(w)] += movers / 8
+                } else {
+                    delta[h - 1][w] += movers / 4
+                }
+
+                if (h == height - 1) {
+                    delta[h][west(w)] += movers / 8
+                    delta[h][east(w)] += movers / 8
+                } else {
+                    delta[h + 1][w] += movers / 4
+                }
+                GBDebug.l3("New population is " + sectors[h][w]!!.population);
+
+
+            } // if
+
+        }// for
+
+    }
+    for (h in 0 until height) {
+        for (w in 0 until width) {
+            //sectors[h][w]!!.population += delta[h][w]
+            //sectors[h][w]!!.setOwner(sectors[0][0]!!.getOwner()) // TODO Fix.
+        }
+    }
+
+
+} // doPlanet
+
+*/
 
 }
 

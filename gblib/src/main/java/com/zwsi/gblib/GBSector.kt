@@ -14,9 +14,8 @@ class GBSector constructor() {
     var population = 0
 
     private var owner: GBRace? = null
-    private var ownerID = -1
+    private var ownerID: Int = -1
     private var ownerName = ""
-
 
     fun setOwner(r: GBRace?) {
         owner = r
@@ -24,6 +23,13 @@ class GBSector constructor() {
         ownerName = r!!.name
     }
 
+    fun growPopulation() {
+        population = population *  (100 + getBirthrate()) / 100
+    }
+
+    fun getBirthrate() : Int {
+        return owner?.birthrate ?: 0
+    }
     fun getOwner() : GBRace? {return owner}
 
     internal fun consoleDraw(): String {
