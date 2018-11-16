@@ -22,7 +22,7 @@ internal class GBData {
 
         private val rand = Random() // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
-        private const val NumberOfStars = 25
+        private const val NumberOfStars = 2
         private const val UniverseMaxX = 1000
         private const val UniverseMaxY = 1000
 

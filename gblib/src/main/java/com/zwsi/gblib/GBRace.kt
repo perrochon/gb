@@ -11,9 +11,9 @@
 
 package com.zwsi.gblib
 
-class GBRace(val uid: Int, val idx: Int) {
+class GBRace(val uId: Int, private val idx: Int) {
 
-    // sId is the "starID" (aka orbit), which planet of the parent star is this 0..
+    // uId is the Universe level ID (in Universe's list of races)
     // idx is the number to go look up in GBData. This will go away with race design
 
     val id: Int

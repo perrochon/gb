@@ -17,21 +17,24 @@ class GBSector constructor() {
     private var ownerID = -1
     private var ownerName = ""
 
+
     fun setOwner(r: GBRace?) {
         owner = r
-        ownerID = r!!.uid
+        ownerID = r!!.uId
         ownerName = r!!.name
     }
-    fun getOwner() : GBRace? {return owner}
 
+    fun getOwner() : GBRace? {return owner}
 
     internal fun consoleDraw(): String {
 
-        return if (population == 0) {
-            " $type_symbol "
+        if (population == 0) {
+            return " $type_symbol "
         } else {
             //return " \u001B[7m $type_symbol \u001B[m ";
-            "[$type_symbol]"
+            return " $ownerID "
+            return "[$type_symbol]"
+
         }
     }
 

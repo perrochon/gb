@@ -6,10 +6,10 @@
 package com.zwsi.gblib
 
 class GBStar internal constructor(
-    var uId: Int // sId is the "starID" (aka orbit), which planet of the parent star is this 0..
+    var uId: Int //
 ) {
 
-
+    private val id: Int
     private val nameIdx: Int
     val name: String // name of this system
     var index: Int = 0
@@ -24,6 +24,7 @@ class GBStar internal constructor(
         arrayOfNulls<GBPlanet>(numberOfPlanets) // the solar Systems // TODO make private an return copy in getter
 
     init {
+        id = GBData.getNextGlobalId()
         nameIdx = GBData.selectStarNameIdx()
         name = GBData.starNameFromIdx(nameIdx)
         makePlanets()

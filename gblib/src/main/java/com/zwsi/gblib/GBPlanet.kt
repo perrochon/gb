@@ -7,8 +7,8 @@ package com.zwsi.gblib
 class GBPlanet (val sId: Int) {
 
     // sId is the "starID" (aka orbit), which planet of the parent star is this 0..
-
     val id: Int
+    // val uId: Int // self-enter in universe's list of planets and assign uId
 
     private val nameIdx: Int
     val name: String
