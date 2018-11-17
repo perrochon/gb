@@ -71,12 +71,21 @@
             android:layout_marginRight="8dp" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/PlanetsButton" android:onClick="sendStars"/>
     <Button
-            android:text="Home"
+            android:text="X Home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/PlanetViewButton" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/XHomeButton"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/StarsButton" android:onClick="sendHome"/>
+            app:layout_constraintTop_toBottomOf="@+id/StarsButton" android:onClick="sendXHome"/>
+    <Button
+            android:text="I Home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/IHomeButton"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/XHomeButton" android:onClick="sendIHome"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/version" android:text="Version"
