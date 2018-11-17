@@ -110,7 +110,7 @@ class GBPlanet (val sId: Int) {
     }
 
     private fun south(x: Int): Int {
-        return if (x > (height-1) * width // last row
+        return if (x > (height-1) * width) // last row
             x   // south of south pole loops back to itself
         else
             x + width

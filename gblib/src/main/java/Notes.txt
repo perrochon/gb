@@ -22,8 +22,6 @@ Universe
 - Statistics on population, etc.
 
 Races
-- Statistics on population, resources, etc.
-- Second race in test
 
 Units
 - Pods
@@ -40,9 +38,10 @@ Interactivity
 Frontend
 - Handle killed process. Need to persist Universe?
 - Run GBTest on phone (text based)
-
 // Dealing with Killed applications, and destroyed activities...
 https://stackoverflow.com/questions/29701660/can-i-detect-if-android-has-killed-the-application-task-process-from-a-notific
+
+
 
 //
 // Content Sources used
