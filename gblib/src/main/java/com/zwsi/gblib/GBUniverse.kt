@@ -50,6 +50,7 @@ class GBUniverse internal constructor(
 
     private fun makeStars() {
         GBDebug.l3("Making Stars")
+        GBStar.resetStarCoordinates()
         for (i in 0 until numberOfStars) {
             stars[i] = GBStar(i)
         }

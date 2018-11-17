@@ -22,7 +22,7 @@ internal class GBData {
 
         val rand = Random() // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
-        private const val NumberOfStars = 8
+        private const val NumberOfStars = 24
         private const val UniverseMaxX = 1000
         private const val UniverseMaxY = 1000
 
@@ -74,43 +74,6 @@ internal class GBData {
             return height * 2
         }
 
-        // Get random, but universally distributed coordinates for stars
-        // Approach: break up the universe into n areas of equal size, and put one star in each area
-        // where n is the smallest square number bigger than numberOfStars. Then shuffle the areas as some will remain
-        // empty.
-        private var areas: ArrayList<Int> = ArrayList() // we fill it up on first call to GetStarCoordinates
-
-        fun getStarCoordinates() : IntArray {
-
-            val nos = NumberOfStars.toDouble()
-            val dim = java.lang.Math.ceil(java.lang.Math.sqrt(nos)).toInt()
-
-            if (areas.isEmpty()) {
-
-                // TODO Does this work? areas = IntArray(dim * dim) { i -> i-0}
-
-                for (i in 0 until dim * dim) {
-                    areas.add(i, i)
-                }
-                areas.shuffle()
-            }
-
-            val coordinates = IntArray(size = 2)
-            val area = areas.removeAt(0)
-
-            val areaX = area % dim   // coordinates of the chosen area
-            val areaY = area / dim   // coordinates of the chosen area
-            val areaWidth = UniverseMaxX / dim
-            val areaHeight = UniverseMaxY / dim
-            val marginX = areaWidth / 10 // no star in the edge of the area
-            val marginY = areaHeight / 10 // no star in the edge of the area
-
-            coordinates[0] = rand.nextInt(areaWidth - 2*marginX) + areaX * areaWidth + marginX
-            coordinates[1] = rand.nextInt(areaHeight - 2*marginY) + areaY * areaHeight + marginY
-
-            return coordinates
-
-        }
 
         // Stars
         // Stars from: https://github.com/kaladron/galactic-bloodshed/blob/master/data/star.list

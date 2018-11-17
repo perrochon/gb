@@ -25,9 +25,9 @@ class RaceActivity : AppCompatActivity() {
 
         stats.append("\n")
         stats.append("Name : " + (r!!.name) +"\n")
-        stats.append("Type : " + (r!!.birthrate) +"\n")
-        stats.append("Size : " + (r!!.explore) +"\n")
-        stats.append("Owner: " + (r!!.absorption) +"\n")
+        stats.append("Type : " + (r.birthrate) +"\n")
+        stats.append("Size : " + (r.explore) +"\n")
+        stats.append("Owner: " + (r.absorption) +"\n")
 
     }
 }

@@ -1,6 +1,7 @@
 package com.zwsi.gblib
 
 class GBController {
+
     companion object {
 
         var universe: GBUniverse? = null
@@ -20,17 +21,17 @@ class GBController {
         }
 
 
-        @JvmStatic
-        fun main(args: Array<String>) {
-
-            println("Welcome to GB Test")
-            val tester = GBTest()
-            GBTest.Companion.makeUniverse()
-            for (i in 0..3 ) GBTest.Companion.doUniverse()
-            println()
-            println("$gameTurns game turns done.")
-
-
-        }
+//        @JvmStatic
+//        fun main(args: Array<String>) {
+//
+//            println("Welcome to GB Test")
+//            val tester = GBTest()
+//            GBTest.Companion.makeUniverse()
+//            for (i in 0..3 ) GBTest.Companion.doUniverse()
+//            println()
+//            println("$gameTurns game turns done.")
+//
+//
+//        }
     }
 }
