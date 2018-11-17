@@ -18,9 +18,9 @@ class RaceActivity : AppCompatActivity() {
         val imageView = findViewById<ImageView>(R.id.RaceView)
 
         if (raceID == 0)
-            imageView.setImageResource(R.drawable.xenos)
+            imageView.setImageResource(R.drawable.xenost)
         else
-            imageView.setImageResource(R.drawable.impi)
+            imageView.setImageResource(R.drawable.impit)
 
 
         val universe = GBController.universe
