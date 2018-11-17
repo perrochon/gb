@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var version = findViewById<TextView>(R.id.version)
-        version.setText("0.0.0.74") // for now: 0.0.0.~ #commits...
+        version.setText("0.0.0.87") // for now: 0.0.0.~ #commits...
 
 
         if (GBController.universe == null) {
