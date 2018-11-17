@@ -60,6 +60,9 @@ https://assetstore.unity.com/packages/2d/environments/painted-2d-terrain-tiles-b
 Log
 ***
 
+2018-11-16
+Released .76 Bunch of bug fixes and small improvements. Added basic Race View Activity with a picture of an Impi
+
 2018-11-15
 Fully Migrating Java to Kotlin. Cleaning up lots of stuff while at it, like moving static data into GBData. Migration
 broke badly, and it was not clean with race allocation to sector, so commented out right now.
