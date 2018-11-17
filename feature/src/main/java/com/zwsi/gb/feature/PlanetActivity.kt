@@ -1,5 +1,6 @@
 package com.zwsi.gb.feature
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -10,6 +11,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBTest
+import android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+
 
 class PlanetActivity : AppCompatActivity() {
 
@@ -92,12 +98,27 @@ class PlanetActivity : AppCompatActivity() {
     fun colonize0(view: View) {
         val universe = GBTest.universe
         universe!!.landPopulation(p, 0)
+
+        //Redraw  - This is ugly, we should just get the Planet View to redraw
+        val intent = intent
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_NO_ANIMATION
+        finish()
+        startActivity(intent)
+
     }
 
     /** Called when the user taps the Stars button */
     fun colonize1(view: View) {
         val universe = GBTest.universe
         universe!!.landPopulation(p, 1)
+
+        //Redraw  - This is ugly, we should just get the Planet View to redraw
+        val intent = intent
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or
+                Intent.FLAG_ACTIVITY_NO_ANIMATION
+        finish()
+        startActivity(intent)
 
     }
 

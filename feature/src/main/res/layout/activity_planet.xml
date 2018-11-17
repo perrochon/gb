@@ -55,5 +55,4 @@
             app:layout_constraintTop_toBottomOf="@+id/PlanetStats"
             app:layout_constraintStart_toEndOf="@id/colonize0"
             app:layout_constraintEnd_toEndOf="parent" android:onClick="colonize1"/>
-
 </android.support.constraint.ConstraintLayout>
