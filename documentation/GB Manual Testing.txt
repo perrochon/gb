@@ -5,10 +5,10 @@ Kill existing versions of app
 Start App
 Click on Stars -> Are they well distributed
 Back
-Click on Planets -> Two should be populated
+Click on Planets -> Three should be populated
 Click on empty planet
-Click on "Impi" -> Nothing changes in view (bug)
-Back
+Click on "Impi" -> Impi land
+Back (that view is not updated <bug>
 Back
 Click on Planets -> Should see population
 Click on same empty planet -> Should see population
@@ -16,8 +16,10 @@ Back
 Back
 Click on Do -> watch text
 Click on Planets -> Should see increased population
-Click on Home
+Click on X Home -> Planet with Xenos
+Click on I Home -> Planet with Impi
 Back
+Click on Race -> See a race detail screen
 Click on Create -> watch text
 Back
 

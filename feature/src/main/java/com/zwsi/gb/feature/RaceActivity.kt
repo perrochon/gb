@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.ImageView
-import com.zwsi.gblib.GBTest
+import com.zwsi.gblib.GBController
 
 class RaceActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class RaceActivity : AppCompatActivity() {
         val paint = stats.paint
         paint.textSize = 40f
 
-        val universe = GBTest.universe
+        val universe = GBController.universe
         val races = universe!!.racesArray
         val r = races[0]
 

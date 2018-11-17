@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import com.zwsi.gblib.GBTest
+import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBUniverse
 
 class StarsActivity : AppCompatActivity() {
@@ -17,7 +17,7 @@ class StarsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stars)
 
-        var universe = GBTest.universe
+        var universe = GBController.universe
 
         var starField = findViewById<ImageView>(R.id.starField)
 

@@ -103,15 +103,15 @@ class GBPlanet (val sId: Int) {
     }
 
     private fun north(x: Int): Int {
-        return if (x / width == 0 )  // north of northpole loops back to itself
-            0
+        return if (x < width )  // first row
+            x // north of north pole loops back to itself
         else
             x - width
     }
 
     private fun south(x: Int): Int {
-        return if (x / width == height-1 )
-            height-1
+        return if (x > (height-1) * width // last row
+            x   // south of south pole loops back to itself
         else
             x + width
     }
@@ -169,6 +169,9 @@ class GBPlanet (val sId: Int) {
         // attempt to migrate population
 
         GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}]")
+
+        if (from == to) return
+        if (number == 0) return
 
         if(sectors[to].getOwner() == null) {
             //moving into an empty sector

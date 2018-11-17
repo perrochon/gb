@@ -13,7 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import com.zwsi.gblib.GBTest
+import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBUniverse
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -35,11 +35,11 @@ class MainActivity : AppCompatActivity() {
         version.setText("0.0.0.74") // for now: 0.0.0.~ #commits...
 
 
-        if (GBTest.universe == null) {
+        if (GBController.universe == null) {
 
             Thread(Runnable {
 
-                GBTest.makeUniverse()
+                GBController.makeUniverse()
 
             }).start()
 
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             val ps = PrintStream(baos)
             System.setOut(ps)
 
-            GBTest.makeUniverse()
+            GBController.makeUniverse()
 
             System.out.flush()
 
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             val ps = PrintStream(baos)
             System.setOut(ps)
 
-            GBTest.doUniverse()
+            GBController.doUniverse()
 
             System.out.flush()
 

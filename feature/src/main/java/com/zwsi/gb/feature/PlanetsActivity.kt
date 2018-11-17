@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
-import com.zwsi.gblib.GBTest
+import com.zwsi.gblib.GBController
 import android.support.constraint.ConstraintLayout
 import android.widget.TextView
 import android.support.constraint.ConstraintSet
@@ -60,7 +60,7 @@ class PlanetsActivity : AppCompatActivity() {
         // For now we show all planets, but eventually each race only sees what they can see
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
 
-        val universe = GBTest!!.universe
+        val universe = GBController!!.universe
         val stars = universe!!.stars
         for (s in stars) {
             val planets = universe!!.getPlanets(s!!)
