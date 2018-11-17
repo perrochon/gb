@@ -85,7 +85,7 @@ class PlanetActivity : AppCompatActivity() {
 
         paint.textSize = 40f
 
-        planetStats.setText("\n")
+        planetStats.append("\n")
         planetStats.append("Name :" + p.name + "\n")
         planetStats.append("System :" + stars[0]!!.name + "\n")
         planetStats.append("Type :" + p.type + "\n")

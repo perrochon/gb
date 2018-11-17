@@ -9,7 +9,7 @@ class GBUniverse internal constructor(
         internal set // the star Systems //
     // TODO need to figure out where these live
     internal var numberOfStars: Int = 0 // how many star Systems in the Universe
-    internal var racesArray: Array<GBRace?> // the star Systems //
+    var racesArray: Array<GBRace?> // the star Systems //
 
     val universeMaxX: Int
         get() = GBData.getUniverseMaxX()

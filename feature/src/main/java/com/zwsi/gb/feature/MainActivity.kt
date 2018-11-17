@@ -110,6 +110,12 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /** Called when the user taps the Races button */
+    fun sendRaces(view: View) {
+        val intent = Intent(this, RaceActivity::class.java)
+        startActivity(intent)
+    }
+
     /** Called when the user taps the X Home button */
     fun sendXHome(view: View) {
         val intent = Intent(this, PlanetActivity::class.java)

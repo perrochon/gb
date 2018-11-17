@@ -16,6 +16,8 @@
         </activity>
         <activity android:name=".PlanetActivity">
         </activity>
+        <activity android:name=".RaceActivity">
+        </activity>
     </application>
 
 </manifest>
