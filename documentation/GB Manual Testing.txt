@@ -3,7 +3,7 @@ Last Update 2018-11-15
 
 Kill existing versions of app
 Start App
-Click on Stars -> Are they well distributed
+Click on Stars -> Are they well distributed NO <bug>
 Back
 Click on Planets -> Three should be populated
 Click on empty planet
@@ -19,7 +19,10 @@ Click on Planets -> Should see increased population
 Click on X Home -> Planet with Xenos
 Click on I Home -> Planet with Impi
 Back
-Click on Race -> See a race detail screen
+Click on Xenos -> See Xenos detail screen
+Swipe left -> See Inti detail Screen
+Back
+Back 
 Click on Create -> watch text
 Back
 
