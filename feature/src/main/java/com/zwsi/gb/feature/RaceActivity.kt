@@ -12,22 +12,37 @@ class RaceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_race)
 
-        val imageView = findViewById<ImageView>(R.id.RaceView)
-        imageView.setImageResource(R.drawable.impi)
+        val intent = getIntent()
+        val raceID = intent.getIntExtra("race", -1)
 
-        val stats = findViewById<TextView>(R.id.RaceStats)
-        val paint = stats.paint
-        paint.textSize = 40f
+        val imageView = findViewById<ImageView>(R.id.RaceView)
+
+        if (raceID == 0)
+            imageView.setImageResource(R.drawable.xenos)
+        else
+            imageView.setImageResource(R.drawable.impi)
+
 
         val universe = GBController.universe
         val races = universe!!.racesArray
-        val r = races[0]
+        val r = races[raceID]
+
+        var stats = findViewById<TextView>(R.id.RaceStats)
+        var paint = stats.paint
+        paint.textSize = 40f
 
         stats.append("\n")
         stats.append("Name : " + (r!!.name) +"\n")
         stats.append("Type : " + (r.birthrate) +"\n")
         stats.append("Size : " + (r.explore) +"\n")
         stats.append("Owner: " + (r.absorption) +"\n")
+
+        stats = findViewById<TextView>(R.id.RaceBackground)
+        paint = stats.paint
+        paint.textSize = 40f
+
+        stats.append("\n")
+        stats.append(r.description)
 
     }
 }

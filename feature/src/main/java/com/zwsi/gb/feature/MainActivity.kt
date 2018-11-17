@@ -111,8 +111,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Races button */
-    fun sendRaces(view: View) {
+    fun sendXenos(view: View) {
         val intent = Intent(this, RaceActivity::class.java)
+        intent.putExtra("race", 0)
+        startActivity(intent)
+    }
+
+    /** Called when the user taps the Races button */
+    fun sendImpi(view: View) {
+        val intent = Intent(this, RaceActivity::class.java)
+        intent.putExtra("race", 1)
         startActivity(intent)
     }
 

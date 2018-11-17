@@ -125,16 +125,22 @@ internal class GBData {
         data class RaceData(val name: String,
                             val birthrate: Int, // 00...100 (originally 0..1?)
                             val explore: Int, // adventurism 00..100 (originally percent)
-                            val absorption: Int)
+                            val absorption: Int,
+                            val description: String)
 
         private val races = hashMapOf(
-            0 to RaceData("Xenos", 50, 20, 20),
-            1 to RaceData("Inti", 20, 50, 10))
+            0 to RaceData("Xenos", 50, 20, 20,"Xenos can’t burn, they can’t " +
+                    "suffocate, they can glide, they can run at 20 mph, they can find underground materials fast, " +
+                    "and they walk at 5mph, they glide at 65mph."),
+            1 to RaceData("Impi", 20, 50, 10,  "Impi can breath underwater, " +
+                    "they swim at 80mph, they can change color like a chameleon, they run at 30 mph, they walk at 5.3mph, " +
+                    "and can use all four hands for piloting, fighting and other activities."))
 
         fun getRaceName (idx: Int) : String { return races.get(idx)!!.name}
         fun getRaceBirthrate (idx: Int) : Int { return races.get(idx)!!.birthrate}
         fun getRaceExplore (idx: Int) : Int { return races.get(idx)!!.explore}
         fun getRaceAbsorption (idx: Int) : Int { return races.get(idx)!!.absorption}
+        fun getRaceDescription (idx: Int) : String { return races.get(idx)!!.description}
     }
 
 

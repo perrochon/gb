@@ -71,12 +71,19 @@
             android:layout_marginRight="8dp" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/PlanetsButton" android:onClick="sendStars"/>
     <Button
-            android:text="Race"
+            android:text="Xenos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/RacesButton" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/XenosButton" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/StarsButton" android:onClick="sendRaces"/>
+            app:layout_constraintTop_toBottomOf="@+id/StarsButton" android:onClick="sendXenos"/>
+    <Button
+            android:text="Impi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ImpiButton" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="8dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/XenosButton" android:onClick="sendImpi"/>
     <Button
             android:text="X Home"
             android:layout_width="wrap_content"
@@ -84,7 +91,7 @@
             android:id="@+id/XHomeButton"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/RacesButton" android:onClick="sendXHome"/>
+            app:layout_constraintTop_toBottomOf="@+id/ImpiButton" android:onClick="sendXHome"/>
     <Button
             android:text="I Home"
             android:layout_width="wrap_content"

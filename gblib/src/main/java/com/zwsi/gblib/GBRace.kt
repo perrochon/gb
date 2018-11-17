@@ -21,6 +21,7 @@ class GBRace(val uId: Int, private val idx: Int) {
     val birthrate: Int
     val explore: Int
     val absorption: Int
+    val description: String
     // val planets: Array<GBPlanet>? = null
 
     init {
@@ -29,6 +30,7 @@ class GBRace(val uId: Int, private val idx: Int) {
         birthrate = GBData.getRaceBirthrate(idx)
         explore = GBData.getRaceExplore(idx)
         absorption= GBData.getRaceAbsorption(idx)
+        description = GBData.getRaceDescription(idx)
 
         GBDebug.l2("Created Race $name with birthrate $birthrate")
 
