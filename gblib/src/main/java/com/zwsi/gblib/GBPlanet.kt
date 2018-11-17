@@ -4,6 +4,8 @@
 
 package com.zwsi.gblib
 
+import java.io.ByteArrayOutputStream
+import java.io.PrintStream
 import java.lang.Math.sqrt
 
 class GBPlanet (val sId: Int) {
@@ -88,13 +90,16 @@ class GBPlanet (val sId: Int) {
 
     private fun west(x: Int): Int {
         return if (x % width == 0)
-            width-1
+            x+width-1
         else
             x - 1
     }
 
     private fun east(x: Int): Int {
-        return (x + 1) % width
+        return if (x % width == width-1)
+            x+1-width
+        else
+            x + 1
     }
 
     private fun north(x: Int): Int {
@@ -189,6 +194,8 @@ class GBPlanet (val sId: Int) {
         GBDebug.l3("GBPlanet: Landing $number of ${r.name}")
         sectors[GBData.rand.nextInt(width*height)].landPopulation(r, number)
     }
+
+
 
 
     /*
