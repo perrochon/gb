@@ -36,6 +36,8 @@ Interactivity
 - ship battle
 
 Frontend
+- Swipes.. https://developer.android.com/reference/android/support/v4/view/ViewPager
+https://www.youtube.com/watch?v=R_AIUy7tFVA
 - Handle killed process. Need to persist Universe?
 - Run GBTest on phone (text based)
 // Dealing with Killed applications, and destroyed activities...
