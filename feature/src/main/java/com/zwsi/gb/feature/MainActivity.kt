@@ -114,8 +114,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Races button */
     fun sendImpi(view: View) {
-        val intent = Intent(this, RaceActivity::class.java)
-        intent.putExtra("race", 1)
+        val intent = Intent(this, PlanetsSlideActivity::class.java)
         startActivity(intent)
     }
 
