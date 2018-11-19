@@ -102,8 +102,8 @@ class GBStar internal constructor(
         val areaY = area / dim   // coordinates of the chosen area
         val areaWidth = GBData.getUniverseMaxX()/ dim
         val areaHeight = GBData.getUniverseMaxY() / dim
-        val marginX = areaWidth / 3 // no star in the edge of the area
-        val marginY = areaHeight / 3 // no star in the edge of the area
+        val marginX = areaWidth / 10 // no star in the edge of the area
+        val marginY = areaHeight / 10 // no star in the edge of the area
 
         GBDebug.l3("Adding Star to area "+area+"["+areaX+"]["+areaY+"] ("+areaWidth+"x"+areaHeight+"){"+marginX+", " + marginY+ "}")
 
