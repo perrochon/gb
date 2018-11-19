@@ -15,7 +15,7 @@ class GBTest {
         private var gameTurns = 0
         fun makeUniverse() {
             GBDebug.l1("Making Universe")
-            universe = GBUniverse(2)
+            universe = GBUniverse(2,2)
             universe!!.consoleDraw()
         }
 

@@ -1,35 +1,32 @@
 package com.zwsi.gblib
 
-class GBUniverse internal constructor(
-    internal var numberOfRaces: Int // how many star Systems in the Universe
-) {
+class GBUniverse {
+
+    internal var numberOfStars: Int
+    internal var numberOfRaces: Int
+
+    // how many star Systems in the Universe
+    internal constructor(numberOfStars: Int, numberOfRaces: Int) {
+        this.numberOfStars = numberOfStars
+        this.numberOfRaces = numberOfRaces
+        stars = arrayOfNulls(size = numberOfStars)
+        racesArray = arrayOfNulls(numberOfRaces)
+        GBDebug.l3("Making Stars")
+        makeStars()
+        makeRaces()
+        GBDebug.l3("Universe made")
+    }
 
     // All these variables are package private, because (for now?) we trust the package
     var stars: Array<GBStar?>
         internal set // the star Systems //
     // TODO need to figure out where these live
-    internal var numberOfStars: Int = 0 // how many star Systems in the Universe
     var racesArray: Array<GBRace?> // the star Systems //
 
     val universeMaxX: Int
         get() = GBData.getUniverseMaxX()
     val universeMaxY: Int
         get() = GBData.getUniverseMaxY()
-
-    init {
-
-        this.numberOfStars = GBData.getNumberOfStars()
-        stars = arrayOfNulls(size = numberOfStars)
-        racesArray = arrayOfNulls(numberOfRaces)
-
-        // Place Stars
-        GBDebug.l3("Making Stars")
-        makeStars()
-
-        makeRaces()
-
-        GBDebug.l3("Universe made")
-    }
 
     internal fun consoleDraw() {
         println("=============================================")
