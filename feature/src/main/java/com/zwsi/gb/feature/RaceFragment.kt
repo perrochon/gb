@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gblib.GBController
 
-
 class RaceFragment : Fragment() {
 
     companion object {

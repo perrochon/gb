@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        setTheme(R.style.AppTheme) // Switch back from the Launcher Theme
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
