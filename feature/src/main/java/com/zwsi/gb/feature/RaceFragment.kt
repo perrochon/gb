@@ -20,7 +20,7 @@ class RaceFragment : Fragment() {
 
             val bdl = Bundle(1)
 
-            bdl.putString("Race uId", message)
+            bdl.putString("uId", message)
 
             f.setArguments(bdl)
 
@@ -40,12 +40,9 @@ class RaceFragment : Fragment() {
         var view: View? = inflater.inflate(R.layout.fragment_race, container, false);
 
 
-        var textView: TextView = view!!.findViewById(R.id.text)
-        textView!!.text = arguments!!.getString("Race uId")
+        val raceID = arguments!!.getString("uId").toInt()
 
-        val raceID = arguments!!.getString("Race uId").toInt()
-
-        val imageView = view.findViewById<ImageView>(R.id.RaceView)
+        val imageView = view!!.findViewById<ImageView>(R.id.RaceView)
 
         if (raceID == 0)
             imageView.setImageResource(R.drawable.xenost)
@@ -67,7 +64,7 @@ class RaceFragment : Fragment() {
         stats.append("Size : " + (r.explore) + "\n")
         stats.append("Owner: " + (r.absorption) + "\n")
 
-        stats = view.findViewById<TextView>(R.id.RaceBackground)
+        stats = view!!.findViewById<TextView>(R.id.RaceBackground)
         paint = stats.paint
         paint.textSize = 40f
 

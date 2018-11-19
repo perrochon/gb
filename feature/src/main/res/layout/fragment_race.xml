@@ -3,37 +3,17 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@android:color/transparent"
         android:layout_height="match_parent">
 
-    <ImageView
-            android:layout_width="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/starfield"
-            android:alpha="1" android:id="@+id/imageView" android:contentDescription="@string/orion_nebula"
-            android:layout_height="match_parent"/>
-    <TextView
-            android:padding="12dp"
-            android:background="#000"
-            android:id="@+id/text"
-            android:layout_centerInParent="true"
-            android:textSize="22dp"
-            android:textAllCaps="true"
-            android:text="Fragment ONE"
-            android:textAlignment="center"
-            android:textColor="@android:color/holo_orange_light"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
+
     <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:id="@+id/RaceView"
             app:srcCompat="@drawable/impi"
-            android:layout_marginTop="50dp" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imageView" android:layout_marginLeft="8dp"
+            android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"/>
     <TextView

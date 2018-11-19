@@ -24,12 +24,9 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
 
-        var race = 0
-        for (i in 1..100) {
-            var r0: RaceFragment = PlanetFragment.newInstance("0")
-            adapter.addFragment(r0, race++.toString())
-            var r1: RaceFragment = PlanetFragment.newInstance("1")
-            adapter.addFragment(r1, race++.toString())
+        for (i in 1..2) {
+            var r0: PlanetFragment = PlanetFragment.newInstance("0")
+            adapter.addFragment(r0, i.toString())
         }
 
         viewpager.adapter = adapter
