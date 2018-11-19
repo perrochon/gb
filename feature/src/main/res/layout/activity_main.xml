@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/CreateButton"
-            android:onClick="sendCreate"
+            android:onClick="create"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp" android:alpha="100"/>
@@ -51,39 +51,25 @@
             android:layout_height="wrap_content"
             android:id="@+id/DoButton"
             android:text="@string/button_Do"
-            android:onClick="sendDo"
+            android:onClick="doUniverse"
             app:layout_constraintTop_toBottomOf="@+id/CreateButton"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="8dp"/>
-    <Button
-            android:text="Planets"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/PlanetsButton" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/DoButton" android:onClick="sendPlanets"/>
     <Button
             android:text="Stars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/StarsButton" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/PlanetsButton" android:onClick="sendStars"/>
+            app:layout_constraintTop_toBottomOf="@+id/DoButton" android:onClick="stars"/>
     <Button
-            android:text="Xenos"
+            android:text="Planets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/XenosButton" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/PlanetsButton" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/StarsButton" android:onClick="sendXenos"/>
-    <Button
-            android:text="Impi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ImpiButton" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/XenosButton" android:onClick="sendImpi"/>
+            app:layout_constraintTop_toBottomOf="@+id/StarsButton" android:onClick="planets"/>
     <Button
             android:text="Races"
             android:layout_width="wrap_content"
@@ -91,7 +77,7 @@
             android:id="@+id/XHomeButton"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginRight="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/ImpiButton" android:onClick="races"/>
+            app:layout_constraintTop_toBottomOf="@+id/PlanetsButton" android:onClick="races"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/version" android:text="Version"

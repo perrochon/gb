@@ -13,9 +13,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp" android:layout_marginRight="32dp" android:layout_marginLeft="32dp"
+            android:layout_marginStart="32dp"/>
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/PlanetStats"
@@ -26,7 +26,8 @@
             android:layout_marginRight="8dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" android:text="Planet" android:textSize="24sp"/>
+            android:layout_marginStart="8dp" android:text="Planet" android:textSize="24sp"
+            android:layout_marginTop="8dp"/>
     <Button
             android:text="Xenos"
             android:layout_width="wrap_content"

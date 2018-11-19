@@ -10,7 +10,8 @@
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/orionnebula"
-            android:alpha="1" android:id="@+id/imageView"
+            android:alpha="1"
+            android:id="@+id/imageView"
             android:contentDescription="@string/orion_nebula"
             android:layout_height="match_parent" app:srcCompat="@drawable/orionnebula"/>
 

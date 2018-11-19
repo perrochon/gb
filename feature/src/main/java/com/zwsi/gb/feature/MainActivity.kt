@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var version = findViewById<TextView>(R.id.version)
+        val version = findViewById<TextView>(R.id.version)
         version.setText("0.0.0.97") // for now: 0.0.0.~ #commits...
 
 
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
 
     /** Called when the user taps the Create button */
-    fun sendCreate(view: View) {
+    fun create(view: View) {
 
         output.setText("")
 
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Do button */
-    fun sendDo(view: View) {
+    fun doUniverse(view: View) {
 
         output.setText("")
 
@@ -93,27 +93,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    /** Called when the user taps the Planets button */
-    fun sendPlanets(view: View) {
-        val intent = Intent(this, PlanetsActivity::class.java)
-        startActivity(intent)
-    }
-
     /** Called when the user taps the Stars button */
-    fun sendStars(view: View) {
+    fun stars(view: View) {
         val intent = Intent(this, StarsActivity::class.java)
         startActivity(intent)
     }
 
-    /** Called when the user taps the Races button */
-    fun sendXenos(view: View) {
-        val intent = Intent(this, RaceActivity::class.java)
-        intent.putExtra("race", 0)
-        startActivity(intent)
-    }
-
-    /** Called when the user taps the Races button */
-    fun sendImpi(view: View) {
+    /** Called when the user taps the Planets button */
+    fun planets(view: View) {
         val intent = Intent(this, PlanetsSlideActivity::class.java)
         startActivity(intent)
     }
@@ -123,21 +110,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, RacesSlideActivity::class.java)
         startActivity(intent)
     }
-
-//    /** Called when the user taps the X Home button */
-//    fun sendXHome(view: View) {
-//        val intent = Intent(this, PlanetActivity::class.java)
-//        intent.putExtra("star", 0)
-//        intent.putExtra("planet", 0)
-//        startActivity(intent)
-//    }
-//    /** Called when the user taps the I Home button */
-//    fun sendIHome(view: View) {
-//        val intent = Intent(this, PlanetActivity::class.java)
-//        intent.putExtra("star", 1)
-//        intent.putExtra("planet", 0)
-//        startActivity(intent)
-//    }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
