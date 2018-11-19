@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.zwsi.gblib.GBController
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -48,6 +49,9 @@ class MainActivity : AppCompatActivity() {
 
         output.setText("")
 
+        val message = "Recreating the Universe"
+        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+
         Thread(Runnable {
 
             // Capture output from tester in an byte array
@@ -72,6 +76,10 @@ class MainActivity : AppCompatActivity() {
     fun doUniverse(view: View) {
 
         output.setText("")
+
+        val message = "Running one turn"
+        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+
 
         Thread(Runnable {
 
