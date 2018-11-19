@@ -3,18 +3,11 @@ package com.zwsi.gb.feature
 //import android.content.Intent
 //import android.graphics.Bitmap
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBUniverse
 import kotlinx.android.synthetic.main.activity_main.*
 
 // To redirect stdout to the text view
@@ -128,7 +121,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Races button */
     fun races(view: View) {
-        val intent = Intent(this, RaceSlide::class.java)
+        val intent = Intent(this, RacesSlideActivity::class.java)
         startActivity(intent)
     }
 
