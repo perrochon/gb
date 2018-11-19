@@ -11,9 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBController
-import android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 
 
 class PlanetActivity : AppCompatActivity() {
@@ -42,7 +39,7 @@ class PlanetActivity : AppCompatActivity() {
         val planetID = intent.getIntExtra("planet", -1)
 
         val universe = GBController.universe
-        val stars = universe!!.stars
+        val stars = universe!!.allStars
         val planets = universe!!.getPlanets(stars[starID]!!)
         p = planets[planetID]!!
 

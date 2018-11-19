@@ -2,8 +2,8 @@
 
 // GBData contain
 //  - All the global static data // TODO read data from a config file or other external data source
-//    includes names, types and other attributes of stars, planets, sectors
-//  - All the creation logic for stars, planets, sectors
+//    includes names, types and other attributes of allStars, allPlanets, sectors
+//  - All the creation logic for allStars, allPlanets, sectors
 //
 // GB Data is a separate class because later we want to read this from an external source (JSON file, web, db, etc.)
 

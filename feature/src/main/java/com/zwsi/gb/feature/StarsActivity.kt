@@ -3,13 +3,11 @@ package com.zwsi.gb.feature
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
-import android.graphics.Paint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBUniverse
 
 class StarsActivity : AppCompatActivity() {
 
@@ -35,7 +33,7 @@ class StarsActivity : AppCompatActivity() {
         var merged = Bitmap.createBitmap(universe!!.universeMaxX, universe!!.universeMaxY, bs.config);
         var canvas = Canvas(merged);
 
-        val stars = universe!!.stars
+        val stars = universe!!.allStars
         for (s in stars) {
             canvas.drawBitmap(bs, s!!.x.toFloat(), s.y.toFloat(), null)
             canvas.drawText(s!!.name,s!!.x.toFloat() + 30, s!!.y.toFloat()+10, paint)

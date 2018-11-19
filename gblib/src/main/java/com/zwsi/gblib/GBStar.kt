@@ -7,16 +7,17 @@ package com.zwsi.gblib
 
 import java.util.ArrayList
 
-class GBStar {
+class GBStar(val uId: Int, val universe: GBUniverse) {
 
-    var uId: Int
-    var universe: GBUniverse
+    private val id: Int
+    private val nameIdx: Int
+    val name: String // name of this system
+    val x: Int // x coordinate
+    val y: Int // y coordinate
+    var starPlanets: MutableList<GBPlanet> = arrayListOf() // the plents of this system
+    private val numberOfPlanets = 2 // how many Planets in this solar Systems
 
-    //
-    internal constructor(uId: Int, GBUniverse: GBUniverse) {
-        this.uId = uId
-        this.universe = GBUniverse
-        this.planetsArray = arrayOfNulls<GBPlanet>(numberOfPlanets)
+    init {
         id = GBData.getNextGlobalId()
         nameIdx = GBData.selectStarNameIdx()
         name = GBData.starNameFromIdx(nameIdx)
@@ -27,19 +28,8 @@ class GBStar {
         y = coordinates[1]
     }
 
-    private val id: Int
-    private val nameIdx: Int
-    val name: String // name of this system
     var index: Int = 0
         internal set // which position in Universe's star array
-
-    private val numberOfPlanets = 2 // how many Planets in this solar Systems
-
-    val x: Int // x coordinate
-    val y: Int // y coordinate
-
-    var planetsArray: Array<GBPlanet?>
-    // the solar Systems // TODO make private an return copy in getter
 
 
     companion object {
@@ -47,8 +37,8 @@ class GBStar {
 
         // TODO This smells. Caller universe has to clear GBStar's data structue.
         // Also, knowing areas (and keeping them) at a higher level, if they are made hierarchical
-        // (Say 4 areas each with 5 sub-areas, then place stars into sub area) then place one race in each area.
-        // Of course for 17 races, this would lead to three levels with 64 sub-sub-areas. Quadratic may be better.
+        // (Say 4 areas each with 5 sub-areas, then place allStars into sub area) then place one race in each area.
+        // Of course for 17 allRaces, this would lead to three levels with 64 sub-sub-areas. Quadratic may be better.
 
         fun resetStarCoordinates() { areas.clear() }
     }
@@ -59,9 +49,9 @@ class GBStar {
         println("  " + "====================")
         println("  The $name system contains $numberOfPlanets planet(s).")
 
-        for (i in planetsArray) {
+        for (i in starPlanets) {
 
-            i?.consoleDraw()
+            i.consoleDraw()
         }
 
     }
@@ -69,13 +59,15 @@ class GBStar {
     private fun makePlanets() {
         GBDebug.l3("Making Planets for star $name")
 
-        for (i in planetsArray.indices) {
-            planetsArray[i] = GBPlanet(i)
+        for (i in 0..numberOfPlanets) {
+            val p = GBPlanet(i, universe)
+            starPlanets.add(p)
+
         }
 
     }
 
-    // Get random, but universally distributed coordinates for stars
+    // Get random, but universally distributed coordinates for allStars
     // Approach: break up the universe into n areas of equal size, and put one star in each area
     // where n is the smallest square number bigger than numberOfStars. Then shuffle the areas as some will remain
     // empty.

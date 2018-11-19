@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.view.GestureDetector
 import android.view.GestureDetector.OnGestureListener
 import android.view.MotionEvent
-import android.view.View
 import android.widget.TextView
 import android.widget.ImageView
 import com.zwsi.gblib.GBController
-import android.widget.Toast // TODO remove toast
 
 class RaceActivity : AppCompatActivity(), OnGestureListener {
 
@@ -33,7 +31,7 @@ class RaceActivity : AppCompatActivity(), OnGestureListener {
 
 
         val universe = GBController.universe
-        val races = universe!!.racesArray
+        val races = universe!!.allRaces
         val r = races[raceID]
 
         var stats = findViewById<TextView>(R.id.RaceStats)

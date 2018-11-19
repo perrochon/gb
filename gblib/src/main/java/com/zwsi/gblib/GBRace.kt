@@ -13,7 +13,7 @@ package com.zwsi.gblib
 
 class GBRace(val uId: Int, private val idx: Int) {
 
-    // uId is the Universe level ID (in Universe's list of races)
+    // uId is the Universe level ID (in Universe's list of allRaces)
     // idx is the number to go look up in GBData. This will go away with race design
 
     val id: Int
@@ -22,7 +22,7 @@ class GBRace(val uId: Int, private val idx: Int) {
     val explore: Int
     val absorption: Int
     val description: String
-    // val planets: Array<GBPlanet>? = null
+    // val allPlanets: Array<GBPlanet>? = null
 
     init {
         id = GBData.getNextGlobalId()
@@ -91,9 +91,9 @@ of each race:
 		by the race's intelligence. The technology increase per
 		update is IQ/100. Additional technology boosts for a race
 		is controlled by technology investments by the individual
-		planets under the player's control.
+		allPlanets under the player's control.
 
-		   Collective intelligence is related to the races total
+		   Collective intelligence is related to the allRaces total
 		population, a sort of collective intelligence. Specifically,
 		C IQ = 200* [ (2/PI) atan(population/50000)]^2. It's usually
 		a good idea to take advantage of the 'technology investment'
@@ -101,7 +101,7 @@ of each race:
 
 	6) Adventurism - This described how often a sector's
 		population wants to move and explore other sectors.
-		High value tend to explore and conquer planets on their
+		High value tend to explore and conquer allPlanets on their
 		own more efficiently. If you have a low value, you can
 		order movements with the 'move' option.
 
@@ -111,7 +111,7 @@ of each race:
 		values for colonization efforts.
 
 	8) Metabolism - This value controls how industrious the race. Higher
-		metabolism races will produce resources more rapidly than
+		metabolism allRaces will produce resources more rapidly than
 		lower metabolisms.
 
         9) Fertilize - This attribute represents the percentage chance that
@@ -129,10 +129,10 @@ there are 11 basic attributes for each race:
 ** Absorbtion -- Only metamorphs may have this attribute, which allows them to
         absorb enemy troops and civilians in combat if the morph wins.
         Combined with pods, it allows metamorphs to replace alien population
-        on planets when pods burst.
+        on allPlanets when pods burst.
 
 ** Adventurism -- This described how willing a sector's population is to
-        move and explore other sectors.  High value tend to settle planets on
+        move and explore other sectors.  High value tend to settle allPlanets on
         their own far more efficiently. If you have a low value, you can order
         movements with the 'move' option.
 
@@ -154,7 +154,7 @@ there are 11 basic attributes for each race:
 ** IQ -- The raw growth rate of a race's technology is governed by the race's
         intelligence.  The technology increase per update is IQ/100.  Addi-
         tional technology gain is available by technology investments on the
-        individual planets under the race's control.
+        individual allPlanets under the race's control.
 
 ** Collective IQ; IQ limit -- The intelligence of a race with collective IQ is
         related to the race's total population, as follows:
@@ -167,13 +167,13 @@ there are 11 basic attributes for each race:
         will take to launch and land ships full of the race.
 
 ** Metabolism -- This value controls how industrious the race is.  Higher
-        metabolism races will produce resources more rapidly than lower
+        metabolism allRaces will produce resources more rapidly than lower
         metabolisms, and also increase the efficiency of sectors faster.
 
 ** Pods -- Pods are small ships, available only to metamorphs but at tech
-        level 0, buildable instantly on the surface of planets.  Each one may
+        level 0, buildable instantly on the surface of allPlanets.  Each one may
         carry a single crew-thing; this makes them ideal for settling other
-        planets.  Pods which enter a system after having frozen in deep
+        allPlanets.  Pods which enter a system after having frozen in deep
         space will warm and eventually burst, possibly leading to spores
         landing on worlds in the new system.  If a spore lands on a sector, a
         ton or more of biomass will be created, resulting in a new colony for
@@ -194,11 +194,11 @@ https://en.wikipedia.org/wiki/Old_Man%27s_War#Alien_species copied 11/11/2018
 
 Consu
 The Consu are a fierce, technologically advanced, and strongly religious alien race. They believe in helping deserving
-races reach "Ungkat", a state of perfection for a whole race.[7][8] The Consu are the most advanced alien race presented
+allRaces reach "Ungkat", a state of perfection for a whole race.[7][8] The Consu are the most advanced alien race presented
 in the Old Man's War.[8] Their home system is surrounded by a Dyson sphere, which harnesses all the energy output of its
 local sun, a dwarf star, to make it impenetrable to the weapons and technology of every other known species. The Consu
 possess technology so advanced that even the CDF is unable to reverse-engineer or even fully understand it, such as
-tachyon detectors. Despite being the most technologically advanced out of all the alien races presented in the novel, in
+tachyon detectors. Despite being the most technologically advanced out of all the alien allRaces presented in the novel, in
 any conflict the Consu will scale their weapons technology to that of their opponent in order to keep the battle fair.[9]
 Unlike other alien species, the Consu do not fight for territory, but for religious motives, believing that any aliens
 killed by Consu warriors are thereby guaranteed another place in the cycle of creation. The Consu rarely meet with
@@ -207,7 +207,7 @@ is killed and its atoms shot into a black hole so that they can't defile any oth
 
 Covandu
 The Covandu are a liliputian species, the tallest only measuring an inch, but otherwise very similar to humans. Their
-aggression in colonizing planets is similar to humans' as well, sometimes causing conflict. One human colony was taken
+aggression in colonizing allPlanets is similar to humans' as well, sometimes causing conflict. One human colony was taken
 over by Covandu when it was abandoned due to a virus (which did not affect the Covandu). After developing a vaccine,
 humans returned to take it back by force.
 
@@ -225,7 +225,7 @@ to them by the Consu enabled them to wipe out an entire fleet of CDF ships witho
 
 Whaidian
 The Whaidians are an alien species that have an appearance similar to that of a "cross between black bear and a large
-flying squirrel." Their home consists of small planets that are linked together. They are artistically gifted and are
+flying squirrel." Their home consists of small allPlanets that are linked together. They are artistically gifted and are
 nearly as technologically advanced as the CDF. For this reason they are targeted by the CDF and their spaceport is
 completely destroyed by a fleet of CDF ships. [12]
  */

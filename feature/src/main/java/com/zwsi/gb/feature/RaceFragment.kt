@@ -1,7 +1,6 @@
 package com.zwsi.gb.feature
 
 import android.os.Bundle
-import android.provider.AlarmClock
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +50,7 @@ class RaceFragment : Fragment() {
 
 
         val universe = GBController.universe
-        val races = universe!!.racesArray
+        val races = universe!!.allRaces
         val r = races[raceID]
 
         var stats = view.findViewById<TextView>(R.id.RaceStats)

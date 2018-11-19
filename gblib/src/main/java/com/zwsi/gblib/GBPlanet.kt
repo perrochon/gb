@@ -8,12 +8,12 @@ import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.lang.Math.sqrt
 
-class GBPlanet (val sId: Int) {
+class GBPlanet (val sId: Int, val universe: GBUniverse) {
     // sId is the "starID" (aka orbit), which planet of the parent star is this 0..
 
     val id: Int
 
-    // TODO val uId: Int // self-enter in universe's list of planets and assign uId
+    var uId: Int
 
     private val nameIdx: Int
     val name: String
@@ -42,6 +42,9 @@ class GBPlanet (val sId: Int) {
         id = GBData.getNextGlobalId()
         nameIdx = GBData.selectPlanetNameIdx()
         typeIdx = GBData.selectPlanetTypeIdx()
+
+        universe.allPlanets.add(this)
+        uId = universe.allPlanets.indexOf(this)
 
         // Make Sectors
         // Get random width and corresponding height within type appropriate bounds (e.g. jovians are bigger
@@ -172,6 +175,7 @@ class GBPlanet (val sId: Int) {
 
         if (from == to) return
         if (number == 0) return
+        if (to >= sectors.size) return // TODO: This should never happen, but does in some cases. Need to debu
 
         if(sectors[to].getOwner() == null) {
             //moving into an empty sector
@@ -206,7 +210,7 @@ class GBPlanet (val sId: Int) {
     // Migration
     // [kaladron] did one sector at a time in random order, then moved population out into random directions.
     // In race conditions, it was random who populated a random sector
-    // TODO multiple races/planet: Add sectors to a a collection (with x,y), shuffle, iterate. RIP delta
+    // TODO multiple allRaces/planet: Add sectors to a a collection (with x,y), shuffle, iterate. RIP delta
     val delta = Array(height) { IntArray(width) }
     for (h in 0 until height) {
         for (w in 0 until width) {
@@ -267,12 +271,12 @@ class GBPlanet (val sId: Int) {
 /*
 http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
 
-Class M -    - These planets are usually about 60% water, 20% land, and an
+Class M -    - These allPlanets are usually about 60% water, 20% land, and an
                even mix of everything else.  Once in a while, you'll find
                a class M with an abnormal atmosphere (like heavy in
                methane content).
 
-Jovian -     - These planets are 100% gaseous, and they are usually
+Jovian -     - These allPlanets are 100% gaseous, and they are usually
                twice as large as the typical class M planet.  They tend
                to be very high in fertility, too, so you can easily build
                up a large population for taxation and tech purposes.
@@ -281,35 +285,35 @@ Jovian -     - These planets are 100% gaseous, and they are usually
                so even if you're not a Jovian-typeIdx race, having one of
                these nearby can be a tremendous asset.
 
-Water -      - These are largely water planets, and I've found that they
+Water -      - These are largely water allPlanets, and I've found that they
                are generally resource poor.  They can be quite large, ranging
                up in size to class M quality, but they are usually about 40%
                smaller. On some versions there is also mountain sectors. That
                will rise the resource deposity a lot.
 
-Desert -     - These planets are usually 80% desert and 15% mtn/land.  They
+Desert -     - These allPlanets are usually 80% desert and 15% mtn/land.  They
                are _very_ nice as far as resource content is concerned, and
-               their size range is much like Class M planets.
+               their size range is much like Class M allPlanets.
 
-Forest -     - These planets are almost entirely covered in forest, which is
+Forest -     - These allPlanets are almost entirely covered in forest, which is
                the rarest sector typeIdx.  Resource content is fairly good.
-               Size range is between Water planets and Class M's.  Fertility
+               Size range is between Water allPlanets and Class M's.  Fertility
                is higher than on a normal class M.
 
-Iceball -    - These planets are generally small (1/5 the size of class M's
+Iceball -    - These allPlanets are generally small (1/5 the size of class M's
                or less), and they consist of around 75% ice and 25% mountain.
                Relative to their size, they are resource rich, but the
                small number of sectors means that resources will come more
                slowly.
 
-Airless -    - These planets are mostly land (75%) with some mountain and
+Airless -    - These allPlanets are mostly land (75%) with some mountain and
                ice sectors.  The atmosphere is almost always hostile, of
-               course, but these planets are probably the most resource
+               course, but these allPlanets are probably the most resource
                rich relative to their size (ie. 1/3 the res of a typical
                class M but 1/5 the size).
 
 Asteroid -   - These are just floating rocks in space, not good for a
-               heck of a lot.  They don't count as planets in victory
+               heck of a lot.  They don't count as allPlanets in victory
                conditions, and they usually have very few resources,
                and the small number of sectors make it very difficult
                for most asteroids to ever contribute to your cause,

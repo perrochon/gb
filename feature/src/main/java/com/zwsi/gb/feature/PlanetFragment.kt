@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.os.Bundle
-import android.provider.AlarmClock
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -60,7 +59,7 @@ class PlanetFragment : Fragment() {
 //        val starID = intent.getIntExtra("star", -1)
 //        val planetID = intent.getIntExtra("planet", -1)
         val universe = GBController.universe
-        val stars = universe!!.stars
+        val stars = universe!!.allStars
         val planets = universe!!.getPlanets(stars[0]!!)
         var p = planets[0]!!
 

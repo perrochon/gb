@@ -4,24 +4,19 @@ class GBUniverse {
 
     internal var numberOfStars: Int
     internal var numberOfRaces: Int
+    var allStars: MutableList<GBStar> = arrayListOf()  // the allStars
+    var allPlanets: MutableList<GBPlanet> = arrayListOf() // the allPlanets
+    var allRaces: MutableList<GBRace> = arrayListOf() // the allRaces
 
     // how many star Systems in the Universe
     internal constructor(numberOfStars: Int, numberOfRaces: Int) {
         this.numberOfStars = numberOfStars
         this.numberOfRaces = numberOfRaces
-        stars = arrayOfNulls(size = numberOfStars)
-        racesArray = arrayOfNulls(numberOfRaces)
         GBDebug.l3("Making Stars")
         makeStars()
         makeRaces()
         GBDebug.l3("Universe made")
     }
-
-    // All these variables are package private, because (for now?) we trust the package
-    var stars: Array<GBStar?>
-        internal set // the star Systems //
-    // TODO need to figure out where these live
-    var racesArray: Array<GBRace?> // the star Systems //
 
     val universeMaxX: Int
         get() = GBData.getUniverseMaxX()
@@ -36,13 +31,13 @@ class GBUniverse {
         println("=============================================")
         println("The Universe contains $numberOfStars star(s).\n")
 
-        for (i in stars) {
-            i?.consoleDraw()
+        for (i in allStars) {
+            i.consoleDraw()
         }
         println("The Universe contains $numberOfRaces race(s).\n")
 
-        for (i in racesArray) {
-            i?.consoleDraw()
+        for (i in allRaces) {
+            i.consoleDraw()
         }
 
     }
@@ -51,7 +46,7 @@ class GBUniverse {
         GBDebug.l3("Making Stars")
         GBStar.resetStarCoordinates()
         for (i in 0 until numberOfStars) {
-            stars[i] = GBStar(i, this)
+            allStars.add(GBStar(i, this))
         }
 
     }
@@ -59,34 +54,34 @@ class GBUniverse {
     private fun makeRaces() {
         GBDebug.l3("Making Races")
 
-        // Temporary hack
+        // TODO: Replace with full GBData driven solution instead of hard coded
 
         var sector: GBSector
-        racesArray[0] = GBRace(0, 0)
-        landPopulation(stars[0]!!.planetsArray[0]!!, racesArray[0]!!.uId)
+        allRaces.add(GBRace(0, 0))
+        landPopulation(allStars[0].starPlanets[0]!!, allRaces[0].uId)
 
         if (numberOfStars > 1) {
-            racesArray[1] = GBRace(1, 1)
-            landPopulation(stars[1]!!.planetsArray[0]!!, racesArray[1]!!.uId)
+            allRaces.add(GBRace(1, 1))
+            landPopulation(allStars[1].starPlanets[0]!!, allRaces[1].uId)
 
         }
 
         if (numberOfStars > 2) {
-            landPopulation(stars[2]!!.planetsArray[0]!!, racesArray[0]!!.uId)
-            landPopulation(stars[2]!!.planetsArray[0]!!, racesArray[1]!!.uId)
+            landPopulation(allStars[2].starPlanets[0]!!, allRaces[0].uId)
+            landPopulation(allStars[2].starPlanets[0]!!, allRaces[1].uId)
         }
 
     }
 
     fun landPopulation(p: GBPlanet, uId: Int) {
-        GBDebug.l3("universe: Landing 100 of " + racesArray[uId]!!.name + " on " + p.name + "")
-        p.landPopulation(racesArray[uId]!!, 100)
+        GBDebug.l3("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
+        p.landPopulation(allRaces[uId], 100)
     }
 
 
     internal fun doUniverse() {
-        for (s in stars) {
-            for (p in s!!.planetsArray) {
+        for (s in allStars) {
+            for (p in s.starPlanets) {
                 p!!.doPlanet()
             }
         }
@@ -94,11 +89,11 @@ class GBUniverse {
     }
 
     fun getPlanets(s: GBStar): Array<GBPlanet?> {
-        return s!!.planetsArray
-    } // TODO should this be Star? But what about getting all the planets?
+        return s.starPlanets.toTypedArray()
+    } // TODO should this be Star? But what about getting all the allPlanets?
 
     fun getSectors(p: GBPlanet): Array<GBSector> {
-        return p!!.sectors
+        return p.sectors
     } //TODO should this be in planet? Or Data?
 
 

@@ -6,6 +6,7 @@ Features (enable first)
 -Do Pod Movements...
 
 Code Quality
+-> Intermittend bug in DoSector (south, I think)...
 - Access and visibility in gblib
 - Use Application for global state in Android: https://developer.android.com/reference/android/app/Application
 - JUnit Tests
