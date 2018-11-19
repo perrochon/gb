@@ -81,6 +81,6 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/version" android:text="Version"
-            android:textColor="@android:color/holo_orange_light"/>
+            android:textColor="@android:color/holo_green_light"/>
 
 </android.support.constraint.ConstraintLayout>
