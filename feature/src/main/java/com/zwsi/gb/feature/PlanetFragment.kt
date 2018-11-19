@@ -42,6 +42,7 @@ class PlanetFragment : Fragment() {
         var view: View? = inflater.inflate(R.layout.fragment_planet, container, false);
 
 
+
         // Get Bitmaps - TODO factor out, this code exists twice. But where to?
         val d = BitmapFactory.decodeResource(getResources(), R.drawable.desert)
         val f = BitmapFactory.decodeResource(getResources(), R.drawable.forest)
@@ -55,13 +56,9 @@ class PlanetFragment : Fragment() {
 
         val planetID = arguments!!.getString("uId").toInt()
 
-
-//        val starID = intent.getIntExtra("star", -1)
-//        val planetID = intent.getIntExtra("planet", -1)
         val universe = GBController.universe
-        val stars = universe!!.allStars
-        val planets = universe!!.getPlanets(stars[0]!!)
-        var p = planets[0]!!
+        val planets = universe!!.allPlanets
+        var p = planets[planetID]!!
 
         // Get the View to draw planet on, then draw planet
         //
@@ -103,7 +100,7 @@ class PlanetFragment : Fragment() {
 
         planetStats.append("\n")
         planetStats.append("Name  : " + p.name +"\n")
-        planetStats.append("System: " + stars[0]!!.name +"\n")
+        //planetStats.append("System: " + stars[0]!!.name +"\n")
         planetStats.append("Type  : " + p.type +"\n")
         planetStats.append("Size  : " + p.size +"\n")
         planetStats.append("Owner : " + p.ownerName +"\n")

@@ -3,6 +3,7 @@ package com.zwsi.gb.feature
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import com.zwsi.gblib.GBController
 
 class PlanetsSlideActivity : AppCompatActivity() {
 
@@ -24,8 +25,10 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
 
-        for (i in 1..2) {
-            var r0: PlanetFragment = PlanetFragment.newInstance("0")
+        val universe = GBController.universe
+
+        for (i in 1..universe!!.allPlanets.size) {
+            var r0: PlanetFragment = PlanetFragment.newInstance(i.toString())
             adapter.addFragment(r0, i.toString())
         }
 
