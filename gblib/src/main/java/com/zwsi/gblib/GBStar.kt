@@ -59,8 +59,8 @@ class GBStar(val uId: Int, val universe: GBUniverse) {
     private fun makePlanets() {
         GBDebug.l3("Making Planets for star $name")
 
-        for (i in 0..numberOfPlanets) {
-            val p = GBPlanet(i, universe)
+        for (i in 0 until numberOfPlanets) {
+            val p = GBPlanet(i, this)
             starPlanets.add(p)
 
         }

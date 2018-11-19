@@ -4,24 +4,16 @@
 
 package com.zwsi.gblib
 
-import java.io.ByteArrayOutputStream
-import java.io.PrintStream
-import java.lang.Math.sqrt
-
-class GBPlanet (val sId: Int, val universe: GBUniverse) {
-    // sId is the "starID" (aka orbit), which planet of the parent star is this 0..
+class GBPlanet (val sid: Int, val star: GBStar) {
+    // sid is the "starID" (aka orbit), which planet of the parent star is this 0..
 
     val id: Int
-
-    var uId: Int
-
-    private val nameIdx: Int
-
-    private val typeIdx: Int // typeIdx of this planet
-    val type: String
-        get() = GBData.planetTypeFromIdx(typeIdx)
+    val uid: Int
+    val idxname: Int
+    val idxtype: Int // idxtype of this planet
 
     val name: String
+    val type: String
 
     val owner: GBRace? = null;
 
@@ -40,28 +32,29 @@ class GBPlanet (val sId: Int, val universe: GBUniverse) {
 
     init {
         id = GBData.getNextGlobalId()
-        universe.allPlanets.add(this)
-        uId = universe.allPlanets.indexOf(this)
+        star.universe.allPlanets.add(this)
+        uid = star.universe.allPlanets.indexOf(this)
 
-        nameIdx = GBData.selectPlanetNameIdx()
-        typeIdx = GBData.selectPlanetTypeIdx()
+        idxname = GBData.selectPlanetNameIdx()
+        idxtype = GBData.selectPlanetTypeIdx()
 
-        name = GBData.planetNameFromIdx(nameIdx)  + " (" + id + "." + uId + "/" + sId + ")"
+        name = GBData.planetNameFromIdx(idxname)
+        type = GBData.planetTypeFromIdx(idxtype)
 
 
         // Make Sectors
         // Get random width and corresponding height within type appropriate bounds (e.g. jovians are bigger
-        height = GBData.selectPlanetHeight(typeIdx)
+        height = GBData.selectPlanetHeight(idxtype)
         width = GBData.selectPlanetWidth(height)
 
         sectors = Array(width*height) { GBSector() }
 
         for (i in 0 until width*height) {
-            sectors[i].type = GBData.sectorTypesChance[typeIdx][GBData.rand.nextInt(10)]
+            sectors[i].type = GBData.sectorTypesChance[idxtype][GBData.rand.nextInt(10)]
         }
 
         GBDebug.l3(
-            "Made Planet " + name + " of typeIdx " + type
+            "Made Planet " + name + " of idxtype " + type
                     + ". Planet size is " + height + "x" + width
         )
     }
@@ -69,7 +62,7 @@ class GBPlanet (val sId: Int, val universe: GBUniverse) {
 
     fun consoleDraw() {
         println(
-            "\n    " + name + " of typeIdx " + type
+            "\n    " + name + " of idxtype " + type
                     + " and size " + height + "x" + width + "\n"
         )
 

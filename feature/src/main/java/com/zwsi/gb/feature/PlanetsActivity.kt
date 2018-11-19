@@ -130,7 +130,7 @@ class PlanetsActivity : AppCompatActivity() {
                 constraintLayout.setOnClickListener {
                     val intent = Intent(this, PlanetActivity::class.java)
                     intent.putExtra("star", s.uId)
-                    intent.putExtra("planet", p!!.sId)
+                    intent.putExtra("planet", p!!.sid)
                     startActivity(intent)
                 }
 

@@ -27,7 +27,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         val universe = GBController.universe
 
-        for (i in 1..universe!!.allPlanets.size) {
+        for (i in 0 until universe!!.allPlanets.size) {
             var r0: PlanetFragment = PlanetFragment.newInstance(i.toString())
             adapter.addFragment(r0, i.toString())
         }
