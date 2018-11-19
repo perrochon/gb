@@ -18,6 +18,7 @@ class GBStar(val uId: Int, val universe: GBUniverse) {
     private val numberOfPlanets = 2 // how many Planets in this solar Systems
 
     init {
+        universe.allStars.add(this)
         id = GBData.getNextGlobalId()
         nameIdx = GBData.selectStarNameIdx()
         name = GBData.starNameFromIdx(nameIdx) + " (" + id + "." + uId + ")"

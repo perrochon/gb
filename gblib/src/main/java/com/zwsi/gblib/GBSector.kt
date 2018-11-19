@@ -4,7 +4,7 @@
 
 package com.zwsi.gblib
 
-class GBSector constructor() {
+class GBSector constructor(val planet: GBPlanet) {
 
     var type = -1        // nonexisting type
 
@@ -12,9 +12,8 @@ class GBSector constructor() {
         get() = GBData.sectorTypeConsoleFromIdx(type)
 
     private var population = 0
-
     fun setPopulation(r:GBRace, number: Int) {
-        population = number
+        changePopulation(number)
         setOwner(r)
     }
     fun getPopulation(): Int {
@@ -22,16 +21,7 @@ class GBSector constructor() {
     }
     fun changePopulation(number: Int) {
         population += number
-    }
-
-    private var owner: GBRace? = null
-    private var ownerID: Int = -1
-    private var ownerName = ""
-
-    fun setOwner(r: GBRace?) {
-        owner = r
-        ownerID = r!!.uId
-        ownerName = r.name
+        planet.population += number
     }
 
     fun landPopulation(r: GBRace, number: Int) {
@@ -43,8 +33,20 @@ class GBSector constructor() {
         setPopulation(r, number)
     }
 
+
+    private var owner: GBRace? = null
+    private var ownerID: Int = -1
+    private var ownerName = ""
+
+    fun setOwner(r: GBRace?) {
+        owner = r
+        ownerID = r!!.uId
+        ownerName = r.name
+    }
+
+
     fun growPopulation() {
-        population = population *  (100 + getBirthrate()) / 100
+        changePopulation (population * getBirthrate() / 100)
     }
 
     fun getBirthrate() : Int {

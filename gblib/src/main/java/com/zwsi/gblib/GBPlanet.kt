@@ -7,6 +7,7 @@ package com.zwsi.gblib
 class GBPlanet (val sid: Int, val star: GBStar) {
     // sid is the "starID" (aka orbit), which planet of the parent star is this 0..
 
+    // Set at creation
     val id: Int
     val uid: Int
     val idxname: Int
@@ -29,6 +30,8 @@ class GBPlanet (val sid: Int, val star: GBStar) {
     val size: Int
         get() = width * height
 
+    var population = 0;
+
 
     init {
         id = GBData.getNextGlobalId()
@@ -47,7 +50,7 @@ class GBPlanet (val sid: Int, val star: GBStar) {
         height = GBData.selectPlanetHeight(idxtype)
         width = GBData.selectPlanetWidth(height)
 
-        sectors = Array(width*height) { GBSector() }
+        sectors = Array(width*height) { GBSector(this) }
 
         for (i in 0 until width*height) {
             sectors[i].type = GBData.sectorTypesChance[idxtype][GBData.rand.nextInt(10)]

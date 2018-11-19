@@ -110,19 +110,20 @@ class PlanetFragment : Fragment() {
         paint.textSize = 40f
 
         planetStats.setText("\n")
-        planetStats.append("Name  : " + p.name +"\n")
-        planetStats.append("System: " + p.star.name + "(Orbit: " + p.sid + ")\n")
-        planetStats.append("Type  : " + p.type +"\n")
-        planetStats.append("Size  : " + p.size +"\n")
-        planetStats.append("Owner : " + p.ownerName +"\n")
+        planetStats.append("Name        : " + p.name +"\n")
+        planetStats.append("System      : " + p.star.name + "(Orbit: " + p.sid + ")\n")
+        planetStats.append("Population  : " + p.population +"\n")
+        planetStats.append("Type        : " + p.type +"\n")
+        planetStats.append("Size        : " + p.size +"\n")
+        planetStats.append("Owner       : " + p.ownerName +"\n")
 
         planetStats.append("\n")
 
-        planetStats.append("id : " + p.id +" | ")
-        planetStats.append("uid : " + p.uid  +" | ")
-        planetStats.append("sid : " + p.sid +" | ")
-        planetStats.append("idxname : " + p.idxname +" | ")
-        planetStats.append("idtype : " + p.idxtype +"\n")
+        planetStats.append("id: " + p.id +" | ")
+        planetStats.append("uid: " + p.uid  +" | ")
+        planetStats.append("sid: " + p.sid +" | ")
+        planetStats.append("idxname: " + p.idxname +" | ")
+        planetStats.append("idtype: " + p.idxtype +"\n")
 
         return view
     }
