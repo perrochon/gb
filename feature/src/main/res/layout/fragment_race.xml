@@ -10,8 +10,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/starfield"
             android:alpha="1" android:id="@+id/imageView" android:contentDescription="@string/orion_nebula"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteY="0dp" tools:layout_editor_absoluteX="0dp"/>
+            android:layout_height="match_parent"/>
     <TextView
             android:padding="12dp"
             android:background="#000"
@@ -33,7 +32,7 @@
             android:layout_height="200dp"
             android:id="@+id/RaceView"
             app:srcCompat="@drawable/impi"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="50dp" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@+id/imageView" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"/>
