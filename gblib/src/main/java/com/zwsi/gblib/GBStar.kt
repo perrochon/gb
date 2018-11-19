@@ -20,7 +20,7 @@ class GBStar(val uId: Int, val universe: GBUniverse) {
     init {
         id = GBData.getNextGlobalId()
         nameIdx = GBData.selectStarNameIdx()
-        name = GBData.starNameFromIdx(nameIdx)
+        name = GBData.starNameFromIdx(nameIdx) + " (" + id + "." + uId + ")"
         makePlanets()
         GBDebug.l3("Made System $name")
         val coordinates = getStarCoordinates()

@@ -16,12 +16,12 @@ class GBPlanet (val sId: Int, val universe: GBUniverse) {
     var uId: Int
 
     private val nameIdx: Int
-    val name: String
-        get() = GBData.planetNameFromIdx(nameIdx)
 
     private val typeIdx: Int // typeIdx of this planet
     val type: String
         get() = GBData.planetTypeFromIdx(typeIdx)
+
+    val name: String
 
     val owner: GBRace? = null;
 
@@ -40,11 +40,14 @@ class GBPlanet (val sId: Int, val universe: GBUniverse) {
 
     init {
         id = GBData.getNextGlobalId()
+        universe.allPlanets.add(this)
+        uId = universe.allPlanets.indexOf(this)
+
         nameIdx = GBData.selectPlanetNameIdx()
         typeIdx = GBData.selectPlanetTypeIdx()
 
-        universe.allPlanets.add(this)
-        uId = universe.allPlanets.indexOf(this)
+        name = GBData.planetNameFromIdx(nameIdx)  + " (" + id + "." + uId + "/" + sId + ")"
+
 
         // Make Sectors
         // Get random width and corresponding height within type appropriate bounds (e.g. jovians are bigger
