@@ -1,5 +1,6 @@
 package com.zwsi.gb.feature
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -8,11 +9,15 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBPlanet
 
 class PlanetFragment : Fragment() {
+
+    lateinit var p: GBPlanet
 
     companion object {
 
@@ -58,7 +63,13 @@ class PlanetFragment : Fragment() {
 
         val universe = GBController.universe
         val planets = universe!!.allPlanets
-        var p = planets[planetID]!!
+        p = planets[planetID]!!
+
+        var c0 = view!!.findViewById<Button>(R.id.colonize0)
+        c0.id = planetID
+        var c1 = view!!.findViewById<Button>(R.id.colonize1)
+        c1.id = planetID
+
 
         // Get the View to draw planet on, then draw planet
         //
@@ -113,12 +124,9 @@ class PlanetFragment : Fragment() {
         planetStats.append("idxname : " + p.idxname +" | ")
         planetStats.append("idtype : " + p.idxtype +"\n")
 
-
-
-
-
-
         return view
     }
+
+
 
 }

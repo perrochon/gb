@@ -3,6 +3,8 @@ package com.zwsi.gb.feature
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.view.View
+import android.widget.Toast
 import com.zwsi.gblib.GBController
 
 class PlanetsSlideActivity : AppCompatActivity() {
@@ -33,6 +35,43 @@ class PlanetsSlideActivity : AppCompatActivity() {
         }
 
         viewpager.adapter = adapter
+
+    }
+
+
+    /** Called when the user taps the Colonize button */
+    fun colonize0(view: View) {
+
+
+        val universe = GBController.universe
+        universe!!.landPopulation(universe.allPlanets[view.id.toInt()], 0)
+
+        val message = "Landing Xenos on " + universe.allPlanets[view.id.toInt()].name
+        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+
+        //Redraw  - This is ugly, we should just get the Planet View to redraw
+//        val intent = intent
+//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or
+//                Intent.FLAG_ACTIVITY_NO_ANIMATION
+//        finish()
+//        startActivity(intent)
+
+    }
+
+    /** Called when the user taps the Colonize button */
+    fun colonize1(view: View) {
+        val universe = GBController.universe
+        universe!!.landPopulation(universe.allPlanets[view.id.toInt()], 1)
+
+        val message = "Landing Impi on " + universe.allPlanets[view.id.toInt()].name
+        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+
+        //Redraw  - This is ugly, we should just get the Planet View to redraw
+//        val intent = intent
+//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or
+//                Intent.FLAG_ACTIVITY_NO_ANIMATION
+//        finish()
+//        startActivity(intent)
 
     }
 }
