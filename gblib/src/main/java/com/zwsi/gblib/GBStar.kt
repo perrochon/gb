@@ -7,9 +7,25 @@ package com.zwsi.gblib
 
 import java.util.ArrayList
 
-class GBStar internal constructor(
-    var uId: Int //
-) {
+class GBStar {
+
+    var uId: Int
+    var universe: GBUniverse
+
+    //
+    internal constructor(uId: Int, GBUniverse: GBUniverse) {
+        this.uId = uId
+        this.universe = GBUniverse
+        this.planetsArray = arrayOfNulls<GBPlanet>(numberOfPlanets)
+        id = GBData.getNextGlobalId()
+        nameIdx = GBData.selectStarNameIdx()
+        name = GBData.starNameFromIdx(nameIdx)
+        makePlanets()
+        GBDebug.l3("Made System $name")
+        val coordinates = getStarCoordinates()
+        x = coordinates[0]
+        y = coordinates[1]
+    }
 
     private val id: Int
     private val nameIdx: Int
@@ -22,28 +38,14 @@ class GBStar internal constructor(
     val x: Int // x coordinate
     val y: Int // y coordinate
 
-    var planetsArray =
-        arrayOfNulls<GBPlanet>(numberOfPlanets) // the solar Systems // TODO make private an return copy in getter
+    var planetsArray: Array<GBPlanet?>
+    // the solar Systems // TODO make private an return copy in getter
 
-
-    init {
-        id = GBData.getNextGlobalId()
-        nameIdx = GBData.selectStarNameIdx()
-        name = GBData.starNameFromIdx(nameIdx)
-        makePlanets()
-
-        GBDebug.l3("Made System $name")
-
-        val coordinates = getStarCoordinates()
-        x = coordinates[0]
-        y = coordinates[1]
-
-    }
 
     companion object {
         var areas: ArrayList<Int> = ArrayList() // we fill it up on first call to GetStarCoordinates
 
-        // TODO This smells. Caller GBUniverse has to clear GBStar's data structue.
+        // TODO This smells. Caller universe has to clear GBStar's data structue.
         // Also, knowing areas (and keeping them) at a higher level, if they are made hierarchical
         // (Say 4 areas each with 5 sub-areas, then place stars into sub area) then place one race in each area.
         // Of course for 17 races, this would lead to three levels with 64 sub-sub-areas. Quadratic may be better.
@@ -81,8 +83,7 @@ class GBStar internal constructor(
 
     fun getStarCoordinates() : IntArray {
 
-
-        val nos = GBData.getNumberOfStars().toDouble()
+        val nos = universe.getNumberOfStars().toDouble()
         val dim = java.lang.Math.ceil(java.lang.Math.sqrt(nos)).toInt()
 
         if (areas.isEmpty()) {

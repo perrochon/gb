@@ -28,6 +28,8 @@ class GBUniverse {
     val universeMaxY: Int
         get() = GBData.getUniverseMaxY()
 
+    fun getNumberOfStars() : Int { return numberOfStars}
+
     internal fun consoleDraw() {
         println("=============================================")
         println("The Universe")
@@ -49,7 +51,7 @@ class GBUniverse {
         GBDebug.l3("Making Stars")
         GBStar.resetStarCoordinates()
         for (i in 0 until numberOfStars) {
-            stars[i] = GBStar(i)
+            stars[i] = GBStar(i, this)
         }
 
     }
@@ -77,7 +79,7 @@ class GBUniverse {
     }
 
     fun landPopulation(p: GBPlanet, uId: Int) {
-        GBDebug.l3("GBUniverse: Landing 100 of " + racesArray[uId]!!.name + " on " + p.name + "")
+        GBDebug.l3("universe: Landing 100 of " + racesArray[uId]!!.name + " on " + p.name + "")
         p.landPopulation(racesArray[uId]!!, 100)
     }
 
