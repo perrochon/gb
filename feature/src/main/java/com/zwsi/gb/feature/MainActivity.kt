@@ -124,20 +124,26 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    /** Called when the user taps the X Home button */
-    fun sendXHome(view: View) {
-        val intent = Intent(this, PlanetActivity::class.java)
-        intent.putExtra("star", 0)
-        intent.putExtra("planet", 0)
+    /** Called when the user taps the Races button */
+    fun races(view: View) {
+        val intent = Intent(this, RaceSlide::class.java)
         startActivity(intent)
     }
 
-    /** Called when the user taps the I Home button */
-    fun sendIHome(view: View) {
-        val intent = Intent(this, PlanetActivity::class.java)
-        intent.putExtra("star", 1)
-        intent.putExtra("planet", 0)
-        startActivity(intent)
-    }
+//    /** Called when the user taps the X Home button */
+//    fun sendXHome(view: View) {
+//        val intent = Intent(this, PlanetActivity::class.java)
+//        intent.putExtra("star", 0)
+//        intent.putExtra("planet", 0)
+//        startActivity(intent)
+//    }
+//    /** Called when the user taps the I Home button */
+//    fun sendIHome(view: View) {
+//        val intent = Intent(this, PlanetActivity::class.java)
+//        intent.putExtra("star", 1)
+//        intent.putExtra("planet", 0)
+//        startActivity(intent)
+//    }
+
 
 }

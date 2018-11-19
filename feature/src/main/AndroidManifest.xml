@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".RaceActivity">
         </activity>
+        <activity android:name=".RaceSlide">
+        </activity>
     </application>
 
 </manifest>
