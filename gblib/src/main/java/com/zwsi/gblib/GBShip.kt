@@ -6,12 +6,11 @@
 
 package com.zwsi.gblib
 
-class GBShip(val owner: GBRace, val position: GBStar) {
+class GBShip(val idxtype: Int, val owner: GBRace, val position: GBStar) {
 
     // Set at creation
     val id: Int
     val uid: Int
-    val idxtype: Int // Ship type
 
     val name: String
     val type: String
@@ -27,7 +26,6 @@ class GBShip(val owner: GBRace, val position: GBStar) {
         position.starShips.add(this)
 
 
-        idxtype = 0;
         type = GBData.getShipType(idxtype)
         name = type + " " + owner.raceShips.indexOf(this)
         speed = GBData.getShipSpeed(idxtype)

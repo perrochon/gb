@@ -43,13 +43,13 @@ class GBShipTest {
         val s0 = universe.allStars[0]
         val r0: GBRace = universe.allRaces[0]
 
-        val sh0 = GBShip(r0, s0)
+        val sh0 = GBShip(0, r0, s0)
         consistency(sh0)
 
         val s1 = universe.allStars[1]
         val r1: GBRace = universe.allRaces[1]
 
-        val sh1 = GBShip(r1, s1)
+        val sh1 = GBShip(1, r1, s1)
         consistency(sh1)
     }
 
@@ -60,7 +60,7 @@ class GBShipTest {
         val s1 = universe.allStars[1]
         val r0: GBRace = universe.allRaces[0]
 
-        val sh0 = GBShip(r0, s0)
+        val sh0 = GBShip(0, r0, s0)
         consistency(sh0)
 
         s1.starShips.add(sh0)
@@ -75,7 +75,7 @@ class GBShipTest {
         val r0: GBRace = universe.allRaces[0]
         val r1: GBRace = universe.allRaces[1]
 
-        val sh0 = GBShip(r0, s0)
+        val sh0 = GBShip(1, r0, s0)
         consistency(sh0)
 
         r1.raceShips.add(sh0)
