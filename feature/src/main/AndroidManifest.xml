@@ -14,8 +14,6 @@
         </activity>
         <activity android:name=".StarsActivity">
         </activity>
-        <activity android:name=".RaceActivity">
-        </activity>
         <activity android:name=".RacesSlideActivity">
         </activity>
         <activity android:name=".PlanetsSlideActivity">
