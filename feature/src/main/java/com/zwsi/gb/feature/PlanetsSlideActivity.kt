@@ -36,9 +36,10 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         val universe = GBController.universe
 
-        for (i in 0 until universe!!.allPlanets.size) {
-            var r0: PlanetFragment = PlanetFragment.newInstance(i.toString())
-            adapter.addFragment(r0, i.toString())
+        for (pl in universe!!.allPlanets) {
+
+            var p0: PlanetFragment = PlanetFragment.newInstance(pl.uid.toString())
+            adapter.addFragment(p0, pl.uid.toString())
         }
 
         viewpager.adapter = adapter

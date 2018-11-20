@@ -56,12 +56,24 @@ class StarFragment : Fragment() {
         stats.append("Name     : " + (st!!.name) + "\n")
         stats.append("Position : (" + (st.x) + ", " + st.y + ")\n")
 
+        if (st.starPlanets.isNotEmpty()) {
+            stats.append("Planets:\n")
+            for (pl in st.starPlanets) {
+                stats.append("           " + pl.name + "\n")
+            }
+            stats.append("\n")
+        }
+
         if (st.starShips.isNotEmpty()) {
             stats.append("Ships present:\n")
             for (sh in st.starShips) {
                 stats.append("           " + sh.name + "\n")
             }
         }
+
+        stats = view!!.findViewById<TextView>(R.id.StarBackground)
+        paint = stats.paint
+        paint.textSize = 40f
 
         stats.append("\n")
         stats.append("Lorem ipsum dolor sit amet")
