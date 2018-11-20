@@ -16,12 +16,21 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp" android:layout_marginRight="32dp" android:layout_marginLeft="32dp"
             android:layout_marginStart="32dp"/>
+    <ImageView
+            android:src="@android:color/background_dark"
+            android:layout_width="0dp"
+            android:layout_height="0dp" android:id="@+id/imageView3" android:alpha="0.3"
+            app:layout_constraintTop_toTopOf="@+id/PlanetStats"
+            app:layout_constraintStart_toStartOf="@+id/PlanetStats"
+            app:layout_constraintEnd_toEndOf="@+id/PlanetStats"
+            app:layout_constraintBottom_toBottomOf="@+id/PlanetStats"/>
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/PlanetStats"
             android:textColor="@android:color/holo_blue_light"
             app:layout_constraintTop_toBottomOf="@+id/PlanetView"
             app:layout_constraintEnd_toEndOf="parent"
+            android:padding="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             app:layout_constraintStart_toStartOf="parent"

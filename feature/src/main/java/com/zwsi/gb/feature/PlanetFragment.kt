@@ -109,7 +109,6 @@ class PlanetFragment : Fragment() {
 
         paint.textSize = 40f
 
-        planetStats.setText("\n")
         planetStats.append("Name        : " + p.name +"\n")
         planetStats.append("System      : " + p.star.name + "(Orbit: " + p.sid + ")\n")
         planetStats.append("Population  : " + p.population +"\n")
