@@ -82,7 +82,7 @@ class GBUniverse {
         // TODO: Replace with user driven solution instead of hard coded
 
         val sh1 = GBShip(0, allRaces[0], allStars[0])
-        val sh2 = GBShip(1, allRaces[1], allStars[0])
+        val sh2 = GBShip(1, allRaces[1], allStars[1])
     }
 
     fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
