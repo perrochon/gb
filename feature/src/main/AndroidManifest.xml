@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".PlanetsSlideActivity">
         </activity>
+        <activity android:name=".ShipsSlideActivity">
+        </activity>
     </application>
 
 </manifest>

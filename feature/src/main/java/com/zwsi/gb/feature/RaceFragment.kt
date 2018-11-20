@@ -58,10 +58,10 @@ class RaceFragment : Fragment() {
         paint.textSize = 40f
 
         stats.append("\n")
-        stats.append("Name : " + (r!!.name) + "\n")
-        stats.append("Type : " + (r.birthrate) + "\n")
-        stats.append("Size : " + (r.explore) + "\n")
-        stats.append("Owner: " + (r.absorption) + "\n")
+        stats.append("Name      : " + (r!!.name) + "\n")
+        stats.append("Birthrate : " + (r.birthrate) + "\n")
+        stats.append("Explore   : " + (r.explore) + "\n")
+        stats.append("Absorption: " + (r.absorption) + "\n")
 
         stats = view!!.findViewById<TextView>(R.id.RaceBackground)
         paint = stats.paint
