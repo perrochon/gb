@@ -126,6 +126,12 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /** Called when the user taps the Races button */
+    fun ships(view: View) {
+        val intent = Intent(this, ShipsSlideActivity::class.java)
+        startActivity(intent)
+    }
+
     /* Hide System UI. If we do it in all screens, we lose the back button. If we do it only here, background resizes.
        Need to figure out what to do about this.
     override fun onWindowFocusChanged(hasFocus: Boolean) {

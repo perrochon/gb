@@ -16,6 +16,7 @@ class GBUniverse {
         GBDebug.l3("Making Stars")
         makeStars()
         makeRaces()
+        makeShips()
         GBDebug.l3("Universe made")
     }
 
@@ -73,6 +74,15 @@ class GBUniverse {
             landPopulation(allStars[2].starPlanets[0], r2.uid, 50)
         }
 
+    }
+
+    private fun makeShips() {
+        GBDebug.l3("Making Ships")
+
+        // TODO: Replace with user driven solution instead of hard coded
+
+        val sh1 = GBShip(allRaces[0], allStars[0])
+        val sh2 = GBShip(allRaces[1], allStars[0])
     }
 
     fun landPopulation(p: GBPlanet, uId: Int, number: Int) {

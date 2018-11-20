@@ -29,7 +29,7 @@ class GBShip(val owner: GBRace, val position: GBStar) {
 
         idxtype = 0;
         type = GBData.getShipType(idxtype)
-        name = type + owner.raceShips.indexOf(this)
+        name = type + " " + owner.raceShips.indexOf(this)
         speed = GBData.getShipSpeed(idxtype)
     }
 
