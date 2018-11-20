@@ -119,6 +119,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /* Hide System UI. If we do it in all screens, we lose the back button. If we do it only here, background resizes.
+       Need to figure out what to do about this.
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) hideSystemUI()
@@ -142,11 +144,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Shows the system bars by removing all the flags
-// except for the ones that make the content appear under the system bars.
+    // except for the ones that make the content appear under the system bars.
     private fun showSystemUI() {
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     }
-
+    */
 }
