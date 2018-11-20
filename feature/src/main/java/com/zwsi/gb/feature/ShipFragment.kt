@@ -44,9 +44,9 @@ class ShipFragment : Fragment() {
         val imageView = view!!.findViewById<ImageView>(R.id.ShipView)
 
         if (shipID == 0)
-            imageView.setImageResource(R.drawable.pod)
+            imageView.setImageResource(R.drawable.podt)
         else
-            imageView.setImageResource(R.drawable.pod)
+            imageView.setImageResource(R.drawable.cruisert)
 
         val universe = GBController.universe
         val ships = universe!!.allShips
