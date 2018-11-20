@@ -10,14 +10,12 @@ class GBController {
         fun makeUniverse() {
             GBDebug.l1("Making Universe")
             universe = GBUniverse(24, 2)
-            universe!!.consoleDraw()
         }
 
         fun doUniverse() {
             gameTurns++
             GBDebug.l1("Runing Game Turn $gameTurns")
             universe!!.doUniverse()
-            universe!!.consoleDraw()
         }
 
 
