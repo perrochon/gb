@@ -20,7 +20,6 @@ import java.io.PrintStream
 
 class MainActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         setTheme(R.style.AppTheme) // Switch back from the Launcher Theme
@@ -102,13 +101,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Stars button */
-    fun stars(view: View) {
+    fun starmap(view: View) {
         val intent = Intent(this, StarsActivity::class.java)
         startActivity(intent)
     }
 
     /** Called when the user taps the Planets button */
-    fun planets(view: View) {
+    fun planets1(view: View) {
+        val intent = Intent(this, PlanetsScrollActivity::class.java)
+        startActivity(intent)
+    }
+
+    /** Called when the user taps the Planets button */
+    fun planets2(view: View) {
         val intent = Intent(this, PlanetsSlideActivity::class.java)
         startActivity(intent)
     }

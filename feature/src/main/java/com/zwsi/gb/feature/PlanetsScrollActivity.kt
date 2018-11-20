@@ -15,11 +15,11 @@ import android.support.constraint.ConstraintSet
 import android.support.v4.view.ViewCompat
 
 
-class PlanetsActivity : AppCompatActivity() {
+class PlanetsScrollActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_planets)
+        setContentView(R.layout.activity_planets_scroll)
 
         // Get Bitmaps - TODO factor out, this code exists twice. But where to?
         val d = BitmapFactory.decodeResource(getResources(), R.drawable.desert)
@@ -128,9 +128,8 @@ class PlanetsActivity : AppCompatActivity() {
                 cs.applyTo(constraintLayout)
 
                 constraintLayout.setOnClickListener {
-                    val intent = Intent(this, PlanetActivity::class.java)
-                    intent.putExtra("star", s.uId)
-                    intent.putExtra("planet", p!!.sid)
+                    val intent = Intent(this, PlanetsSlideActivity::class.java)
+                    intent.putExtra("planetUID", p.uid)
                     startActivity(intent)
                 }
 

@@ -17,6 +17,13 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         initViews()
         setupViewPager()
+
+        val intent = getIntent()
+        val planetUID = intent.getIntExtra("planetUID", -1)
+        if (planetUID > 0) {
+            viewpager.setCurrentItem(planetUID)
+        }
+
     }
 
     private fun initViews() {
