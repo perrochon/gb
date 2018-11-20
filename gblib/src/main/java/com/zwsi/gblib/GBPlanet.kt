@@ -4,7 +4,7 @@
 
 package com.zwsi.gblib
 
-class GBPlanet (val sid: Int, val star: GBStar) {
+class GBPlanet(val sid: Int, val star: GBStar) {
     // sid is the "starID" (aka orbit), which planet of the parent star is this 0..
 
     // Set at creation
@@ -19,7 +19,7 @@ class GBPlanet (val sid: Int, val star: GBStar) {
     val owner: GBRace? = null;
 
     val ownerName: String
-    get() = owner?.name ?: "<not owned>"
+        get() = owner?.name ?: "<not owned>"
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     // Sector are stored in a straight array, which makes some things easier (other's not so)
@@ -39,9 +39,9 @@ class GBPlanet (val sid: Int, val star: GBStar) {
         uid = star.universe.allPlanets.indexOf(this)
 
         idxname = GBData.selectPlanetNameIdx()
-        idxtype = GBData.selectPlanetTypeIdx()
-
         name = GBData.planetNameFromIdx(idxname)
+
+        idxtype = GBData.selectPlanetTypeIdx()
         type = GBData.planetTypeFromIdx(idxtype)
 
 
@@ -50,9 +50,9 @@ class GBPlanet (val sid: Int, val star: GBStar) {
         height = GBData.selectPlanetHeight(idxtype)
         width = GBData.selectPlanetWidth(height)
 
-        sectors = Array(width*height) { GBSector(this) }
+        sectors = Array(width * height) { GBSector(this) }
 
-        for (i in 0 until width*height) {
+        for (i in 0 until width * height) {
             sectors[i].type = GBData.sectorTypesChance[idxtype][GBData.rand.nextInt(10)]
         }
 
@@ -69,14 +69,14 @@ class GBPlanet (val sid: Int, val star: GBStar) {
                     + " and size " + height + "x" + width + "\n"
         )
 
-        for (i in 0 until width*height) {
+        for (i in 0 until width * height) {
             if (sectorX(i) == 0)
                 print("    ")
 
             print(sectors[i].consoleDraw())
 
             if (sectorX(i) == width - 1)
-               println()
+                println()
         }
 
     }
@@ -92,27 +92,27 @@ class GBPlanet (val sid: Int, val star: GBStar) {
 
     fun west(x: Int): Int {
         return if (x % width == 0)
-            x+width-1
+            x + width - 1
         else
             x - 1
     }
 
     fun east(x: Int): Int {
-        return if (x % width == width-1)
-            x+1-width
+        return if (x % width == width - 1)
+            x + 1 - width
         else
             x + 1
     }
 
     fun north(x: Int): Int {
-        return if (x < width )  // first row
+        return if (x < width)  // first row
             x // north of north pole loops back to itself
         else
             x - width
     }
 
     fun south(x: Int): Int {
-        return if (x > (height-1) * width) // last row
+        return if (x > (height - 1) * width) // last row
             x   // south of south pole loops back to itself
         else
             x + width
@@ -142,7 +142,7 @@ class GBPlanet (val sid: Int, val star: GBStar) {
             }
         }
 
-        val temps = IntArray(width*height) { i -> i - 0 }
+        val temps = IntArray(width * height) { i -> i - 0 }
         val temps2 = temps.toCollection(ArrayList())
         temps2.shuffle()
 
@@ -152,11 +152,15 @@ class GBPlanet (val sid: Int, val star: GBStar) {
 
             if (sectors[from].getPopulation() > 0) {
 
-                GBDebug.l3("Found population of ${sectors[from].getPopulation()} in sector [${sectorX(from)}][${sectorY(from)}] - migrating")
+                GBDebug.l3(
+                    "Found population of ${sectors[from].getPopulation()} in sector [${sectorX(from)}][${sectorY(
+                        from
+                    )}] - migrating"
+                )
 
                 val movers = sectors[from].getPopulation() * sectors[from].getOwner()!!.explore / 100
 
-                when(GBData.rand.nextInt(4)){
+                when (GBData.rand.nextInt(4)) {
                     0 -> migratePopulation(movers, from, east(from))
                     1 -> migratePopulation(movers, from, west(from))
                     2 -> migratePopulation(movers, from, north(from))
@@ -176,11 +180,11 @@ class GBPlanet (val sid: Int, val star: GBStar) {
         if (number == 0) return
         if (to >= sectors.size) return // TODO: This should never happen, but does in some cases. Need to debu
 
-        if(sectors[to].getOwner() == null) {
+        if (sectors[to].getOwner() == null) {
             //moving into an empty sector
             GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Explore $number move")
             sectors[from].changePopulation(-number)
-            sectors[to].setPopulation(sectors[from].getOwner()!!,number)
+            sectors[to].setPopulation(sectors[from].getOwner()!!, number)
 
         } else if (sectors[to].getOwner() == sectors[from].getOwner()) {
             //moving to a friendly sector
@@ -198,10 +202,8 @@ class GBPlanet (val sid: Int, val star: GBStar) {
 
     fun landPopulation(r: GBRace, number: Int) {
         GBDebug.l3("GBPlanet: Landing $number of ${r.name}")
-        sectors[GBData.rand.nextInt(width*height)].landPopulation(r, number)
+        sectors[GBData.rand.nextInt(width * height)].landPopulation(r, number)
     }
-
-
 
 
     /*

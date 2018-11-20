@@ -2,35 +2,39 @@
 
 // GBStar deals with anything on the star system wide level
 
-
 package com.zwsi.gblib
 
-import java.util.ArrayList
+import java.util.*
 
-class GBStar(val uId: Int, val universe: GBUniverse) {
+class GBStar(val universe: GBUniverse) {
 
     private val id: Int
-    private val nameIdx: Int
+    val uid: Int
+    private val idxname: Int
+
     val name: String // name of this system
+
     val x: Int // x coordinate
     val y: Int // y coordinate
     var starPlanets: MutableList<GBPlanet> = arrayListOf() // the plents of this system
     private val numberOfPlanets = 2 // how many Planets in this solar Systems
 
     init {
-        universe.allStars.add(this)
         id = GBData.getNextGlobalId()
-        nameIdx = GBData.selectStarNameIdx()
-        name = GBData.starNameFromIdx(nameIdx) + " (" + id + "." + uId + ")"
-        makePlanets()
-        GBDebug.l3("Made System $name")
+        universe.allStars.add(this)
+        uid = universe.allStars.indexOf(this)
+
+        idxname = GBData.selectStarNameIdx()
+        name = GBData.starNameFromIdx(idxname) + " (" + id + "." + uid + ")"
+
         val coordinates = getStarCoordinates()
         x = coordinates[0]
         y = coordinates[1]
-    }
 
-    var index: Int = 0
-        internal set // which position in Universe's star array
+        makePlanets()
+
+        GBDebug.l3("Made System $name")
+    }
 
 
     companion object {
@@ -41,7 +45,9 @@ class GBStar(val uId: Int, val universe: GBUniverse) {
         // (Say 4 areas each with 5 sub-areas, then place allStars into sub area) then place one race in each area.
         // Of course for 17 allRaces, this would lead to three levels with 64 sub-sub-areas. Quadratic may be better.
 
-        fun resetStarCoordinates() { areas.clear() }
+        fun resetStarCoordinates() {
+            areas.clear()
+        }
     }
 
     fun consoleDraw() {
@@ -74,7 +80,7 @@ class GBStar(val uId: Int, val universe: GBUniverse) {
     // empty.
 
 
-    fun getStarCoordinates() : IntArray {
+    fun getStarCoordinates(): IntArray {
 
         val nos = universe.getNumberOfStars().toDouble()
         val dim = java.lang.Math.ceil(java.lang.Math.sqrt(nos)).toInt()
@@ -94,15 +100,15 @@ class GBStar(val uId: Int, val universe: GBUniverse) {
 
         val areaX = area % dim   // coordinates of the chosen area
         val areaY = area / dim   // coordinates of the chosen area
-        val areaWidth = GBData.getUniverseMaxX()/ dim
+        val areaWidth = GBData.getUniverseMaxX() / dim
         val areaHeight = GBData.getUniverseMaxY() / dim
         val marginX = areaWidth / 10 // no star in the edge of the area
         val marginY = areaHeight / 10 // no star in the edge of the area
 
-        GBDebug.l3("Adding Star to area "+area+"["+areaX+"]["+areaY+"] ("+areaWidth+"x"+areaHeight+"){"+marginX+", " + marginY+ "}")
+        GBDebug.l3("Adding Star to area " + area + "[" + areaX + "][" + areaY + "] (" + areaWidth + "x" + areaHeight + "){" + marginX + ", " + marginY + "}")
 
-        coordinates[0] = GBData.rand.nextInt(areaWidth - 2*marginX) + areaX * areaWidth + marginX
-        coordinates[1] = GBData.rand.nextInt(areaHeight - 2*marginY) + areaY * areaHeight + marginY
+        coordinates[0] = GBData.rand.nextInt(areaWidth - 2 * marginX) + areaX * areaWidth + marginX
+        coordinates[1] = GBData.rand.nextInt(areaHeight - 2 * marginY) + areaY * areaHeight + marginY
 
         return coordinates
 

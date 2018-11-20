@@ -46,7 +46,7 @@ class GBUniverse {
         GBDebug.l3("Making Stars")
         GBStar.resetStarCoordinates()
         for (i in 0 until numberOfStars) {
-            GBStar(i, this)
+            GBStar(this)
         }
 
     }
