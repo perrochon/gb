@@ -65,7 +65,7 @@ class LibTest {
     @Test
     fun landPopulation() {
         val universe = GBUniverse(2,2)
-        universe.landPopulation(universe.allPlanets[1], universe.allRaces[0].uId, 55)
+        universe.landPopulation(universe.allPlanets[1], universe.allRaces[0].uid, 55)
         assertEquals(55, universe.allStars[0].starPlanets[1].population)
     }
 

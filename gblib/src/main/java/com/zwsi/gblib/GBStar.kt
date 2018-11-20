@@ -16,8 +16,10 @@ class GBStar(val universe: GBUniverse) {
 
     val x: Int // x coordinate
     val y: Int // y coordinate
-    var starPlanets: MutableList<GBPlanet> = arrayListOf() // the plents of this system
-    private val numberOfPlanets = 2 // how many Planets in this solar Systems
+    var starPlanets: MutableList<GBPlanet> = arrayListOf() // the planets in this system
+    private val numberOfPlanets = 2 // how many Planets in this system
+
+    var starShips: MutableList<GBShip> = arrayListOf() // the ships in this system
 
     init {
         id = GBData.getNextGlobalId()

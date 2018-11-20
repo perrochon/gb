@@ -11,12 +11,27 @@ import org.junit.Assert.*
 
 class GBStarTest {
 
+    fun consistent(s: GBStar){
+        assert(s.name.length > 0)
+        // assertEquals(s.uid, s.universe.allRaces.indexOf(s))
+    }
+
+
     @Test
-    fun coordinates() {
+    fun basic() {
         val universe = GBUniverse(2,2)
         val s = universe.allStars[0]
+        consistent(s)
 
     }
 
+
+    @Test
+    fun allConsitent() {
+        val universe = GBUniverse(2,2)
+        val s = universe.allStars[0]
+        consistent(s)
+
+    }
 
 }

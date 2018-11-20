@@ -4,11 +4,12 @@ class GBUniverse {
 
     internal var numberOfStars: Int
     internal var numberOfRaces: Int
-    var allStars: MutableList<GBStar> = arrayListOf()  // the allStars
-    var allPlanets: MutableList<GBPlanet> = arrayListOf() // the allPlanets
-    var allRaces: MutableList<GBRace> = arrayListOf() // the allRaces
+    var allStars: MutableList<GBStar> = arrayListOf()  // the all the stars
+    var allPlanets: MutableList<GBPlanet> = arrayListOf() // all the planets
+    var allRaces: MutableList<GBRace> = arrayListOf() // all the races
+    var allShips: MutableList<GBShip> = arrayListOf() // all the ships
 
-    // how many star Systems in the Universe
+
     internal constructor(numberOfStars: Int, numberOfRaces: Int) {
         this.numberOfStars = numberOfStars
         this.numberOfRaces = numberOfRaces
@@ -23,7 +24,9 @@ class GBUniverse {
     val universeMaxY: Int
         get() = GBData.getUniverseMaxY()
 
-    fun getNumberOfStars() : Int { return numberOfStars}
+    fun getNumberOfStars(): Int {
+        return numberOfStars
+    }
 
     internal fun consoleDraw() {
         println("=============================================")
@@ -56,19 +59,18 @@ class GBUniverse {
 
         // TODO: Replace with full GBData driven solution instead of hard coded
 
-        var sector: GBSector
-        allRaces.add(GBRace(0, 0))
-        landPopulation(allStars[0].starPlanets[0]!!, allRaces[0].uId, 100)
+        val r1 = GBRace(this, 0)
+        val r2 = GBRace(this, 1)
+
+        landPopulation(allStars[0].starPlanets[0], r1.uid, 100)
 
         if (numberOfStars > 1) {
-            allRaces.add(GBRace(1, 1))
-            landPopulation(allStars[1].starPlanets[0]!!, allRaces[1].uId, 100)
-
+            landPopulation(allStars[1].starPlanets[0], r2.uid, 100)
         }
 
         if (numberOfStars > 2) {
-            landPopulation(allStars[2].starPlanets[0]!!, allRaces[0].uId, 50)
-            landPopulation(allStars[2].starPlanets[0]!!, allRaces[1].uId, 50)
+            landPopulation(allStars[2].starPlanets[0], r1.uid, 50)
+            landPopulation(allStars[2].starPlanets[0], r2.uid, 50)
         }
 
     }
@@ -82,7 +84,7 @@ class GBUniverse {
     internal fun doUniverse() {
         for (s in allStars) {
             for (p in s.starPlanets) {
-                p!!.doPlanet()
+                p.doPlanet()
             }
         }
 

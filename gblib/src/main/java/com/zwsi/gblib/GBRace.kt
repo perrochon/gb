@@ -11,21 +11,27 @@
 
 package com.zwsi.gblib
 
-class GBRace(val uId: Int, private val idx: Int) {
+class GBRace(val universe: GBUniverse, private val idx: Int) {
 
     // uId is the Universe level ID (in Universe's list of allRaces)
     // idx is the number to go look up in GBData. This will go away with race design
 
     val id: Int
+    val uid: Int
     val name: String
     val birthrate: Int
     val explore: Int
     val absorption: Int
     val description: String
-    // val allPlanets: Array<GBPlanet>? = null
+
+    var raceShips: MutableList<GBShip> = arrayListOf() // Ships of this race
+
 
     init {
         id = GBData.getNextGlobalId()
+        universe.allRaces.add(this)
+        uid = universe.allRaces.indexOf(this)
+
         name = GBData.getRaceName(idx)
         birthrate = GBData.getRaceBirthrate(idx)
         explore = GBData.getRaceExplore(idx)

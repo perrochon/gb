@@ -11,8 +11,14 @@ import org.junit.Assert.*
 
 class GBRaceTest {
 
+    fun consistent(r: GBRace){
+        assert(r.description.length > 0)
+        assertEquals(r.uid, r.universe.allRaces.indexOf(r))
+    }
+
+
     @Test
-    fun basicSector() {
+    fun basic() {
         val universe = GBUniverse(2,2)
         val r = universe.allRaces[0]
     }

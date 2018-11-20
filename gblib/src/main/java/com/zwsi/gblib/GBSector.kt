@@ -40,7 +40,7 @@ class GBSector constructor(val planet: GBPlanet) {
 
     fun setOwner(r: GBRace?) {
         owner = r
-        ownerID = r!!.uId
+        ownerID = r!!.uid
         ownerName = r.name
     }
 

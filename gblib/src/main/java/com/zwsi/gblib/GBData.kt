@@ -132,13 +132,26 @@ internal class GBData {
                     "and they walk at 5mph, they glide at 65mph."),
             1 to RaceData("Impi", 20, 50, 10,  "Impi can breath underwater, " +
                     "they swim at 80mph, they can change color like a chameleon, they run at 30 mph, they walk at 5.3mph, " +
-                    "and can use all four hands for piloting, fighting and other activities."))
+                    "and can use all four hands for piloting, fighting and other activities.")
+        )
 
         fun getRaceName (idx: Int) : String { return races.get(idx)!!.name}
         fun getRaceBirthrate (idx: Int) : Int { return races.get(idx)!!.birthrate}
         fun getRaceExplore (idx: Int) : Int { return races.get(idx)!!.explore}
         fun getRaceAbsorption (idx: Int) : Int { return races.get(idx)!!.absorption}
         fun getRaceDescription (idx: Int) : String { return races.get(idx)!!.description}
+
+        data class ShipData(val type: String,
+                            val speed: Int)
+
+        private val ships  = hashMapOf(
+            0 to ShipData ("Spore Pod", 1),
+            1 to ShipData("Cruiser", 5)
+        )
+
+        fun getShipType (idx: Int) : String {return ships.get(idx)!!.type}
+        fun getShipSpeed (idx: Int) : Int {return ships.get(idx)!!.speed}
+
     }
 
 
