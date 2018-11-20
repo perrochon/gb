@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        //setTheme(R.style.AppTheme) // Switch back from the Launcher Theme
+        //setTheme(android.R.style.AppTheme) // TODO Switch back from the Launcher Theme
+
         // TODO this switch back doesn't compile for APK generation. Not sure why.
         // If we can make it work, we don't have to load the background image in every activity, but switch the theme
         super.onCreate(savedInstanceState)

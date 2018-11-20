@@ -7,24 +7,24 @@
         android:layout_height="match_parent"
         tools:context=".StarsActivity">
 
-    <ImageView
-            android:layout_width="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/orionnebula"
-            android:alpha="1" android:id="@+id/imageView" android:contentDescription="@string/orion_nebula"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="match_parent"/>
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/starField"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView" android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/template"
-            android:textColor="@android:color/holo_orange_light"/>
-</android.support.constraint.ConstraintLayout>
+    <!--   <ImageView
+              android:layout_width="match_parent"
+              android:scaleType="centerCrop"
+              android:src="@drawable/orionnebula"
+              android:alpha="1" android:id="@+id/imageView" android:contentDescription="@string/orion_nebula"
+              app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+              android:layout_height="match_parent"/>-->
+      <ImageView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:id="@+id/starField"
+              app:layout_constraintEnd_toEndOf="@+id/imageView"
+              app:layout_constraintStart_toStartOf="@+id/imageView"
+              app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+              app:layout_constraintBottom_toBottomOf="@+id/imageView" android:layout_marginTop="8dp"
+              android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+      <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:id="@+id/template"
+              android:textColor="@android:color/holo_orange_light"/>
+  </android.support.constraint.ConstraintLayout>
