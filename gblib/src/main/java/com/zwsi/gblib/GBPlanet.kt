@@ -90,28 +90,28 @@ class GBPlanet (val sid: Int, val star: GBStar) {
         return i / width
     }
 
-    private fun west(x: Int): Int {
+    fun west(x: Int): Int {
         return if (x % width == 0)
             x+width-1
         else
             x - 1
     }
 
-    private fun east(x: Int): Int {
+    fun east(x: Int): Int {
         return if (x % width == width-1)
             x+1-width
         else
             x + 1
     }
 
-    private fun north(x: Int): Int {
+    fun north(x: Int): Int {
         return if (x < width )  // first row
             x // north of north pole loops back to itself
         else
             x - width
     }
 
-    private fun south(x: Int): Int {
+    fun south(x: Int): Int {
         return if (x > (height-1) * width) // last row
             x   // south of south pole loops back to itself
         else

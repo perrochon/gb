@@ -58,24 +58,24 @@ class GBUniverse {
 
         var sector: GBSector
         allRaces.add(GBRace(0, 0))
-        landPopulation(allStars[0].starPlanets[0]!!, allRaces[0].uId)
+        landPopulation(allStars[0].starPlanets[0]!!, allRaces[0].uId, 100)
 
         if (numberOfStars > 1) {
             allRaces.add(GBRace(1, 1))
-            landPopulation(allStars[1].starPlanets[0]!!, allRaces[1].uId)
+            landPopulation(allStars[1].starPlanets[0]!!, allRaces[1].uId, 100)
 
         }
 
         if (numberOfStars > 2) {
-            landPopulation(allStars[2].starPlanets[0]!!, allRaces[0].uId)
-            landPopulation(allStars[2].starPlanets[0]!!, allRaces[1].uId)
+            landPopulation(allStars[2].starPlanets[0]!!, allRaces[0].uId, 50)
+            landPopulation(allStars[2].starPlanets[0]!!, allRaces[1].uId, 50)
         }
 
     }
 
-    fun landPopulation(p: GBPlanet, uId: Int) {
+    fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
         GBDebug.l3("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
-        p.landPopulation(allRaces[uId], 100)
+        p.landPopulation(allRaces[uId], number)
     }
 
 

@@ -93,7 +93,7 @@ class PlanetActivity : AppCompatActivity() {
     /** Called when the user taps the Planets button */
     fun colonize0(view: View) {
         val universe = GBController.universe
-        universe!!.landPopulation(p, 0)
+        universe!!.landPopulation(p, 0, 100)
 
         //Redraw  - This is ugly, we should just get the Planet View to redraw
         val intent = intent
@@ -107,7 +107,7 @@ class PlanetActivity : AppCompatActivity() {
     /** Called when the user taps the Stars button */
     fun colonize1(view: View) {
         val universe = GBController.universe
-        universe!!.landPopulation(p, 1)
+        universe!!.landPopulation(p, 1, 100)
 
         //Redraw  - This is ugly, we should just get the Planet View to redraw
         val intent = intent

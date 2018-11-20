@@ -44,7 +44,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
 
         val universe = GBController.universe
-        universe!!.landPopulation(universe.allPlanets[view.id.toInt()], 0)
+        universe!!.landPopulation(universe.allPlanets[view.id.toInt()], 0, 100)
 
         val message = "Landing Xenos on " + universe.allPlanets[view.id.toInt()].name
         Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
@@ -61,7 +61,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Colonize button */
     fun colonize1(view: View) {
         val universe = GBController.universe
-        universe!!.landPopulation(universe.allPlanets[view.id.toInt()], 1)
+        universe!!.landPopulation(universe.allPlanets[view.id.toInt()], 1, 100)
 
         val message = "Landing Impi on " + universe.allPlanets[view.id.toInt()].name
         Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
