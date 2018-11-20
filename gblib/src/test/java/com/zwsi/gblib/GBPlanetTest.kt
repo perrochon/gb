@@ -12,6 +12,28 @@ import org.junit.Assert.*
 class GBPlanetTest {
 
     @Test
+    fun coordinates() {
+        val universe = GBUniverse(2,2)
+        val p = universe.allPlanets[0]
+        val width=p.width
+        val height = p.height
+        assertEquals(width*height, p.size)
+
+        assertEquals(p.sectorX(0),0)
+        assertEquals(p.sectorY(0),0)
+
+        assertEquals(p.sectorX(width-1),width-1)
+        assertEquals(p.sectorY(width-1),0)
+
+        assertEquals(p.sectorX(width),0)
+        assertEquals(p.sectorY(width),1)
+
+        assertEquals(p.sectorX(width*height-1),width-1)
+        assertEquals(p.sectorY(width*height-1),height-1)
+
+    }
+
+    @Test
     fun directions() {
         val universe = GBUniverse(2,2)
         val p = universe.allPlanets[0]
