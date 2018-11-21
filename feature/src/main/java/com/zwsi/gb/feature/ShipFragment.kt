@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gblib.GBController
@@ -43,10 +44,15 @@ class ShipFragment : Fragment() {
 
         val imageView = view!!.findViewById<ImageView>(R.id.ShipView)
 
-        if (shipID == 1)
-            imageView.setImageResource(R.drawable.podt)
-        else if (shipID == 0)
+        if (shipID == 0) {
             imageView.setImageResource(R.drawable.factory)
+
+            view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
+            view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
+
+
+        } else if (shipID == 1)
+            imageView.setImageResource(R.drawable.podt)
         else
             imageView.setImageResource(R.drawable.cruisert)
 

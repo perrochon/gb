@@ -57,13 +57,6 @@ class PlanetsSlideActivity : AppCompatActivity() {
         val message = "Landing Xenos on " + universe.allPlanets[view.id.toInt()].name
         Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
 
-        //Redraw  - This is ugly, we should just get the Planet View to redraw
-//        val intent = intent
-//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or
-//                Intent.FLAG_ACTIVITY_NO_ANIMATION
-//        finish()
-//        startActivity(intent)
-
     }
 
     /** Called when the user taps the Colonize button */
@@ -73,13 +66,6 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         val message = "Landing Impi on " + universe.allPlanets[view.id.toInt()].name
         Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
-
-        //Redraw  - This is ugly, we should just get the Planet View to redraw
-//        val intent = intent
-//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or
-//                Intent.FLAG_ACTIVITY_NO_ANIMATION
-//        finish()
-//        startActivity(intent)
 
     }
 }

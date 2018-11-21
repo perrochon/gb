@@ -3,6 +3,8 @@ package com.zwsi.gb.feature
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.widget.Toast
 import com.zwsi.gblib.GBController
 
 class StarsSlideActivity : AppCompatActivity() {
@@ -35,4 +37,6 @@ class StarsSlideActivity : AppCompatActivity() {
         viewpager.adapter = adapter
 
     }
+
+
 }
