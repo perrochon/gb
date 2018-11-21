@@ -57,7 +57,7 @@ class StarFragment : Fragment() {
         stats.append("Position : (" + (st.x) + ", " + st.y + ")\n")
 
         if (st.starPlanets.isNotEmpty()) {
-            stats.append("Planets:\n")
+            stats.append(st.starPlanets.size.toString() + " planets:\n")
             for (pl in st.starPlanets) {
                 stats.append("           " + pl.name + "\n")
             }
@@ -65,9 +65,9 @@ class StarFragment : Fragment() {
         }
 
         if (st.starShips.isNotEmpty()) {
-            stats.append("Ships present:\n")
+            stats.append(st.starShips.size.toString() + " ships present:\n")
             for (sh in st.starShips) {
-                stats.append("           " + sh.name + "\n")
+                stats.append("           " + sh.name + " (" + sh.owner.name + ")\n")
             }
         }
 
@@ -77,6 +77,13 @@ class StarFragment : Fragment() {
 
         stats.append("\n")
         stats.append("Lorem ipsum dolor sit amet")
+
+        stats.append("\n")
+        stats.append("id: " + st.id +" | ")
+        stats.append("uid: " + st.uid  +" | ")
+        stats.append("idxname: " + st.idxname +"\n")
+
+
 
         return view
     }

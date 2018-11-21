@@ -80,6 +80,11 @@ class ShipFragment : Fragment() {
         stats.append("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
                 "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")
 
+        stats.append("\n")
+        stats.append("id: " + sh.id +" | ")
+        stats.append("uid: " + sh.uid  +" | ")
+        stats.append("idxtype: " + sh.idxtype +"\n")
+
         return view
     }
 }

@@ -8,9 +8,9 @@ import java.util.*
 
 class GBStar(val universe: GBUniverse) {
 
-    private val id: Int
+    val id: Int
     val uid: Int
-    private val idxname: Int
+    val idxname: Int
 
     val name: String // name of this system
 
