@@ -17,7 +17,8 @@ class GBStar(val universe: GBUniverse) {
     val x: Int // x coordinate
     val y: Int // y coordinate
     var starPlanets: MutableList<GBPlanet> = arrayListOf() // the planets in this system
-    private val numberOfPlanets = 2 // how many Planets in this system
+
+    var numberOfPlanets = 2 // minimal number of planets
 
     var starShips: MutableList<GBShip> = arrayListOf() // the ships in this system
 
@@ -32,6 +33,12 @@ class GBStar(val universe: GBUniverse) {
         val coordinates = getStarCoordinates()
         x = coordinates[0]
         y = coordinates[1]
+
+        if (universe.numberOfStars > 3) {
+            // 2-8 stars. May adjust this later based on star type...
+            // if there are 3 or less stars in the Universe, we limit to 2 planets per system, as we are likely testing
+            numberOfPlanets += GBData.rand.nextInt(6)
+        }
 
         makePlanets()
 

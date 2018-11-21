@@ -48,7 +48,8 @@ class LibTest {
     fun makeBigUniverse() {
         var universe = GBUniverse(big,2)
         assertEquals(big, universe.allStars.size)
-        assertEquals(big*2, universe.allPlanets.size)
+        assertTrue(big*2 < universe.allPlanets.size)
+        assertTrue(big*8 > universe.allPlanets.size)
         assertEquals(2, universe.allRaces.size)
         consistent(universe)
     }
@@ -59,7 +60,8 @@ class LibTest {
         for (i in 1..big)
             universe.doUniverse()
         assertEquals(big, universe.allStars.size)
-        assertEquals(big*2, universe.allPlanets.size)
+        assertTrue(big*2 < universe.allPlanets.size)
+        assertTrue(big*8 > universe.allPlanets.size)
         assertEquals(2, universe.allRaces.size)
         consistent(universe)
     }

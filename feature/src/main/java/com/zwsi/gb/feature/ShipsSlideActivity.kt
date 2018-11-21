@@ -47,7 +47,7 @@ class ShipsSlideActivity : AppCompatActivity() {
         val universe = GBController.universe
 
         //val message = "Landing Xenos on " + universe!!.allPlanets[view.id.toInt()].name
-        Toast.makeText(view.context, "poof", Toast.LENGTH_LONG).show()
+        Toast.makeText(view.context, "Pod being made", Toast.LENGTH_LONG).show()
 
     }
 
@@ -56,7 +56,7 @@ class ShipsSlideActivity : AppCompatActivity() {
         val universe = GBController.universe
 
         //val message = "Landing Impi on " + universe!!.allPlanets[view.id.toInt()].name
-        Toast.makeText(view.context, "poof", Toast.LENGTH_LONG).show()
+        Toast.makeText(view.context, "Cruiser being made", Toast.LENGTH_LONG).show()
 
     }
 

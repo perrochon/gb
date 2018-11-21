@@ -78,7 +78,7 @@ class ShipFragment : Fragment() {
 
         stats.append("\n")
         stats.append("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
-                "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")
+                "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n")
 
         stats.append("\n")
         stats.append("id: " + sh.id +" | ")

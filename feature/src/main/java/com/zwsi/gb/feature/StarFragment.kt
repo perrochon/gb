@@ -59,7 +59,7 @@ class StarFragment : Fragment() {
         if (st.starPlanets.isNotEmpty()) {
             stats.append(st.starPlanets.size.toString() + " planets:\n")
             for (pl in st.starPlanets) {
-                stats.append("           " + pl.name + "\n")
+                stats.append("  " + pl.name + " ")
             }
             stats.append("\n")
         }
@@ -76,14 +76,12 @@ class StarFragment : Fragment() {
         paint.textSize = 40f
 
         stats.append("\n")
-        stats.append("Lorem ipsum dolor sit amet")
+        stats.append("Lorem ipsum dolor sit amet\n")
 
         stats.append("\n")
         stats.append("id: " + st.id +" | ")
         stats.append("uid: " + st.uid  +" | ")
         stats.append("idxname: " + st.idxname +"\n")
-
-
 
         return view
     }
