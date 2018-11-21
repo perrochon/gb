@@ -145,8 +145,9 @@ internal class GBData {
                             val speed: Int)
 
         private val ships  = hashMapOf(
-            0 to ShipData ("Spore Pod", 1),
-            1 to ShipData("Cruiser", 5)
+            0 to ShipData ("Factory", 0),
+            1 to ShipData ("Spore Pod", 1),
+            2 to ShipData ("Cruiser", 5)
         )
 
         fun getShipType (idx: Int) : String {return ships.get(idx)!!.type}

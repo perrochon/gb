@@ -39,7 +39,7 @@ class GBShipTest {
 
     @Test
     fun basic() {
-        val universe = GBUniverse(2, 2)
+        val universe = GBUniverse(3, 2)
         val s0 = universe.allStars[0]
         val r0: GBRace = universe.allRaces[0]
 
@@ -55,7 +55,7 @@ class GBShipTest {
 
     @Test(expected = java.lang.AssertionError::class)
     fun shipInTwoStarsFailsConsistency() {
-        val universe = GBUniverse(2, 2)
+        val universe = GBUniverse(3, 2)
         val s0 = universe.allStars[0]
         val s1 = universe.allStars[1]
         val r0: GBRace = universe.allRaces[0]
@@ -70,7 +70,7 @@ class GBShipTest {
 
     @Test(expected = java.lang.AssertionError::class)
     fun shipInTwoRacesFailsConsistency() {
-        val universe = GBUniverse(2, 2)
+        val universe = GBUniverse(3, 2)
         val s0 = universe.allStars[0]
         val r0: GBRace = universe.allRaces[0]
         val r1: GBRace = universe.allRaces[1]

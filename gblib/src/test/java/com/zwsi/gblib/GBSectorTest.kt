@@ -13,7 +13,7 @@ class GBSectorTest {
 
     @Test
     fun basicSector() {
-        val universe = GBUniverse(2,2)
+        val universe = GBUniverse(3,2)
         val p = universe.allPlanets[0]
         val s = GBSector(p)
         assertEquals(s.planet, p)

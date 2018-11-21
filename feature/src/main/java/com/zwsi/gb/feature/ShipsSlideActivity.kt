@@ -30,6 +30,8 @@ class ShipsSlideActivity : AppCompatActivity() {
             adapter.addFragment(sh1, ship++.toString())
             var sh2: ShipFragment = ShipFragment.newInstance("1")
             adapter.addFragment(sh2, ship++.toString())
+            var sh3: ShipFragment = ShipFragment.newInstance("2")
+            adapter.addFragment(sh3, ship++.toString())
         }
 
         viewpager.adapter = adapter

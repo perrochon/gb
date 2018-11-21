@@ -19,7 +19,7 @@ class GBRaceTest {
 
     @Test
     fun basic() {
-        val universe = GBUniverse(2,2)
+        val universe = GBUniverse(3,2)
         val r = universe.allRaces[0]
     }
 

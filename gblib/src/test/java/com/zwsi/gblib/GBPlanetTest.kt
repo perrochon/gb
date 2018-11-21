@@ -30,7 +30,7 @@ class GBPlanetTest {
 
     @Test
     fun coordinates() {
-        val universe = GBUniverse(2,2)
+        val universe = GBUniverse(3,2)
         val p = universe.allPlanets[0]
         val width=p.width
         val height = p.height
@@ -53,7 +53,7 @@ class GBPlanetTest {
 
     @Test
     fun directions() {
-        val universe = GBUniverse(2,2)
+        val universe = GBUniverse(3,2)
         val p = universe.allPlanets[0]
         val width=p.width
         val height = p.height

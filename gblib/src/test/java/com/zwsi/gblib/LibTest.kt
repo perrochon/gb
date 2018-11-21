@@ -20,10 +20,11 @@ class LibTest {
 
     @Test
     fun makeSmallUniverse() {
-        var universe = GBUniverse(2,2)
-        assertEquals(2, universe.allStars.size)
-        assertEquals(4, universe.allPlanets.size)
+        var universe = GBUniverse(3,2)
+        assertEquals(3, universe.allStars.size)
+        assertEquals(6, universe.allPlanets.size)
         assertEquals(2, universe.allRaces.size)
+        assertEquals( 6, universe.allShips.size)
         assertEquals(100, universe.allPlanets[0].population)
         assertEquals(100, universe.allPlanets[2].population)
         consistent(universe)
@@ -32,11 +33,12 @@ class LibTest {
 
     @Test
     fun doSmallUniverse() {
-        val universe = GBUniverse(2,2)
+        val universe = GBUniverse(3,2)
         universe.doUniverse()
-        assertEquals(2, universe.allStars.size)
-        assertEquals(4, universe.allPlanets.size)
+        assertEquals(3, universe.allStars.size)
+        assertEquals(6, universe.allPlanets.size)
         assertEquals(2, universe.allRaces.size)
+        assertEquals( 6, universe.allShips.size)
         consistent(universe)
     }
 
@@ -64,7 +66,7 @@ class LibTest {
 
     @Test
     fun landPopulation() {
-        val universe = GBUniverse(2,2)
+        val universe = GBUniverse(3,2)
         universe.landPopulation(universe.allPlanets[1], universe.allRaces[0].uid, 55)
         assertEquals(55, universe.allStars[0].starPlanets[1].population)
     }

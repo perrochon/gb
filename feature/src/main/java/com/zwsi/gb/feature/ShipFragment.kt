@@ -43,8 +43,10 @@ class ShipFragment : Fragment() {
 
         val imageView = view!!.findViewById<ImageView>(R.id.ShipView)
 
-        if (shipID == 0)
+        if (shipID == 1)
             imageView.setImageResource(R.drawable.podt)
+        else if (shipID == 0)
+            imageView.setImageResource(R.drawable.factory)
         else
             imageView.setImageResource(R.drawable.cruisert)
 
@@ -70,11 +72,7 @@ class ShipFragment : Fragment() {
 
         stats.append("\n")
         stats.append("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
-                "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et " +
-                "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum " +
-                "dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod " +
-                "tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. " +
-                "At vero eos et accusam et justo duo dolores et ea rebum.")
+                "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")
 
         return view
     }

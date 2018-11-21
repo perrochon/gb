@@ -19,7 +19,7 @@ class GBStarTest {
 
     @Test
     fun basic() {
-        val universe = GBUniverse(2,2)
+        val universe = GBUniverse(3,2)
         val s = universe.allStars[0]
         consistent(s)
 
@@ -28,7 +28,7 @@ class GBStarTest {
 
     @Test
     fun allConsitent() {
-        val universe = GBUniverse(2,2)
+        val universe = GBUniverse(3,2)
         val s = universe.allStars[0]
         consistent(s)
 

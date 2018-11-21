@@ -24,3 +24,5 @@ dependencies {
     application project(':app')
     feature project(':feature')
 }
+
+
