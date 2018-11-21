@@ -28,7 +28,7 @@ class GBStar(val universe: GBUniverse) {
         uid = universe.allStars.indexOf(this)
 
         idxname = GBData.selectStarNameIdx()
-        name = GBData.starNameFromIdx(idxname) + " (" + id + "." + uid + ")"
+        name = GBData.starNameFromIdx(idxname)
 
         val coordinates = getStarCoordinates()
         x = coordinates[0]

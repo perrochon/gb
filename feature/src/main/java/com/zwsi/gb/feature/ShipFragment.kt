@@ -42,34 +42,38 @@ class ShipFragment : Fragment() {
 
         val shipID = arguments!!.getString("uId").toInt()
 
+        val universe = GBController.universe
+        val ships = universe!!.allShips
+        val sh = ships[shipID]
+
         val imageView = view!!.findViewById<ImageView>(R.id.ShipView)
 
-        if (shipID == 0) {
+        if (sh.idxtype == 0) {
             imageView.setImageResource(R.drawable.factory)
 
             view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
             view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
 
 
-        } else if (shipID == 1)
+        } else if (sh.idxtype == 1)
             imageView.setImageResource(R.drawable.podt)
-        else
+        else if (sh.idxtype == 2)
             imageView.setImageResource(R.drawable.cruisert)
+        else
+            imageView.setImageResource(R.drawable.yellow)
 
-        val universe = GBController.universe
-        val ships = universe!!.allShips
-        val sh = ships[shipID]
+
 
         var stats = view.findViewById<TextView>(R.id.ShipStats)
         var paint = stats.paint
         paint.textSize = 40f
 
         stats.append("\n")
-        stats.append("Name : " + (sh!!.name) + "\n")
-        stats.append("Type : " + (sh.type) + "\n")
-        stats.append("Speed : " + (sh.speed) + "\n")
-        stats.append("Owner: " + (sh.owner.name) + "\n")
-        stats.append("Position: " + (sh.position.name) + " sytem \n")
+        stats.append("Name    : " + sh!!.name + "\n")
+        stats.append("Type    : " + sh.type + "\n")
+        stats.append("Speed   : " + sh.speed + "\n")
+        stats.append("Owner   : " + sh.owner.name + "\n")
+        stats.append("Location: " + sh.getLocation() + "\n")
 
 
         stats = view!!.findViewById<TextView>(R.id.ShipBackground)
@@ -83,7 +87,8 @@ class ShipFragment : Fragment() {
         stats.append("\n")
         stats.append("id: " + sh.id +" | ")
         stats.append("uid: " + sh.uid  +" | ")
-        stats.append("idxtype: " + sh.idxtype +"\n")
+        stats.append("idxtype: " + sh.idxtype +" | ")
+        stats.append("location: " + sh.level + "." + sh.locationuid + "\n")
 
         return view
     }

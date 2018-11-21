@@ -6,6 +6,8 @@
 
 package com.zwsi.gblib
 
+import java.lang.AssertionError
+
 internal object GBDebug {
 
     val DEBUG_LEVEL = 0  // 0 quiet, 1 minimal, 2 verbose, 3 everything
@@ -26,6 +28,12 @@ internal object GBDebug {
         if (DEBUG_LEVEL >= 3) {
             println("---GBDebug: $message")
         }
+    }
+
+    var assertionsEnabled = true
+
+    inline fun gbAssert(message : String = "Assertion failure", test: () -> Boolean){
+        if (assertionsEnabled && !test() ) AssertionError(message)
     }
 }
 

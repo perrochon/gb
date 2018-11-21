@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="@+id/StarStats"
             app:layout_constraintStart_toStartOf="@+id/StarBackground"
             app:layout_constraintEnd_toEndOf="@+id/StarBackground"
-            app:layout_constraintBottom_toBottomOf="@+id/StarBackground" android:alpha="0.3"/>
+            app:layout_constraintBottom_toBottomOf="@+id/StarBackground" android:alpha="0.5"/>
     <TextView
             android:id="@+id/StarStats"
             android:textColor="@android:color/holo_blue_bright"

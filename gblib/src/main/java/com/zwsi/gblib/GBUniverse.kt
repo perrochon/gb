@@ -7,7 +7,9 @@ class GBUniverse {
     var allStars: MutableList<GBStar> = arrayListOf()  // the all the stars
     var allPlanets: MutableList<GBPlanet> = arrayListOf() // all the planets
     var allRaces: MutableList<GBRace> = arrayListOf() // all the races
-    var allShips: MutableList<GBShip> = arrayListOf() // all the ships
+
+    var allShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
+    var universeShips: MutableList<GBShip> = arrayListOf() // ships in transit between system
 
 
     internal constructor(numberOfStars: Int, numberOfRaces: Int) {
@@ -81,12 +83,12 @@ class GBUniverse {
 
         // TODO: Replace with user driven solution instead of hard coded
 
-        GBShip(0, allRaces[0], allStars[0])
-        GBShip(0, allRaces[1], allStars[1])
-        GBShip(1, allRaces[0], allStars[0])
-        GBShip(1, allRaces[1], allStars[1])
-        GBShip(2, allRaces[0], allStars[2])
-        GBShip(2, allRaces[1], allStars[2])
+        GBShip(0, allRaces[0], 1, allStars[0].starPlanets[0].uid)
+        GBShip(0, allRaces[1], 1, allStars[1].starPlanets[1].uid)
+        GBShip(1, allRaces[0], 2, allStars[0].starPlanets[0].uid)
+        GBShip(1, allRaces[1], 2, allStars[1].starPlanets[1].uid)
+        GBShip(2, allRaces[0], 3, allStars[2].uid)
+        GBShip(2, allRaces[1], 3, allStars[2].uid)
     }
 
     fun landPopulation(p: GBPlanet, uId: Int, number: Int) {

@@ -32,6 +32,9 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
     var population = 0;
 
+    var landedShips: MutableList<GBShip> = arrayListOf() // the ships on ground of this planet
+    var orbitShips:  MutableList<GBShip> = arrayListOf() // the ships in orbit of this planet
+
 
     init {
         id = GBData.getNextGlobalId()

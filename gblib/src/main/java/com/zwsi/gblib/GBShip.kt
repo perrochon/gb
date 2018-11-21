@@ -6,7 +6,11 @@
 
 package com.zwsi.gblib
 
-class GBShip(val idxtype: Int, val owner: GBRace, val position: GBStar) {
+import com.zwsi.gblib.GBDebug.gbAssert
+
+class GBShip(val idxtype: Int, val owner: GBRace, val level: Int, val locationuid: Int) {
+
+    // Level: 1 surface, 2 orbit, 3 star, 4 deep space (5 Hyperspace?)
 
     // Set at creation
     val id: Int
@@ -17,18 +21,60 @@ class GBShip(val idxtype: Int, val owner: GBRace, val position: GBStar) {
 
     val speed: Int
 
-
     init {
         id = GBData.getNextGlobalId()
         owner.universe.allShips.add(this)
         uid = owner.universe.allShips.indexOf(this)
         owner.raceShips.add(this)
-        position.starShips.add(this)
+
+        when(level){
+            1 -> {
+                gbAssert { owner.universe.allPlanets.elementAtOrNull(locationuid) != null}
+                owner.universe.allPlanets[locationuid].landedShips.add(this)
+            }
+            2 -> {
+                gbAssert { owner.universe.allPlanets.elementAtOrNull(locationuid) != null}
+                owner.universe.allPlanets[locationuid].orbitShips.add(this)
+            }
+            3 -> {
+                gbAssert { owner.universe.allStars.elementAtOrNull(locationuid) != null}
+                owner.universe.allStars[locationuid].starShips.add(this)
+            }
+            4 -> {
+                owner.universe.universeShips.add(this)
+            }
+            else -> {
+                gbAssert("Bad Parameters for ship placement" + level + "." + locationuid, {true} )
+            }
+
+        }
 
 
         type = GBData.getShipType(idxtype)
         name = type + " " + owner.raceShips.indexOf(this)
         speed = GBData.getShipSpeed(idxtype)
+    }
+
+    fun getLocation() : String {
+        when(level){
+            1 -> {
+                return "Surface of " + owner.universe.allPlanets[locationuid].name +
+                        " in system " + owner.universe.allStars[locationuid].name
+            }
+            2 -> {
+                return "Orbit of " + owner.universe.allPlanets[locationuid].name +
+                        " in system " + owner.universe.allStars[locationuid].name
+            }
+            3 -> {
+                return "System " + owner.universe.allStars[locationuid].name
+            }
+            4 -> {
+                return "Deep Space"
+            }
+            else -> {return "Limbo"}
+        }
+
+
     }
 
 }

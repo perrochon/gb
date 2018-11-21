@@ -27,14 +27,12 @@ class ShipsSlideActivity : AppCompatActivity() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
 
-        var ship = 0
-        for (i in 1..100) {
-            var sh1: ShipFragment = ShipFragment.newInstance("0")
-            adapter.addFragment(sh1, ship++.toString())
-            var sh2: ShipFragment = ShipFragment.newInstance("1")
-            adapter.addFragment(sh2, ship++.toString())
-            var sh3: ShipFragment = ShipFragment.newInstance("2")
-            adapter.addFragment(sh3, ship++.toString())
+        val universe = GBController.universe
+
+        for (sh in universe!!.allShips) {
+
+            var fragment: ShipFragment = ShipFragment.newInstance(sh.uid.toString())
+            adapter.addFragment(fragment, sh.uid.toString())
         }
 
         viewpager.adapter = adapter

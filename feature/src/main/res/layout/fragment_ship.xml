@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="@+id/ShipStats"
             app:layout_constraintStart_toStartOf="@+id/ShipBackground"
             app:layout_constraintEnd_toEndOf="@+id/ShipBackground"
-            app:layout_constraintBottom_toBottomOf="@+id/ShipBackground" android:alpha="0.3"/>
+            app:layout_constraintBottom_toBottomOf="@+id/ShipBackground" android:alpha="0.5"/>
     <TextView
             android:id="@+id/ShipStats"
             android:textColor="@android:color/holo_blue_bright"

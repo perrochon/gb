@@ -13,44 +13,108 @@ class GBShipTest {
     fun consistency(ship: GBShip) {
         assertEquals(ship.uid, ship.owner.universe.allShips.indexOf(ship))
         assert(ship.owner.raceShips.contains(ship))
-        assert(ship.position.starShips.contains(ship))
 
-        // Make sure ship is only in one star system
-        var listed = 0
-        for (star in ship.owner.universe.allStars) {
-            for (sh in star.starShips) {
+        when(ship.level){
+            1 -> {}
+            2 -> {}
+            3 -> {
+                assert(ship.owner.universe.allStars[ship.locationuid].starShips.contains(ship))
+            }
+            4 -> {}
+            else -> {
+                assert(false)
+            }
+
+        }
+
+        // Make sure ship is only in one location
+        var found = 0
+        val un = ship.owner.universe
+        for (sh in un.universeShips) {
+            if (sh.uid == ship.uid)
+                found++
+        }
+        for (st in un.allStars) {
+            for (sh in st.starShips) {
                 if (sh.uid == ship.uid)
-                    listed++
+                    found++
             }
         }
-        assertEquals(1, listed)
+        for (pl in un.allPlanets) {
+            for (sh in pl.orbitShips) {
+                if (sh.uid == ship.uid)
+                    found++
+            }
+        }
+        for (pl in un.allPlanets) {
+            for (sh in pl.landedShips) {
+                if (sh.uid == ship.uid)
+                    found++
+            }
+        }
+        assertEquals(1, found)
 
         // Make sure ship is only in one race
-        listed = 0
+        found = 0
         for (race in ship.owner.universe.allRaces) {
             for (sh in race.raceShips) {
                 if (sh.uid == ship.uid)
-                    listed++
+                    found++
             }
         }
-        assertEquals(1, listed)
+        assertEquals(1, found)
 
+    }
+
+    // TODO use @After, but need to figure out access to Universe
+    fun uniqueLocations(un: GBUniverse) {
+        for (ship in un.allShips) {
+            var found = 0
+            for (sh in un.universeShips) {
+                if (sh.uid == ship.uid)
+                    found++
+            }
+            for (st in un.allStars) {
+                for (sh in st.starShips) {
+                    if (sh.uid == ship.uid)
+                        found++
+                }
+            }
+            for (pl in un.allPlanets) {
+                for (sh in pl.orbitShips) {
+                    if (sh.uid == ship.uid)
+                        found++
+                }
+            }
+            for (pl in un.allPlanets) {
+                for (sh in pl.landedShips) {
+                    if (sh.uid == ship.uid)
+                        found++
+                }
+            }
+            assertEquals(1, found)
+        }
     }
 
     @Test
     fun basic() {
         val universe = GBUniverse(3, 2)
-        val s0 = universe.allStars[0]
-        val r0: GBRace = universe.allRaces[0]
+        val s = universe.allStars[0]
+        val r: GBRace = universe.allRaces[0]
 
-        val sh0 = GBShip(0, r0, s0)
-        consistency(sh0)
+        var sh = GBShip(0, r, 4, 1)
+        consistency(sh)
 
-        val s1 = universe.allStars[1]
-        val r1: GBRace = universe.allRaces[1]
+        sh = GBShip(0, r, 3, s.uid)
+        consistency(sh)
 
-        val sh1 = GBShip(1, r1, s1)
-        consistency(sh1)
+        sh = GBShip(1, r, 2, s.starPlanets[0].uid)
+        consistency(sh)
+
+        sh = GBShip(1, r, 1, s.starPlanets[0].uid)
+        consistency(sh)
+
+        uniqueLocations(universe)
     }
 
     @Test(expected = java.lang.AssertionError::class)
@@ -60,11 +124,12 @@ class GBShipTest {
         val s1 = universe.allStars[1]
         val r0: GBRace = universe.allRaces[0]
 
-        val sh0 = GBShip(0, r0, s0)
+        val sh0 = GBShip(0, r0, 3, s0.uid)
         consistency(sh0)
 
         s1.starShips.add(sh0)
         consistency(sh0)
+        uniqueLocations(universe)
 
     }
 
@@ -75,12 +140,13 @@ class GBShipTest {
         val r0: GBRace = universe.allRaces[0]
         val r1: GBRace = universe.allRaces[1]
 
-        val sh0 = GBShip(1, r0, s0)
+        val sh0 = GBShip(1, r0, 3, s0.uid)
         consistency(sh0)
 
         r1.raceShips.add(sh0)
 
         consistency(sh0)
+        uniqueLocations(universe)
     }
 
 }
