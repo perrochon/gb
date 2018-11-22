@@ -48,12 +48,13 @@ class ShipFragment : Fragment() {
 
         val imageView = view!!.findViewById<ImageView>(R.id.ShipView)
 
+        view.findViewById<Button>(R.id.goButton).setTag(sh)
+
         if (sh.idxtype == 0) {
             imageView.setImageResource(R.drawable.factory)
 
             view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
             view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
-
 
         } else if (sh.idxtype == 1) {
             if (sh.owner.uid == 2) {
