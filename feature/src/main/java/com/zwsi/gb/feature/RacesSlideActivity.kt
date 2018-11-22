@@ -3,6 +3,7 @@ package com.zwsi.gb.feature
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import com.zwsi.gblib.GBController
 
 class RacesSlideActivity : AppCompatActivity() {
 
@@ -24,12 +25,11 @@ class RacesSlideActivity : AppCompatActivity() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
 
-        var race = 0
-        for (i in 1..100) {
-            var r0: RaceFragment = RaceFragment.newInstance("0")
-            adapter.addFragment(r0, race++.toString())
-            var r1: RaceFragment = RaceFragment.newInstance("1")
-            adapter.addFragment(r1, race++.toString())
+        val universe = GBController.universe
+
+        for (ra in universe!!.allRaces) {
+            var rf: RaceFragment = RaceFragment.newInstance(ra.uid.toString())
+            adapter.addFragment(rf, ra.uid.toString())
         }
 
         viewpager.adapter = adapter

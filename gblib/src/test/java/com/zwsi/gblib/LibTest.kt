@@ -20,11 +20,11 @@ class LibTest {
 
     @Test
     fun makeSmallUniverse() {
-        var universe = GBUniverse(3,2)
+        var universe = GBUniverse(3,4)
         assertEquals(3, universe.allStars.size)
         assertEquals(6, universe.allPlanets.size)
-        assertEquals(2, universe.allRaces.size)
-        assertEquals( 6, universe.allShips.size)
+        assertEquals(4, universe.allRaces.size)
+        assertEquals( 8, universe.allShips.size)
         assertEquals(100, universe.allPlanets[0].population)
         assertEquals(100, universe.allPlanets[2].population)
         consistent(universe)
@@ -33,12 +33,12 @@ class LibTest {
 
     @Test
     fun doSmallUniverse() {
-        val universe = GBUniverse(3,2)
+        val universe = GBUniverse(3,4)
         universe.doUniverse()
         assertEquals(3, universe.allStars.size)
         assertEquals(6, universe.allPlanets.size)
-        assertEquals(2, universe.allRaces.size)
-        assertEquals( 6, universe.allShips.size)
+        assertEquals(4, universe.allRaces.size)
+        assertEquals( 8, universe.allShips.size)
         consistent(universe)
     }
 
@@ -46,29 +46,29 @@ class LibTest {
 
     @Test
     fun makeBigUniverse() {
-        var universe = GBUniverse(big,2)
+        var universe = GBUniverse(big,4)
         assertEquals(big, universe.allStars.size)
         assertTrue(big*2 < universe.allPlanets.size)
         assertTrue(big*8 > universe.allPlanets.size)
-        assertEquals(2, universe.allRaces.size)
+        assertEquals(4, universe.allRaces.size)
         consistent(universe)
     }
 
     @Test
     fun doBigUniverse1000() {
-        val universe = GBUniverse(big,2)
+        val universe = GBUniverse(big,4)
         for (i in 1..big)
             universe.doUniverse()
         assertEquals(big, universe.allStars.size)
         assertTrue(big*2 < universe.allPlanets.size)
         assertTrue(big*8 > universe.allPlanets.size)
-        assertEquals(2, universe.allRaces.size)
+        assertEquals(4, universe.allRaces.size)
         consistent(universe)
     }
 
     @Test
     fun landPopulation() {
-        val universe = GBUniverse(3,2)
+        val universe = GBUniverse(3,4)
         universe.landPopulation(universe.allPlanets[1], universe.allRaces[0].uid, 55)
         assertEquals(55, universe.allStars[0].starPlanets[1].population)
     }

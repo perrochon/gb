@@ -64,6 +64,8 @@ class GBUniverse {
 
         val r1 = GBRace(this, 0)
         val r2 = GBRace(this, 1)
+        val r3 = GBRace(this, 2)
+        val r4 = GBRace(this, 3)
 
         landPopulation(allStars[0].starPlanets[0], r1.uid, 100)
 
@@ -76,6 +78,10 @@ class GBUniverse {
             landPopulation(allStars[2].starPlanets[0], r2.uid, 50)
         }
 
+        if (numberOfStars > 3) {
+            landPopulation(allStars[3].starPlanets[0], r3.uid, 100)
+        }
+
     }
 
     private fun makeShips() {
@@ -85,10 +91,18 @@ class GBUniverse {
 
         GBShip(0, allRaces[0], 1, allStars[0].starPlanets[0].uid)
         GBShip(0, allRaces[1], 1, allStars[1].starPlanets[1].uid)
+        GBShip(0, allRaces[2], 1, allStars[2].starPlanets[0].uid)
         GBShip(1, allRaces[0], 2, allStars[0].starPlanets[0].uid)
         GBShip(1, allRaces[1], 2, allStars[1].starPlanets[1].uid)
+        GBShip(1, allRaces[2], 2, allStars[2].starPlanets[0].uid)
         GBShip(2, allRaces[0], 3, allStars[2].uid)
         GBShip(2, allRaces[1], 3, allStars[2].uid)
+
+        if (numberOfStars > 3) {
+            GBShip(0, allRaces[3], 1, allStars[3].starPlanets[0].uid)
+            GBShip(1, allRaces[3], 2, allStars[3].starPlanets[1].uid)
+        }
+
     }
 
     fun landPopulation(p: GBPlanet, uId: Int, number: Int) {

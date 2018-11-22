@@ -45,8 +45,12 @@ class RaceFragment : Fragment() {
 
         if (raceID == 0)
             imageView.setImageResource(R.drawable.xenost)
-        else
+        if (raceID == 1)
             imageView.setImageResource(R.drawable.impit)
+        if (raceID == 2)
+            imageView.setImageResource(R.drawable.beetle)
+        if (raceID == 3)
+            imageView.setImageResource(R.drawable.tortoise)
 
 
         val universe = GBController.universe
@@ -69,6 +73,13 @@ class RaceFragment : Fragment() {
 
         stats.append("\n")
         stats.append(r.description)
+        stats.append("\n")
+
+
+        stats.append("\n")
+        stats.append("id: " + r.id +" | ")
+        stats.append("uid: " + r.uid  +" | ")
+        stats.append("idxname: " + r.idx +"\n")
 
 
 

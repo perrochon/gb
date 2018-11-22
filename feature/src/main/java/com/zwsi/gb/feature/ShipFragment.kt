@@ -55,11 +55,16 @@ class ShipFragment : Fragment() {
             view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
 
 
-        } else if (sh.idxtype == 1)
-            imageView.setImageResource(R.drawable.podt)
-        else if (sh.idxtype == 2)
+        } else if (sh.idxtype == 1) {
+            if (sh.owner.uid == 2) {
+                imageView.setImageResource(R.drawable.beetlepod)
+
+            } else {
+                imageView.setImageResource(R.drawable.podt)
+            }
+        } else if (sh.idxtype == 2) {
             imageView.setImageResource(R.drawable.cruisert)
-        else
+        } else
             imageView.setImageResource(R.drawable.yellow)
 
 
@@ -87,8 +92,8 @@ class ShipFragment : Fragment() {
         stats.append("\n")
         stats.append("id: " + sh.id +" | ")
         stats.append("uid: " + sh.uid  +" | ")
-        stats.append("idxtype: " + sh.idxtype +" | ")
-        stats.append("location: " + sh.level + "." + sh.locationuid + "\n")
+        stats.append("idxt: " + sh.idxtype +" | ")
+        stats.append("loca: " + sh.level + "." + sh.locationuid + "\n")
 
         return view
     }

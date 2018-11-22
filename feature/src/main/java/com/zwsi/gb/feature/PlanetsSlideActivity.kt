@@ -38,8 +38,8 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         for (pl in universe!!.allPlanets) {
 
-            var fragment: PlanetFragment = PlanetFragment.newInstance(pl.uid.toString())
-            adapter.addFragment(fragment, pl.uid.toString())
+            var pf: PlanetFragment = PlanetFragment.newInstance(pl.uid.toString())
+            adapter.addFragment(pf, pl.uid.toString())
         }
 
         viewpager.adapter = adapter

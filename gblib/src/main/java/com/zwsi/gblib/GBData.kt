@@ -132,7 +132,12 @@ internal class GBData {
                     "and they walk at 5mph, they glide at 65mph."),
             1 to RaceData("Impi", 20, 50, 10,  "Impi can breath underwater, " +
                     "they swim at 80mph, they can change color like a chameleon, they run at 30 mph, they walk at 5.3mph, " +
-                    "and can use all four hands for piloting, fighting and other activities.")
+                    "and can use all four hands for piloting, fighting and other activities."),
+            2 to RaceData("Rainbow Beetles", 10, 5, 0,  "Rainbow Beetles " +
+                "are small but deadly, they have small snipers, they fly like a beetle at 25mph, they crawl at 40mph, " +
+                "they can see all directions, they can hang upside down and climb walls."),
+            3 to RaceData("WH Tortois", 5, 20, 0,  "Hard shell, can see " +
+                "with three heads, SUPER SHARP claws, moves at 25mph,  can swim at 65mph, sarp shell, can turn to a sping.")
         )
 
         fun getRaceName (idx: Int) : String { return races.get(idx)!!.name}
