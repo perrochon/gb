@@ -1,6 +1,7 @@
 package com.zwsi.gb.feature
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -11,9 +12,11 @@ import java.util.*
 import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Point
+import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.util.TypedValue
+import android.view.LayoutInflater
 
 import com.qozix.tileview.TileView
 import com.qozix.tileview.plugins.CoordinatePlugin
@@ -21,7 +24,6 @@ import com.qozix.tileview.plugins.HotSpotPlugin
 import com.qozix.tileview.plugins.InfoWindowPlugin
 import com.qozix.tileview.plugins.MarkerPlugin
 import com.qozix.tileview.plugins.PathPlugin
-import java.util.*
 
 /**
  * @author Mike Dunn, 2/4/18.
@@ -56,11 +58,25 @@ class MapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+        setContentView(R.layout.activity_map_constraint)
+
+        val layoutInflater:LayoutInflater = LayoutInflater.from(this)
+        val layout = findViewById<ConstraintLayout>(R.id.root_layout)
+
+        // Inflate the layout using LayoutInflater
+        val view: View = layoutInflater.inflate(
+            R.layout.activity_map, // Custom view/ layout
+            layout, // Root layout to attach the view
+            false // Attach with root layout or not
+        )
+
+
+        return
 
         val infoView = TextView(this)
         infoView.setPadding(100, 100, 100, 100)
         infoView.setBackgroundColor(Color.GRAY)
+
 
         val tileView = findViewById<TileView>(R.id.tileview)
         TileView.Builder(tileView)
