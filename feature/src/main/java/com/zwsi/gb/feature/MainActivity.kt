@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        setTheme(R.style.AppTheme) // TODO switch back from the Launcher Theme, but this won't compile to APK
+        //setTheme(R.style.AppTheme) // TODO switch back from the Launcher Theme, but this won't compile to APK
         // setTheme(R.style.AppTheme) works in Android Studio -> Emulator, but not when building APKs. Error is
         // E:\AndroidStudioProjects\gb\feature\src\main\java\com\zwsi\gb\feature\MainActivity.kt: (25, 20): Unresolved reference: style
 
@@ -104,8 +104,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Stars button */
-    fun starmap(view: View) {
+    fun starmap1(view: View) {
         val intent = Intent(this, StarsActivity::class.java)
+        startActivity(intent)
+    }
+
+    /** Called when the user taps the Stars button */
+    fun starmap2(view: View) {
+        val intent = Intent(this, MapActivity::class.java)
         startActivity(intent)
     }
 
