@@ -90,19 +90,29 @@ class GBUniverse {
         // TODO: Replace with user driven solution instead of hard coded
 
         GBShip(0, allRaces[0], 1, allStars[0].starPlanets[0].uid)
-        GBShip(0, allRaces[1], 1, allStars[1].starPlanets[1].uid)
+        GBShip(0, allRaces[1], 1, allStars[1].starPlanets[0].uid)
         GBShip(0, allRaces[2], 1, allStars[2].starPlanets[0].uid)
-        GBShip(1, allRaces[0], 2, allStars[0].starPlanets[0].uid)
-        GBShip(1, allRaces[1], 2, allStars[1].starPlanets[1].uid)
-        GBShip(1, allRaces[2], 2, allStars[2].starPlanets[0].uid)
-        GBShip(2, allRaces[0], 3, allStars[2].uid)
-        GBShip(2, allRaces[1], 3, allStars[2].uid)
 
         if (numberOfStars > 3) {
             GBShip(0, allRaces[3], 1, allStars[3].starPlanets[0].uid)
-            GBShip(1, allRaces[3], 2, allStars[3].starPlanets[1].uid)
         }
 
+        GBShip(1, allRaces[0], 2, allStars[0].starPlanets[0].uid)
+        GBShip(1, allRaces[1], 2, allStars[1].starPlanets[0].uid)
+        GBShip(1, allRaces[2], 2, allStars[2].starPlanets[0].uid)
+        if (numberOfStars > 3) {
+            GBShip(1, allRaces[3], 2, allStars[3].starPlanets[0].uid)
+        }
+
+        GBShip(2, allRaces[0], 3, allStars[2].uid)
+        GBShip(2, allRaces[1], 3, allStars[2].uid)
+        GBShip(2, allRaces[2], 3, allStars[2].uid)
+        GBShip(2, allRaces[3], 3, allStars[2].uid)
+
+        GBShip(2, allRaces[0], 4, allStars[2].uid)
+        GBShip(2, allRaces[1], 4, allStars[2].uid)
+        GBShip(2, allRaces[2], 4, allStars[2].uid)
+        GBShip(2, allRaces[3], 4, allStars[2].uid)
     }
 
     fun landPopulation(p: GBPlanet, uId: Int, number: Int) {

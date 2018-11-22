@@ -136,7 +136,7 @@ internal class GBData {
             2 to RaceData("Rainbow Beetles", 10, 5, 0,  "Rainbow Beetles " +
                 "are small but deadly, they have small snipers, they fly like a beetle at 25mph, they crawl at 40mph, " +
                 "they can see all directions, they can hang upside down and climb walls."),
-            3 to RaceData("WH Tortois", 5, 20, 0,  "Hard shell, can see " +
+            3 to RaceData("Warhide Tortois", 5, 20, 0,  "Hard shell, can see " +
                 "with three heads, SUPER SHARP claws, moves at 25mph,  can swim at 65mph, sarp shell, can turn to a sping.")
         )
 

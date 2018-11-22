@@ -118,13 +118,13 @@ class PlanetFragment : Fragment() {
 
         if (p.landedShips.isNotEmpty()) {
             planetStats.append(p.landedShips.size.toString() + " ships landed:\n")
-            for (sh in p.orbitShips) {
+            for (sh in p.landedShips) {
                 planetStats.append("           " + sh.name + " (" + sh.owner.name + ")\n")
             }
         }
 
         if (p.orbitShips.isNotEmpty()) {
-            planetStats.append(p.orbitShips.size.toString() + " ships landed:\n")
+            planetStats.append(p.orbitShips.size.toString() + " ships in orbit:\n")
             for (sh in p.orbitShips) {
                 planetStats.append("           " + sh.name + " (" + sh.owner.name + ")\n")
             }
