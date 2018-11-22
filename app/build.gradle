@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.zwsi.gb.app"
-        minSdkVersion 15
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -28,4 +28,5 @@ dependencies {
     implementation project(':feature')
     implementation project(':base')
     implementation project(':gblib')
+    implementation 'com.qozix:tileview:3.0.1'
 }

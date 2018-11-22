@@ -31,22 +31,6 @@ class MapActivity : AppCompatActivity() {
 
     private val sites = ArrayList<DoubleArray>()
 
-//    // The below is fast
-//    companion object {
-//        val NORTH = -75.17261900652977
-//        val WEST = 39.9639998777094
-//        val SOUTH = -75.12462846235614
-//        val EAST = 39.93699709962642
-//    }
-//
-//    init {
-//        sites.add(doubleArrayOf(-75.1468350, 39.9474180))
-//        sites.add(doubleArrayOf(-75.1472000, 39.9482000))
-//        sites.add(doubleArrayOf(-75.1437980, 39.9508290))
-//        sites.add(doubleArrayOf(-75.1479650, 39.9523130))
-//    }
-
-
     // In all usage below, x is coordinate[1], y is coordinate[0]
 
     // The below is slow
