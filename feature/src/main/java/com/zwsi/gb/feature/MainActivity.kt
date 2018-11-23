@@ -66,9 +66,13 @@ class MainActivity : AppCompatActivity() {
             System.out.flush()
 
             view.post { // This is going to the button's UI thread, which is the same as the ScrollView
-                output.append(baos.toString())
+                // output.append(baos.toString())
             }
 
+            view.post {  // Worth making a string in this thread and post just result?
+                for (s in GBController.universe!!.news)
+                    output.append(s)
+            }
 
         }).start()
 
@@ -82,7 +86,6 @@ class MainActivity : AppCompatActivity() {
         val message = "Running one turn"
         Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
 
-
         Thread(Runnable {
 
             // Capture output from tester in an byte array
@@ -95,11 +98,15 @@ class MainActivity : AppCompatActivity() {
             System.out.flush()
 
             view.post { // This is going to the button's UI thread, which is the same as the ScrollView
-                output.append(baos.toString())
+                // output.append(baos.toString())
+            }
+
+            view.post {  // Worth making a string in this thread and post just result?
+                for (s in GBController.universe!!.news)
+                    output.append(s)
             }
 
         }).start()
-
 
     }
 

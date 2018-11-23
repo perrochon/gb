@@ -36,8 +36,6 @@ class GBTest {
             for (i in 0..3 ) GBTest.Companion.doUniverse()
             println()
             println("$gameTurns game turns done.")
-
-
         }
     }
 }

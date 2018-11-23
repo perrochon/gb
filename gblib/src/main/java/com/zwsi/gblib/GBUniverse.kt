@@ -11,6 +11,10 @@ class GBUniverse {
     var allShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
     var universeShips: MutableList<GBShip> = arrayListOf() // ships in transit between system
 
+    var missionController = GBMissionController()
+
+    var news = arrayListOf<String>()
+
 
     internal constructor(numberOfStars: Int, numberOfRaces: Int) {
         this.numberOfStars = numberOfStars
@@ -19,6 +23,7 @@ class GBUniverse {
         makeStars()
         makeRaces()
         makeShips()
+        news.add(missionController.getCurrentMission())
         GBDebug.l3("Universe made")
     }
 
@@ -44,6 +49,11 @@ class GBUniverse {
 
         for (i in allRaces) {
             i.consoleDraw()
+        }
+
+        println ("News:")
+        for (s in news) {
+            println(s)
         }
 
     }
@@ -122,11 +132,13 @@ class GBUniverse {
 
 
     internal fun doUniverse() {
+        news.clear()
         for (s in allStars) {
             for (p in s.starPlanets) {
                 p.doPlanet()
             }
         }
+        news.add(missionController.getCurrentMission())
 
     }
 

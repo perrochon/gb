@@ -5,7 +5,7 @@
 
 package com.zwsi.gblib
 
-class GBMissioController() {
+class GBMissionController() {
 
     var missionStatus = 0; // what is current mission
 
