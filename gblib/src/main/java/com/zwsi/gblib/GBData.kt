@@ -20,7 +20,7 @@ internal class GBData {
         // TODO these public methods be internal if the whole lib is Kotlin? Nobody outside the lib should call GBData
         // TODO once only Kotlin calls this code, do we still need to call it with ..Companion..
 
-        val rand = Random() // Our RNG. We could seed it for testing. Make it var, and assign in init block?
+        val rand = Random(1) // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
         private const val UniverseMaxX = 1000
         private const val UniverseMaxY = 1000

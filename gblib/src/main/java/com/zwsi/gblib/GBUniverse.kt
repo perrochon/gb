@@ -138,6 +138,7 @@ class GBUniverse {
                 p.doPlanet()
             }
         }
+        missionController.checkMissionStatus()
         news.add(missionController.getCurrentMission())
 
     }

@@ -7,17 +7,37 @@ package com.zwsi.gblib
 
 class GBMissionController() {
 
-    var missionStatus = 0; // what is current mission
+    private var missionStatus = 0; // what is current mission
 
     fun getCurrentMission(): String {
+
         return when (missionStatus) {
 
             0 ->
-                "Commander! Your first mission is to build a factory on your home planet."
+                "Commander! My name is Yonininji. I will be helping you with your missions.\n\n" +
+                        "Your first mission is to colonize the 5 planets of Jade, your home system. " +
+                        "Find Helle, build a factory, then start building pods and send a pod to each " +
+                        "of the other planets your home system. Then land the pods.\n\n" +
+                        "Remember these things take time. So after you gave your orders, you have to press the " +
+                        "[DO] button."
+
+            1 -> "Your first mission is to colonize the 5 planets of Jade, your home system. " +
+                        "Build a factory, start building pods and send a pod to each" +
+                        "of the other planets in the system. Land the pods."
+            2 -> "Congratualations, you finished your first mission. Feel free to continue to exploit the universe."
 
             else ->
-                "You are out of missions"
+                "You have finished all missions. Feel free to continue to exploit the universe."
         }
     }
 
+    fun checkMissionStatus()  {
+
+        // Mission Status 0 only shows once and can be longer.
+        if (missionStatus == 0) {
+            missionStatus++
+            return
+        }
+        // if all planets colonized (population > 0, or owner), missionStatus++
+    }
 }

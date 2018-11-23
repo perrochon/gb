@@ -39,7 +39,15 @@ class MainActivity : AppCompatActivity() {
 
                 GBController.makeUniverse()
 
+                version.post {  // Worth making a string in this thread and post just result?
+                    for (s in GBController.universe!!.news)
+                        output.append(s)
+                }
+
+
             }).start()
+
+
 
         }
 
@@ -83,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
         output.setText("")
 
-        val message = "Running one turn"
+        val message = "Time is passing"
         Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
 
         Thread(Runnable {
