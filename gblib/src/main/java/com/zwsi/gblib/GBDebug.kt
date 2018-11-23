@@ -35,6 +35,10 @@ internal object GBDebug {
     inline fun gbAssert(message : String = "Assertion failure", test: () -> Boolean){
         if (assertionsEnabled && !test() ) AssertionError(message)
     }
+
+    inline fun gbAssert(message : String = "Assertion failure", test: Boolean){
+        if (assertionsEnabled && !test ) AssertionError(message)
+    }
 }
 
 

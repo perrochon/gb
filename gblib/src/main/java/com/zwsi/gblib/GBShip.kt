@@ -44,7 +44,7 @@ class GBShip(val idxtype: Int, val owner: GBRace, val level: Int, val locationui
                 owner.universe.universeShips.add(this)
             }
             else -> {
-                gbAssert("Bad Parameters for ship placement" + level + "." + locationuid, {true} )
+                gbAssert ("Bad Parameters for ship placement" + level + "." + locationuid, {true==true} )
             }
 
         }

@@ -24,7 +24,7 @@ class LibTest {
         assertEquals(3, universe.allStars.size)
         assertEquals(6, universe.allPlanets.size)
         assertEquals(4, universe.allRaces.size)
-        assertEquals( 8, universe.allShips.size)
+        assertEquals( 14, universe.allShips.size)
         assertEquals(100, universe.allPlanets[0].population)
         assertEquals(100, universe.allPlanets[2].population)
         consistent(universe)
@@ -38,7 +38,7 @@ class LibTest {
         assertEquals(3, universe.allStars.size)
         assertEquals(6, universe.allPlanets.size)
         assertEquals(4, universe.allRaces.size)
-        assertEquals( 8, universe.allShips.size)
+        assertEquals( 14, universe.allShips.size)
         consistent(universe)
     }
 
