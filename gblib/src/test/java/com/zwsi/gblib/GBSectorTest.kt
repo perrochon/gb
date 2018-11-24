@@ -5,19 +5,18 @@
 
 package com.zwsi.gblib
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class GBSectorTest {
 
     @Test
     fun basicSector() {
-        val universe = GBUniverse(3,2)
+        val universe = GBController.makeUniverse()
+
         val p = universe.allPlanets[0]
         val s = GBSector(p)
         assertEquals(s.planet, p)
-        //assertEquals(s.type_symbol,"?")
     }
-
+    //assertEquals(s.type_symbol,"?")
 }

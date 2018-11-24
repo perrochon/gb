@@ -17,6 +17,13 @@ class StarsSlideActivity : AppCompatActivity() {
 
         initViews()
         setupViewPager()
+
+        val intent = getIntent()
+        val starUID = intent.getIntExtra("starUID", -1)
+        if (starUID > 0) {
+            viewpager.setCurrentItem(starUID)
+        }
+
     }
 
     private fun initViews() {

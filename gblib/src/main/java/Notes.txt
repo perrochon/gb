@@ -1,15 +1,62 @@
+TileMap Notes
+
+Now manually inflating the view, to better understand what happens, still getting
+
+     Caused by: android.view.InflateException: Binary XML file line #2: Binary XML file line #2: Error inflating class com.qozix.tileview.TileView
+     Caused by: android.view.InflateException: Binary XML file line #2: Error inflating class com.qozix.tileview.TileView
+     Caused by: java.lang.reflect.InvocationTargetException
+        at java.lang.reflect.Constructor.newInstance0(Native Method)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:343)
+        at android.view.LayoutInflater.createView(LayoutInflater.java:647)
+        at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:790)
+        at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:730)
+        at android.view.LayoutInflater.inflate(LayoutInflater.java:492)
+        at android.view.LayoutInflater.inflate(LayoutInflater.java:423)
+        at com.zwsi.gb.feature.MapActivity.onCreate(MapActivity.kt:66)
+
+   override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_map_constraint)
+
+        val layoutInflater:LayoutInflater = LayoutInflater.from(applicationContext)
+        val layout = findViewById<ConstraintLayout>(R.id.root_layout)
+
+        // Inflate the layout using LayoutInflater
+/*66*/      val view: View = layoutInflater.inflate(
+            R.layout.activity_map, // Custom view/ layout
+            layout, // Root layout to attach the view
+            false // Attach with root layout or not
+        )
+
+Commenting out implementation 'com.qozix:tileview:3.0.1' leads to compiler errors (Unresolved reference)
+Commenting out implementation 'com.jakewharton:disklrucache:2.0.2' in feature compiles, then we get same error. I am
+pretty sure that tileview has it as a dependency and gradle takes care of it.
+Changing implementation 'com.qozix:tileview:3.0.1' to implementation 'com.qozix:tileview:3.0.2' creates an error, so
+there is something right happening wiht that include
+
+Potential Leads:
+Mismatching contexts? https://stackoverflow.com/a/2594271/10682598
+
 Roadmap
 *******
 
-Features (enable first)
--make pods (make, load, launch)
--Do Pod Movements...
+Features
+-Mission 1
+  -fly and land pods
+-Non Mission Features
+  -Send intents to sliders with which list to show. Display that on slider
+  -Visibility and God Mode Switch
 
 Code Quality
--> Intermittend bug in DoSector (south, I think)...
+- Fix Branches!
+- Universe solution, so we no longer pass universes around... and figure out how to test... No more ship creation...
+- Unit Test Mission 1
+- Pass around "context" from button. Don't use ID
+- Make Location Object. Should handle stars, too.
 - Access and visibility in gblib
 - Use Application for global state in Android: https://developer.android.com/reference/android/app/Application
-- JUnit Tests
+- Debug buffer and Console Buffer
 
 Planet
 - multiple races per planet
