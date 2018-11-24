@@ -13,7 +13,8 @@ class GBMissionTest {
 
     @Test
     fun Mission1() {
-        val universe = GBUniverse(3,1)
+        val universe = GBController.makeUniverse()
+
 
         assertEquals(0, universe.missionController.getMissionStatus())
         val p = universe.allPlanets[0]

@@ -5,72 +5,137 @@
 
 package com.zwsi.gblib
 
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class LibTest {
 
-    fun consistent(universe: GBUniverse) {
-        assertEquals(universe.allStars.size, universe.numberOfStars)
-        assertEquals(universe.allRaces.size, universe.numberOfRaces)
+    var shipsMade: Int = 0
+
+    fun consistent() {
+        val universe = GBController.universe
+
+        if (GBController.smallUniverse) {
+            assertEquals(GBController.numberOfStarsSmall, universe.allStars.size)
+        } else if (GBController.bigUniverse) {
+            assertEquals(GBController.numberOfStarsBig, universe.allStars.size)
+        } else {
+            assertEquals(GBController.numberOfStars, universe.allStars.size)
+        }
         assertEquals(universe.allStars[0].starPlanets[0], universe.allPlanets[0])
         assertEquals(universe.allStars[0].starPlanets[1], universe.allPlanets[1])
     }
 
     @Test
-    fun makeSmallUniverse() {
-        var universe = GBUniverse(3,4)
-        assertEquals(3, universe.allStars.size)
-        assertEquals(6, universe.allPlanets.size)
-        assertEquals(4, universe.allRaces.size)
-        assertEquals( 14, universe.allShips.size)
-        assertEquals(100, universe.allPlanets[0].population)
-        assertEquals(100, universe.allPlanets[2].population)
-        consistent(universe)
-
+    fun verifyConstants() {
+        // If these are different, some other tests in this class will fail
+        assertEquals(24, GBController.numberOfStars)
+        assertEquals(4, GBController.numberOfRaces)
+        assertEquals(5, GBController.numberOfStarsSmall)
+        assertEquals(4, GBController.numberOfRacesSmall)
+        assertEquals(100, GBController.numberOfStarsBig)
+        assertEquals(4, GBController.numberOfRacesBig)
     }
 
     @Test
-    fun doSmallUniverse() {
-        val universe = GBUniverse(3,4)
-        universe.doUniverse()
-        assertEquals(3, universe.allStars.size)
-        assertEquals(6, universe.allPlanets.size)
-        assertEquals(4, universe.allRaces.size)
-        assertEquals( 14, universe.allShips.size)
-        consistent(universe)
+    fun SmallUniverse() {
+        val universe = GBController.makeSmallUniverse()
+        consistent()
+
+        assertEquals(100, universe.allStars[0].starPlanets[0].population)
+        assertEquals(100, universe.allStars[1].starPlanets[0].population)
+        assertEquals(100, universe.allStars[2].starPlanets[0].population)
+        assertEquals(100, universe.allStars[3].starPlanets[0].population)
+
+
+        populate()
+        assertEquals(shipsMade, universe.allShips.size)
+        consistent()
+
+
+        GBController.doUniverse()
+        consistent()
     }
 
-    val big = 33
 
     @Test
-    fun makeBigUniverse() {
-        var universe = GBUniverse(big,4)
-        assertEquals(big, universe.allStars.size)
-        assertTrue(big*2 < universe.allPlanets.size)
-        assertTrue(big*8 > universe.allPlanets.size)
-        assertEquals(4, universe.allRaces.size)
-        consistent(universe)
-    }
+    fun BigUniverse() {
+        val universe = GBController.makeBigUniverse()
+        consistent()
 
-    @Test
-    fun doBigUniverse1000() {
-        val universe = GBUniverse(big,4)
-        for (i in 1..big)
+        assertEquals(100, universe.allStars[0].starPlanets[0].population)
+        assertEquals(100, universe.allStars[1].starPlanets[0].population)
+        assertEquals(100, universe.allStars[2].starPlanets[0].population)
+        assertEquals(100, universe.allStars[3].starPlanets[0].population)
+
+
+        populate()
+        assertEquals(shipsMade, universe.allShips.size)
+        consistent()
+
+        GBController.doUniverse()
+        consistent()
+
+        // mini-stress test
+        for (i in 1..100)
             universe.doUniverse()
-        assertEquals(big, universe.allStars.size)
-        assertTrue(big*2 < universe.allPlanets.size)
-        assertTrue(big*8 > universe.allPlanets.size)
-        assertEquals(4, universe.allRaces.size)
-        consistent(universe)
+
     }
 
     @Test
     fun landPopulation() {
-        val universe = GBUniverse(3,4)
+        val universe = GBController.makeUniverse()
+        consistent()
         universe.landPopulation(universe.allPlanets[1], universe.allRaces[0].uid, 55)
         assertEquals(55, universe.allStars[0].starPlanets[1].population)
+    }
+
+    fun populate() {
+        makeShips()
+    }
+
+    fun makeShips() {
+        val allRaces = GBController.universe.allRaces
+        val allStars = GBController.universe.allStars
+        val numberOfStars = allStars.size
+
+
+        // Give each race a factory
+        GBShip(0, allRaces[0], 1, allStars[0].starPlanets[0].uid)
+        GBShip(0, allRaces[1], 1, allStars[1].starPlanets[0].uid)
+        GBShip(0, allRaces[2], 1, allStars[2].starPlanets[0].uid)
+        shipsMade +=3
+
+        if (numberOfStars > 3) {
+            GBShip(0, allRaces[3], 1, allStars[3].starPlanets[0].uid)
+            shipsMade +=1
+        }
+
+        // Give each race a pod
+        GBShip(1, allRaces[0], 2, allStars[0].starPlanets[0].uid)
+        GBShip(1, allRaces[1], 2, allStars[1].starPlanets[0].uid)
+        GBShip(1, allRaces[2], 2, allStars[2].starPlanets[0].uid)
+        shipsMade +=3
+
+        if (numberOfStars > 3) {
+            GBShip(1, allRaces[3], 2, allStars[3].starPlanets[0].uid)
+            shipsMade +=1
+        }
+
+        // Give each race a destroyer in system 3
+        GBShip(2, allRaces[0], 3, allStars[2].uid)
+        GBShip(2, allRaces[1], 3, allStars[2].uid)
+        GBShip(2, allRaces[2], 3, allStars[2].uid)
+        GBShip(2, allRaces[3], 3, allStars[2].uid)
+        shipsMade +=4
+
+        // Give each race a destroyer in deep space
+        GBShip(2, allRaces[0], 4, allStars[2].uid)
+        GBShip(2, allRaces[1], 4, allStars[2].uid)
+        GBShip(2, allRaces[2], 4, allStars[2].uid)
+        GBShip(2, allRaces[3], 4, allStars[2].uid)
+        shipsMade +=4
     }
 
 }

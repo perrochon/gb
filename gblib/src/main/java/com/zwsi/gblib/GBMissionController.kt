@@ -23,7 +23,7 @@ class GBMissionController() {
                         "One more thing: If you see greyed out buttons, these are God level shortcuts. Ignore them!\n\n"
 
             1 -> "Your first mission is to colonize the 5 planets of Jade, your home system. " +
-                        "Build a factory, start building pods and send a pod to each" +
+                        "Build a factory, start building pods and send a pod to each " +
                         "of the other planets in the system. Land the pods.\n\n"
             2 -> "Congratualations, you finished your first mission. Feel free to continue to exploit the universe.\n\n"
 

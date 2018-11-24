@@ -5,32 +5,28 @@
 
 package com.zwsi.gblib
 
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class GBStarTest {
 
-    fun consistent(s: GBStar){
-        assert(s.name.length > 0)
-        // assertEquals(s.uid, s.universe.allRaces.indexOf(s))
+    fun consistent(s: GBStar) {
+        val universe = GBController.universe
+
+        assertTrue(s.name.length > 0)
+        assertTrue(s.universe == universe)
+        assertTrue(universe.allStars.contains(s))
+        assertEquals(s.uid, universe.allStars.indexOf(s))
     }
 
 
     @Test
     fun basic() {
-        val universe = GBUniverse(3,2)
-        val s = universe.allStars[0]
-        consistent(s)
+        val universe = GBController.makeUniverse()
 
-    }
-
-
-    @Test
-    fun allConsitent() {
-        val universe = GBUniverse(3,2)
-        val s = universe.allStars[0]
-        consistent(s)
+        for (s in universe.allStars)
+            consistent(s)
 
     }
 

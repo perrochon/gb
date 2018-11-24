@@ -18,13 +18,12 @@ class GBUniverse {
     var orders = arrayListOf<GBOrder>()
 
 
-    constructor(numberOfStars: Int, numberOfRaces: Int) {
+    constructor(numberOfStars: Int) {
         this.numberOfStars = numberOfStars
-        this.numberOfRaces = numberOfRaces
+        this.numberOfRaces = GBController.numberOfRaces
         GBDebug.l3("Making Stars")
         makeStars()
         makeRaces()
-        //makeShips()
         news.add(missionController.getCurrentMission())
         GBDebug.l3("Universe made")
     }
@@ -61,7 +60,7 @@ class GBUniverse {
     }
 
     private fun makeStars() {
-        GBDebug.l3("Making Stars")
+        GBDebug.l2("Making stars and planets")
         GBStar.resetStarCoordinates()
         for (i in 0 until numberOfStars) {
             GBStar(this)
@@ -70,61 +69,29 @@ class GBUniverse {
     }
 
     private fun makeRaces() {
-        GBDebug.l3("Making Races")
+        GBDebug.l2("Making and landing Races")
 
-        // TODO: Replace with full GBData driven solution instead of hard coded
+        // TODO: Replace with full configuration driven solution instead of hard code.
+        // We only need one race for the early mission, but we land the others for God Mode...
 
-        val r1 = GBRace(this, 0)
-        val r2 = GBRace(this, 1)
-        val r3 = GBRace(this, 2)
-        val r4 = GBRace(this, 3)
+        // The single player
+        val r0 = GBRace(this, 0)
+        landPopulation(allStars[0].starPlanets[0], r0.uid, 100)
 
-        landPopulation(allStars[0].starPlanets[0], r1.uid, 100)
 
-        if (numberOfStars > 1) {
-            landPopulation(allStars[1].starPlanets[0], r2.uid, 100)
-        }
+        // We only need one race for the early mission, but we land the others for God Mode...
+        // Eventually, they will be dynamically landed (from tests, or from app)
+        val r1 = GBRace(this, 1)
+        val r2 = GBRace(this, 2)
+        val r3 = GBRace(this, 3)
 
-        if (numberOfStars > 2) {
-            landPopulation(allStars[2].starPlanets[0], r1.uid, 50)
-            landPopulation(allStars[2].starPlanets[0], r2.uid, 50)
-        }
 
-        if (numberOfStars > 3) {
-            landPopulation(allStars[3].starPlanets[0], r3.uid, 100)
-        }
-
-    }
-
-    private fun makeShips() {
-        GBDebug.l3("Making Ships")
-
-        // TODO: Replace with user driven solution instead of hard coded
-
-        GBShip(0, allRaces[0], 1, allStars[0].starPlanets[0].uid)
-        GBShip(0, allRaces[1], 1, allStars[1].starPlanets[0].uid)
-        GBShip(0, allRaces[2], 1, allStars[2].starPlanets[0].uid)
-
-        if (numberOfStars > 3) {
-            GBShip(0, allRaces[3], 1, allStars[3].starPlanets[0].uid)
-        }
-
-        GBShip(1, allRaces[0], 2, allStars[0].starPlanets[0].uid)
-        GBShip(1, allRaces[1], 2, allStars[1].starPlanets[0].uid)
-        GBShip(1, allRaces[2], 2, allStars[2].starPlanets[0].uid)
-        if (numberOfStars > 3) {
-            GBShip(1, allRaces[3], 2, allStars[3].starPlanets[0].uid)
-        }
-
-        GBShip(2, allRaces[0], 3, allStars[2].uid)
-        GBShip(2, allRaces[1], 3, allStars[2].uid)
-        GBShip(2, allRaces[2], 3, allStars[2].uid)
-        GBShip(2, allRaces[3], 3, allStars[2].uid)
-
-        GBShip(2, allRaces[0], 4, allStars[2].uid)
-        GBShip(2, allRaces[1], 4, allStars[2].uid)
-        GBShip(2, allRaces[2], 4, allStars[2].uid)
-        GBShip(2, allRaces[3], 4, allStars[2].uid)
+        landPopulation(allStars[1].starPlanets[0], r1.uid, 100)
+        landPopulation(allStars[2].starPlanets[0], r2.uid, 100)
+        landPopulation(allStars[3].starPlanets[0], r3.uid, 100)
+        landPopulation(allStars[4].starPlanets[0], r1.uid, 50)
+        landPopulation(allStars[4].starPlanets[0], r2.uid, 50)
+        landPopulation(allStars[4].starPlanets[0], r3.uid, 50)
     }
 
 
