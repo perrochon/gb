@@ -43,14 +43,15 @@ Roadmap
 
 Features
 -Mission 1
-    -fly and land pods
--Visibility and God Mode Switch
--Send intents to sliders with which list to show. Display that on slider
+  -fly and land pods
+-Non Mission Features
+  -Send intents to sliders with which list to show. Display that on slider
+  -Visibility and God Mode Switch
 
 Code Quality
 - Fix Branches!
 - Universe solution, so we no longer pass universes around... and figure out how to test... No more ship creation...
-- Test missions
+- Unit Test Mission 1
 - Pass around "context" from button. Don't use ID
 - Make Location Object. Should handle stars, too.
 - Access and visibility in gblib
