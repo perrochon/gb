@@ -1,6 +1,4 @@
-GB: A Galactic Bloodshed inspired 4x game.
-
-:tada: blah
+:tada: GB: A Galactic Bloodshed (and others) inspired 4x game for mobile :tada:
 
 Directories
 
