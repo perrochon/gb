@@ -35,12 +35,10 @@ class MainActivity : AppCompatActivity() {
 
         Thread(Runnable {
             // Need to do this in other thread, as just checking for null will generate the universe
-            if (GBController.universe == null) {
-                GBController.makeUniverse()
-            }
+            GBController.universe // Create Universe if we don't have one...
             version.post {
                 // Worth making a string in this thread and post just result?
-                for (s in GBController.universe!!.news)
+                for (s in GBController.universe.news)
                     output.append(s)
             }
         }).start()

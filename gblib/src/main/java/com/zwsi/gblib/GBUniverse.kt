@@ -101,7 +101,6 @@ class GBUniverse {
         news.clear()
         for (s in allStars) {
             for (p in s.starPlanets) {
-                p.doPlanet()
             }
         }
         missionController.checkMissionStatus()
@@ -111,8 +110,8 @@ class GBUniverse {
 
         for (o in orders) {
             o.execute()
-            orders.remove(o)
         }
+        orders.clear()
     }
 
     fun getPlanets(s: GBStar): Array<GBPlanet?> {

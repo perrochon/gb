@@ -45,6 +45,7 @@ Features
 -Mission 1
     -fly and land pods
 -Visibility and God Mode Switch
+-Send intents to sliders with which list to show. Display that on slider
 
 Code Quality
 - Fix Branches!
