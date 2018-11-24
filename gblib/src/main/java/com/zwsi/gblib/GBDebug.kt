@@ -10,7 +10,7 @@ import java.lang.AssertionError
 
 internal object GBDebug {
 
-    val DEBUG_LEVEL = 0  // 0 quiet, 1 minimal, 2 verbose, 3 everything
+    val DEBUG_LEVEL = 3  // 0 quiet, 1 minimal, 2 verbose, 3 everything
 
     fun l1(message: String) {
         if (DEBUG_LEVEL >= 1) {
@@ -34,6 +34,10 @@ internal object GBDebug {
 
     inline fun gbAssert(message : String = "Assertion failure", test: () -> Boolean){
         if (assertionsEnabled && !test() ) AssertionError(message)
+    }
+
+    inline fun gbAssert(message : String = "Assertion failure", test: Boolean){
+        if (assertionsEnabled && !test ) AssertionError(message)
     }
 }
 

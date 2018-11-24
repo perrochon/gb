@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gblib.GBController
+import kotlinx.android.synthetic.*
 
 class ShipFragment : Fragment() {
 
@@ -46,7 +47,10 @@ class ShipFragment : Fragment() {
         val ships = universe!!.allShips
         val sh = ships[shipID]
 
+
         val imageView = view!!.findViewById<ImageView>(R.id.ShipView)
+
+        view.findViewById<Button>(R.id.goButton).setTag(sh)
 
         if (sh.idxtype == 0) {
             imageView.setImageResource(R.drawable.factory)
@@ -54,13 +58,22 @@ class ShipFragment : Fragment() {
             view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
             view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
 
+        } else if (sh.idxtype == 1) {
+            if (sh.owner.uid == 2) {
+                imageView.setImageResource(R.drawable.beetlepod)
 
-        } else if (sh.idxtype == 1)
-            imageView.setImageResource(R.drawable.podt)
-        else if (sh.idxtype == 2)
+            } else {
+                imageView.setImageResource(R.drawable.podt)
+            }
+        } else if (sh.idxtype == 2) {
             imageView.setImageResource(R.drawable.cruisert)
-        else
+        } else
             imageView.setImageResource(R.drawable.yellow)
+
+        // TODO Can we set ID on the parent (the fragment) and ask the fragment where we consume, instead of putting this on every button...
+        // fixme This is actually bad. We overwrite and ID used in the code above! by findviewbyid!. Can't use ID
+        view!!.findViewById<Button>(R.id.makePod).id = shipID
+        view!!.findViewById<Button>(R.id.makeCruiser).id = shipID
 
 
 
@@ -87,8 +100,8 @@ class ShipFragment : Fragment() {
         stats.append("\n")
         stats.append("id: " + sh.id +" | ")
         stats.append("uid: " + sh.uid  +" | ")
-        stats.append("idxtype: " + sh.idxtype +" | ")
-        stats.append("location: " + sh.level + "." + sh.locationuid + "\n")
+        stats.append("idxt: " + sh.idxtype +" | ")
+        stats.append("loca: " + sh.level + "." + sh.locationuid + "\n")
 
         return view
     }

@@ -11,14 +11,20 @@ class GBUniverse {
     var allShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
     var universeShips: MutableList<GBShip> = arrayListOf() // ships in transit between system
 
+    var missionController = GBMissionController()
 
-    internal constructor(numberOfStars: Int, numberOfRaces: Int) {
+    var news = arrayListOf<String>()
+
+    var orders = arrayListOf<GBOrder>()
+
+
+    constructor(numberOfStars: Int) {
         this.numberOfStars = numberOfStars
-        this.numberOfRaces = numberOfRaces
+        this.numberOfRaces = GBController.numberOfRaces
         GBDebug.l3("Making Stars")
         makeStars()
         makeRaces()
-        makeShips()
+        news.add(missionController.getCurrentMission())
         GBDebug.l3("Universe made")
     }
 
@@ -46,10 +52,15 @@ class GBUniverse {
             i.consoleDraw()
         }
 
+        println("News:")
+        for (s in news) {
+            println(s)
+        }
+
     }
 
     private fun makeStars() {
-        GBDebug.l3("Making Stars")
+        GBDebug.l2("Making stars and planets")
         GBStar.resetStarCoordinates()
         for (i in 0 until numberOfStars) {
             GBStar(this)
@@ -58,52 +69,49 @@ class GBUniverse {
     }
 
     private fun makeRaces() {
-        GBDebug.l3("Making Races")
+        GBDebug.l2("Making and landing Races")
 
-        // TODO: Replace with full GBData driven solution instead of hard coded
+        // TODO: Replace with full configuration driven solution instead of hard code.
+        // We only need one race for the early mission, but we land the others for God Mode...
 
-        val r1 = GBRace(this, 0)
-        val r2 = GBRace(this, 1)
+        // The single player
+        val r0 = GBRace(this, 0)
+        landPopulation(allStars[0].starPlanets[0], r0.uid, 100)
 
-        landPopulation(allStars[0].starPlanets[0], r1.uid, 100)
 
-        if (numberOfStars > 1) {
-            landPopulation(allStars[1].starPlanets[0], r2.uid, 100)
-        }
+        // We only need one race for the early mission, but we land the others for God Mode...
+        // Eventually, they will be dynamically landed (from tests, or from app)
+        val r1 = GBRace(this, 1)
+        val r2 = GBRace(this, 2)
+        val r3 = GBRace(this, 3)
 
-        if (numberOfStars > 2) {
-            landPopulation(allStars[2].starPlanets[0], r1.uid, 50)
-            landPopulation(allStars[2].starPlanets[0], r2.uid, 50)
-        }
 
-    }
-
-    private fun makeShips() {
-        GBDebug.l3("Making Ships")
-
-        // TODO: Replace with user driven solution instead of hard coded
-
-        GBShip(0, allRaces[0], 1, allStars[0].starPlanets[0].uid)
-        GBShip(0, allRaces[1], 1, allStars[1].starPlanets[1].uid)
-        GBShip(1, allRaces[0], 2, allStars[0].starPlanets[0].uid)
-        GBShip(1, allRaces[1], 2, allStars[1].starPlanets[1].uid)
-        GBShip(2, allRaces[0], 3, allStars[2].uid)
-        GBShip(2, allRaces[1], 3, allStars[2].uid)
-    }
-
-    fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
-        GBDebug.l3("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
-        p.landPopulation(allRaces[uId], number)
+        landPopulation(allStars[1].starPlanets[0], r1.uid, 100)
+        landPopulation(allStars[2].starPlanets[0], r2.uid, 100)
+        landPopulation(allStars[3].starPlanets[0], r3.uid, 100)
+        landPopulation(allStars[4].starPlanets[0], r1.uid, 50)
+        landPopulation(allStars[4].starPlanets[0], r2.uid, 50)
+        landPopulation(allStars[4].starPlanets[0], r3.uid, 50)
     }
 
 
     internal fun doUniverse() {
+        GBDebug.l3("Doing Universe: " + orders.toString())
+
+        news.clear()
         for (s in allStars) {
             for (p in s.starPlanets) {
-                p.doPlanet()
             }
         }
+        missionController.checkMissionStatus()
+        news.add(missionController.getCurrentMission())
 
+        GBDebug.l3("Current Orders: " + orders.toString())
+
+        for (o in orders) {
+            o.execute()
+        }
+        orders.clear()
     }
 
     fun getPlanets(s: GBStar): Array<GBPlanet?> {
@@ -115,4 +123,34 @@ class GBUniverse {
     } //TODO should this be in planet? Or Data?
 
 
+    fun makeFactory(p: GBPlanet) {
+        GBDebug.l3("universe: Making factory for ?? on " + p.name + "")
+
+        var order = GBOrder(this)
+        order.makeFactory(p)
+
+        GBDebug.l3("Order made: " + order.toString())
+
+        orders.add(order)
+
+        GBDebug.l3("Current Orders: " + orders.toString())
+    }
+
+    fun makePod(s: GBShip) {
+        GBDebug.l3("universe: Making Pod for ?? in Factory " + s.name + "")
+
+        var order = GBOrder(this)
+        order.makePod(s)
+
+        GBDebug.l3("Ship made: " + order.toString())
+
+        orders.add(order)
+
+        GBDebug.l3("Current Orders: " + orders.toString())
+    }
+
+    fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
+        GBDebug.l3("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
+        p.landPopulation(allRaces[uId], number)
+    }
 }

@@ -2,19 +2,19 @@ package com.zwsi.gb.feature
 
 //import android.content.Intent
 //import android.graphics.Bitmap
+
+// To redirect stdout to the text view
+//import java.io.IOException
+//import java.io.OutputStream
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
 import kotlinx.android.synthetic.main.activity_main.*
-
-// To redirect stdout to the text view
 import java.io.ByteArrayOutputStream
-//import java.io.IOException
-//import java.io.OutputStream
 import java.io.PrintStream
 
 
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        setTheme(R.style.AppTheme) // TODO switch back from the Launcher Theme, but this won't compile to APK
+        //setTheme(R.style.AppTheme) // TODO switch back from the Launcher Theme, but this won't compile to APK
         // setTheme(R.style.AppTheme) works in Android Studio -> Emulator, but not when building APKs. Error is
         // E:\AndroidStudioProjects\gb\feature\src\main\java\com\zwsi\gb\feature\MainActivity.kt: (25, 20): Unresolved reference: style
 
@@ -33,15 +33,16 @@ class MainActivity : AppCompatActivity() {
         version.setText("0.0.0.133") // for now: 0.0.0.~ #commits...
 
 
-        if (GBController.universe == null) {
+        Thread(Runnable {
+            // Need to do this in other thread, as just checking for null will generate the universe
+            GBController.universe // Create Universe if we don't have one...
+            version.post {
+                // Worth making a string in this thread and post just result?
+                for (s in GBController.universe.news)
+                    output.append(s)
+            }
+        }).start()
 
-            Thread(Runnable {
-
-                GBController.makeUniverse()
-
-            }).start()
-
-        }
 
     }
 
@@ -51,8 +52,8 @@ class MainActivity : AppCompatActivity() {
 
         output.setText("")
 
-        val message = "Recreating the Universe"
-        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+        val message = "God Level: Recreating the Universe"
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
         Thread(Runnable {
 
@@ -65,10 +66,16 @@ class MainActivity : AppCompatActivity() {
 
             System.out.flush()
 
-            view.post { // This is going to the button's UI thread, which is the same as the ScrollView
-                output.append(baos.toString())
+            view.post {
+                // This is going to the button's UI thread, which is the same as the ScrollView
+                // output.append(baos.toString())
             }
 
+            view.post {
+                // Worth making a string in this thread and post just result?
+                for (s in GBController.universe!!.news)
+                    output.append(s)
+            }
 
         }).start()
 
@@ -79,33 +86,44 @@ class MainActivity : AppCompatActivity() {
 
         output.setText("")
 
-        val message = "Running one turn"
-        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
-
+        val message = "Time is passing"
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
         Thread(Runnable {
 
             // Capture output from tester in an byte array
-            val baos = ByteArrayOutputStream()
-            val ps = PrintStream(baos)
-            System.setOut(ps)
+//            val baos = ByteArrayOutputStream()
+//            val ps = PrintStream(baos)
+//            System.setOut(ps)
 
             GBController.doUniverse()
 
-            System.out.flush()
+//            System.out.flush()
 
-            view.post { // This is going to the button's UI thread, which is the same as the ScrollView
-                output.append(baos.toString())
+//            view.post { // This is going to the button's UI thread, which is the same as the ScrollView
+//                // output.append(baos.toString())
+//            }
+
+            view.post {
+                // Worth making a string in this thread and post just result?
+                for (s in GBController.universe!!.news)
+                    output.append(s)
             }
 
         }).start()
 
-
     }
 
     /** Called when the user taps the Stars button */
-    fun starmap(view: View) {
+    fun starmap1(view: View) {
         val intent = Intent(this, StarsActivity::class.java)
+        startActivity(intent)
+    }
+
+    /** Called when the user taps the Stars button */
+    fun starmap2(view: View) {
+        Toast.makeText(view.context, "God level command!", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MapActivity::class.java)
         startActivity(intent)
     }
 

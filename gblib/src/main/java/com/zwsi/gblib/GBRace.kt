@@ -11,7 +11,7 @@
 
 package com.zwsi.gblib
 
-class GBRace(val universe: GBUniverse, private val idx: Int) {
+class GBRace(val universe: GBUniverse, val idx: Int) {
 
     // uId is the Universe level ID (in Universe's list of allRaces)
     // idx is the number to go look up in GBData. This will go away with race design

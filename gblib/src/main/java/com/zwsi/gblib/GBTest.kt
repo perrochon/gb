@@ -10,34 +10,20 @@ package com.zwsi.gblib
 class GBTest {
     companion object {
 
-        var universe: GBUniverse? = null
-            private set
-        private var gameTurns = 0
-        fun makeUniverse() {
-            GBDebug.l1("Making Universe")
-            universe = GBUniverse(87,2)
-            universe!!.consoleDraw()
-        }
-
-        fun doUniverse() {
-            gameTurns++
-            GBDebug.l1("Runing Game Turn $gameTurns")
-            universe!!.doUniverse()
-            universe!!.consoleDraw()
-        }
-
-
         @JvmStatic
         fun main(args: Array<String>) {
 
             println("Welcome to GB Test")
-            val tester = GBTest()
-            GBTest.Companion.makeUniverse()
-            for (i in 0..3 ) GBTest.Companion.doUniverse()
+            GBController.makeUniverse()
+            GBController.universe.consoleDraw()
+
+            GBController.doUniverse()
+            GBController.universe.consoleDraw()
+
+            for (i in 0..3 ) GBController.doUniverse()
+            GBController.universe.consoleDraw()
+
             println()
-            println("$gameTurns game turns done.")
-
-
         }
     }
 }

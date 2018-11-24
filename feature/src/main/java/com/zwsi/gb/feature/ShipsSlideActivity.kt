@@ -1,11 +1,13 @@
 package com.zwsi.gb.feature
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBShip
 
 class ShipsSlideActivity : AppCompatActivity() {
 
@@ -17,6 +19,13 @@ class ShipsSlideActivity : AppCompatActivity() {
 
         initViews()
         setupViewPager()
+
+        val intent = getIntent()
+        val shipUID = intent.getIntExtra("shipUID", -1)
+        if (shipUID > 0) {
+            viewpager.setCurrentItem(shipUID)
+        }
+
     }
 
     private fun initViews() {
@@ -39,14 +48,36 @@ class ShipsSlideActivity : AppCompatActivity() {
 
     }
 
+    /** Called when the user taps the Go button */
+    fun goToLocation(view: View) {
+        val universe = GBController.universe
+
+        val ship= view.getTag() as GBShip
+
+        //val message = "Landing Impi on " + universe!!.allPlanets[view.id.toInt()].name
+        Toast.makeText(view.context, ship.getLocation(), Toast.LENGTH_SHORT).show()
+
+        if ((ship.level == 1) or (ship.level == 2)) {
+            val intent = Intent(this, PlanetsSlideActivity::class.java)
+            intent.putExtra("planetUID", ship.locationuid)
+            startActivity(intent)
+        }
+        if (ship.level == 3) {
+            val intent = Intent(this, StarsSlideActivity::class.java)
+            intent.putExtra("starUID", ship.locationuid)
+            startActivity(intent)
+        }
+
+    }
+
     /** Called when the user taps the make Pod button */
     fun makePod(view: View) {
 
-        val universe = GBController.universe
+        val universe = GBController.universe!!
+        universe.makePod(universe.allShips[view.id.toInt()])
 
-        //val message = "Landing Xenos on " + universe!!.allPlanets[view.id.toInt()].name
-        Toast.makeText(view.context, "Pod being made", Toast.LENGTH_LONG).show()
-
+        val message = "Ordered Pod in Factory " + universe.allShips[view.id.toInt()].name
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
     }
 
     /** Called when the user taps the make Cruiser button */
@@ -54,7 +85,7 @@ class ShipsSlideActivity : AppCompatActivity() {
         val universe = GBController.universe
 
         //val message = "Landing Impi on " + universe!!.allPlanets[view.id.toInt()].name
-        Toast.makeText(view.context, "Cruiser being made", Toast.LENGTH_LONG).show()
+        Toast.makeText(view.context, "Cruiser being made", Toast.LENGTH_SHORT).show()
 
     }
 
