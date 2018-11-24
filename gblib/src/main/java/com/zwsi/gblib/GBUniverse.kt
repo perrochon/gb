@@ -111,6 +111,7 @@ class GBUniverse {
 
         for (o in orders) {
             o.execute()
+            orders.remove(o)
         }
     }
 
