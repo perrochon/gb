@@ -2,19 +2,19 @@ package com.zwsi.gb.feature
 
 //import android.content.Intent
 //import android.graphics.Bitmap
+
+// To redirect stdout to the text view
+//import java.io.IOException
+//import java.io.OutputStream
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
 import kotlinx.android.synthetic.main.activity_main.*
-
-// To redirect stdout to the text view
 import java.io.ByteArrayOutputStream
-//import java.io.IOException
-//import java.io.OutputStream
 import java.io.PrintStream
 
 
@@ -33,23 +33,18 @@ class MainActivity : AppCompatActivity() {
         version.setText("0.0.0.133") // for now: 0.0.0.~ #commits...
 
 
-        if (GBController.universe == null) {
-
-            Thread(Runnable {
-
+        Thread(Runnable {
+            // Need to do this in other thread, as just checking for null will generate the universe
+            if (GBController.universe == null) {
                 GBController.makeUniverse()
+            }
+            version.post {
+                // Worth making a string in this thread and post just result?
+                for (s in GBController.universe!!.news)
+                    output.append(s)
+            }
+        }).start()
 
-                version.post {  // Worth making a string in this thread and post just result?
-                    for (s in GBController.universe!!.news)
-                        output.append(s)
-                }
-
-
-            }).start()
-
-
-
-        }
 
     }
 
@@ -73,11 +68,13 @@ class MainActivity : AppCompatActivity() {
 
             System.out.flush()
 
-            view.post { // This is going to the button's UI thread, which is the same as the ScrollView
+            view.post {
+                // This is going to the button's UI thread, which is the same as the ScrollView
                 // output.append(baos.toString())
             }
 
-            view.post {  // Worth making a string in this thread and post just result?
+            view.post {
+                // Worth making a string in this thread and post just result?
                 for (s in GBController.universe!!.news)
                     output.append(s)
             }
@@ -109,7 +106,8 @@ class MainActivity : AppCompatActivity() {
 //                // output.append(baos.toString())
 //            }
 
-            view.post {  // Worth making a string in this thread and post just result?
+            view.post {
+                // Worth making a string in this thread and post just result?
                 for (s in GBController.universe!!.news)
                     output.append(s)
             }
