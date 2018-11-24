@@ -65,10 +65,12 @@ class PlanetFragment : Fragment() {
         val planets = universe!!.allPlanets
         p = planets[planetID]!!
 
-        var c0 = view!!.findViewById<Button>(R.id.colonize0)
+        var c0 = view!!.findViewById<Button>(R.id.makefactory)
         c0.id = planetID
-        var c1 = view!!.findViewById<Button>(R.id.colonize1)
-        c1.id = planetID
+        c0 = view!!.findViewById<Button>(R.id.colonize0)
+        c0.id = planetID
+        c0 = view!!.findViewById<Button>(R.id.colonize1)
+        c0  .id = planetID
 
 
         // Get the View to draw planet on, then draw planet

@@ -13,9 +13,10 @@ class GBTest {
         var universe: GBUniverse? = null
             private set
         private var gameTurns = 0
+
         fun makeUniverse() {
             GBDebug.l1("Making Universe")
-            universe = GBUniverse(87,2)
+            universe = GBUniverse(3,2)
             universe!!.consoleDraw()
         }
 
@@ -33,7 +34,12 @@ class GBTest {
             println("Welcome to GB Test")
             val tester = GBTest()
             GBTest.Companion.makeUniverse()
-            for (i in 0..3 ) GBTest.Companion.doUniverse()
+            universe!!.makeFactory(universe!!.allPlanets[0])
+            universe!!.doUniverse()
+
+
+//            for (i in 0..3 ) GBTest.Companion.doUniverse()
+
             println()
             println("$gameTurns game turns done.")
         }

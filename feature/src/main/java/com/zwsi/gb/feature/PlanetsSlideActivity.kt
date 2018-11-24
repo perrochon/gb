@@ -34,11 +34,11 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
 
-        val universe = GBController.universe
+        val universe = GBController.universe!!
 
-        for (pl in universe!!.allPlanets) {
+        for (pl in universe.allPlanets) {
 
-            var pf: PlanetFragment = PlanetFragment.newInstance(pl.uid.toString())
+            val pf: PlanetFragment = PlanetFragment.newInstance(pl.uid.toString())
             adapter.addFragment(pf, pl.uid.toString())
         }
 
@@ -47,25 +47,40 @@ class PlanetsSlideActivity : AppCompatActivity() {
     }
 
 
-    /** Called when the user taps the Colonize button */
-    fun colonize0(view: View) {
+    /** Called when the user taps the Make Pod button */
+    fun makeFactory(view: View) {
 
+        Toast.makeText(view.context, view.id.toString(), Toast.LENGTH_SHORT).show()
 
-        val universe = GBController.universe
-        universe!!.landPopulation(universe.allPlanets[view.id.toInt()], 0, 100)
+        val universe = GBController.universe!!
+        universe.makeFactory(universe.allPlanets[view.id.toInt()])
 
-        val message = "Landing Xenos on " + universe.allPlanets[view.id.toInt()].name
-        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+        val message = "Ordered Factory on " + universe.allPlanets[view.id.toInt()].name
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
     }
 
     /** Called when the user taps the Colonize button */
+    fun colonize0(view: View) {
+
+        Toast.makeText(view.context, view.id.toString(), Toast.LENGTH_SHORT).show()
+
+        val universe = GBController.universe!!
+        universe.landPopulation(universe.allPlanets[view.id.toInt()], 0, 100)
+
+        val message = "God Level: Landing Xenos on " + universe.allPlanets[view.id.toInt()].name
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    /** Called when the user taps the Colonize button */
     fun colonize1(view: View) {
+
+        Toast.makeText(view.context, view.id.toString(), Toast.LENGTH_SHORT).show()
+
         val universe = GBController.universe
         universe!!.landPopulation(universe.allPlanets[view.id.toInt()], 1, 100)
 
-        val message = "Landing Impi on " + universe.allPlanets[view.id.toInt()].name
-        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
-
+        val message = "God Level: Landing Impi on " + universe.allPlanets[view.id.toInt()].name
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
     }
 }

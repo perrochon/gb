@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
 
         output.setText("")
 
-        val message = "Recreating the Universe"
-        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+        val message = "God Level: Recreating the Universe"
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
         Thread(Runnable {
 
@@ -92,22 +92,22 @@ class MainActivity : AppCompatActivity() {
         output.setText("")
 
         val message = "Time is passing"
-        Toast.makeText(view.context, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
         Thread(Runnable {
 
             // Capture output from tester in an byte array
-            val baos = ByteArrayOutputStream()
-            val ps = PrintStream(baos)
-            System.setOut(ps)
+//            val baos = ByteArrayOutputStream()
+//            val ps = PrintStream(baos)
+//            System.setOut(ps)
 
             GBController.doUniverse()
 
-            System.out.flush()
+//            System.out.flush()
 
-            view.post { // This is going to the button's UI thread, which is the same as the ScrollView
-                // output.append(baos.toString())
-            }
+//            view.post { // This is going to the button's UI thread, which is the same as the ScrollView
+//                // output.append(baos.toString())
+//            }
 
             view.post {  // Worth making a string in this thread and post just result?
                 for (s in GBController.universe!!.news)
@@ -126,6 +126,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Stars button */
     fun starmap2(view: View) {
+        Toast.makeText(view.context, "God level command!", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MapActivity::class.java)
         startActivity(intent)
     }

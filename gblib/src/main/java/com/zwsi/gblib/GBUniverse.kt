@@ -15,6 +15,8 @@ class GBUniverse {
 
     var news = arrayListOf<String>()
 
+    var orders = arrayListOf<GBOrder>()
+
 
     internal constructor(numberOfStars: Int, numberOfRaces: Int) {
         this.numberOfStars = numberOfStars
@@ -22,7 +24,7 @@ class GBUniverse {
         GBDebug.l3("Making Stars")
         makeStars()
         makeRaces()
-        makeShips()
+        //makeShips()
         news.add(missionController.getCurrentMission())
         GBDebug.l3("Universe made")
     }
@@ -125,13 +127,11 @@ class GBUniverse {
         GBShip(2, allRaces[3], 4, allStars[2].uid)
     }
 
-    fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
-        GBDebug.l3("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
-        p.landPopulation(allRaces[uId], number)
-    }
 
 
     internal fun doUniverse() {
+        GBDebug.l3("Doing Universe: " + orders.toString())
+
         news.clear()
         for (s in allStars) {
             for (p in s.starPlanets) {
@@ -141,6 +141,11 @@ class GBUniverse {
         missionController.checkMissionStatus()
         news.add(missionController.getCurrentMission())
 
+        GBDebug.l3("Current Orders: " + orders.toString())
+
+        for (o in orders) {
+            o.execute()
+        }
     }
 
     fun getPlanets(s: GBStar): Array<GBPlanet?> {
@@ -150,6 +155,39 @@ class GBUniverse {
     fun getSectors(p: GBPlanet): Array<GBSector> {
         return p.sectors
     } //TODO should this be in planet? Or Data?
+
+
+    fun makeFactory(p: GBPlanet) {
+        GBDebug.l3("universe: Making factory for ?? on " + p.name + "")
+
+        var order = GBOrder(this)
+        order.makeFactory(p)
+
+        GBDebug.l3("Order made: " + order.toString())
+
+        orders.add(order)
+
+        GBDebug.l3("Current Orders: " + orders.toString())
+    }
+
+    fun makePod(s: GBShip) {
+        GBDebug.l3("universe: Making Pod for ?? in Factory " + s.name + "")
+
+        var order = GBOrder(this)
+        order.makePod(s)
+
+        GBDebug.l3("Ship made: " + order.toString())
+
+        orders.add(order)
+
+        GBDebug.l3("Current Orders: " + orders.toString())
+    }
+
+    fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
+        GBDebug.l3("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
+        p.landPopulation(allRaces[uId], number)
+    }
+
 
 
 }
