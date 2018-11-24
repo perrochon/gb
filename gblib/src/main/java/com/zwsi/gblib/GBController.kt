@@ -4,33 +4,55 @@ class GBController {
 
     companion object {
 
-        var universe: GBUniverse? = null
+        var numberOfStars = 24
             private set
-        private var gameTurns = 0
+        var numberOfRaces = 3
+            private set
+        var smallUniverse = false
+            private set
+        var numberOfStarsSmall = 3
+            private set
+        var numberOfRacesSmall = 3
+            private set
+
+        private lateinit var currentUniverse: GBUniverse
+            private set
+
+        private lateinit var currentSmallUniverse: GBUniverse
+            private set
+
+        val universe: GBUniverse
+            get() {
+                if (smallUniverse) {
+                    return currentSmallUniverse
+                } else {
+                    return currentUniverse
+                }
+            }
+
+        // This is hacky, but we'll have multiple "Universes" later, as a "universe is basically an ongoing game"
+        // I fear this all needs to be refactored when we implement persistency, but by then we understand things better
+        fun setUniverseSmall() {
+            smallUniverse = true
+        }
+
+        fun setUniverseBig() {
+            smallUniverse = false
+        }
+
         fun makeUniverse() {
             GBDebug.l1("Making Universe")
-            universe = GBUniverse(24, 4)
+            universe
         }
+
+        // TODO move game turns to GBUniverse as it should be there. Turns are per universe
+        private var gameTurns = 0
 
         fun doUniverse() {
             gameTurns++
             GBDebug.l1("Runing Game Turn $gameTurns")
-            universe!!.doUniverse()
+            universe.doUniverse()
         }
 
-
-
-//        @JvmStatic
-//        fun main(args: Array<String>) {
-//
-//            println("Welcome to GB Test")
-//            val tester = GBTest()
-//            GBTest.Companion.makeUniverse()
-//            for (i in 0..3 ) GBTest.Companion.doUniverse()
-//            println()
-//            println("$gameTurns game turns done.")
-//
-//
-//        }
     }
 }

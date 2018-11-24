@@ -18,7 +18,7 @@ class GBUniverse {
     var orders = arrayListOf<GBOrder>()
 
 
-    internal constructor(numberOfStars: Int, numberOfRaces: Int) {
+    constructor(numberOfStars: Int, numberOfRaces: Int) {
         this.numberOfStars = numberOfStars
         this.numberOfRaces = numberOfRaces
         GBDebug.l3("Making Stars")
@@ -53,7 +53,7 @@ class GBUniverse {
             i.consoleDraw()
         }
 
-        println ("News:")
+        println("News:")
         for (s in news) {
             println(s)
         }
@@ -128,7 +128,6 @@ class GBUniverse {
     }
 
 
-
     internal fun doUniverse() {
         GBDebug.l3("Doing Universe: " + orders.toString())
 
@@ -187,7 +186,4 @@ class GBUniverse {
         GBDebug.l3("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
         p.landPopulation(allRaces[uId], number)
     }
-
-
-
 }
