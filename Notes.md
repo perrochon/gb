@@ -1,16 +1,7 @@
 
 # Roadmap
 
-## Features
-
-###Mission 1
-*fly and land pods
-
-###Non Mission Features
-* Send intents to sliders with which list to show. Display that on slider
-* Visibility and God Mode Switch
-
-Code Quality
+## Code Quality
 - Fix Branches!
 - Universe solution, so we no longer pass universes around... and figure out how to test... No more ship creation...
 - Unit Test Mission 1
@@ -20,40 +11,51 @@ Code Quality
 - Use Application for global state in Android: https://developer.android.com/reference/android/app/Application
 - Debug buffer and Console Buffer
 
-Planet
+## Features
+
+### Mission 1
+*fly and land pods
+
+### Non Mission Features
+* Send intents to sliders with which list to show. Display that on slider
+* Visibility and God Mode Switch
+
+
+#### Planet
 - multiple races per planet
 - Environment and impact on breeding
 - Resources. Money, other.
 
-Systems
+#### Systems
 - Planet locations, render, and movement
 
-Universe
+#### Universe
 - Statistics on population, etc.
 
-Races
+####Races
 
-Units
+#### Ships
 - Pods
 - Planetary units
 - Ships
 
-Interactivity
-- launch pods
+#### Interactivity
 - land battle (can do this for morphs with pods only)
 - build ships
 - move ships
 - ship battle
 
-Frontend
-- Swipes for planets
+#### Frontend
 - Cut more star background images, and rotate them through the views
 - Handle killed process. Need to persist Universe?
 - Run GBTest on phone (text based)
-// Dealing with Killed applications, and destroyed activities...
+
+## Android 
+
+* Dealing with Killed applications, and destroyed activities...
 https://stackoverflow.com/questions/29701660/can-i-detect-if-android-has-killed-the-application-task-process-from-a-notific
 
-
+# Other Notes
 
 //
 // Content Sources used
