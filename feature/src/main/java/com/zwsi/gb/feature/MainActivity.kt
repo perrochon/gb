@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBUniverse
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
@@ -147,11 +148,19 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Races button */
     fun races(view: View) {
+        val races = GBController.universe.allRaces
+        val racesUID = ArrayList<Int>()
+        for (r in races) {
+            racesUID.add(r.uid)
+        }
+        racesUID.removeAt(1)  // temporary proof of concept
         val intent = Intent(this, RacesSlideActivity::class.java)
+//        intent.putExtra("races", racesUID)
+        intent.putExtra("title", "All Races")
         startActivity(intent)
     }
 
-    /** Called when the user taps the Races button */
+    /** Called when the user taps the Ships button */
     fun ships(view: View) {
         val intent = Intent(this, ShipsSlideActivity::class.java)
         startActivity(intent)
