@@ -64,11 +64,9 @@ class ShipsSlideActivity : AppCompatActivity() {
 
     /** Called when the user taps the Go button */
     fun goToLocation(view: View) {
-        val universe = GBController.universe
 
         val ship = view.tag as GBShip
 
-        //val message = "Landing Impi on " + universe!!.allPlanets[view.id.toInt()].name
         Toast.makeText(view.context, ship.getLocation(), Toast.LENGTH_SHORT).show()
 
         if ((ship.level == 1) or (ship.level == 2)) {
@@ -87,19 +85,24 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the make Pod button */
     fun makePod(view: View) {
 
-        val universe = GBController.universe
-        universe.makePod(universe.allShips[view.id.toInt()])
+        val ship = view.tag as GBShip
 
-        val message = "Ordered Pod in Factory " + universe.allShips[view.id.toInt()].name
+        val message = "Ordered Pod in Factory " + ship.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
+        val universe = GBController.universe
+        universe.makePod(ship)
+
     }
 
     /** Called when the user taps the make Cruiser button */
     fun makeCruiser(view: View) {
-        val universe = GBController.universe
 
-        //val message = "Landing Impi on " + universe!!.allPlanets[view.id.toInt()].name
-        Toast.makeText(view.context, "Cruiser being made", Toast.LENGTH_SHORT).show()
+        val ship = view.tag as GBShip
+
+        val message = "Ordered Cruiser in Factory " + ship.name
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
 
     }
 

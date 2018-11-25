@@ -51,6 +51,9 @@ class ShipFragment : Fragment() {
         val imageView = view!!.findViewById<ImageView>(R.id.ShipView)
 
         view.findViewById<Button>(R.id.goButton).setTag(sh)
+        view.findViewById<Button>(R.id.makeCruiser).setTag(sh)
+        view.findViewById<Button>(R.id.makePod).setTag(sh)
+
 
         if (sh.idxtype == 0) {
             imageView.setImageResource(R.drawable.factory)
@@ -69,11 +72,6 @@ class ShipFragment : Fragment() {
             imageView.setImageResource(R.drawable.cruisert)
         } else
             imageView.setImageResource(R.drawable.yellow)
-
-        // TODO Can we set ID on the parent (the fragment) and ask the fragment where we consume, instead of putting this on every button...
-        // fixme This is actually bad. We overwrite and ID used in the code above! by findviewbyid!. Can't use ID
-        view!!.findViewById<Button>(R.id.makePod).id = shipID
-        view!!.findViewById<Button>(R.id.makeCruiser).id = shipID
 
 
 

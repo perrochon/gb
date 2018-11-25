@@ -2,7 +2,7 @@
 # Roadmap
 
 ## Code Quality
-- Fix Branches!
+- Naming conventions for UI elements (btn_do etc.)
 - Universe solution, so we no longer pass universes around... and figure out how to test... No more ship creation...
 - Unit Test Mission 1
 - Pass around "context" from button. Don't use ID

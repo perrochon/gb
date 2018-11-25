@@ -25,5 +25,4 @@
             app:layout_constraintBottom_toBottomOf="parent" android:textColor="@android:color/holo_orange_light"
             />
 
-
 </android.support.constraint.ConstraintLayout>

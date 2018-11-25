@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/makeCruiser"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:alpha="0.3"
             app:layout_constraintTop_toBottomOf="@id/ShipBackground"
             app:layout_constraintStart_toEndOf="@id/makePod"
             app:layout_constraintEnd_toEndOf="parent"
