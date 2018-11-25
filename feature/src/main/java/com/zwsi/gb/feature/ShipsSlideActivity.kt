@@ -26,7 +26,7 @@ class ShipsSlideActivity : AppCompatActivity() {
             val hintText = this.findViewById<TextView>(R.id.hintTextView)
             hintText.visibility = (TextView.VISIBLE)
             hintText.setText(
-                "You haven't built any ships yet.|\]n\n " +
+                "You haven't built any ships yet.\n\n " +
                         "Start making ships by creating a Factory on your home planet" +
                         "That Factory will be your first ship. Then order the Factory to make other ships." +
                         "Remember that you have to give the order to build the factory first, then click on" +
