@@ -38,15 +38,15 @@ class StarFragment : Fragment() {
 
         var view: View? = inflater.inflate(R.layout.fragment_star, container, false);
 
+        // What is this fragment about, and make sure the fragment remembers
         val starID = arguments!!.getString("uId").toInt()
+        val st = GBController.universe.allStars[starID]
+        view!!.tag = st
 
-        val imageView = view!!.findViewById<ImageView>(R.id.StarView)
+        val imageView = view.findViewById<ImageView>(R.id.StarView)
 
         imageView.setImageResource(R.drawable.yellow)
 
-        val universe = GBController.universe
-        val stars = universe!!.allStars
-        val st = stars[starID]
 
         var stats = view.findViewById<TextView>(R.id.StarStats)
         var paint = stats.paint
@@ -79,9 +79,9 @@ class StarFragment : Fragment() {
         stats.append("Lorem ipsum dolor sit amet\n")
 
         stats.append("\n")
-        stats.append("id: " + st.id +" | ")
-        stats.append("uid: " + st.uid  +" | ")
-        stats.append("idxname: " + st.idxname +"\n")
+        stats.append("id: " + st.id + " | ")
+        stats.append("uid: " + st.uid + " | ")
+        stats.append("idxname: " + st.idxname + "\n")
 
         return view
     }

@@ -18,8 +18,17 @@ class ShipsSlideActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ships_slide)
 
+        val title = if (intent.hasExtra("title")) intent.getStringExtra("title") else "Ships"
+        val titleTextView = findViewById<TextView>(R.id.text_ships_title)
+        titleTextView.setText(title)
+
         initViews()
         setupViewPager()
+
+        val shipUID = getIntent().getIntExtra("shipUID", -1)
+        if (shipUID > 0) {
+            viewpager.setCurrentItem(shipUID)
+        }
 
         if (GBController.universe.allShips.size == 0) {
             val hintText = this.findViewById<TextView>(R.id.hintTextView)
@@ -33,11 +42,6 @@ class ShipsSlideActivity : AppCompatActivity() {
             )
         }
 
-        val intent = getIntent()
-        val shipUID = intent.getIntExtra("shipUID", -1)
-        if (shipUID > 0) {
-            viewpager.setCurrentItem(shipUID)
-        }
 
     }
 
@@ -51,11 +55,23 @@ class ShipsSlideActivity : AppCompatActivity() {
 
         val universe = GBController.universe
 
-        for (sh in universe.allShips) {
-
-            var fragment: ShipFragment = ShipFragment.newInstance(sh.uid.toString())
-            adapter.addFragment(fragment, sh.uid.toString())
+        // Figure out which items to display
+        val displayList: ArrayList<Int>
+        if (intent.hasExtra("ships")) {
+            displayList = intent.getIntegerArrayListExtra("ships")
+        } else {
+            displayList = ArrayList<Int>()
+            for (i in GBController.universe.allShips) {
+                displayList.add(i.uid)
+            }
         }
+
+        // Adding a fregment for each item we want to display
+        for (uid in displayList) {
+            val fragment: ShipFragment = ShipFragment.newInstance(uid.toString())
+            adapter.addFragment(fragment, uid.toString())
+        }
+
 
         viewpager.adapter = adapter
 
@@ -65,7 +81,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     fun goToLocation(view: View) {
 
         val parent = view.parent as View
-        val ship: GBShip = parent.tag as GBShip
+        val ship = parent.tag as GBShip
 
         Toast.makeText(view.context, ship.getLocation(), Toast.LENGTH_SHORT).show()
 

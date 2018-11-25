@@ -46,6 +46,11 @@ class PlanetFragment : Fragment() {
 
         val view: View? = inflater.inflate(R.layout.fragment_planet, container, false);
 
+        // What is this fragment about, and make sure the fragment remembers
+        val planetID = arguments!!.getString("uId").toInt()
+        p = GBController.universe.allPlanets[planetID]
+        view!!.tag = p
+
 
         // Get Bitmaps - TODO factor out, this code exists twice. But where to?
         val d = BitmapFactory.decodeResource(getResources(), R.drawable.desert)
@@ -58,21 +63,14 @@ class PlanetFragment : Fragment() {
         val w = BitmapFactory.decodeResource(getResources(), R.drawable.water)
         val bitmaps = arrayOf(w,l,g,d,m,f,i,r)
 
-        val planetID = arguments!!.getString("uId").toInt()
-
-        val universe = GBController.universe
-        val planets = universe!!.allPlanets
-        p = planets[planetID]!!
-
-        view!!.tag = p
 
         // Get the View to draw planet on, then draw planet
         //
-        var planetView = view!!.findViewById<ImageView>(R.id.PlanetView)
+        var planetView = view.findViewById<ImageView>(R.id.PlanetView)
         val merged = Bitmap.createBitmap(p.width *50, p.height *50, d.config)
         var canvas = Canvas(merged)
 
-        val planetStats = view!!.findViewById<TextView>(R.id.PlanetStats)
+        val planetStats = view.findViewById<TextView>(R.id.PlanetStats)
         val paint = planetStats.paint
         paint.textSize = 20f
 

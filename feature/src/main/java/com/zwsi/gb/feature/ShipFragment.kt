@@ -40,17 +40,12 @@ class ShipFragment : Fragment() {
 
         val view: View? = inflater.inflate(R.layout.fragment_ship, container, false);
 
-
+        // What is this fragment about, and make sure the fragment remembers
         val shipID = arguments!!.getString("uId").toInt()
-
-        val universe = GBController.universe
-        val ships = universe!!.allShips
-        val sh = ships[shipID]
-
+        val sh = GBController.universe.allShips[shipID]
         view!!.tag=sh
 
-        val imageView = view!!.findViewById<ImageView>(R.id.ShipView)
-
+        val imageView = view.findViewById<ImageView>(R.id.ShipView)
 
         if (sh.idxtype == 0) {
             imageView.setImageResource(R.drawable.factory)

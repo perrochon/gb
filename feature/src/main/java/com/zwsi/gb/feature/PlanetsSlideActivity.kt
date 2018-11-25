@@ -17,20 +17,17 @@ class PlanetsSlideActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planets_slide)
 
-        initViews()
-        setupViewPager()
-
-        val intent = getIntent()
-        val planetUID = intent.getIntExtra("planetUID", -1)
-        if (planetUID > 0) {
-            viewpager.setCurrentItem(planetUID)
-        }
-
-        val title = if (intent.hasExtra("title")) intent.getStringExtra("title") else "Some Planets"
-
+        val title = if (intent.hasExtra("title")) intent.getStringExtra("title") else "Planets"
         val titleTextView = findViewById<TextView>(R.id.text_planets_title)
         titleTextView.setText(title)
 
+        initViews()
+        setupViewPager()
+
+        val planetUID = getIntent().getIntExtra("shipUID", -1)
+        if (planetUID > 0) {
+            viewpager.setCurrentItem(planetUID)
+        }
 
     }
 
@@ -42,15 +39,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
 
-//        val universe = GBController.universe!!
-//
-//        for (pl in universe.allPlanets) {
-//
-//            val pf: PlanetFragment = PlanetFragment.newInstance(pl.uid.toString())
-//            adapter.addFragment(pf, pl.uid.toString())
-//        }
-
-
+        // Figure out which items to display
         val displayList: ArrayList<Int>
         if (intent.hasExtra("planets")) {
             displayList = intent.getIntegerArrayListExtra("planets")
@@ -61,7 +50,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
             }
         }
 
-
+        // Adding a fregment for each item we want to display
         for (uid in displayList) {
             val fragment: PlanetFragment = PlanetFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())

@@ -39,9 +39,13 @@ class RaceFragment : Fragment() {
         var view: View? = inflater.inflate(R.layout.fragment_race, container, false);
 
 
+        // What is this fragment about, and make sure the fragment remembers
         val raceID = arguments!!.getString("uId").toInt()
+        val r = GBController.universe.allRaces[raceID]
+        view!!.tag = r
 
-        val imageView = view!!.findViewById<ImageView>(R.id.RaceView)
+
+        val imageView = view.findViewById<ImageView>(R.id.RaceView)
 
         if (raceID == 0)
             imageView.setImageResource(R.drawable.xenost)
@@ -53,9 +57,6 @@ class RaceFragment : Fragment() {
             imageView.setImageResource(R.drawable.tortoise)
 
 
-        val universe = GBController.universe
-        val races = universe!!.allRaces
-        val r = races[raceID]
 
         var stats = view.findViewById<TextView>(R.id.RaceStats)
         var paint = stats.paint
