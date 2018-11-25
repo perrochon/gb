@@ -1,10 +1,9 @@
 package com.zwsi.gb.feature
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
-import android.widget.Toast
 import com.zwsi.gblib.GBController
 
 class RacesSlideActivity : AppCompatActivity() {
@@ -33,20 +32,20 @@ class RacesSlideActivity : AppCompatActivity() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
 
-        var displayRaces: ArrayList<Int>
+        val displayList: ArrayList<Int>
         if (intent.hasExtra("races")) {
-            displayRaces = intent.getIntegerArrayListExtra("races")
+            displayList = intent.getIntegerArrayListExtra("races")
         } else {
-            displayRaces = ArrayList<Int>()
-            for (r in GBController.universe.allRaces) {
-                displayRaces.add(r.uid)
+            displayList = ArrayList<Int>()
+            for (i in GBController.universe.allRaces) {
+                displayList.add(i.uid)
             }
         }
 
 
-        for (raceUID in displayRaces) {
-            var rf: RaceFragment = RaceFragment.newInstance(raceUID.toString())
-            adapter.addFragment(rf, raceUID.toString())
+        for (uid in displayList) {
+            val fragment: RaceFragment = RaceFragment.newInstance(uid.toString())
+            adapter.addFragment(fragment, uid.toString())
         }
 
 

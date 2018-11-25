@@ -3,8 +3,6 @@ package com.zwsi.gb.feature
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import android.widget.Toast
 import com.zwsi.gblib.GBController
 
 class StarsSlideActivity : AppCompatActivity() {
@@ -34,11 +32,19 @@ class StarsSlideActivity : AppCompatActivity() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
 
-        val universe = GBController.universe
+        val displayList: ArrayList<Int>
+        if (intent.hasExtra("stars")) {
+            displayList = intent.getIntegerArrayListExtra("stars")
+        } else {
+            displayList = ArrayList<Int>()
+            for (i in GBController.universe.allStars) {
+                displayList.add(i.uid)
+            }
+        }
 
-        for (i in 0 until universe!!.allStars.size) { // TODO fix clumsy loop, also in planets
-            var st: StarFragment = StarFragment.newInstance(i.toString())
-            adapter.addFragment(st, i.toString())
+        for (uid in displayList) {
+            val fragment: StarFragment = StarFragment.newInstance(uid.toString())
+            adapter.addFragment(fragment, uid.toString())
         }
 
         viewpager.adapter = adapter

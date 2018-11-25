@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
@@ -66,12 +65,20 @@ class ShipsSlideActivity : AppCompatActivity() {
     fun goToLocation(view: View) {
 
         val parent = view.parent as View
-        val ship : GBShip = parent.tag as GBShip
+        val ship: GBShip = parent.tag as GBShip
 
         Toast.makeText(view.context, ship.getLocation(), Toast.LENGTH_SHORT).show()
 
+
         if ((ship.level == 1) or (ship.level == 2)) {
             val intent = Intent(this, PlanetsSlideActivity::class.java)
+
+            intent.putExtra("title", "Planet")
+
+            val displayUID = ArrayList<Int>()
+            displayUID.add(ship.locationuid)
+            intent.putExtra("planets", displayUID)
+
             intent.putExtra("planetUID", ship.locationuid)
             startActivity(intent)
         }
@@ -81,13 +88,14 @@ class ShipsSlideActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
     }
 
     /** Called when the user taps the make Pod button */
     fun makePod(view: View) {
 
         val parent = view.parent as View
-        val ship : GBShip = parent.tag as GBShip
+        val ship: GBShip = parent.tag as GBShip
 
         val message = "Ordered Pod in Factory " + ship.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
@@ -101,7 +109,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     fun makeCruiser(view: View) {
 
         val parent = view.parent as View
-        val ship : GBShip = parent.tag as GBShip
+        val ship: GBShip = parent.tag as GBShip
 
         val message = "Ordered Cruiser in Factory " + ship.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
