@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBShip
@@ -19,6 +21,21 @@ class ShipsSlideActivity : AppCompatActivity() {
 
         initViews()
         setupViewPager()
+
+        if (GBController.universe.allShips.size == 0) {
+            val hintText = this.findViewById<TextView>(R.id.hintTextView)
+            hintText.visibility = (TextView.VISIBLE)
+            hintText.setText(
+                "You haven't built any ships yet.|\]n\n " +
+                        "Start making ships by creating a Factory on your home planet" +
+                        "That Factory will be your first ship. Then order the Factory to make other ships." +
+                        "Remember that you have to give the order to build the factory first, then click on" +
+                        "[Do] so your minions can execute your orders."
+            )
+
+            val hintImage = this.findViewById<ImageView>(R.id.hintImageView)
+            hintImage.visibility = (TextView.VISIBLE)
+        }
 
         val intent = getIntent()
         val shipUID = intent.getIntExtra("shipUID", -1)
@@ -52,7 +69,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     fun goToLocation(view: View) {
         val universe = GBController.universe
 
-        val ship= view.getTag() as GBShip
+        val ship = view.getTag() as GBShip
 
         //val message = "Landing Impi on " + universe!!.allPlanets[view.id.toInt()].name
         Toast.makeText(view.context, ship.getLocation(), Toast.LENGTH_SHORT).show()
