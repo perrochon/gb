@@ -148,15 +148,18 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Races button */
     fun races(view: View) {
-        val races = GBController.universe.allRaces
         val racesUID = ArrayList<Int>()
-        for (r in races) {
+        val intent = Intent(this, RacesSlideActivity::class.java)
+
+        // temporary proof of concept. We don't need the next few lines to display all Races
+        for (r in GBController.universe.allRaces) {
             racesUID.add(r.uid)
         }
-        racesUID.removeAt(1)  // temporary proof of concept
-        val intent = Intent(this, RacesSlideActivity::class.java)
-//        intent.putExtra("races", racesUID)
-        intent.putExtra("title", "All Races")
+        racesUID.removeAt(1)
+        intent.putExtra("races", racesUID)
+        intent.putExtra("title", "All but on Races")
+        intent.putExtra("UID", 2)
+
         startActivity(intent)
     }
 

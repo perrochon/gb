@@ -12,6 +12,7 @@ import com.zwsi.gblib.GBPlanet
 class PlanetsSlideActivity : AppCompatActivity() {
 
     private lateinit var viewpager: ViewPager
+    private var startItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +25,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
         initViews()
         setupViewPager()
 
-        val planetUID = getIntent().getIntExtra("shipUID", -1)
-        if (planetUID > 0) {
-            viewpager.setCurrentItem(planetUID)
-        }
+        viewpager.setCurrentItem(startItem)
 
     }
 
@@ -38,6 +36,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
     private fun setupViewPager() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
+        val startUID = getIntent().getIntExtra("UID", -1)
 
         // Figure out which items to display
         val displayList: ArrayList<Int>
@@ -54,6 +53,8 @@ class PlanetsSlideActivity : AppCompatActivity() {
         for (uid in displayList) {
             val fragment: PlanetFragment = PlanetFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())
+            if (uid == startUID)
+                startItem = adapter.count
         }
 
         viewpager.adapter = adapter

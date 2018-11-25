@@ -27,7 +27,7 @@ class PlanetFragment : Fragment() {
 
             val bdl = Bundle(1)
 
-            bdl.putString("uId", message)
+            bdl.putString("UID", message)
 
             f.setArguments(bdl)
 
@@ -47,7 +47,7 @@ class PlanetFragment : Fragment() {
         val view: View? = inflater.inflate(R.layout.fragment_planet, container, false);
 
         // What is this fragment about, and make sure the fragment remembers
-        val planetID = arguments!!.getString("uId").toInt()
+        val planetID = arguments!!.getString("UID").toInt()
         p = GBController.universe.allPlanets[planetID]
         view!!.tag = p
 

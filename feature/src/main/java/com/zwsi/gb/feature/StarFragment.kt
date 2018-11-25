@@ -19,7 +19,7 @@ class StarFragment : Fragment() {
 
             val bdl = Bundle(1)
 
-            bdl.putString("uId", message)
+            bdl.putString("UID", message)
 
             f.setArguments(bdl)
 
@@ -39,7 +39,7 @@ class StarFragment : Fragment() {
         var view: View? = inflater.inflate(R.layout.fragment_star, container, false);
 
         // What is this fragment about, and make sure the fragment remembers
-        val starID = arguments!!.getString("uId").toInt()
+        val starID = arguments!!.getString("UID").toInt()
         val st = GBController.universe.allStars[starID]
         view!!.tag = st
 

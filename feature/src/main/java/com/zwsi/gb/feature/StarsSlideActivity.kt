@@ -14,6 +14,7 @@ import com.zwsi.gblib.GBStar
 class StarsSlideActivity : AppCompatActivity() {
 
     private lateinit var viewpager: ViewPager
+    private var startItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +27,7 @@ class StarsSlideActivity : AppCompatActivity() {
         initViews()
         setupViewPager()
 
-        val starUID = getIntent().getIntExtra("starUID", -1)
-        if (starUID > 0) {
-            viewpager.setCurrentItem(starUID)
-        }
+        viewpager.setCurrentItem(startItem)
 
     }
 
@@ -40,6 +38,7 @@ class StarsSlideActivity : AppCompatActivity() {
     private fun setupViewPager() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
+        val startUID = getIntent().getIntExtra("UID", -1)
 
         // Figure out which items to display
         val displayList: ArrayList<Int>
@@ -56,18 +55,20 @@ class StarsSlideActivity : AppCompatActivity() {
         for (uid in displayList) {
             val fragment: StarFragment = StarFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())
+            if (uid == startUID)
+                startItem = adapter.count
         }
 
         viewpager.adapter = adapter
 
     }
 
-    /** Called when the user taps the Go button */
+    /** Called when the user taps the Go to Planets button */
     fun goToLocation(view: View) {
 
         val intent = Intent(this, PlanetsSlideActivity::class.java)
 
-        val parent = view.parent as View
+        val parent = view.parent.parent as View // TODO there must be a better (not layout dependent) way than this
         val star = parent.tag as GBStar
 
         Toast.makeText(view.context, "Going to planets of " + star.name, Toast.LENGTH_SHORT).show()
@@ -78,6 +79,35 @@ class StarsSlideActivity : AppCompatActivity() {
         }
         intent.putExtra("planets", displayUID)
         intent.putExtra("title", "Planets of " + star.name)
+        startActivity(intent)
+
+    }
+
+    /** Called when the user taps the Go to Planets button */
+    fun goToShips(view: View) {
+
+        val intent = Intent(this, ShipsSlideActivity::class.java)
+
+        val parent = view.parent.parent as View // TODO there must be a better (not layout dependent) way than this
+        val star = parent.tag as GBStar
+
+        Toast.makeText(view.context, "Going to ships in system " + star.name, Toast.LENGTH_SHORT).show()
+
+        val displayUID = ArrayList<Int>()
+        for (ship in star.starShips) {
+            displayUID.add(ship.uid)
+        }
+        for (planet in star.starPlanets) {
+            for (ship in planet.orbitShips){
+                displayUID.add(ship.uid)
+            }
+            for (ship in planet.landedShips){
+                displayUID.add(ship.uid)
+            }
+        }
+
+        intent.putExtra("Ships in system" + star.name, displayUID)
+        intent.putExtra("title", "Ships in " + star.name)
         startActivity(intent)
 
     }

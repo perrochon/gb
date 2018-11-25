@@ -19,7 +19,7 @@ class RaceFragment : Fragment() {
 
             val bdl = Bundle(1)
 
-            bdl.putString("uId", message)
+            bdl.putString("UID", message)
 
             f.setArguments(bdl)
 
@@ -40,7 +40,7 @@ class RaceFragment : Fragment() {
 
 
         // What is this fragment about, and make sure the fragment remembers
-        val raceID = arguments!!.getString("uId").toInt()
+        val raceID = arguments!!.getString("UID").toInt()
         val r = GBController.universe.allRaces[raceID]
         view!!.tag = r
 

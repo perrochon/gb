@@ -14,6 +14,7 @@ import com.zwsi.gblib.GBShip
 class RacesSlideActivity : AppCompatActivity() {
 
     private lateinit var viewpager: ViewPager
+    private var startItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +27,7 @@ class RacesSlideActivity : AppCompatActivity() {
         initViews()
         setupViewPager()
 
-        val raceUID = getIntent().getIntExtra("shipUID", -1)
-        if (raceUID > 0) {
-            viewpager.setCurrentItem(raceUID)
-        }
+        viewpager.setCurrentItem(startItem)
 
     }
 
@@ -40,6 +38,7 @@ class RacesSlideActivity : AppCompatActivity() {
     private fun setupViewPager() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
+        val startUID = getIntent().getIntExtra("UID", -1)
 
         // Figure out which items to display
         val displayList: ArrayList<Int>
@@ -56,8 +55,9 @@ class RacesSlideActivity : AppCompatActivity() {
         for (uid in displayList) {
             val fragment: RaceFragment = RaceFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())
+            if (uid == startUID)
+                startItem = adapter.count
         }
-
 
         viewpager.adapter = adapter
 

@@ -21,7 +21,7 @@ class ShipFragment : Fragment() {
 
             val bdl = Bundle(1)
 
-            bdl.putString("uId", message)
+            bdl.putString("UID", message)
 
             f.setArguments(bdl)
 
@@ -41,7 +41,7 @@ class ShipFragment : Fragment() {
         val view: View? = inflater.inflate(R.layout.fragment_ship, container, false);
 
         // What is this fragment about, and make sure the fragment remembers
-        val shipID = arguments!!.getString("uId").toInt()
+        val shipID = arguments!!.getString("UID").toInt()
         val sh = GBController.universe.allShips[shipID]
         view!!.tag=sh
 

@@ -13,6 +13,7 @@ import com.zwsi.gblib.GBShip
 class ShipsSlideActivity : AppCompatActivity() {
 
     private lateinit var viewpager: ViewPager
+    private var startItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +25,7 @@ class ShipsSlideActivity : AppCompatActivity() {
 
         initViews()
         setupViewPager()
-
-        val shipUID = getIntent().getIntExtra("shipUID", -1)
-        if (shipUID > 0) {
-            viewpager.setCurrentItem(shipUID)
-        }
+        viewpager.setCurrentItem(startItem)
 
         if (GBController.universe.allShips.size == 0) {
             val hintText = this.findViewById<TextView>(R.id.hintTextView)
@@ -52,8 +49,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     private fun setupViewPager() {
 
         val adapter = MyFragmentPagerAdapter(getSupportFragmentManager())
-
-        val universe = GBController.universe
+        val startUID = getIntent().getIntExtra("UID", -1)
 
         // Figure out which items to display
         val displayList: ArrayList<Int>
@@ -70,8 +66,9 @@ class ShipsSlideActivity : AppCompatActivity() {
         for (uid in displayList) {
             val fragment: ShipFragment = ShipFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())
+            if (uid == startUID)
+                startItem = adapter.count
         }
-
 
         viewpager.adapter = adapter
 

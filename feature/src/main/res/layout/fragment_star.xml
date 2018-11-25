@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:background="@android:color/transparent"
         android:layout_height="match_parent">
 
@@ -46,20 +46,36 @@
             app:layout_constraintTop_toBottomOf="@+id/StarStats" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
-    <Button
-            android:text="Go to Planets"
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/goPlanets"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/StarBackground"
-            app:layout_constraintStart_toStartOf="parent"
-            android:visibility="visible"
-            tools:visibility="visible"
-            app:layout_constraintHorizontal_bias="0.302"
-            android:onClick="goToLocation"/>
-
+            app:layout_constraintTop_toBottomOf="@+id/StarBackground">
+        <Button
+                android:text="Go to Planets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/goPlanets"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="visible"
+                tools:visibility="visible"
+                android:onClick="goToLocation" android:layout_marginStart="8dp"
+        />
+        <Button
+                android:text="Go to Ships"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/goShips"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="visible"
+                tools:visibility="visible"
+                android:onClick="goToShips"
+                android:layout_marginStart="8dp"
+        />
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>
