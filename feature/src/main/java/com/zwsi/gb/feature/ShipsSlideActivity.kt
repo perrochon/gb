@@ -65,7 +65,8 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Go button */
     fun goToLocation(view: View) {
 
-        val ship = view.tag as GBShip
+        val parent = view.parent as View
+        val ship : GBShip = parent.tag as GBShip
 
         Toast.makeText(view.context, ship.getLocation(), Toast.LENGTH_SHORT).show()
 
@@ -85,7 +86,8 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the make Pod button */
     fun makePod(view: View) {
 
-        val ship = view.tag as GBShip
+        val parent = view.parent as View
+        val ship : GBShip = parent.tag as GBShip
 
         val message = "Ordered Pod in Factory " + ship.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
@@ -98,7 +100,8 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the make Cruiser button */
     fun makeCruiser(view: View) {
 
-        val ship = view.tag as GBShip
+        val parent = view.parent as View
+        val ship : GBShip = parent.tag as GBShip
 
         val message = "Ordered Cruiser in Factory " + ship.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()

@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
         output.setText("")
 
-        val message = "Time is passing"
+        val message = "Executing Orders"
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
         Thread(Runnable {

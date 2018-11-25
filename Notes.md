@@ -5,7 +5,6 @@
 - Naming conventions for UI elements (btn_do etc.)
 - Universe solution, so we no longer pass universes around... and figure out how to test... No more ship creation...
 - Unit Test Mission 1
-- Pass around "context" from button. Don't use ID
 - Make Location Object. Should handle stars, too.
 - Access and visibility in gblib
 - Use Application for global state in Android: https://developer.android.com/reference/android/app/Application

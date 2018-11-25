@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.Toast
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBPlanet
 
 class PlanetsSlideActivity : AppCompatActivity() {
 
@@ -50,12 +51,13 @@ class PlanetsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Make Pod button */
     fun makeFactory(view: View) {
 
-        Toast.makeText(view.context, view.id.toString(), Toast.LENGTH_SHORT).show()
+        val parent = view.parent as View
+        val planet : GBPlanet = parent.tag as GBPlanet
 
         val universe = GBController.universe!!
-        universe.makeFactory(universe.allPlanets[view.id.toInt()])
+        universe.makeFactory(planet)
 
-        val message = "Ordered Factory on " + universe.allPlanets[view.id.toInt()].name
+        val message = "Ordered Factory on " + planet.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
     }
@@ -63,24 +65,26 @@ class PlanetsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Colonize button */
     fun colonize0(view: View) {
 
-        Toast.makeText(view.context, view.id.toString(), Toast.LENGTH_SHORT).show()
+        val parent = view.parent as View
+        val planet : GBPlanet = parent.tag as GBPlanet
 
         val universe = GBController.universe!!
-        universe.landPopulation(universe.allPlanets[view.id.toInt()], 0, 100)
+        universe.landPopulation(planet, 0, 100)
 
-        val message = "God Level: Landing Xenos on " + universe.allPlanets[view.id.toInt()].name
+        val message = "God Level: Landing Xenos on " + planet.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
     }
 
     /** Called when the user taps the Colonize button */
     fun colonize1(view: View) {
 
-        Toast.makeText(view.context, view.id.toString(), Toast.LENGTH_SHORT).show()
+        val parent = view.parent as View
+        val planet : GBPlanet = parent.tag as GBPlanet
 
-        val universe = GBController.universe
-        universe!!.landPopulation(universe.allPlanets[view.id.toInt()], 1, 100)
+        val universe = GBController.universe!!
+        universe.landPopulation(planet, 1, 100)
 
-        val message = "God Level: Landing Impi on " + universe.allPlanets[view.id.toInt()].name
+        val message = "God Level: Landing Impi on " + planet.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
     }
 }

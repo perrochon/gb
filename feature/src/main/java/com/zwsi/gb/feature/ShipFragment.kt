@@ -38,7 +38,7 @@ class ShipFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view: View? = inflater.inflate(R.layout.fragment_ship, container, false);
+        val view: View? = inflater.inflate(R.layout.fragment_ship, container, false);
 
 
         val shipID = arguments!!.getString("uId").toInt()
@@ -47,12 +47,9 @@ class ShipFragment : Fragment() {
         val ships = universe!!.allShips
         val sh = ships[shipID]
 
+        view!!.tag=sh
 
         val imageView = view!!.findViewById<ImageView>(R.id.ShipView)
-
-        view.findViewById<Button>(R.id.goButton).setTag(sh)
-        view.findViewById<Button>(R.id.makeCruiser).setTag(sh)
-        view.findViewById<Button>(R.id.makePod).setTag(sh)
 
 
         if (sh.idxtype == 0) {

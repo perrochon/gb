@@ -44,8 +44,7 @@ class PlanetFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view: View? = inflater.inflate(R.layout.fragment_planet, container, false);
-
+        val view: View? = inflater.inflate(R.layout.fragment_planet, container, false);
 
 
         // Get Bitmaps - TODO factor out, this code exists twice. But where to?
@@ -65,13 +64,7 @@ class PlanetFragment : Fragment() {
         val planets = universe!!.allPlanets
         p = planets[planetID]!!
 
-        var c0 = view!!.findViewById<Button>(R.id.makefactory)
-        c0.id = planetID
-        c0 = view!!.findViewById<Button>(R.id.colonize0)
-        c0.id = planetID
-        c0 = view!!.findViewById<Button>(R.id.colonize1)
-        c0  .id = planetID
-
+        view!!.tag = p
 
         // Get the View to draw planet on, then draw planet
         //
