@@ -75,9 +75,9 @@ class StarsSlideActivity : AppCompatActivity() {
         val displayUID = ArrayList<Int>()
         for (planet in star.starPlanets) {
             displayUID.add(planet.uid)
-            intent.putExtra("planets", displayUID)
-            intent.putExtra("title", "Planets of " + star.name)
         }
+        intent.putExtra("planets", displayUID)
+        intent.putExtra("title", "Planets of " + star.name)
         startActivity(intent)
 
     }
