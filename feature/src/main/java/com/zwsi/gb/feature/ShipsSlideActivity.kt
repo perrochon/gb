@@ -27,14 +27,11 @@ class ShipsSlideActivity : AppCompatActivity() {
             hintText.visibility = (TextView.VISIBLE)
             hintText.setText(
                 "You haven't built any ships yet.\n\n " +
-                        "Start making ships by creating a Factory on your home planet " +
+                        "Start making ships by creating a Factory on your home planet. " +
                         "That Factory will be your first ship. Then order the Factory to make other ships. " +
                         "Remember that you have to give the order to build the factory first, then click on " +
                         "[Do] so your minions can execute your orders."
             )
-
-            val hintImage = this.findViewById<ImageView>(R.id.hintImageView)
-            hintImage.visibility = (TextView.VISIBLE)
         }
 
         val intent = getIntent()
@@ -55,7 +52,7 @@ class ShipsSlideActivity : AppCompatActivity() {
 
         val universe = GBController.universe
 
-        for (sh in universe!!.allShips) {
+        for (sh in universe.allShips) {
 
             var fragment: ShipFragment = ShipFragment.newInstance(sh.uid.toString())
             adapter.addFragment(fragment, sh.uid.toString())
@@ -69,7 +66,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     fun goToLocation(view: View) {
         val universe = GBController.universe
 
-        val ship = view.getTag() as GBShip
+        val ship = view.tag as GBShip
 
         //val message = "Landing Impi on " + universe!!.allPlanets[view.id.toInt()].name
         Toast.makeText(view.context, ship.getLocation(), Toast.LENGTH_SHORT).show()
@@ -90,7 +87,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the make Pod button */
     fun makePod(view: View) {
 
-        val universe = GBController.universe!!
+        val universe = GBController.universe
         universe.makePod(universe.allShips[view.id.toInt()])
 
         val message = "Ordered Pod in Factory " + universe.allShips[view.id.toInt()].name
