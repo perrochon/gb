@@ -1,20 +1,11 @@
 # Other Notes
 
-//
-// Content Sources used
-// Notes.txt: http://www.jongware.com/galaxy1.html
-// FAQ: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
+##Log
 
-// Must include following file: https://github.com/kaladron/galactic-bloodshed/blob/master/LICENSE
-// List of Planet Names: https://github.com/kaladron/galactic-bloodshed/blob/master/data/planet.list
-// List of Stars: https://github.com/kaladron/galactic-bloodshed/blob/master/data/star.list
+2018-11-25 Released .193 Mission 1: Fly a pod to another system. Needs major re-factor on location, and will need to 
+move all copy to resources, instead of strings inKotlin
 
-// Terrain Assets
-https://assetstore.unity.com/packages/2d/environments/painted-2d-terrain-tiles-basic-set-45675
-
-
-Log
-***
+2018-11-22 Thanksgiving. Thought of doing missions so game playable much sooner
 
 2018-11-16
 Released .76 Bunch of bug fixes and small improvements. Added basic Race View Activity with a picture of an Impi
@@ -51,10 +42,24 @@ Scrollable TextView in App displays output of text. Refactored classes out of a 
 Started this Log. Finally Enabled Hyper-V. It's under "Security" in the BIOS! Emulator is now running faster.
 
 
+## Sources
+//
+// Content Sources used
+// Notes.txt: http://www.jongware.com/galaxy1.html
+// FAQ: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
+
+// Must include following file: https://github.com/kaladron/galactic-bloodshed/blob/master/LICENSE
+// List of Planet Names: https://github.com/kaladron/galactic-bloodshed/blob/master/data/planet.list
+// List of Stars: https://github.com/kaladron/galactic-bloodshed/blob/master/data/star.list
+
+// Terrain Assets
+https://assetstore.unity.com/packages/2d/environments/painted-2d-terrain-tiles-basic-set-45675
 
 
-TileMap Notes
 
+## TileMap Notes
+
+Want to use TileMap, but getting crashes.
 Now manually inflating the view, to better understand what happens, still getting
 
      Caused by: android.view.InflateException: Binary XML file line #2: Binary XML file line #2: Error inflating class com.qozix.tileview.TileView
