@@ -16,8 +16,8 @@ class GBMissionController() {
             0 ->
                 "Commander! My name is Yonininji. I will be helping you with your missions.\n\n" +
                         "Your first mission is to colonize the 5 planets of Jade, your home system. " +
-                        "Find Helle, build a factory, then start building pods and send a pod to each " +
-                        "of the other planets your home system. Then land the pods.\n\n" +
+                        "Find Helle, build a factory, then start building pods and send a pod to one " +
+                        "of the other planets your home system. \n\n" +
                         "Remember these things take time. So after you gave your orders, you have to press the " +
                         "[DO] button.\n\n" +
                         "One more thing: If you see greyed out buttons, these are God level shortcuts. Ignore them!\n\n"
@@ -37,6 +37,12 @@ class GBMissionController() {
         if (missionStatus == 0) {
             missionStatus++
             return
+        }
+        for (sh in GBController.universe.allShips){
+            if ((sh.idxtype == 1) and (sh.locationuid != 0)) { // What a hacky way to figure out a pod moved
+                    missionStatus++
+                }
+
         }
         // if all planets colonized (population > 0, or owner), missionStatus++
     }

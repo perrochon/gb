@@ -5,11 +5,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.zwsi.gblib.GBController
-import kotlinx.android.synthetic.*
 
 class ShipFragment : Fragment() {
 
@@ -43,7 +40,7 @@ class ShipFragment : Fragment() {
         // What is this fragment about, and make sure the fragment remembers
         val shipID = arguments!!.getString("UID").toInt()
         val sh = GBController.universe.allShips[shipID]
-        view!!.tag=sh
+        view!!.tag = sh
 
         val imageView = view.findViewById<ImageView>(R.id.ShipView)
 
@@ -66,7 +63,6 @@ class ShipFragment : Fragment() {
             imageView.setImageResource(R.drawable.yellow)
 
 
-
         var stats = view.findViewById<TextView>(R.id.ShipStats)
         var paint = stats.paint
         paint.textSize = 40f
@@ -79,19 +75,47 @@ class ShipFragment : Fragment() {
         stats.append("Location: " + sh.getLocation() + "\n")
 
 
-        stats = view!!.findViewById<TextView>(R.id.ShipBackground)
+        stats = view.findViewById<TextView>(R.id.ShipBackground)
         paint = stats.paint
         paint.textSize = 40f
 
         stats.append("\n")
-        stats.append("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
-                "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n")
+        stats.append(
+            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
+                    "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n"
+        )
 
         stats.append("\n")
-        stats.append("id: " + sh.id +" | ")
-        stats.append("uid: " + sh.uid  +" | ")
-        stats.append("idxt: " + sh.idxtype +" | ")
+        stats.append("id: " + sh.id + " | ")
+        stats.append("uid: " + sh.uid + " | ")
+        stats.append("idxt: " + sh.idxtype + " | ")
         stats.append("loca: " + sh.level + "." + sh.locationuid + "\n")
+
+
+        if (sh.idxtype == 0) { // TODO Better to test for speed > 0
+            view.findViewById<Spinner>(R.id.spinner).setVisibility(View.GONE)
+            view.findViewById<Button>(R.id.flyTo).setVisibility(View.GONE)
+        }
+
+        // This will break once ships are in deep space. But instead of getting planets of star, we will need to
+        // get possible destinations for this ship based on race and ship type.
+        var planets = arrayListOf<String>()
+        for (p in sh.getStar()!!.starPlanets) {
+            planets.add(p.name)
+        }
+
+        // Create an ArrayAdapter
+        val adapter = ArrayAdapter<String>(this.activity, android.R.layout.simple_spinner_item, planets)
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        // Apply the adapter to the spinner
+        var spinner = view.findViewById<Spinner>(R.id.spinner)
+        spinner.adapter = adapter
+
+        val flyButton = view.findViewById<Button>(R.id.flyTo)
+        flyButton.tag = spinner
 
         return view
     }

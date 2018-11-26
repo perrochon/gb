@@ -2,6 +2,8 @@
 # Roadmap
 
 ## Code Quality
+* Refactor to use GBLocation for ship creation, ship movement, and everywhere else, really...
+* Make pod movement in Mission 1 take off, fly, land
 * Refactor and apply Naming conventions for UI elements (btn_do etc.)
 * Unit Test Mission 1
 * Make Location Object. Should handle stars, too.
@@ -9,6 +11,9 @@
 * Use Application for global state in Android: https://developer.android.com/reference/android/app/Application
 * Debug buffer and Console Buffer
 * Persistency of the lib
+
+## Test Efficience
+* Make God level button that takes me to a setup where I can test what I am working on in the UI
 
 
 ## Features

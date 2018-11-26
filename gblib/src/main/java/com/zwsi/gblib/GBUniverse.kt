@@ -103,8 +103,6 @@ class GBUniverse {
             for (p in s.starPlanets) {
             }
         }
-        missionController.checkMissionStatus()
-        news.add(missionController.getCurrentMission())
 
         GBDebug.l3("Current Orders: " + orders.toString())
 
@@ -112,6 +110,9 @@ class GBUniverse {
             o.execute()
         }
         orders.clear()
+
+        missionController.checkMissionStatus()
+        news.add(missionController.getCurrentMission())
     }
 
     fun getPlanets(s: GBStar): Array<GBPlanet?> {
@@ -143,6 +144,20 @@ class GBUniverse {
         order.makePod(s)
 
         GBDebug.l3("Ship made: " + order.toString())
+
+        orders.add(order)
+
+        GBDebug.l3("Current Orders: " + orders.toString())
+    }
+
+
+    fun flyShip(sh: GBShip, p: GBPlanet) {
+        GBDebug.l3("Creating order to fly " + sh.name + " to " + p.name)
+
+        var order = GBOrder(this)
+        order.flyShip(sh, p)
+
+        GBDebug.l3("Order made: " + order.toString())
 
         orders.add(order)
 

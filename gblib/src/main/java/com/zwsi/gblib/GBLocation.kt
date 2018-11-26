@@ -72,4 +72,25 @@ class GBLocation  {
             }
         }
     }
+
+    fun getStar() : GBStar? {
+        when(level){
+            1 -> {
+                return GBController.universe.allPlanets[uid].star
+            }
+            2 -> {
+                return GBController.universe.allPlanets[uid].star
+            }
+            3 -> {
+                return GBController.universe.allStars[uid]
+            }
+            4 -> {
+                return null
+            }
+            else -> {
+                gbAssert("Ship in Limbo", { true })
+                return null
+            }
+        }
+    }
 }

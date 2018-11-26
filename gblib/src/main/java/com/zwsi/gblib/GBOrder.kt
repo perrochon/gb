@@ -10,6 +10,7 @@ class GBOrder(val universe: GBUniverse)  {
 
     var type = -1
     var uid = -1
+    var uid2 = -1
     var x = -1
     var y = -1
 
@@ -35,12 +36,13 @@ class GBOrder(val universe: GBUniverse)  {
 
     }
 
-    // Type 1: Fly Pod
-    fun flyPodTo(planet: GBPlanet) {
+    // Type 2: Fly Pod
+    fun flyShip(sh: GBShip, planet: GBPlanet) {
 
         gbAssert{ type == -1 }
         type = 2
-        uid = planet.uid
+        uid = sh.uid
+        uid2 = planet.uid
         x=0
         y=0
 
@@ -57,8 +59,8 @@ class GBOrder(val universe: GBUniverse)  {
                 universe.news.add("Built a pod on Helle.\n\n")
             }
             2 -> {
-                universe.landPopulation(this.universe.allPlanets[1],this.universe.allRaces[0].uid, 100)
-                universe.news.add("Landed pod on next planet.\n\n")
+                GBController.universe.allShips[uid].moveShip(1, uid2)
+                universe.news.add("Moved ship to  " + GBController.universe.allPlanets[uid2].name + "\n\n")
             }
             else ->
                 gbAssert ( "unknown oder", {true} )

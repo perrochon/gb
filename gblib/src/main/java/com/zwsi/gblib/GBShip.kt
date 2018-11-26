@@ -8,7 +8,7 @@ package com.zwsi.gblib
 
 import com.zwsi.gblib.GBDebug.gbAssert
 
-class GBShip(val idxtype: Int, val owner: GBRace, val level: Int, val locationuid: Int) {
+class GBShip(val idxtype: Int, val owner: GBRace, var level: Int, var locationuid: Int) {
 
     // Level: 1 surface, 2 orbit, 3 star, 4 deep space (5 Hyperspace?)
 
@@ -55,6 +55,11 @@ class GBShip(val idxtype: Int, val owner: GBRace, val level: Int, val locationui
         speed = GBData.getShipSpeed(idxtype)
     }
 
+    fun moveShip(level: Int, locationuid: Int) {
+        GBDebug.l3("Moving Ship"+level+locationuid)
+        this.locationuid = locationuid // hardcode planet...
+    }
+
     fun getLocation() : String {
         when(level){
             1 -> {
@@ -75,6 +80,27 @@ class GBShip(val idxtype: Int, val owner: GBRace, val level: Int, val locationui
         }
 
 
+    }
+
+    fun getStar() : GBStar? {
+        when(level){
+            1 -> {
+                return GBController.universe.allPlanets[locationuid].star
+            }
+            2 -> {
+                return GBController.universe.allPlanets[locationuid].star
+            }
+            3 -> {
+                return GBController.universe.allStars[locationuid]
+            }
+            4 -> {
+                return null
+            }
+            else -> {
+                gbAssert("Ship in Limbo", { true })
+                return null
+            }
+        }
     }
 
 }

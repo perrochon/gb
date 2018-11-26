@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
+import com.zwsi.gblib.GBUniverse
 
 class ShipsSlideActivity : AppCompatActivity() {
 
@@ -128,6 +131,26 @@ class ShipsSlideActivity : AppCompatActivity() {
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
 
+    }
+
+    /** Called when the user taps the fly  To button */
+    fun flyTo(view: View) {
+
+        val parent = view.parent as View
+        val ship: GBShip = parent.tag as GBShip
+
+        var spinner = view.tag as Spinner
+        var destination = spinner.selectedItem.toString()
+        var planet : GBPlanet? = null
+
+        for (p in GBController.universe.allPlanets) { // TODO this is wasteful. Need to refactor to locations
+            if (p.name == destination)
+                planet = p
+        }
+
+        Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_LONG).show()
+
+        GBController.universe.flyShip(ship, planet)
     }
 
 }

@@ -57,41 +57,56 @@
             android:layout_height="wrap_content"
             android:id="@+id/goButton"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintTop_toBottomOf="@+id/ShipBackground"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/makePod"
             android:visibility="visible"
             tools:visibility="visible"
-            app:layout_constraintHorizontal_bias="0.302"
-            android:onClick="goToLocation"/>
+            android:onClick="goToLocation" android:layout_marginStart="8dp"/>
     <Button
             android:text="Make Pod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/makePod"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintTop_toBottomOf="@id/ShipBackground"
             app:layout_constraintStart_toEndOf="@id/goButton"
             app:layout_constraintEnd_toStartOf="@id/makeCruiser"
             android:visibility="gone"
             tools:visibility="visible"
-            app:layout_constraintHorizontal_bias="0.302"
-            android:onClick="makePod"/>
+            android:onClick="makePod" android:layout_marginStart="8dp"/>
     <Button
             android:text="Make Cruiser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/makeCruiser"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:alpha="0.3"
+            android:alpha="0.3"
             app:layout_constraintTop_toBottomOf="@id/ShipBackground"
             app:layout_constraintStart_toEndOf="@id/makePod"
-            app:layout_constraintEnd_toEndOf="parent"
             android:visibility="gone"
             tools:visibility="visible"
-            app:layout_constraintHorizontal_bias="0.302"
-            android:onClick="makeCruiser"/>
+            android:onClick="makeCruiser" android:layout_marginStart="8dp"/>
+    <Button
+            android:text="Fly To"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/flyTo"
+            android:visibility="visible"
+            tools:visibility="visible"
+            android:onClick="flyTo" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/goButton" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <Spinner android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/spinner"
+             android:layout_marginStart="8dp"
+             app:layout_constraintStart_toEndOf="@+id/flyTo" android:layout_marginTop="8dp"
+             app:layout_constraintTop_toTopOf="@+id/flyTo">
+
+
+    </Spinner>
 
 </android.support.constraint.ConstraintLayout>
