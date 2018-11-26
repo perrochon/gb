@@ -62,6 +62,6 @@
 * Run GBTest on phone (text based)
 
 ## Android 
-* Dealing with Killed applications, and destroyed activities... Need persistence first.
+* Dealing with killed applications, and destroyed activities... Need persistence first.
 https://stackoverflow.com/questions/29701660/can-i-detect-if-android-has-killed-the-application-task-process-from-a-notific
 * TileView crash on Map. Why? :tata:

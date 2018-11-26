@@ -5,7 +5,7 @@ Wargame. It's a turn based 4x game. For now, it's single player on device only, 
 make it multi-player Internet based.
 
 
-# Directories
+### Directories
 
 gblib: contains all the game logic.
 feature: (Android) frontend.
