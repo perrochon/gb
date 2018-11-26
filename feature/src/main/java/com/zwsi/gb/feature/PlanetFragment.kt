@@ -51,6 +51,11 @@ class PlanetFragment : Fragment() {
         p = GBController.universe.allPlanets[planetID]
         view!!.tag = p
 
+        if (p.population == 0) {
+            val button = view.findViewById<Button>(R.id.makefactory)
+            button.visibility = View.GONE
+        }
+
 
         // Get Bitmaps - TODO factor out, this code exists twice. But where to?
         val d = BitmapFactory.decodeResource(getResources(), R.drawable.desert)
