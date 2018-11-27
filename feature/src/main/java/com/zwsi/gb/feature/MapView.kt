@@ -42,14 +42,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.strokeWidth = strokeWidth.toFloat()
         paint.color = Color.argb(128, 128, 100, 22)
         val radius = scale * 500
-        val offset = scale *22
+        val offset = scale *22 // TODO need to calculate this so the star icon stays in the middle of the circle
 
         val stars = GBController.universe.allStars
         for (s in stars) {
             sCenter.set(s.x * 18f, s.y * 18f)
             sourceToViewCoord(sCenter, vCenter)
             canvas.drawCircle(vCenter.x, vCenter.y, radius, paint)
-            sCenter.set(s.x * 18f-offset, s.y * 18f-offset)
+            sCenter.set(s.x * 18f, s.y * 18f)
             sourceToViewCoord(sCenter, vCenter)
             canvas.drawBitmap(bs, vCenter.x, vCenter.y, null)
         }
