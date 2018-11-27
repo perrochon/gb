@@ -11,15 +11,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     <TextView
-            android:text="TextView"
+            android:text="Stars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewScale"
             android:layout_weight="1"
+            android:padding="8px"
             app:layout_constraintEnd_toEndOf="@+id/imageViewScale"
             app:layout_constraintStart_toStartOf="@+id/imageViewScale" android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewScale" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="@+id/imageViewScale"/>
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/imageViewScale" android:textColor="@android:color/holo_orange_dark"
+            android:background="#80000000"/>
 
 
 </android.support.constraint.ConstraintLayout>
