@@ -2,6 +2,8 @@
 # Roadmap
 
 ## Code Quality
+* Review all warnings
+* Review all TODO
 * Refactor to use GBLocation for ship creation, ship movement, and everywhere else
 * Refactor to use resources for strings
 * Refactor and apply Naming conventions for UI elements (btn_do etc.) and other things

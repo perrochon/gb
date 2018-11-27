@@ -5,7 +5,11 @@ apply plugin: 'java-library'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // warning below is a Kotlin bug that can be ignored, it seems
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    // something tried to load 27.1, so need this explicit line to force 28
+    // https://stackoverflow.com/questions/42374151/all-com-android-support-libraries-must-use-the-exact-same-version-specification
+    implementation "com.android.support:exifinterface:28.0.0"
     testImplementation 'junit:junit:4.12'
 }
 
