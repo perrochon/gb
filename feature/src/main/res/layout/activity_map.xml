@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:id="@+id/imageViewLayout" android:orientation="vertical">
 
-    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+    <com.zwsi.gb.feature.MapView
             android:id="@+id/imageViewScale"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

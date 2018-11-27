@@ -18,21 +18,17 @@ class MapActivity : AppCompatActivity() {
 
         val imageView = findViewById<SubsamplingScaleImageView>(R.id.imageViewScale)!!
 
-        val fullResImage = ImageSource.resource(R.drawable.orion18000x)!!
+        val fullResImage = ImageSource.resource(R.drawable.orion18000)!!
         val lowResImage = ImageSource.resource(R.drawable.orion1024)!!
 
         fullResImage.dimensions(18000,18000)
 
         imageView.setImage(fullResImage, lowResImage);
 
-        imageView.setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
-        imageView.setScaleAndCenter(2f, PointF(12000f, 12000f))
+        val home = GBController.universe.allStars[0]
 
-        val stars = GBController.universe.allStars
-        for (s in stars) {
-//            canvas.drawBitmap(bs, s!!.x.toFloat(), s.y.toFloat(), null)
-//            canvas.drawText(s!!.name,s!!.x.toFloat() + 30, s!!.y.toFloat()+10, paint)
-        }
+        imageView.setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
+        imageView.setScaleAndCenter(1.9f, PointF(home.x*18f, home.y*18f))
 
     }
 

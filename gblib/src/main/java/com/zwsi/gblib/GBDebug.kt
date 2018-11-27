@@ -36,7 +36,8 @@ internal object GBDebug {
         if (assertionsEnabled && !test() ) AssertionError(message)
     }
 
-    inline fun gbAssert(message : String = "Assertion failure", test: Boolean){
+    // Could inline, but Kotlin compiler says it's not worth it...
+    fun gbAssert(message : String = "Assertion failure", test: Boolean){
         if (assertionsEnabled && !test ) AssertionError(message)
     }
 }
