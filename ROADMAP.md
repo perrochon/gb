@@ -44,9 +44,10 @@ Clicking on a planet in Planets1 always gives you Helle
 Right now they are fixed in source coordinates, and thus move closer when you zoom out.
 
 #### Planet
+* Resources. Money, other. Probably Money first, as a summary for all else
 * multiple races per planet
 * Environment and impact on migration and population growth
-* Resources. Money, other.
+* Use Population curves to max out population, instead of exponential growth
 
 #### Systems
 * Planet locations, render, and movement
