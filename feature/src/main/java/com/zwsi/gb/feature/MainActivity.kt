@@ -123,7 +123,6 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Stars button */
     fun starmap2(view: View) {
-        Toast.makeText(view.context, "God level command!", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MapActivity::class.java)
         startActivity(intent)
     }

@@ -6,16 +6,24 @@ import android.graphics.Paint.Cap
 import android.graphics.Paint.Style
 import android.graphics.Rect.intersects
 import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.View
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
+import android.R.attr.y
+import android.R.attr.x
+import android.R.attr.strokeWidth
+import android.support.annotation.NonNull
+
+
 
 
 class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
-    SubsamplingScaleImageView(context, attr) {
+    SubsamplingScaleImageView(context, attr), View.OnTouchListener {
 
     private var strokeWidth: Int = 0
     private var density = 0f
@@ -29,6 +37,13 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var bmPlanet: Bitmap? = null
     private var bmRace: Bitmap? = null
     private var normScale: Float = 0f
+    val visibleRect = Rect()
+
+    private var sClick = PointF()
+
+    private var xClick = 0f
+    private var yClick = 0f
+
     val stars = GBController.universe.allStars
 
     init {
@@ -55,6 +70,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         h = density / 420f * bmRace!!.getHeight() / 30
         bmRace = Bitmap.createScaledBitmap(bmRace!!, w.toInt(), h.toInt(), true)!!
 
+        setOnTouchListener(this);
+
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -67,7 +84,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         normScale = ((1 / scale) - (1 / maxScale)) / (1 / minScale - 1 / maxScale) * 100
 
-        val visibleRect = Rect()
         visibleFileRect(visibleRect)
 
         if (debug) { // State
@@ -97,6 +113,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 stateLine++ * stateSkip,
                 paint
             )
+            canvas.drawText("Screen Click: (" + xClick + ", " + yClick + ")", 8f, stateLine++ * stateSkip, paint)
+            canvas.drawText("Source Click: (" + sClick.x + ", " + sClick.y + ")", 8f, stateLine++ * stateSkip, paint)
+            canvas.drawText("Universe Click: (" + sClick.x/18 + ", " + sClick.y/18 + ")", 8f, stateLine++ * stateSkip, paint)
+
+
         }
 
 
@@ -121,7 +142,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
 
-        if (normScale > 80) { // Draw universe grid lines at 250 Universe Coordinates
+        if (normScale > 99) { // Draw universe grid lines at 250 Universe Coordinates
             val alpha = 128
             paint.color = Color.argb(alpha.toInt(), 100, 50, 0)
             for (x in 0 until 5) {
@@ -138,7 +159,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
         }
 
-        if ((70 > normScale) && (normScale > 30)) { // Draw image grid lines at 1000 coordinates
+        if ((70 > normScale) && (normScale > 70)) { // Draw image grid lines at 1000 coordinates
             val alpha = 128
             paint.color = Color.argb(alpha.toInt(), 100, 100, 100)
             for (x in 0 until 18) {
@@ -206,4 +227,22 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
     }
 
+
+    override fun onTouch(view: View, motionEvent: MotionEvent): Boolean {
+
+        xClick = motionEvent.x
+        yClick = motionEvent.y
+
+        sClick = viewToSourceCoord(xClick, yClick)!!
+
+        invalidate()
+
+        return false
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+
+        return super.onTouchEvent(event)
+
+    }
 }
