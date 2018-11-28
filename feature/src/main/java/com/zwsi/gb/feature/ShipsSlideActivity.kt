@@ -9,6 +9,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBLocation.Companion.LANDED
+import com.zwsi.gblib.GBLocation.Companion.ORBIT
+import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBUniverse
@@ -88,8 +91,7 @@ class ShipsSlideActivity : AppCompatActivity() {
 
         Toast.makeText(view.context, ship.loc.getLocDesc(), Toast.LENGTH_SHORT).show()
 
-
-        if ((ship.loc.level == 1) or (ship.loc.level == 2)) {
+        if ((ship.loc.level == LANDED) or (ship.loc.level == ORBIT)) {
             val intent = Intent(this, PlanetsSlideActivity::class.java)
 
             intent.putExtra("title", "Planet")
@@ -101,7 +103,7 @@ class ShipsSlideActivity : AppCompatActivity() {
             intent.putExtra("planetUID", ship.loc.refUID)
             startActivity(intent)
         }
-        if (ship.loc.level == 3) {
+        if (ship.loc.level == SYSTEM) {
             val intent = Intent(this, StarsSlideActivity::class.java)
             intent.putExtra("starUID", ship.loc.refUID)
             startActivity(intent)

@@ -63,13 +63,13 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         // TODO no need to always do these whens, e.g. if things are the same, no need to remove and add
         when (this.loc.level) {
             LANDED -> {
-                loc.getPlanet()!!.landedShips.remove(this)
+                this.loc.getPlanet()!!.landedShips.remove(this)
             }
             ORBIT -> {
-                loc.getPlanet()!!.orbitShips.remove(this)
+                this.loc.getPlanet()!!.orbitShips.remove(this)
             }
             SYSTEM -> {
-                loc.getStar()!!.starShips.remove(this)
+                this.loc.getStar()!!.starShips.remove(this)
             }
             DEEPSPACE -> {
                 universe.universeShips.remove(this)
