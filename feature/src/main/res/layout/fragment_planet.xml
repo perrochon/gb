@@ -8,14 +8,14 @@
         tools:context=".PlanetFragment">
 
     <ImageView
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp" android:id="@+id/PlanetView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp" android:layout_marginRight="32dp" android:layout_marginLeft="32dp"
-            android:layout_marginStart="32dp"/>
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/imageView3"/>
     <ImageView
             android:src="@android:color/background_dark"
             android:layout_width="0dp"

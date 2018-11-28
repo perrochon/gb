@@ -89,6 +89,9 @@ class PlanetsSlideActivity : AppCompatActivity() {
         val universe = GBController.universe!!
         universe.landPopulation(planet, 0, 100)
 
+        // Need to move drawing of overlay into OnDraw then do. But it's god mode, so not critical
+        view.invalidate()
+
         val message = "God Level: Landing Xenos on " + planet.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
     }
@@ -101,6 +104,9 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         val universe = GBController.universe!!
         universe.landPopulation(planet, 1, 100)
+
+        // Need to move drawing of overlay into OnDraw then do. But it's god mode, so not critical
+        // view.invalidate()
 
         val message = "God Level: Landing Impi on " + planet.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
