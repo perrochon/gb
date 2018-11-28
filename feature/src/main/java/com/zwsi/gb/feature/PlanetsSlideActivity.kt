@@ -61,6 +61,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
         viewpager.setClipToPadding(false)
         viewpager.setPadding(50,0,50,0)
+        viewpager.setPageMargin(25) // Otherwise planet views touch, as they go full screen. Can remove this if they no longer to
 
     }
 
