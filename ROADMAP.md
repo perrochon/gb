@@ -29,8 +29,14 @@
 * Build infrastructure: planetary effects
 * Play different races: Mission two could be getting another race up and running.
 
+#### Frontend
+* Run GBTest on phone (text based)
+
 ### General
 * Visibility and God Mode Switch
+
+### Star Map
+* Show Races Home Planet (only interesting in God mode)
 
 #### Planet
 * multiple races per planet
@@ -46,6 +52,7 @@
 * Show zoomable, clickable maps  :tata:
 
 ####Races
+* Give races home planets
 * Show ships of race
 * Make more distinct races
 * Visibility per race (and god mode cleanup)
@@ -59,10 +66,6 @@
 * land battle (can do this for morphs with pods only)
 * ship battle
 
-#### Frontend
-* Cut more star background images, and rotate them through the views
-* Handle killed process. Need to persist Universe?
-* Run GBTest on phone (text based)
 
 ## Android 
 * Dealing with killed applications, and destroyed activities... Need persistence first.
