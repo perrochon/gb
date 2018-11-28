@@ -132,7 +132,7 @@ class PlanetFragment : Fragment() {
         planetStats.append("\n")
 
         planetStats.append("id: " + p.id +" | ")
-        planetStats.append("uid: " + p.uid  +" | ")
+        planetStats.append("refUID: " + p.uid  +" | ")
         planetStats.append("sid: " + p.sid +" | ")
         planetStats.append("idxname: " + p.idxname +" | ")
         planetStats.append("idtype: " + p.idxtype +"\n")

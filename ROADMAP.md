@@ -16,6 +16,7 @@ Clicking on a planet in Planets1 always gives you Helle
 * Use Application for global state in Android: https://developer.android.com/reference/android/app/Application
 * Debug buffer and Console Buffer. Message buffer per race. These may all be related.
 * Persistency!
+* Import import com.zwsi.gblib.GBController.Companion.universe then can just refer to it as universe...
 
 ## Test Efficience
 * Make God level button that takes me to a setup where I can test what I am working on in the UI

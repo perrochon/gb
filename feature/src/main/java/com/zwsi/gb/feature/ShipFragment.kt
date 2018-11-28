@@ -87,7 +87,7 @@ class ShipFragment : Fragment() {
 
         stats.append("\n")
         stats.append("id: " + sh.id + " | ")
-        stats.append("uid: " + sh.uid + " | ")
+        stats.append("refUID: " + sh.uid + " | ")
         stats.append("idxt: " + sh.idxtype + " | ")
         stats.append("loca: " + sh.level + "." + sh.locationuid + "\n")
 

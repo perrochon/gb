@@ -80,7 +80,7 @@ class StarFragment : Fragment() {
 
         stats.append("\n")
         stats.append("id: " + st.id + " | ")
-        stats.append("uid: " + st.uid + " | ")
+        stats.append("refUID: " + st.uid + " | ")
         stats.append("idxname: " + st.idxname + "\n")
 
         return view

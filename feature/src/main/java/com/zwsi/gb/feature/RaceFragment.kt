@@ -79,7 +79,7 @@ class RaceFragment : Fragment() {
 
         stats.append("\n")
         stats.append("id: " + r.id +" | ")
-        stats.append("uid: " + r.uid  +" | ")
+        stats.append("refUID: " + r.uid  +" | ")
         stats.append("idxname: " + r.idx +"\n")
 
 
