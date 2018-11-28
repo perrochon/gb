@@ -28,7 +28,7 @@ class MapActivity : AppCompatActivity() {
         val home = GBController.universe.allStars[0]
 
         imageView.setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
-        imageView.setScaleAndCenter(3f, PointF(home.x*18f, home.y*18f))
+        imageView.setScaleAndCenter(1.5f, PointF(home.x*18f, home.y*18f))
 
 
     }

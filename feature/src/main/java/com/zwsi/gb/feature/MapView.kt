@@ -109,7 +109,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (scale > 1.1) { // Draw Planets
             val stars = GBController.universe.allStars
             for (s in stars) {
-                sCenter.set((s.x+3) * 18f, (s.y+2) * 18f)
+                sCenter.set((s.x) * 18f + 100, (s.y) * 18f+100)
                 sourceToViewCoord(sCenter, vCenter)
                 canvas.drawBitmap(bmPlanet!!, vCenter.x - bmPlanet!!.getWidth()/2, vCenter.y - bmPlanet!!.getWidth()/2, null)
             }
