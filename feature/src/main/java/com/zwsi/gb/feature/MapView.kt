@@ -10,6 +10,7 @@ import com.zwsi.gblib.GBController
 import kotlin.math.abs
 import kotlin.math.min
 
+
 class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
     SubsamplingScaleImageView(context, attr) {
 
@@ -19,7 +20,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private val sCorner = PointF()
     private val vCorner = PointF()
     private val paint = Paint()
-    val bs = BitmapFactory.decodeResource(getResources(), R.drawable.star)
+    private val debug = true
+    private var bmStar: Bitmap? = null
+    private var bmPlanet: Bitmap? = null
 
     init {
         initialise()
@@ -28,6 +31,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private fun initialise() {
         val density = resources.displayMetrics.densityDpi.toFloat()
         strokeWidth = (density / 60f).toInt()
+
+        bmStar = BitmapFactory.decodeResource(getResources(), R.drawable.star)!!
+        var w = density / 420f * bmStar!!.getWidth()
+        var h = density / 420f * bmStar!!.getHeight()
+        bmStar = Bitmap.createScaledBitmap(bmStar!!, w.toInt(), h.toInt(), true)!!
+
+        bmPlanet = BitmapFactory.decodeResource(getResources(), R.drawable.planet)!!
+        w = density / 420f * bmPlanet!!.getWidth()
+        h = density / 420f * bmPlanet!!.getHeight()
+        bmPlanet = Bitmap.createScaledBitmap(bmPlanet!!, w.toInt(), h.toInt(), true)!!
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -38,26 +51,29 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             return
         }
 
-        // State
-        paint.textSize = 40f
-        var stateLine = 1f
-        val stateSkip = 50
-        paint.style = Style.FILL
-        paint.color = Color.parseColor("#80ffbb33") // TODO get color holo orange with alpha
-        canvas.drawText("Center: " + center, 8f, stateLine++ * stateSkip, paint)
-        canvas.drawText("Scale: " + scale, 8f, stateLine++ * stateSkip, paint)
-        canvas.drawText("maxScale: " + maxScale, 8f, stateLine++ * stateSkip, paint)
-        canvas.drawText("minScale: " + minScale, 8f, stateLine++ * stateSkip, paint)
+        if (debug) { // State
+            paint.textSize = 40f
+            var stateLine = 1f
+            val stateSkip = 50
+            paint.style = Style.FILL
+            paint.color = Color.parseColor("#80ffbb33") // TODO get color holo orange with alpha
+            canvas.drawText("maxScale: " + maxScale + " / minScale: " + minScale, 8f, stateLine++ * stateSkip, paint)
+            canvas.drawText("Center: " + center!!.x.toInt()+", "+center!!.y.toInt(), 8f, stateLine++ * stateSkip, paint)
+            val fRect = Rect()
+            visibleFileRect(fRect)
+            canvas.drawText(
+                "Visible: " + (fRect.right - fRect.left) + " x " + (fRect.bottom - fRect.top) + " at " + fRect,
+                8f,
+                stateLine++ * stateSkip,
+                paint
+            )
+            canvas.drawText("Scale: " + scale, 8f, stateLine++ * stateSkip, paint)
+            canvas.drawText("Alpha1: " + (0.1-scale) * 10 * 255 , 8f, stateLine++ * stateSkip, paint)
+            canvas.drawText("Alpha2: " + (0.1 - min(abs(0.6-scale), 0.6)) * 10 * 255 , 8f, stateLine++ * stateSkip, paint)
+        }
 
-        val fRect = Rect()
-        visibleFileRect(fRect)
-        canvas.drawText("Visible :" + fRect, 8f, stateLine++ * stateSkip, paint)
-        canvas.drawText("Visible :" + (fRect.right - fRect.left) + " x "+ (fRect.bottom - fRect.top), 8f, stateLine++ * stateSkip, paint)
-
-        // Grids
         if (scale < 0.1) { // Draw universe grid lines at 250 Universe Coordinates
-            //var alpha = (0.1-scale) * 10 * 255
-            var alpha = 128
+            val alpha = 128
             paint.color = Color.argb(alpha.toInt(), 100, 50, 0)
             for (x in 0 until 5) {
                 sCenter.set(0f, x * 3600f)
@@ -65,16 +81,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 sourceToViewCoord(sCenter, vCenter)
                 sourceToViewCoord(sCorner, vCorner)
                 canvas.drawLine(vCenter.x, vCenter.y, vCorner.x, vCorner.y, paint)
-                sCenter.set(x * 1800f, 0f)
-                sCorner.set(x * 1800f, 18000f)
+                sCenter.set(x * 3600f, 0f)
+                sCorner.set(x * 3600f, 18000f)
                 sourceToViewCoord(sCenter, vCenter)
                 sourceToViewCoord(sCorner, vCorner)
                 canvas.drawLine(vCenter.x, vCenter.y, vCorner.x, vCorner.y, paint)
             }
         }
+
         if (scale > 0.4) { // Draw image grid lines at 1000 coordinates
-            //var alpha= (0.1 - min(abs(0.6-scale), 0.6)) * 10 * 255
-            var alpha = 128
+            val alpha = 128
             paint.color = Color.argb(alpha.toInt(), 100, 100, 100)
             for (x in 0 until 18) {
                 sCenter.set(0f, x * 1000f)
@@ -87,7 +103,15 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 sourceToViewCoord(sCenter, vCenter)
                 sourceToViewCoord(sCorner, vCorner)
                 canvas.drawLine(vCenter.x, vCenter.y, vCorner.x, vCorner.y, paint)
-//            canvas.drawLine(vCenter.y, vCenter.x, vCorner.y, vCorner.x, paint)
+            }
+        }
+
+        if (scale > 1.1) { // Draw Planets
+            val stars = GBController.universe.allStars
+            for (s in stars) {
+                sCenter.set((s.x+3) * 18f, (s.y+2) * 18f)
+                sourceToViewCoord(sCenter, vCenter)
+                canvas.drawBitmap(bmPlanet!!, vCenter.x - bmPlanet!!.getWidth()/2, vCenter.y - bmPlanet!!.getWidth()/2, null)
             }
         }
 
@@ -100,7 +124,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.strokeWidth = strokeWidth.toFloat()
         paint.color = Color.argb(128, 128, 100, 22)
         val radius = scale * 250f
-        val offset = scale * 11f // TODO need to calculate this so the star icon stays in the middle of the circle
 
         val stars = GBController.universe.allStars
         for (s in stars) {
@@ -109,7 +132,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             canvas.drawCircle(vCenter.x, vCenter.y, radius, paint)
             sCenter.set(s.x * 18f, s.y * 18f)
             sourceToViewCoord(sCenter, vCenter)
-            canvas.drawBitmap(bs, vCenter.x - offset, vCenter.y - offset, null)
+            canvas.drawBitmap(bmStar!!, vCenter.x - bmStar!!.getWidth()/2, vCenter.y - bmStar!!.getWidth()/2, null)
         }
 
 
