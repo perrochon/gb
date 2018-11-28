@@ -18,8 +18,8 @@ class MapActivity : AppCompatActivity() {
 
         val imageView = findViewById<SubsamplingScaleImageView>(R.id.imageViewScale)!!
 
-        val fullResImage = ImageSource.resource(R.drawable.orion18000)!!
-        val lowResImage = ImageSource.resource(R.drawable.orion1024)!!
+        val fullResImage = ImageSource.resource(R.drawable.orion18000)
+        val lowResImage = ImageSource.resource(R.drawable.orion1024)
 
         fullResImage.dimensions(18000,18000)
 
@@ -29,7 +29,7 @@ class MapActivity : AppCompatActivity() {
 
         imageView.setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
         imageView.setScaleAndCenter(1.5f, PointF(home.x*18f, home.y*18f))
-
+        imageView.setDoubleTapZoomScale(1.5f)
 
     }
 

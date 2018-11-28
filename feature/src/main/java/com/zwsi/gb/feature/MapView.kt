@@ -18,6 +18,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     SubsamplingScaleImageView(context, attr) {
 
     private var strokeWidth: Int = 0
+    private var density = 0f
     private val sCenter = PointF()
     private val vCenter = PointF()
     private val sCorner = PointF()
@@ -36,7 +37,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
     private fun initialise() {
-        val density = resources.displayMetrics.densityDpi.toFloat()
+        density = resources.displayMetrics.densityDpi.toFloat()
         strokeWidth = (density / 60f).toInt()
 
         bmStar = BitmapFactory.decodeResource(getResources(), R.drawable.star)!!
@@ -45,13 +46,13 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         bmStar = Bitmap.createScaledBitmap(bmStar!!, w.toInt(), h.toInt(), true)!!
 
         bmPlanet = BitmapFactory.decodeResource(getResources(), R.drawable.planet)!!
-        w = density / 840f * bmPlanet!!.getWidth()
-        h = density / 840f * bmPlanet!!.getHeight()
+        w = density / 420f * bmPlanet!!.getWidth() / 2
+        h = density / 840f * bmPlanet!!.getHeight() / 2
         bmPlanet = Bitmap.createScaledBitmap(bmPlanet!!, w.toInt(), h.toInt(), true)!!
 
         bmRace = BitmapFactory.decodeResource(getResources(), R.drawable.impit)!!
-        w = density / 15000f * bmRace!!.getWidth()
-        h = density / 15000f * bmRace!!.getHeight()
+        w = density / 420f * bmRace!!.getWidth() / 30
+        h = density / 420f * bmRace!!.getHeight() / 30
         bmRace = Bitmap.createScaledBitmap(bmRace!!, w.toInt(), h.toInt(), true)!!
 
     }
@@ -75,7 +76,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val stateSkip = 50
             paint.style = Style.FILL
             paint.color = Color.parseColor("#80ffbb33") // TODO get color holo orange with alpha
-            canvas.drawText("maxScale: " + maxScale + " / minScale: " + minScale, 8f, stateLine++ * stateSkip, paint)
+            canvas.drawText("maxScale: " + maxScale + " / minScale: " + minScale + " / density: " + density, 8f, stateLine++ * stateSkip, paint)
             canvas.drawText("Normscale: " + normScale + " Scale: " + scale, 8f, stateLine++ * stateSkip, paint)
             canvas.drawText(
                 "UCenter: " + center!!.x.toInt() / 18 + ", " + center!!.y.toInt() / 18 +
@@ -96,13 +97,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 stateLine++ * stateSkip,
                 paint
             )
-            canvas.drawText("Alpha1: " + (0.1 - scale) * 10 * 255, 8f, stateLine++ * stateSkip, paint)
-            canvas.drawText(
-                "Alpha2: " + (0.1 - min(abs(0.6 - scale), 0.6)) * 10 * 255,
-                8f,
-                stateLine++ * stateSkip,
-                paint
-            )
         }
 
 
@@ -115,12 +109,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             sourceToViewCoord(sCenter, vCenter)
             canvas.drawBitmap(bmStar!!, vCenter.x - bmStar!!.getWidth() / 2, vCenter.y - bmStar!!.getWidth() / 2, null)
         }
-
-        // draw races
-        val s = GBController.universe.allStars[0]
-        sCenter.set(s.x * 18f + 50, s.y * 18f)
-        sourceToViewCoord(sCenter, vCenter)
-        canvas.drawBitmap(bmRace!!, vCenter.x, vCenter.y, null)
 
         // Always draw Stars Names
         paint.textSize = 40f
@@ -178,6 +166,13 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 sourceToViewCoord(sCenter, vCenter)
                 canvas.drawCircle(vCenter.x, vCenter.y, radius, paint)
             }
+        }
+
+        if (normScale > 20) { // draw races - remove once we show planets
+            val s = GBController.universe.allStars[0]
+            sCenter.set(s.x * 18f + 50, s.y * 18f)
+            sourceToViewCoord(sCenter, vCenter)
+            canvas.drawBitmap(bmRace!!, vCenter.x, vCenter.y, null)
         }
 
         if (5 > normScale) { // Draw Planets

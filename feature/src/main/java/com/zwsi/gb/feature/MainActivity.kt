@@ -155,10 +155,10 @@ class MainActivity : AppCompatActivity() {
         for (r in GBController.universe.allRaces) {
             racesUID.add(r.uid)
         }
-        racesUID.removeAt(1)
+        //racesUID.removeAt(1)
         intent.putExtra("races", racesUID)
-        intent.putExtra("title", "All but on Races")
-        intent.putExtra("UID", 2)
+        intent.putExtra("title", "All Races - some are just rumored")
+        intent.putExtra("UID", 1)
 
         startActivity(intent)
     }

@@ -36,7 +36,9 @@
 * Visibility and God Mode Switch
 
 ### Star Map
-* Show Races Home Planet (only interesting in God mode)
+* Show Races Home Planet for all races (only interesting in God mode)
+* Some icons need to stay at fixed distance in screen pixels, e.g. star icon, name, and race icon. 
+Right now they are fixed in source coordinates, and thus move closer when you zoom out.
 
 #### Planet
 * multiple races per planet
