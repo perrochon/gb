@@ -51,7 +51,7 @@ class ShipFragment : Fragment() {
             view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
 
         } else if (sh.idxtype == 1) {
-            if (sh.owner.uid == 2) {
+            if (sh.race.uid == 2) {
                 imageView.setImageResource(R.drawable.beetlepod)
 
             } else {
@@ -68,11 +68,11 @@ class ShipFragment : Fragment() {
         paint.textSize = 40f
 
         stats.append("\n")
-        stats.append("Name    : " + sh!!.name + "\n")
-        stats.append("Type    : " + sh.type + "\n")
-        stats.append("Speed   : " + sh.speed + "\n")
-        stats.append("Owner   : " + sh.owner.name + "\n")
-        stats.append("Location: " + sh.getLocation() + "\n")
+        stats.append("Name: " + sh!!.name + "\n")
+        stats.append("Type: " + sh.type + "\n")
+        stats.append("Speed: " + sh.speed + "\n")
+        stats.append("Race: " + sh.race.name + "\n")
+        stats.append("Location: " + sh.loc.getLocDesc() + "\n")
 
 
         stats = view.findViewById<TextView>(R.id.ShipBackground)
@@ -86,10 +86,10 @@ class ShipFragment : Fragment() {
         )
 
         stats.append("\n")
-        stats.append("id: " + sh.id + " | ")
-        stats.append("refUID: " + sh.uid + " | ")
-        stats.append("idxt: " + sh.idxtype + " | ")
-        stats.append("loca: " + sh.level + "." + sh.locationuid + "\n")
+        stats.append("id:" + sh.id + " | ")
+        stats.append("refUID:" + sh.uid + " | ")
+        stats.append("idxt:" + sh.idxtype + " | ")
+        stats.append("loca:" + sh.loc.level + "." + sh.loc.refUID+ "\n")
 
 
         if (sh.idxtype == 0) { // TODO Better to test for speed > 0

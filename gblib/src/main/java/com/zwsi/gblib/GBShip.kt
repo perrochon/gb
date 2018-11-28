@@ -6,101 +6,102 @@
 
 package com.zwsi.gblib
 
+import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBDebug.gbAssert
+import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
+import com.zwsi.gblib.GBLocation.Companion.LANDED
+import com.zwsi.gblib.GBLocation.Companion.ORBIT
+import com.zwsi.gblib.GBLocation.Companion.SYSTEM
+import org.omg.CORBA.ORB
 
-class GBShip(val idxtype: Int, val owner: GBRace, var level: Int, var locationuid: Int) {
+class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
-    // Level: 1 surface, 2 orbit, 3 star, 4 deep space (5 Hyperspace?)
-
-    // Set at creation
     val id: Int
     val uid: Int
-
+    val rid: Int
     val name: String
     val type: String
-
     val speed: Int
 
     init {
         id = GBData.getNextGlobalId()
-        owner.universe.allShips.add(this)
-        uid = owner.universe.allShips.indexOf(this)
-        owner.raceShips.add(this)
+        universe.allShips.add(this)
+        uid = universe.allShips.indexOf(this)
 
-        when(level){
-            1 -> {
-                gbAssert { owner.universe.allPlanets.elementAtOrNull(locationuid) != null}
-                owner.universe.allPlanets[locationuid].landedShips.add(this)
+        race.raceShips.add(this)
+        rid = race.raceShips.indexOf(this)
+
+        when (loc.level) {
+            LANDED -> {
+                loc.getPlanet()!!.landedShips.add(this)
             }
-            2 -> {
-                gbAssert { owner.universe.allPlanets.elementAtOrNull(locationuid) != null}
-                owner.universe.allPlanets[locationuid].orbitShips.add(this)
+            ORBIT -> {
+                loc.getPlanet()!!.orbitShips.add(this)
             }
-            3 -> {
-                gbAssert { owner.universe.allStars.elementAtOrNull(locationuid) != null}
-                owner.universe.allStars[locationuid].starShips.add(this)
+            SYSTEM -> {
+                loc.getStar()!!.starShips.add(this)
             }
-            4 -> {
-                owner.universe.universeShips.add(this)
+            DEEPSPACE-> {
+                universe.universeShips.add(this)
             }
             else -> {
-                gbAssert ("Bad Parameters for ship placement" + level + "." + locationuid, {true==true} )
+                gbAssert("Bad Parameters for ship placement $loc", { false })
             }
 
         }
 
-
         type = GBData.getShipType(idxtype)
-        name = type + " " + owner.raceShips.indexOf(this)
+        name = type + " " + race.raceShips.indexOf(this)
         speed = GBData.getShipSpeed(idxtype)
     }
 
-    fun moveShip(level: Int, locationuid: Int) {
-        GBDebug.l3("Moving Ship"+level+locationuid)
-        this.locationuid = locationuid // hardcode planet...
-    }
+    fun moveShip(loc: GBLocation) {
 
-    fun getLocation() : String {
-        when(level){
-            1 -> {
-                return "Surface of " + owner.universe.allPlanets[locationuid].name +
-                        " in system " + owner.universe.allStars[locationuid].name
-            }
-            2 -> {
-                return "Orbit of " + owner.universe.allPlanets[locationuid].name +
-                        " in system " + owner.universe.allStars[locationuid].name
-            }
-            3 -> {
-                return "System " + owner.universe.allStars[locationuid].name
-            }
-            4 -> {
-                return "Deep Space"
-            }
-            else -> {return "Limbo"}
-        }
+        GBDebug.l3("Moving Ship from" + this.loc.getLocDesc() + "to" + loc.getLocDesc())
 
 
-    }
-
-    fun getStar() : GBStar? {
-        when(level){
-            1 -> {
-                return GBController.universe.allPlanets[locationuid].star
+        // TODO no need to always do these whens, e.g. if things are the same, no need to remove and add
+        when (this.loc.level) {
+            LANDED -> {
+                loc.getPlanet()!!.landedShips.remove(this)
             }
-            2 -> {
-                return GBController.universe.allPlanets[locationuid].star
+            ORBIT -> {
+                loc.getPlanet()!!.orbitShips.remove(this)
             }
-            3 -> {
-                return GBController.universe.allStars[locationuid]
+            SYSTEM -> {
+                loc.getStar()!!.starShips.remove(this)
             }
-            4 -> {
-                return null
+            DEEPSPACE -> {
+                universe.universeShips.remove(this)
             }
             else -> {
-                gbAssert("Ship in Limbo", { true })
-                return null
+                gbAssert("Bad Parameters for ship removement $loc", { false })
             }
         }
+        when (loc.level) {
+            LANDED -> {
+                loc.getPlanet()!!.landedShips.add(this)
+            }
+            ORBIT -> {
+                loc.getPlanet()!!.orbitShips.add(this)
+            }
+            SYSTEM -> {
+                loc.getStar()!!.starShips.add(this)
+            }
+            DEEPSPACE -> {
+                universe.universeShips.add(this)
+            }
+            else -> {
+                gbAssert("Bad Parameters for ship placement $loc", { false })
+            }
+        }
+        this.loc = loc
+
+    }
+
+
+    fun getStar(): GBStar? {
+        return loc.getStar()
     }
 
 }

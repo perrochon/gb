@@ -161,10 +161,31 @@ class GBLocation {
                 return "Deep Space"
             }
             else -> {
-                gbAssert("Location is Limbo", { true })
+                gbAssert("Location is Limbo", { false })
                 return "Limbo"
             }
         }
+    }
+
+    fun getPlanet() : GBPlanet? {
+        when (level) {
+            LANDED -> {
+                return universe.allPlanets[refUID]
+            }
+            ORBIT -> {
+                return universe.allPlanets[refUID]
+            }
+            SYSTEM -> {
+                gbAssert("Location is System, but asking for planet", { false })
+            }
+            DEEPSPACE -> {
+                gbAssert("Location is Deep Space, but asking for planet", { false })
+            }
+            else -> {
+                gbAssert("Ship in Limbo", { false })
+            }
+        }
+        return null
     }
 
     fun getStar(): GBStar? {
@@ -179,12 +200,12 @@ class GBLocation {
                 return universe.allStars[refUID]
             }
             DEEPSPACE -> {
-                return null
+                gbAssert("Location is Deep Space, but asking for star", { false })
             }
             else -> {
-                gbAssert("Ship in Limbo", { true })
-                return null
+                gbAssert("Ship in Limbo", { false })
             }
         }
+        return null
     }
 }

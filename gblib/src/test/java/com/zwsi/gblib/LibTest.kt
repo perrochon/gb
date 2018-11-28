@@ -102,39 +102,39 @@ class LibTest {
 
 
         // Give each race a factory
-        GBShip(0, allRaces[0], 1, allStars[0].starPlanets[0].uid)
-        GBShip(0, allRaces[1], 1, allStars[1].starPlanets[0].uid)
-        GBShip(0, allRaces[2], 1, allStars[2].starPlanets[0].uid)
+        GBShip(0, allRaces[0], GBLocation(allStars[0].starPlanets[0],5,1))
+        GBShip(0, allRaces[1], GBLocation(allStars[1].starPlanets[0],5,1))
+        GBShip(0, allRaces[2], GBLocation(allStars[2].starPlanets[0],4,1))
         shipsMade +=3
 
         if (numberOfStars > 3) {
-            GBShip(0, allRaces[3], 1, allStars[3].starPlanets[0].uid)
+            GBShip(0, allRaces[3], GBLocation(allStars[3].starPlanets[0],5f,1f))
             shipsMade +=1
         }
 
         // Give each race a pod
-        GBShip(1, allRaces[0], 2, allStars[0].starPlanets[0].uid)
-        GBShip(1, allRaces[1], 2, allStars[1].starPlanets[0].uid)
-        GBShip(1, allRaces[2], 2, allStars[2].starPlanets[0].uid)
+        GBShip(1, allRaces[0], GBLocation(allStars[0].starPlanets[0],5f,1f))
+        GBShip(1, allRaces[1], GBLocation(allStars[1].starPlanets[0],5f,1f))
+        GBShip(1, allRaces[2], GBLocation(allStars[2].starPlanets[0],5f,1f))
         shipsMade +=3
 
         if (numberOfStars > 3) {
-            GBShip(1, allRaces[3], 2, allStars[3].starPlanets[0].uid)
+            GBShip(1, allRaces[3], GBLocation(allStars[3].starPlanets[0],5f,1f))
             shipsMade +=1
         }
 
         // Give each race a destroyer in system 3
-        GBShip(2, allRaces[0], 3, allStars[2].uid)
-        GBShip(2, allRaces[1], 3, allStars[2].uid)
-        GBShip(2, allRaces[2], 3, allStars[2].uid)
-        GBShip(2, allRaces[3], 3, allStars[2].uid)
+        GBShip(2, allRaces[0], GBLocation(allStars[2],5f,1f))
+        GBShip(2, allRaces[1], GBLocation(allStars[2],5f,2f))
+        GBShip(2, allRaces[2], GBLocation(allStars[2],5f,3f))
+        GBShip(2, allRaces[3], GBLocation(allStars[2],5f,.5f))
         shipsMade +=4
 
         // Give each race a destroyer in deep space
-        GBShip(2, allRaces[0], 4, allStars[2].uid)
-        GBShip(2, allRaces[1], 4, allStars[2].uid)
-        GBShip(2, allRaces[2], 4, allStars[2].uid)
-        GBShip(2, allRaces[3], 4, allStars[2].uid)
+        GBShip(2, allRaces[0], GBLocation(500f,500f))
+        GBShip(2, allRaces[1], GBLocation(500f,500f))
+        GBShip(2, allRaces[2], GBLocation(500f,500f))
+        GBShip(2, allRaces[3], GBLocation(500f,500f))
         shipsMade +=4
     }
 

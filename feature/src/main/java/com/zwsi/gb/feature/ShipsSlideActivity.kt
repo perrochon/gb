@@ -86,24 +86,24 @@ class ShipsSlideActivity : AppCompatActivity() {
         val parent = view.parent as View
         val ship = parent.tag as GBShip
 
-        Toast.makeText(view.context, ship.getLocation(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(view.context, ship.loc.getLocDesc(), Toast.LENGTH_SHORT).show()
 
 
-        if ((ship.level == 1) or (ship.level == 2)) {
+        if ((ship.loc.level == 1) or (ship.loc.level == 2)) {
             val intent = Intent(this, PlanetsSlideActivity::class.java)
 
             intent.putExtra("title", "Planet")
 
             val displayUID = ArrayList<Int>()
-            displayUID.add(ship.locationuid)
+            displayUID.add(ship.loc.refUID)
             intent.putExtra("planets", displayUID)
 
-            intent.putExtra("planetUID", ship.locationuid)
+            intent.putExtra("planetUID", ship.loc.refUID)
             startActivity(intent)
         }
-        if (ship.level == 3) {
+        if (ship.loc.level == 3) {
             val intent = Intent(this, StarsSlideActivity::class.java)
-            intent.putExtra("starUID", ship.locationuid)
+            intent.putExtra("starUID", ship.loc.refUID)
             startActivity(intent)
         }
 

@@ -39,7 +39,7 @@ class GBMissionController() {
             return
         }
         for (sh in GBController.universe.allShips){
-            if ((sh.idxtype == 1) and (sh.locationuid != 0)) { // What a hacky way to figure out a pod moved
+            if ((sh.idxtype == 1) and (sh.loc.refUID!= 0)) { // TODO What a hacky way to figure out a pod moved
                     missionStatus++
                 }
 

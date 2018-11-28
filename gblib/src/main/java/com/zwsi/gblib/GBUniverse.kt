@@ -102,17 +102,18 @@ class GBUniverse {
         GBDebug.l3("Doing Universe: " + orders.toString())
 
         news.clear()
+
+        for (o in orders) {
+            o.execute()
+        }
+        orders.clear()
+
         for (s in allStars) {
             for (p in s.starPlanets) {
             }
         }
 
         GBDebug.l3("Current Orders: " + orders.toString())
-
-        for (o in orders) {
-            o.execute()
-        }
-        orders.clear()
 
         missionController.checkMissionStatus()
         news.add(missionController.getCurrentMission())
@@ -130,8 +131,11 @@ class GBUniverse {
     fun makeFactory(p: GBPlanet) {
         GBDebug.l3("universe: Making factory for ?? on " + p.name + "")
 
-        var order = GBOrder(this)
-        order.makeFactory(p)
+        var loc = GBLocation(p, 0,0 ) // TODO Have caller give us a better location
+
+        var order = GBOrder()
+
+        order.makeFactory(loc)
 
         GBDebug.l3("Order made: " + order.toString())
 
@@ -140,11 +144,11 @@ class GBUniverse {
         GBDebug.l3("Current Orders: " + orders.toString())
     }
 
-    fun makePod(s: GBShip) {
-        GBDebug.l3("universe: Making Pod for ?? in Factory " + s.name + "")
+    fun makePod(factory: GBShip) {
+        GBDebug.l3("universe: Making Pod for ?? in Factory " + factory.name + "")
 
-        var order = GBOrder(this)
-        order.makePod(s)
+        var order = GBOrder()
+        order.makePod(factory)
 
         GBDebug.l3("Ship made: " + order.toString())
 
@@ -155,10 +159,11 @@ class GBUniverse {
 
 
     fun flyShip(sh: GBShip, p: GBPlanet) {
-        GBDebug.l3("Creating order to fly " + sh.name + " to " + p.name)
+        GBDebug.l3("Creating order to teleport " + sh.name + " to " + p.name)
 
-        var order = GBOrder(this)
-        order.flyShip(sh, p)
+        var loc = GBLocation(p, 0,0 ) // TODO Have caller give us a better location
+        var order = GBOrder()
+        order.teleportShip(sh, loc)
 
         GBDebug.l3("Order made: " + order.toString())
 

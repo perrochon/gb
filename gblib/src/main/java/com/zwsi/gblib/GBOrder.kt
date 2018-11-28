@@ -4,63 +4,59 @@
 
 package com.zwsi.gblib
 
+import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBDebug.gbAssert
+import com.zwsi.gblib.GBLocation.Companion.LANDED
 
-class GBOrder(val universe: GBUniverse)  {
+
+class GBOrder  {
 
     var type = -1
     var uid = -1
-    var uid2 = -1
-    var x = -1
-    var y = -1
+    lateinit var loc : GBLocation
 
     // Type 0: Make Factory
-    fun makeFactory(planet: GBPlanet) {
+    fun makeFactory(loc: GBLocation) {
 
         gbAssert{ type == -1 }
         type = 0
-        uid = planet.uid
-        x=0
-        y=0
-
+        gbAssert { loc.level == LANDED }
+        this.loc = loc
     }
 
     // Type 1: Make Pod
-    fun makePod(ship: GBShip) {
+    fun makePod(factory: GBShip) {
 
         gbAssert{ type == -1 }
         type = 1
-        uid = ship.uid
-        x=0
-        y=0
+        uid = factory.uid
+        this.loc = factory.loc
 
     }
 
-    // Type 2: Fly Pod
-    fun flyShip(sh: GBShip, planet: GBPlanet) {
+    // Type 2: Teleport ship
+    fun teleportShip(sh: GBShip, loc: GBLocation) {
 
         gbAssert{ type == -1 }
         type = 2
         uid = sh.uid
-        uid2 = planet.uid
-        x=0
-        y=0
+        this.loc = loc // TODO Find a better sector, but not here, in the caller
 
     }
 
     fun execute() {
         when (type) {
             0 -> {
-                GBShip(0, this.universe.allRaces[0], 1, uid)
+                GBShip(0, universe.allRaces[0], loc)
                 universe.news.add("Built a factory on Helle.\n\n")
             }
             1 -> {
-                GBShip(1, this.universe.allRaces[0], 1, uid)
+                GBShip(1, universe.allRaces[0], loc)
                 universe.news.add("Built a pod on Helle.\n\n")
             }
             2 -> {
-                GBController.universe.allShips[uid].moveShip(1, uid2)
-                universe.news.add("Moved ship to  " + GBController.universe.allPlanets[uid2].name + "\n\n")
+                GBController.universe.allShips[uid].moveShip(loc)
+                universe.news.add("Moved ship to  " + loc.getLocDesc() + "\n\n")
             }
             else ->
                 gbAssert ( "unknown oder", {true} )

@@ -5,6 +5,10 @@
 
 package com.zwsi.gblib
 
+import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
+import com.zwsi.gblib.GBLocation.Companion.LANDED
+import com.zwsi.gblib.GBLocation.Companion.ORBIT
+import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import org.junit.Assert.*
 import org.junit.Test
 import javax.swing.DebugGraphics
@@ -24,32 +28,20 @@ class GBShipTest {
         assertTrue(universe.allShips.contains(ship))
         assertEquals(ship.uid, universe.allShips.indexOf(ship))
 
-        assertTrue(ship.owner.raceShips.contains(ship))
-        assertEquals(ship.uid, ship.owner.raceShips.indexOf(ship))
+        assertTrue(ship.race.raceShips.contains(ship))
+        assertEquals(ship.uid, ship.race.raceShips.indexOf(ship))
 
-        when (ship.level) {
-            1 -> {
-                assertTrue(universe.allPlanets[ship.locationuid].landedShips.contains(ship))
-                assertFalse(universe.allPlanets[ship.locationuid].orbitShips.contains(ship))
-                assertFalse(universe.allStars[ship.locationuid].starShips.contains(ship))
-                assertFalse(universe.universeShips.contains(ship))
+        when (ship.loc.level) {
+            LANDED -> {
+                assertTrue(universe.allPlanets[ship.loc.refUID].landedShips.contains(ship))
             }
-            2 -> {
-                assertFalse(universe.allPlanets[ship.locationuid].landedShips.contains(ship))
-                assertTrue(universe.allPlanets[ship.locationuid].orbitShips.contains(ship))
-                assertFalse(universe.allStars[ship.locationuid].starShips.contains(ship))
-                assertFalse(universe.universeShips.contains(ship))
+            ORBIT -> {
+                assertTrue(universe.allPlanets[ship.loc.refUID].orbitShips.contains(ship))
             }
-            3 -> {
-                assertFalse(universe.allPlanets[ship.locationuid].landedShips.contains(ship))
-                assertFalse(universe.allPlanets[ship.locationuid].orbitShips.contains(ship))
-                assertTrue(universe.allStars[ship.locationuid].starShips.contains(ship))
-                assertFalse(universe.universeShips.contains(ship))
+            SYSTEM -> {
+                assertTrue(universe.allStars[ship.loc.refUID].starShips.contains(ship))
             }
-            4 -> {
-                assertFalse(universe.allPlanets[ship.locationuid].landedShips.contains(ship))
-                assertFalse(universe.allPlanets[ship.locationuid].orbitShips.contains(ship))
-                assertFalse(universe.allStars[ship.locationuid].starShips.contains(ship))
+            DEEPSPACE -> {
                 assertTrue(universe.universeShips.contains(ship))
             }
             else -> {
@@ -95,7 +87,7 @@ class GBShipTest {
 
         // Make sure ship is only in one race
         found = 0
-        for (race in ship.owner.universe.allRaces) {
+        for (race in ship.race.universe.allRaces) {
             for (sh in race.raceShips) {
                 if (sh.uid == ship.uid)
                     found++
@@ -149,19 +141,20 @@ class GBShipTest {
 
         // Just in case there aren't any, make a few more
         val s = universe.allStars[0]
+        val p : GBPlanet = s.starPlanets[0]
         val r: GBRace = universe.allRaces[0]
 
 
-        var sh = GBShip(0, r, 4, 1)
+        var sh = GBShip(0, r, GBLocation(500f,500f))
         consistency(sh)
 
-        sh = GBShip(0, r, 3, s.uid)
+        sh = GBShip(0, r, GBLocation(s, 10f, 1f))
         consistency(sh)
 
-        sh = GBShip(1, r, 2, s.starPlanets[0].uid)
+        sh = GBShip(1, r, GBLocation(p, 5f, 1f))
         consistency(sh)
 
-        sh = GBShip(1, r, 1, s.starPlanets[0].uid)
+        sh = GBShip(1, r, GBLocation(p, 1,1))
         consistency(sh)
 
         uniqueLocations()
@@ -175,7 +168,7 @@ class GBShipTest {
         val s1 = universe.allStars[1]
         val r0: GBRace = universe.allRaces[0]
 
-        val sh0 = GBShip(0, r0, 3, s0.uid)
+        val sh0 = GBShip(0, r0, GBLocation(s1, 30f,1f))
         consistency(sh0)
 
         s1.starShips.add(sh0)
@@ -192,7 +185,7 @@ class GBShipTest {
         val r0: GBRace = universe.allRaces[0]
         val r1: GBRace = universe.allRaces[1]
 
-        val sh0 = GBShip(1, r0, 3, s0.uid)
+        val sh0 = GBShip(1, r0, GBLocation(s0, 30f,1f))
         consistency(sh0)
 
         r1.raceShips.add(sh0)
