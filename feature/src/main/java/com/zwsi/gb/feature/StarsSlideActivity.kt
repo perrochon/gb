@@ -56,10 +56,13 @@ class StarsSlideActivity : AppCompatActivity() {
             val fragment: StarFragment = StarFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())
             if (uid == startUID)
-                startItem = adapter.count
+                startItem = adapter.count-1
         }
 
         viewpager.adapter = adapter
+
+        viewpager.setClipToPadding(false)
+        viewpager.setPadding(50,0,50,0)
 
     }
 
@@ -106,7 +109,7 @@ class StarsSlideActivity : AppCompatActivity() {
             }
         }
 
-        intent.putExtra("Ships in system" + star.name, displayUID)
+        intent.putExtra("ships", displayUID)
         intent.putExtra("title", "Ships in " + star.name)
         startActivity(intent)
 

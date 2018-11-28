@@ -49,15 +49,18 @@ class PlanetsSlideActivity : AppCompatActivity() {
             }
         }
 
-        // Adding a fregment for each item we want to display
+        // Adding a fragment for each item we want to display
         for (uid in displayList) {
             val fragment: PlanetFragment = PlanetFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())
             if (uid == startUID)
-                startItem = adapter.count
+                startItem = adapter.count-1
         }
 
         viewpager.adapter = adapter
+
+        viewpager.setClipToPadding(false)
+        viewpager.setPadding(50,0,50,0)
 
     }
 

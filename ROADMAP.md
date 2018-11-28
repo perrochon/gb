@@ -1,12 +1,15 @@
 
 # Roadmap
 
+#Regression
+Clicking on a planet in Planets1 always gives you Helle
+
 ## Code Quality
+* Refactor to use GBLocation for ship creation, ship movement, and everywhere else
+* Refactor to use resources for strings
 * Review all warnings
 * Review all TODO
 * Get Rid of Feature Module. Having one feature module is kind of pointless, it seems
-* Refactor to use GBLocation for ship creation, ship movement, and everywhere else
-* Refactor to use resources for strings
 * Refactor and apply Naming conventions for UI elements (btn_do etc.) and other things
 * Unit Test Mission 1
 * Access and visibility in gblib
@@ -17,12 +20,12 @@
 ## Test Efficience
 * Make God level button that takes me to a setup where I can test what I am working on in the UI
 
-
 ## Features
 
 ### Mission Features for Mission 1
-* Make pod movement in Mission 1 multistep with take off, fly, land, instead of telepor to new planet (depends on GBLocation)
-* Revise all strings and fix text related isues of mission 1
+* Make pod movement in Mission 1 multistep with take off, fly, land, instead of teleport to new planet (depends on GBLocation)
+* Revise all strings and fix text related issues of mission 1
+* Need to add more hints and tutorial (see arturo)
 
 ### Future missions
 * Fly a cruiser to new system: cruisers, flying in deep space

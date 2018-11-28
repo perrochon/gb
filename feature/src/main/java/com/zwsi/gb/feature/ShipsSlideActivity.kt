@@ -70,10 +70,13 @@ class ShipsSlideActivity : AppCompatActivity() {
             val fragment: ShipFragment = ShipFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())
             if (uid == startUID)
-                startItem = adapter.count
+                startItem = adapter.count-1
         }
 
         viewpager.adapter = adapter
+
+        viewpager.setClipToPadding(false)
+        viewpager.setPadding(50,0,50,0)
 
     }
 

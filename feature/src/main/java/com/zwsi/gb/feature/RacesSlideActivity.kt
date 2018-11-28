@@ -1,6 +1,8 @@
 package com.zwsi.gb.feature
 
 import android.os.Bundle
+import android.support.v4.R.id.left
+import android.support.v4.R.id.right
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -54,10 +56,13 @@ class RacesSlideActivity : AppCompatActivity() {
             val fragment: RaceFragment = RaceFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())
             if (uid == startUID)
-                startItem = adapter.count
+                startItem = adapter.count-1
         }
 
         viewpager.adapter = adapter
+
+        viewpager.setClipToPadding(false)
+        viewpager.setPadding(50,0,50,0)
 
     }
 

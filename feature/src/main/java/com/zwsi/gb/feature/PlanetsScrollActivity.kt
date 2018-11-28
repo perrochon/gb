@@ -129,7 +129,7 @@ class PlanetsScrollActivity : AppCompatActivity() {
 
                 constraintLayout.setOnClickListener {
                     val intent = Intent(this, PlanetsSlideActivity::class.java)
-                    intent.putExtra("planetUID", p.uid)
+                    intent.putExtra("UID", p.uid)
                     startActivity(intent)
                 }
 
