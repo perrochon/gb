@@ -9,6 +9,8 @@ import com.zwsi.gblib.GBController.Companion.universe
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
+import kotlin.math.cos
+import kotlin.math.sin
 
 class GBLocationTest {
 
@@ -20,8 +22,8 @@ class GBLocationTest {
                 assertEquals(-1f, l.x)
                 assertEquals(-1f, l.y)
                 assertNotEquals(-1, l.refUID)
+                assertEquals(-1f, l.t)
                 assertEquals(-1f, l.r)
-                assertEquals(-1f, l.d)
                 assertEquals(l.getLLoc().sx, l.sx)
                 assertEquals(l.getLLoc().sy, l.sy)
                 assertNotEquals(null, universe.allPlanets.getOrNull(l.refUID)) //
@@ -29,11 +31,11 @@ class GBLocationTest {
             }
             GBLocation.ORBIT -> {
                 assertEquals(GBLocation.ORBIT, l.level)
-                assertEquals(l.getLoc().x, l.x)
-                assertEquals(l.getLoc().y, l.y)
+                assertEquals(l.getOLocC().x, l.x)
+                assertEquals(l.getOLocC().y, l.y)
                 assertNotEquals(-1, l.refUID)
-                assertEquals(l.getOLocP().r, l.r)
-                assertEquals(l.getOLocP().d, l.d)
+                assertEquals(l.getOLocP().r, l.t)
+                assertEquals(l.getOLocP().t, l.r)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
                 assertNotEquals(null, universe.allPlanets.getOrNull(l.refUID)) //
@@ -41,14 +43,18 @@ class GBLocationTest {
             }
             GBLocation.SYSTEM -> {
                 assertEquals(GBLocation.SYSTEM, l.level)
-                assertEquals(l.getLoc().x, l.x)
-                assertEquals(l.getLoc().y, l.y)
+                assertEquals(l.getSLocC().x, l.x)
+                assertEquals(l.getSLocC().y, l.y)
                 assertNotEquals(-1, l.refUID)
-                assertEquals(-1f, l.r)
-                assertEquals(-1f, l.d)
+                assertEquals(l.getSLocP().r, l.r)
+                assertEquals(l.getSLocP().t, l.t)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
                 assertNotEquals(null, universe.allStars.getOrNull(l.refUID)) //
+
+                assertEquals(l.x, universe.allStars[l.refUID].loc.x + l.r * cos(l.t))
+                assertEquals(l.y, universe.allStars[l.refUID].loc.y - l.r * sin(l.t))
+
                 // Do some checks on the LocDesc
             }
             GBLocation.DEEPSPACE -> {
@@ -57,7 +63,7 @@ class GBLocationTest {
                 assertEquals(l.getLoc().y, l.y)
                 assertEquals(-1, l.refUID)
                 assertEquals(-1f, l.r)
-                assertEquals(-1f, l.d)
+                assertEquals(-1f, l.t)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
                 assertEquals("Deep Space", l.getLocDesc())
@@ -74,7 +80,7 @@ class GBLocationTest {
         val p = universe.allPlanets[1]
         val loc = GBLocation(p,0f, 25f)
         assertEquals(0f, loc.r)
-        assertEquals(25f, loc.d)
+        assertEquals(25f, loc.t)
         consistent(loc)
     }
 
@@ -94,9 +100,9 @@ class GBLocationTest {
     fun system() {
         val universe = GBController.makeUniverse()
         val s = universe.allStars[3]
-        val loc = GBLocation(s,1f, 2f)
-        assertEquals(1f, loc.x)
-        assertEquals(2f, loc.y)
+        val loc = GBLocation(s,200f, 2f)
+        assertEquals(200f, loc.r)
+        assertEquals(2f, loc.t)
         consistent(loc)
     }
 

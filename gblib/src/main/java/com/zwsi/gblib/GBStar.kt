@@ -14,8 +14,11 @@ class GBStar(val universe: GBUniverse) {
 
     val name: String // name of this system
 
-    val x: Int // x coordinate
-    val y: Int // y coordinate
+    private val x: Int // x coordinate
+    private val y: Int // y coordinate
+
+    val loc: GBLocation
+
     var starPlanets: MutableList<GBPlanet> = arrayListOf() // the planets in this system
 
     var numberOfPlanets = 2 // minimal number of planets
@@ -30,9 +33,14 @@ class GBStar(val universe: GBUniverse) {
         idxname = GBData.selectStarNameIdx()
         name = GBData.starNameFromIdx(idxname)
 
+
+        // TODO fix getStarCoordinates
         val coordinates = getStarCoordinates()
         x = coordinates[0]
         y = coordinates[1]
+
+        loc = GBLocation(x.toFloat(),y.toFloat())
+        GBDebug.l3("Star $name location is ($x,$y)")
 
         if (universe.numberOfStars > 3) {
             // 2-8 stars. May adjust this later based on star type...
@@ -72,7 +80,7 @@ class GBStar(val universe: GBUniverse) {
 
     }
 
-    private fun makePlanets() {
+     fun makePlanets() {
         GBDebug.l3("Making Planets for star $name")
 
         for (i in 0 until numberOfPlanets) {

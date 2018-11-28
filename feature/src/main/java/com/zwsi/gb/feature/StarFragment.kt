@@ -54,7 +54,7 @@ class StarFragment : Fragment() {
 
         stats.append("\n")
         stats.append("Name     : " + (st!!.name) + "\n")
-        stats.append("Position : (" + (st.x) + ", " + st.y + ")\n")
+        stats.append("Position : (" + (st.loc.x) + ", " + st.loc.y + ")\n")
 
         if (st.starPlanets.isNotEmpty()) {
             stats.append(st.starPlanets.size.toString() + " planets:\n")

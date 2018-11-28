@@ -23,6 +23,9 @@ class GBUniverse {
         this.numberOfRaces = GBController.numberOfRaces
         GBDebug.l3("Making Stars")
         makeStars()
+//        for (s in allStars) {
+//            s.makePlanets()
+//        }
         makeRaces()
         news.add(missionController.getCurrentMission())
         GBDebug.l3("Universe made")

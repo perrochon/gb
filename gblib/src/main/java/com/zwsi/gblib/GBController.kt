@@ -22,10 +22,14 @@ class GBController {
 
         private var currentUniverse: GBUniverse? = null
 
+        // we count the number of small U. Only tests make those, and this will catch recursion
+        private var smallUniCount = 0
+
         val universe: GBUniverse
             get() {
                 if (currentUniverse == null) {
                     if (smallUniverse) {
+                        assert(smallUniCount++ < 3)
                         currentUniverse = GBUniverse(numberOfStarsSmall)
                     } else if (bigUniverse) {
                         currentUniverse = GBUniverse(numberOfStarsBig)

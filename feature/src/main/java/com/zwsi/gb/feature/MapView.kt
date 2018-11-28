@@ -10,16 +10,8 @@ import android.view.MotionEvent
 import android.view.View
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
-import kotlin.math.abs
 import kotlin.math.cos
-import kotlin.math.min
 import kotlin.math.sin
-import android.R.attr.y
-import android.R.attr.x
-import android.R.attr.strokeWidth
-import android.support.annotation.NonNull
-
-
 
 
 class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
@@ -65,7 +57,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         h = density / 840f * bmPlanet!!.getHeight() / 2
         bmPlanet = Bitmap.createScaledBitmap(bmPlanet!!, w.toInt(), h.toInt(), true)!!
 
-        bmRace = BitmapFactory.decodeResource(getResources(), R.drawable.impit)!!
+        bmRace = BitmapFactory.decodeResource(getResources(), R.drawable.xenost)!!
         w = density / 420f * bmRace!!.getWidth() / 30
         h = density / 420f * bmRace!!.getHeight() / 30
         bmRace = Bitmap.createScaledBitmap(bmRace!!, w.toInt(), h.toInt(), true)!!
@@ -92,7 +84,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val stateSkip = 50
             paint.style = Style.FILL
             paint.color = Color.parseColor("#80ffbb33") // TODO get color holo orange with alpha
-            canvas.drawText("maxScale: " + maxScale + " / minScale: " + minScale + " / density: " + density, 8f, stateLine++ * stateSkip, paint)
+            canvas.drawText(
+                "maxScale: " + maxScale + " / minScale: " + minScale + " / density: " + density,
+                8f,
+                stateLine++ * stateSkip,
+                paint
+            )
             canvas.drawText("Normscale: " + normScale + " Scale: " + scale, 8f, stateLine++ * stateSkip, paint)
             canvas.drawText(
                 "UCenter: " + center!!.x.toInt() / 18 + ", " + center!!.y.toInt() / 18 +
@@ -115,7 +112,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             )
             canvas.drawText("Screen Click: (" + xClick + ", " + yClick + ")", 8f, stateLine++ * stateSkip, paint)
             canvas.drawText("Source Click: (" + sClick.x + ", " + sClick.y + ")", 8f, stateLine++ * stateSkip, paint)
-            canvas.drawText("Universe Click: (" + sClick.x/18 + ", " + sClick.y/18 + ")", 8f, stateLine++ * stateSkip, paint)
+            canvas.drawText(
+                "Universe Click: (" + sClick.x / 18 + ", " + sClick.y / 18 + ")",
+                8f,
+                stateLine++ * stateSkip,
+                paint
+            )
 
 
         }
@@ -126,7 +128,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.style = Style.STROKE
         paint.strokeCap = Cap.ROUND
         for (s in stars) {
-            sCenter.set(s.x * 18f, s.y * 18f)
+            sCenter.set(s.loc.x * 18f, s.loc.y * 18f)
             sourceToViewCoord(sCenter, vCenter)
             canvas.drawBitmap(bmStar!!, vCenter.x - bmStar!!.getWidth() / 2, vCenter.y - bmStar!!.getWidth() / 2, null)
         }
@@ -136,7 +138,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.style = Style.FILL
         paint.color = Color.parseColor("#80ffbb33") // TODO get color holo orange with alpha
         for (s in stars) {
-            sCenter.set(s.x * 18f + 30, s.y * 18f - 10)
+            sCenter.set(s.loc.x * 18f + 30, s.loc.y * 18f - 10)
             sourceToViewCoord(sCenter, vCenter)
             canvas.drawText(s.name, vCenter.x + 30, vCenter.y - 10, paint)
         }
@@ -183,7 +185,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val radius = scale * 250f
 
             for (s in stars) {
-                sCenter.set(s.x * 18f, s.y * 18f)
+                sCenter.set(s.loc.x * 18f, s.loc.y * 18f)
                 sourceToViewCoord(sCenter, vCenter)
                 canvas.drawCircle(vCenter.x, vCenter.y, radius, paint)
             }
@@ -191,7 +193,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         if (normScale > 20) { // draw races - remove once we show planets
             val s = GBController.universe.allStars[0]
-            sCenter.set(s.x * 18f + 50, s.y * 18f)
+            sCenter.set(s.loc.x * 18f + 50, s.loc.y * 18f)
             sourceToViewCoord(sCenter, vCenter)
             canvas.drawBitmap(bmRace!!, vCenter.x, vCenter.y, null)
         }
@@ -199,18 +201,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (5 > normScale) { // Draw Planets
             val stars = GBController.universe.allStars
             for (s in stars) {
-                val starRect = Rect(s.x * 18 - 250, s.y * 18 - 250, s.x * 18 + 250, s.y * 18 + 250)
+                val starRect = Rect(s.loc.x.toInt() * 18 - 250, s.loc.y.toInt() * 18 - 250, s.loc.x.toInt() * 18 + 250, s.loc.y.toInt() * 18 + 250)
                 if (intersects(starRect, visibleRect)) {
-                    var disInc = 230 / s.numberOfPlanets
-                    var rad = s.uid.toFloat()
-                    var dist = disInc.toFloat()
 
                     for (p in s.starPlanets) {
 
-                        val x = dist * cos(rad)
-                        val y = dist * sin(rad)
-
-                        sCenter.set(s.x * 18f + x, s.y * 18f - y)
+                        sCenter.set(p.loc.x*18, p.loc.y*18)
                         sourceToViewCoord(sCenter, vCenter)
                         canvas.drawBitmap(
                             bmPlanet!!,
@@ -218,8 +214,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             vCenter.y - bmPlanet!!.getWidth() / 2,
                             null
                         )
-                        rad = rad + p.sid.toFloat()+s.uid.toFloat() // repeatable, but after cos(rad), random looking
-                        dist += disInc
 
                     } // planet loop
                 }// if star visible?
