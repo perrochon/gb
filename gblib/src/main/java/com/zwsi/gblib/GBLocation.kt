@@ -65,8 +65,8 @@ class GBLocation {
     /** Make an ORBIT location by giving Float angle and distance to center */
     constructor(planet: GBPlanet, r: Float, t: Float) {
         // These two asserts may also catch mistaken use of Float (x,y)
-        gbAssert ( "Distance to planet too big", r > 10f )
-        gbAssert ( "Angler larger than 2*PI", r > PI+0.1 )
+        gbAssert("Distance to planet too big", r > 10f)
+        gbAssert("Angler larger than 2*PI", r > PI + 0.1)
 
         this.level = ORBIT
         this.refUID = planet.uid
@@ -82,14 +82,26 @@ class GBLocation {
     /** Make a SYSTEM location from Float (r,t) radius from center and theta */
     constructor(star: GBStar, r: Float, t: Float) {
         // These two asserts may also catch mistaken use of Float (x,y)
-        gbAssert ( "Distance to star too big", r > 500f )
-        gbAssert ( "Angler larger than 2*PI", r > PI+0.1 )
+        gbAssert("Distance to star too big", r > 500f)
+        gbAssert("Angler larger than 2*PI", r > PI + 0.1)
         this.level = SYSTEM
         this.refUID = star.uid
         this.r = r
         this.t = t
-        this.x = star.loc.x + r*cos(t)
-        this.y = star.loc.y - r*sin(t)
+        this.x = star.loc.x + r * cos(t)
+        this.y = star.loc.y - r * sin(t)
+    }
+
+    // TODO pass a boolean to use cartesian coordinates in constructor?
+    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) {
+// assert
+        this.level = SYSTEM
+        this.refUID = star.uid
+        this.x = x
+        this.y = y
+        this.r = -1f // TODO fix
+        this.t = -1f // TODO fix
+
     }
 
     /** Make a DEEPSPACE location from Float (x,y) */
@@ -118,11 +130,10 @@ class GBLocation {
         return GBrt(t, r)
     }
 
-    /** Get (Planet) Orbit location in Cartesian */
+    /** Get the __Planet's__ location in Cartesian */
     fun getOLocC(): GBxy {
-        gbAssert("(x,y) not implemented for orbit", false)
         gbAssert("This is not an orbit location", level == ORBIT)
-        return GBxy(x, y)
+        return GBxy(universe.allPlanets[refUID].loc.x, universe.allPlanets[refUID].loc.y)
     }
 
     /** Get System location in Polar (Orbit around the star) */
@@ -167,7 +178,7 @@ class GBLocation {
         }
     }
 
-    fun getPlanet() : GBPlanet? {
+    fun getPlanet(): GBPlanet? {
         when (level) {
             LANDED -> {
                 return universe.allPlanets[refUID]

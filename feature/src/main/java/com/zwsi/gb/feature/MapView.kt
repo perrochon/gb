@@ -198,6 +198,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             canvas.drawBitmap(bmRace!!, vCenter.x, vCenter.y, null)
         }
 
+
         if (5 > normScale) { // Draw Planets
             val stars = GBController.universe.allStars
             for (s in stars) {
@@ -216,10 +217,25 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         )
 
                     } // planet loop
+
+                    for (sh in s.starShips){
+
+                        paint.style = Style.STROKE
+                        paint.strokeWidth = strokeWidth.toFloat()
+                        paint.color = Color.argb(255, 255, 0, 0)
+                        val radius = scale * 3f
+
+                        sCenter.set(sh.loc.x*18, sh.loc.y*18)
+                        sourceToViewCoord(sCenter, vCenter)
+
+                        canvas.drawCircle(vCenter.x, vCenter.y, radius, paint)
+                    }
+
+                    } // ships loop
                 }// if star visible?
             }// star loop
         }
-    }
+
 
 
     override fun onTouch(view: View, motionEvent: MotionEvent): Boolean {

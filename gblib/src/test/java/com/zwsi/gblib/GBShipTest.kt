@@ -144,7 +144,6 @@ class GBShipTest {
         val p : GBPlanet = s.starPlanets[0]
         val r: GBRace = universe.allRaces[0]
 
-
         var sh = GBShip(0, r, GBLocation(500f,500f))
         consistency(sh)
 
@@ -158,6 +157,8 @@ class GBShipTest {
         consistency(sh)
 
         uniqueLocations()
+
+
     }
 
     @Test(expected = java.lang.AssertionError::class)
@@ -192,6 +193,47 @@ class GBShipTest {
 
         consistency(sh0)
         uniqueLocations()
+    }
+
+    @Test
+    fun moveShip() {
+        val universe = GBController.makeUniverse()
+
+        val s0 = universe.allStars[0]
+        val p0 = s0.starPlanets[0]
+        val s1 = universe.allStars[1]
+        val p1 = s1.starPlanets[1]
+        val r0 = universe.allRaces[0]
+
+        val locations = arrayListOf<GBLocation>()
+
+        val loc01 = GBLocation(p0,1,1); locations.add(loc01)
+        val loc02 = GBLocation(p1,1,2); locations.add(loc01)
+        val loc03 = GBLocation(p0,2,1); locations.add(loc01)
+        val loc04 = GBLocation(p1,2,2); locations.add(loc01)
+        val loc11 = GBLocation(p0,1f,1f); locations.add(loc11)
+        val loc12 = GBLocation(p1,1f,2f); locations.add(loc12)
+        val loc13 = GBLocation(p0,2f,.5f); locations.add(loc13)
+        val loc14 = GBLocation(p1,2f,3f); locations.add(loc14)
+        val loc21 = GBLocation(s0, 20f, 1f); locations.add(loc21)
+        val loc22 = GBLocation(s1, 30f, 2f); locations.add(loc22)
+        val loc23 = GBLocation(s0, 10f, 3f); locations.add(loc23)
+        val loc24 = GBLocation(s1, 15f, 0.5f); locations.add(loc24)
+        val loc31 = GBLocation(500f, 500f); locations.add(loc31)
+
+        val sh0 = GBShip(1, r0, loc01)
+        consistency(sh0)
+
+        for (loc1 in locations) {
+            sh0.moveShip(loc1)
+            consistency(sh0)
+            uniqueLocations()
+            for (loc2 in locations){
+                sh0.moveShip(loc2)
+                consistency(sh0)
+                uniqueLocations()
+            }
+        }
     }
 
 }

@@ -113,7 +113,9 @@ class GBUniverse {
             }
         }
 
-        GBDebug.l3("Current Orders: " + orders.toString())
+        for (sh in allShips) {
+            sh.doShip()
+        }
 
         missionController.checkMissionStatus()
         news.add(missionController.getCurrentMission())
@@ -162,12 +164,13 @@ class GBUniverse {
         GBDebug.l3("Creating order to teleport " + sh.name + " to " + p.name)
 
         var loc = GBLocation(p, 0,0 ) // TODO Have caller give us a better location
-        var order = GBOrder()
-        order.teleportShip(sh, loc)
 
-        GBDebug.l3("Order made: " + order.toString())
+        sh.dest = loc
 
-        orders.add(order)
+//        var order = GBOrder()
+//        order.teleportShip(sh, loc)
+//        GBDebug.l3("Order made: " + order.toString())
+//        orders.add(order)
 
         GBDebug.l3("Current Orders: " + orders.toString())
     }
