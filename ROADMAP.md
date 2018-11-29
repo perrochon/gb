@@ -4,44 +4,55 @@
 Clicking on a planet in Planets1 always gives you Helle
 
 ## Code Quality
-* Refactor to use GBLocation for ship creation, ship movement, and everywhere else
+### Gating for Mission 2 (don't want to propagate bad code more)
+* Unit Test Mission 1
 * Refactor to use resources for strings
-* Review all warnings
+* Refactor distance, vector, etc into GBLocation. Use everywhere
+* Clean up MapView
+* Import GBController.universe in all files. Use universe. only
+* Review all unit tests, and add whats missing (GBLocation? GBxy)
 * Review all TODO
+* Review all warnings
+
+### Not Gating
+* Remove TileView library and code
 * Get Rid of Feature Module. Having one feature module is kind of pointless, it seems
 * Refactor and apply Naming conventions for UI elements (btn_do etc.) and other things
-* Unit Test Mission 1
 * Access and visibility in gblib
 * Use Application for global state in Android: https://developer.android.com/reference/android/app/Application
 * Debug buffer and Console Buffer. Message buffer per race. These may all be related.
 * Persistency!
-* Import import com.zwsi.gblib.GBController.Companion.universe then can just refer to it as universe...
 
-## Test Efficience
-* Make God level button that takes me to a setup where I can test what I am working on in the UI
+## Test Efficiency
+* Mode that fires off doUniverse every 5 seconds (gating on sync on GBController?)
+* Move makestuff logic to GBController so it uses (and tests) its methods
 
 ## Features
 
-### Mission Features for Mission 1
+### Mission Features for Mission 1 (Gating for Mission 2)
 * Unload (or explode) landed pod. Move population.
 * Revise all strings and fix text related issues of mission 1
-* Need to add more hints and tutorial (see arturo)
+* Need to add more hints and tutorial (early users couldn't complete mission 1)
 
 ### Future missions
-* Fly a cruiser to new system: cruisers, flying in deep space
+* Fly a cruiser to new system: cruisers
 * Build infrastructure: planetary effects
-* Play different races: Mission two could be getting another race up and running.
+* Play different races: Mission n could be getting another race up and running.
 
 #### Frontend
 * Run GBTest on phone (text based)
+* Detect and ignore "double" clicks (say 100ms, or before doUniverse done)
 
 ### General
-* Visibility and God Mode Switch
+* Visibility
+* God Mode Toggle
 
 ### Star Map
 * Show Races Home Planet for all races (only interesting in God mode)
-* Some icons need to stay at fixed distance in screen pixels, e.g. star icon, name, and race icon. 
-Right now they are fixed in source coordinates, and thus move closer when you zoom out.
+* Ship icons
+* Better fade out on zoom
+* can we invalidate map after doUniverse is done? And put a do Button on the map? 
+* Some icons need to stay at fixed distance in screen pixels, e.g. star icon, name, and race icon. Right now they are fixed in source coordinates, and thus move closer when you zoom out.
 
 #### Planet
 * Resources. Money, other. Probably Money first, as a summary for all else
@@ -59,21 +70,22 @@ Right now they are fixed in source coordinates, and thus move closer when you zo
 
 ####Races
 * Give races home planets
-* Show ships of race
+* Show ships of that race from race screen
 * Make more distinct races
 * Visibility per race (and god mode cleanup)
+* "AI" :-). One race can just send one pod per turn to each planet...
 
 #### Ships
+* load/unload population into ships
 * More planetary units
 * Locations of planetary units
-* other ship
+* more space units
+* destroy ships (required for :tata: Battle :tata:
 
 #### Interactivity
 * land battle (can do this for morphs with pods only)
 * ship battle
 
-
 ## Android 
 * Dealing with killed applications, and destroyed activities... Need persistence first.
 https://stackoverflow.com/questions/29701660/can-i-detect-if-android-has-killed-the-application-task-process-from-a-notific
-* TileView crash on Map. Why? :tata:
