@@ -1,4 +1,3 @@
-
 # Roadmap
 
 #Regression
@@ -24,7 +23,7 @@ Clicking on a planet in Planets1 always gives you Helle
 ## Features
 
 ### Mission Features for Mission 1
-* Make pod movement in Mission 1 multistep with take off, fly, land, instead of teleport to new planet (depends on GBLocation)
+* Unload (or explode) landed pod. Move population.
 * Revise all strings and fix text related issues of mission 1
 * Need to add more hints and tutorial (see arturo)
 
