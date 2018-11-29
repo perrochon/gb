@@ -8,7 +8,7 @@ Clicking on a planet in Planets1 always gives you Helle
 * Unit Test Mission 1
 * Refactor to use resources for strings
 * Refactor distance, vector, etc into GBLocation. Use everywhere
-* Clean up MapView
+* Clean up MapView. E.g. replace all the 18, and 18000 literals. 
 * Import GBController.universe in all files. Use universe. only
 * Review all unit tests, and add whats missing (GBLocation? GBxy)
 * Review all TODO
