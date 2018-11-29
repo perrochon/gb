@@ -153,7 +153,7 @@ class ShipsSlideActivity : AppCompatActivity() {
                 planet = p
         }
 
-        Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_LONG).show()
+        Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT).show()
 
         GBController.universe.flyShip(ship, planet)
     }

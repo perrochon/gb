@@ -199,7 +199,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
 
-        if (5 > normScale) { // Draw Planets
+        if (6 > normScale) { // Draw Planets
             val stars = GBController.universe.allStars
             for (s in stars) {
                 val starRect = Rect(s.loc.x.toInt() * 18 - 250, s.loc.y.toInt() * 18 - 250, s.loc.x.toInt() * 18 + 250, s.loc.y.toInt() * 18 + 250)
@@ -223,12 +223,26 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         paint.style = Style.STROKE
                         paint.strokeWidth = strokeWidth.toFloat()
                         paint.color = Color.argb(255, 255, 0, 0)
-                        val radius = scale * 3f
+                        val radius = scale * 2f
 
-                        sCenter.set(sh.loc.x*18, sh.loc.y*18)
+                        sCenter.set(sh.loc.getLoc().x*18, sh.loc.getLoc().y*18)
                         sourceToViewCoord(sCenter, vCenter)
 
                         canvas.drawCircle(vCenter.x, vCenter.y, radius, paint)
+
+                        var from = sh.loc.getLoc()
+                        for (xy in sh.trail) {
+
+                            sCenter.set(from.x*18, from.y*18)
+                            sourceToViewCoord(sCenter, vCenter)
+                            sCorner.set(xy.x*18, xy.y*18)
+                            sourceToViewCoord(sCorner, vCorner)
+
+                            canvas.drawLine(vCenter.x, vCenter.y, vCorner.x, vCorner.y, paint)
+
+
+                            from = xy
+                        }
                     }
 
                     } // ships loop

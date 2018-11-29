@@ -111,11 +111,18 @@ class GBLocation {
         this.y = y
     }
 
-    /** Get Universal (x,y). Works for SYSTEM and DEEPSPACE */
+    /** Get Universal (x,y). Returns the center of the planet for LANDED and ORBIT. Used for distance, etc.
+     *
+     * Use this to make sure you get some meaningful (x,y) in every case
+     *
+     * */
     fun getLoc(): GBxy {
-        gbAssert("This is a landed location.", level != LANDED)
-        gbAssert("This is an orbit location.", level != ORBIT)
-        return GBxy(x, y)
+
+        if ((level == LANDED) || (level == ORBIT))
+            return GBxy(universe.allPlanets[refUID].loc.x, universe.allPlanets[refUID].loc.y)
+        else
+            return GBxy(x, y)
+
     }
 
     /** Get LANDED location */
@@ -158,7 +165,7 @@ class GBLocation {
     fun getLocDesc(): String {
         when (level) {
             LANDED -> {
-                return "Landed on" + universe.allPlanets[refUID].name +
+                return "Landed on " + universe.allPlanets[refUID].name +
                         " in system " + universe.allPlanets[refUID].star.name
             }
             ORBIT -> {
@@ -166,7 +173,7 @@ class GBLocation {
                         " in system " + universe.allPlanets[refUID].star.name
             }
             SYSTEM -> {
-                return "System" + universe.allStars[refUID].name
+                return "System " + universe.allStars[refUID].name
             }
             DEEPSPACE -> {
                 return "Deep Space"

@@ -12,6 +12,9 @@ import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
+import kotlin.math.abs
+import kotlin.math.min
+import kotlin.math.sign
 import kotlin.math.sqrt
 
 class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
@@ -24,6 +27,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val speed: Int
 
     var dest: GBLocation? = null
+    var trail = arrayListOf<GBxy>()
 
     init {
         id = GBData.getNextGlobalId()
@@ -59,8 +63,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
     fun moveShip(loc: GBLocation) {
 
-        GBDebug.l3("Moving Ship from" + this.loc.getLocDesc() + "to" + loc.getLocDesc())
-
+        GBDebug.l3("Moving " + name + " from " + this.loc.getLocDesc() + " to " + loc.getLocDesc())
 
         // TODO no need to always do these whens, e.g. if things are the same, no need to remove and add
         when (this.loc.level) {
@@ -102,38 +105,103 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     }
 
     fun doShip() {
+
         if (dest == null) {
+            if (trail.isNotEmpty())
+                trail.remove(trail.last())
             return
         }
         val dest = this.dest!!
+        val dxy = dest.getLoc()       // use getLoc to get universal (x,y)
+        val sxy = this.loc.getLoc()   // center of planet for landed and orbit
+
+        GBDebug.l3("Flying " + name + " from " + this.loc.getLocDesc() + " to " + dest.getLocDesc())
+
 
         if (loc.level == LANDED) { // We are landed
+
+            GBDebug.l3(name + " is landed")
+
             if ((dest.level != loc.level) || (dest.refUID != loc.refUID)) { // we need to get to orbit
                 var next = GBLocation(loc.getPlanet()!!, 1f, 1f)
                 moveShip(next)
+
+                GBDebug.l3(name + " is launched")
                 universe.news.add("Launched $name to ${loc.getLocDesc()}.\n\n")
             }
-            // here deal with surface to surface of same planet moves...
+            // here we will deal with surface to surface of same planet moves...
             return
-        } else { // we are in orbit, in system, or in space
-            // Note GBLocation returns planet's (x,y) for ORBIT, so the ship starts from the center of the planet
-            var dx = dest.x - loc.x
-            var dy = dest.y - loc.y
+
+        } else if ((loc.level == ORBIT) && (loc.refUID == dest.refUID)) {
+            // if in orbit at destination, land
+
+            moveShip(dest)
+            universe.news.add("$name landed on ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+            this.dest = null
+            return
+
+
+        } else {
+            // we are in orbit, in system, or in space
+
+            // Distance from to can be factored out...
+
+            var dx = dxy.x - sxy.x
+            var dy = dxy.y - sxy.y
+
+            GBDebug.l3("(dx,dy) = ($dx, $dy)\n")
+
             var togo = sqrt(dx * dx + dy * dy)
-            var mx = 0f
-            var my = 0f
-            if (speed > togo) {
-                mx = dx
-                my = dy
-            } else {
-                mx = dx / togo * speed
-                my = dy / togo * speed
+
+            if (togo < speed) { // we will arrive this turn . Arrival must be a planet
+
+                var next = GBLocation(dest.getPlanet()!!, 1f, 1f)
+                moveShip(next)
+                universe.news.add("$name arrived in Orbit at ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+
+                if (dest.level == ORBIT) {
+                    this.dest = null
+
+                }
+                return
             }
-            // TODO the next thing won't work for DEEPSPACE. Need to check if we reached a system
-            var next = GBLocation(loc.getStar()!!, loc.x + mx, loc.y + my)
-            moveShip(next)
-            universe.news.add("$name moved to ${loc.getLocDesc()}.\n\n")
-            return
+
+            GBDebug.l3("togo = $togo\n")
+
+            var factorX = speed / togo
+            var factorY = speed / togo
+
+            GBDebug.l3("(fx,fy) = ($factorX, $factorY)\n")
+
+            var rawX = dx * factorX * speed
+            var rawY = dy * factorY * speed
+
+            GBDebug.l3("(rx,ry) = ($rawX, $rawY)\n")
+
+            var offsetX = min(abs(dx), abs(rawX)) * sign(dx)
+            var offsetY = min(abs(dy), abs(rawY)) * sign(dy)
+
+            GBDebug.l3("Flying from (${sxy.x}, ${sxy.y}) direction (${dxy.x}, ${dxy.y}) for ($offsetX, $offsetY) at speed $speed\n")
+
+            trail.add(sxy)
+
+            if (loc.level == DEEPSPACE) {
+                // TODO Test if we arrived at destination
+
+                var next = GBLocation(sxy.x + offsetX, sxy.y + offsetY)
+                moveShip(next)
+                universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                return
+
+            } else {
+                // TODO Test if we arrived at destination
+
+                var next = GBLocation(loc.getStar()!!, sxy.x + offsetX, sxy.y + offsetY, true)
+                moveShip(next)
+
+                universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                return
+            }
         }
     }
 
