@@ -115,6 +115,27 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun makeStuff(view: View) {
+
+        output.setText("")
+
+        val message = "God Mode: Making Test Stuff"
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
+        Thread(Runnable {
+
+            GBController.makeStuff()
+
+            view.post {
+                // Worth making a string in this thread and post just result?
+                for (s in GBController.universe!!.news)
+                    output.append(s)
+            }
+
+        }).start()
+
+    }
+
     /** Called when the user taps the Stars button */
     fun starmap1(view: View) {
         val intent = Intent(this, StarsActivity::class.java)

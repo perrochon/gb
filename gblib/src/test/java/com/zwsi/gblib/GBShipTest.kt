@@ -252,9 +252,10 @@ class GBShipTest {
 
         sh.dest = loc02
 
-        while (sh.loc != loc02)
+        while (sh.loc != loc02) {
             sh.doShip()
-
+            uniqueLocations()
+        }
     }
 
 
@@ -275,8 +276,10 @@ class GBShipTest {
 
         sh.dest = loc02
 
-        while (sh.loc != loc02)
+        while (sh.loc != loc02) {
             sh.doShip()
+            uniqueLocations()
+        }
 
     }
 }

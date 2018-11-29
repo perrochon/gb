@@ -133,7 +133,7 @@ class GBUniverse {
     fun makeFactory(p: GBPlanet) {
         GBDebug.l3("universe: Making factory for ?? on " + p.name + "")
 
-        var loc = GBLocation(p, 0,0 ) // TODO Have caller give us a better location
+        var loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
 
         var order = GBOrder()
 
@@ -163,7 +163,7 @@ class GBUniverse {
     fun flyShip(sh: GBShip, p: GBPlanet) {
         GBDebug.l3("Creating order to teleport " + sh.name + " to " + p.name)
 
-        var loc = GBLocation(p, 0,0 ) // TODO Have caller give us a better location
+        var loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
 
         sh.dest = loc
 
@@ -179,4 +179,37 @@ class GBUniverse {
         GBDebug.l3("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
         p.landPopulation(allRaces[uId], number)
     }
+
+
+    fun makeStuff() {
+        GBDebug.l3("Making Stuff")
+
+        val p = allPlanets[0]
+        makeFactory(p)
+        doUniverse()
+        val factory = allShips[0]
+        if (factory.idxtype == 0) {
+
+            makePod(factory)
+            doUniverse()
+            var pod = allShips[1]
+            flyShip(pod, allStars[1].starPlanets[0])
+
+            makePod(factory)
+            doUniverse()
+            pod = allShips[2]
+            flyShip(pod, allStars[0].starPlanets[2])
+
+            for (i in 1..5)
+                doUniverse()
+            flyShip(pod, allStars[0].starPlanets[1])
+            for (i in 1..5)
+                doUniverse()
+            flyShip(pod, allStars[4].starPlanets[0])
+            for (i in 1..4)
+                doUniverse()
+
+        }
+    }
+
 }

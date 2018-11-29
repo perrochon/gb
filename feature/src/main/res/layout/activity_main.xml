@@ -88,6 +88,15 @@
                 tools:visibility="visible"
                 android:alpha="0.5"/>
         <Button
+                android:text="Make"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/MakeButton"
+                android:onClick="makeStuff"
+                android:visibility="visible"
+                tools:visibility="visible"
+                android:alpha="0.5"/>
+        <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/DoButton"

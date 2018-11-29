@@ -5,6 +5,7 @@
 
 package com.zwsi.gblib
 
+import com.zwsi.gblib.GBController.Companion.universe
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -136,6 +137,11 @@ class LibTest {
         GBShip(2, allRaces[2], GBLocation(500f,500f))
         GBShip(2, allRaces[3], GBLocation(500f,500f))
         shipsMade +=4
+    }
+
+    @Test
+    fun makeStuff(){
+        universe.makeStuff()
     }
 
 }

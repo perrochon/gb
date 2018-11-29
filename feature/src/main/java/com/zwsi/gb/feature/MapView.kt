@@ -205,6 +205,43 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             canvas.drawBitmap(bmRace!!, vCenter.x, vCenter.y, null)
         }
 
+        if (50 > normScale){ // draw deep space ships
+
+            for (sh in GBController.universe.universeShips){
+
+                paint.style = Style.STROKE
+                paint.strokeWidth = strokeWidth.toFloat()
+                paint.color = Color.argb(255, 0, 255, 0)
+                val radius = scale * 2f
+
+                sCenter.set(sh.loc.getLoc().x*18, sh.loc.getLoc().y*18)
+                sourceToViewCoord(sCenter, vCenter)
+
+                canvas.drawCircle(vCenter.x, vCenter.y, radius, paint)
+
+                paint.strokeWidth = strokeWidth.toFloat()/2
+                paint.color = Color.argb(128, 0, 0, 255)
+
+                var from = sh.loc.getLoc()
+
+                val iterate = sh.trail.descendingIterator()
+
+                while (iterate.hasNext()) {
+
+                    val xy = iterate.next()
+
+                    sCenter.set(from.x*18, from.y*18)
+                    sourceToViewCoord(sCenter, vCenter)
+                    sCorner.set(xy.x*18, xy.y*18)
+                    sourceToViewCoord(sCorner, vCorner)
+
+                    canvas.drawLine(vCenter.x, vCenter.y, vCorner.x, vCorner.y, paint)
+
+                    from = xy
+                }
+            }
+
+        }
 
         if (10 > normScale) { // Draw Planets
             val stars = GBController.universe.allStars
@@ -237,8 +274,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                         canvas.drawCircle(vCenter.x, vCenter.y, radius, paint)
 
+                        paint.strokeWidth = strokeWidth.toFloat()/2
+                        paint.color = Color.argb(128, 0, 0, 255)
+
                         var from = sh.loc.getLoc()
-                        for (xy in sh.trail) {
+
+                        val iterate = sh.trail.descendingIterator()
+
+                        while (iterate.hasNext()) {
+
+                            val xy = iterate.next()
 
                             sCenter.set(from.x*18, from.y*18)
                             sourceToViewCoord(sCenter, vCenter)
@@ -246,7 +291,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             sourceToViewCoord(sCorner, vCorner)
 
                             canvas.drawLine(vCenter.x, vCenter.y, vCorner.x, vCorner.y, paint)
-
 
                             from = xy
                         }

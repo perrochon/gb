@@ -12,6 +12,7 @@ import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
+import java.util.*
 import kotlin.math.abs
 import kotlin.math.min
 import kotlin.math.sign
@@ -27,7 +28,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val speed: Int
 
     var dest: GBLocation? = null
-    var trail = arrayListOf<GBxy>()
+    val trail = LinkedList<GBxy>()
 
     init {
         id = GBData.getNextGlobalId()
@@ -106,11 +107,15 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
     fun doShip() {
 
+        if (trail.size > 10) {
+            trail.removeFirst()
+        }
+
         if (dest == null) {
-            if (trail.isNotEmpty())
-                trail.remove(trail.last())
             return
         }
+        trail.addLast(loc.getLoc())
+
         val dest = this.dest!!
         val dxy = dest.getLoc()       // use getLoc to get universal (x,y)
         val sxy = this.loc.getLoc()   // center of planet for landed and orbit
@@ -181,7 +186,6 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
             var offsetX = min(abs(dx), abs(rawX)) * sign(dx)
             var offsetY = min(abs(dy), abs(rawY)) * sign(dy)
 
-            trail.add(sxy)
 
             GBDebug.l3("Flying from (${sxy.x}, ${sxy.y}) direction (${dxy.x}, ${dxy.y}) for ($offsetX, $offsetY) at speed $speed\n")
 
@@ -189,7 +193,10 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
             if (loc.level == DEEPSPACE) {
 
 
-                if (togo < 30f) { // we arrived at destination
+                if (togo < 15f) { // we arrived at destination
+
+                    // TODO check if destination is the system, in which case we would stop
+
                     var next = GBLocation(dest.getStar()!!, sxy.x + offsetX, sxy.y + offsetY, true)
 
                     moveShip(next)
@@ -214,9 +221,10 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             } else {
 
-                var distanceToStar = abs((sxy.x + offsetX) - loc.getStar()?.loc?.x!!)
+                var distanceToStar = sqrt(   ((sxy.x + offsetX) - loc.getStar()?.loc?.x!!)*((sxy.x + offsetX) - loc.getStar()?.loc?.x!!)+
+                        ((sxy.y + offsetY) - loc.getStar()?.loc?.y!!)*((sxy.y + offsetY) - loc.getStar()?.loc?.y!!))
 
-                if ( distanceToStar > 30 ) {  // we left the system
+                if ( distanceToStar > 15f ) {  // we left the system
 
                     var next = GBLocation(sxy.x + offsetX, sxy.y + offsetY)
                     moveShip(next)

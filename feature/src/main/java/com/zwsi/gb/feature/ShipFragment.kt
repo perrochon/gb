@@ -98,17 +98,18 @@ class ShipFragment : Fragment() {
             view.findViewById<Button>(R.id.flyTo).setVisibility(View.GONE)
         }
 
-        // This will break once ships are in deep space. But instead of getting planets of star, we will need to
-        // get possible destinations for this ship based on race and ship type.
+        // TODO: better selection of possible targets once we have visibility. Right now it's all insystem
+        // and first planet of each system outside.
         var planetsLocal = arrayListOf<String>()
-        for (p in sh.getStar()!!.starPlanets) {
-            planetsLocal.add(p.name)
-        }
+        if (sh.getStar() != null) {
+            for (p in sh.getStar()!!.starPlanets) {
+                planetsLocal.add(p.name)
+            }
 
-        for (s in  universe.allStars) {
-            planetsLocal.add(s.starPlanets[0].name)
+            for (s in universe.allStars) {
+                planetsLocal.add(s.starPlanets[0].name)
+            }
         }
-
         // Create an ArrayAdapter
         val adapter = ArrayAdapter<String>(this.activity, android.R.layout.simple_spinner_item, planetsLocal)
 

@@ -79,5 +79,9 @@ class GBController {
             universe.doUniverse()
         }
 
+        fun makeStuff() {
+            universe.makeStuff()
+        }
+
     }
 }
