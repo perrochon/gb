@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBController.Companion.universe
 
 class ShipFragment : Fragment() {
 
@@ -99,13 +100,17 @@ class ShipFragment : Fragment() {
 
         // This will break once ships are in deep space. But instead of getting planets of star, we will need to
         // get possible destinations for this ship based on race and ship type.
-        var planets = arrayListOf<String>()
+        var planetsLocal = arrayListOf<String>()
         for (p in sh.getStar()!!.starPlanets) {
-            planets.add(p.name)
+            planetsLocal.add(p.name)
+        }
+
+        for (s in  universe.allStars) {
+            planetsLocal.add(s.starPlanets[0].name)
         }
 
         // Create an ArrayAdapter
-        val adapter = ArrayAdapter<String>(this.activity, android.R.layout.simple_spinner_item, planets)
+        val adapter = ArrayAdapter<String>(this.activity, android.R.layout.simple_spinner_item, planetsLocal)
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

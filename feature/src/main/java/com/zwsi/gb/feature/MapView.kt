@@ -64,14 +64,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         setOnTouchListener(this);
 
-        maxScale = 10f
-        setDebug(true)
+        maxScale = 12f
+        setDebug(false)
 
     }
 
     override fun onDraw(canvas: Canvas) {
 
-        if (scale < 2)
+        if (scale < 5)
             super.onDraw(canvas)
 
 
@@ -206,7 +206,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
 
-        if (6 > normScale) { // Draw Planets
+        if (10 > normScale) { // Draw Planets
             val stars = GBController.universe.allStars
             for (s in stars) {
                 val starRect = Rect(s.loc.x.toInt() * 18 - 250, s.loc.y.toInt() * 18 - 250, s.loc.x.toInt() * 18 + 250, s.loc.y.toInt() * 18 + 250)

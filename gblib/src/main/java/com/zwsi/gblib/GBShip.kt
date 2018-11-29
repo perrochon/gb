@@ -166,41 +166,77 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 return
             }
 
-            GBDebug.l3("togo = $togo\n")
+//            GBDebug.l3("togo = $togo\n")
 
             var factorX = speed / togo
             var factorY = speed / togo
 
-            GBDebug.l3("(fx,fy) = ($factorX, $factorY)\n")
+//            GBDebug.l3("(fx,fy) = ($factorX, $factorY)\n")
 
             var rawX = dx * factorX * speed
             var rawY = dy * factorY * speed
 
-            GBDebug.l3("(rx,ry) = ($rawX, $rawY)\n")
+//            GBDebug.l3("(rx,ry) = ($rawX, $rawY)\n")
 
             var offsetX = min(abs(dx), abs(rawX)) * sign(dx)
             var offsetY = min(abs(dy), abs(rawY)) * sign(dy)
 
-            GBDebug.l3("Flying from (${sxy.x}, ${sxy.y}) direction (${dxy.x}, ${dxy.y}) for ($offsetX, $offsetY) at speed $speed\n")
-
             trail.add(sxy)
 
-            if (loc.level == DEEPSPACE) {
-                // TODO Test if we arrived at destination
+            GBDebug.l3("Flying from (${sxy.x}, ${sxy.y}) direction (${dxy.x}, ${dxy.y}) for ($offsetX, $offsetY) at speed $speed\n")
 
-                var next = GBLocation(sxy.x + offsetX, sxy.y + offsetY)
-                moveShip(next)
-                universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
-                return
+
+            if (loc.level == DEEPSPACE) {
+
+
+                if (togo < 30f) { // we arrived at destination
+                    var next = GBLocation(dest.getStar()!!, sxy.x + offsetX, sxy.y + offsetY, true)
+
+                    moveShip(next)
+
+                    GBDebug.l3(" Arrived in System")
+
+                    universe.news.add("$name arrived in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                    return
+
+                } else {
+                    var next = GBLocation(sxy.x + offsetX, sxy.y + offsetY)
+                    moveShip(next)
+
+                    GBDebug.l3(" Flying Deep Space")
+
+
+                    universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                    return
+
+                }
+
 
             } else {
-                // TODO Test if we arrived at destination
 
-                var next = GBLocation(loc.getStar()!!, sxy.x + offsetX, sxy.y + offsetY, true)
-                moveShip(next)
+                var distanceToStar = abs((sxy.x + offsetX) - loc.getStar()?.loc?.x!!)
 
-                universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
-                return
+                if ( distanceToStar > 30 ) {  // we left the system
+
+                    var next = GBLocation(sxy.x + offsetX, sxy.y + offsetY)
+                    moveShip(next)
+
+                    GBDebug.l3(" Left System")
+
+
+                    universe.news.add("$name entered ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                    return
+                } else {
+
+                    var next = GBLocation(loc.getStar()!!, sxy.x + offsetX, sxy.y + offsetY, true)
+                    moveShip(next)
+
+                    GBDebug.l3(" Flying insystem ")
+
+                    universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                    return
+
+                }
             }
         }
     }
