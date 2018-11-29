@@ -192,12 +192,12 @@ class GBUniverse {
 
             makePod(factory)
             doUniverse()
-            var pod = allShips[1]
+            var pod = allShips[allShips.size-1]
             flyShip(pod, allStars[1].starPlanets[0])
 
             makePod(factory)
             doUniverse()
-            pod = allShips[2]
+            pod = allShips[allShips.size-1]
             flyShip(pod, allStars[0].starPlanets[2])
 
             for (i in 1..5)
