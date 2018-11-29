@@ -46,6 +46,7 @@ Clicking on a planet in Planets1 always gives you Helle
 ### General
 * Visibility
 * God Mode Toggle
+* Get a picture of the Andromeda Galaxy https://www.spacetelescope.org/images/heic1502a/ Problem is the 40k picture is not high enough, and the fullsize is 69536 x 22230 px (4.3GB, psb file). That could give me a 22,000 square picture, or 484k pixel (right now I have 18k (325k pixel). This is a 50% increase in pixels - and image size from 40MB to say 60M (compressed). Original resolution of the Hubble image (a third of the total) would be ~2GB. Not sure how to compress that.
 
 ### Star Map
 * Show Races Home Planet for all races (only interesting in God mode)
