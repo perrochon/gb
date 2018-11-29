@@ -64,10 +64,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         setOnTouchListener(this);
 
+        maxScale = 10f
+        setDebug(true)
+
     }
 
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
+
+        if (scale < 2)
+            super.onDraw(canvas)
+
+
 
         // Don't draw pin before image is ready so it doesn't move around during setup.
         if (!isReady) {
@@ -75,6 +82,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
         normScale = ((1 / scale) - (1 / maxScale)) / (1 / minScale - 1 / maxScale) * 100
+
+
 
         visibleFileRect(visibleRect)
 
@@ -145,7 +154,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
 
         if (normScale > 99) { // Draw universe grid lines at 250 Universe Coordinates
-            val alpha = 128
             paint.color = Color.argb(alpha.toInt(), 100, 50, 0)
             for (x in 0 until 5) {
                 sCenter.set(0f, x * 3600f)
@@ -162,7 +170,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
         if ((70 > normScale) && (normScale > 70)) { // Draw image grid lines at 1000 coordinates
-            val alpha = 128
             paint.color = Color.argb(alpha.toInt(), 100, 100, 100)
             for (x in 0 until 18) {
                 sCenter.set(0f, x * 1000f)

@@ -2,14 +2,23 @@
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageViewLayout" android:orientation="vertical">
 
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:srcCompat="?android:attr/colorButtonNormal"
+            android:id="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageViewScale"
+    />
     <com.zwsi.gb.feature.MapView
             android:id="@+id/imageViewScale"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" tools:layout_editor_absoluteY="307dp"
+            tools:layout_editor_absoluteX="16dp"/>
     <TextView
             android:text="Stars"
             android:layout_width="wrap_content"
