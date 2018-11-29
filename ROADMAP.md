@@ -15,6 +15,7 @@ Clicking on a planet in Planets1 always gives you Helle
 * Review all warnings
 
 ### Not Gating
+* Passing race around on commands, to make sure actions are access controlled :-)
 * Remove TileView library and code
 * Get Rid of Feature Module. Having one feature module is kind of pointless, it seems
 * Refactor and apply Naming conventions for UI elements (btn_do etc.) and other things
@@ -44,6 +45,7 @@ Clicking on a planet in Planets1 always gives you Helle
 * Detect and ignore "double" clicks (say 100ms, or before doUniverse done)
 
 ### General
+* Only handle one race (at a time?)
 * Visibility
 * God Mode Toggle
 * Get a picture of the Andromeda Galaxy https://www.spacetelescope.org/images/heic1502a/ Problem is the 40k picture is not high enough, and the fullsize is 69536 x 22230 px (4.3GB, psb file). That could give me a 22,000 square picture, or 484k pixel (right now I have 18k (325k pixel). This is a 50% increase in pixels - and image size from 40MB to say 60M (compressed). Original resolution of the Hubble image (a third of the total) would be ~2GB. Not sure how to compress that.
@@ -73,7 +75,7 @@ Clicking on a planet in Planets1 always gives you Helle
 * Give races home planets
 * Show ships of that race from race screen
 * Make more distinct races
-* Visibility per race (and god mode cleanup)
+* Visibility and actions per race (and god mode cleanup)
 * "AI" :-). One race can just send one pod per turn to each planet...
 
 #### Ships
