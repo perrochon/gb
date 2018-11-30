@@ -135,13 +135,15 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
 
     fun movePlanet() {
-        // TODO Use Keplers law... e.g. http://www.sjsu.edu/faculty/watkins/orbital.htm
+        // TODO Use Keplers law for planet movement (or some form reduced to circles)
+        // e.g. http://www.sjsu.edu/faculty/watkins/orbital.htm
+        // Need to make sure that no planet goes faster than pods, or pods never catch up...
+        // Speed of pds is 1, so angular speed cannot be faster than 1/r
 
-        var rt = loc.getSLocP()
-        var speed = PI.toFloat() / ( 2f * (sid.toFloat() +20f ))
+        val rt = loc.getSLocP()
+        val speed = 1/(rt.r+10)
         loc = GBLocation(star, rt.r, rt.t + speed)
     }
-
 
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/doplanet.cc
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/dosector.cc
