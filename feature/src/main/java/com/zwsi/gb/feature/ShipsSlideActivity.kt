@@ -2,6 +2,7 @@ package com.zwsi.gb.feature
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -115,6 +116,12 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the make Pod button */
     fun makePod(view: View) {
 
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
+
         val parent = view.parent as View
         val ship: GBShip = parent.tag as GBShip
 
@@ -129,6 +136,11 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the make Cruiser button */
     fun makeCruiser(view: View) {
 
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+
+        lastClickTime = SystemClock.elapsedRealtime();
         val parent = view.parent as View
         val ship: GBShip = parent.tag as GBShip
 
@@ -140,6 +152,11 @@ class ShipsSlideActivity : AppCompatActivity() {
 
     /** Called when the user taps the fly  To button */
     fun flyTo(view: View) {
+
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
 
         val parent = view.parent as View
         val ship: GBShip = parent.tag as GBShip

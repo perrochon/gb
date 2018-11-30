@@ -8,6 +8,7 @@ package com.zwsi.gb.feature
 //import java.io.OutputStream
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 
+var lastClickTime = 0L
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,6 +52,11 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Create button */
     fun create(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
 
         output.setText("")
 
@@ -84,6 +91,11 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Do button */
     fun doUniverse(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
 
         output.setText("")
 
@@ -116,6 +128,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun makeStuff(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
 
         output.setText("")
 
@@ -138,36 +155,60 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Stars button */
     fun starmap1(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
         val intent = Intent(this, StarsActivity::class.java)
         startActivity(intent)
     }
 
     /** Called when the user taps the Stars button */
     fun starmap2(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
         val intent = Intent(this, MapActivity::class.java)
         startActivity(intent)
     }
 
     /** Called when the user taps the Stars button */
     fun stars(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
         val intent = Intent(this, StarsSlideActivity::class.java)
         startActivity(intent)
     }
 
     /** Called when the user taps the Planets button */
     fun planets1(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
         val intent = Intent(this, PlanetsScrollActivity::class.java)
         startActivity(intent)
     }
 
     /** Called when the user taps the Planets button */
     fun planets2(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
         val intent = Intent(this, PlanetsSlideActivity::class.java)
         startActivity(intent)
     }
 
     /** Called when the user taps the Races button */
     fun races(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
         val racesUID = ArrayList<Int>()
         val intent = Intent(this, RacesSlideActivity::class.java)
 
@@ -185,40 +226,12 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Ships button */
     fun ships(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
         val intent = Intent(this, ShipsSlideActivity::class.java)
         startActivity(intent)
     }
 
-    /* Hide System UI. If we do it in all screens, we lose the back button. If we do it only here, background resizes.
-       Need to figure out what to do about this.
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) hideSystemUI()
-    }
-
-    private fun hideSystemUI() {
-        // Enables regular immersive mode.
-        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_IMMERSIVE
-                // Set the content to appear under the system bars so that the
-                // content doesn't resize when the system bars hide and show.
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                // Hide the nav bar and status bar
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-        )
-    }
-
-    // Shows the system bars by removing all the flags
-    // except for the ones that make the content appear under the system bars.
-    private fun showSystemUI() {
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-    }
-    */
 }

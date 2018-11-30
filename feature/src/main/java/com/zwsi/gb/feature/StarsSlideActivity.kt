@@ -2,6 +2,7 @@ package com.zwsi.gb.feature
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -69,6 +70,11 @@ class StarsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Go to Planets button */
     fun goToLocation(view: View) {
 
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
         val intent = Intent(this, PlanetsSlideActivity::class.java)
 
         val parent = view.parent.parent as View // TODO there must be a better (not layout dependent) way than this
@@ -88,6 +94,11 @@ class StarsSlideActivity : AppCompatActivity() {
 
     /** Called when the user taps the Go to Planets button */
     fun goToShips(view: View) {
+
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
 
         val intent = Intent(this, ShipsSlideActivity::class.java)
 

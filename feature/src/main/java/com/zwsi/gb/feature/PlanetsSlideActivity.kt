@@ -1,6 +1,7 @@
 package com.zwsi.gb.feature
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -69,6 +70,12 @@ class PlanetsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Make Pod button */
     fun makeFactory(view: View) {
 
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
+
         val parent = view.parent as View
         val planet: GBPlanet = parent.tag as GBPlanet
 
@@ -82,6 +89,11 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
     /** Called when the user taps the Colonize button */
     fun colonize0(view: View) {
+
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
 
         val parent = view.parent as View
         val planet: GBPlanet = parent.tag as GBPlanet
@@ -98,6 +110,11 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
     /** Called when the user taps the Colonize button */
     fun colonize1(view: View) {
+
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
 
         val parent = view.parent as View
         val planet: GBPlanet = parent.tag as GBPlanet

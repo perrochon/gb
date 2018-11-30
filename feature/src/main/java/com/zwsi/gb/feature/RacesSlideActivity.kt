@@ -1,6 +1,7 @@
 package com.zwsi.gb.feature
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.support.v4.R.id.left
 import android.support.v4.R.id.right
 import android.support.v4.view.ViewPager
@@ -68,6 +69,12 @@ class RacesSlideActivity : AppCompatActivity() {
 
     /** Called when the user taps the Go button */
     fun goToLocation(view: View) {
+
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
 
         val parent = view.parent as View
         val race = parent.tag as GBRace
