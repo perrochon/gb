@@ -116,7 +116,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the make Pod button */
     fun makePod(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -136,7 +136,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the make Cruiser button */
     fun makeCruiser(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
 
@@ -153,7 +153,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the fly  To button */
     fun flyTo(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();

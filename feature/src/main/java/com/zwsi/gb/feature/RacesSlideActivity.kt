@@ -70,7 +70,7 @@ class RacesSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Go button */
     fun goToLocation(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();

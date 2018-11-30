@@ -70,7 +70,7 @@ class StarsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Go to Planets button */
     fun goToLocation(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -95,7 +95,7 @@ class StarsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Go to Planets button */
     fun goToShips(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();

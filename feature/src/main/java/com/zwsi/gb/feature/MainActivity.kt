@@ -20,6 +20,7 @@ import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 
 var lastClickTime = 0L
+val clickDelay = 1000L
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Create button */
     fun create(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -91,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Do button */
     fun doUniverse(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -128,7 +129,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun makeStuff(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -155,7 +156,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Stars button */
     fun starmap1(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -165,7 +166,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Stars button */
     fun starmap2(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -175,7 +176,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Stars button */
     fun stars(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -185,7 +186,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Planets button */
     fun planets1(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -195,7 +196,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Planets button */
     fun planets2(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -205,7 +206,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Races button */
     fun races(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -226,7 +227,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Ships button */
     fun ships(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();

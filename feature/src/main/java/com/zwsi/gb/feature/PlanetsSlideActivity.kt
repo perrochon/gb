@@ -70,7 +70,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Make Pod button */
     fun makeFactory(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -90,7 +90,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Colonize button */
     fun colonize0(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -111,7 +111,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the Colonize button */
     fun colonize1(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
