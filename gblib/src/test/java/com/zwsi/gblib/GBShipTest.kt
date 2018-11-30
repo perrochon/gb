@@ -19,7 +19,7 @@ class GBShipTest {
 
         val universe = GBController.universe
 
-        GBDebug.l3("Looking at ship " + ship.uid + " with name " + ship.name)
+        GBLog.d("Looking at ship " + ship.uid + " with name " + ship.name)
 
         assertTrue(ship.name.length > 0)
 
@@ -53,19 +53,19 @@ class GBShipTest {
         // Make sure this ship is only in one location
         var found = 0
 
-        GBDebug.l3("Looking all over for ship: " + ship.uid)
+        GBLog.d("Looking all over for ship: " + ship.uid)
 
         for (sh in universe.universeShips) {
             if (sh.uid == ship.uid) {
                 found++
-                GBDebug.l3("Found in deep space: ship: " + sh.uid)
+                GBLog.d("Found in deep space: ship: " + sh.uid)
             }
         }
         for (st in universe.allStars) {
             for (sh in st.starShips) {
                 if (sh.uid == ship.uid) {
                     found++
-                    GBDebug.l3("Found in star: ship: " + sh.uid + " in star: " + st.uid)
+                    GBLog.d("Found in star: ship: " + sh.uid + " in star: " + st.uid)
                 }
             }
         }
@@ -73,13 +73,13 @@ class GBShipTest {
             for (sh in pl.orbitShips) {
                 if (sh.uid == ship.uid) {
                     found++
-                    GBDebug.l3("Found in orbit: ship: " + sh.uid + " around planet: " + pl.uid)
+                    GBLog.d("Found in orbit: ship: " + sh.uid + " around planet: " + pl.uid)
                 }
             }
             for (sh in pl.landedShips) {
                 if (sh.uid == ship.uid) {
                     found++
-                    GBDebug.l3("Found landed: ship: " + sh.uid + " ion planet: " + pl.uid)
+                    GBLog.d("Found landed: ship: " + sh.uid + " ion planet: " + pl.uid)
                 }
             }
         }
@@ -132,7 +132,7 @@ class GBShipTest {
     fun basic() {
         val universe = GBController.makeUniverse()
 
-        GBDebug.l3("Testing " + universe.allShips.size + " ships")
+        GBLog.d("Testing " + universe.allShips.size + " ships")
 
         // Test all ships there are
         for (ship in universe.allShips) {

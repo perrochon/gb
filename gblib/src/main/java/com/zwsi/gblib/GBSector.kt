@@ -25,7 +25,7 @@ class GBSector constructor(val planet: GBPlanet) {
     }
 
     fun landPopulation(r: GBRace, number: Int) {
-        GBDebug.l3("GBSector: Landing $number of ${r.name}")
+        GBLog.d("GBSector: Landing $number of ${r.name}")
         if (owner != null) {
             // Can't land on populated sector. They all die...
             return

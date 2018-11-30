@@ -38,7 +38,7 @@ class GBRace(val universe: GBUniverse, val idx: Int) {
         absorption= GBData.getRaceAbsorption(idx)
         description = GBData.getRaceDescription(idx)
 
-        GBDebug.l2("Created Race $name with birthrate $birthrate")
+        GBLog.i("Created Race $name with birthrate $birthrate")
 
     }
 

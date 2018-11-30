@@ -7,7 +7,7 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
-import com.zwsi.gblib.GBDebug.gbAssert
+import com.zwsi.gblib.GBLog.gbAssert
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -64,7 +64,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
     fun moveShip(loc: GBLocation) {
 
-        GBDebug.l3("Moving " + name + " from " + this.loc.getLocDesc() + " to " + loc.getLocDesc())
+        GBLog.d("Moving " + name + " from " + this.loc.getLocDesc() + " to " + loc.getLocDesc())
 
         // TODO no need to always do these whens, e.g. if things are the same, no need to remove and add
         when (this.loc.level) {
@@ -120,18 +120,18 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         val dxy = dest.getLoc()       // use getLoc to get universal (x,y)
         val sxy = this.loc.getLoc()   // center of planet for landed and orbit
 
-        GBDebug.l3("Flying " + name + " from " + this.loc.getLocDesc() + " to " + dest.getLocDesc())
+        GBLog.d("Flying " + name + " from " + this.loc.getLocDesc() + " to " + dest.getLocDesc())
 
 
         if (loc.level == LANDED) { // We are landed
 
-            GBDebug.l3(name + " is landed")
+            GBLog.d(name + " is landed")
 
             if ((dest.level != loc.level) || (dest.refUID != loc.refUID)) { // we need to get to orbit
                 var next = GBLocation(loc.getPlanet()!!, 1f, 1f)
                 moveShip(next)
 
-                GBDebug.l3(name + " is launched")
+                GBLog.d(name + " is launched")
                 universe.news.add("Launched $name to ${loc.getLocDesc()}.\n\n")
             }
             // here we will deal with surface to surface of same planet moves...
@@ -154,7 +154,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
             var dx = dxy.x - sxy.x
             var dy = dxy.y - sxy.y
 
-            GBDebug.l3("(dx,dy) = ($dx, $dy)\n")
+            GBLog.d("(dx,dy) = ($dx, $dy)\n")
 
             var togo = sqrt(dx * dx + dy * dy)
 
@@ -171,23 +171,23 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 return
             }
 
-//            GBDebug.l3("togo = $togo\n")
+//            GBLog.d("togo = $togo\n")
 
             var factorX = speed / togo
             var factorY = speed / togo
 
-//            GBDebug.l3("(fx,fy) = ($factorX, $factorY)\n")
+//            GBLog.d("(fx,fy) = ($factorX, $factorY)\n")
 
             var rawX = dx * factorX * speed
             var rawY = dy * factorY * speed
 
-//            GBDebug.l3("(rx,ry) = ($rawX, $rawY)\n")
+//            GBLog.d("(rx,ry) = ($rawX, $rawY)\n")
 
             var offsetX = min(abs(dx), abs(rawX)) * sign(dx)
             var offsetY = min(abs(dy), abs(rawY)) * sign(dy)
 
 
-            GBDebug.l3("Flying from (${sxy.x}, ${sxy.y}) direction (${dxy.x}, ${dxy.y}) for ($offsetX, $offsetY) at speed $speed\n")
+            GBLog.d("Flying from (${sxy.x}, ${sxy.y}) direction (${dxy.x}, ${dxy.y}) for ($offsetX, $offsetY) at speed $speed\n")
 
 
             if (loc.level == DEEPSPACE) {
@@ -201,7 +201,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                     moveShip(next)
 
-                    GBDebug.l3(" Arrived in System")
+                    GBLog.d(" Arrived in System")
 
                     universe.news.add("$name arrived in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
                     return
@@ -210,7 +210,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                     var next = GBLocation(sxy.x + offsetX, sxy.y + offsetY)
                     moveShip(next)
 
-                    GBDebug.l3(" Flying Deep Space")
+                    GBLog.d(" Flying Deep Space")
 
 
                     universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
@@ -229,7 +229,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                     var next = GBLocation(sxy.x + offsetX, sxy.y + offsetY)
                     moveShip(next)
 
-                    GBDebug.l3(" Left System")
+                    GBLog.d(" Left System")
 
 
                     universe.news.add("$name entered ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
@@ -239,7 +239,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                     var next = GBLocation(loc.getStar()!!, sxy.x + offsetX, sxy.y + offsetY, true)
                     moveShip(next)
 
-                    GBDebug.l3(" Flying insystem ")
+                    GBLog.d(" Flying insystem ")
 
                     universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
                     return

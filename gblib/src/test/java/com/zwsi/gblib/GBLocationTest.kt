@@ -70,7 +70,7 @@ class GBLocationTest {
                 assertEquals("Deep Space", l.getLocDesc())
             }
             else -> {
-                GBDebug.gbAssert("Ship in Limbo", { true })
+                GBLog.gbAssert("Ship in Limbo", { true })
             }
         }
     }

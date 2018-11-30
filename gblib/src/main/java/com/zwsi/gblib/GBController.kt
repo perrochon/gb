@@ -46,24 +46,27 @@ class GBController {
         // If you specifically ask for big or small, you get that.
         // After that, if you want a normal instead, you have to use make Universe
 
+        @Synchronized
         fun makeUniverse(): GBUniverse {
-            GBDebug.l1("Making regular sized universe")
+            GBLog.i("Making regular sized universe")
             smallUniverse = false
             bigUniverse = false
             currentUniverse = null
             return universe
         }
 
+        @Synchronized
         fun makeSmallUniverse(): GBUniverse {
-            GBDebug.l1("Making small universe")
+            GBLog.i("Making small universe")
             smallUniverse = true
             bigUniverse = false
             currentUniverse = null
             return universe
         }
 
+        @Synchronized
         fun makeBigUniverse(): GBUniverse {
-            GBDebug.l1("Making big universe")
+            GBLog.i("Making big universe")
             bigUniverse = true
             smallUniverse = false
             currentUniverse = null
@@ -73,13 +76,16 @@ class GBController {
         // TODO move game turns to GBUniverse as it should be there. Turns are per universe
         private var gameTurns = 0
 
+        @Synchronized
         fun doUniverse() {
             gameTurns++
-            GBDebug.l1("Runing Game Turn $gameTurns")
+            GBLog.i("Runing Game Turn $gameTurns")
             universe.doUniverse()
         }
 
+        @Synchronized
         fun makeStuff() {
+            for (i in 1..100)
             universe.makeStuff()
         }
 

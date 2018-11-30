@@ -21,14 +21,11 @@ class GBUniverse {
     constructor(numberOfStars: Int) {
         this.numberOfStars = numberOfStars
         this.numberOfRaces = GBController.numberOfRaces
-        GBDebug.l3("Making Stars")
+        GBLog.d("Making Stars")
         makeStars()
-//        for (s in allStars) {
-//            s.makePlanets()
-//        }
         makeRaces()
         news.add(missionController.getCurrentMission())
-        GBDebug.l3("Universe made")
+        GBLog.d("Universe made")
     }
 
     val universeMaxX: Int
@@ -63,7 +60,7 @@ class GBUniverse {
     }
 
     private fun makeStars() {
-        GBDebug.l2("Making stars and planets")
+        GBLog.i("Making stars and planets")
         GBStar.resetStarCoordinates()
         for (i in 0 until numberOfStars) {
             GBStar(this)
@@ -72,7 +69,7 @@ class GBUniverse {
     }
 
     private fun makeRaces() {
-        GBDebug.l2("Making and landing Races")
+        GBLog.i("Making and landing Races")
 
         // TODO: Replace with full configuration driven solution instead of hard code.
         // We only need one race for the early mission, but we land the others for God Mode...
@@ -99,7 +96,7 @@ class GBUniverse {
 
 
     internal fun doUniverse() {
-        GBDebug.l3("Doing Universe: " + orders.toString())
+        GBLog.d("Doing Universe: " + orders.toString())
 
         news.clear()
 
@@ -132,7 +129,7 @@ class GBUniverse {
 
 
     fun makeFactory(p: GBPlanet) {
-        GBDebug.l3("universe: Making factory for ?? on " + p.name + "")
+        GBLog.d("universe: Making factory for ?? on " + p.name + "")
 
         var loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
 
@@ -140,29 +137,29 @@ class GBUniverse {
 
         order.makeFactory(loc)
 
-        GBDebug.l3("Order made: " + order.toString())
+        GBLog.d("Order made: " + order.toString())
 
         orders.add(order)
 
-        GBDebug.l3("Current Orders: " + orders.toString())
+        GBLog.d("Current Orders: " + orders.toString())
     }
 
     fun makePod(factory: GBShip) {
-        GBDebug.l3("universe: Making Pod for ?? in Factory " + factory.name + "")
+        GBLog.d("universe: Making Pod for ?? in Factory " + factory.name + "")
 
         var order = GBOrder()
         order.makePod(factory)
 
-        GBDebug.l3("Ship made: " + order.toString())
+        GBLog.d("Ship made: " + order.toString())
 
         orders.add(order)
 
-        GBDebug.l3("Current Orders: " + orders.toString())
+        GBLog.d("Current Orders: " + orders.toString())
     }
 
 
     fun flyShip(sh: GBShip, p: GBPlanet) {
-        GBDebug.l3("Creating order to teleport " + sh.name + " to " + p.name)
+        GBLog.d("Creating order to teleport " + sh.name + " to " + p.name)
 
         var loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
 
@@ -170,20 +167,20 @@ class GBUniverse {
 
 //        var order = GBOrder()
 //        order.teleportShip(sh, loc)
-//        GBDebug.l3("Order made: " + order.toString())
+//        GBLog.d("Order made: " + order.toString())
 //        orders.add(order)
 
-        GBDebug.l3("Current Orders: " + orders.toString())
+        GBLog.d("Current Orders: " + orders.toString())
     }
 
     fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
-        GBDebug.l3("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
+        GBLog.d("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
         p.landPopulation(allRaces[uId], number)
     }
 
 
     fun makeStuff() {
-        GBDebug.l3("Making Stuff")
+        GBLog.d("Making Stuff")
 
         val p = allPlanets[0]
         makeFactory(p)
@@ -219,7 +216,6 @@ class GBUniverse {
             flyShip(pod, allStars[4].starPlanets[0])
             for (i in 1..4)
                 doUniverse()
-
 
         }
     }

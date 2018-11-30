@@ -18,6 +18,7 @@ Population no longer migrates
 ### Not Gating
 * Passing race around on commands, to make sure actions are access controlled :-)
 * Remove TileView library and code
+* Upgrading thread management, maybe start using a handler
 * Get Rid of Feature Module. Having one feature module is kind of pointless, it seems
 * Refactor and apply Naming conventions for UI elements (btn_do etc.) and other things
 * Access and visibility in gblib

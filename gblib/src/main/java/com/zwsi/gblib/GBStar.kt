@@ -40,7 +40,7 @@ class GBStar(val universe: GBUniverse) {
         y = coordinates[1]
 
         loc = GBLocation(x.toFloat(),y.toFloat())
-        GBDebug.l3("Star $name location is ($x,$y)")
+        GBLog.d("Star $name location is ($x,$y)")
 
         if (universe.numberOfStars > 3) {
             // 2-8 stars. May adjust this later based on star type...
@@ -50,7 +50,7 @@ class GBStar(val universe: GBUniverse) {
 
         makePlanets()
 
-        GBDebug.l3("Made System $name")
+        GBLog.d("Made System $name")
     }
 
 
@@ -81,7 +81,7 @@ class GBStar(val universe: GBUniverse) {
     }
 
      fun makePlanets() {
-        GBDebug.l3("Making Planets for star $name")
+        GBLog.d("Making Planets for star $name")
 
         for (i in 0 until numberOfPlanets) {
             val p = GBPlanet(i, this)
@@ -122,7 +122,7 @@ class GBStar(val universe: GBUniverse) {
         val marginX = areaWidth / 10 // no star in the edge of the area
         val marginY = areaHeight / 10 // no star in the edge of the area
 
-        GBDebug.l3("Adding Star to area " + area + "[" + areaX + "][" + areaY + "] (" + areaWidth + "x" + areaHeight + "){" + marginX + ", " + marginY + "}")
+        GBLog.d("Adding Star to area " + area + "[" + areaX + "][" + areaY + "] (" + areaWidth + "x" + areaHeight + "){" + marginX + ", " + marginY + "}")
 
         coordinates[0] = GBData.rand.nextInt(areaWidth - 2 * marginX) + areaX * areaWidth + marginX
         coordinates[1] = GBData.rand.nextInt(areaHeight - 2 * marginY) + areaY * areaHeight + marginY

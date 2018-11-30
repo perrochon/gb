@@ -5,7 +5,7 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
-import com.zwsi.gblib.GBDebug.gbAssert
+import com.zwsi.gblib.GBLog.gbAssert
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin

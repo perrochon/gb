@@ -56,8 +56,8 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
         loc = GBLocation(star, (sid+1f)*orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
-        GBDebug.l3("Planet $name location is Polar ( ${loc.r} , ${loc.t} )")
-        GBDebug.l3("Planet $name location is Cartesian( ${loc.x} , ${loc.y} )")
+        GBLog.d("Planet $name location is Polar ( ${loc.r} , ${loc.t} )")
+        GBLog.d("Planet $name location is Cartesian( ${loc.x} , ${loc.y} )")
 
 
         // Make Sectors
@@ -71,7 +71,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
             sectors[i].type = GBData.sectorTypesChance[idxtype][GBData.rand.nextInt(10)]
         }
 
-        GBDebug.l3(
+        GBLog.d(
             "Made Planet " + name + " of idxtype " + type
                     + ". Planet size is " + height + "x" + width
         )
@@ -150,7 +150,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/perm.cc
     fun doPlanet() {
 
-        GBDebug.l2("Running Year on planet $name")
+        GBLog.d("Running Year on planet $name")
 
         movePlanet()
 
@@ -161,11 +161,11 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
             if (sectors[i].getPopulation() > 0) {
 
-                GBDebug.l3("Found population of ${sectors[i].getPopulation()} in sector [${sectorX(i)}][${sectorY(i)}] - growing")
+                GBLog.d("Found population of ${sectors[i].getPopulation()} in sector [${sectorX(i)}][${sectorY(i)}] - growing")
 
                 sectors[i].growPopulation()
 
-                GBDebug.l3("New Population is ${sectors[i].getPopulation()}")
+                GBLog.d("New Population is ${sectors[i].getPopulation()}")
 
             }
         }
@@ -180,7 +180,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
             if (sectors[from].getPopulation() > 0) {
 
-                GBDebug.l3(
+                GBLog.d(
                     "Found population of ${sectors[from].getPopulation()} in sector [${sectorX(from)}][${sectorY(
                         from
                     )}] - migrating"
@@ -202,7 +202,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
     fun migratePopulation(number: Int, from: Int, to: Int) {
         // attempt to migrate population
 
-        GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}]")
+        GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}]")
 
         if (from == to) return
         if (number == 0) return
@@ -210,26 +210,26 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
         if (sectors[to].getOwner() == null) {
             //moving into an empty sector
-            GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Explore $number move")
+            GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Explore $number move")
             sectors[from].changePopulation(-number)
             sectors[to].setPopulation(sectors[from].getOwner()!!, number)
 
         } else if (sectors[to].getOwner() == sectors[from].getOwner()) {
             //moving to a friendly sector
-            GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Reloc! $number move")
+            GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Reloc! $number move")
             sectors[from].changePopulation(-number)
             sectors[to].changePopulation(+number)
 
         } else {
             // moving to an enemy sector
             // We have a very simple form of war: They all die
-            GBDebug.l3("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Attack! $number die")
+            GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Attack! $number die")
             sectors[from].changePopulation(-number)
         }
     }
 
     fun landPopulation(r: GBRace, number: Int) {
-        GBDebug.l3("GBPlanet: Landing $number of ${r.name}")
+        GBLog.d("GBPlanet: Landing $number of ${r.name}")
         sectors[GBData.rand.nextInt(width * height)].landPopulation(r, number)
     }
 
