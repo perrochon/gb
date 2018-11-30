@@ -29,7 +29,12 @@ import java.util.logging.Logger
 
 internal object GBLog {
 
-    val DEBUG_LEVEL = 0  // Legacy: 0 Warnings/Errors/Info only. 1: Show Debug, 2: Show verbose
+    // Legacy: 0 Warnings/Errors/Info only. 1: Show Debug, 2: Show verbose
+    // Two reasons:
+    // 1. Studio+Emulator doesn't show below info, so upgrading those to info
+    // 2. Logging is expensive, with this I am not even logging when debug level is higher
+
+    val DEBUG_LEVEL = 1
 
     val Log = Logger.getLogger("GB")
 
