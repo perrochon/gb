@@ -14,7 +14,6 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBUniverse
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val version = findViewById<TextView>(R.id.version)
-        version.setText("0.0.0.238") // for now: 0.0.0.~ #commits...
+        version.setText("0.0.0.245") // for now: 0.0.0.~ #commits...
 
 
         Thread(Runnable {
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Create button */
     fun create(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -92,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Do button */
     fun doUniverse(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -129,7 +128,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun makeStuff(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -156,7 +155,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Stars button */
     fun starmap1(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -166,7 +165,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Stars button */
     fun starmap2(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -176,7 +175,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Stars button */
     fun stars(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -186,7 +185,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Planets button */
     fun planets1(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -196,7 +195,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Planets button */
     fun planets2(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -206,7 +205,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Races button */
     fun races(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -227,7 +226,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Ships button */
     fun ships(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
