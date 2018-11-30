@@ -85,7 +85,7 @@ class GBController {
 
         @Synchronized
         fun makeStuff() {
-            for (i in 1..100)
+            for (i in 1..1)
             universe.makeStuff()
         }
 

@@ -34,7 +34,7 @@ internal object GBLog {
     // 1. Studio+Emulator doesn't show below info, so upgrading those to info
     // 2. Logging is expensive, with this I am not even logging when debug level is higher
 
-    val DEBUG_LEVEL = 1
+    val DEBUG_LEVEL = 0
 
     val Log = Logger.getLogger("GB")
 

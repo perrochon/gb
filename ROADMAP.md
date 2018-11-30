@@ -5,7 +5,6 @@ Population no longer migrates
 
 ## Code Quality
 ### Gating for Mission 2 (don't want to propagate bad code more)
-* Catch double clicks...
 * Unit Test Mission 1
 * Refactor to use resources for strings
 * Refactor distance, vector, etc into GBLocation. Use everywhere
