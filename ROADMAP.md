@@ -58,6 +58,7 @@ Population no longer migrates
 * Some icons need to stay at fixed distance in screen pixels, e.g. star icon, name, and race icon. Right now they are fixed in source coordinates, and thus move closer when you zoom out.
 
 #### Planet
+* Move planets around their star
 * Resources. Money, other. Probably Money first, as a summary for all else
 * multiple races per planet
 * Environment and impact on migration and population growth
