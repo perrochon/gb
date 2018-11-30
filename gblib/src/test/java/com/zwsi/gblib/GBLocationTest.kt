@@ -9,7 +9,6 @@ import com.zwsi.gblib.GBController.Companion.universe
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import kotlin.math.E
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -155,20 +154,6 @@ class GBLocationTest {
         assertEquals(-10f, xy.x)
         assertEquals(0f, xy.y)
         assertEquals(10f, rt.r)
-
-        val p = s.starPlanets[s.starPlanets.size-1]
-
-        var rt1 = p.loc.getSLocP()
-        var xy1 = p.loc.getSLocP()
-
-        p.movePlanet()
-
-        var rt2 = p.loc.getSLocP()
-        var xy2 = p.loc.getSLocP()
-
-        assertEquals(rt1.r, rt2.r)
-        assertEquals(1, rt2.t - rt1.t)
-
-
     }
+
 }

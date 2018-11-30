@@ -8,6 +8,7 @@ package com.zwsi.gblib
 import org.junit.Test
 
 import org.junit.Assert.*
+import kotlin.math.PI
 
 class GBPlanetTest {
 
@@ -90,6 +91,26 @@ class GBPlanetTest {
             assertEquals(p.west(width * (height - 1)), width * height - 1)
             assertEquals(p.east(width * height - 2), width * height - 1)
             assertEquals(p.south(width * (height - 1) - 1), width * height - 1)
+        }
+    }
+
+    @Test
+    fun planetMoves() {
+
+        val universe = GBController.makeUniverse()
+
+        for (p in universe.allPlanets) {
+
+            val rt1 = p.loc.getSLocP()
+            val xy1 = p.loc.getSLocC()
+
+            p.movePlanet()
+
+            var rt2 = p.loc.getSLocP()
+            var xy2 = p.loc.getSLocC()
+
+            assertEquals(rt1.r, rt2.r)
+            assert(xy1.distance(xy2) < 0.99) // Or pods can never catch up
         }
     }
 
