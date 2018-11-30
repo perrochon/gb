@@ -21,7 +21,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
     val owner: GBRace? = null;
 
-    val loc : GBLocation
+    var loc : GBLocation
 
     val ownerName: String
         get() = owner?.name ?: "<not owned>"
@@ -52,7 +52,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
         idxtype = GBData.selectPlanetTypeIdx()
         type = GBData.planetTypeFromIdx(idxtype)
 
-        val orbitDist = 14f / star.numberOfPlanets // TODO Move constant out. Depends on overall sizes
+        val orbitDist = 13f / star.numberOfPlanets // TODO Move constant out. Depends on overall sizes
 
         loc = GBLocation(star, (sid+1f)*orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
@@ -133,13 +133,24 @@ class GBPlanet(val sid: Int, val star: GBStar) {
             x + width
     }
 
+
+    fun movePlanet() {
+        // TODO Use Keplers law... e.g. http://www.sjsu.edu/faculty/watkins/orbital.htm
+
+        var rt = loc.getSLocP()
+        var speed = PI.toFloat() / ( 2f * (sid.toFloat() +20f ))
+        loc = GBLocation(star, rt.r, rt.t + speed)
+    }
+
+
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/doplanet.cc
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/dosector.cc
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/perm.cc
     fun doPlanet() {
 
-
         GBDebug.l2("Running Year on planet $name")
+
+        movePlanet()
 
         var race: GBRace? = null // TODO this works while there is only one race...
 

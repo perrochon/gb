@@ -189,11 +189,21 @@ class GBUniverse {
         makeFactory(p)
         doUniverse()
         val factory = allShips[0]
+        var pod : GBShip
         if (factory.idxtype == 0) {
+
+            for (pt in p.star.starPlanets) {
+                if (p != pt) {
+                    makePod(factory)
+                    doUniverse()
+                    pod = allShips[allShips.size-1]
+                    flyShip(pod, pt)
+                }
+            }
 
             makePod(factory)
             doUniverse()
-            var pod = allShips[allShips.size-1]
+            pod = allShips[allShips.size-1]
             flyShip(pod, allStars[1].starPlanets[0])
 
             makePod(factory)
@@ -209,6 +219,7 @@ class GBUniverse {
             flyShip(pod, allStars[4].starPlanets[0])
             for (i in 1..4)
                 doUniverse()
+
 
         }
     }

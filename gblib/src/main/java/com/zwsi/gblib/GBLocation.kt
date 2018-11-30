@@ -9,8 +9,15 @@ import com.zwsi.gblib.GBDebug.gbAssert
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.math.sqrt
 
-data class GBxy(val x: Float, val y: Float) {}
+data class GBxy(val x: Float, val y: Float) {
+
+    fun distance(o: GBxy): Float {
+        return sqrt((o.x - x) * (o.x - x) + (o.y - y) * (o.y - y))
+    }
+}
+
 data class GBrt(val r: Float, val t: Float) {}
 data class GBsxy(val sx: Int, val sy: Int) {}
 
@@ -29,6 +36,8 @@ data class GBsxy(val sx: Int, val sy: Int) {}
  *      Used by ships and stars
  */
 class GBLocation {
+
+    // TODO Refactor fun: This may be a clase for subclassing, rather than type and lots of when statements...
 
     var level: Int = -1
         private set
@@ -149,10 +158,10 @@ class GBLocation {
         return GBrt(r, t)
     }
 
-    /** Get System location in Cartesian (universal (x,y) */
+    /** Get System location in Cartesian (in relation to star (x,y) */
     fun getSLocC(): GBxy {
         gbAssert("This is not a system location", level == SYSTEM)
-        return GBxy(x, y)
+        return GBxy(x-getStar()!!.loc.x, y-getStar()!!.loc.y)
     }
 
     /** Get DeepSpace location */
