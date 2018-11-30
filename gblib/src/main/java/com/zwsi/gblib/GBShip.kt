@@ -122,7 +122,6 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
         GBLog.d("Flying " + name + " from " + this.loc.getLocDesc() + " to " + dest.getLocDesc())
 
-
         if (loc.level == LANDED) { // We are landed
 
             GBLog.d(name + " is landed")
@@ -156,7 +155,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             GBLog.d("(dx,dy) = ($dx, $dy)\n")
 
-            var togo = sqrt(dx * dx + dy * dy)
+            var togo = sxy.distance(dxy)
 
             if (togo < speed) { // we will arrive this turn . Arrival must be a planet
 
@@ -171,17 +170,11 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 return
             }
 
-//            GBLog.d("togo = $togo\n")
-
             var factorX = speed / togo
             var factorY = speed / togo
 
-//            GBLog.d("(fx,fy) = ($factorX, $factorY)\n")
-
             var rawX = dx * factorX * speed
             var rawY = dy * factorY * speed
-
-//            GBLog.d("(rx,ry) = ($rawX, $rawY)\n")
 
             var offsetX = min(abs(dx), abs(rawX)) * sign(dx)
             var offsetY = min(abs(dy), abs(rawY)) * sign(dy)
