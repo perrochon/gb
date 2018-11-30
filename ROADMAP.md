@@ -1,7 +1,7 @@
 # Roadmap
 
 #Regression
-Clicking on a planet in Planets1 always gives you Helle
+Population no longer migrates
 
 ## Code Quality
 ### Gating for Mission 2 (don't want to propagate bad code more)

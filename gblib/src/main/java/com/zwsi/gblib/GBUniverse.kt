@@ -110,6 +110,7 @@ class GBUniverse {
 
         for (s in allStars) {
             for (p in s.starPlanets) {
+                p.doPlanet()
             }
         }
 
