@@ -142,7 +142,6 @@ class MainActivity : AppCompatActivity() {
         Thread(Runnable {
 
             GBController.makeStuff()
-
             view.post {
                 // Worth making a string in this thread and post just result?
                 for (s in GBController.universe!!.news)

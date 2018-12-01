@@ -6,17 +6,16 @@ Population no longer migrates
 ## Code Quality
 ### Gating for Mission 2 (don't want to propagate bad code more)
 * Unit Test Mission 1
-* Refactor to use resources for strings
-* Refactor distance, vector, etc into GBLocation. Use everywhere
 * Import GBController.universe in all files. Use universe. only. Think this through about companion, though.
 * Review all unit tests, and add whats missing (GBLocation? GBxy)
 * Review all TODO
+* Refactor to use resources for strings
 * Review all warnings
+* Upgrading thread management, maybe start using a handler
 
 ### Not Gating
 * Passing race around on commands, to make sure actions are access controlled :-)
 * Remove TileView library and code
-* Upgrading thread management, maybe start using a handler
 * Get Rid of Feature Module. Having one feature module is kind of pointless, it seems
 * Refactor and apply Naming conventions for UI elements (btn_do etc.) and other things
 * Access and visibility in gblib
