@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="orion_nebula">Orion Nebula</string>
+    <string name="m1n0">[Y] Commander! My name is Yonininji. I will be helping your with your missions. All my hints are
+        marked with [Y] at the beginning.
+    </string>
+    <string name="m1n1">[Y] Your first mission is to colonize your home system Jade. You can find your home planet Helle by
+        clicking on the [Planets] button on the right. Once there, click on [Make Factory] to order your first factory.
+        Then press the [Do] button in the lower right to have your orders executed. Nothing happens unless you press
+        [Do]
+    </string>
+    <string name="m1n2">[Y] Congratulations! You built your first factory! Next, you have to build a pod. Click on
+        [Ships] and then [Make Pod] in the factory screen. Remember to press Do after you give the order.
+    </string>
+    <string name="m1n3">[Y] Commander, we have a pod! Click on [Ships], swipe until you find the pod, then set a
+        destination by selecting the target planet from the drop down menu and then clicking [Fly To]. Again, press [DO]
+    </string>
+    <string name="m1n4">[Y] A pot inflight will fly to the target on it\'s own. It\'s speed
+        is 1, which allows it to reach anything else in the system in less than 20 turns. Keep hitting [Do],
+        and watch any ships make progress in the [Starmap]. Order more pods and send one to each planet in your home system.
+    </string>
+    <string name="m1n5">[Y] Pods automatically unload their passenger alive (if you are
+        lucky). It\'s a small step for a Xenos, and a big step for Xenosity.
+    </string>
+    <string name="m1n6">You have finished all missions. Feel free to continue to exploit the universe.</string>
 
 
 </resources>

@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
                 // Worth making a string in this thread and post just result?
                 for (s in GBController.universe.news)
                     output.append(s)
+
+                output.append(MissionController.getCurrentMission(this))
             }
         }).start()
 
@@ -72,6 +74,8 @@ class MainActivity : AppCompatActivity() {
 
             GBController.makeUniverse()
 
+
+
             System.out.flush()
 
             view.post {
@@ -83,6 +87,9 @@ class MainActivity : AppCompatActivity() {
                 // Worth making a string in this thread and post just result?
                 for (s in GBController.universe!!.news)
                     output.append(s)
+
+                output.append(MissionController.getCurrentMission(this))
+
             }
 
         }).start()
@@ -121,6 +128,9 @@ class MainActivity : AppCompatActivity() {
                 // Worth making a string in this thread and post just result?
                 for (s in GBController.universe!!.news)
                     output.append(s)
+
+                MissionController.checkMissionStatus()
+                output.append(MissionController.getCurrentMission(this))
             }
 
         }).start()

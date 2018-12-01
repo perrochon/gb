@@ -11,8 +11,6 @@ class GBUniverse {
     var allShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
     var universeShips: MutableList<GBShip> = arrayListOf() // ships in transit between system
 
-    var missionController = GBMissionController()
-
     var news = arrayListOf<String>()
 
     var orders = arrayListOf<GBOrder>()
@@ -24,7 +22,6 @@ class GBUniverse {
         GBLog.d("Making Stars")
         makeStars()
         makeRaces()
-        news.add(missionController.getCurrentMission())
         GBLog.d("Universe made")
     }
 
@@ -119,8 +116,6 @@ class GBUniverse {
             sh.doShip()
         }
 
-        missionController.checkMissionStatus()
-        news.add(missionController.getCurrentMission())
     }
 
     fun getPlanets(s: GBStar): Array<GBPlanet?> {

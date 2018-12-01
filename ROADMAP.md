@@ -14,6 +14,7 @@ Population no longer migrates
 * Upgrading thread management, maybe start using a handler
 
 ### Not Gating
+* Destroy ships? Pods should be destroyed after the end of mission 1
 * Passing race around on commands, to make sure actions are access controlled :-)
 * Remove TileView library and code
 * Get Rid of Feature Module. Having one feature module is kind of pointless, it seems
