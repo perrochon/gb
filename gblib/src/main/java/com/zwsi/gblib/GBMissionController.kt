@@ -23,8 +23,8 @@ class GBMissionController() {
                         "One more thing: If you see greyed out buttons, these are God level shortcuts. Ignore them!\n\n"
 
             1 -> "Your first mission is to colonize the 5 planets of Jade, your home system. " +
-                        "Build a factory, start building pods and send a pod to each " +
-                        "of the other planets in the system. Land the pods.\n\n"
+                    "Build a factory, start building pods and send a pod to each " +
+                    "of the other planets in the system. Land the pods.\n\n"
             2 -> "Congratualations, you finished your first mission. Feel free to continue to exploit the universe.\n\n"
 
             else ->
@@ -32,22 +32,27 @@ class GBMissionController() {
         }
     }
 
-    fun checkMissionStatus()  {
+    fun checkMissionStatus() {
         // Mission Status 0 only shows once and can be longer.
         if (missionStatus == 0) {
             missionStatus++
             return
         }
-        for (sh in GBController.universe.allShips){
-            if ((sh.idxtype == 1) and (sh.loc.refUID!= 0)) { // TODO What a hacky way to figure out a pod moved
-                    missionStatus++
+        if (missionStatus == 1) {
+            var success = true
+            for (p in GBController.universe.allStars[0].starPlanets) {
+                if (p.population == 0) {
+                    success = false
                 }
-
+            }
+            if (success == true) {
+                missionStatus++
+                return
+            }
         }
-        // if all planets colonized (population > 0, or owner), missionStatus++
     }
 
-    fun getMissionStatus() :Int {
-        return missionStatus
-    }
+fun getMissionStatus(): Int {
+    return missionStatus
+}
 }

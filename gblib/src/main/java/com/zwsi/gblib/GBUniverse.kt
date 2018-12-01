@@ -111,7 +111,11 @@ class GBUniverse {
             }
         }
 
-        for (sh in allShips) {
+
+        val list = allShips.toMutableList()
+        // TODO Some pods will remove themselves from the list. Better: Schedule a clean up "order" to remove the pod later
+        // This will also work with battle, and e.g. let every ship do their thing, before we clean up
+        for (sh in list) {
             sh.doShip()
         }
 

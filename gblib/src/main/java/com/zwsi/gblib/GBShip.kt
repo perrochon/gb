@@ -13,7 +13,6 @@ import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBLog.gbAssert
 import java.util.*
-import kotlin.math.sqrt
 
 class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
@@ -83,7 +82,17 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         }
         when (loc.level) {
             LANDED -> {
-                loc.getPlanet()!!.landedShips.add(this)
+                if (idxtype == 1) {
+                    // This is a pod, they populate, then destroy
+                    // TODO How to properly destro ships?
+                    // We could just remove it from all lists. But there are fragments etc. that keep state
+                    // With persistence, we may need more work
+                    // universe.allShips.remove(this)
+                    // race.raceShips.remove(this)
+                    universe.landPopulation(this.loc.getPlanet()!!, race.uid, 1)
+                } else {
+                    loc.getPlanet()!!.landedShips.add(this)
+                }
             }
             ORBIT -> {
                 loc.getPlanet()!!.orbitShips.add(this)
@@ -222,7 +231,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                     return
                 } else {
 
-                    var next = GBLocation(loc.getStar()!!, nxy.x , nxy.y, true)
+                    var next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
                     changeShipLocation(next)
 
                     GBLog.d("Flying insystem ")

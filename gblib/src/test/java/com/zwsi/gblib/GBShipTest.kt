@@ -226,7 +226,7 @@ class GBShipTest {
 
         for (loc1 in locations) {
             sh0.changeShipLocation(loc1)
-            consistency(sh0)
+            consistency(sh0) // This now fails that pods self destruct. Need to fix the test
             uniqueLocations()
             for (loc2 in locations) {
                 sh0.changeShipLocation(loc2)
