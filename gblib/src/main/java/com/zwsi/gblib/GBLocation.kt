@@ -13,8 +13,21 @@ import kotlin.math.sqrt
 
 data class GBxy(val x: Float, val y: Float) {
 
-    fun distance(o: GBxy): Float {
-        return sqrt((o.x - x) * (o.x - x) + (o.y - y) * (o.y - y))
+    fun distance(to: GBxy): Float {
+        return sqrt((to.x - x) * (to.x - x) + (to.y - y) * (to.y - y))
+    }
+
+    fun towards(to: GBxy, speed: Float): GBxy {
+        val distance = this.distance(to)
+
+        if (speed > distance) { // we are there
+            return to
+        } else if (this == to) {
+            GBLog.w("Tyring to fly towards current location. Returning current location, but please investigate.")
+            return this
+        } else {
+            return GBxy(x + (to.x - x) * speed / distance, y + (to.y - y) * speed / distance)
+        }
     }
 }
 
@@ -161,7 +174,7 @@ class GBLocation {
     /** Get System location in Cartesian (in relation to star (x,y) */
     fun getSLocC(): GBxy {
         gbAssert("This is not a system location", level == SYSTEM)
-        return GBxy(x-getStar()!!.loc.x, y-getStar()!!.loc.y)
+        return GBxy(x - getStar()!!.loc.x, y - getStar()!!.loc.y)
     }
 
     /** Get DeepSpace location */
@@ -175,11 +188,11 @@ class GBLocation {
         when (level) {
             LANDED -> {
                 return "Landed on " + universe.allPlanets[refUID].name +
-                        " in system " + universe.allPlanets[refUID].star.name
+                        "/" + universe.allPlanets[refUID].star.name
             }
             ORBIT -> {
                 return "Orbit of " + universe.allPlanets[refUID].name +
-                        " in system " + universe.allPlanets[refUID].star.name
+                        "/" + universe.allPlanets[refUID].star.name
             }
             SYSTEM -> {
                 return "System " + universe.allStars[refUID].name

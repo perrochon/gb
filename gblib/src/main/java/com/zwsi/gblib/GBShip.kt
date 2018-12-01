@@ -7,11 +7,11 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
-import com.zwsi.gblib.GBLog.gbAssert
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
+import com.zwsi.gblib.GBLog.gbAssert
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.min
@@ -58,11 +58,11 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         }
 
         type = GBData.getShipType(idxtype)
-        name = type + " " + race.raceShips.indexOf(this)
+        name = "S" + race.raceShips.indexOf(this)
         speed = GBData.getShipSpeed(idxtype)
     }
 
-    fun moveShip(loc: GBLocation) {
+    fun changeShipLocation(loc: GBLocation) {
 
         GBLog.d("Moving " + name + " from " + this.loc.getLocDesc() + " to " + loc.getLocDesc())
 
@@ -106,6 +106,10 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     }
 
     fun doShip() {
+        moveShip()
+    }
+
+    fun moveShip() {
 
         if (trail.size > 10) {
             trail.removeFirst()
@@ -114,41 +118,48 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         if (dest == null) {
             return
         }
+
         trail.addLast(loc.getLoc())
 
         val dest = this.dest!!
         val dxy = dest.getLoc()       // use getLoc to get universal (x,y)
-        val sxy = this.loc.getLoc()   // center of planet for landed and orbit
+        val sxy = loc.getLoc()        // center of planet for landed and orbit
 
-        GBLog.d("Flying " + name + " from " + this.loc.getLocDesc() + " to " + dest.getLocDesc())
+        GBLog.d("Attempting to fly" + name + " from " + this.loc.getLocDesc() + " to " + dest.getLocDesc())
 
         if (loc.level == LANDED) { // We are landed
 
             GBLog.d(name + " is landed")
 
-            if ((dest.level != loc.level) || (dest.refUID != loc.refUID)) { // we need to get to orbit
-                var next = GBLocation(loc.getPlanet()!!, 1f, 1f)
-                moveShip(next)
+            if ((dest.level != loc.level) || (dest.refUID != loc.refUID)) { // landed and we need to get to orbit
 
-                GBLog.d(name + " is launched")
-                universe.news.add("Launched $name to ${loc.getLocDesc()}.\n\n")
+                GBLog.d("launching " + name)
+
+                var next = GBLocation(loc.getPlanet()!!, 1f, 1f)
+                changeShipLocation(next)
+                GBLog.d("launching " + name)
+                universe.news.add("Launched $name to ${loc.getLocDesc()}.\n")
+
+                return
             }
-            // here we will deal with surface to surface of same planet moves...
+
+            // here we will deal with surface to surface moves on the same planet
+
             return
 
         } else if ((loc.level == ORBIT) && (loc.refUID == dest.refUID)) {
-            // if in orbit at destination, land
 
-            moveShip(dest)
-            universe.news.add("$name landed on ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+            GBLog.d(name + " is in orbit at destination. Landing.")
+
+            // in orbit at destination so we need to land
+            changeShipLocation(dest)
+            universe.news.add("$name ${loc.getLocDesc()}.\n")
             this.dest = null
+
             return
 
-
         } else {
-            // we are in orbit, in system, or in space
-
-            // Distance from to can be factored out...
+            // we are not LANDED, so either in ORBIT, in SYTEM, or in DEEPSPACE
 
             var dx = dxy.x - sxy.x
             var dy = dxy.y - sxy.y
@@ -157,11 +168,11 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             var togo = sxy.distance(dxy)
 
-            if (togo < speed) { // we will arrive this turn . Arrival must be a planet
+            if (togo < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
                 var next = GBLocation(dest.getPlanet()!!, 1f, 1f)
-                moveShip(next)
-                universe.news.add("$name arrived in Orbit at ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                changeShipLocation(next)
+                universe.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 
                 if (dest.level == ORBIT) {
                     this.dest = null
@@ -192,21 +203,21 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                     var next = GBLocation(dest.getStar()!!, sxy.x + offsetX, sxy.y + offsetY, true)
 
-                    moveShip(next)
+                    changeShipLocation(next)
 
                     GBLog.d(" Arrived in System")
 
-                    universe.news.add("$name arrived in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                    universe.news.add("$name arrived in ${loc.getLocDesc()}. ( ${loc.x.toInt()} , ${loc.y.toInt()} )\n")
                     return
 
                 } else {
                     var next = GBLocation(sxy.x + offsetX, sxy.y + offsetY)
-                    moveShip(next)
+                    changeShipLocation(next)
 
                     GBLog.d(" Flying Deep Space")
 
 
-                    universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                    //universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n")
                     return
 
                 }
@@ -214,27 +225,28 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             } else {
 
-                var distanceToStar = sqrt(   ((sxy.x + offsetX) - loc.getStar()?.loc?.x!!)*((sxy.x + offsetX) - loc.getStar()?.loc?.x!!)+
-                        ((sxy.y + offsetY) - loc.getStar()?.loc?.y!!)*((sxy.y + offsetY) - loc.getStar()?.loc?.y!!))
+                var distanceToStar = sqrt(
+                    ((sxy.x + offsetX) - loc.getStar()?.loc?.x!!) * ((sxy.x + offsetX) - loc.getStar()?.loc?.x!!) +
+                            ((sxy.y + offsetY) - loc.getStar()?.loc?.y!!) * ((sxy.y + offsetY) - loc.getStar()?.loc?.y!!)
+                )
 
-                if ( distanceToStar > 15f ) {  // we left the system
+                if (distanceToStar > 15f) {  // we left the system
 
                     var next = GBLocation(sxy.x + offsetX, sxy.y + offsetY)
-                    moveShip(next)
+                    changeShipLocation(next)
 
                     GBLog.d(" Left System")
 
-
-                    universe.news.add("$name entered ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                    universe.news.add("$name entered ${loc.getLocDesc()}. ( ${loc.x.toInt()} , ${loc.y.toInt()} )\n")
                     return
                 } else {
 
                     var next = GBLocation(loc.getStar()!!, sxy.x + offsetX, sxy.y + offsetY, true)
-                    moveShip(next)
+                    changeShipLocation(next)
 
                     GBLog.d(" Flying insystem ")
 
-                    universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n\n")
+                    //universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x.toInt()} , ${loc.y.toInt()} )\n")
                     return
 
                 }

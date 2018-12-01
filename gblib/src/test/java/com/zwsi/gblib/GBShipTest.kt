@@ -225,11 +225,11 @@ class GBShipTest {
         consistency(sh0)
 
         for (loc1 in locations) {
-            sh0.moveShip(loc1)
+            sh0.changeShipLocation(loc1)
             consistency(sh0)
             uniqueLocations()
             for (loc2 in locations) {
-                sh0.moveShip(loc2)
+                sh0.changeShipLocation(loc2)
                 consistency(sh0)
                 uniqueLocations()
             }

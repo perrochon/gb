@@ -55,7 +55,7 @@ class GBOrder  {
                 universe.news.add("Built a pod on Helle.\n\n")
             }
             2 -> {
-                GBController.universe.allShips[uid].moveShip(loc)
+                GBController.universe.allShips[uid].changeShipLocation(loc)
                 universe.news.add("Moved ship to  " + loc.getLocDesc() + "\n\n")
             }
             else ->

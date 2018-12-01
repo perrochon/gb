@@ -6,12 +6,12 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
+import org.junit.Assert.*
 import org.junit.Test
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 class GBLocationTest {
 
@@ -154,6 +154,27 @@ class GBLocationTest {
         assertEquals(-10f, xy.x)
         assertEquals(0f, xy.y)
         assertEquals(10f, rt.r)
+    }
+
+    @Test
+    fun towards() {
+        towards_helper(0f,0f,3f,4f)
+        towards_helper(4f,3f,0f,0f)
+        towards_helper(0f,0f,-3f,-4f)
+        towards_helper(-4f,-3f,0f,0f)
+        towards_helper(3f,5f,-3f,-4f)
+        towards_helper(-4f,3f,3f,7f)
+        towards_helper(0f,0f,0f,0f) // This logs a warning.
+    }
+    fun towards_helper(x1 : Float, y1 : Float, x2 : Float, y2 : Float) {
+        val origin = GBxy(x1,y1)
+        val destination = GBxy(x2,y2)
+        val distance = origin.distance(destination)
+        assertEquals(GBxy(x2,y2), origin.towards(destination, distance * 2)) // we are faster, so will arrive
+        assertEquals(GBxy(x2,y2), origin.towards(destination, distance * 1.00001f)) // we are faster, so will arrive
+        assertEquals(GBxy(x2,y2), origin.towards(destination, distance * 1f )) // we are faster, so will arrive
+        assertEquals(GBxy(x1+(x2-x1)/2f,y1+(y2-y1)/2), origin.towards(destination, distance * 0.5f)) // we are faster, so will arrive
+        assertEquals(GBxy(x1, y1), origin.towards(destination, 0f))
     }
 
 }
