@@ -114,7 +114,7 @@ class GBLocation {
         this.y = star.loc.y - r * sin(t)
     }
 
-    // TODO pass a boolean to use cartesian coordinates in constructor?
+    // TODO pass a boolean to use cartesian coordinates in constructor? Could use GBxy and GBrt to distinguish...
     constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) {
 // assert
         this.level = SYSTEM
