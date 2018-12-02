@@ -95,10 +95,8 @@ class GBLocation {
 
         this.t = t
         this.r = r
-        // We are not using ORBIT coordinates for anything right now.
-        // Once we do, we have to recompute (x,y) after a planet moves
-        // this.x = universe.allPlanets[refUID].loc.x + r*cos(t)
-        // this.y = universe.allPlanets[refUID].loc.y + r*sin(t)
+        this.x = r*cos(t)
+        this.y = r*sin(t)
     }
 
     /** Make a SYSTEM location from Float (r,t) radius from center and theta */
@@ -114,8 +112,9 @@ class GBLocation {
         this.y = star.loc.y - r * sin(t)
     }
 
-    // TODO pass a boolean to use cartesian coordinates in constructor? Could use GBxy and GBrt to distinguish...
-    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) {
+    // Stupid: pass a boolean to use cartesian coordinates in constructor? Could use GBxy and GBrt to distinguish,
+    // or subclasses instead of when
+    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) { // TODO  figure out how to fix his hack.
 // assert
         this.level = SYSTEM
         this.refUID = star.uid
@@ -153,16 +152,16 @@ class GBLocation {
         return GBsxy(sx, sy)
     }
 
-    /** Get (Planet) Orbit location in Polar */
+    /** Get (Planet) Orbit location in Polar - relative to planet*/
     fun getOLocP(): GBrt {
         gbAssert("This is not an orbit location.", level == ORBIT)
         return GBrt(t, r)
     }
 
-    /** Get the __Planet's__ location in Cartesian */
+    /** Get (Planet) Orbit location in Cartesian - relative to planet*/
     fun getOLocC(): GBxy {
         gbAssert("This is not an orbit location", level == ORBIT)
-        return GBxy(universe.allPlanets[refUID].loc.x, universe.allPlanets[refUID].loc.y)
+        return GBxy(x, y)
     }
 
     /** Get System location in Polar (Orbit around the star) */

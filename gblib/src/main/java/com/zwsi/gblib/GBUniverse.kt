@@ -18,6 +18,8 @@ class GBUniverse {
 
     var orders = arrayListOf<GBOrder>()
 
+    var turn = 0
+
 
     constructor(numberOfStars: Int) {
         this.numberOfStars = numberOfStars
@@ -120,6 +122,10 @@ class GBUniverse {
             sh.doShip()
         }
 
+//        runProgram()
+
+        turn++
+
     }
 
     fun getPlanets(s: GBStar): Array<GBPlanet?> {
@@ -182,8 +188,29 @@ class GBUniverse {
     }
 
 
+//    var program = listOf<Int>()
+//    fun runProgram() {
+//
+//        var steps = program.filter { it == turn }
+//
+//        for (step in steps) {
+//            when (turn) {
+//                0 -> {
+//                }
+//                1 -> {
+//                }
+//                2 -> {
+//                }
+//                3 -> {
+//                }
+//            }
+//        }
+//    }
+
     fun makeStuff() {
         GBLog.d("Making Stuff")
+
+        turn = 0
 
         val p = allPlanets[0]
         makeFactory(p)

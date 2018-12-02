@@ -32,7 +32,7 @@ class GBLocationTest {
             }
             GBLocation.ORBIT -> {
                 assertEquals(GBLocation.ORBIT, l.level)
-                assertEquals(l.getOLocC().x, l.x)   // cartesian now returns location of planet... Not sure it should
+                assertEquals(l.getOLocC().x, l.x)
                 assertEquals(l.getOLocC().y, l.y)
                 assertNotEquals(-1, l.refUID)
                 assertEquals(l.getOLocP().r, l.t)

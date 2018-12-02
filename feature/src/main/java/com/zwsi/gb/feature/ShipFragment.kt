@@ -39,7 +39,7 @@ class ShipFragment : Fragment() {
         val view: View? = inflater.inflate(R.layout.fragment_ship, container, false);
 
         // What is this fragment about, and make sure the fragment remembers
-        val shipID = arguments!!.getString("UID").toInt()
+        val shipID = arguments!!.getString("UID")!!.toInt()
         val sh = GBController.universe.getAllShipsList()[shipID]
 
         // TODO Nee to handle ship not found once ships get detroyed
@@ -72,7 +72,7 @@ class ShipFragment : Fragment() {
         paint.textSize = 40f
 
         stats.append("\n")
-        stats.append("Name: " + sh!!.name + "\n")
+        stats.append("Name: " + sh.name + "\n")
         stats.append("Type: " + sh.type + "\n")
         stats.append("Speed: " + sh.speed + "\n")
         stats.append("Race: " + sh.race.name + "\n")
@@ -114,7 +114,7 @@ class ShipFragment : Fragment() {
             }
         }
         // Create an ArrayAdapter
-        val adapter = ArrayAdapter<String>(this.activity, android.R.layout.simple_spinner_item, planetsLocal)
+        val adapter = ArrayAdapter<String>(this.activity!!, android.R.layout.simple_spinner_item, planetsLocal)
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

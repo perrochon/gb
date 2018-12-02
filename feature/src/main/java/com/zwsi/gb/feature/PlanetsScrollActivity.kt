@@ -13,6 +13,7 @@ import android.support.constraint.ConstraintLayout
 import android.widget.TextView
 import android.support.constraint.ConstraintSet
 import android.support.v4.view.ViewCompat
+import com.zwsi.gblib.GBController.Companion.universe
 
 
 class PlanetsScrollActivity : AppCompatActivity() {
@@ -60,10 +61,9 @@ class PlanetsScrollActivity : AppCompatActivity() {
         // For now we show all allPlanets, but eventually each race only sees what they can see
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
 
-        val universe = GBController!!.universe
-        val stars = universe!!.allStars
+        val stars = universe.allStars
         for (s in stars) {
-            val planets = universe!!.getPlanets(s!!)
+            val planets = universe.getPlanets(s)
             for (p in planets) {
 
                 val constraintLayout = ConstraintLayout(this)
@@ -71,24 +71,24 @@ class PlanetsScrollActivity : AppCompatActivity() {
 
                 planetView = ImageView(this)
                 planetView.imageAlpha = 255
-                merged = Bitmap.createBitmap(p!!.width *50, p!!.height *50, d.config)
+                merged = Bitmap.createBitmap(p!!.width *50, p.height *50, d.config)
                 canvas = Canvas(merged)
 
-                for (i in 0 until p.sectors.size) {
+                for (j in 0 until p.sectors.size) {
 
-                    canvas.drawBitmap(bitmaps[p.sectors[i].type],p.sectorX(i) * 50f,p.sectorY(i) *50f,null)
+                    canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
 
-                    if (p.sectors[i].getPopulation() > 0) {
+                    if (p.sectors[j].getPopulation() > 0) {
                         canvas.drawText(
-                            p.sectors[i].getPopulation().toString(),
-                            p.sectorX(i) * 50f,
-                            p.sectorY(i) * 50f + 40f,
+                            p.sectors[j].getPopulation().toString(),
+                            p.sectorX(j) * 50f,
+                            p.sectorY(j) * 50f + 40f,
                             paint
                         )
                         canvas.drawText(
-                            p.sectors[i].getOwner()!!.name.substring(0,1),
-                            p.sectorX(i) * 50f + 20,
-                            p.sectorY(i) * 50f + 20f,
+                            p.sectors[j].getOwner()!!.name.substring(0,1),
+                            p.sectorX(j) * 50f + 20,
+                            p.sectorY(j) * 50f + 20f,
                             paint
                         )
                     }
@@ -105,8 +105,8 @@ class PlanetsScrollActivity : AppCompatActivity() {
                 planetStats.setTextColor(color) // copy colors from home planet
                 planetStats.setTextSize(size)
                 planetStats.setTextSize(14f)  // TODO: debug the above. It should copy from the Home Planet
-                planetStats.setText(p!!.name + " (" + p!!.type + "), " + s!!.name + " system\n")
-                planetStats.append("Size :" + p!!.size + "\n")
+                planetStats.setText(p.name + " (" + p.type + "), " + s.name + " system\n")
+                planetStats.append("Size :" + p.size + "\n")
                 planetStats.setId(ViewCompat.generateViewId()) // Needs to have an ID. View.setId() is API level 17+
                 constraintLayout.addView(planetStats)
 

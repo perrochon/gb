@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBController.Companion.universe
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
@@ -85,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
             view.post {
                 // Worth making a string in this thread and post just result?
-                for (s in GBController.universe!!.news)
+                for (s in universe.news)
                     output.append(s)
 
                 output.append(MissionController.getCurrentMission(this))
@@ -126,7 +127,7 @@ class MainActivity : AppCompatActivity() {
 
             view.post {
                 // Worth making a string in this thread and post just result?
-                for (s in GBController.universe!!.news)
+                for (s in universe.news)
                     output.append(s)
 
                 MissionController.checkMissionStatus()

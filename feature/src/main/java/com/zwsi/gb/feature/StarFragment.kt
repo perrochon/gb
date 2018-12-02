@@ -39,7 +39,7 @@ class StarFragment : Fragment() {
         var view: View? = inflater.inflate(R.layout.fragment_star, container, false);
 
         // What is this fragment about, and make sure the fragment remembers
-        val starID = arguments!!.getString("UID").toInt()
+        val starID = arguments!!.getString("UID")!!.toInt()
         val st = GBController.universe.allStars[starID]
         view!!.tag = st
 
@@ -53,7 +53,7 @@ class StarFragment : Fragment() {
         paint.textSize = 40f
 
         stats.append("\n")
-        stats.append("Name     : " + (st!!.name) + "\n")
+        stats.append("Name     : " + (st.name) + "\n")
         stats.append("Position : (" + (st.loc.x) + ", " + st.loc.y + ")\n")
 
         if (st.starPlanets.isNotEmpty()) {
@@ -71,7 +71,7 @@ class StarFragment : Fragment() {
             }
         }
 
-        stats = view!!.findViewById<TextView>(R.id.StarBackground)
+        stats = view.findViewById<TextView>(R.id.StarBackground)
         paint = stats.paint
         paint.textSize = 40f
 

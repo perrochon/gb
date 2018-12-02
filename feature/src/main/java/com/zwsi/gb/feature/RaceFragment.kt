@@ -40,7 +40,7 @@ class RaceFragment : Fragment() {
 
 
         // What is this fragment about, and make sure the fragment remembers
-        val raceID = arguments!!.getString("UID").toInt()
+        val raceID = arguments!!.getString("UID")!!.toInt()
         val r = GBController.universe.allRaces[raceID]
         view!!.tag = r
 
@@ -63,12 +63,12 @@ class RaceFragment : Fragment() {
         paint.textSize = 40f
 
         stats.append("\n")
-        stats.append("Name      : " + (r!!.name) + "\n")
+        stats.append("Name      : " + (r.name) + "\n")
         stats.append("Birthrate : " + (r.birthrate) + "\n")
         stats.append("Explore   : " + (r.explore) + "\n")
         stats.append("Absorption: " + (r.absorption) + "\n")
 
-        stats = view!!.findViewById<TextView>(R.id.RaceBackground)
+        stats = view.findViewById<TextView>(R.id.RaceBackground)
         paint = stats.paint
         paint.textSize = 40f
 

@@ -10,7 +10,6 @@ Population no longer migrates
 * Review all unit tests, and add whats missing (GBLocation? GBxy)
 * Review all TODO
 * Refactor to use resources for strings
-* Review all warnings
 * Upgrading thread management, maybe start using a handler
 * Unit tests for allShipsList (i.e. after destruction of ship)
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBPlanet
 
 class PlanetsSlideActivity : AppCompatActivity() {
@@ -79,7 +80,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
         val parent = view.parent as View
         val planet: GBPlanet = parent.tag as GBPlanet
 
-        val universe = GBController.universe!!
+        val universe = universe
         universe.makeFactory(planet)
 
         val message = "Ordered Factory on " + planet.name
@@ -98,7 +99,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
         val parent = view.parent as View
         val planet: GBPlanet = parent.tag as GBPlanet
 
-        val universe = GBController.universe!!
+        val universe = universe
         universe.landPopulation(planet, 0, 100)
 
         // Need to move drawing of overlay into OnDraw then do. But it's god mode, so not critical
@@ -119,7 +120,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
         val parent = view.parent as View
         val planet: GBPlanet = parent.tag as GBPlanet
 
-        val universe = GBController.universe!!
+        val universe = universe
         universe.landPopulation(planet, 1, 100)
 
         // Need to move drawing of overlay into OnDraw then do. But it's god mode, so not critical

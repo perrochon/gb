@@ -35,30 +35,31 @@ internal object GBLog {
     // 2. Logging is expensive, with this I am not even logging when debug level is higher
 
     val DEBUG_LEVEL = 0
+    val LOG_LEVEL = 0
 
     val Log = Logger.getLogger("GB")
 
     fun e(message: String) {
-        Log.severe(message)
+        if (LOG_LEVEL > 0) Log.severe(message)
     }
 
     fun w(message: String) {
-        Log.warning(message)
+        if (LOG_LEVEL > 1) Log.warning(message)
     }
 
     fun i(message: String) {
-        Log.info(message)
+        if (LOG_LEVEL > 2) Log.info(message)
     }
 
     fun d(message: String) {
         if (DEBUG_LEVEL >= 1) {
-            Log.info(message) // Android Studio + Emulator doesn't show below info....
+            if (LOG_LEVEL > 3) Log.info(message) // Android Studio + Emulator doesn't show below info....
         }
     }
 
     fun v(message: String) {
         if (DEBUG_LEVEL >= 2) {
-            Log.info(message) // Android Studio + Emulator doesn't show below info....
+            if (LOG_LEVEL > 4) Log.info(message) // Android Studio + Emulator doesn't show below info....
         }
     }
 

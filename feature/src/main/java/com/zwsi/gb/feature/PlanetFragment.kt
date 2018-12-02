@@ -80,21 +80,21 @@ class PlanetFragment : Fragment() {
         paint.textSize = 20f
 
 
-        for (i in 0 until p.sectors.size) {
+        for (j in 0 until p.sectors.size) {
 
-            canvas.drawBitmap(bitmaps[p.sectors[i].type],p.sectorX(i) * 50f,p.sectorY(i) *50f,null)
+            canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
 
-            if (p.sectors[i].getPopulation() > 0) {
+            if (p.sectors[j].getPopulation() > 0) {
                 canvas.drawText(
-                    p.sectors[i].getPopulation().toString(),
-                    p.sectorX(i) * 50f,
-                    p.sectorY(i) * 50f + 40f,
+                    p.sectors[j].getPopulation().toString(),
+                    p.sectorX(j) * 50f,
+                    p.sectorY(j) * 50f + 40f,
                     paint
                 )
                 canvas.drawText(
-                    p.sectors[i].getOwner()!!.name.substring(0,1),
-                    p.sectorX(i) * 50f + 20,
-                    p.sectorY(i) * 50f + 20f,
+                    p.sectors[j].getOwner()!!.name.substring(0,1),
+                    p.sectorX(j) * 50f + 20,
+                    p.sectorY(j) * 50f + 20f,
                     paint
                 )
 

@@ -15,9 +15,9 @@ class StarsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stars)
 
-        var universe = GBController.universe
+        val universe = GBController.universe
 
-        var starField = findViewById<ImageView>(R.id.starField)
+        val starField = findViewById<ImageView>(R.id.starField)
 
 //        val  paint = Paint()
 //        paint.color = android.R.color.holo_orange_light
@@ -30,10 +30,10 @@ class StarsActivity : AppCompatActivity() {
 
         val bs = BitmapFactory.decodeResource(getResources(), R.drawable.star)
 
-        var merged = Bitmap.createBitmap(universe!!.universeMaxX, universe!!.universeMaxY, bs.config);
-        var canvas = Canvas(merged);
+        val merged = Bitmap.createBitmap(universe.universeMaxX, universe.universeMaxY, bs.config);
+        val canvas = Canvas(merged);
 
-        val stars = universe!!.allStars
+        val stars = universe.allStars
         for (s in stars) {
             canvas.drawBitmap(bs, s.loc.x, s.loc.y, null)
             canvas.drawText(s.name,s.loc.x + 30, s.loc.y + 10, paint)
