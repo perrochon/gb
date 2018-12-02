@@ -40,7 +40,10 @@ class ShipFragment : Fragment() {
 
         // What is this fragment about, and make sure the fragment remembers
         val shipID = arguments!!.getString("UID").toInt()
-        val sh = GBController.universe.allShips[shipID]
+        val sh = GBController.universe.getAllShipsList()[shipID]
+
+        // TODO Nee to handle ship not found once ships get detroyed
+
         view!!.tag = sh
 
         val imageView = view.findViewById<ImageView>(R.id.ShipView)

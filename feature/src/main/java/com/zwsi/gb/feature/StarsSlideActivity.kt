@@ -108,7 +108,7 @@ class StarsSlideActivity : AppCompatActivity() {
         Toast.makeText(view.context, "Going to ships in system " + star.name, Toast.LENGTH_SHORT).show()
 
         val displayUID = ArrayList<Int>()
-        for (ship in star.starShips) {
+        for (ship in star.getStarShipsList()) {
             displayUID.add(ship.uid)
         }
         for (planet in star.starPlanets) {

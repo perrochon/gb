@@ -53,6 +53,11 @@ class GBStar(val universe: GBUniverse) {
         GBLog.d("Made System $name")
     }
 
+    fun getStarShipsList() : List<GBShip> {
+        return starShips.filter { true }.toList()
+    }
+
+
 
     companion object {
         var areas: ArrayList<Int> = ArrayList() // we fill it up on first call to GetStarCoordinates

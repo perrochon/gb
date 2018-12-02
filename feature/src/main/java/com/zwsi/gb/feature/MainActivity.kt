@@ -19,7 +19,7 @@ import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 
 var lastClickTime = 0L
-val clickDelay = 1000L
+val clickDelay = 300L
 
 class MainActivity : AppCompatActivity() {
 
@@ -152,10 +152,12 @@ class MainActivity : AppCompatActivity() {
         Thread(Runnable {
 
             GBController.makeStuff()
-            view.post {
-                // Worth making a string in this thread and post just result?
-                for (s in GBController.universe!!.news)
-                    output.append(s)
+            for (i in 1..100) {
+                GBController.makeStuff()
+                for (j in 1..10) {
+                    Thread.sleep(1000)
+                    GBController.doUniverse()
+                }
             }
 
         }).start()

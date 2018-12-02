@@ -1,5 +1,7 @@
 package com.zwsi.gblib
 
+import jdk.nashorn.internal.ir.annotations.Immutable
+
 class GBUniverse {
 
     internal var numberOfStars: Int
@@ -9,6 +11,7 @@ class GBUniverse {
     var allRaces: MutableList<GBRace> = arrayListOf() // all the races
 
     var allShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
+
     var universeShips: MutableList<GBShip> = arrayListOf() // ships in transit between system
 
     var news = arrayListOf<String>()
@@ -32,6 +35,10 @@ class GBUniverse {
 
     fun getNumberOfStars(): Int {
         return numberOfStars
+    }
+
+    fun getAllShipsList() : List<GBShip> {
+        return allShips.filter { true }.toList()
     }
 
     internal fun consoleDraw() {
@@ -109,10 +116,7 @@ class GBUniverse {
         }
 
 
-        val list = allShips.toMutableList()
-        // TODO Some pods will remove themselves from the list. Better: Schedule a clean up "order" to remove the pod later
-        // This will also work with battle, and e.g. let every ship do their thing, before we clean up
-        for (sh in list) {
+        for (sh in getAllShipsList()) {
             sh.doShip()
         }
 

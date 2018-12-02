@@ -28,8 +28,8 @@ class GBShipTest {
         assertTrue(universe.allShips.contains(ship))
         assertEquals(ship.uid, universe.allShips.indexOf(ship))
 
-        assertTrue(ship.race.raceShips.contains(ship))
-        assertEquals(ship.uid, ship.race.raceShips.indexOf(ship))
+        assertTrue(ship.race.getRaceShipsList().contains(ship))
+        assertEquals(ship.uid, ship.race.getRaceShipsList().indexOf(ship))
 
         when (ship.loc.level) {
             LANDED -> {

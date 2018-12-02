@@ -64,9 +64,9 @@ class StarFragment : Fragment() {
             stats.append("\n")
         }
 
-        if (st.starShips.isNotEmpty()) {
-            stats.append(st.starShips.size.toString() + " ships present:\n")
-            for (sh in st.starShips) {
+        if (st.getStarShipsList().isNotEmpty()) {
+            stats.append(st.getStarShipsList().size.toString() + " ships present:\n")
+            for (sh in st.getStarShipsList()) {
                 stats.append("           " + sh.name + " (" + sh.race.name + ")\n")
             }
         }

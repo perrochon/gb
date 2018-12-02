@@ -244,7 +244,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         )
                     } // planet loop
 
-                    for (sh in s.starShips) {
+                    for (sh in s.getStarShipsList()) {
                         drawShip(canvas, sh, podColorSystem)
 
                     } // ships loop

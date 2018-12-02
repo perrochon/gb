@@ -42,6 +42,12 @@ class GBRace(val universe: GBUniverse, val idx: Int) {
 
     }
 
+    fun getRaceShipsList() : List<GBShip> {
+        return raceShips.filter { true }.toList()
+    }
+
+
+
     fun consoleDraw() {
         println("")
         println("    ====================")

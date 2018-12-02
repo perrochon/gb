@@ -34,7 +34,7 @@ class ShipsSlideActivity : AppCompatActivity() {
         setupViewPager()
         viewpager.setCurrentItem(startItem)
 
-        if (GBController.universe.allShips.size == 0) {
+        if (GBController.universe.getAllShipsList().size == 0) {
             val hintText = this.findViewById<TextView>(R.id.hintTextView)
             hintText.visibility = (TextView.VISIBLE)
             hintText.setText(
@@ -64,7 +64,7 @@ class ShipsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("ships")
         } else {
             displayList = ArrayList<Int>()
-            for (i in GBController.universe.allShips) {
+            for (i in GBController.universe.getAllShipsList()) {
                 displayList.add(i.uid)
             }
         }
