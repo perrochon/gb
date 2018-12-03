@@ -150,7 +150,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Always draw stars
         paint.style = Style.STROKE
         for (s in stars) {
-            sP1.set(s.loc.x * uToSf, s.loc.y * uToSf)
+            sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
             sourceToViewCoord(sP1, vP1)
             canvas.drawBitmap(bmStar!!, vP1.x - bmStar!!.getWidth() / 2, vP1.y - bmStar!!.getWidth() / 2, null)
         }
@@ -160,7 +160,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.style = Style.FILL
         paint.color = labelColor
         for (s in stars) {
-            sP1.set(s.loc.x * uToSf + 30, s.loc.y * uToSf - 10)
+            sP1.set(s.loc.getLoc().x * uToSf + 30, s.loc.getLoc().y * uToSf - 10)
             sourceToViewCoord(sP1, vP1)
             canvas.drawText(s.name, vP1.x + 30, vP1.y - 10, paint)
         }
@@ -206,7 +206,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val radius = sSystemSize.toFloat() * scale
 
             for (s in stars) {
-                sP1.set(s.loc.x * uToSf, s.loc.y * uToSf)
+                sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawCircle(vP1.x, vP1.y, radius, paint)
             }
@@ -217,7 +217,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
             val s = stars[0]
             if (visible(s.loc.x.toInt() * uToS, s.loc.y.toInt() * uToS)) {
-                sP1.set(s.loc.x * uToSf + 50, s.loc.y * uToSf)
+                sP1.set(s.loc.getLoc().x * uToSf + 50, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawBitmap(bmRace!!, vP1.x, vP1.y, null)
             }
@@ -230,11 +230,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
         }
 
-        if (10 > normScale) { // Draw Planets
+        // Draw Planets
+        if (10 > normScale) {
             for (s in stars) {
-                if (visible(s.loc.x.toInt() * uToS, s.loc.y.toInt() * uToS)) {
+                if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
                     for (p in s.starPlanets) {
-                        sP1.set(p.loc.x * uToS, p.loc.y * uToS)
+                        sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                         sourceToViewCoord(sP1, vP1)
                         canvas.drawBitmap(
                             bmPlanet!!,
