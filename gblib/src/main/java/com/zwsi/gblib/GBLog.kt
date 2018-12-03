@@ -35,7 +35,7 @@ internal object GBLog {
     // 2. Logging is expensive, with this I am not even logging when debug level is higher
 
     val DEBUG_LEVEL = 0
-    val LOG_LEVEL = 0
+    val LOG_LEVEL = 4
 
     val Log = Logger.getLogger("GB")
 

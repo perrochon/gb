@@ -52,7 +52,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
         idxtype = GBData.selectPlanetTypeIdx()
         type = GBData.planetTypeFromIdx(idxtype)
 
-        val orbitDist = 13f / star.numberOfPlanets // TODO Move constant out. Depends on overall sizes
+        val orbitDist = GBData.SystemSize / star.numberOfPlanets // TODO Move constant out. Depends on overall sizes
 
         loc = GBLocation(star, (sid+1f)*orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 

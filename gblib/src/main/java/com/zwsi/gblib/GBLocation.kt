@@ -116,7 +116,7 @@ class GBLocation {
         this.level = SYSTEM
         this.refUID = star.uid
         this.x = x - star.loc.x
-        this.y = y + star.loc.y
+        this.y = y - star.loc.y
         this.r = sqrt(x * x + y * y)
         this.t = atan2(y, x)
     }
@@ -136,10 +136,10 @@ class GBLocation {
     fun getLoc(): GBxy {
 
         if ((level == LANDED) || (level == ORBIT)) {
-            return GBxy(universe.allPlanets[refUID].loc.x, universe.allPlanets[refUID].loc.y)
+            return GBxy(universe.allPlanets[refUID].loc.getLoc().x, universe.allPlanets[refUID].loc.getLoc().y)
         }
         if ((level == SYSTEM)) {
-            return GBxy(universe.allStars[refUID].loc.x + x, universe.allStars[refUID].loc.y - y)
+            return GBxy(universe.allStars[refUID].loc.getLoc().x + x, universe.allStars[refUID].loc.getLoc().y + y)
             // TODO This should be plus, need to fix in constructor so local coordinate y also points down
         } else {
             return GBxy(x, y)

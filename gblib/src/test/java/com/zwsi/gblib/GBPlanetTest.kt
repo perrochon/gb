@@ -69,7 +69,16 @@ class GBPlanetTest {
     }
 
     @Test
-    fun directions() {
+    fun distanceToStar() {
+        val universe = GBController.makeUniverse()
+
+        universe.allPlanets.forEach {
+            assert(it.loc.getLoc().distance(it.star.loc.getLoc())< GBData.SystemSize, {"Planet too far from star"} )
+        }
+    }
+
+    @Test
+    fun sectorDirections() {
         val universe = GBController.makeUniverse()
 
         for (p in universe.allPlanets) {

@@ -236,6 +236,8 @@ class GBShipTest {
         val sh0 = GBShip(0, r0, loc01)
         // This will not work for spores, as they explode on landing, so use factory for now, which doesn't move...
 
+        var lastLocation: GBxy
+
         for (loc1 in locations) {
             sh0.changeShipLocation(loc1)
             consistency(sh0) // This now fails that pods self destruct. Need to fix the test
@@ -264,9 +266,23 @@ class GBShipTest {
 
         sh.dest = loc02
 
+        var i = 0
+        var lastLocation : GBLocation
         while (sh.loc != loc02) {
+
+            lastLocation = sh.loc
+
             sh.doShip()
+
+            var distance_moved = lastLocation.getLoc().distance(sh.loc.getLoc())
+            assert(distance_moved < 5, {
+                "Ship moved $distance_moved from ${lastLocation.getLocDesc()} to ${sh.loc.getLocDesc()} : " +
+                        "${lastLocation.getLoc()} -> ${sh.loc.getLoc()}"
+            })
+
             uniqueLocations()
+            assertTrue(i < 20)
+            i++
         }
     }
 
@@ -276,7 +292,7 @@ class GBShipTest {
         val universe = GBController.makeUniverse()
 
         val s0 = universe.allStars[0]
-        val s1: GBStar = universe.allStars[1]
+        val s1 = universe.allStars[1]
         val p0 = s0.starPlanets[0]
         val p1 = s1.starPlanets[1]
         val r0 = universe.allRaces[0]
@@ -288,9 +304,23 @@ class GBShipTest {
 
         sh.dest = loc02
 
+        var i = 0
+        var lastLocation: GBLocation
         while (sh.loc != loc02) {
+
+            lastLocation = sh.loc
+
             sh.doShip()
+
+            var distance_moved = lastLocation.getLoc().distance(sh.loc.getLoc())
+            assert(distance_moved < 5, {
+                "Ship moved $distance_moved from ${lastLocation.getLocDesc()} to ${sh.loc.getLocDesc()} : " +
+                        "${lastLocation.getLoc()} -> ${sh.loc.getLoc()}"
+            })
+
             uniqueLocations()
+            assertTrue(i < 1000)
+            i++
         }
 
     }
