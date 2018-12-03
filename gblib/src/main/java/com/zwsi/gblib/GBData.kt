@@ -1179,7 +1179,7 @@ internal class GBData {
         // Source had 7 types, added 8th type "rock" because I had a bitmap, and because asteroids and mountains are different
         //private val sectorTypesNames = arrayOf("Water", "Land", "Gas", "Desert", "Mountain", "Forest", "Ice", "Rock")
         private val sectorTypesConsole =
-            arrayOf("~", ".", "@", "-", "^", "*", "#", "x") // TODO double check these against source
+            arrayOf("~", ".", "@", "-", "^", "*", "#", "x") //
         val sectorTypesChance = arrayOf(
             intArrayOf(0, 0, 0, 0, 1, 1, 1, 1, 5, 6), // M Class
             intArrayOf(2, 2, 2, 2, 2, 2, 2, 2, 2, 2), // Jovian

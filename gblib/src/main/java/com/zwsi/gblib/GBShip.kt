@@ -195,7 +195,8 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                 if (distance < 15f) { // we arrived at destination
 
-                    // TODO check if destination is the system, in which case we would stop
+                    // TODO check if destination is the system, in which case we would just stop here.
+                    // We can't fly to a system yet, so not a bug just yet.
 
                     var next = GBLocation(dest.getStar()!!, nxy.x, nxy.y, true)
 

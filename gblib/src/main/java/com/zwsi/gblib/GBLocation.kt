@@ -47,7 +47,7 @@ data class GBsxy(val sx: Int, val sy: Int) {}
  */
 class GBLocation {
 
-    // TODO Refactor fun: This may be a clase for subclassing, rather than type and lots of when statements...
+    // TODO Refactor fun: This may be a case for subclassing, rather than field: Type and when()
 
     var level: Int = -1
         private set
@@ -112,7 +112,7 @@ class GBLocation {
     // Stupid: pass a boolean to use cartesian coordinates in constructor? Could use GBxy and GBrt to distinguish,
     // or subclasses instead of when
     // This takes universal coordinates... Used when moving ships in.
-    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) { // TODO  figure out how to fix his hack.
+    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) { // TODO  figure out how to not need dummy
         this.level = SYSTEM
         this.refUID = star.uid
         this.x = x - star.loc.x
@@ -140,7 +140,6 @@ class GBLocation {
         }
         if ((level == SYSTEM)) {
             return GBxy(universe.allStars[refUID].loc.getLoc().x + x, universe.allStars[refUID].loc.getLoc().y + y)
-            // TODO This should be plus, need to fix in constructor so local coordinate y also points down
         } else {
             return GBxy(x, y)
         }

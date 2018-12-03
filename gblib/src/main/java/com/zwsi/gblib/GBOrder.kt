@@ -11,6 +11,8 @@ import com.zwsi.gblib.GBLocation.Companion.LANDED
 
 class GBOrder  {
 
+    // TODO Lambdas? Or use the scheduler instead?
+
     var type = -1
     var uid = -1
     lateinit var loc : GBLocation
@@ -31,16 +33,6 @@ class GBOrder  {
         type = 1
         uid = factory.uid
         this.loc = factory.loc
-
-    }
-
-    // Type 2: Teleport ship
-    fun teleportShip(sh: GBShip, loc: GBLocation) {
-
-        gbAssert{ type == -1 }
-        type = 2
-        uid = sh.uid
-        this.loc = loc // TODO Find a better sector, but not here, in the caller
 
     }
 

@@ -52,7 +52,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
         idxtype = GBData.selectPlanetTypeIdx()
         type = GBData.planetTypeFromIdx(idxtype)
 
-        val orbitDist = GBData.SystemSize / star.numberOfPlanets // TODO Move constant out. Depends on overall sizes
+        val orbitDist = GBData.SystemSize / star.numberOfPlanets
 
         loc = GBLocation(star, (sid+1f)*orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
@@ -206,7 +206,8 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
         if (from == to) return
         if (number == 0) return
-        if (to >= sectors.size) return // TODO: This should never happen, but does in some cases. Need to debu
+        //assert(to < sectors.size) // TODO: This should never happen, but does in some cases.
+        if (to >= sectors.size) return
 
         if (sectors[to].getOwner() == null) {
             //moving into an empty sector

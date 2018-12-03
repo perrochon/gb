@@ -34,7 +34,7 @@ class GBStar(val universe: GBUniverse) {
         name = GBData.starNameFromIdx(idxname)
 
 
-        // TODO fix getStarCoordinates
+        // TODO fix getStarCoordinates. Return a GBxy?
         val coordinates = getStarCoordinates()
         x = coordinates[0]
         y = coordinates[1]

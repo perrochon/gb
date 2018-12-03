@@ -148,9 +148,9 @@ class GBUniverse {
         return s.starPlanets.toTypedArray()
     } // TODO should this be Star? But what about getting all the allPlanets?
 
-    fun getSectors(p: GBPlanet): Array<GBSector> {
-        return p.sectors
-    } //TODO should this be in planet? Or Data?
+//    fun getSectors(p: GBPlanet): Array<GBSector> {
+//        return p.sectors
+//    } //TODO should this be in planet? Or Data?
 
 
     fun makeFactory(p: GBPlanet) {
