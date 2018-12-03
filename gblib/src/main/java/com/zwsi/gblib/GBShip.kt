@@ -24,7 +24,11 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val speed: Int
 
     var dest: GBLocation? = null
-    val trail = LinkedList<GBxy>()
+    private val trail = LinkedList<GBxy>()
+
+    fun getTrailList() : LinkedList<GBxy> {
+     return trail.clone() as LinkedList<GBxy>
+    }
 
     init {
         id = GBData.getNextGlobalId()

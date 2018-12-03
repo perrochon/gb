@@ -20,7 +20,6 @@ class GBUniverse {
 
     var turn = 0
 
-
     constructor(numberOfStars: Int) {
         this.numberOfStars = numberOfStars
         this.numberOfRaces = GBController.numberOfRaces

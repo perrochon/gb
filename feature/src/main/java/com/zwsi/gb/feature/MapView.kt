@@ -231,7 +231,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
         // Draw Planets
-        if (10 > normScale) {
+        if (30 > normScale) {
             for (s in stars) {
                 if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
                     for (p in s.starPlanets) {
@@ -274,8 +274,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         paint.color = trailColor
         var from = sh.loc.getLoc()
-        val iterate = sh.trail.descendingIterator()
-        val alphaFade = paint.alpha / sh.trail.size
+        val iterate = sh.getTrailList().descendingIterator() // TODO waste fewer cycles...
+        val alphaFade = paint.alpha / sh.getTrailList().size
 
         while (iterate.hasNext()) {
 
