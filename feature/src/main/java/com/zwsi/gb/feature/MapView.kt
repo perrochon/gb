@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBShip
 
 class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
@@ -145,6 +146,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             canvas.drawText(
                 "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
             )
+            canvas.drawText("Turn: ${universe.turn}", 8f, l++ * h, paint)
         }
 
         // Always draw stars
@@ -224,9 +226,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
         // draw deep space ships
-        if (50 > normScale) {
-            for (sh in GBController.universe.universeShips) {
-                drawShip(canvas, sh, podColorDeepspace)
+        if (101 >= normScale) {
+            for (sh in universe.getUniverseShipsList()) {
+//                if (visible(sh.loc.getLoc().x.toInt(), sh.loc.getLoc().y.toInt())) { // TODO why this not workie
+                    drawShip(canvas, sh, podColorDeepspace)
+//                }
             }
         }
 
@@ -252,9 +256,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 }// if star visible?
             }// star loop
         }
+
+        this.postDelayed({this.invalidate()}, 1000) //TODO A better way to refresh upon model changes
     }
 
-    fun visible(x: Int, y: Int) : Boolean {
+    fun visible(x: Int, y: Int): Boolean {
         rect.set(x - sSystemSize, y - sSystemSize, x + sSystemSize, y + sSystemSize)
         return intersects(rect, vr)
     }

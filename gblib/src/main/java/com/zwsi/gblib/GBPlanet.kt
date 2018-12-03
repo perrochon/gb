@@ -142,7 +142,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
         val rt = loc.getSLocP()
         val speed = 1/(rt.r+10)
-        loc = GBLocation(star, rt.r, rt.t + speed)
+        loc = GBLocation(star, rt.r, rt.t - speed) // y points down, anti-clockwise is negative angles...
     }
 
     // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/doplanet.cc

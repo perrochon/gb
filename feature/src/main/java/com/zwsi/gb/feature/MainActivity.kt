@@ -153,12 +153,9 @@ class MainActivity : AppCompatActivity() {
         Thread(Runnable {
 
             GBController.makeStuff()
-            for (i in 1..100) {
-                GBController.makeStuff()
-                for (j in 1..10) {
-                    Thread.sleep(1000)
-                    GBController.doUniverse()
-                }
+            for (j in 1..1800) {
+                Thread.sleep(1000)
+                GBController.doUniverse()
             }
 
         }).start()

@@ -73,13 +73,9 @@ class GBController {
             return universe
         }
 
-        // TODO move game turns to GBUniverse as it should be there. Turns are per universe
-        private var gameTurns = 0
-
         @Synchronized
         fun doUniverse() {
-            gameTurns++
-            GBLog.i("Runing Game Turn $gameTurns")
+            GBLog.i("Runing Game Turn ${universe.turn}")
             universe.doUniverse()
         }
 
