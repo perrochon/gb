@@ -83,13 +83,12 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         when (loc.level) {
             LANDED -> {
                 if (idxtype == 1) {
-                    // This is a pod, they populate, then destroy
-                    // TODO How to properly destro ships?
-                    // We could just remove it from all lists. But there are fragments etc. that keep state
-                    // With persistence, we may need more work
-                    // universe.allShips.remove(this)
-                    // race.raceShips.remove(this)
+                    // TODO We should really handle this somewhere else. If pod were a subtype of ship, it could overwrite
+                    // This is a pod, they populate, then destroy.
+                    // For now, we add them to a dead ship list, that we can garbage collect at a later time.
                     universe.landPopulation(this.loc.getPlanet()!!, race.uid, 1)
+                    universe.deadShips.add(this)
+                    //
                 } else {
                     loc.getPlanet()!!.landedShips.add(this)
                 }

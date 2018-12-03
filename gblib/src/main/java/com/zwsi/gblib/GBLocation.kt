@@ -6,10 +6,7 @@ package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBLog.gbAssert
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import kotlin.math.*
 
 data class GBxy(val x: Float, val y: Float) {
 
@@ -70,10 +67,10 @@ class GBLocation {
         private set
 
     companion object {
-        const val LANDED = 0
-        const val ORBIT = 1
-        const val SYSTEM = 2
-        const val DEEPSPACE = 3
+        const val LANDED = 1
+        const val ORBIT = 2
+        const val SYSTEM = 3
+        const val DEEPSPACE = 4
     }
 
     // make a LANDED location by giving Surface Int x and y
@@ -95,8 +92,8 @@ class GBLocation {
 
         this.t = t
         this.r = r
-        this.x = r*cos(t)
-        this.y = r*sin(t)
+        this.x = r * cos(t)
+        this.y = r * sin(t)
     }
 
     /** Make a SYSTEM location from Float (r,t) radius from center and theta */
@@ -108,21 +105,19 @@ class GBLocation {
         this.refUID = star.uid
         this.r = r
         this.t = t
-        this.x = star.loc.x + r * cos(t)
-        this.y = star.loc.y - r * sin(t)
+        this.x = r * cos(t)
+        this.y = r * sin(t)
     }
 
     // Stupid: pass a boolean to use cartesian coordinates in constructor? Could use GBxy and GBrt to distinguish,
     // or subclasses instead of when
     constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) { // TODO  figure out how to fix his hack.
-// assert
         this.level = SYSTEM
         this.refUID = star.uid
-        this.x = x
-        this.y = y
-        this.r = -1f // TODO fix
-        this.t = -1f // TODO fix
-
+        this.x = x - star.loc.x
+        this.y = y - star.loc.y
+        this.r = sqrt(x * x + y * y)
+        this.t = atan2(y, x)
     }
 
     /** Make a DEEPSPACE location from Float (x,y) */
@@ -139,12 +134,16 @@ class GBLocation {
      * */
     fun getLoc(): GBxy {
 
-        if ((level == LANDED) || (level == ORBIT))
+        if ((level == LANDED) || (level == ORBIT)) {
             return GBxy(universe.allPlanets[refUID].loc.x, universe.allPlanets[refUID].loc.y)
-        else
+        }
+        if ((level == SYSTEM)) {
+            return GBxy(universe.allStars[refUID].loc.x + x, universe.allStars[refUID].loc.y + y)
+        } else {
             return GBxy(x, y)
-
+        }
     }
+
 
     /** Get LANDED location */
     fun getLLoc(): GBsxy {
@@ -173,7 +172,7 @@ class GBLocation {
     /** Get System location in Cartesian (in relation to star (x,y) */
     fun getSLocC(): GBxy {
         gbAssert("This is not a system location", level == SYSTEM)
-        return GBxy(x - getStar()!!.loc.x, y - getStar()!!.loc.y)
+        return GBxy(x, y)
     }
 
     /** Get DeepSpace location */
@@ -221,7 +220,7 @@ class GBLocation {
                 gbAssert("Location is Deep Space, but asking for planet", { false })
             }
             else -> {
-                gbAssert("Ship in Limbo", { false })
+                gbAssert("Ship dead or in limbo", { false })
             }
         }
         return null
@@ -242,7 +241,7 @@ class GBLocation {
                 gbAssert("Location is Deep Space, but asking for star", { false })
             }
             else -> {
-                gbAssert("Ship in Limbo", { false })
+                gbAssert("Ship dead or in limbo", { false })
             }
         }
         return null

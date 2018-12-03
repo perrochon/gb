@@ -11,7 +11,7 @@ class GBUniverse {
     var allRaces: MutableList<GBRace> = arrayListOf() // all the races
 
     var allShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
-
+    var deadShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
     var universeShips: MutableList<GBShip> = arrayListOf() // ships in transit between system
 
     var news = arrayListOf<String>()

@@ -31,23 +31,25 @@ class GBShipTest {
         assertTrue(ship.race.getRaceShipsList().contains(ship))
         assertEquals(ship.uid, ship.race.getRaceShipsList().indexOf(ship))
 
-        when (ship.loc.level) {
-            LANDED -> {
-                assertTrue(universe.allPlanets[ship.loc.refUID].landedShips.contains(ship))
-            }
-            ORBIT -> {
-                assertTrue(universe.allPlanets[ship.loc.refUID].orbitShips.contains(ship))
-            }
-            SYSTEM -> {
-                assertTrue(universe.allStars[ship.loc.refUID].starShips.contains(ship))
-            }
-            DEEPSPACE -> {
-                assertTrue(universe.universeShips.contains(ship))
-            }
-            else -> {
-                assert(false)
-            }
+        if (!universe.deadShips.contains(ship)) {
 
+            when (ship.loc.level) {
+                LANDED -> {
+                    assertTrue(universe.allPlanets[ship.loc.refUID].landedShips.contains(ship))
+                }
+                ORBIT -> {
+                    assertTrue(universe.allPlanets[ship.loc.refUID].orbitShips.contains(ship))
+                }
+                SYSTEM -> {
+                    assertTrue(universe.allStars[ship.loc.refUID].starShips.contains(ship))
+                }
+                DEEPSPACE -> {
+                    assertTrue(universe.universeShips.contains(ship))
+                }
+                else -> {
+                    assert(false)
+                }
+            }
         }
 
         // Make sure this ship is only in one location
@@ -55,7 +57,7 @@ class GBShipTest {
 
         GBLog.d("Looking all over for ship: " + ship.uid)
 
-        for (sh in universe.universeShips) {
+        for (sh in universe.universeShips) {  // TODO use "contains"
             if (sh.uid == ship.uid) {
                 found++
                 GBLog.d("Found in deep space: ship: " + sh.uid)
@@ -81,6 +83,12 @@ class GBShipTest {
                     found++
                     GBLog.d("Found landed: ship: " + sh.uid + " ion planet: " + pl.uid)
                 }
+            }
+        }
+        for (sh in universe.deadShips) {
+            if (sh.uid == ship.uid) {
+                found++
+                GBLog.d("Found among the dead: ship: " + sh.uid)
             }
         }
         assertEquals(1, found)
@@ -123,6 +131,10 @@ class GBShipTest {
                     if (sh.uid == ship.uid)
                         found++
                 }
+            }
+            for (sh in un.deadShips) {
+                if (sh.uid == ship.uid)
+                    found++
             }
             assertEquals(1, found)
         }
@@ -221,8 +233,8 @@ class GBShipTest {
         val loc24 = GBLocation(s1, 15f, 0.5f); locations.add(loc24)
         val loc31 = GBLocation(500f, 500f); locations.add(loc31)
 
-        val sh0 = GBShip(1, r0, loc01)
-        consistency(sh0)
+        val sh0 = GBShip(0, r0, loc01)
+        // This will not work for spores, as they explode on landing, so use factory for now, which doesn't move...
 
         for (loc1 in locations) {
             sh0.changeShipLocation(loc1)

@@ -8,10 +8,7 @@ package com.zwsi.gblib
 import com.zwsi.gblib.GBController.Companion.universe
 import org.junit.Assert.*
 import org.junit.Test
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import kotlin.math.*
 
 class GBLocationTest {
 
@@ -44,17 +41,16 @@ class GBLocationTest {
             }
             GBLocation.SYSTEM -> {
                 assertEquals(GBLocation.SYSTEM, l.level)
-                assertEquals(l.getLoc().x, l.x)
-                assertEquals(l.getLoc().y, l.y)
+                assertEquals(l.getLoc().x, universe.allStars[l.refUID].loc.x + l.x)
+                assertEquals(l.getLoc().y, universe.allStars[l.refUID].loc.y + l.y)
                 assertNotEquals(-1, l.refUID)
                 assertEquals(l.getSLocP().r, l.r)
                 assertEquals(l.getSLocP().t, l.t)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
                 assertNotEquals(null, universe.allStars.getOrNull(l.refUID)) //
-
-                assertEquals(l.x, universe.allStars[l.refUID].loc.x + l.r * cos(l.t))
-                assertEquals(l.y, universe.allStars[l.refUID].loc.y - l.r * sin(l.t))
+                assertEquals(l.x, l.r * cos(l.t))
+                assertEquals(l.y, l.r * sin(l.t))
 
                 // Do some checks on the LocDesc
             }
@@ -152,7 +148,7 @@ class GBLocationTest {
         xy = loc.getSLocC()
         rt = loc.getSLocP()
         assertEquals(-10f, xy.x)
-        assertEquals(0f, xy.y)
+        assertEquals(0f, (xy.y*1000).roundToInt()/1000f)
         assertEquals(10f, rt.r)
     }
 
