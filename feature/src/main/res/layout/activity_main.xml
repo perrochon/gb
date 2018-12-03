@@ -47,7 +47,13 @@
             app:layout_constraintStart_toEndOf="@+id/scrollView2" android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="parent" tools:padding="0dp" android:layout_marginTop="8dp">
         <Button
-                android:text="Starmap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DoButton"
+                android:text="@string/button_Do"
+                android:onClick="doUniverse"/>
+        <Button
+                android:text="Map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/StarmapButton2" android:onClick="starmap2"/>
@@ -97,11 +103,14 @@
                 tools:visibility="visible"
                 android:alpha="0.5"/>
         <Button
+                android:text="Cont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/DoButton"
-                android:text="@string/button_Do"
-                android:onClick="doUniverse"/>
+                android:id="@+id/ContinuousButton"
+                android:onClick="continuousDo"
+                android:visibility="visible"
+                tools:visibility="visible"
+                android:alpha="0.5"/>
     </LinearLayout>
     <TextView
             android:layout_width="wrap_content"

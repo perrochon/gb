@@ -144,16 +144,29 @@ class MainActivity : AppCompatActivity() {
         }
         lastClickTime = SystemClock.elapsedRealtime();
 
-
-        output.setText("")
-
         val message = "God Mode: Making Test Stuff"
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
         Thread(Runnable {
 
             GBController.makeStuff()
-            for (j in 1..1800) {
+
+        }).start()
+
+    }
+
+    fun continuousDo(view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
+        val message = "God Mode: Continuous Do"
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
+        Thread(Runnable {
+
+            for (j in 1..36000) {
                 Thread.sleep(1000)
                 GBController.doUniverse()
             }
@@ -161,7 +174,6 @@ class MainActivity : AppCompatActivity() {
         }).start()
 
     }
-
     /** Called when the user taps the Stars button */
     fun starmap1(view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
