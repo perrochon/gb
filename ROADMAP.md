@@ -7,25 +7,24 @@ Population no longer migrates
 ### Gating for Mission 2 (don't want to propagate bad code more)
 * Unit Test Mission 1
 * Import GBController.universe in all files. Use universe. only. Think this through about companion, though.
-* Review all unit tests, and add whats missing (GBLocation? GBxy)
-* Review all TODO
+* Review all unit tests, and add whats missing (GBLocation? GBxy? Destroyed ships)
+* Review all TODO and warnings
 * Refactor to use resources for strings
-* Upgrading thread management, maybe start using a handler
-* Unit tests for allShipsList (i.e. after destruction of ship)
 
 ### Not Gating
-* Destroy ships? Pods should be destroyed after the end of mission 1
 * Passing race around on commands, to make sure actions are access controlled :-)
-* Remove TileView library and code
-* Get Rid of Feature Module. Having one feature module is kind of pointless, it seems
-* Refactor and apply Naming conventions for UI elements (btn_do etc.) and other things
+* Review orders vs. Scheduler. Should use scheduler for orders, too.
+* Upgrading thread management, maybe start using a handler
+* Remove TileView library and code?
+* Get Rid of Feature Module? Having one feature module is kind of pointless, it seems
+* Refactor and apply naming conventions for UI elements (btn_do etc.) and other things
 * Access and visibility in gblib
 * Use Application for global state in Android: https://developer.android.com/reference/android/app/Application
 * Debug buffer and Console Buffer. Message buffer per race. These may all be related.
 * Persistency!
+* Garbage Collect dead ships
 
 ## Test Efficiency
-* Mode that fires off doUniverse every 5 seconds (gating on sync on GBController?)
 * Move makestuff logic to GBController so it uses (and tests) its methods
 
 ## Features
