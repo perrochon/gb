@@ -59,7 +59,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         }
 
         type = GBData.getShipType(idxtype)
-        name = "S" + race.raceShips.indexOf(this)
+        name = race.name.first().toString() + type.first().toString() + race.raceShips.indexOf(this)
         speed = GBData.getShipSpeed(idxtype)
     }
 

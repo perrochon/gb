@@ -114,23 +114,24 @@ class PlanetFragment : Fragment() {
         planetStats.append("Size        : " + p.size +"\n")
         planetStats.append("Owner       : " + p.ownerName +"\n")
 
-        if (p.landedShips.isNotEmpty()) {
-            planetStats.append(p.landedShips.size.toString() + " ships landed:\n")
-            for (sh in p.landedShips) {
-                planetStats.append("           " + sh.name + " (" + sh.race.name + ")\n")
+        var ships = p.getLandedShipsList()
+        if (ships.isNotEmpty()) {
+            planetStats.append(ships.size.toString() + " ships landed: ")
+            for (sh in ships) {
+                planetStats.append(sh.name + " ")
             }
         }
 
-        if (p.orbitShips.isNotEmpty()) {
-            planetStats.append(p.orbitShips.size.toString() + " ships in orbit:\n")
-            for (sh in p.orbitShips) {
-                planetStats.append("           " + sh.name + " (" + sh.race.name + ")\n")
+        ships = p.getOrbitShipsList()
+        if (ships.isNotEmpty()) {
+            planetStats.append(ships.size.toString() + " ships in orbit: ")
+            for (sh in ships) {
+                planetStats.append(sh.name + " ")
             }
         }
 
 
-        planetStats.append("\n")
-
+        planetStats.append("\n\n")
         planetStats.append("id: " + p.id +" | ")
         planetStats.append("refUID: " + p.uid  +" | ")
         planetStats.append("sid: " + p.sid +" | ")

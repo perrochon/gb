@@ -62,11 +62,19 @@ class RaceFragment : Fragment() {
         var paint = stats.paint
         paint.textSize = 40f
 
-        stats.append("\n")
-        stats.append("Name      : " + (r.name) + "\n")
+        stats.setText("Name      : " + (r.name) + "\n")
         stats.append("Birthrate : " + (r.birthrate) + "\n")
         stats.append("Explore   : " + (r.explore) + "\n")
         stats.append("Absorption: " + (r.absorption) + "\n")
+
+        var ships = r.getRaceShipsList()
+        if (ships.isNotEmpty()) {
+            stats.append(ships.size.toString() + " ship(s): ")
+            for (sh in ships) {
+                stats.append(sh.name + " ")
+            }
+        }
+
 
         stats = view.findViewById<TextView>(R.id.RaceBackground)
         paint = stats.paint

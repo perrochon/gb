@@ -52,8 +52,7 @@ class StarFragment : Fragment() {
         var paint = stats.paint
         paint.textSize = 40f
 
-        stats.append("\n")
-        stats.append("Name     : " + (st.name) + "\n")
+        stats.setText("Name     : " + (st.name) + "\n")
         stats.append("Position : (" + (st.loc.getLoc().x.toInt()) + ", " + st.loc.getLoc().y.toInt() + ")\n")
 
         if (st.starPlanets.isNotEmpty()) {
@@ -68,7 +67,7 @@ class StarFragment : Fragment() {
         if (ships.isNotEmpty()) {
             stats.append(ships.size.toString() + " ship(s): ")
             for (sh in ships) {
-                stats.append("           " + sh.name + " (" + sh.race.name + ")\n")
+                stats.append(sh.name + " ")
             }
         }
 

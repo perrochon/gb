@@ -5,6 +5,7 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBData.Companion.rand
+import java.util.*
 import kotlin.math.PI
 
 class GBPlanet(val sid: Int, val star: GBStar) {
@@ -37,9 +38,17 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
     var population = 0;
 
-    var landedShips: MutableList<GBShip> = arrayListOf() // the ships on ground of this planet
-    var orbitShips: MutableList<GBShip> = arrayListOf() // the ships in orbit of this planet
+    var landedShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // the ships on ground of this planet
+    var orbitShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // the ships in orbit of this planet
 
+
+    fun getLandedShipsList() : List<GBShip> {
+        return landedShips.toList()
+    }
+
+    fun getOrbitShipsList() : List<GBShip> {
+        return orbitShips.toList()
+    }
 
     init {
         id = GBData.getNextGlobalId()
