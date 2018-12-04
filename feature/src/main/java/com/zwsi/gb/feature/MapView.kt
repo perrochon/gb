@@ -214,7 +214,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
         // draw races
-        if (normScale > 20) {
+        if (normScale > 50) {
 
             val s = stars[0]
             if (visible(s.loc.x.toInt() * uToS, s.loc.y.toInt() * uToS)) {
