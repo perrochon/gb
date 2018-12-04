@@ -30,9 +30,7 @@ Population no longer migrates
 ## Features
 
 ### Mission Features for Mission 1 (Gating for Mission 2)
-* Unload (or explode) landed pod. Move population.
 * Revise all strings and fix text related issues of mission 1
-* Need to add more hints and tutorial (early users couldn't complete mission 1)
 
 ### Future missions
 * Fly a cruiser to new system: cruisers

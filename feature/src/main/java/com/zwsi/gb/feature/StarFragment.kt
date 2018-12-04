@@ -54,19 +54,20 @@ class StarFragment : Fragment() {
 
         stats.append("\n")
         stats.append("Name     : " + (st.name) + "\n")
-        stats.append("Position : (" + (st.loc.getLoc().x) + ", " + st.loc.getLoc().y + ")\n")
+        stats.append("Position : (" + (st.loc.getLoc().x.toInt()) + ", " + st.loc.getLoc().y.toInt() + ")\n")
 
         if (st.starPlanets.isNotEmpty()) {
-            stats.append(st.starPlanets.size.toString() + " planets:\n")
+            stats.append(st.starPlanets.size.toString() + " planet(s): ")
             for (pl in st.starPlanets) {
                 stats.append("  " + pl.name + " ")
             }
             stats.append("\n")
         }
 
-        if (st.getStarShipsList().isNotEmpty()) {
-            stats.append(st.getStarShipsList().size.toString() + " ships present:\n")
-            for (sh in st.getStarShipsList()) {
+        var ships = st.getStarShipsList()
+        if (ships.isNotEmpty()) {
+            stats.append(ships.size.toString() + " ship(s): ")
+            for (sh in ships) {
                 stats.append("           " + sh.name + " (" + sh.race.name + ")\n")
             }
         }
