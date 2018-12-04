@@ -34,6 +34,7 @@ Population no longer migrates
 
 ### Future missions
 * Fly a cruiser to new system: cruisers
+* Invade enemy system and eradicate everything. Can do that without much AI, if I prepopulate with scheduler.
 * Build infrastructure: planetary effects
 * Play different races: Mission n could be getting another race up and running.
 
