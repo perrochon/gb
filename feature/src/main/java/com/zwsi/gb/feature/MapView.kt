@@ -12,6 +12,7 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBShip
+import com.zwsi.gblib.GBxy
 
 class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
     SubsamplingScaleImageView(context, attr), View.OnTouchListener {
@@ -278,25 +279,32 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         canvas.drawCircle(vP1.x, vP1.y, radius, paint)
         paint.strokeWidth = strokeWidth.toFloat() / 2
 
-        paint.color = trailColor
-        var from = sh.loc.getLoc()
-        val iterate = sh.getTrailList().descendingIterator() // TODO waste fewer cycles...
-        val alphaFade = paint.alpha / sh.getTrailList().size
-
-        while (iterate.hasNext()) {
-
-            val xy = iterate.next()
-
-            sP1.set(from.x * uToS, from.y * uToS)
-            sourceToViewCoord(sP1, vP1)
-            sP2.set(xy.x * uToS, xy.y * uToS)
-            sourceToViewCoord(sP2, vP2)
-
-            canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
-
-            from = xy
-            paint.alpha -= alphaFade
-        }
+//        paint.color = trailColor
+//        val iterate = sh.getTrailList().iterator() // TODO waste fewer cycles...
+//
+//        val alphaFade = paint.alpha / sh.getTrailList().size
+//        paint.alpha = 0
+//
+//        var from = GBxy(0f,0f)
+//
+//        if (iterate.hasNext()) {
+//            from = iterate.next()
+//        }
+//
+//        while (iterate.hasNext()) {
+//
+//            val xy = iterate.next()
+//
+//            sP1.set(from.x * uToS, from.y * uToS)
+//            sourceToViewCoord(sP1, vP1)
+//            sP2.set(xy.x * uToS, xy.y * uToS)
+//            sourceToViewCoord(sP2, vP2)
+//
+//            canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
+//
+//            from = xy
+//            paint.alpha += alphaFade
+//        }
 
 
     }

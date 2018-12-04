@@ -54,7 +54,7 @@ class GBStar(val universe: GBUniverse) {
     }
 
     fun getStarShipsList() : List<GBShip> {
-        return starShips.filter { true }.toList()
+        return starShips.toList()
     }
 
 

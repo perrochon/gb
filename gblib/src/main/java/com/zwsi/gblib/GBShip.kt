@@ -24,10 +24,10 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val speed: Int
 
     var dest: GBLocation? = null
-    private val trail = LinkedList<GBxy>()
+    object private val trail = mutableListOf<GBxy>()
 
-    fun getTrailList() : LinkedList<GBxy> {
-     return trail.clone() as LinkedList<GBxy>
+    fun getTrailList() : List<GBxy> {
+     return trail.toList()
     }
 
     init {
@@ -121,14 +121,14 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     fun moveShip() {
 
         if (trail.size > 10) {
-            trail.removeFirst()
+            trail.removeAt(0)
         }
 
         if (dest == null) {
             return
         }
 
-        trail.addLast(loc.getLoc())
+        trail.add(loc.getLoc())
 
         val dest = this.dest!!
         val dxy = dest.getLoc()       // use getLoc to get universal (x,y)

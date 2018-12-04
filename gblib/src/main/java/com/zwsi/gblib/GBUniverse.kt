@@ -7,13 +7,13 @@ class GBUniverse {
 
     internal var numberOfStars: Int
     internal var numberOfRaces: Int
-    var allStars: MutableList<GBStar> = arrayListOf()  // the all the stars
-    var allPlanets: MutableList<GBPlanet> = arrayListOf() // all the planets
-    var allRaces: MutableList<GBRace> = arrayListOf() // all the races
+    var allStars = arrayListOf<GBStar>()  // the all the stars
+    var allPlanets  = arrayListOf<GBPlanet>() // all the planets
+    var allRaces  = arrayListOf<GBRace>() // all the races
 
-    var allShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
-    var deadShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
-    var universeShips: MutableList<GBShip> = arrayListOf() // ships in transit between system
+    val allShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
+    val deadShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
+    val universeShips: MutableList<GBShip> = arrayListOf() // ships in transit between system
 
     var news = arrayListOf<String>()
 
@@ -45,11 +45,11 @@ class GBUniverse {
     }
 
     fun getAllShipsList(): List<GBShip> {
-        return allShips.filter { true }.toList()
+        return allShips.toList()
     }
 
     fun getUniverseShipsList(): List<GBShip> {
-        return universeShips.filter { true }.toList()
+        return universeShips.toList()
     }
 
     internal fun consoleDraw() {
