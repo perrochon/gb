@@ -24,7 +24,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val speed: Int
 
     var dest: GBLocation? = null
-    object private val trail = mutableListOf<GBxy>()
+    private val trail = mutableListOf<GBxy>()
 
     fun getTrailList() : List<GBxy> {
      return trail.toList()
