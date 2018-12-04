@@ -200,10 +200,10 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             GBLog.d("Flying from (${sxy.x}, ${sxy.y}) direction (${dxy.x}, ${dxy.y}) until (${nxy.x}, ${nxy.y}) at speed $speed\n")
 
-            var distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
 
             if (loc.level == DEEPSPACE) {
 
+                var distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
 
 
                 if (distanceToStar < GBData.getSystemSize()) { // we arrived at destination System
@@ -234,6 +234,8 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
 
             } else {
+
+                var distanceToStar = sxy.distance(loc.getStar()!!.loc.getLoc())
 
                 if (distanceToStar > GBData.getSystemSize()) {  // we left the system
 
