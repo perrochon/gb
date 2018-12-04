@@ -32,7 +32,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     val universeSize = 1000
     val uToS = sourceSize / universeSize
     val uToSf = uToS.toFloat()
-    val sSystemSize = 14 * uToS
+    val sSystemSize = 13 * uToS
 
 
     // Object creation outside onDraw. These are only used in onDraw, but here for performance reasons?
@@ -42,7 +42,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private val podColorSystem = Color.parseColor("#ffee1111")
     private val podColorDeepspace = Color.parseColor("#ff11ee11")
     private val trailColor = Color.parseColor("#40bbbbbb")
-    private val gridColor = Color.parseColor("#20bbbbbb")
+    private val gridColor = Color.parseColor("#10bbbbbb")
     private val circleColor = Color.parseColor("#20FF6015")
 
     val vr = Rect()
@@ -113,72 +113,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         visibleFileRect(vr)
 
-        // State
-        if (gbDebug) {
-
-            paint.textSize = 40f
-            paint.style = Style.FILL
-            paint.color = Color.parseColor("#80ffbb33") // TODO get color holo orange with alpha
-            paint.color = debugTextColor
-
-            var l = 1f
-            val h = 50
-
-            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
-            canvas.drawText("Normscale: $normScale/ Scale: $scale", 8f, l++ * h, paint)
-            canvas.drawText(
-                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
-                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
-            )
-            canvas.drawText(
-                "Uvisible: ${(vr.right - vr.left) / uToS}x${(vr.bottom - vr.top) / uToS}",
-                8f,
-                l++ * h,
-                paint
-            )
-            canvas.drawText(
-                "Svisible: ${(vr.right - vr.left)}x${(vr.bottom - vr.top)}" + " at " + vr,
-                8f,
-                l++ * h,
-                paint
-            )
-            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
-            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
-            canvas.drawText(
-                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
-            )
-            canvas.drawText("Turn: ${universe.turn}", 8f, l++ * h, paint)
-        }
-
-        // Always draw stars
-        paint.style = Style.STROKE
-        for (s in stars) {
-            sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
-            sourceToViewCoord(sP1, vP1)
-            canvas.drawBitmap(bmStar!!, vP1.x - bmStar!!.getWidth() / 2, vP1.y - bmStar!!.getWidth() / 2, null)
-        }
-
-        // Always draw Stars Names
-        paint.textSize = 50f
-        paint.style = Style.FILL
-        paint.color = labelColor
-        for (s in stars) {
-            sP1.set(s.loc.getLoc().x * uToSf + 30, s.loc.getLoc().y * uToSf - 10)
-            sourceToViewCoord(sP1, vP1)
-            canvas.drawText(s.name, vP1.x + 30, vP1.y - 10, paint)
-        }
-
         // Draw universe grid lines at 250 Universe Coordinates // TODO Why not worky?
-        if (normScale > 90) {
+        if ((90 < normScale ) && (normScale > 80)) {
             paint.color = gridColor
-            for (i in 0 until sourceSize step (250 * uToS)) {
+            for (i in 0 until sourceSize step 4500) {
                 sP1.set(0f, i.toFloat())
-                sP2.set(sourceSize.toFloat(), i * i.toFloat())
+                sP2.set(sourceSize.toFloat(), i.toFloat())
                 sourceToViewCoord(sP1, vP1)
                 sourceToViewCoord(sP2, vP2)
                 canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
-                sP1.set(i * i.toFloat(), 0f)
-                sP2.set(i * i.toFloat(), sourceSize.toFloat())
+                sP1.set(i.toFloat(), 0f)
+                sP2.set(i.toFloat(), sourceSize.toFloat())
                 sourceToViewCoord(sP1, vP1)
                 sourceToViewCoord(sP2, vP2)
                 canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
@@ -186,7 +131,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
         // Draw image grid lines at 1000 coordinates
-        if ((70 > normScale) && (normScale > 60)) {
+        if ((75 > normScale) && (normScale > 50)) {
             paint.color = gridColor
             for (i in 0 until sourceSize step 1000) {
                 sP1.set(0f, i.toFloat())
@@ -202,6 +147,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
         }
 
+        // Always draw stars
+        paint.style = Style.STROKE
+        for (s in stars) {
+            sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
+            sourceToViewCoord(sP1, vP1)
+            canvas.drawBitmap(bmStar!!, vP1.x - bmStar!!.getWidth() / 2, vP1.y - bmStar!!.getWidth() / 2, null)
+        }
+
         // Draw circles
         if (40 > normScale) {
             paint.style = Style.STROKE
@@ -212,26 +165,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawCircle(vP1.x, vP1.y, radius, paint)
-            }
-        }
-
-        // draw races
-        if (normScale > 20) {
-
-            val s = stars[0]
-            if (visible(s.loc.x.toInt() * uToS, s.loc.y.toInt() * uToS)) {
-                sP1.set(s.loc.getLoc().x * uToSf + 50, s.loc.getLoc().y * uToSf)
-                sourceToViewCoord(sP1, vP1)
-                canvas.drawBitmap(bmRace!!, vP1.x, vP1.y, null)
-            }
-        }
-
-        // draw deep space ships
-        if (101 >= normScale) {
-            for (sh in universe.getUniverseShipsList()) {
-//                if (visible(sh.loc.getLoc().x.toInt(), sh.loc.getLoc().y.toInt())) { // TODO why this not workie
-                    drawShip(canvas, sh, podColorDeepspace)
-//                }
             }
         }
 
@@ -258,8 +191,82 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }// star loop
         }
 
+
+        // draw deep space ships
+        if (101 >= normScale) {
+            for (sh in universe.getUniverseShipsList()) {
+//                if (visible(sh.loc.getLoc().x.toInt(), sh.loc.getLoc().y.toInt())) { // TODO why this not workie
+                    drawShip(canvas, sh, podColorDeepspace)
+//                }
+            }
+        }
+
+
+        // Always draw Stars Names
+        paint.textSize = 50f
+        paint.style = Style.FILL
+        paint.color = labelColor
+        paint.alpha = 128
+        for (s in stars) {
+            sP1.set(s.loc.getLoc().x * uToSf + 30, s.loc.getLoc().y * uToSf - 10)
+            sourceToViewCoord(sP1, vP1)
+            canvas.drawText(s.name, vP1.x + 30, vP1.y - 10, paint)
+        }
+
+        // draw races
+        if (normScale > 20) {
+
+            val s = stars[0]
+            if (visible(s.loc.x.toInt() * uToS, s.loc.y.toInt() * uToS)) {
+                sP1.set(s.loc.getLoc().x * uToSf + 50, s.loc.getLoc().y * uToSf)
+                sourceToViewCoord(sP1, vP1)
+                canvas.drawBitmap(bmRace!!, vP1.x, vP1.y, null)
+            }
+        }
+
+
+        // State
+        if (gbDebug) {
+
+            paint.textSize = 40f
+            paint.style = Style.FILL
+            paint.color = Color.parseColor("#80ffbb33") // TODO get color holo orange with alpha
+            paint.color = debugTextColor
+            paint.alpha = 255
+
+            var l = 1f
+            val h = 50
+
+//            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
+            canvas.drawText("Normscale: $normScale/ Scale: $scale", 8f, l++ * h, paint)
+//            canvas.drawText(
+//                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
+//                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
+//            )
+//            canvas.drawText(
+//                "Uvisible: ${(vr.right - vr.left) / uToS}x${(vr.bottom - vr.top) / uToS}",
+//                8f,
+//                l++ * h,
+//                paint
+//            )
+//            canvas.drawText(
+//                "Svisible: ${(vr.right - vr.left)}x${(vr.bottom - vr.top)}" + " at " + vr,
+//                8f,
+//                l++ * h,
+//                paint
+//            )
+//            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
+//            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
+//            canvas.drawText(
+//                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
+//            )
+            canvas.drawText("Turn: ${universe.turn}", 8f, l++ * h, paint)
+        }
+
         this.postDelayed({this.invalidate()}, 1000) //TODO A better way to refresh upon model changes
-    }
+
+
+    } // onDraw
 
     fun visible(x: Int, y: Int): Boolean {
         rect.set(x - sSystemSize, y - sSystemSize, x + sSystemSize, y + sSystemSize)
@@ -279,32 +286,32 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         canvas.drawCircle(vP1.x, vP1.y, radius, paint)
         paint.strokeWidth = strokeWidth.toFloat() / 2
 
-//        paint.color = trailColor
-//        val iterate = sh.getTrailList().iterator() // TODO waste fewer cycles...
-//
-//        val alphaFade = paint.alpha / sh.getTrailList().size
-//        paint.alpha = 0
-//
-//        var from = GBxy(0f,0f)
-//
-//        if (iterate.hasNext()) {
-//            from = iterate.next()
-//        }
-//
-//        while (iterate.hasNext()) {
-//
-//            val xy = iterate.next()
-//
-//            sP1.set(from.x * uToS, from.y * uToS)
-//            sourceToViewCoord(sP1, vP1)
-//            sP2.set(xy.x * uToS, xy.y * uToS)
-//            sourceToViewCoord(sP2, vP2)
-//
-//            canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
-//
-//            from = xy
-//            paint.alpha += alphaFade
-//        }
+        paint.color = trailColor
+        val iterate = sh.getTrailList().iterator() // TODO waste fewer cycles...
+
+        val alphaFade = paint.alpha / sh.getTrailList().size
+        paint.alpha = 0
+
+        var from = GBxy(0f,0f)
+
+        if (iterate.hasNext()) {
+            from = iterate.next()
+        }
+
+        while (iterate.hasNext()) {
+
+            val xy = iterate.next()
+
+            sP1.set(from.x * uToS, from.y * uToS)
+            sourceToViewCoord(sP1, vP1)
+            sP2.set(xy.x * uToS, xy.y * uToS)
+            sourceToViewCoord(sP2, vP2)
+
+            canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
+
+            from = xy
+            paint.alpha += alphaFade
+        }
 
 
     }

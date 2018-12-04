@@ -11,6 +11,8 @@
 
 package com.zwsi.gblib
 
+import java.util.*
+
 class GBRace(val universe: GBUniverse, val idx: Int) {
 
     // uId is the Universe level ID (in Universe's list of allRaces)
@@ -24,7 +26,7 @@ class GBRace(val universe: GBUniverse, val idx: Int) {
     val absorption: Int
     val description: String
 
-    var raceShips: MutableList<GBShip> = arrayListOf() // Ships of this race
+    var raceShips = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
 
 
     init {

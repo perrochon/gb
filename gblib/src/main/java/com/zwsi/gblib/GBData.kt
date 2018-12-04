@@ -26,6 +26,10 @@ internal class GBData {
         private const val UniverseMaxY = 1000
         const val SystemSize = 13
 
+        fun getSystemSize(): Int {
+            return SystemSize
+        }
+
         fun getUniverseMaxX(): Int {
             return UniverseMaxX
         }

@@ -2,18 +2,19 @@ package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.rand
+import java.util.*
 
 class GBUniverse {
 
     internal var numberOfStars: Int
     internal var numberOfRaces: Int
-    var allStars = arrayListOf<GBStar>()  // the all the stars
-    var allPlanets  = arrayListOf<GBPlanet>() // all the planets
-    var allRaces  = arrayListOf<GBRace>() // all the races
+    var allStars = Collections.synchronizedList(arrayListOf<GBStar>()) // the all the stars
+    var allPlanets  = Collections.synchronizedList(arrayListOf<GBPlanet>()) // all the planets
+    var allRaces  = Collections.synchronizedList(arrayListOf<GBRace>()) // all the races
 
-    val allShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
-    val deadShips: MutableList<GBShip> = arrayListOf() // all the ships in the Universe
-    val universeShips: MutableList<GBShip> = arrayListOf() // ships in transit between system
+    val allShips = Collections.synchronizedList(arrayListOf<GBShip>())
+    val deadShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // all the ships in the Universe
+    val universeShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // ships in transit between system
 
     var news = arrayListOf<String>()
 
@@ -44,9 +45,11 @@ class GBUniverse {
         return numberOfStars
     }
 
+
     fun getAllShipsList(): List<GBShip> {
         return allShips.toList()
     }
+
 
     fun getUniverseShipsList(): List<GBShip> {
         return universeShips.toList()

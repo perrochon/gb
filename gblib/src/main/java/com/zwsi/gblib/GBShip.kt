@@ -24,8 +24,9 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val speed: Int
 
     var dest: GBLocation? = null
-    private val trail = mutableListOf<GBxy>()
+    private val trail = Collections.synchronizedList(mutableListOf<GBxy>())
 
+    @Synchronized
     fun getTrailList() : List<GBxy> {
      return trail.toList()
     }
@@ -61,6 +62,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         name = "S" + race.raceShips.indexOf(this)
         speed = GBData.getShipSpeed(idxtype)
     }
+
 
     fun changeShipLocation(loc: GBLocation) {
 
@@ -118,17 +120,25 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         moveShip()
     }
 
-    fun moveShip() {
-
+    @Synchronized
+    fun trimTrail() {
         if (trail.size > 10) {
             trail.removeAt(0)
         }
+    }
 
+    @Synchronized
+    fun addToTrail() {
+        trail.add(loc.getLoc())
+    }
+
+    fun moveShip() {
+
+        trimTrail()
         if (dest == null) {
             return
         }
-
-        trail.add(loc.getLoc())
+        addToTrail()
 
         val dest = this.dest!!
         val dxy = dest.getLoc()       // use getLoc to get universal (x,y)
@@ -190,10 +200,13 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             GBLog.d("Flying from (${sxy.x}, ${sxy.y}) direction (${dxy.x}, ${dxy.y}) until (${nxy.x}, ${nxy.y}) at speed $speed\n")
 
+            var distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
+
             if (loc.level == DEEPSPACE) {
 
 
-                if (distance < 15f) { // we arrived at destination
+
+                if (distanceToStar < GBData.getSystemSize()) { // we arrived at destination System
 
                     // TODO check if destination is the system, in which case we would just stop here.
                     // We can't fly to a system yet, so not a bug just yet.
@@ -222,9 +235,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             } else {
 
-                var distanceToStar = sxy.distance(loc.getStar()!!.loc.getLoc())
-
-                if (distanceToStar > 15f) {  // we left the system
+                if (distanceToStar > GBData.getSystemSize()) {  // we left the system
 
                     var next = GBLocation(nxy.x, nxy.y)
                     changeShipLocation(next)
