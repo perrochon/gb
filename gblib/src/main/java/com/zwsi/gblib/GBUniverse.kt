@@ -190,10 +190,6 @@ class GBUniverse {
 
         sh.dest = loc
 
-//        var order = GBOrder()
-//        order.teleportShip(sh, loc)
-//        GBLog.d("Order made: " + order.toString())
-//        orders.add(order)
 
         GBLog.d("Current Orders: " + orders.toString())
     }
@@ -203,25 +199,6 @@ class GBUniverse {
         p.landPopulation(allRaces[uId], number)
     }
 
-
-//    var program = listOf<Int>()
-//    fun runProgram() {
-//
-//        var steps = program.filter { it == turn }
-//
-//        for (step in steps) {
-//            when (turn) {
-//                0 -> {
-//                }
-//                1 -> {
-//                }
-//                2 -> {
-//                }
-//                3 -> {
-//                }
-//            }
-//        }
-//    }
 
 
     fun makeStuff() {
@@ -237,7 +214,7 @@ class GBUniverse {
         }
         scheduledActions.add(GBInstruction(now, code))
 
-        for (i in 0..19) {
+        for (i in 0..49) {
             code = {
                 val factory = universe.getAllShipsList().find { it.idxtype == 0 }
                 GBLog.d("Ordered Pod")

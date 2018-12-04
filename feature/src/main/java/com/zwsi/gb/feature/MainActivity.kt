@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
         Thread(Runnable {
 
             for (j in 1..36000) {
-                Thread.sleep(1000)
+                Thread.sleep(200)
                 GBController.doUniverse()
             }
 
