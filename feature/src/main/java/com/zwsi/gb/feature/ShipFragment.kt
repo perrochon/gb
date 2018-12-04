@@ -76,7 +76,7 @@ class ShipFragment : Fragment() {
         stats.append("Type: " + sh.type + "\n")
         stats.append("Speed: " + sh.speed + "\n")
         stats.append("Race: " + sh.race.name + "\n")
-        stats.append("Location: " + sh.loc.getLocDesc() + "\n")
+        stats.append("Location: " + sh.loc.getLocDesc())
 
         stats = view.findViewById<TextView>(R.id.ShipBackground)
         paint = stats.paint
@@ -92,7 +92,7 @@ class ShipFragment : Fragment() {
         stats.append("id:" + sh.id + " | ")
         stats.append("refUID:" + sh.uid + " | ")
         stats.append("idxt:" + sh.idxtype + " | ")
-        stats.append("loca:" + sh.loc.level + "." + sh.loc.refUID+ "\n")
+        stats.append("loca:" + sh.loc.level + "." + sh.loc.refUID)
 
 
         if (sh.idxtype == 0) { // TODO Better to test for speed > 0
@@ -102,18 +102,18 @@ class ShipFragment : Fragment() {
 
         // TODO: better selection of possible targets once we have visibility. Right now it's all insystem
         // and first planet of each system outside.
-        var planetsLocal = arrayListOf<String>()
+        var destinationPlanets = arrayListOf<String>()
         if (sh.getStar() != null) {
             for (p in sh.getStar()!!.starPlanets) {
-                planetsLocal.add(p.name)
-            }
-
-            for (s in universe.allStars) {
-                planetsLocal.add(s.starPlanets[0].name)
+                destinationPlanets.add(p.name)
             }
         }
+        for (s in universe.allStars) {
+            destinationPlanets.add(s.starPlanets[0].name)
+        }
+
         // Create an ArrayAdapter
-        val adapter = ArrayAdapter<String>(this.activity!!, android.R.layout.simple_spinner_item, planetsLocal)
+        val adapter = ArrayAdapter<String>(this.activity!!, android.R.layout.simple_spinner_item, destinationPlanets)
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
