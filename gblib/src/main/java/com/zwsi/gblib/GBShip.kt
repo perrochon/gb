@@ -226,7 +226,6 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                     GBLog.d(" Flying Deep Space")
 
-
                     //universe.news.add("$name moved in ${loc.getLocDesc()}. ( ${loc.x} , ${loc.y} )\n")
                     return
 

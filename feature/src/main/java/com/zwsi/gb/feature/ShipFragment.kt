@@ -78,18 +78,17 @@ class ShipFragment : Fragment() {
         stats.append("Race: " + sh.race.name + "\n")
         stats.append("Location: " + sh.loc.getLocDesc() + "\n")
 
-
         stats = view.findViewById<TextView>(R.id.ShipBackground)
         paint = stats.paint
         paint.textSize = 40f
 
-        stats.append("\n")
-        stats.append(
+        stats.setText(
             "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
                     "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n"
         )
 
         stats.append("\n")
+
         stats.append("id:" + sh.id + " | ")
         stats.append("refUID:" + sh.uid + " | ")
         stats.append("idxt:" + sh.idxtype + " | ")

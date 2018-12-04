@@ -65,7 +65,7 @@ class StarFragment : Fragment() {
 
         var ships = st.getStarShipsList()
         if (ships.isNotEmpty()) {
-            stats.append(ships.size.toString() + " ship(s): ")
+            stats.append("Ships (${ships.size.toString()}): ")
             for (sh in ships) {
                 stats.append(sh.name + " ")
             }
@@ -75,8 +75,7 @@ class StarFragment : Fragment() {
         paint = stats.paint
         paint.textSize = 40f
 
-        stats.append("\n")
-        stats.append("Lorem ipsum dolor sit amet\n")
+        stats.setText("Lorem ipsum dolor sit amet\n")
 
         stats.append("\n")
         stats.append("id: " + st.id + " | ")

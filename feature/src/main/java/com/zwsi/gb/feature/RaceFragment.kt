@@ -69,7 +69,7 @@ class RaceFragment : Fragment() {
 
         var ships = r.getRaceShipsList()
         if (ships.isNotEmpty()) {
-            stats.append(ships.size.toString() + " ship(s): ")
+            stats.append("Ships (${ships.size.toString()}): ")
             for (sh in ships) {
                 stats.append(sh.name + " ")
             }
