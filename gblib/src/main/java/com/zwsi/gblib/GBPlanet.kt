@@ -53,8 +53,8 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
     init {
         id = GBData.getNextGlobalId()
-        universe.allPlanets.add(this)
-        uid = universe.allPlanets.indexOf(this)
+        star.universe.allPlanets.add(this) // This has to be star.universe as we don't have a universe yet...
+        uid = star.universe.allPlanets.indexOf(this) // TODO Universe creation is not ideal just yet...
 
         idxname = GBData.selectPlanetNameIdx()
         name = GBData.planetNameFromIdx(idxname)
@@ -62,7 +62,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
         idxtype = GBData.selectPlanetTypeIdx()
         type = GBData.planetTypeFromIdx(idxtype)
 
-        val orbitDist = GBData.getSystemRadius() / star.numberOfPlanets.toFloat()
+        val orbitDist : Float = GBData.getSystemRadius().toFloat() / star.numberOfPlanets.toFloat()
 
         loc = GBLocation(star, (sid+1f)*orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
