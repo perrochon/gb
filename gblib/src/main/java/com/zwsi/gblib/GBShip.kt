@@ -206,7 +206,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 var distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
 
 
-                if (distanceToStar < GBData.getSystemSize()) { // we arrived at destination System
+                if (distanceToStar < GBData.getSystemRadius()) { // we arrived at destination System
 
                     // TODO check if destination is the system, in which case we would just stop here.
                     // We can't fly to a system yet, so not a bug just yet.
@@ -236,7 +236,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                 var distanceToStar = sxy.distance(loc.getStar()!!.loc.getLoc())
 
-                if (distanceToStar > GBData.getSystemSize()) {  // we left the system
+                if (distanceToStar > GBData.getSystemRadius()) {  // we left the system
 
                     var next = GBLocation(nxy.x, nxy.y)
                     changeShipLocation(next)

@@ -8,7 +8,6 @@ package com.zwsi.gblib
 import org.junit.Test
 
 import org.junit.Assert.*
-import kotlin.math.PI
 
 class GBPlanetTest {
 
@@ -73,7 +72,7 @@ class GBPlanetTest {
         val universe = GBController.makeUniverse()
 
         universe.allPlanets.forEach {
-            assert(it.loc.getLoc().distance(it.star.loc.getLoc())< GBData.SystemSize, {"Planet too far from star"} )
+            assert(it.loc.getLoc().distance(it.star.loc.getLoc())< GBData.SystemRadius, {"Planet too far from star"} )
         }
     }
 

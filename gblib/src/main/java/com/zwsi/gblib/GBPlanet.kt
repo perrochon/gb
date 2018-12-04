@@ -4,6 +4,7 @@
 
 package com.zwsi.gblib
 
+import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.rand
 import java.util.*
 import kotlin.math.PI
@@ -52,8 +53,8 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
     init {
         id = GBData.getNextGlobalId()
-        star.universe.allPlanets.add(this)
-        uid = star.universe.allPlanets.indexOf(this)
+        universe.allPlanets.add(this)
+        uid = universe.allPlanets.indexOf(this)
 
         idxname = GBData.selectPlanetNameIdx()
         name = GBData.planetNameFromIdx(idxname)
@@ -61,7 +62,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
         idxtype = GBData.selectPlanetTypeIdx()
         type = GBData.planetTypeFromIdx(idxtype)
 
-        val orbitDist = GBData.SystemSize / star.numberOfPlanets
+        val orbitDist = GBData.getSystemRadius() / star.numberOfPlanets.toFloat()
 
         loc = GBLocation(star, (sid+1f)*orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
