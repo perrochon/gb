@@ -27,10 +27,10 @@ class GBViewModel {
         }
 
         fun update() {
-            if (universe.turn > lastTurn) {
+//            if (universe.turn > lastTurn) {
                 updateTimeTurn = measureNanoTime {
 
-                    lastTurn = universe.turn
+//                    lastTurn = universe.turn
 
                     // Not updating stars and planets as those lists don't change
                     // TODO: Deep copy of stars and planets? Then copy changed data
@@ -41,7 +41,7 @@ class GBViewModel {
 
                     fillViewStarShips()
                     fillViewShipTrails()
-                }
+//                }
             }
 
             // TODO convert all coordinates to source coordinates after updating? Saves a few multiplications

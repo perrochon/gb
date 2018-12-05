@@ -117,7 +117,15 @@ class MainActivity : AppCompatActivity() {
 //            val ps = PrintStream(baos)
 //            System.setOut(ps)
 
+            if (universe.autoDo) {
+                return@Runnable
+            }
+
             GBController.doUniverse()
+
+            view.post {
+                GBViewModel.update()
+            }
 
 //            System.out.flush()
 
@@ -176,6 +184,11 @@ class MainActivity : AppCompatActivity() {
                     }
                     Thread.sleep(500)
                     GBController.doUniverse()
+
+                    view.post {
+                        GBViewModel.update()
+                    }
+
                 }
 
             }).start()
