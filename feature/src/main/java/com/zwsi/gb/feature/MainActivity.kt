@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
 import kotlinx.android.synthetic.main.activity_main.*
@@ -188,12 +189,12 @@ class MainActivity : AppCompatActivity() {
                     view.post {
                         GBViewModel.update()
                     }
-
                 }
 
             }).start()
         }
     }
+
     /** Called when the user taps the Stars button */
     fun starmap1(view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {

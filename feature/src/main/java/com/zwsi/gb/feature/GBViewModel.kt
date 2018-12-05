@@ -1,5 +1,6 @@
 package com.zwsi.gb.feature
 
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBUniverse
@@ -21,6 +22,8 @@ class GBViewModel {
         var lastTurn = -1
         var updateTimeTurn = 0L
 
+        var imageView : SubsamplingScaleImageView? = null
+
         init {
             fillViewStarShips()
             fillViewShipTrails()
@@ -41,6 +44,11 @@ class GBViewModel {
             }
 
             // TODO convert all coordinates to source coordinates after updating? Saves a few multiplications
+
+            if (imageView != null) {
+                imageView!!.invalidate()
+            }
+
 
         }
 

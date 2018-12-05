@@ -100,6 +100,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         setDebug(false)
         maxScale = 12f
 
+        GBViewModel.imageView = this
+
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -139,7 +141,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         drawStats(canvas)
 
-        this.postDelayed({ this.invalidate() }, 1000) //TODO A better way to refresh upon model changes
+        //this.postDelayed({ this.invalidate() }, 1000) //TODO A better way to refresh upon model changes
 
 
     } // onDraw
