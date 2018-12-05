@@ -88,7 +88,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         }
         when (loc.level) {
             LANDED -> {
-                if (idxtype == 1) {
+                if (false && (idxtype == 1)) {
                     // TODO We should really handle this somewhere else. If pod were a subtype of ship, it could overwrite
                     // This is a pod, they populate, then destroy.
                     // For now, we add them to a dead ship list, that we can garbage collect at a later time.
