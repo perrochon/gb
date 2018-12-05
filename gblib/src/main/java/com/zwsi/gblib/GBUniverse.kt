@@ -24,6 +24,7 @@ class GBUniverse {
 
     var scheduledActions = mutableListOf<GBInstruction>()
 
+    var autoDo = false
 
     var turn = 0
 

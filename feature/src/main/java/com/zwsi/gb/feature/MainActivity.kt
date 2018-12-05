@@ -164,15 +164,22 @@ class MainActivity : AppCompatActivity() {
         val message = "God Mode: Continuous Do"
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-        Thread(Runnable {
+        if (universe.autoDo) {
+            universe.autoDo = false
+        } else {
+            universe.autoDo = true
+            Thread(Runnable {
 
-            for (j in 1..36000) {
-                Thread.sleep(200)
-                GBController.doUniverse()
-            }
+                for (j in 1..36000) {
+                    if (!universe.autoDo) {
+                        return@Runnable
+                    }
+                    Thread.sleep(500)
+                    GBController.doUniverse()
+                }
 
-        }).start()
-
+            }).start()
+        }
     }
     /** Called when the user taps the Stars button */
     fun starmap1(view: View) {
