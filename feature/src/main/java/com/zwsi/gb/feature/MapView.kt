@@ -117,8 +117,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         startTimeNanos = System.nanoTime()
         numberOfDraws++
 
-        GBViewModel.update()
-
         normScale = ((1 / scale) - (1 / maxScale)) / (1 / minScale - 1 / maxScale) * 100
 
         visibleFileRect(vr)
