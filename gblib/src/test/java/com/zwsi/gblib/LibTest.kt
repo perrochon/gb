@@ -141,7 +141,29 @@ class LibTest {
 
     @Test
     fun makeStuff(){
+
+        var shipTest = GBShipTest()
+
         universe.makeStuff()
+        universe.makeStuff()
+
+        var testShips = 102
+
+        for (i in 1..1000 ){
+
+            universe.doUniverse()
+
+            consistent()
+
+            universe.getAllShipsList().forEach {
+                shipTest.consistency(it)
+                shipTest.uniqueLocations()
+            }
+            if (i>testShips*5) {
+                assertEquals(102, universe.getAllShipsList().size)
+            }
+        }
+
     }
 
 }

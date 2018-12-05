@@ -7,6 +7,8 @@
 
 package com.zwsi.gblib
 
+import kotlin.system.measureNanoTime
+
 class GBTest {
     companion object {
 
@@ -15,15 +17,23 @@ class GBTest {
 
             println("Welcome to GB Test")
             GBController.makeUniverse()
-            GBController.universe.consoleDraw()
+            GBController.universe.makeStuff()
 
-            GBController.doUniverse()
-            GBController.universe.consoleDraw()
+            var elapsed = 0L
 
-            for (i in 0..3 ) GBController.doUniverse()
-            GBController.universe.consoleDraw()
+            for (i in 1..1000000) {
 
-            println()
+                elapsed = measureNanoTime {
+                    GBController.doUniverse()
+                }
+
+                print("Time for do: $elapsed ")
+                for (j in 1..elapsed/10000 ) {
+                    print (" ")
+                }
+                print ("*\n")
+            }
         }
+
     }
 }
