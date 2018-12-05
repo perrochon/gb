@@ -182,7 +182,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             //                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
             //            )
             canvas.drawText(
-                "Ships: ${GBViewModel.viewShips.size} | UShips: ${GBViewModel.viewUniverseShips}",
+                "Ships: ${GBViewModel.viewShips.size} | UShips: ${GBViewModel.viewUniverseShips.size}",
                 8f,
                 l++ * h,
                 paint
