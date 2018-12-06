@@ -3,11 +3,13 @@ package com.zwsi.gb.feature
 import android.graphics.PointF
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP
 
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBController.Companion.universe
 
 class MapActivity : AppCompatActivity() {
 
@@ -25,13 +27,19 @@ class MapActivity : AppCompatActivity() {
 
         imageView.setImage(fullResImage, lowResImage);
 
-        val home = GBController.universe.allStars[0]
+        val home = universe.allRaces[0].home.star
 
         imageView.setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
-        imageView.setScaleAndCenter(1.5f, PointF(home.loc.x*18f, home.loc.y*18f))
+        imageView.setScaleAndCenter(1.5f, PointF(home.loc.x*18f, home.loc.y*18f)) //TODO replace 18f with uToS
         imageView.setDoubleTapZoomScale(1.5f)
+
+
 
     }
 
+    /** Called when the user taps the Do button */
+    fun doUniverse(view: View) {
+        GlobalButtonOnClick.doUniverse(view)
+    }
 
 }

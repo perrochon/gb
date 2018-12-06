@@ -239,23 +239,42 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     sP1.set(r.home.star.loc.getLoc().x * uToSf + 50, r.home.star.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)
                     when (r.idx) {
-                        0 -> { canvas.drawBitmap(bmRaceXenos!!, vP1.x, vP1.y, null)}
-                        1 -> { canvas.drawBitmap(bmRaceImpi!!, vP1.x, vP1.y, null)}
-                        2 -> {canvas.drawBitmap(bmRaceBeetle!!, vP1.x, vP1.y, null)}
-                        3 -> {canvas.drawBitmap(bmRaceTortoise!!, vP1.x, vP1.y, null)}
+                        0 -> {
+                            canvas.drawBitmap(bmRaceXenos!!, vP1.x, vP1.y, null)
+                        }
+                        1 -> {
+                            canvas.drawBitmap(bmRaceImpi!!, vP1.x, vP1.y, null)
+                        }
+                        2 -> {
+                            canvas.drawBitmap(bmRaceBeetle!!, vP1.x, vP1.y, null)
+                        }
+                        3 -> {
+                            canvas.drawBitmap(bmRaceTortoise!!, vP1.x, vP1.y, null)
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun drawShots(canvas: Canvas){
-        if (20 < normScale) {
+    private fun drawShots(canvas: Canvas) {
+        if (30 > normScale) {
 
-            for (shot in GBViewModel.viewShots) {
-                paint.color = shotColor
-                if (visible(shot.from.x.toInt() * uToS, shot.from.y.toInt() * uToS)) {
-                    canvas.drawLine(shot.from.x, shot.from.y, shot.to.x, shot.to.y, paint)
+            if (true) {
+                for (shot in GBViewModel.viewShots) {
+                    paint.color = shotColor
+                    paint.strokeWidth = strokeWidth.toFloat() / 4
+                    if (visible(shot.from.x.toInt() * uToS, shot.from.y.toInt() * uToS) ||
+                        visible(shot.to.x.toInt() * uToS, shot.to.y.toInt() * uToS)
+                    ) {
+
+                        sP1.set(shot.from.x * uToS, shot.from.y * uToS)
+                        sourceToViewCoord(sP1, vP1)
+                        sP2.set(shot.to.x * uToS, shot.to.y * uToS)
+                        sourceToViewCoord(sP2, vP2)
+
+                        canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
+                    }
                 }
             }
         }
@@ -332,14 +351,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         sP1.set(sh.loc.getLoc().x * uToS, sh.loc.getLoc().y * uToS)
         sourceToViewCoord(sP1, vP1)
-        when (sh.idxtype){
+        when (sh.idxtype) {
 
             POD -> {
-                canvas.drawCircle(vP1.x, vP1.y, radius, paint)}
+                canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+            }
             CRUISER -> {
-                canvas.drawRect(vP1.x-radius, vP1.y-radius, vP1.x+radius, vP1.y+radius, paint)}
+                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
+            }
             else -> {
-                canvas.drawCircle(vP1.x, vP1.y, radius, paint)}
+                canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+            }
         }
 
 

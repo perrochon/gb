@@ -68,9 +68,9 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
     fun changeShipLocation(loc: GBLocation) {
 
-        GBLog.d("Moving " + name + " from " + this.loc.getLocDesc() + " to " + loc.getLocDesc())
+        GBLog.d("Changing " + name + " from " + this.loc.getLocDesc() + " to " + loc.getLocDesc())
 
-        // TODO no need to always do these whens, e.g. if things are the same, no need to remove and add
+        // TODO Performance: no need to always do these whens, e.g. if things are the same, no need to remove and add
         when (this.loc.level) {
             LANDED -> {
                 this.loc.getPlanet()!!.landedShips.remove(this)
@@ -139,16 +139,18 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     fun moveShip() {
 
         trimTrail()
+
         if (dest == null) {
             return
         }
+
         addToTrail()
 
         val dest = this.dest!!
         val dxy = dest.getLoc()       // use getLoc to get universal (x,y)
         val sxy = loc.getLoc()        // center of planet for landed and orbit
 
-        GBLog.d("Attempting to fly" + name + " from " + this.loc.getLocDesc() + " to " + dest.getLocDesc())
+        GBLog.d("Moving $name from ${this.loc.getLocDesc()} to ${dest.getLocDesc()}.")
 
         if (loc.level == LANDED) { // We are landed
 
@@ -156,11 +158,8 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             if ((dest.level != loc.level) || (dest.refUID != loc.refUID)) { // landed and we need to get to orbit
 
-                GBLog.d("launching " + name)
-
                 var next = GBLocation(loc.getPlanet()!!, 1f, 1f)
                 changeShipLocation(next)
-                GBLog.d("launching " + name)
                 universe.news.add("Launched $name to ${loc.getLocDesc()}.\n")
 
                 return
@@ -177,7 +176,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
         } else if ((loc.level == ORBIT) && (loc.refUID == dest.refUID)) {
 
-            GBLog.d(name + " is in orbit at destination. Landing.")
+            GBLog.d("$name is in orbit at destination. Landing.")
 
             // in orbit at destination so we need to land
             changeShipLocation(dest)

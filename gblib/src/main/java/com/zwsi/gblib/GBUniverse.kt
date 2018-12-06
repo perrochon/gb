@@ -62,7 +62,7 @@ class GBUniverse {
         return universeShips.toList()
     }
 
-    fun getAllShotsList() : List<GBVector> {
+    fun getAllShotsList(): List<GBVector> {
         return allShots.toList()
     }
 
@@ -162,12 +162,24 @@ class GBUniverse {
 
     fun fireShots() { // TODO use filtered lists
         allShots.clear()
+//        for (sh1 in allShips) {
+//            if (sh1.idxtype == CRUISER) {
+//                for (sh2 in allShips) {
+//                    if (sh2.idxtype == POD) {
+//                        allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
+//                        GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
+//                    }
+//                }
+//            }
+//        }
         for (s in allStars) {
             for (sh1 in s.getStarShipsList()) {
                 if (sh1.idxtype == CRUISER) {
                     for (sh2 in s.getStarShipsList()) {
                         if (sh2.idxtype == POD) {
                             allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
+                            GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
+
                         }
                     }
 
@@ -278,13 +290,13 @@ class GBUniverse {
         scheduledActions.add(GBInstruction(-1, code))
 
         for (j in arrayOf(0, 1, 3)) {
-            for (i in 1..20) {
+            for (i in 0..20) {
                 code = {
                     val factory = allRaces[j].raceShips.find { it.idxtype == FACTORY }
                     GBLog.d("Ordered Cruiser")
                     factory?.let { universe.makeCruiser(it) }
                 }
-                scheduledActions.add(GBInstruction(now + i * 100, code))
+                scheduledActions.add(GBInstruction(now + 1 + i * 100, code))
             }
         }
 
