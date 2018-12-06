@@ -99,6 +99,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                     // TODO We should really handle this somewhere else. If pod were a subtype of ship, it could overwrite
                     // This is a pod, they populate, then destroy.
                     // We set health to 0, and clean up elsewhere
+                    loc.getPlanet()!!.landedShips.add(this)
                     this.health = 0
                     universe.landPopulation(this.loc.getPlanet()!!, race.uid, 1)
                     //
@@ -126,6 +127,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     fun doShip() {
         removeDeadShips()
         moveShip()
+        moveOrbitShip()
     }
 
     @Synchronized
@@ -171,6 +173,12 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
             // Can't take it out of all ships, unless the app handle this. E.g. fragments need a view model
             // But first need to fix the view model of the map..
             // universe.allShips.remove(sh) // TODO Performance Can't remove in for loop above, need to do it loop safe
+        }
+    }
+
+    fun moveOrbitShip() {
+        if ((this.dest == null) && (this.loc.level == ORBIT)) {
+           this.loc = GBLocation (this.loc.getPlanet()!!, this.loc.getOLocP().r, this.loc.getOLocP().t+0.2f)
         }
     }
 
@@ -224,14 +232,15 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
             if (dest.level == ORBIT) { // We arrived in Orbit
                 this.dest = null
 
-            } else {
+                return
 
+            } else {
+                //dest.level == LANDED
                 GBLog.d("$name is in orbit at destination. Landing.")
 
                 // in orbit at destination so we need to land
                 changeShipLocation(dest)
                 universe.news.add("$name ${loc.getLocDesc()}.\n")
-                this.dest = null
 
                 return
 

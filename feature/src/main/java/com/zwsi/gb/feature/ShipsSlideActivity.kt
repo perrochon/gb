@@ -175,9 +175,8 @@ class ShipsSlideActivity : AppCompatActivity() {
 
         if (ship.idxtype == POD) {
             GBController.universe.flyShipLanded(ship, planet)
-        } else
+        } else {
             GBController.universe.flyShipOrbit(ship, planet)
+        }
     }
-}
-
 }

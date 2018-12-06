@@ -87,7 +87,7 @@ class GBLocation {
     constructor(planet: GBPlanet, r: Float, t: Float) {
         // These two asserts may also catch mistaken use of Float (x,y)
         gbAssert("Distance to planet too big", r > 10f)
-        gbAssert("Angler larger than 2*PI", r > PI + 0.1)
+        // gbAssert("Angle larger than 2*PI", t > PI + 0.1)
 
         this.level = ORBIT
         this.refUID = planet.uid
@@ -160,7 +160,7 @@ class GBLocation {
     /** Get (Planet) Orbit location in Polar - relative to planet*/
     fun getOLocP(): GBrt {
         gbAssert("This is not an orbit location.", level == ORBIT)
-        return GBrt(t, r)
+        return GBrt(r, t)
     }
 
     /** Get (Planet) Orbit location in Cartesian - relative to planet*/

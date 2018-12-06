@@ -151,7 +151,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
         // Speed of pds is 1, so angular speed cannot be faster than 1/r
 
         val rt = loc.getSLocP()
-        val speed = 1/(rt.r+10)
+        val speed = 1/(rt.r+20)  // was 10 for a long time. Changing to 20 with orbiting ships
         loc = GBLocation(star, rt.r, rt.t - speed) // y points down, anti-clockwise is negative angles...
     }
 
