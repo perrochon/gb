@@ -19,12 +19,12 @@
 
     <ScrollView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:id="@+id/scrollView2"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/linearLayout" android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout1" android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2">
         <TextView
                 android:id="@+id/output"
                 android:layout_width="match_parent"
@@ -42,9 +42,8 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:id="@+id/linearLayout" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/scrollView2" android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout1" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" tools:padding="0dp" android:layout_marginTop="8dp">
         <Button
                 android:text="Map"
@@ -78,6 +77,18 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/ShipButton"
                 android:onClick="ships"/>
+
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:padding="0dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent">
         <Button
                 android:text="@string/button_create"
                 android:layout_width="wrap_content"
@@ -104,17 +115,18 @@
                 android:onClick="continuousDo"
                 android:visibility="visible"
                 tools:visibility="visible"
-                android:alpha="0.5"/>
+                android:alpha="0.5" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/DoButton"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DoButton"
+                android:text="@string/button_Do"
+                android:onClick="doUniverse"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
     </LinearLayout>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/DoButton"
-            android:text="@string/button_Do"
-            android:onClick="doUniverse"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
             android:layout_width="wrap_content"

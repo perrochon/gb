@@ -45,7 +45,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private val debugTextColor = Color.parseColor("#FFffbb33")
     private val labelColor = Color.parseColor("#FFffbb33")
     private val podColorSystem = Color.parseColor("#ffee1111")
-    private val podColorDeepspace = Color.parseColor("#ff11ee11")
+    private val deadColor = Color.parseColor("#ffffffff")
     private val trailColor = Color.parseColor("#40bbbbbb")
     private val gridColor = Color.parseColor("#10bbbbbb")
     private val circleColor = Color.parseColor("#20FF6015")
@@ -348,6 +348,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         val radius = scale * 1f
 
         paint.strokeWidth = strokeWidth.toFloat()
+
+        if (sh.health == 0) {
+            paint.color = deadColor
+        }
 
         sP1.set(sh.loc.getLoc().x * uToS, sh.loc.getLoc().y * uToS)
         sourceToViewCoord(sP1, vP1)

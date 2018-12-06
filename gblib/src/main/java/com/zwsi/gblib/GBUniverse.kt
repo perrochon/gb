@@ -52,9 +52,10 @@ class GBUniverse {
         return numberOfStars
     }
 
-
     fun getAllShipsList(): List<GBShip> {
-        return allShips.toList()
+        return allShips.toList() // TODO Performance Fix
+        // I think using filter above creates two lists, need to do it on the fly in one list
+        // Also, this shouldn't be necessary, but game still crashes if I remove ships from allShips.
     }
 
 
@@ -130,12 +131,12 @@ class GBUniverse {
         news.clear()
 
         scheduledActions.forEach() {
-            GBLog.d("Looking at action")
-            GBLog.d(it.toString())
+            GBLog.d("Looking at action for turn ${it.t}")
             if ((it.t == turn) || (it.t == -1)) {
                 run { it.code() }
             }
         }
+        // TODO PERFORMANCE / MEMORY LEAK remove actions from before this turn
 
         for (o in orders) {
             o.execute()
@@ -179,7 +180,7 @@ class GBUniverse {
                         if (sh2.idxtype == POD) {
                             allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
                             GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
-
+                            sh2.health = 0
                         }
                     }
 
@@ -199,7 +200,7 @@ class GBUniverse {
 
 
     fun makeFactory(p: GBPlanet, race: GBRace) {
-        GBLog.d("universe: Making factory for ?? on " + p.name + "")
+        GBLog.d("universe: Making factory for ${race.name} on ${p.name}.")
 
         var loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
 
@@ -296,7 +297,7 @@ class GBUniverse {
                     GBLog.d("Ordered Cruiser")
                     factory?.let { universe.makeCruiser(it) }
                 }
-                scheduledActions.add(GBInstruction(now + 1 + i * 100, code))
+                scheduledActions.add(GBInstruction(now + 1 + i * 10, code))
             }
         }
 

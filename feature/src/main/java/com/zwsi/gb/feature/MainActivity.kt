@@ -11,14 +11,11 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.ByteArrayOutputStream
-import java.io.PrintStream
 
 var lastClickTime = 0L
 val clickDelay = 300L
@@ -52,7 +49,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 
     /** Called when the user taps the Create button */
     fun create(view: View) {
@@ -101,6 +97,10 @@ class MainActivity : AppCompatActivity() {
         GlobalButtonOnClick.doUniverse(view)
     }
 
+    fun continuousDo(view: View) {
+        GlobalButtonOnClick.toggleContinuous(view)
+    }
+
     fun makeStuff(view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
@@ -118,32 +118,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun continuousDo(view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-            return;
-        }
-        lastClickTime = SystemClock.elapsedRealtime();
-
-        val message = "God Mode: Continuous Do"
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-
-        if (universe.autoDo) {
-            universe.autoDo = false
-        } else {
-            universe.autoDo = true
-            Thread(Runnable {
-
-                while (universe.autoDo) {
-                    Thread.sleep(500)
-                    GBController.doUniverse()
-
-                    view.post {
-                        GBViewModel.update()
-                    }
-                }
-            }).start()
-        }
-    }
 
     /** Called when the user taps the Stars button */
     fun starmap1(view: View) {

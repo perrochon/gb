@@ -8,7 +8,6 @@ import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP
 
-import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
 
 class MapActivity : AppCompatActivity() {
@@ -40,6 +39,10 @@ class MapActivity : AppCompatActivity() {
     /** Called when the user taps the Do button */
     fun doUniverse(view: View) {
         GlobalButtonOnClick.doUniverse(view)
+    }
+
+    fun continuousDo(view: View) {
+        GlobalButtonOnClick.toggleContinuous(view)
     }
 
 }

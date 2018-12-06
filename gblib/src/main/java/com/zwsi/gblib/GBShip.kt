@@ -24,12 +24,14 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val name: String
     val type: String
     val speed: Int
+    var health: Int
 
     var dest: GBLocation? = null
     private val trail = Collections.synchronizedList(mutableListOf<GBxy>())
 
     @Synchronized
     fun getTrailList() : List<GBxy> {
+     addToTrail() // TODO: This shouldn't be necessary here on every get.. Need to fix at trail maintenance elsewhere
      return trail.toList()
     }
 
@@ -63,6 +65,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         type = GBData.getShipType(idxtype)
         name = race.name.first().toString() + type.first().toString() + race.raceShips.indexOf(this)
         speed = GBData.getShipSpeed(idxtype)
+        health = 100
     }
 
 
@@ -93,11 +96,9 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 if (idxtype == POD) {
                     // TODO We should really handle this somewhere else. If pod were a subtype of ship, it could overwrite
                     // This is a pod, they populate, then destroy.
-                    // For now, we add them to a dead ship list, that we can garbage collect at a later time.
-                    //universe.deadShips.add(this)
-                    // TODO REMOVE FROM RACE SHIPS, TOO... That's why the dead pods keep flying
+                    // We set health to 0, and clean up elsewhere
+                    this.health = 0
                     universe.landPopulation(this.loc.getPlanet()!!, race.uid, 1)
-                    loc.getPlanet()!!.landedShips.add(this)
                     //
                 } else {
                     loc.getPlanet()!!.landedShips.add(this)
@@ -121,12 +122,13 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     }
 
     fun doShip() {
+        //removeDeadShips()
         moveShip()
     }
 
     @Synchronized
     fun trimTrail() {
-        if (trail.size > 10) {
+        while (trail.size > 10) {
             trail.removeAt(0)
         }
     }
@@ -136,7 +138,42 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         trail.add(loc.getLoc())
     }
 
+    fun removeDeadShips() {
+        for (sh in universe.allShips) {
+            if (sh.health == 0) {
+                GBLog.d("Removing dead ship $name from " + this.loc.getLocDesc())
+
+                // TODO factor out ship death (and call it from where pods explode, or set health to 0 there)
+                when (this.loc.level) {
+                    LANDED -> {
+                        this.loc.getPlanet()!!.landedShips.remove(this)
+                    }
+                    ORBIT -> {
+                        this.loc.getPlanet()!!.orbitShips.remove(this)
+                    }
+                    SYSTEM -> {
+                        this.loc.getStar()!!.starShips.remove(this)
+                    }
+                    DEEPSPACE -> {
+                        universe.universeShips.remove(this)
+                    }
+                    else -> {
+                        gbAssert("Bad Parameters for ship removement $loc", { false })
+                    }
+                }
+                sh.race.raceShips.remove(this)
+                universe.deadShips.add(this)
+                //universe.allShips.remove(this)
+            }
+        }
+    }
+
     fun moveShip() {
+
+        if (this.health == 0) {
+            GBLog.d("Trying to move dead ship $name") // TODO Performance. Assert this never happens
+            return
+        }
 
         trimTrail()
 

@@ -56,6 +56,35 @@ class GlobalButtonOnClick {
             }).start()
 
         }
+
+        fun toggleContinuous(view: View) {
+            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
+
+            val message = "God Mode: Continuous Do"
+            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
+            if (GBController.universe.autoDo) {
+                GBController.universe.autoDo = false
+            } else {
+                GBController.universe.autoDo = true
+                Thread(Runnable {
+
+                    while (GBController.universe.autoDo) {
+                        Thread.sleep(100)
+                        GBController.doUniverse()
+
+                        view.post {
+                            GBViewModel.update()
+                        }
+                    }
+                }).start()
+            }
+        }
+
+
     }
 
 }
