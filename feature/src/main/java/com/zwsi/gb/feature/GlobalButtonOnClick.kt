@@ -28,14 +28,14 @@ class GlobalButtonOnClick {
 //            val ps = PrintStream(baos)
 //            System.setOut(ps)
 
-                if (GBController.universe.autoDo) {
+                if (GBController.universe.autoDo) { // If we are running on autok, don't add extra do's
                     return@Runnable
                 }
 
                 GBController.doUniverse()
 
                 view.post {
-                    GBViewModel.update()
+                    GBViewModel.update() // TODO PERF only call if the model exists
                 }
 
 //            System.out.flush()
@@ -77,7 +77,7 @@ class GlobalButtonOnClick {
                         GBController.doUniverse()
 
                         view.post {
-                            GBViewModel.update()
+                            GBViewModel.update() // TODO PERF only call if the model exists
                         }
                     }
                 }).start()

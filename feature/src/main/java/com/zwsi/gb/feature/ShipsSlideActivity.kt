@@ -11,12 +11,12 @@ import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
-import com.zwsi.gblib.GBUniverse
 
 class ShipsSlideActivity : AppCompatActivity() {
 
@@ -75,13 +75,13 @@ class ShipsSlideActivity : AppCompatActivity() {
             val fragment: ShipFragment = ShipFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())
             if (uid == startUID)
-                startItem = adapter.count-1
+                startItem = adapter.count - 1
         }
 
         viewpager.adapter = adapter
 
         viewpager.setClipToPadding(false)
-        viewpager.setPadding(50,0,50,0)
+        viewpager.setPadding(50, 0, 50, 0)
 
     }
 
@@ -117,7 +117,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the make Pod button */
     fun makePod(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -136,7 +136,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the make Cruiser button */
     fun makeCruiser(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -154,7 +154,7 @@ class ShipsSlideActivity : AppCompatActivity() {
     /** Called when the user taps the fly  To button */
     fun flyTo(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
@@ -164,7 +164,7 @@ class ShipsSlideActivity : AppCompatActivity() {
 
         var spinner = view.tag as Spinner
         var destination = spinner.selectedItem.toString()
-        var planet : GBPlanet? = null
+        var planet: GBPlanet? = null
 
         for (p in GBController.universe.allPlanets) { // TODO this is wasteful. Need to refactor to locations
             if (p.name == destination)
@@ -173,7 +173,11 @@ class ShipsSlideActivity : AppCompatActivity() {
 
         Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT).show()
 
-        GBController.universe.flyShip(ship, planet)
+        if (ship.idxtype == POD) {
+            GBController.universe.flyShipLanded(ship, planet)
+        } else
+            GBController.universe.flyShipOrbit(ship, planet)
     }
+}
 
 }

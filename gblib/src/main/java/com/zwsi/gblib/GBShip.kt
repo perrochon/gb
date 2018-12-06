@@ -8,6 +8,7 @@ package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.POD
+import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -15,6 +16,7 @@ import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBLog.gbAssert
 import sun.font.GlyphLayout
 import java.util.*
+import kotlin.math.PI
 
 class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
@@ -122,7 +124,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     }
 
     fun doShip() {
-        //removeDeadShips()
+        removeDeadShips()
         moveShip()
     }
 
@@ -163,8 +165,12 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 }
                 sh.race.raceShips.remove(this)
                 universe.deadShips.add(this)
-                //universe.allShips.remove(this)
             }
+        }
+        for (sh in universe.deadShips) {
+            // Can't take it out of all ships, unless the app handle this. E.g. fragments need a view model
+            // But first need to fix the view model of the map..
+            // universe.allShips.remove(sh) // TODO Performance Can't remove in for loop above, need to do it loop safe
         }
     }
 
@@ -213,15 +219,23 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
         } else if ((loc.level == ORBIT) && (loc.refUID == dest.refUID)) {
 
-            GBLog.d("$name is in orbit at destination. Landing.")
+            // We arrived at the planet of destination
 
-            // in orbit at destination so we need to land
-            changeShipLocation(dest)
-            universe.news.add("$name ${loc.getLocDesc()}.\n")
-            this.dest = null
+            if (dest.level == ORBIT) { // We arrived in Orbit
+                this.dest = null
 
-            return
+            } else {
 
+                GBLog.d("$name is in orbit at destination. Landing.")
+
+                // in orbit at destination so we need to land
+                changeShipLocation(dest)
+                universe.news.add("$name ${loc.getLocDesc()}.\n")
+                this.dest = null
+
+                return
+
+            }
         } else {
             // we are not LANDED, so either in ORBIT, in SYTEM, or in DEEPSPACE
 
@@ -229,7 +243,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             if (distance < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
-                var next = GBLocation(dest.getPlanet()!!, 1f, 1f)
+                var next = GBLocation(dest.getPlanet()!!, 1f, rand.nextFloat()*2f*PI.toFloat()) // TODO one would think we could use dest?
                 changeShipLocation(next)
                 universe.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 

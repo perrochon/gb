@@ -120,7 +120,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         setDebug(false)
         maxScale = 12f
 
-        GBViewModel.imageView = this
+        GBViewModel.mapView = this
 
     }
 
@@ -325,6 +325,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             vP1.y - bmPlanet!!.getWidth() / 2,
                             null
                         )
+
+                        for (sh in GBViewModel.viewOrbitShips[p.uid]) {
+                            paint.alpha = 128
+                            paint.color = Color.parseColor(sh.race.color)
+                            drawShip(canvas, sh)
+                        }
+
+
                     } // planet loop
 
                     for (sh in GBViewModel.viewStarShips[s.uid]) {
@@ -367,7 +375,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 canvas.drawCircle(vP1.x, vP1.y, radius, paint)
             }
         }
-
 
         // Don't draw trails zoomed out
         if (normScale > 10) {
@@ -455,6 +462,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (40 > normScale) {
             paint.style = Style.STROKE
             paint.color = circleColor
+            paint.alpha = 128
             val radius = sSystemSize.toFloat() * scale
 
             for (s in GBViewModel.viewStars) {

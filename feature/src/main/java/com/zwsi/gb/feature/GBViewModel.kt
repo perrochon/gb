@@ -1,10 +1,11 @@
 package com.zwsi.gb.feature
 
+import android.app.Activity
+import android.view.View
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBShip
-import com.zwsi.gblib.GBVector
 import com.zwsi.gblib.GBxy
 import kotlin.system.measureNanoTime
 
@@ -15,11 +16,13 @@ class GBViewModel {
     companion object {
 
         var viewStars = universe.allStars
+        var viewPlanets = universe.allPlanets
         var viewRaces = universe.allRaces
 
-        var viewShips = universe.getAllShipsList()
-        var viewUniverseShips = universe.getUniverseShipsList()
+        var viewShips = universe.getAllShipsList().filter { it.health > 0 }
+        var viewUniverseShips = universe.getUniverseShipsList().filter { it.health > 0 }
         var viewStarShips: ArrayList<List<GBShip>> = ArrayList()
+        var viewOrbitShips: ArrayList<List<GBShip>> = ArrayList()
         var viewShipTrails: ArrayList<List<GBxy>> = ArrayList()
 
         var viewShots = universe.getAllShotsList()
@@ -28,7 +31,7 @@ class GBViewModel {
         var updateTimeTurn = 0L
         var elapsedBackendTimeTurn = 0L
 
-        var imageView: SubsamplingScaleImageView? = null
+        var mapView: SubsamplingScaleImageView? = null
 
         var times = mutableMapOf<String, Long>()
 
@@ -45,11 +48,13 @@ class GBViewModel {
                 // TODO: Deep copy of stars and planets? Then copy changed data
 
                 // Ships
-                times["Ships"] = measureNanoTime { viewShips = universe.getAllShipsList() }
+                times["Ships"] = measureNanoTime { viewShips = universe.getAllShipsList().filter { it.health > 0 } }
 
-                times["UShips"] = measureNanoTime { viewUniverseShips = universe.getUniverseShipsList() }
+                times["UShips"] = measureNanoTime { viewUniverseShips = universe.getUniverseShipsList().filter { it.health > 0 } }
 
-                times["SShips"] = measureNanoTime { fillViewStarShips() }
+                times["SShips"] = measureNanoTime { fillViewStarShips()}
+
+                times["OShips"] = measureNanoTime { fillViewOrbitShips() }
 
                 times["Trails"] = measureNanoTime { fillViewShipTrails() }
 
@@ -60,19 +65,23 @@ class GBViewModel {
 
             // TODO convert all coordinates to source coordinates after updating? Saves a few multiplications
 
-            if (imageView != null) {
-                imageView!!.invalidate()
+            if (mapView != null) {
+                mapView!!.invalidate()
             }
-
-
         }
 
         fun fillViewStarShips() {
             viewStarShips.clear()
             for (s in viewStars) {
-                viewStarShips.add(s.uid, s.getStarShipsList())
+                viewStarShips.add(s.uid, s.getStarShipsList().filter { it.health > 0 })
             }
-            assert(viewStarShips.size == universe.getNumberOfStars())
+        }
+
+        fun fillViewOrbitShips() {
+            viewOrbitShips.clear()
+            for (p in viewPlanets) {
+                viewOrbitShips.add(p.uid, p.getOrbitShipsList().filter { it.health > 0 })
+            }
         }
 
         fun fillViewShipTrails() {
@@ -80,8 +89,6 @@ class GBViewModel {
             for (sh in viewShips) {
                 viewShipTrails.add(sh.uid, sh.getTrailList())
             }
-            assert(viewShipTrails.size == universe.getUniverseShipsList().size)
-
         }
 
     }

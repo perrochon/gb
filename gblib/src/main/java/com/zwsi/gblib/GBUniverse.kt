@@ -5,7 +5,9 @@ import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.rand
+import com.zwsi.gblib.GBLocation.Companion.LANDED
 import java.util.*
+import kotlin.math.PI
 
 class GBUniverse {
 
@@ -163,16 +165,6 @@ class GBUniverse {
 
     fun fireShots() { // TODO use filtered lists
         allShots.clear()
-//        for (sh1 in allShips) {
-//            if (sh1.idxtype == CRUISER) {
-//                for (sh2 in allShips) {
-//                    if (sh2.idxtype == POD) {
-//                        allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
-//                        GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
-//                    }
-//                }
-//            }
-//        }
         for (s in allStars) {
             for (sh1 in s.starShips) {
                 if (sh1.idxtype == CRUISER) {
@@ -242,10 +234,18 @@ class GBUniverse {
     }
 
 
-    fun flyShip(sh: GBShip, p: GBPlanet) {
+    fun flyShipLanded(sh: GBShip, p: GBPlanet) {
         GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
 
         var loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
+        sh.dest = loc
+
+    }
+
+    fun flyShipOrbit(sh: GBShip, p: GBPlanet) {
+        GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
+
+        var loc = GBLocation(p, 1f, rand.nextFloat()*2*PI.toFloat()) // TODO Have caller give us a better location
         sh.dest = loc
 
     }
@@ -267,31 +267,31 @@ class GBUniverse {
         for (r in allRaces) {
             code = {
                 GBLog.d("Ordered Factory")
-                var p = allRaces[0].home
+                var p = r.home
                 universe.makeFactory(p, r)
             }
             scheduledActions.add(GBInstruction(now, code))
         }
 
-        for (i in 0..99) {
+        for (i in 0..999) {
             code = {
                 val factory = allRaces[2].raceShips.find { it.idxtype == FACTORY }
                 GBLog.d("Ordered Pod")
                 factory?.let { universe.makePod(it) }
             }
-            scheduledActions.add(GBInstruction(now + 1 + i * 5, code))
+            scheduledActions.add(GBInstruction(now + 1 + i*5, code))
 
         }
         code = {
             GBLog.d("Directed Pod")
             // Getting all pods, not just alive pods, so even "dead" pods will start moving again. Ok for God to do.
             val pod = allRaces[2].raceShips.find { (it.idxtype == POD) && (it.dest == null) }
-            pod?.let { universe.flyShip(it, universe.allPlanets[rand.nextInt(10)]) }
+            pod?.let { universe.flyShipLanded(it, universe.allPlanets[rand.nextInt(10)]) }
         }
         scheduledActions.add(GBInstruction(-1, code))
 
         for (j in arrayOf(0, 1, 3)) {
-            for (i in 0..0) {
+            for (i in 0..5) {
                 code = {
                     val factory = allRaces[j].raceShips.find { it.idxtype == FACTORY }
                     GBLog.d("Ordered Cruiser")
@@ -304,8 +304,8 @@ class GBUniverse {
         code = {
             GBLog.d("Directed Cruiser")
             // Getting all ships, not just alive ships, so even "dead" pods will start moving again. Ok for God to do.
-            val cruiser = universe.getAllShipsList().find { (it.idxtype == CRUISER) && (it.dest == null) }
-            cruiser?.let { universe.flyShip(it, universe.allPlanets[rand.nextInt(5)]) }
+            val cruiser = universe.getAllShipsList().find { (it.idxtype == CRUISER) && (it.dest == null) && (it.loc.level == LANDED) }
+            cruiser?.let { universe.flyShipOrbit(it, universe.allPlanets[rand.nextInt(5)]) }
         }
         scheduledActions.add(GBInstruction(-1, code))
     }

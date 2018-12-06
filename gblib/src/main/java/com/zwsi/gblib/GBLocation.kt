@@ -137,10 +137,13 @@ class GBLocation {
      * */
     fun getLoc(): GBxy {
 
-        if ((level == LANDED) || (level == ORBIT)) {
+        if (level == LANDED) {
             return GBxy(universe.allPlanets[refUID].loc.getLoc().x, universe.allPlanets[refUID].loc.getLoc().y)
         }
-        if ((level == SYSTEM)) {
+        if (level == ORBIT) {
+            return GBxy(universe.allPlanets[refUID].loc.getLoc().x + x, universe.allPlanets[refUID].loc.getLoc().y + y)
+        }
+        if (level == SYSTEM) {
             return GBxy(universe.allStars[refUID].loc.getLoc().x + x, universe.allStars[refUID].loc.getLoc().y + y)
         } else {
             return GBxy(x, y)

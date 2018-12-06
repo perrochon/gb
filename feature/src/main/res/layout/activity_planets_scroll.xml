@@ -11,7 +11,7 @@
              android:layout_width="match_parent"
              android:scaleType="centerCrop"
              android:src="@drawable/orionnebula"
-             android:alpha="1" android:id="@+id/imageView" android:contentDescription="@string/orion_nebula"
+             android:alpha="1" android:id="@+id/mapView" android:contentDescription="@string/orion_nebula"
              app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
              app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
              android:layout_height="match_parent"/>-->

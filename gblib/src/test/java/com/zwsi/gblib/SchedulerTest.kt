@@ -26,26 +26,26 @@ class SchedulerTest {
                     makePod(factory)
                     doUniverse()
                     pod = allShips[allShips.size-1]
-                    flyShip(pod, pt)
+                    flyShipLanded(pod, pt)
                 }
             }
 
             makePod(factory)
             doUniverse()
             pod = allShips[allShips.size-1]
-            flyShip(pod, allStars[1].starPlanets[0])
+            flyShipLanded(pod, allStars[1].starPlanets[0])
 
             makePod(factory)
             doUniverse()
             pod = allShips[allShips.size-1]
-            flyShip(pod, allStars[0].starPlanets[1])
+            flyShipLanded(pod, allStars[0].starPlanets[1])
 
             for (i in 1..5)
                 doUniverse()
-            flyShip(pod, allStars[0].starPlanets[1])
+            flyShipLanded(pod, allStars[0].starPlanets[1])
             for (i in 1..5)
                 doUniverse()
-            flyShip(pod, allStars[4].starPlanets[0])
+            flyShipLanded(pod, allStars[4].starPlanets[0])
             for (i in 1..4)
                 doUniverse()
 
