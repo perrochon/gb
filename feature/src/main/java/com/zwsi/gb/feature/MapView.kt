@@ -110,8 +110,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         //  Saves ~100mus when none are visible. Less when we actually draw
 
         // Don't show the tiles on high zoom, as it's blurry anyway
-        if (scale < 8)
-            super.onDraw(canvas)
+        // Problem with this may be that clicks no longer get handled propertly
+//        if (scale < 8)
+        super.onDraw(canvas)
 
         // Don't draw anything before image is ready
         if (!isReady) {
