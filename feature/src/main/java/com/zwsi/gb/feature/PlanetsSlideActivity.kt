@@ -81,7 +81,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
         val planet: GBPlanet = parent.tag as GBPlanet
 
         val universe = universe
-        universe.makeFactory(planet)
+        universe.makeFactory(planet, universe.allRaces[0])
 
         val message = "Ordered Factory on " + planet.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()

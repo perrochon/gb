@@ -13,7 +13,7 @@ package com.zwsi.gblib
 
 import java.util.*
 
-class GBRace(val universe: GBUniverse, val idx: Int) {
+class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
 
     // uId is the Universe level ID (in Universe's list of allRaces)
     // idx is the number to go look up in GBData. This will go away with race design
@@ -25,6 +25,7 @@ class GBRace(val universe: GBUniverse, val idx: Int) {
     val explore: Int
     val absorption: Int
     val description: String
+    val color: String
 
     var raceShips = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
 
@@ -39,6 +40,7 @@ class GBRace(val universe: GBUniverse, val idx: Int) {
         explore = GBData.getRaceExplore(idx)
         absorption= GBData.getRaceAbsorption(idx)
         description = GBData.getRaceDescription(idx)
+        color = GBData.getRaceColor(idx)
 
         GBLog.i("Created Race $name with birthrate $birthrate")
 

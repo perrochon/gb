@@ -14,7 +14,7 @@ class GBViewModel {
     companion object {
 
         var viewStars = universe.allStars
-        var viewPlanets = universe.allPlanets
+        var viewRaces = universe.allRaces
 
         var viewShips = universe.getAllShipsList()
         var viewUniverseShips = universe.getUniverseShipsList()

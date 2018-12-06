@@ -28,7 +28,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private var bmStar: Bitmap? = null
     private var bmPlanet: Bitmap? = null
-    private var bmRace: Bitmap? = null
+    private var bmRaceXenos: Bitmap? = null
+    private var bmRaceImpi: Bitmap? = null
+    private var bmRaceBeetle: Bitmap? = null
+    private var bmRaceTortoise: Bitmap? = null
 
     val sourceSize = 18000 // TODO get from elsewhere
     val universeSize = 1000
@@ -90,11 +93,25 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         h = density / 420f * bmPlanet!!.getHeight() / 2
         bmPlanet = Bitmap.createScaledBitmap(bmPlanet!!, w.toInt(), h.toInt(), true)!!
 
-        bmRace = BitmapFactory.decodeResource(getResources(), R.drawable.xenost)!!
-        w = density / 420f * bmRace!!.getWidth() / 30
-        h = density / 420f * bmRace!!.getHeight() / 30
-        bmRace = Bitmap.createScaledBitmap(bmRace!!, w.toInt(), h.toInt(), true)!!
+        bmRaceXenos = BitmapFactory.decodeResource(getResources(), R.drawable.xenost)!!
+        w = density / 420f * bmRaceXenos!!.getWidth() / 30
+        h = density / 420f * bmRaceXenos!!.getHeight() / 30
+        bmRaceXenos = Bitmap.createScaledBitmap(bmRaceXenos!!, w.toInt(), h.toInt(), true)!!
 
+        bmRaceImpi = BitmapFactory.decodeResource(getResources(), R.drawable.impit)!!
+        w = density / 420f * bmRaceImpi!!.getWidth() / 30
+        h = density / 420f * bmRaceImpi!!.getHeight() / 30
+        bmRaceImpi = Bitmap.createScaledBitmap(bmRaceImpi!!, w.toInt(), h.toInt(), true)!!
+
+        bmRaceBeetle = BitmapFactory.decodeResource(getResources(), R.drawable.beetle)!!
+        w = density / 420f * bmRaceBeetle!!.getWidth() / 30
+        h = density / 420f * bmRaceBeetle!!.getHeight() / 30
+        bmRaceBeetle = Bitmap.createScaledBitmap(bmRaceBeetle!!, w.toInt(), h.toInt(), true)!!
+
+        bmRaceTortoise = BitmapFactory.decodeResource(getResources(), R.drawable.tortoise)!!
+        w = density / 420f * bmRaceTortoise!!.getWidth() / 30
+        h = density / 420f * bmRaceTortoise!!.getHeight() / 30
+        bmRaceTortoise = Bitmap.createScaledBitmap(bmRaceTortoise!!, w.toInt(), h.toInt(), true)!!
 
         setOnTouchListener(this);
 
@@ -214,11 +231,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Timing Info:  no race 200μs, 1 race 400μs, more ?μs
         if (normScale > 50) {
 
-            val s = GBViewModel.viewStars.get(0)
-            if (visible(s.loc.x.toInt() * uToS, s.loc.y.toInt() * uToS)) {
-                sP1.set(s.loc.getLoc().x * uToSf + 50, s.loc.getLoc().y * uToSf)
-                sourceToViewCoord(sP1, vP1)
-                canvas.drawBitmap(bmRace!!, vP1.x, vP1.y, null)
+            for (r in GBViewModel.viewRaces) {
+                if (visible(r.home.star.loc.getLoc().x.toInt() * uToS, r.home.star.loc.getLoc().y.toInt() * uToS)) {
+                    sP1.set(r.home.star.loc.getLoc().x * uToSf + 50, r.home.star.loc.getLoc().y * uToSf)
+                    sourceToViewCoord(sP1, vP1)
+                    when (r.idx) {
+                        0 -> { canvas.drawBitmap(bmRaceXenos!!, vP1.x, vP1.y, null)}
+                        1 -> { canvas.drawBitmap(bmRaceImpi!!, vP1.x, vP1.y, null)}
+                        2 -> {canvas.drawBitmap(bmRaceBeetle!!, vP1.x, vP1.y, null)}
+                        3 -> {canvas.drawBitmap(bmRaceTortoise!!, vP1.x, vP1.y, null)}
+                    }
+                }
             }
         }
     }
@@ -246,8 +269,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         sh.loc.getLoc().x.toInt() * uToS,
                         sh.loc.getLoc().y.toInt() * uToS
                     )
-                ) { // TODO why this not workie
-                    drawShip(canvas, sh, podColorDeepspace)
+                ) {
+                    paint.color = Color.parseColor(sh.race.color)
+                    paint.alpha = 128
+                    drawShip(canvas, sh)
                 }
             }
         }
@@ -269,7 +294,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     } // planet loop
 
                     for (sh in GBViewModel.viewStarShips[s.uid]) {
-                        drawShip(canvas, sh, podColorSystem)
+                        paint.alpha = 255
+                        paint.color = Color.parseColor(sh.race.color)
+                        drawShip(canvas, sh)
                     } // ships loop
                 }// if star visible?
             }// star loop
@@ -281,13 +308,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         return intersects(rect, vr)
     }
 
-    fun drawShip(canvas: Canvas, sh: GBShip, color: Int) {
+    fun drawShip(canvas: Canvas, sh: GBShip) {
 
         paint.style = Style.STROKE
         val radius = scale * 1f
 
         paint.strokeWidth = strokeWidth.toFloat()
-        paint.color = color
 
         sP1.set(sh.loc.getLoc().x * uToS, sh.loc.getLoc().y * uToS)
         sourceToViewCoord(sP1, vP1)

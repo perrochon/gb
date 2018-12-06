@@ -17,14 +17,15 @@ class GBOrder  {
     // TODO Lambdas? Or use the scheduler instead?
 
     var type = -1
-    var uid = -1
+    var uidShip = -1
+    var uidRace = -1
     lateinit var loc : GBLocation
 
     // Type Factory
-    fun makeFactory(loc: GBLocation) {
-
+    fun makeFactory(loc: GBLocation, race: GBRace) {
         gbAssert{ type == -1 }
         type = FACTORY
+        uidRace = race.uid
         gbAssert { loc.level == LANDED }
         this.loc = loc
     }
@@ -34,17 +35,18 @@ class GBOrder  {
 
         gbAssert{ type == -1 }
         type = POD
-        uid = factory.uid
+        uidShip = factory.uid
+        uidRace = factory.race.uid
         this.loc = factory.loc
 
     }
 
     // Type Cruiser
     fun makeCruiser(factory: GBShip) {
-
         gbAssert{ type == -1 }
         type = CRUISER
-        uid = factory.uid
+        uidShip = factory.uid
+        uidRace = factory.race.uid
         this.loc = factory.loc
 
     }
@@ -52,15 +54,15 @@ class GBOrder  {
     fun execute() {
         when (type) {
             FACTORY -> {
-                GBShip(FACTORY, universe.allRaces[0], loc)
+                GBShip(FACTORY, universe.allRaces[uidRace], loc)
                 universe.news.add("Built a factory on Helle.\n\n")
             }
             POD -> {
-                GBShip(POD, universe.allRaces[0], loc)
+                GBShip(POD, universe.allRaces[uidRace], loc)
                 universe.news.add("Built a pod on Helle.\n\n")
             }
             CRUISER -> {
-                GBShip(CRUISER, universe.allRaces[0], loc)
+                GBShip(CRUISER, universe.allRaces[uidRace], loc)
                 universe.news.add("Built a cruiser on Helle.\n\n")
             }
             else ->

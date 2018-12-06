@@ -98,15 +98,15 @@ class GBUniverse {
         // We only need one race for the early mission, but we land the others for God Mode...
 
         // The single player
-        val r0 = GBRace(this, 0)
+        val r0 = GBRace(this, 0, allStars[0].starPlanets[0])
         landPopulation(allStars[0].starPlanets[0], r0.uid, 100)
 
 
         // We only need one race for the early mission, but we land the others for God Mode...
         // Eventually, they will be dynamically landed (from tests, or from app)
-        val r1 = GBRace(this, 1)
-        val r2 = GBRace(this, 2)
-        val r3 = GBRace(this, 3)
+        val r1 = GBRace(this, 1, allStars[1].starPlanets[0])
+        val r2 = GBRace(this, 2, allStars[2].starPlanets[0])
+        val r3 = GBRace(this, 3, allStars[3].starPlanets[0])
 
 
         landPopulation(allStars[1].starPlanets[0], r1.uid, 100)
@@ -161,14 +161,14 @@ class GBUniverse {
 //    } //TODO should this be in planet? Or Data?
 
 
-    fun makeFactory(p: GBPlanet) {
+    fun makeFactory(p: GBPlanet, race: GBRace) {
         GBLog.d("universe: Making factory for ?? on " + p.name + "")
 
         var loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
 
         var order = GBOrder()
 
-        order.makeFactory(loc)
+        order.makeFactory(loc, race)
 
         GBLog.d("Order made: " + order.toString())
 
@@ -226,14 +226,21 @@ class GBUniverse {
 
         var code = {
             GBLog.d("Ordered Factory")
-            var p = universe.allPlanets[0]
-            universe.makeFactory(p)
+            var p = allRaces[0].home
+            universe.makeFactory(p, allRaces[0])
         }
         scheduledActions.add(GBInstruction(now, code))
 
-        for (i in 0..49) {
+        code = {
+            GBLog.d("Ordered Factory")
+            var p = allRaces[2].home
+            universe.makeFactory(p, allRaces[2])
+        }
+        scheduledActions.add(GBInstruction(now, code))
+
+        for (i in 0..5) {
             code = {
-                val factory = universe.getAllShipsList().find { it.idxtype == FACTORY }
+                val factory = allRaces[2].raceShips.find { it.idxtype == FACTORY }
                 GBLog.d("Ordered Pod")
                 factory?.let { universe.makePod(it) }
             }
@@ -250,7 +257,7 @@ class GBUniverse {
 
         for (i in 1..10) {
             code = {
-                val factory = universe.getAllShipsList().find { it.idxtype == FACTORY }
+                val factory = allRaces[0].raceShips.find { it.idxtype == FACTORY }
                 GBLog.d("Ordered Cruiser")
                 factory?.let { universe.makeCruiser(it) }
             }
