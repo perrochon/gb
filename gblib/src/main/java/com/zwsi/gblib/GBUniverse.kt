@@ -174,10 +174,10 @@ class GBUniverse {
 //            }
 //        }
         for (s in allStars) {
-            for (sh1 in s.getStarShipsList()) {
+            for (sh1 in s.starShips) {
                 if (sh1.idxtype == CRUISER) {
-                    for (sh2 in s.getStarShipsList()) {
-                        if (sh2.idxtype == POD) {
+                    for (sh2 in s.starShips) {
+                        if ((sh2.health > 0) && (sh2.idxtype == POD)) {
                             allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
                             GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
                             sh2.health = 0
@@ -267,7 +267,7 @@ class GBUniverse {
         for (r in allRaces) {
             code = {
                 GBLog.d("Ordered Factory")
-                var p = r.home
+                var p = allRaces[0].home
                 universe.makeFactory(p, r)
             }
             scheduledActions.add(GBInstruction(now, code))
@@ -291,7 +291,7 @@ class GBUniverse {
         scheduledActions.add(GBInstruction(-1, code))
 
         for (j in arrayOf(0, 1, 3)) {
-            for (i in 0..20) {
+            for (i in 0..0) {
                 code = {
                     val factory = allRaces[j].raceShips.find { it.idxtype == FACTORY }
                     GBLog.d("Ordered Cruiser")
