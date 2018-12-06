@@ -10,6 +10,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
@@ -128,7 +129,6 @@ class ShipsSlideActivity : AppCompatActivity() {
         val message = "Ordered Pod in Factory " + ship.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-        val universe = GBController.universe
         universe.makePod(ship)
 
     }
@@ -139,14 +139,15 @@ class ShipsSlideActivity : AppCompatActivity() {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
             return;
         }
-
         lastClickTime = SystemClock.elapsedRealtime();
+
         val parent = view.parent as View
         val ship: GBShip = parent.tag as GBShip
 
         val message = "Ordered Cruiser in Factory " + ship.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
+        universe.makeCruiser(ship)
 
     }
 

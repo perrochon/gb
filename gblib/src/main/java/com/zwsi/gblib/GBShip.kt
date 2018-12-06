@@ -7,11 +7,13 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBLog.gbAssert
+import sun.font.GlyphLayout
 import java.util.*
 
 class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
@@ -88,12 +90,13 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         }
         when (loc.level) {
             LANDED -> {
-                if (false && (idxtype == 1)) {
+                if (idxtype == POD) {
                     // TODO We should really handle this somewhere else. If pod were a subtype of ship, it could overwrite
                     // This is a pod, they populate, then destroy.
                     // For now, we add them to a dead ship list, that we can garbage collect at a later time.
+                    //universe.deadShips.add(this)
                     universe.landPopulation(this.loc.getPlanet()!!, race.uid, 1)
-                    universe.deadShips.add(this)
+                    loc.getPlanet()!!.landedShips.add(this)
                     //
                 } else {
                     loc.getPlanet()!!.landedShips.add(this)

@@ -1,6 +1,9 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBData.Companion.CRUISER
+import com.zwsi.gblib.GBData.Companion.FACTORY
+import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.rand
 import java.util.*
 
@@ -9,12 +12,13 @@ class GBUniverse {
     internal var numberOfStars: Int
     internal var numberOfRaces: Int
     var allStars = Collections.synchronizedList(arrayListOf<GBStar>()) // the all the stars
-    var allPlanets  = Collections.synchronizedList(arrayListOf<GBPlanet>()) // all the planets
-    var allRaces  = Collections.synchronizedList(arrayListOf<GBRace>()) // all the races
+    var allPlanets = Collections.synchronizedList(arrayListOf<GBPlanet>()) // all the planets
+    var allRaces = Collections.synchronizedList(arrayListOf<GBRace>()) // all the races
 
     val allShips = Collections.synchronizedList(arrayListOf<GBShip>())
     val deadShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // all the ships in the Universe
-    val universeShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // ships in transit between system
+    val universeShips: MutableList<GBShip> =
+        Collections.synchronizedList(arrayListOf()) // ships in transit between system
 
     var news = arrayListOf<String>()
 
@@ -122,7 +126,7 @@ class GBUniverse {
         scheduledActions.forEach() {
             GBLog.d("Looking at action")
             GBLog.d(it.toString())
-            if ((it.t == turn) || (it.t==-1)) {
+            if ((it.t == turn) || (it.t == -1)) {
                 run { it.code() }
             }
         }
@@ -179,7 +183,20 @@ class GBUniverse {
         var order = GBOrder()
         order.makePod(factory)
 
-        GBLog.d("Ship made: " + order.toString())
+        GBLog.d("Pod ordered: " + order.toString())
+
+        orders.add(order)
+
+        GBLog.d("Current Orders: " + orders.toString())
+    }
+
+    fun makeCruiser(factory: GBShip) {
+        GBLog.d("universe: Making Cruiser for ?? in Factory " + factory.name + "")
+
+        var order = GBOrder()
+        order.makeCruiser(factory)
+
+        GBLog.d("Cruiser ordered: " + order.toString())
 
         orders.add(order)
 
@@ -188,21 +205,17 @@ class GBUniverse {
 
 
     fun flyShip(sh: GBShip, p: GBPlanet) {
-        GBLog.d("Creating order to teleport " + sh.name + " to " + p.name)
+        GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
 
         var loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
-
         sh.dest = loc
 
-
-        GBLog.d("Current Orders: " + orders.toString())
     }
 
     fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
         GBLog.d("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
         p.landPopulation(allRaces[uId], number)
     }
-
 
 
     fun makeStuff() {
@@ -220,19 +233,36 @@ class GBUniverse {
 
         for (i in 0..49) {
             code = {
-                val factory = universe.getAllShipsList().find { it.idxtype == 0 }
+                val factory = universe.getAllShipsList().find { it.idxtype == FACTORY }
                 GBLog.d("Ordered Pod")
                 factory?.let { universe.makePod(it) }
             }
-            scheduledActions.add(GBInstruction(now + 1 + i*5, code))
+            scheduledActions.add(GBInstruction(now + 1 + i * 5, code))
 
-            code = {
-                GBLog.d("Directed Pod")
-                // Getting all ships, not just alive ships, so even "dead" pods will start moving again. Ok for God to do.
-                val pod = universe.getAllShipsList().find { (it.idxtype == 1) && (it.dest == null) }
-                pod?.let { universe.flyShip(it, universe.allPlanets[rand.nextInt(allPlanets.size)]) }
-            }
-            scheduledActions.add(GBInstruction(-1, code))
         }
+        code = {
+            GBLog.d("Directed Pod")
+            // Getting all ships, not just alive ships, so even "dead" pods will start moving again. Ok for God to do.
+            val pod = universe.getAllShipsList().find { (it.idxtype == POD) && (it.dest == null) }
+            pod?.let { universe.flyShip(it, universe.allPlanets[rand.nextInt(allPlanets.size)]) }
+        }
+        scheduledActions.add(GBInstruction(-1, code))
+
+        for (i in 1..10) {
+            code = {
+                val factory = universe.getAllShipsList().find { it.idxtype == FACTORY }
+                GBLog.d("Ordered Cruiser")
+                factory?.let { universe.makeCruiser(it) }
+            }
+            scheduledActions.add(GBInstruction(now +  + i * 100, code))
+
+        }
+        code = {
+            GBLog.d("Directed Cruiser")
+            // Getting all ships, not just alive ships, so even "dead" pods will start moving again. Ok for God to do.
+            val pod = universe.getAllShipsList().find { (it.idxtype == CRUISER) && (it.dest == null) }
+            pod?.let { universe.flyShip(it, universe.allPlanets[rand.nextInt(allPlanets.size)]) }
+        }
+        scheduledActions.add(GBInstruction(-1, code))
     }
 }

@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import android.widget.*
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBData
+import com.zwsi.gblib.GBData.Companion.FACTORY
+import com.zwsi.gblib.GBData.Companion.POD
+import com.zwsi.gblib.GBData.Companion.CRUISER
 
 class ShipFragment : Fragment() {
 
@@ -48,13 +52,13 @@ class ShipFragment : Fragment() {
 
         val imageView = view.findViewById<ImageView>(R.id.ShipView)
 
-        if (sh.idxtype == 0) {
+        if (sh.idxtype == FACTORY) {
             imageView.setImageResource(R.drawable.factory)
 
             view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
             view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
 
-        } else if (sh.idxtype == 1) {
+        } else if (sh.idxtype == com.zwsi.gblib.GBData.POD) {
             if (sh.race.uid == 2) {
                 imageView.setImageResource(R.drawable.beetlepod)
 
@@ -95,7 +99,7 @@ class ShipFragment : Fragment() {
         stats.append("loca:" + sh.loc.level + "." + sh.loc.refUID)
 
 
-        if (sh.idxtype == 0) { // TODO Better to test for speed > 0
+        if (sh.speed == 0) {
             view.findViewById<Spinner>(R.id.spinner).setVisibility(View.GONE)
             view.findViewById<Button>(R.id.flyTo).setVisibility(View.GONE)
         }

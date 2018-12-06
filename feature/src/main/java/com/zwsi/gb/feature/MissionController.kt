@@ -9,6 +9,9 @@ import android.content.Context
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
+import com.zwsi.gblib.GBData.Companion.FACTORY
+import com.zwsi.gblib.GBData.Companion.POD
+import com.zwsi.gblib.GBData.Companion.CRUISER
 
 object MissionController {
 
@@ -40,7 +43,7 @@ object MissionController {
         }
         if (missionStatus == 1) {
             for (s in GBController.universe.getAllShipsList()) {
-                if (s.idxtype == 0) {
+                if (s.idxtype == FACTORY) {
                     missionStatus++
                     return
                 }
@@ -48,7 +51,7 @@ object MissionController {
         }
         if (missionStatus == 2) {
             for (s in GBController.universe.getAllShipsList()) {
-                if (s.idxtype == 1) {
+                if (s.idxtype == POD) {
                     missionStatus++
                     return
                 }

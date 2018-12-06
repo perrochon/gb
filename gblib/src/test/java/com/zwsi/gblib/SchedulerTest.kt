@@ -19,7 +19,7 @@ class SchedulerTest {
         doUniverse()
         val factory = allShips[0]
         var pod : GBShip
-        if (factory.idxtype == 0) {
+        if (factory.idxtype == FACTORY) {
 
             for (pt in p.star.starPlanets) {
                 if (p != pt) {

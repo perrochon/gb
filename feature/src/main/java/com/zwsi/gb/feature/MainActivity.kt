@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         val version = findViewById<TextView>(R.id.version)
         version.setText("0.0.0.267") // for now: 0.0.0.~ #commits...
 
-
         Thread(Runnable {
             // Need to do this in other thread, as just checking for null will generate the universe
             GBController.universe // Create Universe if we don't have one...
@@ -48,7 +47,6 @@ class MainActivity : AppCompatActivity() {
                 output.append(MissionController.getCurrentMission(this))
             }
         }).start()
-
 
     }
 

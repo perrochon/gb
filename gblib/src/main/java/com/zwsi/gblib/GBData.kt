@@ -11,7 +11,7 @@ package com.zwsi.gblib
 
 import java.util.*
 
-internal class GBData {
+class GBData {
 
     init {
     } // Eventually we may be able to get rid of this, and be an object only
@@ -1249,15 +1249,20 @@ internal class GBData {
             return races.get(idx)!!.description
         }
 
+        const val FACTORY = 0
+        const val POD = 1
+        const val CRUISER= 2
+
+
         data class ShipData(
             val type: String,
             val speed: Int
         )
 
         private val ships = hashMapOf(
-            0 to ShipData("Factory", 0),
-            1 to ShipData("Spore Pod", 1),
-            2 to ShipData("Cruiser", 5)
+            FACTORY to ShipData("Factory", 0),
+            POD to ShipData("Spore Pod", 1),
+            CRUISER to ShipData("Cruiser", 3)
         )
 
         fun getShipType(idx: Int): String {

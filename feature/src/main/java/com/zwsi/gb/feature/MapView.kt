@@ -10,6 +10,8 @@ import android.view.MotionEvent
 import android.view.View
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBData.Companion.CRUISER
+import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBxy
 import kotlin.system.measureNanoTime
@@ -289,14 +291,22 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         sP1.set(sh.loc.getLoc().x * uToS, sh.loc.getLoc().y * uToS)
         sourceToViewCoord(sP1, vP1)
-        canvas.drawCircle(vP1.x, vP1.y, radius, paint)
-        paint.strokeWidth = strokeWidth.toFloat() / 2
+        when (sh.idxtype){
+
+            POD -> {
+                canvas.drawCircle(vP1.x, vP1.y, radius, paint)}
+            CRUISER -> {
+                canvas.drawRect(vP1.x-radius, vP1.y-radius, vP1.x+radius, vP1.y+radius, paint)}
+            else -> {
+                canvas.drawCircle(vP1.x, vP1.y, radius, paint)}
+        }
 
 
         // Don't draw trails zoomed out
         if (normScale > 10) {
             return
         }
+        paint.strokeWidth = strokeWidth.toFloat() / 2
         paint.color = trailColor
         val iterate = GBViewModel.viewShipTrails[sh.uid].iterator() // TODO waste fewer cycles...
 
