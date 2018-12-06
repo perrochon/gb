@@ -1,7 +1,10 @@
 # Roadmap
 
+#Show Stopping
+Really need to enable removal of ships, or at least make them properly invisible.
+
 #Regression
-Population no longer migrates
+
 
 ## Code Quality
 ### Gating for Mission 2 (don't want to propagate bad code more)

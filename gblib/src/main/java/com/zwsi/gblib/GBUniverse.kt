@@ -179,6 +179,20 @@ class GBUniverse {
                 }
             }
         }
+        for (p in allPlanets) {
+            for (sh1 in p.orbitShips) {
+                if (sh1.idxtype == CRUISER) {
+                    for (sh2 in p.star.starShips) {
+                        if ((sh2.health > 0) && (sh2.idxtype == POD)) {
+                            allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
+                            GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
+                            sh2.health = 0
+                        }
+                    }
+
+                }
+            }
+        }
 
     }
 

@@ -1266,7 +1266,7 @@ class GBData {
 
         private val ships = hashMapOf(
             FACTORY to ShipData("Factory", 0),
-            POD to ShipData("Spore Pod", 1),
+            POD to ShipData("Spore Pod", 2),
             CRUISER to ShipData("Cruiser", 3)
         )
 

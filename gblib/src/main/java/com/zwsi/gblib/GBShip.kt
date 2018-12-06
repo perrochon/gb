@@ -125,7 +125,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     }
 
     fun doShip() {
-        removeDeadShips()
+        //removeDeadShips()
         moveShip()
         moveOrbitShip()
     }
@@ -165,7 +165,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                         gbAssert("Bad Parameters for ship removement $loc", { false })
                     }
                 }
-                sh.race.raceShips.remove(this)
+                //sh.race.raceShips.remove(this)
                 universe.deadShips.add(this)
             }
         }
