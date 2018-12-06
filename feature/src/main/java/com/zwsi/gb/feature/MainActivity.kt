@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
 import kotlinx.android.synthetic.main.activity_main.*
@@ -179,10 +178,7 @@ class MainActivity : AppCompatActivity() {
             universe.autoDo = true
             Thread(Runnable {
 
-                for (j in 1..36000) {
-                    if (!universe.autoDo) {
-                        return@Runnable
-                    }
+                while (universe.autoDo) {
                     Thread.sleep(500)
                     GBController.doUniverse()
 
@@ -190,7 +186,6 @@ class MainActivity : AppCompatActivity() {
                         GBViewModel.update()
                     }
                 }
-
             }).start()
         }
     }

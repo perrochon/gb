@@ -106,6 +106,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     override fun onDraw(canvas: Canvas) {
 
+        // TODO MapView Drawing Performance: We do star visibility check 4 times on the whole list.
+        //  Saves ~100mus when none are visible. Less when we actually draw
 
         // Don't show the tiles on high zoom, as it's blurry anyway
         if (scale < 8)
@@ -140,8 +142,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
 
         drawStats(canvas)
-
-        //this.postDelayed({ this.invalidate() }, 1000) //TODO A better way to refresh upon model changes
 
 
     } // onDraw
@@ -188,15 +188,18 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 paint
             )
             canvas.drawText(
-                "Turn: ${universe.turn} / Update time: ${GBViewModel.updateTimeTurn / 1000}μs",
+                "Turn: ${universe.turn} | View: ${GBViewModel.updateTimeTurn / 1000L}μs | Backend: ${GBViewModel.elapsedBackendTimeTurn / 1000L}μs",
                 8f,
                 l++ * h,
                 paint
             )
-            times.forEach { t, u -> canvas.drawText("$t: ${u / 100L}μs", 8f, l++ * h, paint) }
+            GBViewModel.times.forEach { t, u -> canvas.drawText("$t: ${u / 1000L}μs", 8f, l++ * h, paint) }
+
+            times.forEach { t, u -> canvas.drawText("$t: ${u / 1000L}μs", 8f, l++ * h, paint) }
+
 
             canvas.drawText(
-                "Draw Time: ${(last20.average()!!/1000).toInt()}μs",
+                "Draw Time: ${(last20.average()!! / 1000).toInt()}μs",
                 8f,
                 l++ * h,
                 paint
@@ -236,8 +239,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
         if (101 >= normScale) {
             for (sh in GBViewModel.viewUniverseShips) {
-                if (visible(sh.loc.getLoc().x.toInt() * uToS, sh.loc.getLoc().y.toInt()* uToS)) { // TODO why this not workie
-                drawShip(canvas, sh, podColorDeepspace)
+                if (visible(
+                        sh.loc.getLoc().x.toInt() * uToS,
+                        sh.loc.getLoc().y.toInt() * uToS
+                    )
+                ) { // TODO why this not workie
+                    drawShip(canvas, sh, podColorDeepspace)
                 }
             }
         }
@@ -286,7 +293,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
 
         // Don't draw trails zoomed out
-        if (normScale > 10 ) {
+        if (normScale > 10) {
             return
         }
         paint.color = trailColor
@@ -359,9 +366,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Always draw stars
         paint.style = Style.STROKE
         for (s in GBViewModel.viewStars) {
-            sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
-            sourceToViewCoord(sP1, vP1)
-            canvas.drawBitmap(bmStar!!, vP1.x - bmStar!!.getWidth() / 2, vP1.y - bmStar!!.getWidth() / 2, null)
+            if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
+                sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
+                sourceToViewCoord(sP1, vP1)
+                canvas.drawBitmap(bmStar!!, vP1.x - bmStar!!.getWidth() / 2, vP1.y - bmStar!!.getWidth() / 2, null)
+            }
         }
 
         // Draw circles
@@ -371,9 +380,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val radius = sSystemSize.toFloat() * scale
 
             for (s in GBViewModel.viewStars) {
-                sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
-                sourceToViewCoord(sP1, vP1)
-                canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+                if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
+                    sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
+                    sourceToViewCoord(sP1, vP1)
+                    canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+                }
             }
         }
 

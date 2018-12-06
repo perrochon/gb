@@ -1,5 +1,7 @@
 package com.zwsi.gblib
 
+import kotlin.system.measureNanoTime
+
 class GBController {
 
     companion object {
@@ -24,6 +26,8 @@ class GBController {
 
         // we count the number of small U. Only tests make those, and this will catch recursion
         private var smallUniCount = 0
+
+        var elapsedTimeLastUpdate = 0L
 
         val universe: GBUniverse
             get() {
@@ -76,7 +80,9 @@ class GBController {
         @Synchronized
         fun doUniverse() {
             GBLog.i("Runing Game Turn ${universe.turn}")
-            universe.doUniverse()
+            elapsedTimeLastUpdate = measureNanoTime {
+                universe.doUniverse()
+            }
         }
 
         @Synchronized
