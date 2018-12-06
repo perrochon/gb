@@ -180,7 +180,7 @@ class GBUniverse {
             }
         }
         for (p in allPlanets) {
-            for (sh1 in p.orbitShips) {
+            for (sh1 in p.orbitShips.shuffled()) {
                 if (sh1.idxtype == CRUISER) {
                     for (sh2 in p.star.starShips) {
                         if ((sh2.health > 0) && (sh2.idxtype == POD)) {
