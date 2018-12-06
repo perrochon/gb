@@ -464,7 +464,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (40 > normScale) {
             paint.style = Style.STROKE
             paint.color = circleColor
-            paint.alpha = 128
+            paint.strokeWidth = strokeWidth.toFloat()
             val radius = sSystemSize.toFloat() * scale
 
             for (s in GBViewModel.viewStars) {
