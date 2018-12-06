@@ -56,7 +56,7 @@ class GBViewModel {
 
                 times["OShips"] = measureNanoTime { fillViewOrbitShips() }
 
-                times["Trails"] = measureNanoTime { fillViewShipTrails() }
+//                times["Trails"] = measureNanoTime { fillViewShipTrails() }
 
                 times["Shots"] = measureNanoTime { viewShots = universe.getAllShotsList()}
 

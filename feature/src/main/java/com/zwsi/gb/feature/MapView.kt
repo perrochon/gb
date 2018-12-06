@@ -376,6 +376,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
         }
 
+        return
+
         // Don't draw trails zoomed out
         if (normScale > 10) {
             return
