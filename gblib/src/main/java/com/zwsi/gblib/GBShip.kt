@@ -95,6 +95,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                     // This is a pod, they populate, then destroy.
                     // For now, we add them to a dead ship list, that we can garbage collect at a later time.
                     //universe.deadShips.add(this)
+                    // TODO REMOVE FROM RACE SHIPS, TOO... That's why the dead pods keep flying
                     universe.landPopulation(this.loc.getPlanet()!!, race.uid, 1)
                     loc.getPlanet()!!.landedShips.add(this)
                     //
@@ -163,9 +164,14 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 universe.news.add("Launched $name to ${loc.getLocDesc()}.\n")
 
                 return
+            } else {
+                // here we will deal with surface to surface moves on the same planet
+                // for now, any ship that tries is set to have arrived (so the makeStuff script can give it a new location)
+
+                this.dest = null
+
             }
 
-            // here we will deal with surface to surface moves on the same planet
 
             return
 

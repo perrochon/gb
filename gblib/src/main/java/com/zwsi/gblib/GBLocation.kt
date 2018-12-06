@@ -31,6 +31,8 @@ data class GBxy(val x: Float, val y: Float) {
 data class GBrt(val r: Float, val t: Float) {}
 data class GBsxy(val sx: Int, val sy: Int) {}
 
+data class GBVector(val from: GBxy, val to: GBxy) {}
+
 /** Where you are in the Universe as (x,y) -  (0,0) is top left corner. x to the right, y going down.
  *  In SYSTEM, polar coordinates are available (t, t) for radian and theta (in radian, 0 to the right)
  *  Level tells you if you are landed, in orbit, in system, or deep space.

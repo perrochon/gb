@@ -4,6 +4,7 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBShip
+import com.zwsi.gblib.GBVector
 import com.zwsi.gblib.GBxy
 import kotlin.system.measureNanoTime
 
@@ -21,6 +22,8 @@ class GBViewModel {
         var viewStarShips: ArrayList<List<GBShip>> = ArrayList()
         var viewShipTrails: ArrayList<List<GBxy>> = ArrayList()
 
+        var viewShots = universe.getAllShotsList()
+
         var lastTurn = -1
         var updateTimeTurn = 0L
         var elapsedBackendTimeTurn = 0L
@@ -32,6 +35,7 @@ class GBViewModel {
         init {
             fillViewStarShips()
             fillViewShipTrails()
+            update()
         }
 
         fun update() {
@@ -42,11 +46,14 @@ class GBViewModel {
 
                 // Ships
                 times["Ships"] = measureNanoTime { viewShips = universe.getAllShipsList() }
+
                 times["UShips"] = measureNanoTime { viewUniverseShips = universe.getUniverseShipsList() }
 
                 times["SShips"] = measureNanoTime { fillViewStarShips() }
 
                 times["Trails"] = measureNanoTime { fillViewShipTrails() }
+
+                times["Shots"] = measureNanoTime { viewShots = universe.getAllShotsList()}
 
                 elapsedBackendTimeTurn = GBController.elapsedTimeLastUpdate
             }

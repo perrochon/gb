@@ -67,15 +67,13 @@ class MainActivity : AppCompatActivity() {
         Thread(Runnable {
 
             // Capture output from tester in an byte array
-            val baos = ByteArrayOutputStream()
-            val ps = PrintStream(baos)
-            System.setOut(ps)
+//            val baos = ByteArrayOutputStream()
+//            val ps = PrintStream(baos)
+//            System.setOut(ps)
 
             GBController.makeUniverse()
 
-
-
-            System.out.flush()
+//            System.out.flush()
 
             view.post {
                 // This is going to the button's UI thread, which is the same as the ScrollView

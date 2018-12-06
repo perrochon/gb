@@ -49,6 +49,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private val trailColor = Color.parseColor("#40bbbbbb")
     private val gridColor = Color.parseColor("#10bbbbbb")
     private val circleColor = Color.parseColor("#20FF6015")
+    private val shotColor = Color.parseColor("#FFFF0000")
 
     val vr = Rect()
     val rect = Rect()
@@ -157,6 +158,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         times["Races"] = measureNanoTime { drawRaces(canvas) }
 
+        times["Shots"] = measureNanoTime { drawShots(canvas) }
+
 
         drawUntilStats = System.nanoTime() - startTimeNanos
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
@@ -246,6 +249,18 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
     }
 
+    private fun drawShots(canvas: Canvas){
+        if (20 < normScale) {
+
+            for (shot in GBViewModel.viewShots) {
+                paint.color = shotColor
+                if (visible(shot.from.x.toInt() * uToS, shot.from.y.toInt() * uToS)) {
+                    canvas.drawLine(shot.from.x, shot.from.y, shot.to.x, shot.to.y, paint)
+                }
+            }
+        }
+    }
+
     private fun drawStarNames(canvas: Canvas) {
         // Timing Info:  no star 500μs, 1 star 600μs, 15 stars 900μs
         paint.textSize = 50f
@@ -271,7 +286,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     )
                 ) {
                     paint.color = Color.parseColor(sh.race.color)
-                    paint.alpha = 60
+                    paint.alpha = 128
                     drawShip(canvas, sh)
                 }
             }
