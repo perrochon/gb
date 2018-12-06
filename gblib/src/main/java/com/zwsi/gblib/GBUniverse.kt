@@ -166,7 +166,7 @@ class GBUniverse {
     fun fireShots() { // TODO use filtered lists
         allShots.clear()
         for (s in allStars) {
-            for (sh1 in s.starShips) {
+            for (sh1 in s.starShips.shuffled()) {
                 if (sh1.idxtype == CRUISER) {
                     for (sh2 in s.starShips) {
                         if ((sh2.health > 0) && (sh2.idxtype == POD)) {
