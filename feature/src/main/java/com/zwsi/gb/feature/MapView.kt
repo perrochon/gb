@@ -271,7 +271,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     )
                 ) {
                     paint.color = Color.parseColor(sh.race.color)
-                    paint.alpha = 128
+                    paint.alpha = 60
                     drawShip(canvas, sh)
                 }
             }

@@ -20,6 +20,8 @@ class GBUniverse {
     val universeShips: MutableList<GBShip> =
         Collections.synchronizedList(arrayListOf()) // ships in transit between system
 
+    val allBattles = Collections.synchronizedList(arrayListOf<Int>())
+
     var news = arrayListOf<String>()
 
     var orders = arrayListOf<GBOrder>()
@@ -152,6 +154,22 @@ class GBUniverse {
 
     }
 
+    fun findBattles() { // TODO use filtered lists
+        for (s in allStars) {
+            for (sh1 in s.getStarShipsList()) {
+                if (sh1.idxtype == CRUISER) {
+                    for (sh2 in s.getStarShipsList()) {
+                        if (sh2.idxtype == POD) {
+                            // TODO FIRE
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+
     fun getPlanets(s: GBStar): Array<GBPlanet?> {
         return s.starPlanets.toTypedArray()
     } // TODO should this be Star? But what about getting all the allPlanets?
@@ -235,7 +253,7 @@ class GBUniverse {
             scheduledActions.add(GBInstruction(now, code))
         }
 
-        for (i in 0..5) {
+        for (i in 0..49) {
             code = {
                 val factory = allRaces[2].raceShips.find { it.idxtype == FACTORY }
                 GBLog.d("Ordered Pod")
@@ -248,7 +266,7 @@ class GBUniverse {
             GBLog.d("Directed Pod")
             // Getting all pods, not just alive pods, so even "dead" pods will start moving again. Ok for God to do.
             val pod = allRaces[2].raceShips.find { (it.idxtype == POD) && (it.dest == null) }
-            pod?.let { universe.flyShip(it, universe.allPlanets[rand.nextInt(allPlanets.size)]) }
+            pod?.let { universe.flyShip(it, universe.allPlanets[rand.nextInt(10)]) }
         }
         scheduledActions.add(GBInstruction(-1, code))
 
@@ -266,8 +284,8 @@ class GBUniverse {
         code = {
             GBLog.d("Directed Cruiser")
             // Getting all ships, not just alive ships, so even "dead" pods will start moving again. Ok for God to do.
-            val pod = universe.getAllShipsList().find { (it.idxtype == CRUISER) && (it.dest == null) }
-            pod?.let { universe.flyShip(it, universe.allPlanets[rand.nextInt(allPlanets.size)]) }
+            val cruiser = universe.getAllShipsList().find { (it.idxtype == CRUISER) && (it.dest == null) }
+            cruiser?.let { universe.flyShip(it, universe.allPlanets[rand.nextInt(4)]) }
         }
         scheduledActions.add(GBInstruction(-1, code))
     }

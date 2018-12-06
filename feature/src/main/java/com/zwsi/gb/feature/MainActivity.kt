@@ -177,7 +177,7 @@ class MainActivity : AppCompatActivity() {
             Thread(Runnable {
 
                 while (universe.autoDo) {
-                    Thread.sleep(100)
+                    Thread.sleep(500)
                     GBController.doUniverse()
 
                     view.post {
