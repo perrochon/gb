@@ -59,7 +59,7 @@ class GBStar(val universe: GBUniverse) {
 
     fun getStarShipsList() : List<GBShip> {
         if (universe.turn > universe.lastShipUpdate) {
-            starShipsList = starShipsList.toList()
+            starShipsList = starShipsList.toList().filter { it.health > 0 }
         }
         return starShipsList
     }

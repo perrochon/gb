@@ -76,7 +76,7 @@ class GBUniverse {
 
     fun getUniverseShipsList(): List<GBShip> {
         if (turn > lastShipUpdate) {
-            deadShipsList= deadShips.toList()
+            deadShipsList= deadShips.toList().filter { it.health > 0 }
         }
         return deepSpaceShips
     }

@@ -50,7 +50,7 @@ class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
 
     fun getRaceShipsList() : List<GBShip> {
         if (universe.turn > universe.lastShipUpdate) {
-            raceShipsList = raceShipsList.toList()
+            raceShipsList = raceShipsList.toList().filter { it.health > 0 }
         }
         return raceShipsList
     }

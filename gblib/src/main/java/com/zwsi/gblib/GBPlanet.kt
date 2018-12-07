@@ -83,14 +83,14 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
     fun getLandedShipsList() : List<GBShip> {
         if (universe.turn > universe.lastShipUpdate) {
-            landedShipsList = landedShips.toList()
+            landedShipsList = landedShips.toList().filter { it.health > 0 }
         }
         return landedShipsList
     }
 
     fun getOrbitShipsList() : List<GBShip> {
         if (universe.turn > universe.lastShipUpdate) {
-            orbitShipsList = orbitShips.toList()
+            orbitShipsList = orbitShips.toList().filter { it.health > 0 }
         }
         return orbitShipsList
     }
