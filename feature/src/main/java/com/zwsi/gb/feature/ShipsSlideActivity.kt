@@ -91,7 +91,7 @@ class ShipsSlideActivity : AppCompatActivity() {
         val parent = view.parent as View
         val ship = parent.tag as GBShip
 
-        Toast.makeText(view.context, ship.loc.getLocDesc(), Toast.LENGTH/2_SHORT).show()
+        Toast.makeText(view.context, ship.loc.getLocDesc(), Toast.LENGTH_SHORT/2).show()
 
         if ((ship.loc.level == LANDED) or (ship.loc.level == ORBIT)) {
             val intent = Intent(this, PlanetsSlideActivity::class.java)
@@ -127,7 +127,7 @@ class ShipsSlideActivity : AppCompatActivity() {
         val ship: GBShip = parent.tag as GBShip
 
         val message = "Ordered Pod in Factory " + ship.name
-        Toast.makeText(view.context, message, Toast.LENGTH/2_SHORT).show()
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT/2).show()
 
         universe.makePod(ship)
 
@@ -145,7 +145,7 @@ class ShipsSlideActivity : AppCompatActivity() {
         val ship: GBShip = parent.tag as GBShip
 
         val message = "Ordered Cruiser in Factory " + ship.name
-        Toast.makeText(view.context, message, Toast.LENGTH/2_SHORT).show()
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT/2).show()
 
         universe.makeCruiser(ship)
 
@@ -171,7 +171,7 @@ class ShipsSlideActivity : AppCompatActivity() {
                 planet = p
         }
 
-        Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH/2_SHORT).show()
+        Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT/2).show()
 
         if (ship.idxtype == POD) {
             GBController.universe.flyShipLanded(ship, planet)

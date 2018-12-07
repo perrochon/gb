@@ -79,7 +79,7 @@ class RacesSlideActivity : AppCompatActivity() {
         val parent = view.parent as View
         val race = parent.tag as GBRace
 
-        Toast.makeText(view.context, race.name, Toast.LENGTH/2_SHORT).show()
+        Toast.makeText(view.context, race.name, Toast.LENGTH_SHORT/2).show()
 
 //        val displayUID = ArrayList<Int>()
 //        for (ship in race.)

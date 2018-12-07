@@ -29,8 +29,7 @@ class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
     val description: String
     val color: String
 
-    val raceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
-
+    internal val raceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
 
     init {
         id = GBData.getNextGlobalId()
@@ -51,7 +50,6 @@ class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
     fun getRaceShipsList() : List<GBShip> {
         return raceShips.toList()
     }
-
 
 
     fun consoleDraw() {

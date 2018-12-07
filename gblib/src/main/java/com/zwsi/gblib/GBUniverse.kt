@@ -18,14 +18,19 @@ class GBUniverse {
     // TODO Concurrency - for now these are all synchronized. Expensive, but may be safer until we figure out threads
 
     // Stars, Planets, Races are immutable lists (once built) of immutable elements. Things that do change are e.g. locations of things
+    // exposing these (for now)
     val allStars: MutableList<GBStar> = Collections.synchronizedList(arrayListOf<GBStar>()) // all the stars
     val allPlanets : MutableList<GBPlanet> = Collections.synchronizedList(arrayListOf<GBPlanet>()) // all the planets
     val allRaces: MutableList<GBRace> = Collections.synchronizedList(arrayListOf<GBRace>()) // all the races
 
-    // List of ships. Lists are mutable
-    val allShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // all ships, alive or dead
-    val deepSpaceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // ships in transit between system
-    val deadShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // all dead ships in the Universe
+    // List of ships. Lists are mutable and change during updates (dead ships...)
+    // Not exposed to the app
+    internal val allShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // all ships, alive or dead
+    internal val deepSpaceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // ships in transit between system
+    internal val deadShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // all dead ships in the Universe
+
+    internal var lastShipUpdate = -1
+    internal var allShipsList = allShips.toList() //caching this one, as we need it most, and it's longest
 
     // Results of turns. Basically replaced every turn
     val allShots: MutableList<GBVector> = Collections.synchronizedList(arrayListOf<GBVector>())
@@ -37,7 +42,6 @@ class GBUniverse {
 
     var autoDo = false
     var turn = 0
-
 
     constructor(numberOfStars: Int) {
         this.numberOfStars = numberOfStars
@@ -57,17 +61,16 @@ class GBUniverse {
     val systemBoundary: Int
         get() = GBData.SystemBoundary
 
-
     fun getNumberOfStars(): Int {
         return numberOfStars
     }
 
     fun getAllShipsList(): List<GBShip> {
-        return allShips.toList() // TODO Performance Fix
-        // I think using filter above creates two lists, need to do it on the fly in one list
-        // Also, this shouldn't be necessary, but game still crashes if I remove ships from allShips.
+        if (turn > lastShipUpdate) {
+            allShipsList = allShips.toList()
+        }
+        return allShipsList
     }
-
 
     fun getUniverseShipsList(): List<GBShip> {
         return deepSpaceShips.toList()
@@ -166,7 +169,7 @@ class GBUniverse {
 
         fireShots()
 
-
+        // last thing we do...
         turn++
 
     }

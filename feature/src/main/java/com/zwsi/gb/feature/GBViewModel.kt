@@ -19,8 +19,8 @@ class GBViewModel {
         var viewPlanets = universe.allPlanets
         var viewRaces = universe.allRaces
 
-        var viewShips = universe.getAllShipsList().filter { it.health > 0 }
-        var viewUniverseShips = universe.getUniverseShipsList().filter { it.health > 0 }
+        var viewShips = universe.getAllShipsList()
+        var viewUniverseShips = universe.getUniverseShipsList()
         var viewStarShips: ArrayList<List<GBShip>> = ArrayList()
         var viewOrbitShips: ArrayList<List<GBShip>> = ArrayList()
         var viewShipTrails: ArrayList<List<GBxy>> = ArrayList()
@@ -48,15 +48,15 @@ class GBViewModel {
                 // TODO: Deep copy of stars and planets? Then copy changed data
 
                 // Ships
-                times["Ships"] = measureNanoTime { viewShips = universe.getAllShipsList().filter { it.health > 0 } }
+                times["Ships"] = measureNanoTime { viewShips = universe.getAllShipsList() }
 
-                times["UShips"] = measureNanoTime { viewUniverseShips = universe.getUniverseShipsList().filter { it.health > 0 } }
+                times["UShips"] = measureNanoTime { viewUniverseShips = universe.getUniverseShipsList() }
 
                 times["SShips"] = measureNanoTime { fillViewStarShips()}
 
                 times["OShips"] = measureNanoTime { fillViewOrbitShips() }
 
-//                times["Trails"] = measureNanoTime { fillViewShipTrails() }
+                times["Trails"] = measureNanoTime { fillViewShipTrails() }
 
                 times["Shots"] = measureNanoTime { viewShots = universe.getAllShotsList()}
 

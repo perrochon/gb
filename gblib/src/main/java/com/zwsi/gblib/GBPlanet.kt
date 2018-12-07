@@ -38,17 +38,8 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
     var population = 0;
 
-    val landedShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // the ships on ground of this planet
-    val orbitShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // the ships in orbit of this planet
-
-
-    fun getLandedShipsList() : List<GBShip> {
-        return landedShips.toList()
-    }
-
-    fun getOrbitShipsList() : List<GBShip> {
-        return orbitShips.toList()
-    }
+    internal val landedShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // the ships on ground of this planet
+    internal val orbitShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // the ships in orbit of this planet
 
     init {
         id = GBData.getNextGlobalId()
@@ -85,6 +76,16 @@ class GBPlanet(val sid: Int, val star: GBStar) {
                     + ". Planet size is " + height + "x" + width
         )
     }
+
+
+    fun getLandedShipsList() : List<GBShip> {
+        return landedShips.toList()
+    }
+
+    fun getOrbitShipsList() : List<GBShip> {
+        return orbitShips.toList()
+    }
+
 
 
     fun consoleDraw() {
