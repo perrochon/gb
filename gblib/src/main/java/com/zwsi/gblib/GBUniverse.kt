@@ -30,7 +30,9 @@ class GBUniverse {
     internal val deadShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // all dead ships in the Universe
 
     internal var lastShipUpdate = -1
-    internal var allShipsList = allShips.toList() //caching this one, as we need it most, and it's longest
+    internal var allShipsList = allShips.toList()
+    internal var deepSpaceShipsList = deepSpaceShips.toList()
+    internal var deadShipsList = deadShips.toList()
 
     // Results of turns. Basically replaced every turn
     val allShots: MutableList<GBVector> = Collections.synchronizedList(arrayListOf<GBVector>())
@@ -73,7 +75,10 @@ class GBUniverse {
     }
 
     fun getUniverseShipsList(): List<GBShip> {
-        return deepSpaceShips.toList()
+        if (turn > lastShipUpdate) {
+            deadShipsList= deadShips.toList()
+        }
+        return deepSpaceShips
     }
 
     fun getAllShotsList(): List<GBVector> {

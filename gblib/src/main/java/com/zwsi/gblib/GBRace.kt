@@ -30,6 +30,7 @@ class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
     val color: String
 
     internal val raceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
+    internal var raceShipsList = raceShips.toList()
 
     init {
         id = GBData.getNextGlobalId()
@@ -48,7 +49,10 @@ class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
     }
 
     fun getRaceShipsList() : List<GBShip> {
-        return raceShips.toList()
+        if (universe.turn > universe.lastShipUpdate) {
+            raceShipsList = raceShipsList.toList()
+        }
+        return raceShipsList
     }
 
 
