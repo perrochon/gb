@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
@@ -34,10 +35,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var bmRaceTortoise: Bitmap? = null
 
     val sourceSize = 18000 // TODO get from elsewhere
-    val universeSize = 1000
+    val universeSize = universe.universeMaxX
     val uToS = sourceSize / universeSize
     val uToSf = uToS.toFloat()
-    val sSystemSize = 13 * uToS
+    val sSystemSize = universe.systemBoundary * uToS
 
 
     // Object creation outside onDraw. These are only used in onDraw, but here for performance reasons?

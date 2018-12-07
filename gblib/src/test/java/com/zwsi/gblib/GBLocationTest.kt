@@ -1,6 +1,6 @@
 // Copyright 2018 Louis Perrochon. All rights reserved
 
-// LibTest is running through a big Universe and a longer scenario
+// Tests GBLocation
 //
 
 package com.zwsi.gblib
@@ -32,8 +32,8 @@ class GBLocationTest {
                 assertEquals(l.getOLocC().x, l.x)
                 assertEquals(l.getOLocC().y, l.y)
                 assertNotEquals(-1, l.refUID)
-                assertEquals(l.getOLocP().r, l.t)
-                assertEquals(l.getOLocP().t, l.r)
+                assertEquals(l.getOLocP().r, l.r)
+                assertEquals(l.getOLocP().t, l.t)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
                 assertNotEquals(null, universe.allPlanets.getOrNull(l.refUID)) //
@@ -66,7 +66,7 @@ class GBLocationTest {
                 assertEquals("Deep Space", l.getLocDesc())
             }
             else -> {
-                GBLog.gbAssert("Ship in Limbo", { true })
+                assertTrue("Broken Location: $l", false)
             }
         }
     }
@@ -91,8 +91,6 @@ class GBLocationTest {
         consistent(loc)
     }
 
-    // TODO Should location enforce that insystem is somewhat close to a star???
-
     @Test
     fun system() {
         val universe = GBController.makeUniverse()
@@ -114,12 +112,12 @@ class GBLocationTest {
 
     @Test
     fun gbxyDistance() {
-        var a = GBxy(0f, 0f)
-        var b = GBxy(0f, 3f)
-        var c = GBxy(4f, 3f)
-        var d = GBxy(-1f, -1f)
-        var e = GBxy(2f, -1f)
-        var f = GBxy(-1f, -5f)
+        val a = GBxy(0f, 0f)
+        val b = GBxy(0f, 3f)
+        val c = GBxy(4f, 3f)
+        val d = GBxy(-1f, -1f)
+        val e = GBxy(2f, -1f)
+        val f = GBxy(-1f, -5f)
         assertEquals(3f, a.distance(b))
         assertEquals(4f, b.distance(c))
         assertEquals(5f, c.distance(a))
@@ -162,6 +160,7 @@ class GBLocationTest {
         towards_helper(-4f,3f,3f,7f)
         towards_helper(0f,0f,0f,0f) // This logs a warning.
     }
+
     fun towards_helper(x1 : Float, y1 : Float, x2 : Float, y2 : Float) {
         val origin = GBxy(x1,y1)
         val destination = GBxy(x2,y2)

@@ -7,34 +7,37 @@ import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.PI
 
 class GBUniverse {
 
     internal var numberOfStars: Int
     internal var numberOfRaces: Int
-    var allStars = Collections.synchronizedList(arrayListOf<GBStar>()) // the all the stars
-    var allPlanets = Collections.synchronizedList(arrayListOf<GBPlanet>()) // all the planets
-    var allRaces = Collections.synchronizedList(arrayListOf<GBRace>()) // all the races
 
-    val allShips = Collections.synchronizedList(arrayListOf<GBShip>())
-    val deadShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // all the ships in the Universe
-    val universeShips: MutableList<GBShip> =
-        Collections.synchronizedList(arrayListOf()) // ships in transit between system
+    // TODO Concurrency - for now these are all synchronized. Expensive, but may be safer until we figure out threads
 
-    val allShots = Collections.synchronizedList(arrayListOf<GBVector>())
+    // Stars, Planets, Races are immutable lists (once built) of immutable elements. Things that do change are e.g. locations of things
+    val allStars: MutableList<GBStar> = Collections.synchronizedList(arrayListOf<GBStar>()) // all the stars
+    val allPlanets : MutableList<GBPlanet> = Collections.synchronizedList(arrayListOf<GBPlanet>()) // all the planets
+    val allRaces: MutableList<GBRace> = Collections.synchronizedList(arrayListOf<GBRace>()) // all the races
 
-    var news = arrayListOf<String>()
+    // List of ships. Lists are mutable
+    val allShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // all ships, alive or dead
+    val deepSpaceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // ships in transit between system
+    val deadShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // all dead ships in the Universe
 
-    var orders = arrayListOf<GBOrder>()
+    // Results of turns. Basically replaced every turn
+    val allShots: MutableList<GBVector> = Collections.synchronizedList(arrayListOf<GBVector>())
+    val news : MutableList<String> = Collections.synchronizedList(arrayListOf<String>())
+    val orders : MutableList<GBOrder> = Collections.synchronizedList(arrayListOf<GBOrder>())
 
     class GBInstruction(var t: Int, var code: () -> Unit?) {}
-
-    var scheduledActions = mutableListOf<GBInstruction>()
+    var scheduledActions : MutableList<GBInstruction>  = Collections.synchronizedList(arrayListOf<GBInstruction>())
 
     var autoDo = false
-
     var turn = 0
+
 
     constructor(numberOfStars: Int) {
         this.numberOfStars = numberOfStars
@@ -46,9 +49,14 @@ class GBUniverse {
     }
 
     val universeMaxX: Int
-        get() = GBData.getUniverseMaxX()
+        get() = GBData.UniverseMaxX
+
     val universeMaxY: Int
-        get() = GBData.getUniverseMaxY()
+        get() = GBData.UniverseMaxY
+
+    val systemBoundary: Int
+        get() = GBData.SystemBoundary
+
 
     fun getNumberOfStars(): Int {
         return numberOfStars
@@ -62,7 +70,7 @@ class GBUniverse {
 
 
     fun getUniverseShipsList(): List<GBShip> {
-        return universeShips.toList()
+        return deepSpaceShips.toList()
     }
 
     fun getAllShotsList(): List<GBVector> {

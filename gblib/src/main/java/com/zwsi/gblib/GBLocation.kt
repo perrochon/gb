@@ -49,7 +49,7 @@ data class GBVector(val from: GBxy, val to: GBxy) {}
  */
 class GBLocation {
 
-    // TODO Refactor fun: This may be a case for subclassing, rather than field: Type and when()
+    // TODO Refactor fun: Location may be a case for subclassing, rather than field: Type and when()
 
     var level: Int = -1
         private set
@@ -83,11 +83,14 @@ class GBLocation {
         this.sy = sy
     }
 
-    /** Make an ORBIT location by giving Float angle and distance to center */
+    /** Make an ORBIT location by giving Float angle theta [t] and distance [r] to center.
+     *  Note y is facing down, so 0<t<PI is below the center
+     *  */
+
     constructor(planet: GBPlanet, r: Float, t: Float) {
-        // These two asserts may also catch mistaken use of Float (x,y)
-        gbAssert("Distance to planet too big", r > 10f)
-        // gbAssert("Angle larger than 2*PI", t > PI + 0.1)
+
+        // These asserts may also catch mistaken use of floats
+        gbAssert("Distance to planet too big", r > 3f)
 
         this.level = ORBIT
         this.refUID = planet.uid
@@ -100,9 +103,10 @@ class GBLocation {
 
     /** Make a SYSTEM location from Float (r,t) radius from center and theta */
     constructor(star: GBStar, r: Float, t: Float) {
-        // These two asserts may also catch mistaken use of Float (x,y)
-        gbAssert("Distance to star too big", r > 500f)
-        gbAssert("Angler larger than 2*PI", r > PI + 0.1)
+
+        // These asserts may also catch mistaken use of Float (x,y).
+        gbAssert("Distance to star too big", r > GBData.SystemBoundary)
+
         this.level = SYSTEM
         this.refUID = star.uid
         this.r = r
@@ -111,10 +115,12 @@ class GBLocation {
         this.y = r * sin(t)
     }
 
+    // TODO  figure out how to not need boolean to set flag in constructor
     // Stupid: pass a boolean to use cartesian coordinates in constructor? Could use GBxy and GBrt to distinguish,
     // or subclasses instead of when
+
     // This takes universal coordinates... Used when moving ships in.
-    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) { // TODO  figure out how to not need dummy
+    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) {
         this.level = SYSTEM
         this.refUID = star.uid
         this.x = x - star.loc.x

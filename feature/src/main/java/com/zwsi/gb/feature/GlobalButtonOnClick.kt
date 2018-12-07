@@ -19,7 +19,7 @@ class GlobalButtonOnClick {
             //output.setText("") // TODO: But output back in...
 
             val message = "Executing Orders"
-            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, message, Toast.LENGTH/2_SHORT).show()
 
             Thread(Runnable {
 
@@ -64,7 +64,7 @@ class GlobalButtonOnClick {
             lastClickTime = SystemClock.elapsedRealtime();
 
             val message = "God Mode: Continuous Do"
-            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, message, Toast.LENGTH/2_SHORT).show()
 
             if (GBController.universe.autoDo) {
                 GBController.universe.autoDo = false

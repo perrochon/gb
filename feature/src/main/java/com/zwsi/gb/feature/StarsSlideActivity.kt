@@ -80,7 +80,7 @@ class StarsSlideActivity : AppCompatActivity() {
         val parent = view.parent.parent as View // TODO there must be a better (not layout dependent) way than this
         val star = parent.tag as GBStar
 
-        Toast.makeText(view.context, "Going to planets of " + star.name, Toast.LENGTH_SHORT).show()
+        Toast.makeText(view.context, "Going to planets of " + star.name, Toast.LENGTH/2_SHORT).show()
 
         val displayUID = ArrayList<Int>()
         for (planet in star.starPlanets) {
@@ -105,7 +105,7 @@ class StarsSlideActivity : AppCompatActivity() {
         val parent = view.parent.parent as View // TODO there must be a better (not layout dependent) way than this
         val star = parent.tag as GBStar
 
-        Toast.makeText(view.context, "Going to ships in system " + star.name, Toast.LENGTH_SHORT).show()
+        Toast.makeText(view.context, "Going to ships in system " + star.name, Toast.LENGTH/2_SHORT).show()
 
         val displayUID = ArrayList<Int>()
         for (ship in star.getStarShipsList()) {

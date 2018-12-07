@@ -1,11 +1,13 @@
 // Copyright 2018 Louis Perrochon. All rights reserved
 
 // GBData contain
-//  - All the global static data // TODO read data from a config file or other external data source
+//  - All the global static data
 //    includes names, types and other attributes of allStars, allPlanets, sectors
 //  - All the creation logic for allStars, allPlanets, sectors
 //
 // GB Data is a separate class because later we want to read this from an external source (JSON file, web, db, etc.)
+
+// TODO Feature read universe data from a config file or other external data source
 
 package com.zwsi.gblib
 
@@ -18,33 +20,24 @@ class GBData {
 
     companion object {
 
-        // TODO these public methods could internal if the whole lib is Kotlin? Nobody outside the lib should call GBData
+        // TODO Quality these public methods could internal if the whole lib is Kotlin? Nobody outside the lib should call GBData
 
         val rand = Random(1) // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
-        private const val UniverseMaxX = 1000
-        private const val UniverseMaxY = 1000
-        private const val SystemRadius = 13
+        internal const val UniverseMaxX = 1000
+        internal const val UniverseMaxY = 1000
+        internal const val MaxPlanetOrbit = 13
+        internal const val SystemBoundary = 15
 
-        fun getSystemRadius(): Int {
-            return SystemRadius
-        }
-
-        fun getUniverseMaxX(): Int {
-            return UniverseMaxX
-        }
-
-        fun getUniverseMaxY(): Int {
-            return UniverseMaxY
-        }
 
         private var nextGlobalID = 1000
+
         fun getNextGlobalId(): Int {
             return nextGlobalID++
         }
 
         fun selectStarNameIdx(): Int {
-            // TODO no dupes in System Names - not a high priority, real world may have duplicates...
+            // TODO Science no dupes in System Names - not a high priority, real world may have duplicates...
             return rand.nextInt(starNames.size)
         }
 
@@ -53,7 +46,7 @@ class GBData {
         }
 
         fun selectPlanetNameIdx(): Int {
-            // TODO no dupes - not a high priority, real world may have duplicates...
+            // TODO Science no dupes in Planet Names - not a high priority, real world may have duplicates...
             return rand.nextInt(planetNames.size)
         }
 
@@ -62,7 +55,7 @@ class GBData {
         }
 
         fun selectPlanetTypeIdx(): Int {
-            // TODO specified distribution, instead of random
+            // TODO Science specified distribution based on star type, instead of random
             return rand.nextInt(planetTypesNames.size)
         }
 
@@ -1224,9 +1217,14 @@ class GBData {
                         "they can see all directions, they can hang upside down and climb walls.", "#ff00ff00"
             ),
             3 to RaceData(
-                "Warhide Tortois", 5, 20, 0, "Ancient legends rumor that Warhide Tortoises" +
+                "Warhide Tortois",
+                5,
+                20,
+                0,
+                "Ancient legends rumor that Warhide Tortoises" +
                         " once visited us. \n\nHard shell, can see " +
-                        "with three heads, SUPER SHARP claws, moves at 25mph,  can swim at 65mph, sarp shell, can turn to a sping.", "#ffff00ff"
+                        "with three heads, SUPER SHARP claws, moves at 25mph,  can swim at 65mph, sarp shell, can turn to a sping.",
+                "#ffff00ff"
             )
         )
 
@@ -1256,7 +1254,7 @@ class GBData {
 
         const val FACTORY = 0
         const val POD = 1
-        const val CRUISER= 2
+        const val CRUISER = 2
 
 
         data class ShipData(
@@ -1266,7 +1264,7 @@ class GBData {
 
         private val ships = hashMapOf(
             FACTORY to ShipData("Factory", 0),
-            POD to ShipData("Spore Pod", 2),
+            POD to ShipData("Spore Pod", 1),
             CRUISER to ShipData("Cruiser", 3)
         )
 

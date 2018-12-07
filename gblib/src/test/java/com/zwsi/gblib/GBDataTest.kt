@@ -1,6 +1,6 @@
 // Copyright 2018 Louis Perrochon. All rights reserved
 
-// LibTest is running through a big Universe and a longer scenario
+// Data Test test GBData
 //
 
 package com.zwsi.gblib

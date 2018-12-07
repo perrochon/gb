@@ -14,7 +14,6 @@ import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBLog.gbAssert
-import sun.font.GlyphLayout
 import java.util.*
 import kotlin.math.PI
 
@@ -39,6 +38,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
     init {
         id = GBData.getNextGlobalId()
+
         universe.allShips.add(this)
         uid = universe.allShips.indexOf(this)
 
@@ -56,12 +56,11 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 loc.getStar()!!.starShips.add(this)
             }
             DEEPSPACE -> {
-                universe.universeShips.add(this)
+                universe.deepSpaceShips.add(this)
             }
             else -> {
                 gbAssert("Bad Parameters for ship placement $loc", { false })
             }
-
         }
 
         type = GBData.getShipType(idxtype)
@@ -87,7 +86,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 this.loc.getStar()!!.starShips.remove(this)
             }
             DEEPSPACE -> {
-                universe.universeShips.remove(this)
+                universe.deepSpaceShips.remove(this)
             }
             else -> {
                 gbAssert("Bad Parameters for ship removement $loc", { false })
@@ -114,7 +113,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 loc.getStar()!!.starShips.add(this)
             }
             DEEPSPACE -> {
-                universe.universeShips.add(this)
+                universe.deepSpaceShips.add(this)
             }
             else -> {
                 gbAssert("Bad Parameters for ship placement $loc", { false })
@@ -159,7 +158,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                         this.loc.getStar()!!.starShips.remove(this)
                     }
                     DEEPSPACE -> {
-                        universe.universeShips.remove(this)
+                        universe.deepSpaceShips.remove(this)
                     }
                     else -> {
                         gbAssert("Bad Parameters for ship removement $loc", { false })
@@ -274,7 +273,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 var distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
 
 
-                if (distanceToStar < GBData.getSystemRadius()) { // we arrived at destination System
+                if (distanceToStar < GBData.SystemBoundary) { // we arrived at destination System
 
                     // TODO check if destination is the system, in which case we would just stop here.
                     // We can't fly to a system yet, so not a bug just yet.
@@ -304,7 +303,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                 var distanceToStar = sxy.distance(loc.getStar()!!.loc.getLoc())
 
-                if (distanceToStar > GBData.getSystemRadius()) {  // we left the system
+                if (distanceToStar > GBData.SystemBoundary) {  // we left the system
 
                     var next = GBLocation(nxy.x, nxy.y)
                     changeShipLocation(next)

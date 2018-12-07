@@ -8,6 +8,9 @@ import java.util.*
 
 class GBStar(val universe: GBUniverse) {
 
+    // TODO Quality Fix need to pass in universe because it's called from the constructor of universe.
+
+
     val id: Int
     val uid: Int
     val idxname: Int
@@ -23,7 +26,7 @@ class GBStar(val universe: GBUniverse) {
 
     var numberOfPlanets = 2 // minimal number of planets
 
-    var starShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // the ships in this system
+    val starShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // the ships in this system
 
     init {
         id = GBData.getNextGlobalId()
@@ -122,8 +125,8 @@ class GBStar(val universe: GBUniverse) {
 
         val areaX = area % dim   // coordinates of the chosen area
         val areaY = area / dim   // coordinates of the chosen area
-        val areaWidth = GBData.getUniverseMaxX() / dim
-        val areaHeight = GBData.getUniverseMaxY() / dim
+        val areaWidth = GBData.UniverseMaxX / dim
+        val areaHeight = GBData.UniverseMaxY / dim
         val marginX = areaWidth / 10 // no star in the edge of the area
         val marginY = areaHeight / 10 // no star in the edge of the area
 

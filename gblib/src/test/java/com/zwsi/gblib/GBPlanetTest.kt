@@ -72,7 +72,7 @@ class GBPlanetTest {
         val universe = GBController.makeUniverse()
 
         universe.allPlanets.forEach {
-            assert(it.loc.getLoc().distance(it.star.loc.getLoc())< (GBData.getSystemRadius()*1.1f), {"Planet too far from star"} )
+            assert(it.loc.getLoc().distance(it.star.loc.getLoc())< (GBData.MaxPlanetOrbit*1.1f), {"Planet too far from star"} )
         }
     }
 

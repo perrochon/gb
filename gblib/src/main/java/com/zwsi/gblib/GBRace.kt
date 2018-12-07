@@ -15,8 +15,10 @@ import java.util.*
 
 class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
 
+    // TODO Quality Fix need to pass in universe because it's called from the constructor of universe.
+
     // uId is the Universe level ID (in Universe's list of allRaces)
-    // idx is the number to go look up in GBData. This will go away with race design
+    // idx is the number to go look up in GBData. This would change with dynamic design
 
     val id: Int
     val uid: Int
@@ -27,7 +29,7 @@ class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
     val description: String
     val color: String
 
-    var raceShips = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
+    val raceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
 
 
     init {
