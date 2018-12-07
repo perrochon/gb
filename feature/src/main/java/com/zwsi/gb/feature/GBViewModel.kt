@@ -1,7 +1,5 @@
 package com.zwsi.gb.feature
 
-import android.app.Activity
-import android.view.View
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
@@ -20,7 +18,7 @@ class GBViewModel {
         var viewRaces = universe.allRaces
 
         var viewShips = universe.getAllShipsList()
-        var viewUniverseShips = universe.getUniverseShipsList()
+        var viewUniverseShips = universe.getDeepSpaceShipsList()
         var viewStarShips: ArrayList<List<GBShip>> = ArrayList()
         var viewOrbitShips: ArrayList<List<GBShip>> = ArrayList()
         var viewShipTrails: ArrayList<List<GBxy>> = ArrayList()
@@ -50,7 +48,7 @@ class GBViewModel {
                 // Ships
                 times["Ships"] = measureNanoTime { viewShips = universe.getAllShipsList() }
 
-                times["UShips"] = measureNanoTime { viewUniverseShips = universe.getUniverseShipsList() }
+                times["UShips"] = measureNanoTime { viewUniverseShips = universe.getDeepSpaceShipsList() }
 
                 times["SShips"] = measureNanoTime { fillViewStarShips()}
 

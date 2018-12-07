@@ -74,11 +74,11 @@ class GBUniverse {
         return allShipsList
     }
 
-    fun getUniverseShipsList(): List<GBShip> {
+    fun getDeepSpaceShipsList(): List<GBShip> {
         if (turn > lastShipUpdate) {
-            deadShipsList= deadShips.toList().filter { it.health > 0 }
+            deepSpaceShipsList= deepSpaceShips.toList().filter { it.health > 0 }
         }
-        return deepSpaceShips
+        return deepSpaceShipsList
     }
 
     fun getAllShotsList(): List<GBVector> {
