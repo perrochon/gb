@@ -26,6 +26,8 @@
                 android:text="Cont"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="10dp"
+                android:minHeight="10dp"
                 android:id="@+id/ContinuousButton"
                 android:onClick="continuousDo"
                 android:visibility="visible"

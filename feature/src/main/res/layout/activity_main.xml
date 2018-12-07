@@ -90,7 +90,9 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent">
         <Button
-                android:text="@string/button_create"
+                android:text="New"
+                android:minWidth="10dp"
+                android:minHeight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/CreateButton"
@@ -100,6 +102,8 @@
                 android:alpha="0.5"/>
         <Button
                 android:text="Make"
+                android:minWidth="10dp"
+                android:minHeight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/MakeButton"
@@ -109,6 +113,8 @@
                 android:alpha="0.5"/>
         <Button
                 android:text="Cont"
+                android:minWidth="10dp"
+                android:minHeight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ContinuousButton"
