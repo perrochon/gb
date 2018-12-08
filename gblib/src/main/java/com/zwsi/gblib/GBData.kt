@@ -27,7 +27,7 @@ class GBData {
         internal const val UniverseMaxX = 1000
         internal const val UniverseMaxY = 1000
         internal const val MaxPlanetOrbit = 13
-        internal const val SystemBoundary = 15
+        internal const val SystemBoundary = 18
 
 
         private var nextGlobalID = 1000
