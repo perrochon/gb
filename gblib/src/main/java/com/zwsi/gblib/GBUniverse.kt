@@ -303,7 +303,7 @@ class GBUniverse {
             scheduledActions.add(GBInstruction(now, code))
         }
 
-        for (i in 0 until 10000) {
+        for (i in 0 until 1000) {
             code = {
                 val factory = allRaces[2].raceShips.find { it.idxtype == FACTORY }
                 GBLog.d("Ordered Pod")
@@ -334,8 +334,13 @@ class GBUniverse {
         code = {
             GBLog.d("Directed Cruiser")
             // Getting all ships, not just alive ships, so even "dead" pods will start moving again. Ok for God to do.
-            val cruiser = universe.getAllShipsList().find { (it.idxtype == CRUISER) && (it.loc.level == LANDED) }
-            cruiser?.let { universe.flyShipOrbit(it, allPlanets[rand.nextInt(allPlanets.size)]) }
+            val cruiser = universe.getAllShipsList().find {
+                ((it.idxtype == CRUISER) && (it.loc.level == LANDED))
+            }
+            val p = allPlanets[rand.nextInt(allPlanets.size)]
+            if (p.star != allRaces[2].home.star) {
+                cruiser?.let { universe.flyShipOrbit(it, p) }
+            }
         }
         scheduledActions.add(GBInstruction(-1, code))
     }
