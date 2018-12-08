@@ -27,6 +27,7 @@ class GBStar(val universe: GBUniverse) {
     var numberOfPlanets = 2 // minimal number of planets
 
     internal val starShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // the ships in this system
+    internal var lastStarShipsUpdate = -1
     internal var starShipsList = starShips.toList()
 
     init {
@@ -58,8 +59,9 @@ class GBStar(val universe: GBUniverse) {
     }
 
     fun getStarShipsList() : List<GBShip> {
-        if (universe.turn > universe.lastShipUpdate) {
-            starShipsList = starShipsList.toList().filter { it.health > 0 }
+        if (universe.turn > lastStarShipsUpdate) {
+            starShipsList = starShips.toList().filter { it.health > 0 }
+            lastStarShipsUpdate = universe.turn
         }
         return starShipsList
     }

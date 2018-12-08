@@ -9,12 +9,11 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gblib.GBController.Companion.universe
-import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
-import com.zwsi.gblib.GBxy
 import kotlin.system.measureNanoTime
 
 class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
@@ -151,7 +150,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         times["Stars and Circles"] = measureNanoTime { drawStarsAndCircles(canvas) }
 
-        times["Planets"] = measureNanoTime { drawPlanets(canvas) }
+        times["Planets and Ships"] = measureNanoTime { drawPlanetsAndShips(canvas) }
 
         times["DeepSpaceShips"] = measureNanoTime { drawDeepSpaceShips(canvas) }
 
@@ -212,7 +211,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 paint
             )
             canvas.drawText(
-                "Turn: ${universe.turn} | View: ${GBViewModel.updateTimeTurn / 1000L}μs | Backend: ${GBViewModel.elapsedBackendTimeTurn / 1000L}μs",
+                "Turn: ${universe.turn} | View: ${GBViewModel.timeModelUpdate / 1000L}μs | Backend: ${GBViewModel.timeLastTurn / 1000L}μs",
                 8f,
                 l++ * h,
                 paint
@@ -313,7 +312,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
     }
 
-    private fun drawPlanets(canvas: Canvas) {
+    private fun drawPlanetsAndShips(canvas: Canvas) {
         if (30 > normScale) {
             for (s in GBViewModel.viewStars) {
                 if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
@@ -384,38 +383,29 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
         paint.strokeWidth = strokeWidth.toFloat() / 2
+        paint.strokeJoin = Paint.Join.ROUND
+        paint.strokeCap = Cap.BUTT
         paint.color = trailColor
-
-        // TODO waste fewer cycles and draw these a bit more elegant
+        val alphaFade = paint.alpha / viewShipTrails[sh.uid].size
+        paint.alpha = 0
 
         val iterate = GBViewModel.viewShipTrails[sh.uid].iterator()
 
-
-        val alphaFade = paint.alpha / GBViewModel.viewShipTrails[sh.uid].size
-        paint.alpha = 0
-
-        var from = GBxy(0f, 0f)
-
-        if (iterate.hasNext()) {
-            from = iterate.next()
-        }
+        var from = iterate.next()
+        sP1.set(from.x * uToS, from.y * uToS)
+        sourceToViewCoord(sP1, vP1)
 
         while (iterate.hasNext()) {
 
-            val xy = iterate.next()
-
-            sP1.set(from.x * uToS, from.y * uToS)
-            sourceToViewCoord(sP1, vP1)
-            sP2.set(xy.x * uToS, xy.y * uToS)
+            val to = iterate.next()
+            sP2.set(to.x * uToS, to.y * uToS)
             sourceToViewCoord(sP2, vP2)
 
             canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
 
-            from = xy
+            vP1.set(vP2)
             paint.alpha += alphaFade
         }
-
-
     }
 
     fun drawGrids(canvas: Canvas) {

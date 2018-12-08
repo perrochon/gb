@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         output.setText("")
 
         val message = "God Level: Recreating the Universe"
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT/2).show()
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
         Thread(Runnable {
 
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         lastClickTime = SystemClock.elapsedRealtime();
 
         val message = "God Mode: Making Test Stuff"
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT/2).show()
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
         Thread(Runnable {
 

@@ -41,7 +41,9 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
     internal val landedShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // the ships on ground of this planet
     internal val orbitShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // the ships in orbit of this planet
+    internal var lastLandedShipsUpdate = -1
     internal var landedShipsList = landedShips.toList()
+    internal var lastOrbitShipsUpdate = -1
     internal var orbitShipsList = orbitShips.toList()
 
 
@@ -82,15 +84,17 @@ class GBPlanet(val sid: Int, val star: GBStar) {
     }
 
     fun getLandedShipsList() : List<GBShip> {
-        if (universe.turn > universe.lastShipUpdate) {
+        if (universe.turn > lastLandedShipsUpdate) {
             landedShipsList = landedShips.toList().filter { it.health > 0 }
+            lastLandedShipsUpdate = universe.turn
         }
         return landedShipsList
     }
 
     fun getOrbitShipsList() : List<GBShip> {
-        if (universe.turn > universe.lastShipUpdate) {
+        if (universe.turn > lastOrbitShipsUpdate) {
             orbitShipsList = orbitShips.toList().filter { it.health > 0 }
+            lastOrbitShipsUpdate = universe.turn
         }
         return orbitShipsList
     }

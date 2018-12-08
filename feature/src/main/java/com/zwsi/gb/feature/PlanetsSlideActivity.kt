@@ -84,7 +84,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
         universe.makeFactory(planet, universe.allRaces[0])
 
         val message = "Ordered Factory on " + planet.name
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT/2).show()
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
     }
 
@@ -106,7 +106,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
         view.invalidate()
 
         val message = "God Level: Landing Xenos on " + planet.name
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT/2).show()
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
     }
 
     /** Called when the user taps the Colonize button */
@@ -127,6 +127,6 @@ class PlanetsSlideActivity : AppCompatActivity() {
         // view.invalidate()
 
         val message = "God Level: Landing Impi on " + planet.name
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT/2).show()
+        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
     }
 }

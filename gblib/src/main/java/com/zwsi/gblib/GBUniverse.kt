@@ -7,7 +7,6 @@ import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.PI
 
 class GBUniverse {
@@ -20,27 +19,33 @@ class GBUniverse {
     // Stars, Planets, Races are immutable lists (once built) of immutable elements. Things that do change are e.g. locations of things
     // exposing these (for now)
     val allStars: MutableList<GBStar> = Collections.synchronizedList(arrayListOf<GBStar>()) // all the stars
-    val allPlanets : MutableList<GBPlanet> = Collections.synchronizedList(arrayListOf<GBPlanet>()) // all the planets
+    val allPlanets: MutableList<GBPlanet> = Collections.synchronizedList(arrayListOf<GBPlanet>()) // all the planets
     val allRaces: MutableList<GBRace> = Collections.synchronizedList(arrayListOf<GBRace>()) // all the races
 
     // List of ships. Lists are mutable and change during updates (dead ships...)
     // Not exposed to the app
-    internal val allShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // all ships, alive or dead
-    internal val deepSpaceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // ships in transit between system
-    internal val deadShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // all dead ships in the Universe
+    internal val allShips: MutableList<GBShip> =
+        Collections.synchronizedList(arrayListOf<GBShip>()) // all ships, alive or dead
+    internal val deepSpaceShips: MutableList<GBShip> =
+        Collections.synchronizedList(arrayListOf()) // ships in transit between system
+    internal val deadShips: MutableList<GBShip> =
+        Collections.synchronizedList(arrayListOf()) // all dead ships in the Universe
 
-    internal var lastShipUpdate = -1
+    internal var lastAllShipsUpdate = -1
+    internal var lastDeepSpaceShipsUpdate = -1
+    internal var lastDeadShipsUpdate = -1
     internal var allShipsList = allShips.toList()
     internal var deepSpaceShipsList = deepSpaceShips.toList()
     internal var deadShipsList = deadShips.toList()
 
     // Results of turns. Basically replaced every turn
     val allShots: MutableList<GBVector> = Collections.synchronizedList(arrayListOf<GBVector>())
-    val news : MutableList<String> = Collections.synchronizedList(arrayListOf<String>())
-    val orders : MutableList<GBOrder> = Collections.synchronizedList(arrayListOf<GBOrder>())
+    val news: MutableList<String> = Collections.synchronizedList(arrayListOf<String>())
+    val orders: MutableList<GBOrder> = Collections.synchronizedList(arrayListOf<GBOrder>())
 
     class GBInstruction(var t: Int, var code: () -> Unit?) {}
-    var scheduledActions : MutableList<GBInstruction>  = Collections.synchronizedList(arrayListOf<GBInstruction>())
+
+    var scheduledActions: MutableList<GBInstruction> = Collections.synchronizedList(arrayListOf<GBInstruction>())
 
     var autoDo = false
     var turn = 0
@@ -68,15 +73,17 @@ class GBUniverse {
     }
 
     fun getAllShipsList(): List<GBShip> {
-        if (turn > lastShipUpdate) {
+        if (turn > lastAllShipsUpdate) {
             allShipsList = allShips.toList()
+            lastAllShipsUpdate = turn
         }
         return allShipsList
     }
 
     fun getDeepSpaceShipsList(): List<GBShip> {
-        if (turn > lastShipUpdate) {
-            deepSpaceShipsList= deepSpaceShips.toList().filter { it.health > 0 }
+        if (turn > lastDeepSpaceShipsUpdate) {
+            deepSpaceShipsList = deepSpaceShips.toList().filter { it.health > 0 }
+            lastDeepSpaceShipsUpdate = turn
         }
         return deepSpaceShipsList
     }
@@ -186,9 +193,11 @@ class GBUniverse {
                 if (sh1.idxtype == CRUISER) {
                     for (sh2 in s.starShips) {
                         if ((sh2.health > 0) && (sh2.idxtype == POD)) {
-                            allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
-                            GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
-                            sh2.health = 0
+                            if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
+                                allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
+                                GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
+                                sh2.health = 0
+                            }
                         }
                     }
 
@@ -200,9 +209,11 @@ class GBUniverse {
                 if (sh1.idxtype == CRUISER) {
                     for (sh2 in p.star.starShips) {
                         if ((sh2.health > 0) && (sh2.idxtype == POD)) {
-                            allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
-                            GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
-                            sh2.health = 0
+                            if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
+                                allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
+                                GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
+                                sh2.health = 0
+                            }
                         }
                     }
 
@@ -275,7 +286,7 @@ class GBUniverse {
     fun flyShipOrbit(sh: GBShip, p: GBPlanet) {
         GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
 
-        var loc = GBLocation(p, 1f, rand.nextFloat()*2*PI.toFloat()) // TODO Have caller give us a better location
+        var loc = GBLocation(p, 1f, rand.nextFloat() * 2 * PI.toFloat()) // TODO Have caller give us a better location
         sh.dest = loc
 
     }
@@ -316,7 +327,7 @@ class GBUniverse {
             GBLog.d("Directed Pod")
             // Getting all pods, not just alive pods, so even "dead" pods will start moving again. Ok for God to do.
             val pod = allRaces[2].raceShips.find { (it.idxtype == POD) && (it.dest == null) }
-            pod?.let { universe.flyShipLanded(it, allPlanets[rand.nextInt(allPlanets.size)])}
+            pod?.let { universe.flyShipLanded(it, allPlanets[rand.nextInt(allPlanets.size)]) }
         }
         scheduledActions.add(GBInstruction(-1, code))
 

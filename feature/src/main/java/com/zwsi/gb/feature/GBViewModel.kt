@@ -25,9 +25,8 @@ class GBViewModel {
 
         var viewShots = universe.getAllShotsList()
 
-        var lastTurn = -1
-        var updateTimeTurn = 0L
-        var elapsedBackendTimeTurn = 0L
+        var timeModelUpdate = 0L
+        var timeLastTurn = 0L
 
         var mapView: SubsamplingScaleImageView? = null
 
@@ -40,25 +39,25 @@ class GBViewModel {
         }
 
         fun update() {
-            updateTimeTurn = measureNanoTime {
+            timeModelUpdate = measureNanoTime {
 
                 // Not updating stars and planets as those lists don't change
-                // TODO: Deep copy of stars and planets? Then copy changed data
+                // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
 
                 // Ships
-                times["Ships"] = measureNanoTime { viewShips = universe.getAllShipsList() }
+                times["A Ships"] = measureNanoTime { viewShips = universe.getAllShipsList() }
 
-                times["UShips"] = measureNanoTime { viewUniverseShips = universe.getDeepSpaceShipsList() }
+                times["D Ships"] = measureNanoTime { viewUniverseShips = universe.getDeepSpaceShipsList() }
 
-                times["SShips"] = measureNanoTime { fillViewStarShips()}
+                times["S Ships"] = measureNanoTime { fillViewStarShips()}
 
-                times["OShips"] = measureNanoTime { fillViewOrbitShips() }
+                times["O Ships"] = measureNanoTime { fillViewOrbitShips() }
 
                 times["Trails"] = measureNanoTime { fillViewShipTrails() }
 
                 times["Shots"] = measureNanoTime { viewShots = universe.getAllShotsList()}
 
-                elapsedBackendTimeTurn = GBController.elapsedTimeLastUpdate
+                timeLastTurn = GBController.elapsedTimeLastUpdate
             }
 
             // TODO convert all coordinates to source coordinates after updating? Saves a few multiplications
@@ -71,14 +70,14 @@ class GBViewModel {
         fun fillViewStarShips() {
             viewStarShips.clear()
             for (s in viewStars) {
-                viewStarShips.add(s.uid, s.getStarShipsList().filter { it.health > 0 })
+                viewStarShips.add(s.uid, s.getStarShipsList())
             }
         }
 
         fun fillViewOrbitShips() {
             viewOrbitShips.clear()
             for (p in viewPlanets) {
-                viewOrbitShips.add(p.uid, p.getOrbitShipsList().filter { it.health > 0 })
+                viewOrbitShips.add(p.uid, p.getOrbitShipsList())
             }
         }
 

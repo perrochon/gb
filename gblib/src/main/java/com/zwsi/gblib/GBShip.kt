@@ -28,12 +28,16 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     var health: Int
 
     var dest: GBLocation? = null
-    private val trail = Collections.synchronizedList(mutableListOf<GBxy>())
+    private val trails : MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
+    internal var lastTrailsUpdate = -1
+    internal var trailsList = trails.toList()
 
-    @Synchronized
     fun getTrailList() : List<GBxy> {
-     addToTrail() // TODO: This shouldn't be necessary here on every get.. Need to fix at trail maintenance elsewhere
-     return trail.toList()
+
+        if (universe.turn > lastTrailsUpdate) {
+            trailsList = trails.toList()
+        }
+        return trailsList
     }
 
     init {
@@ -122,22 +126,18 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     }
 
     fun doShip() {
-        //removeDeadShips()
-        moveShip()
-        moveOrbitShip()
-    }
+        //removeDeadShips() //TODO Turn this back on...
 
-    @Synchronized
-    fun trimTrail() {
-        while (trail.size > 10) {
-            trail.removeAt(0)
+        if (health > 0) { // for now don't update dead ships...
+            moveShip()
+            moveOrbitShip()
+            trails.add(loc.getLoc())
+            while (trails.size > 5) {
+                trails.removeAt(0)
+            }
         }
     }
 
-    @Synchronized
-    fun addToTrail() {
-        trail.add(loc.getLoc())
-    }
 
     fun removeDeadShips() {
         for (sh in universe.allShips) {
@@ -174,20 +174,12 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         }
     }
 
+
     fun moveShip() {
-
-        if (this.health == 0) {
-            GBLog.d("Trying to move dead ship $name") // TODO Performance. Assert this never happens
-            return
-        }
-
-        trimTrail()
 
         if (dest == null) {
             return
         }
-
-        addToTrail()
 
         val dest = this.dest!!
         val dxy = dest.getLoc()       // use getLoc to get universal (x,y)

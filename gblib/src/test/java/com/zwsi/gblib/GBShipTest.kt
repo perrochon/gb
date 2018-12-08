@@ -5,6 +5,7 @@
 
 package com.zwsi.gblib
 
+import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -28,8 +29,8 @@ class GBShipTest {
         assertTrue(universe.allShips.contains(ship))
         assertEquals(ship.uid, universe.allShips.indexOf(ship))
 
-        assertTrue(ship.race.getRaceShipsList().contains(ship))
-        assertEquals(ship.uid, ship.race.getRaceShipsList().indexOf(ship))
+        assertTrue(ship.race.raceShips.contains(ship))
+        assertEquals(ship.rid, ship.race.raceShips.indexOf(ship))
 
         if (!universe.deadShips.contains(ship)) {
 
@@ -142,7 +143,7 @@ class GBShipTest {
 
     @Test
     fun basic() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
 
         GBLog.d("Testing " + universe.allShips.size + " ships")
 
@@ -156,7 +157,7 @@ class GBShipTest {
         val p: GBPlanet = s.starPlanets[0]
         val r: GBRace = universe.allRaces[0]
 
-        var sh = GBShip(0, r, GBLocation(500f, 500f))
+        var sh = GBShip(1, r, GBLocation(500f, 500f))
         consistency(sh)
 
         sh = GBShip(0, r, GBLocation(s, 10f, 1f))
