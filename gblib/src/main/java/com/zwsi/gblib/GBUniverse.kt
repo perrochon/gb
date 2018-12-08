@@ -88,6 +88,14 @@ class GBUniverse {
         return deepSpaceShipsList
     }
 
+    fun getDeadShipsList(): List<GBShip> {
+        if (turn > lastDeadShipsUpdate) {
+            deadShipsList = deadShips.toList()
+            lastDeadShipsUpdate = turn
+        }
+        return deadShipsList
+    }
+
     fun getAllShotsList(): List<GBVector> {
         return allShots.toList()
     }
@@ -174,8 +182,9 @@ class GBUniverse {
             }
         }
 
+        // TODO move dead ships out of all the list, and into deadships
 
-        for (sh in getAllShipsList()) {
+        for (sh in allShips.filter { it.health > 0 }) {
             sh.doShip()
         }
 

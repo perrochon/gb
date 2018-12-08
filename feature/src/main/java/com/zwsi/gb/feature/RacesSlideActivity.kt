@@ -2,14 +2,11 @@ package com.zwsi.gb.feature
 
 import android.os.Bundle
 import android.os.SystemClock
-import android.support.v4.R.id.left
-import android.support.v4.R.id.right
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBRace
 
 class RacesSlideActivity : AppCompatActivity() {
@@ -47,7 +44,7 @@ class RacesSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("races")
         } else {
             displayList = ArrayList<Int>()
-            for (i in GBController.universe.allRaces) {
+            for (i in GBViewModel.viewRaces) {
                 displayList.add(i.uid)
             }
         }
@@ -57,20 +54,20 @@ class RacesSlideActivity : AppCompatActivity() {
             val fragment: RaceFragment = RaceFragment.newInstance(uid.toString())
             adapter.addFragment(fragment, uid.toString())
             if (uid == startUID)
-                startItem = adapter.count-1
+                startItem = adapter.count - 1
         }
 
         viewpager.adapter = adapter
 
         viewpager.setClipToPadding(false)
-        viewpager.setPadding(50,0,50,0)
+        viewpager.setPadding(50, 0, 50, 0)
 
     }
 
     /** Called when the user taps the Go button */
     fun goToLocation(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();

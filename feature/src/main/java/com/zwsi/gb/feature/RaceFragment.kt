@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.zwsi.gblib.GBController
 
 class RaceFragment : Fragment() {
 
@@ -41,7 +40,8 @@ class RaceFragment : Fragment() {
 
         // What is this fragment about, and make sure the fragment remembers
         val raceID = arguments!!.getString("UID")!!.toInt()
-        val r = GBController.universe.allRaces[raceID]
+        // val r = GBController.universe.allRaces[raceID] // TODO remove
+        val r = GBViewModel.viewRaces[raceID]
         view!!.tag = r
 
 
@@ -67,7 +67,8 @@ class RaceFragment : Fragment() {
         stats.append("Explore   : " + (r.explore) + "\n")
         stats.append("Absorption: " + (r.absorption) + "\n")
 
-        var ships = r.getRaceShipsList()
+        // TODO REMOVE var ships = r.getRaceShipsList()
+        var ships = GBViewModel.viewRaceShips[r.uid]
         if (ships.isNotEmpty()) {
             stats.append("Ships (${ships.size.toString()}): ")
             for (sh in ships) {

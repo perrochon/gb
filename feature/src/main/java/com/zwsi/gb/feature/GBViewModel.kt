@@ -1,12 +1,12 @@
 package com.zwsi.gb.feature
 
+import android.support.v4.view.ViewPager
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBxy
 import kotlin.system.measureNanoTime
-
 
 
 class GBViewModel {
@@ -19,8 +19,11 @@ class GBViewModel {
 
         var viewShips = universe.getAllShipsList()
         var viewUniverseShips = universe.getDeepSpaceShipsList()
+        var viewDeadShips = universe.getDeadShipsList()
         var viewStarShips: ArrayList<List<GBShip>> = ArrayList()
         var viewOrbitShips: ArrayList<List<GBShip>> = ArrayList()
+        var viewRaceShips: ArrayList<List<GBShip>> = ArrayList()
+
         var viewShipTrails: ArrayList<List<GBxy>> = ArrayList()
 
         var viewShots = universe.getAllShotsList()
@@ -29,6 +32,7 @@ class GBViewModel {
         var timeLastTurn = 0L
 
         var mapView: SubsamplingScaleImageView? = null
+
 
         var times = mutableMapOf<String, Long>()
 
@@ -49,23 +53,25 @@ class GBViewModel {
 
                 times["D Ships"] = measureNanoTime { viewUniverseShips = universe.getDeepSpaceShipsList() }
 
-                times["S Ships"] = measureNanoTime { fillViewStarShips()}
+                times["S Ships"] = measureNanoTime { fillViewStarShips() }
 
                 times["O Ships"] = measureNanoTime { fillViewOrbitShips() }
 
+                times["R Ships"] = measureNanoTime { fillViewRaceShips() }
+
                 times["Trails"] = measureNanoTime { fillViewShipTrails() }
 
-                times["Shots"] = measureNanoTime { viewShots = universe.getAllShotsList()}
+                times["Shots"] = measureNanoTime { viewShots = universe.getAllShotsList() }
 
                 timeLastTurn = GBController.elapsedTimeLastUpdate
             }
 
             // TODO convert all coordinates to source coordinates after updating? Saves a few multiplications
 
-            if (mapView != null) {
-                mapView!!.invalidate()
-            }
+            mapView?.invalidate()
+
         }
+
 
         fun fillViewStarShips() {
             viewStarShips.clear()
@@ -78,6 +84,13 @@ class GBViewModel {
             viewOrbitShips.clear()
             for (p in viewPlanets) {
                 viewOrbitShips.add(p.uid, p.getOrbitShipsList())
+            }
+        }
+
+        fun fillViewRaceShips() {
+            viewRaceShips.clear()
+            for (r in viewRaces) {
+                viewRaceShips.add(r.uid, r.getRaceShipsList())
             }
         }
 

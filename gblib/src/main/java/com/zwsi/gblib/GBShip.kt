@@ -28,11 +28,11 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     var health: Int
 
     var dest: GBLocation? = null
-    private val trails : MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
+    private val trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
     internal var lastTrailsUpdate = -1
     internal var trailsList = trails.toList()
 
-    fun getTrailList() : List<GBxy> {
+    fun getTrailList(): List<GBxy> {
 
         if (universe.turn > lastTrailsUpdate) {
             trailsList = trails.toList()
@@ -126,7 +126,6 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     }
 
     fun doShip() {
-        //removeDeadShips() //TODO Turn this back on...
 
         if (health > 0) { // for now don't update dead ships...
             moveShip()
@@ -138,39 +137,38 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         }
     }
 
+    fun killShip() {
 
-    fun removeDeadShips() {
-        for (sh in universe.allShips) {
-            if (sh.health == 0) {
-                GBLog.d("Removing dead ship $name from " + this.loc.getLocDesc())
+        if (health == 0) {
 
-                // TODO factor out ship death (and call it from where pods explode, or set health to 0 there)
-                when (this.loc.level) {
-                    LANDED -> {
-                        this.loc.getPlanet()!!.landedShips.remove(this)
-                    }
-                    ORBIT -> {
-                        this.loc.getPlanet()!!.orbitShips.remove(this)
-                    }
-                    SYSTEM -> {
-                        this.loc.getStar()!!.starShips.remove(this)
-                    }
-                    DEEPSPACE -> {
-                        universe.deepSpaceShips.remove(this)
-                    }
-                    else -> {
-                        gbAssert("Bad Parameters for ship removement $loc", { false })
-                    }
+            GBLog.d("Removing dead ship $name from " + this.loc.getLocDesc())
+
+            // TODO factor out ship death (and call it from where pods explode, or set health to 0 there)
+            when (this.loc.level) {
+                LANDED -> {
+                    this.loc.getPlanet()!!.landedShips.remove(this)
                 }
-                //sh.race.raceShips.remove(this)
-                universe.deadShips.add(this)
+                ORBIT -> {
+                    this.loc.getPlanet()!!.orbitShips.remove(this)
+                }
+                SYSTEM -> {
+                    this.loc.getStar()!!.starShips.remove(this)
+                }
+                DEEPSPACE -> {
+                    universe.deepSpaceShips.remove(this)
+                }
+                else -> {
+                    gbAssert("Bad Parameters for ship removement $loc", { false })
+                }
             }
+            this.race.raceShips.remove(this)
+            universe.deadShips.add(this)
         }
     }
 
     fun moveOrbitShip() {
         if ((this.dest == null) && (this.loc.level == ORBIT)) {
-           this.loc = GBLocation (this.loc.getPlanet()!!, this.loc.getOLocP().r, this.loc.getOLocP().t+0.2f)
+            this.loc = GBLocation(this.loc.getPlanet()!!, this.loc.getOLocP().r, this.loc.getOLocP().t + 0.2f)
         }
     }
 
@@ -236,7 +234,11 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             if (distance < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
-                var next = GBLocation(dest.getPlanet()!!, 1f, rand.nextFloat()*2f*PI.toFloat()) // TODO one would think we could use dest?
+                var next = GBLocation(
+                    dest.getPlanet()!!,
+                    1f,
+                    rand.nextFloat() * 2f * PI.toFloat()
+                ) // TODO one would think we could use dest?
                 changeShipLocation(next)
                 universe.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 
