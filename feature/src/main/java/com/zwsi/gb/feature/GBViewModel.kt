@@ -53,6 +53,8 @@ class GBViewModel {
 
                 times["D Ships"] = measureNanoTime { viewUniverseShips = universe.getDeepSpaceShipsList() }
 
+                times["+ Ships"] = measureNanoTime { viewUniverseShips = universe.getDeadShipsList() }
+
                 times["S Ships"] = measureNanoTime { fillViewStarShips() }
 
                 times["O Ships"] = measureNanoTime { fillViewOrbitShips() }
