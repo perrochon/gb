@@ -73,7 +73,7 @@ class GlobalButtonOnClick {
                 Thread(Runnable {
 
                     while (GBController.universe.autoDo) {
-                        Thread.sleep(100)
+                        Thread.sleep(200)
                         GBController.doUniverse()
 
                         view.post {

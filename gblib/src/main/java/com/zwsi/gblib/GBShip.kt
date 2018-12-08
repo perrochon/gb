@@ -96,12 +96,10 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
             LANDED -> {
                 if (idxtype == POD) {
                     // TODO We should really handle this somewhere else. If pod were a subtype of ship, it could overwrite
-                    // This is a pod, they populate, then destroy.
-                    // We set health to 0, and clean up elsewhere
+                    // This is a pod, they populate, then destroy.  We set health to 0, and clean up elsewhere
                     loc.getPlanet()!!.landedShips.add(this)
                     this.health = 0
                     universe.landPopulation(this.loc.getPlanet()!!, race.uid, 1)
-                    //
                 } else {
                     loc.getPlanet()!!.landedShips.add(this)
                 }
@@ -167,11 +165,6 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 //sh.race.raceShips.remove(this)
                 universe.deadShips.add(this)
             }
-        }
-        for (sh in universe.deadShips) {
-            // Can't take it out of all ships, unless the app handle this. E.g. fragments need a view model
-            // But first need to fix the view model of the map..
-            // universe.allShips.remove(sh) // TODO Performance Can't remove in for loop above, need to do it loop safe
         }
     }
 

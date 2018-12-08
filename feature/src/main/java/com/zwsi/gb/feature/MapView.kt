@@ -377,15 +377,19 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
         }
 
-        return
 
         // Don't draw trails zoomed out
         if (normScale > 10) {
             return
         }
+
         paint.strokeWidth = strokeWidth.toFloat() / 2
         paint.color = trailColor
-        val iterate = GBViewModel.viewShipTrails[sh.uid].iterator() // TODO waste fewer cycles...
+
+        // TODO waste fewer cycles and draw these a bit more elegant
+
+        val iterate = GBViewModel.viewShipTrails[sh.uid].iterator()
+
 
         val alphaFade = paint.alpha / GBViewModel.viewShipTrails[sh.uid].size
         paint.alpha = 0
