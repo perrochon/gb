@@ -205,7 +205,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             //                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
             //            )
             canvas.drawText(
-                "AShips: ${GBViewModel.viewShips.size} | DShips: ${GBViewModel.viewUniverseShips.size} | +Ships: ${GBViewModel.viewDeadShips.size}",
+                "AShips: ${GBViewModel.viewShips.size} | DShips: ${GBViewModel.viewDeepSpaceShips.size} | +Ships: ${GBViewModel.viewDeadShips.size}",
                 8f,
                 l++ * h,
                 paint
@@ -298,7 +298,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private fun drawDeepSpaceShips(canvas: Canvas) {
         // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
         if (101 >= normScale) {
-            for (sh in GBViewModel.viewUniverseShips) {
+            for (sh in GBViewModel.viewDeepSpaceShips) {
                 if (visible(
                         sh.loc.getLoc().x.toInt() * uToS,
                         sh.loc.getLoc().y.toInt() * uToS

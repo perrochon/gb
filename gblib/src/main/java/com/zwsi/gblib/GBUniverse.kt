@@ -184,6 +184,10 @@ class GBUniverse {
 
         // TODO move dead ships out of all the list, and into deadships
 
+//        for (sh in allShips.filter { it.health == 0 }) {
+//            sh.killShip()
+//        }
+
         for (sh in allShips.filter { it.health > 0 }) {
             sh.doShip()
         }
@@ -306,62 +310,5 @@ class GBUniverse {
     }
 
 
-    fun makeStuff() {
 
-        GBLog.d("Making Stuff in turn $turn")
-
-        var now = turn + 1 // just in case we have a turn running....
-
-        var code = {}
-
-        for (r in allRaces) {
-            code = {
-                GBLog.d("Ordered Factory")
-                var p = r.home
-                universe.makeFactory(p, r)
-            }
-            scheduledActions.add(GBInstruction(now, code))
-        }
-
-        for (i in 0 until 1000) {
-            code = {
-                val factory = allRaces[2].raceShips.find { it.idxtype == FACTORY }
-                GBLog.d("Ordered Pod")
-                factory?.let { universe.makePod(it) }
-            }
-            scheduledActions.add(GBInstruction(now + 1 + i, code))
-
-        }
-        code = {
-            GBLog.d("Directed Pod")
-            // Getting all pods, not just alive pods, so even "dead" pods will start moving again. Ok for God to do.
-            val pod = allRaces[2].raceShips.find { (it.idxtype == POD) && (it.dest == null) }
-            pod?.let { universe.flyShipLanded(it, allPlanets[rand.nextInt(allPlanets.size)]) }
-        }
-        scheduledActions.add(GBInstruction(-1, code))
-
-        for (j in arrayOf(0, 1, 3)) {
-            for (i in 0..20) {
-                code = {
-                    val factory = allRaces[j].raceShips.find { it.idxtype == FACTORY }
-                    GBLog.d("Ordered Cruiser")
-                    factory?.let { universe.makeCruiser(it) }
-                }
-                scheduledActions.add(GBInstruction(now + 1 + i * 10, code))
-            }
-        }
-
-        code = {
-            GBLog.d("Directed Cruiser")
-            // Getting all ships, not just alive ships, so even "dead" pods will start moving again. Ok for God to do.
-            val cruiser = universe.getAllShipsList().find {
-                ((it.idxtype == CRUISER) && (it.loc.level == LANDED))
-            }
-            val p = allPlanets[rand.nextInt(allPlanets.size)]
-            if (p.star != allRaces[2].home.star) {
-                cruiser?.let { universe.flyShipOrbit(it, p) }
-            }
-        }
-        scheduledActions.add(GBInstruction(-1, code))
-    }
 }
