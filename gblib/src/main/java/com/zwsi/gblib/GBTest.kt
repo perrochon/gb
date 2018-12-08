@@ -7,7 +7,7 @@
 
 package com.zwsi.gblib
 
-import com.zwsi.gb.gblib.AutoPlayer.Companion.makeStuff1
+import com.zwsi.gb.gblib.AutoPlayer.Companion.playBeetles
 import kotlin.system.measureNanoTime
 
 class GBTest {
@@ -18,7 +18,7 @@ class GBTest {
 
             println("Welcome to GB Test")
             GBController.makeUniverse()
-            makeStuff1()
+            playBeetles()
 
             var elapsed = 0L
 

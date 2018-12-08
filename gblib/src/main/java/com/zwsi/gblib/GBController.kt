@@ -1,7 +1,8 @@
 package com.zwsi.gblib
 
 import kotlin.system.measureNanoTime
-import com.zwsi.gb.gblib.AutoPlayer.Companion.makeStuff1
+import com.zwsi.gb.gblib.AutoPlayer.Companion.playBeetles
+import com.zwsi.gb.gblib.AutoPlayer.Companion.playOthers
 
 class GBController {
 
@@ -88,7 +89,8 @@ class GBController {
 
         @Synchronized //TODO I think we can get rid of some of the syncs now
         fun makeStuff() {
-            makeStuff1()
+            playBeetles()
+            playOthers()
         }
 
     }

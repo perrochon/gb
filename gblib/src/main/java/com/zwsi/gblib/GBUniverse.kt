@@ -163,7 +163,7 @@ class GBUniverse {
 
         news.clear()
 
-        scheduledActions.forEach() {
+        scheduledActions.forEach() { // Outfactor this to GBScheduler
             GBLog.d("Looking at action for turn ${it.t}")
             if ((it.t == turn) || (it.t == -1)) {
                 run { it.code() }

@@ -7,7 +7,7 @@ class AutoPlayer() {
 
     companion object {
 
-        fun makeStuff1() {
+        fun playBeetles() {
 
             GBLog.d("Making Stuff in turn $universe.turn")
 
@@ -15,16 +15,14 @@ class AutoPlayer() {
 
             var code = {}
 
-            for (r in universe.allRaces) {
-                code = {
-                    GBLog.d("Ordered Factory")
-                    var p = r.home
-                    GBController.universe.makeFactory(p, r)
-                }
-                universe.scheduledActions.add(GBUniverse.GBInstruction(now, code))
+            code = {
+                GBLog.d("Ordered Factory")
+                var p = universe.allRaces[2].home
+                GBController.universe.makeFactory(p, universe.allRaces[2])
             }
+            universe.scheduledActions.add(GBUniverse.GBInstruction(now, code))
 
-            for (i in 0 until 1000) {
+            for (i in 0 until 10000) {
                 code = {
                     val factory = universe.allRaces[2].raceShips.find { it.idxtype == GBData.FACTORY }
                     GBLog.d("Ordered Pod")
@@ -45,11 +43,31 @@ class AutoPlayer() {
                 }
             }
             universe.scheduledActions.add(GBUniverse.GBInstruction(-1, code))
+        }
 
-            for (j in arrayOf(0, 1, 3)) {
-                for (i in 0..20) {
+        fun playOthers() {
+
+            GBLog.d("Making Stuff in turn $universe.turn")
+
+            var now = universe.turn + 1 // just in case we have a turn running....
+
+            var others = arrayOf(universe.allRaces[1], universe.allRaces[3])
+
+            var code = {}
+
+            for (r in others) {
+                code = {
+                    GBLog.d("Ordered Factory")
+                    var p = r.home
+                    GBController.universe.makeFactory(p, r)
+                }
+                universe.scheduledActions.add(GBUniverse.GBInstruction(now, code))
+            }
+
+            for (r in others) {
+                for (i in 0..30) {
                     code = {
-                        val factory = universe.allRaces[j].raceShips.find { it.idxtype == GBData.FACTORY }
+                        val factory = r.raceShips.find { it.idxtype == GBData.FACTORY }
                         GBLog.d("Ordered Cruiser")
                         factory?.let { GBController.universe.makeCruiser(it) }
                     }

@@ -191,7 +191,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             if ((dest.level != loc.level) || (dest.refUID != loc.refUID)) { // landed and we need to get to orbit
 
-                var next = GBLocation(loc.getPlanet()!!, 1f, 1f)
+                var next = GBLocation(loc.getPlanet()!!, 1f, rand.nextFloat()*2f*PI.toFloat())
                 changeShipLocation(next)
                 universe.news.add("Launched $name to ${loc.getLocDesc()}.\n")
 
