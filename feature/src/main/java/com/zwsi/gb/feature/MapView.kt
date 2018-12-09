@@ -179,6 +179,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (gbDebug) {
 
             paint.textSize = 40f
+            paint.setTypeface(Typeface.MONOSPACE);
             paint.style = Style.FILL
             paint.color = Color.parseColor("#80ffbb33") // TODO get color holo orange with alpha
             paint.color = debugTextColor
@@ -188,7 +189,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val h = 50
 
             //            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
-            canvas.drawText("Norm: $normScale | Scale: ${scale.f(3)}", 8f, l++ * h, paint)
+            canvas.drawText("Norm: ${normScale.f(3)} | Scale: ${scale.f(3)}", 8f, l++ * h, paint)
             //            canvas.drawText(
             //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
             //                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
@@ -211,7 +212,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             //                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
             //            )
             canvas.drawText(
-                "AShips: ${GBViewModel.viewShips.size} | DShips: ${GBViewModel.viewDeepSpaceShips.size} | +Ships: ${GBViewModel.viewDeadShips.size}",
+                "A: ${GBViewModel.viewShips.size} | D: ${GBViewModel.viewDeepSpaceShips.size} | +: ${GBViewModel.viewDeadShips.size}",
                 8f,
                 l++ * h,
                 paint
@@ -222,16 +223,18 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 l++ * h,
                 paint
             )
-            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
-
-            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
-
             canvas.drawText(
-                "Draw Time: ${(last20.average()!! / 1000).f(4)}μs",
+                "DT: ${(last20.average()!! / 1000).toInt().f(4)}μs",
                 8f,
                 l++ * h,
                 paint
             )
+
+
+            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
+
+            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
+
         }
     }
 
