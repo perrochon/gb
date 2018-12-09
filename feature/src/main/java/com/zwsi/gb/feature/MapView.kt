@@ -16,6 +16,7 @@ import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
 import kotlin.system.measureNanoTime
 
+//TODO where should these extensions to basic types live?
 fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
 fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
 fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
