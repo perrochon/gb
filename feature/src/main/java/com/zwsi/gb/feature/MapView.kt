@@ -18,6 +18,7 @@ import kotlin.system.measureNanoTime
 
 //TODO where should these extensions to basic types live?
 fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
+
 fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
 fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
 fun Long.f(digits: Int) = java.lang.String.format("%${digits}d", this)
@@ -189,7 +190,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val h = 50
 
             //            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
-            canvas.drawText("Norm: ${normScale.f(3)} | Scale: ${scale.f(3)}", 8f, l++ * h, paint)
+            canvas.drawText("Norm:${normScale.f(2)}|Scale:${scale.f(2)}|Turn:${universe.turn.f(4)}", 8f, l++ * h, paint)
             //            canvas.drawText(
             //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
             //                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
@@ -212,24 +213,19 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             //                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
             //            )
             canvas.drawText(
-                "A: ${GBViewModel.viewShips.size} | D: ${GBViewModel.viewDeepSpaceShips.size} | +: ${GBViewModel.viewDeadShips.size}",
+                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(4)}+",
                 8f,
                 l++ * h,
                 paint
             )
             canvas.drawText(
-                "Turn:${universe.turn.f(4)} | View:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs | Backend:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs",
+                "Do:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average()!! / 1000).toInt().f(
+                    4
+                )}μs",
                 8f,
                 l++ * h,
                 paint
             )
-            canvas.drawText(
-                "DT: ${(last20.average()!! / 1000).toInt().f(4)}μs",
-                8f,
-                l++ * h,
-                paint
-            )
-
 
             GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
 

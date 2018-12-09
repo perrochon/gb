@@ -182,7 +182,7 @@ class GBUniverse {
             }
         }
 
-        // TODO move dead ships out of all the list, and into deadships
+        // TODO PERF move dead ships out of all the list, and into deadships
 
 //        for (sh in allShips.filter { it.health == 0 }) {
 //            sh.killShip()
