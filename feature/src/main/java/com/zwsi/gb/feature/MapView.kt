@@ -16,6 +16,11 @@ import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
 import kotlin.system.measureNanoTime
 
+fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
+fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
+fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
+fun Long.f(digits: Int) = java.lang.String.format("%${digits}d", this)
+
 class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
     SubsamplingScaleImageView(context, attr), View.OnTouchListener {
 
@@ -146,19 +151,19 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         visibleFileRect(vr)
 
-        times["Grids"] = measureNanoTime { drawGrids(canvas) }
+        times["GG"] = measureNanoTime { drawGrids(canvas) }
 
-        times["Stars and Circles"] = measureNanoTime { drawStarsAndCircles(canvas) }
+        times["SC"] = measureNanoTime { drawStarsAndCircles(canvas) }
 
-        times["Planets and Ships"] = measureNanoTime { drawPlanetsAndShips(canvas) }
+        times["PS"] = measureNanoTime { drawPlanetsAndShips(canvas) }
 
-        times["DeepSpaceShips"] = measureNanoTime { drawDeepSpaceShips(canvas) }
+        times["DS"] = measureNanoTime { drawDeepSpaceShips(canvas) }
 
-        times["Star Names"] = measureNanoTime { drawStarNames(canvas) }
+        times["SN"] = measureNanoTime { drawStarNames(canvas) }
 
-        times["Races"] = measureNanoTime { drawRaces(canvas) }
+        times["Ra"] = measureNanoTime { drawRaces(canvas) }
 
-        times["Shots"] = measureNanoTime { drawShots(canvas) }
+        times["Sh"] = measureNanoTime { drawShots(canvas) }
 
 
         drawUntilStats = System.nanoTime() - startTimeNanos
@@ -182,7 +187,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val h = 50
 
             //            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
-            canvas.drawText("Normscale: $normScale/ Scale: $scale", 8f, l++ * h, paint)
+            canvas.drawText("Norm: $normScale | Scale: ${scale.f(3)}", 8f, l++ * h, paint)
             //            canvas.drawText(
             //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
             //                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
@@ -211,18 +216,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 paint
             )
             canvas.drawText(
-                "Turn: ${universe.turn} | View: ${GBViewModel.timeModelUpdate / 1000L}μs | Backend: ${GBViewModel.timeLastTurn / 1000L}μs",
+                "Turn:${universe.turn.f(4)} | View:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs | Backend:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs",
                 8f,
                 l++ * h,
                 paint
             )
-            GBViewModel.times.forEach { t, u -> canvas.drawText("$t: ${u / 1000L}μs", 8f, l++ * h, paint) }
+            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
 
-            times.forEach { t, u -> canvas.drawText("$t: ${u / 1000L}μs", 8f, l++ * h, paint) }
-
+            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
 
             canvas.drawText(
-                "Draw Time: ${(last20.average()!! / 1000).toInt()}μs",
+                "Draw Time: ${(last20.average()!! / 1000).f(4)}μs",
                 8f,
                 l++ * h,
                 paint
