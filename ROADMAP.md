@@ -36,8 +36,9 @@ Really need to enable removal of ships, or at least make them properly invisible
 * Revise all strings and fix text related issues of mission 1
 
 ### Future missions
-* Fly a cruiser to new system: cruisers
+* keep track of per race population on planets
 * Invade enemy system and eradicate everything. Can do that without much AI, if I prepopulate with scheduler.
+  * Need to be able to shoot at factory
 * Build infrastructure: planetary effects
 * Play different races: Mission n could be getting another race up and running.
 

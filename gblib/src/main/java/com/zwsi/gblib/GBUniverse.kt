@@ -240,7 +240,7 @@ class GBUniverse {
 
     fun getPlanets(s: GBStar): Array<GBPlanet?> {
         return s.starPlanets.toTypedArray()
-    } // TODO should this be Star? But what about getting all the allPlanets?
+    } // TODO Deprecate this. Get it from stars.
 
 //    fun getSectors(p: GBPlanet): Array<GBSector> {
 //        return p.sectors

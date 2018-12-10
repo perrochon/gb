@@ -34,7 +34,6 @@ class AutoPlayer() {
             }
             code = {
                 GBLog.d("Directed Pod")
-                // Getting all pods, not just alive pods, so even "dead" pods will start moving again. Ok for God to do.
                 for (pod in r.raceShips.filter { (it.idxtype == GBData.POD) && (it.dest == null) }) {
                     pod?.let {
                         GBController.universe.flyShipLanded(
@@ -46,6 +45,23 @@ class AutoPlayer() {
             }
             //GBScheduler.addInstructionAlways(code)
             GBScheduler.addInstructionEvery(25, code)
+
+            code = {
+                GBLog.d("More Factories")
+                for (s in universe.allStars) {
+                    for (p in s.starPlanets) {
+                        for (se in p.sectors) {
+                            if (se.getOwner() == r) {
+                                GBController.universe.makeFactory(p, r)
+                            }
+                        }
+                    }
+                }
+            }
+            //GBScheduler.addInstructionAlways(code)
+            GBScheduler.addInstructionEvery(100, code)
+
+
         }
 
         fun playImpi() {

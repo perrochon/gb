@@ -23,6 +23,7 @@ class GBScheduler {
                     run { it.code() }
                 }
             }
+            scheduledActions.removeIf { it.t == universe.turn }
         }
 
         fun addInstructionAt(t: Int, code: () -> Unit?) {

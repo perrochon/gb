@@ -63,7 +63,7 @@ class PlanetsScrollActivity : AppCompatActivity() {
 
         val stars = universe.allStars
         for (s in stars) {
-            val planets = universe.getPlanets(s)
+            val planets = universe.getPlanets(s)  // TODO replace with s.planets
             for (p in planets) {
 
                 val constraintLayout = ConstraintLayout(this)
