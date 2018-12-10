@@ -1,11 +1,8 @@
 package com.zwsi.gblib
 
-import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.CRUISER
-import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.rand
-import com.zwsi.gblib.GBLocation.Companion.LANDED
 import java.util.*
 import kotlin.math.PI
 
@@ -159,7 +156,7 @@ class GBUniverse {
 
         news.clear()
 
-        GBSchedulier.doSchedule()
+        GBScheduler.doSchedule()
 
         // TODO PERFORMANCE / MEMORY LEAK remove actions from before this turn
 
