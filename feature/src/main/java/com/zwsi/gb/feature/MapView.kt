@@ -14,7 +14,9 @@ import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
+import java.util.*
 import kotlin.system.measureNanoTime
+import android.arch.lifecycle.Observer
 
 //TODO where should these extensions to basic types live?
 fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
@@ -76,6 +78,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     var last20 = arrayListOf<Long>(60)
     var numberOfDraws = 0L
 
+    var turn : Int? = 0  // TODO why nullable
+
     init {
         initialise()
     }
@@ -127,9 +131,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         setDebug(false)
         maxScale = 12f
 
-        GBViewModel.mapView = this
+        // GBViewModel.mapView = this // TODO deleteme
 
     }
+
 
     override fun onDraw(canvas: Canvas) {
 
@@ -190,7 +195,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val h = 50
 
             //            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
-            canvas.drawText("Norm:${normScale.f(2)}|Scale:${scale.f(2)}|Turn:${universe.turn.f(4)}", 8f, l++ * h, paint)
+            canvas.drawText("Norm:${normScale.f(2)}|Scale:${scale.f(2)}|Turn:${turn!!.f(4)}", 8f, l++ * h, paint)
             //            canvas.drawText(
             //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
             //                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint

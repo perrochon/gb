@@ -1224,7 +1224,7 @@ class GBData {
                 "Ancient legends rumor that Warhide Tortoises" +
                         " once visited us. \n\nHard shell, can see " +
                         "with three heads, SUPER SHARP claws, moves at 25mph,  can swim at 65mph, sarp shell, can turn to a sping.",
-                "#ffff00AA"
+                "#ffAA00AA"
             )
         )
 

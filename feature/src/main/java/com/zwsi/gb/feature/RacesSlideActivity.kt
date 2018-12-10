@@ -1,5 +1,6 @@
 package com.zwsi.gb.feature
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.v4.view.ViewPager
@@ -26,6 +27,9 @@ class RacesSlideActivity : AppCompatActivity() {
         setupViewPager()
 
         viewpager.setCurrentItem(startItem)
+
+        val turnObserver = Observer<Int> {newTurn -> viewpager.invalidate()}  // TODO why is newTurn nullable?
+        GBViewModel.curentTurn.observe(this, turnObserver)
 
     }
 

@@ -77,7 +77,7 @@ class GlobalButtonOnClick {
                         GBController.doUniverse()
 
                         view.post {
-                            GBViewModel.update() // TODO PERF only call if the model exists
+                            GBViewModel.update() // TODO PERF only call if the model exists, or use proper LiveData
                         }
                     }
                 }).start()

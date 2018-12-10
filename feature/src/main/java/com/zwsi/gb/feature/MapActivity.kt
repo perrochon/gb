@@ -1,5 +1,8 @@
 package com.zwsi.gb.feature
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.graphics.PointF
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -17,7 +20,7 @@ class MapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
-        val imageView = findViewById<SubsamplingScaleImageView>(R.id.imageViewScale)!!
+        val imageView = findViewById<MapView>(R.id.imageViewScale)!!
 
         val fullResImage = ImageSource.resource(R.drawable.orion18000)
         val lowResImage = ImageSource.resource(R.drawable.orion1024)
@@ -33,6 +36,9 @@ class MapActivity : AppCompatActivity() {
 
         imageView.setScaleAndCenter(1.5f, PointF(home.loc.x*18f, home.loc.y*18f)) //TODO replace 18f with uToS
         // TODO reset this after recreating the universe
+
+        val turnObserver = Observer<Int> {newTurn -> imageView.turn = newTurn; imageView.invalidate()}  // TODO why is newTurn nullable?
+        GBViewModel.curentTurn.observe(this, turnObserver)
 
     }
 

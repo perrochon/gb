@@ -1,5 +1,6 @@
 package com.zwsi.gb.feature
 
+import android.arch.lifecycle.MutableLiveData
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
@@ -10,7 +11,15 @@ import kotlin.system.measureNanoTime
 
 class GBViewModel {
 
+    // Recommended is tying this to the life cycle of one (1) activity, and have different ones for each activity
+    // However MapView requires a huge fraction of all the data, and most other views are subsets so it seems
+    // wasteful to not share the ViewModel. That's why this is an app scoped singleton.
+    //
+
     companion object {
+
+        // maybe live data will come from GBController or so, and pass it all over, and this will go away?
+        val curentTurn by lazy {MutableLiveData<Int>()}
 
         var viewStars = universe.allStars
         var viewPlanets = universe.allPlanets
@@ -30,8 +39,7 @@ class GBViewModel {
         var timeModelUpdate = 0L
         var timeLastTurn = 0L
 
-        var mapView: SubsamplingScaleImageView? = null
-
+        var mapView: SubsamplingScaleImageView? = null  // TODO Quality/Perf This is a  Leak
 
         var times = mutableMapOf<String, Long>()
 
@@ -69,8 +77,13 @@ class GBViewModel {
 
             // TODO PERF convert all coordinates to source coordinates after updating? May save a few multiplications
 
-            mapView?.invalidate()
+            // mapView?.invalidate() // TODO DELETEME
+            // This should trigger a call to the view's onChanged()
+            curentTurn.value = universe.turn
 
+            /*
+            Note: You must call the setValue(T) method to update the LiveData object from the main thread. If the code is executed in a worker thread, you can use the postValue(T) method instead to update the LiveData object.
+             */
         }
 
         fun fillViewStarShips() {
