@@ -7,11 +7,10 @@ package com.zwsi.gb.feature
 
 import android.content.Context
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBLocation.Companion.LANDED
-import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
-import com.zwsi.gblib.GBData.Companion.CRUISER
+import com.zwsi.gblib.GBLocation.Companion.LANDED
+import com.zwsi.gblib.GBLocation.Companion.ORBIT
 
 object MissionController {
 
@@ -87,7 +86,7 @@ object MissionController {
         }
     }
 
-fun getMissionStatus(): Int {
-    return missionStatus
-}
+    fun getMissionStatus(): Int {
+        return missionStatus
+    }
 }

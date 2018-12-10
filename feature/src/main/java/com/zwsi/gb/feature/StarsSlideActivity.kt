@@ -47,7 +47,7 @@ class StarsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("stars")
         } else {
             displayList = ArrayList<Int>()
-            for (i in GBController.universe.allStars) {
+            for (i in GBViewModel.viewStars) {
                 displayList.add(i.uid)
             }
         }

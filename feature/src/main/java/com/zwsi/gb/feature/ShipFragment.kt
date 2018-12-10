@@ -6,12 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
-import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.FACTORY
-import com.zwsi.gblib.GBData.Companion.POD
-import com.zwsi.gblib.GBData.Companion.CRUISER
 
 class ShipFragment : Fragment() {
 
@@ -32,7 +28,6 @@ class ShipFragment : Fragment() {
         }
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -44,91 +39,94 @@ class ShipFragment : Fragment() {
 
         // What is this fragment about, and make sure the fragment remembers
         val shipID = arguments!!.getString("UID")!!.toInt()
-        val sh = GBController.universe.getAllShipsList()[shipID]
+        val sh = GBViewModel.viewShips.get(shipID)
 
-        // TODO Nee to handle ship not found once ships get detroyed
+        if (sh != null) {
 
-        view!!.tag = sh
 
-        val imageView = view.findViewById<ImageView>(R.id.ShipView)
+            view!!.tag = sh
 
-        if (sh.idxtype == FACTORY) {
-            imageView.setImageResource(R.drawable.factory)
+            val imageView = view.findViewById<ImageView>(R.id.ShipView)
 
-            view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
-            view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
+            if (sh.idxtype == FACTORY) {
+                imageView.setImageResource(R.drawable.factory)
 
-        } else if (sh.idxtype == com.zwsi.gblib.GBData.POD) {
-            if (sh.race.uid == 2) {
-                imageView.setImageResource(R.drawable.beetlepod)
+                view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
+                view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
 
-            } else {
-                imageView.setImageResource(R.drawable.podt)
+            } else if (sh.idxtype == com.zwsi.gblib.GBData.POD) {
+                if (sh.race.uid == 2) {
+                    imageView.setImageResource(R.drawable.beetlepod)
+
+                } else {
+                    imageView.setImageResource(R.drawable.podt)
+                }
+            } else if (sh.idxtype == 2) {
+                imageView.setImageResource(R.drawable.cruisert)
+            } else
+                imageView.setImageResource(R.drawable.yellow)
+
+
+            var stats = view.findViewById<TextView>(R.id.ShipStats)
+            var paint = stats.paint
+            paint.textSize = 40f
+
+            stats.append("\n")
+            stats.append("Name: " + sh.name + "\n")
+            stats.append("Type: " + sh.type + "\n")
+            stats.append("Speed: " + sh.speed + "\n")
+            stats.append("Race: " + sh.race.name + "\n")
+            stats.append("Location: " + sh.loc.getLocDesc())
+
+            stats = view.findViewById<TextView>(R.id.ShipBackground)
+            paint = stats.paint
+            paint.textSize = 40f
+
+            stats.setText(
+                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
+                        "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n"
+            )
+
+            stats.append("\n")
+
+            stats.append("id:" + sh.id + " | ")
+            stats.append("refUID:" + sh.uid + " | ")
+            stats.append("idxt:" + sh.idxtype + " | ")
+            stats.append("loca:" + sh.loc.level + "." + sh.loc.refUID)
+
+
+            if (sh.speed == 0) {
+                view.findViewById<Spinner>(R.id.spinner).setVisibility(View.GONE)
+                view.findViewById<Button>(R.id.flyTo).setVisibility(View.GONE)
             }
-        } else if (sh.idxtype == 2) {
-            imageView.setImageResource(R.drawable.cruisert)
-        } else
-            imageView.setImageResource(R.drawable.yellow)
 
-
-        var stats = view.findViewById<TextView>(R.id.ShipStats)
-        var paint = stats.paint
-        paint.textSize = 40f
-
-        stats.append("\n")
-        stats.append("Name: " + sh.name + "\n")
-        stats.append("Type: " + sh.type + "\n")
-        stats.append("Speed: " + sh.speed + "\n")
-        stats.append("Race: " + sh.race.name + "\n")
-        stats.append("Location: " + sh.loc.getLocDesc())
-
-        stats = view.findViewById<TextView>(R.id.ShipBackground)
-        paint = stats.paint
-        paint.textSize = 40f
-
-        stats.setText(
-            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
-                    "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n"
-        )
-
-        stats.append("\n")
-
-        stats.append("id:" + sh.id + " | ")
-        stats.append("refUID:" + sh.uid + " | ")
-        stats.append("idxt:" + sh.idxtype + " | ")
-        stats.append("loca:" + sh.loc.level + "." + sh.loc.refUID)
-
-
-        if (sh.speed == 0) {
-            view.findViewById<Spinner>(R.id.spinner).setVisibility(View.GONE)
-            view.findViewById<Button>(R.id.flyTo).setVisibility(View.GONE)
-        }
-
-        // TODO: better selection of possible targets once we have visibility. Right now it's all insystem
-        // and first planet of each system outside.
-        var destinationPlanets = arrayListOf<String>()
-        if (sh.getStar() != null) {
-            for (p in sh.getStar()!!.starPlanets) {
-                destinationPlanets.add(p.name)
+            // TODO: better selection of possible targets once we have visibility. Right now it's all insystem
+            // and first planet of each system outside.
+            var destinationPlanets = arrayListOf<String>()
+            if (sh.getStar() != null) {
+                for (p in sh.getStar()!!.starPlanets) {
+                    destinationPlanets.add(p.name)
+                }
             }
+            for (s in universe.allStars) {
+                destinationPlanets.add(s.starPlanets[0].name)
+            }
+
+            // Create an ArrayAdapter
+            val adapter =
+                ArrayAdapter<String>(this.activity!!, android.R.layout.simple_spinner_item, destinationPlanets)
+
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+            // Apply the adapter to the spinner
+            var spinner = view.findViewById<Spinner>(R.id.spinner)
+            spinner.adapter = adapter
+
+            val flyButton = view.findViewById<Button>(R.id.flyTo)
+            flyButton.tag = spinner
+
         }
-        for (s in universe.allStars) {
-            destinationPlanets.add(s.starPlanets[0].name)
-        }
-
-        // Create an ArrayAdapter
-        val adapter = ArrayAdapter<String>(this.activity!!, android.R.layout.simple_spinner_item, destinationPlanets)
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        // Apply the adapter to the spinner
-        var spinner = view.findViewById<Spinner>(R.id.spinner)
-        spinner.adapter = adapter
-
-        val flyButton = view.findViewById<Button>(R.id.flyTo)
-        flyButton.tag = spinner
-
         return view
     }
 }

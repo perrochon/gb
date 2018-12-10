@@ -178,13 +178,7 @@ class MainActivity : AppCompatActivity() {
         val racesUID = ArrayList<Int>()
         val intent = Intent(this, RacesSlideActivity::class.java)
 
-        // temporary proof of concept. We don't need the next few lines to display all Races
-        for (r in GBController.universe.allRaces) {
-            racesUID.add(r.uid)
-        }
-        //racesUID.removeAt(1)
-        intent.putExtra("races", racesUID)
-        intent.putExtra("title", "All Races - some are just rumored")
+        intent.putExtra("title", "All Races")
         intent.putExtra("UID", 0)
 
         startActivity(intent)
