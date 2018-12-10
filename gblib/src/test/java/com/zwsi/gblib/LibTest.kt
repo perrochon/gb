@@ -5,6 +5,7 @@
 
 package com.zwsi.gblib
 
+import com.zwsi.gb.gblib.AutoPlayer
 import com.zwsi.gblib.GBController.Companion.universe
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -139,16 +140,5 @@ class LibTest {
         shipsMade +=4
     }
 
-    @Test
-    fun makeStuff(){
-        val universe = GBController.makeUniverse()
-        universe.makeStuff()
-        universe.doUniverse()
-        universe.doUniverse()
-        universe.doUniverse()
-        universe.doUniverse()
-        universe.doUniverse()
-        universe.doUniverse()
-    }
 
 }
