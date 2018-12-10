@@ -1,10 +1,10 @@
 # Roadmap
 
 #Show Stopping
-Really need to enable removal of ships, or at least make them properly invisible.
+* Lifecycle management in viewmodel
+* Rotate to landscape keep focus point
 
 #Regression
-
 
 ## Code Quality
 ### Gating for Mission 2 (don't want to propagate bad code more)
@@ -12,10 +12,11 @@ Really need to enable removal of ships, or at least make them properly invisible
 * Import GBController.universe in all files. Use universe. only. Think this through about companion, though.
 * Review all unit tests, and add whats missing (GBLocation? GBxy? Destroyed ships)
 * Review all TODO and warnings
-* Refactor to use resources for strings
+* Refactor to use resources for strings for Missions
 
 ### Not Gating
 * Passing race around on commands, to make sure actions are access controlled :-)
+* New should reset start view for MapView. (New is god level, so this is not critical)
 * Review orders vs. Scheduler. Should use scheduler for orders, too.
 * Upgrading thread management, maybe start using a handler
 * Remove TileView library and code?

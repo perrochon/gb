@@ -22,7 +22,7 @@
             android:id="@+id/imageView2" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="@+id/RaceStats" app:layout_constraintStart_toStartOf="@+id/RaceBackground"
             app:layout_constraintEnd_toEndOf="@+id/RaceBackground"
-            app:layout_constraintBottom_toBottomOf="@+id/RaceBackground" android:alpha="0.5"/>
+            app:layout_constraintBottom_toBottomOf="@+id/Ships" android:alpha="0.5" android:layout_marginBottom="8dp"/>
     <TextView
             android:id="@+id/RaceStats"
             android:textColor="@android:color/holo_blue_bright"
@@ -45,5 +45,17 @@
             app:layout_constraintTop_toBottomOf="@+id/RaceStats" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
+    <TextView
+            android:id="@+id/Ships"
+            android:textColor="@android:color/holo_blue_bright"
+            android:text="No ships"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/RaceBackground" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

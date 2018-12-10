@@ -2,6 +2,7 @@ package com.zwsi.gb.feature
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,8 +58,7 @@ class RaceFragment : Fragment() {
             imageView.setImageResource(R.drawable.tortoise)
 
 
-
-        var stats = view.findViewById<TextView>(R.id.RaceStats)
+        val stats = view.findViewById<TextView>(R.id.RaceStats)
         var paint = stats.paint
         paint.textSize = 40f
 
@@ -67,29 +67,33 @@ class RaceFragment : Fragment() {
         stats.append("Explore   : " + (r.explore) + "\n")
         stats.append("Absorption: " + (r.absorption) + "\n")
 
-        // TODO REMOVE var ships = r.getRaceShipsList()
-        var ships = GBViewModel.viewRaceShips[r.uid]
-        if (ships.isNotEmpty()) {
-            stats.append("Ships (${ships.size.toString()}): ")
+        val background = view.findViewById<TextView>(R.id.RaceBackground)
+        paint = background.paint
+        paint.textSize = 40f
+
+        background.append(r.description)
+        background.append("\n")
+
+        background.append("\n")
+        background.append("id: " + r.id +" | ")
+        background.append("refUID: " + r.uid  +" | ")
+        background.append("idxname: " + r.idx +"")
+
+        val shipsTextView = view.findViewById<TextView>(R.id.Ships)
+        paint = shipsTextView.paint
+        paint.textSize = 40f
+
+        shipsTextView.setMovementMethod(ScrollingMovementMethod())
+
+        val ships = GBViewModel.viewRaceShips[r.uid]
+        if ((ships != null) && (ships.isNotEmpty())) {
+            shipsTextView.text = ("Ships (${ships.size.toString()}): ")
             for (sh in ships) {
-                stats.append(sh.name + " ")
+                shipsTextView.append(sh.name + " ")
             }
         }
 
 
-        stats = view.findViewById<TextView>(R.id.RaceBackground)
-        paint = stats.paint
-        paint.textSize = 40f
-
-        stats.append("\n")
-        stats.append(r.description)
-        stats.append("\n")
-
-
-        stats.append("\n")
-        stats.append("id: " + r.id +" | ")
-        stats.append("refUID: " + r.uid  +" | ")
-        stats.append("idxname: " + r.idx +"\n")
 
 
 

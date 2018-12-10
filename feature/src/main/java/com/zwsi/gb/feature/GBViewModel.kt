@@ -19,11 +19,11 @@ class GBViewModel {
         var viewShips = universe.getAllShipsList()
         var viewDeepSpaceShips = universe.getDeepSpaceShipsList()
         var viewDeadShips = universe.getDeadShipsList()
-        var viewStarShips: ArrayList<List<GBShip>> = ArrayList()
-        var viewOrbitShips: ArrayList<List<GBShip>> = ArrayList()
-        var viewRaceShips: ArrayList<List<GBShip>> = ArrayList()
 
-        var viewShipTrails: ArrayList<List<GBxy>> = ArrayList()
+        var viewStarShips: HashMap<Int, List<GBShip>> = HashMap()
+        var viewOrbitShips: HashMap<Int, List<GBShip>> = HashMap()
+        var viewRaceShips: HashMap<Int, List<GBShip>> = HashMap()
+        var viewShipTrails: HashMap<Int, List<GBxy>> = HashMap()
 
         var viewShots = universe.getAllShotsList()
 
@@ -67,38 +67,37 @@ class GBViewModel {
                 timeLastTurn = GBController.elapsedTimeLastUpdate
             }
 
-            // TODO convert all coordinates to source coordinates after updating? Saves a few multiplications
+            // TODO PERF convert all coordinates to source coordinates after updating? May save a few multiplications
 
             mapView?.invalidate()
 
         }
 
-
         fun fillViewStarShips() {
             viewStarShips.clear()
             for (s in viewStars) {
-                viewStarShips.add(s.uid, s.getStarShipsList())
+                viewStarShips.put(s.uid, s.getStarShipsList())
             }
         }
 
         fun fillViewOrbitShips() {
             viewOrbitShips.clear()
             for (p in viewPlanets) {
-                viewOrbitShips.add(p.uid, p.getOrbitShipsList())
+                viewOrbitShips.put(p.uid, p.getOrbitShipsList())
             }
         }
 
         fun fillViewRaceShips() {
             viewRaceShips.clear()
             for (r in viewRaces) {
-                viewRaceShips.add(r.uid, r.getRaceShipsList())
+                viewRaceShips.put(r.uid, r.getRaceShipsList())
             }
         }
 
         fun fillViewShipTrails() {
             viewShipTrails.clear()
-            for (sh in viewShips) {
-                viewShipTrails.add(sh.uid, sh.getTrailList())
+            for (sh in viewShips.filter { it.health > 0 }) {
+                viewShipTrails.put(sh.uid, sh.getTrailList())
             }
         }
 

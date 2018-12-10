@@ -330,7 +330,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             null
                         )
 
-                        for (sh in GBViewModel.viewOrbitShips[p.uid]) {
+                        for (sh in GBViewModel.viewOrbitShips[p.uid]!!.iterator()) {
                             paint.alpha = 128
                             paint.color = Color.parseColor(sh.race.color)
                             drawShip(canvas, sh)
@@ -339,7 +339,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                     } // planet loop
 
-                    for (sh in GBViewModel.viewStarShips[s.uid]) {
+                    for (sh in GBViewModel.viewStarShips[s.uid]!!.iterator()) {
                         paint.alpha = 255
                         paint.color = Color.parseColor(sh.race.color)
                         drawShip(canvas, sh)
@@ -386,7 +386,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             return
         }
 
-        var trail = viewShipTrails.getOrNull(sh.uid)
+        var trail = viewShipTrails.get(sh.uid)
 
         if (trail != null) {
             paint.strokeWidth = strokeWidth.toFloat() / 2

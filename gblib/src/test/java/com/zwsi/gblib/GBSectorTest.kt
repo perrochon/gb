@@ -13,7 +13,6 @@ class GBSectorTest {
     @Test
     fun basicSector() {
         val universe = GBController.makeUniverse()
-
         val p = universe.allPlanets[0]
         val s = GBSector(p)
         assertEquals(s.planet, p)
