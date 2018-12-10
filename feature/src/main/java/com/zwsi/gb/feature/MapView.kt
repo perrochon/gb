@@ -386,29 +386,34 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             return
         }
 
-        paint.strokeWidth = strokeWidth.toFloat() / 2
-        paint.strokeJoin = Paint.Join.ROUND
-        paint.strokeCap = Cap.BUTT
-        paint.color = trailColor
-        val alphaFade = paint.alpha / viewShipTrails[sh.uid].size
-        paint.alpha = 0
+        var trail = viewShipTrails.getOrNull(sh.uid)
 
-        val iterate = GBViewModel.viewShipTrails[sh.uid].iterator()
+        if (trail != null) {
+            paint.strokeWidth = strokeWidth.toFloat() / 2
+            paint.strokeJoin = Paint.Join.ROUND
+            paint.strokeCap = Cap.BUTT
+            paint.color = trailColor
+            val alphaFade = paint.alpha / trail.size
+            paint.alpha = 0
 
-        var from = iterate.next()
-        sP1.set(from.x * uToS, from.y * uToS)
-        sourceToViewCoord(sP1, vP1)
 
-        while (iterate.hasNext()) {
+            val iterate = trail.iterator()
 
-            val to = iterate.next()
-            sP2.set(to.x * uToS, to.y * uToS)
-            sourceToViewCoord(sP2, vP2)
+            var from = iterate.next()
+            sP1.set(from.x * uToS, from.y * uToS)
+            sourceToViewCoord(sP1, vP1)
 
-            canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
+            while (iterate.hasNext()) {
 
-            vP1.set(vP2)
-            paint.alpha += alphaFade
+                val to = iterate.next()
+                sP2.set(to.x * uToS, to.y * uToS)
+                sourceToViewCoord(sP2, vP2)
+
+                canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
+
+                vP1.set(vP2)
+                paint.alpha += alphaFade
+            }
         }
     }
 

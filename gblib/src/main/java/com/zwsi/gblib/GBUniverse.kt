@@ -183,6 +183,7 @@ class GBUniverse {
         }
 
         // Move dead ships to deadships
+        // TODO: After we correctly implemented ViewModels and LiveData, we should not have to keep dead ships around
         for (s in allStars) {
             for (sh in s.starShips.filter { it.health == 0 }) {
                 sh.killShip()

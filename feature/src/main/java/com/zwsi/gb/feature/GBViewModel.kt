@@ -102,6 +102,15 @@ class GBViewModel {
             }
         }
 
+        /* TODO Why can't I filter viewShips by health > 0
+        Why would "add" create this exception. Shouldn't the list take care of this? What is clear() doing?
+
+    java.lang.IndexOutOfBoundsException: Index: 145, Size: 144
+        at java.util.ArrayList.add(ArrayList.java:483)
+        at com.zwsi.gb.feature.GBViewModel$Companion.fillViewShipTrails(GBViewModel.kt:101)
+        at com.zwsi.gb.feature.GBViewModel$Companion.update(GBViewModel.kt:63)
+         */
+
     }
 
 
