@@ -29,10 +29,10 @@ class MapActivity : AppCompatActivity() {
         val home = universe.allRaces[0].home.star
 
         imageView.setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
-        imageView.setScaleAndCenter(1.5f, PointF(home.loc.x*18f, home.loc.y*18f)) //TODO replace 18f with uToS
         imageView.setDoubleTapZoomScale(1.5f)
 
-
+        imageView.setScaleAndCenter(1.5f, PointF(home.loc.x*18f, home.loc.y*18f)) //TODO replace 18f with uToS
+        // TODO reset this after recreating the universe
 
     }
 
