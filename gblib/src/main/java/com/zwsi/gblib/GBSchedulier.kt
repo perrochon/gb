@@ -21,5 +21,9 @@ class GBSchedulier {
             }
         }
 
+        fun addInstruction(t: Int, code: () -> Unit?) {
+            scheduledActions.add(GBInstruction(t, code))
+        }
+
     }
 }

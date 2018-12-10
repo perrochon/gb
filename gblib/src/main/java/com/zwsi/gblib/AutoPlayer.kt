@@ -11,7 +11,6 @@ class AutoPlayer() {
 
             GBLog.d("Programming Beetles in turn $universe.turn")
             var r = universe.allRaces[2]
-
             var now = universe.turn + 1 // just in case we have a turn running....
 
 
@@ -22,7 +21,7 @@ class AutoPlayer() {
                 var p = r.home
                 GBController.universe.makeFactory(p, r)
             }
-            universe.scheduledActions.add(GBUniverse.GBInstruction(now, code))
+            GBSchedulier.addInstruction(now, code)
 
             for (i in 0 until 10000) {
                 code = {
@@ -30,7 +29,7 @@ class AutoPlayer() {
                     GBLog.d("Ordered Pod")
                     factory?.let { GBController.universe.makePod(it) }
                 }
-                universe.scheduledActions.add(GBUniverse.GBInstruction(now + 1 + i, code))
+                GBSchedulier.addInstruction(now + 1 + i, code)
 
             }
             code = {
@@ -44,7 +43,7 @@ class AutoPlayer() {
                     )
                 }
             }
-            universe.scheduledActions.add(GBUniverse.GBInstruction(-1, code))
+            GBSchedulier.addInstruction(-1, code)
         }
 
         fun playImpi() {
@@ -62,7 +61,7 @@ class AutoPlayer() {
                 var p = r.home
                 GBController.universe.makeFactory(p, r)
             }
-            universe.scheduledActions.add(GBUniverse.GBInstruction(now, code))
+            GBSchedulier.addInstruction(now, code)
 
             for (i in 0..30) {
                 code = {
@@ -70,7 +69,7 @@ class AutoPlayer() {
                     GBLog.d("Ordered Cruiser")
                     factory?.let { GBController.universe.makeCruiser(it) }
                 }
-                universe.scheduledActions.add(GBUniverse.GBInstruction(now + 1 + i * 10, code))
+                GBSchedulier.addInstruction(now + 1 + i*10, code)
             }
 
             code = {
@@ -84,7 +83,7 @@ class AutoPlayer() {
                     cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
                 }
             }
-            universe.scheduledActions.add(GBUniverse.GBInstruction(-1, code))
+            GBSchedulier.addInstruction(-1, code)
 
         }
 
@@ -102,7 +101,7 @@ class AutoPlayer() {
                 var p = r.home
                 GBController.universe.makeFactory(p, r)
             }
-            universe.scheduledActions.add(GBUniverse.GBInstruction(now, code))
+            GBSchedulier.addInstruction(now, code)
 
             for (i in 0..30) {
                 code = {
@@ -110,7 +109,7 @@ class AutoPlayer() {
                     GBLog.d("Ordered Cruiser")
                     factory?.let { GBController.universe.makeCruiser(it) }
                 }
-                universe.scheduledActions.add(GBUniverse.GBInstruction(now + 1 + i * 10, code))
+                GBSchedulier.addInstruction(now + 1 + i*10, code)
             }
 
             code = {
@@ -124,7 +123,7 @@ class AutoPlayer() {
                     cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
                 }
             }
-            universe.scheduledActions.add(GBUniverse.GBInstruction(-1, code))
+            GBSchedulier.addInstruction(-1, code)
         }
 
     }
