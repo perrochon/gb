@@ -25,7 +25,7 @@ class AutoPlayer() {
 
             for (i in 0 until 10000) {
                 code = {
-                    val factory = r.raceShips.find { it.idxtype == GBData.FACTORY }
+                    val factory = r.raceShips.filter { it.idxtype == GBData.FACTORY }.first()
                     GBLog.d("Ordered Pod")
                     factory?.let { GBController.universe.makePod(it) }
                 }
@@ -45,21 +45,6 @@ class AutoPlayer() {
             }
             //GBScheduler.addInstructionAlways(code)
             GBScheduler.addInstructionEvery(25, code)
-
-            code = {
-                GBLog.d("More Factories")
-                for (s in universe.allStars) {
-                    for (p in s.starPlanets) {
-                        for (se in p.sectors) {
-                            if (se.getOwner() == r) {
-                                GBController.universe.makeFactory(p, r)
-                            }
-                        }
-                    }
-                }
-            }
-            //GBScheduler.addInstructionAlways(code)
-            GBScheduler.addInstructionEvery(100, code)
 
 
         }
