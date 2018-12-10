@@ -182,11 +182,23 @@ class GBUniverse {
             }
         }
 
-        // TODO PERF move dead ships out of all the list, and into deadships
-
-//        for (sh in allShips.filter { it.health == 0 }) {
-//            sh.killShip()
-//        }
+        // Move dead ships to deadships
+        for (s in allStars) {
+            for (sh in s.starShips.filter { it.health == 0 }) {
+                sh.killShip()
+            }
+            for (p in s.starPlanets) {
+                for (sh in p.landedShips.filter { it.health == 0 }) {
+                    sh.killShip()
+                }
+                for (sh in p.orbitShips.filter { it.health == 0 }) {
+                    sh.killShip()
+                }
+            }
+        }
+        for (sh in deepSpaceShips.filter { it.health == 0 }) {
+            sh.killShip()
+        }
 
         for (sh in allShips.filter { it.health > 0 }) {
             sh.doShip()
