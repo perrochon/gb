@@ -1202,19 +1202,19 @@ class GBData {
             0 to RaceData(
                 "Xenos", 50, 20, 20, "You are a Xeno. \n\n Xenos can’t burn, they can’t " +
                         "suffocate, they can glide, they can run at 20 mph, they can find underground materials fast, " +
-                        "and they walk at 5mph, they glide at 65mph.", "#ff0000ff"
+                        "and they walk at 5mph, they glide at 65mph.", "#ffff0000"
             ),
             1 to RaceData(
                 "Impi", 20, 50, 10, "Ancient legends rumor that Impis once visited us.\n\n" +
                         "Impi can breath underwater, " +
                         "they swim at 80mph, they can change color like a chameleon, they run at 30 mph, they walk at 5.3mph, " +
-                        "and can use all four hands for piloting, fighting and other activities.", "#ff110000"
+                        "and can use all four hands for piloting, fighting and other activities.", "#ff00ff00"
             ),
             2 to RaceData(
                 "Rainbow Beetles", 10, 5, 0, "Ancient legends rumor that Rainbox Beetles once visited us.\n\n" +
                         "Rainbow Beetles " +
                         "are small but deadly, they have small snipers, they fly like a beetle at 25mph, they crawl at 40mph, " +
-                        "they can see all directions, they can hang upside down and climb walls.", "#ff00ff00"
+                        "they can see all directions, they can hang upside down and climb walls.", "#ffff00ff"
             ),
             3 to RaceData(
                 "Warhide Tortois",
@@ -1224,7 +1224,7 @@ class GBData {
                 "Ancient legends rumor that Warhide Tortoises" +
                         " once visited us. \n\nHard shell, can see " +
                         "with three heads, SUPER SHARP claws, moves at 25mph,  can swim at 65mph, sarp shell, can turn to a sping.",
-                "#ffAA00AA"
+                "#ff0000FF"
             )
         )
 
