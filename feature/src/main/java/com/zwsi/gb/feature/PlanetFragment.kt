@@ -48,7 +48,7 @@ class PlanetFragment : Fragment() {
 
         // What is this fragment about, and make sure the fragment remembers
         val planetID = arguments!!.getString("UID").toInt()
-        p = GBController.universe.allPlanets[planetID]
+        p = GBViewModel.viewPlanets[planetID]
         view!!.tag = p
 
         if (p.population == 0) {

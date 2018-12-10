@@ -16,7 +16,7 @@ class GlobalButtonOnClick {
             lastClickTime = SystemClock.elapsedRealtime();
 
 
-            //output.setText("") // TODO: But output back in...
+            //output.setText("") // TODO: Refactor output back in...
 
             val message = "Executing Orders"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
@@ -35,7 +35,7 @@ class GlobalButtonOnClick {
                 GBController.doUniverse()
 
                 view.post {
-                    GBViewModel.update() // TODO PERF only call if the model exists
+                    GBViewModel.update()
                 }
 
 //            System.out.flush()
@@ -77,7 +77,7 @@ class GlobalButtonOnClick {
                         GBController.doUniverse()
 
                         view.post {
-                            GBViewModel.update() // TODO PERF only call if the model exists, or use proper LiveData
+                            GBViewModel.update()
                         }
                     }
                 }).start()

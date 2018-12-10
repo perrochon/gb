@@ -22,22 +22,9 @@ class MapActivity : AppCompatActivity() {
 
         val imageView = findViewById<MapView>(R.id.imageViewScale)!!
 
-        val fullResImage = ImageSource.resource(R.drawable.orion18000)
-        val lowResImage = ImageSource.resource(R.drawable.orion1024)
-
-        fullResImage.dimensions(18000,18000)
-
-        imageView.setImage(fullResImage, lowResImage);
-
-        val home = universe.allRaces[0].home.star
-
-        imageView.setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
-        imageView.setDoubleTapZoomScale(1.5f)
-
-        imageView.setScaleAndCenter(1.5f, PointF(home.loc.x*18f, home.loc.y*18f)) //TODO replace 18f with uToS
-        // TODO reset this after recreating the universe
-
-        val turnObserver = Observer<Int> {newTurn -> imageView.turn = newTurn; imageView.invalidate()}  // TODO why is newTurn nullable?
+        val turnObserver = Observer<Int> { newTurn ->
+            imageView.turn = newTurn; imageView.invalidate()
+        }  // TODO why is newTurn nullable?
         GBViewModel.curentTurn.observe(this, turnObserver)
 
     }

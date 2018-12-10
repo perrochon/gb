@@ -39,8 +39,6 @@ class GBViewModel {
         var timeModelUpdate = 0L
         var timeLastTurn = 0L
 
-        var mapView: SubsamplingScaleImageView? = null  // TODO Quality/Perf This is a  Leak
-
         var times = mutableMapOf<String, Long>()
 
         init {
@@ -75,10 +73,6 @@ class GBViewModel {
                 timeLastTurn = GBController.elapsedTimeLastUpdate
             }
 
-            // TODO PERF convert all coordinates to source coordinates after updating? May save a few multiplications
-
-            // mapView?.invalidate() // TODO DELETEME
-            // This should trigger a call to the view's onChanged()
             curentTurn.value = universe.turn
 
             /*
@@ -113,15 +107,6 @@ class GBViewModel {
                 viewShipTrails.put(sh.uid, sh.getTrailList())
             }
         }
-
-        /* TODO Why can't I filter viewShips by health > 0
-        Why would "add" create this exception. Shouldn't the list take care of this? What is clear() doing?
-
-    java.lang.IndexOutOfBoundsException: Index: 145, Size: 144
-        at java.util.ArrayList.add(ArrayList.java:483)
-        at com.zwsi.gb.feature.GBViewModel$Companion.fillViewShipTrails(GBViewModel.kt:101)
-        at com.zwsi.gb.feature.GBViewModel$Companion.update(GBViewModel.kt:63)
-         */
 
     }
 

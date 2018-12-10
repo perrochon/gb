@@ -46,7 +46,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("planets")
         } else {
             displayList = ArrayList<Int>()
-            for (i in GBController.universe.allPlanets) {
+            for (i in GBViewModel.viewPlanets) {
                 displayList.add(i.uid)
             }
         }
@@ -81,7 +81,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
         val planet: GBPlanet = parent.tag as GBPlanet
 
         val universe = universe
-        universe.makeFactory(planet, universe.allRaces[0])
+        universe.makeFactory(planet, GBViewModel.viewRaces[0])
 
         val message = "Ordered Factory on " + planet.name
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()

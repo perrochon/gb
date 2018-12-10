@@ -14,6 +14,8 @@ import android.widget.TextView
 import android.support.constraint.ConstraintSet
 import android.support.v4.view.ViewCompat
 import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
+
 
 
 class PlanetsScrollActivity : AppCompatActivity() {
@@ -61,9 +63,8 @@ class PlanetsScrollActivity : AppCompatActivity() {
         // For now we show all allPlanets, but eventually each race only sees what they can see
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
 
-        val stars = universe.allStars
-        for (s in stars) {
-            val planets = universe.getPlanets(s)  // TODO replace with s.planets
+        for (s in GBViewModel.viewStars) {
+            val planets = s.starPlanets
             for (p in planets) {
 
                 val constraintLayout = ConstraintLayout(this)
@@ -71,7 +72,7 @@ class PlanetsScrollActivity : AppCompatActivity() {
 
                 planetView = ImageView(this)
                 planetView.imageAlpha = 255
-                merged = Bitmap.createBitmap(p!!.width *50, p.height *50, d.config)
+                merged = Bitmap.createBitmap(p.width *50, p.height *50, d.config)
                 canvas = Canvas(merged)
 
                 for (j in 0 until p.sectors.size) {

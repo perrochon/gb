@@ -8,15 +8,15 @@ import android.graphics.Rect.intersects
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
-import java.util.*
+import com.zwsi.gblib.GBUniverse
 import kotlin.system.measureNanoTime
-import android.arch.lifecycle.Observer
 
 //TODO where should these extensions to basic types live?
 fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
@@ -42,7 +42,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var bmRaceBeetle: Bitmap? = null
     private var bmRaceTortoise: Bitmap? = null
 
-    val sourceSize = 18000 // TODO get from elsewhere
+    val sourceSize = 18000  // TODO Quality Would be nice not to hard code here and below
     val universeSize = universe.universeMaxX
     val uToS = sourceSize / universeSize
     val uToSf = uToS.toFloat()
@@ -78,7 +78,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     var last20 = arrayListOf<Long>(60)
     var numberOfDraws = 0L
 
-    var turn : Int? = 0  // TODO why nullable
+    var turn: Int? = 0  // TODO why nullable
 
     init {
         initialise()
@@ -131,14 +131,29 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         setDebug(false)
         maxScale = 12f
 
-        // GBViewModel.mapView = this // TODO deleteme
+        val fullResImage = ImageSource.resource(R.drawable.orion18000)
+        val lowResImage = ImageSource.resource(R.drawable.orion1024)
+        fullResImage.dimensions(18000,18000) // TODO Quality Would be nice not to hard code here and above
+
+        setImage(fullResImage, lowResImage);
+        setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
+        setDoubleTapZoomScale(1.5f)
+        setScaleAndCenter(
+            1.5f,
+            PointF(
+                com.zwsi.gb.feature.GBViewModel.viewRaces[0].home.star.loc.x * uToS,
+                com.zwsi.gb.feature.GBViewModel.viewRaces[0].home.star.loc.y * uToS
+            )
+        )
+
+        // TODO reset this after recreating the universe
 
     }
 
 
     override fun onDraw(canvas: Canvas) {
 
-        // TODO MapView Drawing Performance: We do star visibility check 4 times on the whole list.
+        // TODO Perf MapView Drawing Performance: We do star visibility check 4 times on the whole list.
         //  Saves ~100mus when none are visible. Less when we actually draw
 
         // Don't show the tiles on high zoom, as it's blurry anyway
@@ -158,7 +173,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         visibleFileRect(vr)
 
-        times["GG"] = measureNanoTime { drawGrids(canvas) }
+        // times["GG"] = measureNanoTime { drawGrids(canvas) }
 
         times["SC"] = measureNanoTime { drawStarsAndCircles(canvas) }
 
@@ -187,7 +202,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             paint.textSize = 40f
             paint.setTypeface(Typeface.MONOSPACE);
             paint.style = Style.FILL
-            paint.color = Color.parseColor("#80ffbb33") // TODO get color holo orange with alpha
+            paint.color = Color.parseColor("#80ffbb33") // TODO Quality get color holo orange with alpha
             paint.color = debugTextColor
             paint.alpha = 255
 
@@ -218,7 +233,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             //                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
             //            )
             canvas.drawText(
-                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(4)}+",
+                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(
+                    4
+                )}+",
                 8f,
                 l++ * h,
                 paint
@@ -423,7 +440,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
     fun drawGrids(canvas: Canvas) {
-        // Draw universe grid lines at 250 Universe Coordinates // TODO Why not worky?
+        // Draw universe grid lines at 250 Universe Coordinates
         if ((90 < normScale) && (normScale > 80)) {
             paint.color = gridColor
             for (i in 0 until sourceSize step 4500) {
