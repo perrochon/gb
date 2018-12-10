@@ -7,24 +7,26 @@ class AutoPlayer() {
 
     companion object {
 
-        fun playBeetles() {
+        fun playBeetle() {
 
-            GBLog.d("Making Stuff in turn $universe.turn")
+            GBLog.d("Programming Beetles in turn $universe.turn")
+            var r = universe.allRaces[2]
 
             var now = universe.turn + 1 // just in case we have a turn running....
+
 
             var code = {}
 
             code = {
                 GBLog.d("Ordered Factory")
-                var p = universe.allRaces[2].home
-                GBController.universe.makeFactory(p, universe.allRaces[2])
+                var p = r.home
+                GBController.universe.makeFactory(p, r)
             }
             universe.scheduledActions.add(GBUniverse.GBInstruction(now, code))
 
             for (i in 0 until 10000) {
                 code = {
-                    val factory = universe.allRaces[2].raceShips.find { it.idxtype == GBData.FACTORY }
+                    val factory = r.raceShips.find { it.idxtype == GBData.FACTORY }
                     GBLog.d("Ordered Pod")
                     factory?.let { GBController.universe.makePod(it) }
                 }
@@ -34,7 +36,7 @@ class AutoPlayer() {
             code = {
                 GBLog.d("Directed Pod")
                 // Getting all pods, not just alive pods, so even "dead" pods will start moving again. Ok for God to do.
-                val pod = universe.allRaces[2].raceShips.find { (it.idxtype == GBData.POD) && (it.dest == null) }
+                val pod = r.raceShips.find { (it.idxtype == GBData.POD) && (it.dest == null) }
                 pod?.let {
                     GBController.universe.flyShipLanded(
                         it,
@@ -45,34 +47,70 @@ class AutoPlayer() {
             universe.scheduledActions.add(GBUniverse.GBInstruction(-1, code))
         }
 
-        fun playOthers() {
+        fun playImpi() {
 
-            GBLog.d("Making Stuff in turn $universe.turn")
+            GBLog.d("Programming Impi in turn $universe.turn")
+            var r = universe.allRaces[1]
 
             var now = universe.turn + 1 // just in case we have a turn running....
 
-            var others = arrayOf(universe.allRaces[1], universe.allRaces[3])
 
             var code = {}
 
-            for (r in others) {
+            code = {
+                GBLog.d("Ordered Factory")
+                var p = r.home
+                GBController.universe.makeFactory(p, r)
+            }
+            universe.scheduledActions.add(GBUniverse.GBInstruction(now, code))
+
+            for (i in 0..30) {
                 code = {
-                    GBLog.d("Ordered Factory")
-                    var p = r.home
-                    GBController.universe.makeFactory(p, r)
+                    val factory = r.raceShips.find { it.idxtype == GBData.FACTORY }
+                    GBLog.d("Ordered Cruiser")
+                    factory?.let { GBController.universe.makeCruiser(it) }
                 }
-                universe.scheduledActions.add(GBUniverse.GBInstruction(now, code))
+                universe.scheduledActions.add(GBUniverse.GBInstruction(now + 1 + i * 10, code))
             }
 
-            for (r in others) {
-                for (i in 0..30) {
-                    code = {
-                        val factory = r.raceShips.find { it.idxtype == GBData.FACTORY }
-                        GBLog.d("Ordered Cruiser")
-                        factory?.let { GBController.universe.makeCruiser(it) }
-                    }
-                    universe.scheduledActions.add(GBUniverse.GBInstruction(now + 1 + i * 10, code))
+            code = {
+                GBLog.d("Directed Cruiser")
+                // Getting all ships, not just alive ships, so even "dead" pods will start moving again. Ok for God to do.
+                val cruiser = GBController.universe.getAllShipsList().find {
+                    ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
+                val p = universe.allPlanets[GBData.rand.nextInt(universe.allPlanets.size)]
+                if (p.star != universe.allRaces[2].home.star) {
+                    cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
+                }
+            }
+            universe.scheduledActions.add(GBUniverse.GBInstruction(-1, code))
+
+        }
+
+        fun playTortoise() {
+
+            GBLog.d("Programming Tortoise in  turn  $universe.turn")
+            var r = universe.allRaces[3]
+
+            var now = universe.turn + 1 // just in case we have a turn running....
+
+            var code = {}
+
+            code = {
+                GBLog.d("Ordered Factory")
+                var p = r.home
+                GBController.universe.makeFactory(p, r)
+            }
+            universe.scheduledActions.add(GBUniverse.GBInstruction(now, code))
+
+            for (i in 0..30) {
+                code = {
+                    val factory = r.raceShips.find { it.idxtype == GBData.FACTORY }
+                    GBLog.d("Ordered Cruiser")
+                    factory?.let { GBController.universe.makeCruiser(it) }
+                }
+                universe.scheduledActions.add(GBUniverse.GBInstruction(now + 1 + i * 10, code))
             }
 
             code = {

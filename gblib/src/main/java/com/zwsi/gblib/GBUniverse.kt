@@ -43,10 +43,6 @@ class GBUniverse {
     val news: MutableList<String> = Collections.synchronizedList(arrayListOf<String>())
     val orders: MutableList<GBOrder> = Collections.synchronizedList(arrayListOf<GBOrder>())
 
-    class GBInstruction(var t: Int, var code: () -> Unit?) {}
-
-    var scheduledActions: MutableList<GBInstruction> = Collections.synchronizedList(arrayListOf<GBInstruction>())
-
     var autoDo = false
     var turn = 0
 
@@ -163,12 +159,8 @@ class GBUniverse {
 
         news.clear()
 
-        scheduledActions.forEach() { // Outfactor this to GBScheduler
-            GBLog.d("Looking at action for turn ${it.t}")
-            if ((it.t == turn) || (it.t == -1)) {
-                run { it.code() }
-            }
-        }
+        GBSchedulier.doSchedule()
+
         // TODO PERFORMANCE / MEMORY LEAK remove actions from before this turn
 
         for (o in orders) {

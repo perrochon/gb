@@ -1,15 +1,17 @@
 package com.zwsi.gblib
 
+import com.zwsi.gb.gblib.AutoPlayer.Companion.playBeetle
+import com.zwsi.gb.gblib.AutoPlayer.Companion.playImpi
+import com.zwsi.gb.gblib.AutoPlayer.Companion.playTortoise
 import kotlin.system.measureNanoTime
-import com.zwsi.gb.gblib.AutoPlayer.Companion.playBeetles
-import com.zwsi.gb.gblib.AutoPlayer.Companion.playOthers
 
 class GBController {
 
     companion object {
 
         val numberOfStars = 24
-        val numberOfRaces = 4 // This should not be bigger than what we have in the data. Or smaller than 4 (tests will fail)
+        val numberOfRaces =
+            4 // This should not be bigger than what we have in the data. Or smaller than 4 (tests will fail)
 
         // Small universe has some hard coded rules around how many stars and how many planets per systems
         // Do not change these values...
@@ -89,8 +91,9 @@ class GBController {
 
         @Synchronized //TODO I think we can get rid of some of the syncs now
         fun makeStuff() {
-            playBeetles()
-            playOthers()
+            playBeetle()
+            playImpi()
+            playTortoise()
         }
 
     }
