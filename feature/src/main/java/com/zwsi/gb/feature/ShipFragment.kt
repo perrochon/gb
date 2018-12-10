@@ -75,6 +75,7 @@ class ShipFragment : Fragment() {
             stats.append("Name: " + sh.name + "\n")
             stats.append("Type: " + sh.type + "\n")
             stats.append("Speed: " + sh.speed + "\n")
+            stats.append("Health: " + sh.health+ "\n")
             stats.append("Race: " + sh.race.name + "\n")
             stats.append("Location: " + sh.loc.getLocDesc())
 

@@ -65,7 +65,7 @@ class ShipsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("ships")
         } else {
             displayList = ArrayList<Int>()
-            for (i in GBController.universe.getAllShipsList()) {
+            for (i in GBController.universe.getAllShipsList().filter{it.health > 0}) {
                 displayList.add(i.uid)
             }
         }

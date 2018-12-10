@@ -1,8 +1,6 @@
 # Roadmap
 
 #Show Stopping
-* Lifecycle management in viewmodel
-* Rotate to landscape keep focus point
 
 #Regression
 
@@ -15,6 +13,7 @@
 * Refactor to use resources for strings for Missions
 
 ### Not Gating
+* Create "live ships" list and use that instead of allShips.filter{alive} in most places
 * Passing race around on commands, to make sure actions are access controlled :-)
 * New should reset start view for MapView. (New is god level, so this is not critical)
 * Review orders vs. Scheduler. Should use scheduler for orders, too.
