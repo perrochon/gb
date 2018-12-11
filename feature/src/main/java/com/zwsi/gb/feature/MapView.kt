@@ -7,14 +7,12 @@ import android.graphics.Paint.Style
 import android.graphics.Rect.intersects
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.POD
-import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import kotlin.math.sqrt
 import kotlin.system.measureNanoTime
@@ -523,7 +521,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.style = Style.STROKE
         paint.color = Color.parseColor("#1055bb33")
         paint.strokeWidth = strokeWidth.toFloat()
-        val radius = scale * 50f
+        val radius = 80f
 
         clickTargets.forEach { canvas.drawCircle(it.center.x, it.center.y, radius, paint) }
 
@@ -538,22 +536,25 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             sClick = viewToSourceCoord(xClick, yClick)!!
             invalidate()
 
-            var closest =
-                clickTargets.minBy { (it.center.x - xClick) * (it.center.x - xClick) + (it.center.y - yClick) * (it.center.y - yClick) }
-
-            if ((closest != null)) {
-                var distance =
-                    sqrt((closest.center.x - xClick) * (closest.center.x - xClick) + (closest.center.y - yClick) * (closest.center.y - yClick))
-                if (distance < 50f * scale) {
-                    var any = closest.any
-                    if (any is GBPlanet) {
-                        Toast.makeText(this.context, "Clicked on " + any.name, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
         }
         return super.onTouchEvent(event)
+    }
+
+    fun clickTarget(event: MotionEvent): Any? {
+        val x = event.x
+        val y = event.y
+
+        val closest =
+            clickTargets.minBy { (it.center.x - x) * (it.center.x - x) + (it.center.y - y) * (it.center.y - y) }
+
+        if ((closest != null)) {
+            var distance =
+                sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
+            if (distance < 80f) {
+                return closest.any
+            }
+        }
+        return null
     }
 
 }

@@ -107,12 +107,8 @@ class PlanetFragment : Fragment() {
 
         paint.textSize = 40f
 
-        planetStats.append("Name        : " + p.name +"\n")
-        planetStats.append("System      : " + p.star.name + "(Orbit: " + p.sid + ")\n")
-        planetStats.append("Population  : " + p.population +"\n")
-        planetStats.append("Type        : " + p.type +"\n")
-        planetStats.append("Size        : " + p.size +"\n")
-        planetStats.append("Owner       : " + p.ownerName +"\n")
+        planetStats.setText("${p.name} in ${p.star.name}\n")
+        planetStats.append("Population ${p.population} | Size ${p.size}\n")
 
         var ships = p.getLandedShipsList()
         if (ships.isNotEmpty()) {
@@ -130,12 +126,12 @@ class PlanetFragment : Fragment() {
             }
         }
 
-        planetStats.append("\n\n")
-        planetStats.append("id: " + p.id +" | ")
-        planetStats.append("refUID: " + p.uid  +" | ")
-        planetStats.append("sid: " + p.sid +" | ")
-        planetStats.append("idxname: " + p.idxname +" | ")
-        planetStats.append("idtype: " + p.idxtype +"\n")
+//        planetStats.append("\n\n")
+//        planetStats.append("id: " + p.id +" | ")
+//        planetStats.append("refUID: " + p.uid  +" | ")
+//        planetStats.append("sid: " + p.sid +" | ")
+//        planetStats.append("idxname: " + p.idxname +" | ")
+//        planetStats.append("idtype: " + p.idxtype +"\n")
 
         return view
     }
