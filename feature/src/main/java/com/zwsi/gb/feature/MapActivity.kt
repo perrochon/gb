@@ -25,7 +25,7 @@ import com.zwsi.gblib.GBPlanet
 
 class MapActivity : AppCompatActivity() {
 
-    lateinit var lastFragment : Fragment
+    var lastFragment : Fragment? = null //doing this because isInitialized didn't work
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -46,18 +46,18 @@ class MapActivity : AppCompatActivity() {
             override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
                 if (imageView.isReady) {
 
-                    var any = imageView.clickTarget(e)
+                    val any = imageView.clickTarget(e)
                     if (any is GBPlanet) {
                         val ft = getSupportFragmentManager().beginTransaction()
                         lastFragment = PlanetFragment.newInstance(any.uid.toString())
                         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        ft.replace(R.id.details, lastFragment)
+                        ft.replace(R.id.details, lastFragment!!)
                         ft.commit()
 
-                    } else {
+                    } else if (lastFragment != null) {
                         val ft = getSupportFragmentManager().beginTransaction()
                         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        ft.remove(lastFragment)
+                        ft.remove(lastFragment!!)
                         ft.commit()
                     }
 
