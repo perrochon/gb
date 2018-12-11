@@ -7,15 +7,16 @@ import android.graphics.Paint.Style
 import android.graphics.Rect.intersects
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.view.View
+import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.POD
+import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
-import com.zwsi.gblib.GBUniverse
+import kotlin.math.sqrt
 import kotlin.system.measureNanoTime
 
 //TODO where should these extensions to basic types live?
@@ -25,8 +26,10 @@ fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
 fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
 fun Long.f(digits: Int) = java.lang.String.format("%${digits}d", this)
 
+class GBClickTarget(var center: PointF, var any: Any) {}
+
 class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
-    SubsamplingScaleImageView(context, attr), View.OnTouchListener {
+    SubsamplingScaleImageView(context, attr) {
 
     // Fields initialized in init
     private var density = 0f
@@ -71,6 +74,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var sClick = PointF()
     private var xClick = 0f
     private var yClick = 0f
+
+    private var clickTargets = arrayListOf<GBClickTarget>()
+
 
     var times = mutableMapOf<String, Long>()
     var startTimeNanos = 0L
@@ -125,7 +131,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         h = density / 420f * bmRaceTortoise!!.getHeight() / 30
         bmRaceTortoise = Bitmap.createScaledBitmap(bmRaceTortoise!!, w.toInt(), h.toInt(), true)!!
 
-        setOnTouchListener(this);
 
         // set behavior of parent
         setDebug(false)
@@ -133,7 +138,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         val fullResImage = ImageSource.resource(R.drawable.orion18000)
         val lowResImage = ImageSource.resource(R.drawable.orion1024)
-        fullResImage.dimensions(18000,18000) // TODO Quality Would be nice not to hard code here and above
+        fullResImage.dimensions(18000, 18000) // TODO Quality Would be nice not to hard code here and above
 
         setImage(fullResImage, lowResImage);
         setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
@@ -173,6 +178,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         visibleFileRect(vr)
 
+        clickTargets.clear()
+
         // times["GG"] = measureNanoTime { drawGrids(canvas) }
 
         times["SC"] = measureNanoTime { drawStarsAndCircles(canvas) }
@@ -192,6 +199,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
 
         drawStats(canvas)
+
+        drawClickTargets(canvas)
 
 
     } // onDraw
@@ -227,11 +236,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             //                l++ * h,
             //                paint
             //            )
-            //            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
-            //            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
-            //            canvas.drawText(
-            //                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
-            //            )
+            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
+            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
+            canvas.drawText(
+                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
+            )
             canvas.drawText(
                 "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(
                     4
@@ -351,6 +360,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             vP1.y - bmPlanet!!.getWidth() / 2,
                             null
                         )
+
+                        clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), p))
+
+                        // drawClickTargets(canvas)
 
                         for (sh in GBViewModel.viewOrbitShips[p.uid]!!.iterator()) {
                             paint.alpha = 128
@@ -505,20 +518,42 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     }
 
-    override fun onTouch(view: View, motionEvent: MotionEvent): Boolean {
+    fun drawClickTargets(canvas: Canvas) {
 
-        xClick = motionEvent.x
-        yClick = motionEvent.y
+        paint.style = Style.STROKE
+        paint.color = Color.parseColor("#1055bb33")
+        paint.strokeWidth = strokeWidth.toFloat()
+        val radius = scale * 50f
 
-        sClick = viewToSourceCoord(xClick, yClick)!!
+        clickTargets.forEach { canvas.drawCircle(it.center.x, it.center.y, radius, paint) }
 
-        invalidate()
 
-        return false
     }
 
-//    override fun onTouchEvent(event: MotionEvent): Boolean {
-//        return super.onTouchEvent(event)
-//    }
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        xClick = event.x
+        yClick = event.y
+
+        if (isReady) {
+            sClick = viewToSourceCoord(xClick, yClick)!!
+            invalidate()
+
+            var closest =
+                clickTargets.minBy { (it.center.x - xClick) * (it.center.x - xClick) + (it.center.y - yClick) * (it.center.y - yClick) }
+
+            if ((closest != null)) {
+                var distance =
+                    sqrt((closest.center.x - xClick) * (closest.center.x - xClick) + (closest.center.y - yClick) * (closest.center.y - yClick))
+                if (distance < 50f * scale) {
+                    var any = closest.any
+                    if (any is GBPlanet) {
+                        Toast.makeText(this.context, "Clicked on " + any.name, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+        }
+        return super.onTouchEvent(event)
+    }
 
 }
