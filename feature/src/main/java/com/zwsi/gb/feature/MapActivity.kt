@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.PointF
 import android.os.Bundle
 import android.os.SystemClock
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -23,6 +24,8 @@ import com.zwsi.gblib.GBPlanet
 
 
 class MapActivity : AppCompatActivity() {
+
+    lateinit var lastFragment : Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -46,13 +49,16 @@ class MapActivity : AppCompatActivity() {
                     var any = imageView.clickTarget(e)
                     if (any is GBPlanet) {
                         val ft = getSupportFragmentManager().beginTransaction()
-                        val planetFragment = PlanetFragment.newInstance(any.uid.toString())
-                        ft.replace(R.id.details, planetFragment)
+                        lastFragment = PlanetFragment.newInstance(any.uid.toString())
+                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        ft.replace(R.id.details, lastFragment)
                         ft.commit()
 
                     } else {
-                        //findViewById<View>(R.id.details).visibility=View.INVISIBLE
-                        // hide fragment
+                        val ft = getSupportFragmentManager().beginTransaction()
+                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        ft.remove(lastFragment)
+                        ft.commit()
                     }
 
                 }

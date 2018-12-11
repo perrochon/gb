@@ -26,6 +26,10 @@
 * Debug buffer and Console Buffer. Message buffer per race. These may all be related.
 * Persistency!
 * Garbage Collect dead ships
+* On Animations: "Nowadays, Android documentation clearly recommends not to use resources directly from android.R.*, since every 
+release of the platform has changes on them. Even some resources dissapear from one version to another, 
+so you shouldn't rely on them. On the other hand, lots of resources are private and not available from a developer's code."
+
 
 ## Test Efficiency
 * Move makestuff logic to GBController so it uses (and tests) its methods
