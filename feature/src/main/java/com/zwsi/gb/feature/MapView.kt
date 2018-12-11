@@ -196,7 +196,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         drawUntilStats = System.nanoTime() - startTimeNanos
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
 
-        drawStats(canvas)
+        //drawStats(canvas)
 
         drawClickTargets(canvas)
 
@@ -324,9 +324,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawText(s.name, vP1.x + 30, vP1.y - 10, paint)
-
-                clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), s))
-
             }
         }
     }
@@ -507,6 +504,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawBitmap(bmStar!!, vP1.x - bmStar!!.getWidth() / 2, vP1.y - bmStar!!.getWidth() / 2, null)
+
+                clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), s))
+
             }
         }
 
