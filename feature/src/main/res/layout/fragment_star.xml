@@ -8,22 +8,20 @@
 
 
     <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:id="@+id/StarView"
-            app:srcCompat="@drawable/podt"
-            android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"/>
+            android:src="@android:color/background_dark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ImageViewBackground" android:alpha="0.5"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
     <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp" app:srcCompat="@android:color/background_dark"
-            android:id="@+id/imageView2" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="@+id/StarStats"
-            app:layout_constraintStart_toStartOf="@+id/StarBackground"
-            app:layout_constraintEnd_toEndOf="@+id/StarBackground"
-            app:layout_constraintBottom_toBottomOf="@+id/StarBackground" android:alpha="0.5"/>
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/StarView"
+            app:srcCompat="@drawable/yellow"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+    />
     <TextView
             android:id="@+id/StarStats"
             android:textColor="@android:color/holo_blue_bright"
@@ -33,12 +31,12 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/StarView" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"/>
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
     <TextView
             android:id="@+id/StarBackground"
             android:textColor="@android:color/holo_blue_bright"
-            android:text="Description"
+            android:text=""
             android:padding="8dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

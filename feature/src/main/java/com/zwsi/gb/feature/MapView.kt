@@ -324,6 +324,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawText(s.name, vP1.x + 30, vP1.y - 10, paint)
+
+                clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), s))
+
             }
         }
     }

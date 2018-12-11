@@ -10,7 +10,7 @@
     <ImageView
             android:src="@android:color/background_dark"
             android:layout_width="0dp"
-            android:layout_height="0dp" android:id="@+id/imageView3" android:alpha="0.5"
+            android:layout_height="0dp" android:id="@+id/ImageViewBackground" android:alpha="0.5"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
             app:layout_constraintTop_toTopOf="@+id/scrollView2"

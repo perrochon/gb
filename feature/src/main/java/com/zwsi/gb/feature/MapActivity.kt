@@ -2,6 +2,7 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
@@ -11,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBPlanet
+import com.zwsi.gblib.GBStar
 
 
 class MapActivity : AppCompatActivity() {
@@ -38,6 +40,12 @@ class MapActivity : AppCompatActivity() {
                     if (any is GBPlanet) {
                         val ft = getSupportFragmentManager().beginTransaction()
                         val fragment = PlanetFragment.newInstance(any.uid.toString())
+                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        ft.replace(R.id.details, fragment!!)
+                        ft.commit()
+                    } else if (any is GBStar) {
+                        val ft = getSupportFragmentManager().beginTransaction()
+                        val fragment = StarFragment.newInstance(any.uid.toString())
                         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.details, fragment!!)
                         ft.commit()
@@ -104,6 +112,65 @@ class MapActivity : AppCompatActivity() {
         val message = "Ordered Factory on " + planet.name
 
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
+    }
+
+    /** Called when the user taps the Go to Planets button */
+    fun goToLocation(view: View) {
+
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
+        val intent = Intent(this, PlanetsSlideActivity::class.java)
+
+        val parent = view.parent.parent as View // TODO there must be a better (not layout dependent) way than this
+        val star = parent.tag as GBStar
+
+        Toast.makeText(view.context, "Going to planets of " + star.name, Toast.LENGTH_SHORT).show()
+
+        val displayUID = ArrayList<Int>()
+        for (planet in star.starPlanets) {
+            displayUID.add(planet.uid)
+        }
+        intent.putExtra("planets", displayUID)
+        intent.putExtra("title", "Planets of " + star.name)
+        startActivity(intent)
+
+    }
+
+    /** Called when the user taps the Go to Planets button */
+    fun goToShips(view: View) {
+
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+
+        val intent = Intent(this, ShipsSlideActivity::class.java)
+
+        val parent = view.parent.parent as View // TODO there must be a better (not layout dependent) way than this
+        val star = parent.tag as GBStar
+
+        Toast.makeText(view.context, "Going to ships in system " + star.name, Toast.LENGTH_SHORT).show()
+
+        val displayUID = ArrayList<Int>()
+        for (ship in star.getStarShipsList()) {
+            displayUID.add(ship.uid)
+        }
+        for (planet in star.starPlanets) {
+            for (ship in planet.getOrbitShipsList()){
+                displayUID.add(ship.uid)
+            }
+            for (ship in planet.getLandedShipsList()){
+                displayUID.add(ship.uid)
+            }
+        }
+
+        intent.putExtra("ships", displayUID)
+        intent.putExtra("title", "Ships in " + star.name)
+        startActivity(intent)
 
     }
 

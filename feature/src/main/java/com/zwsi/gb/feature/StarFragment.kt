@@ -52,11 +52,11 @@ class StarFragment : Fragment() {
         var paint = stats.paint
         paint.textSize = 40f
 
-        stats.setText("Name     : " + (st.name) + "\n")
-        stats.append("Position : (" + (st.loc.getLoc().x.toInt()) + ", " + st.loc.getLoc().y.toInt() + ")\n")
+        stats.setText("${st.name} at (" + (st.loc.getLoc().x.toInt()) + ", " + st.loc.getLoc().y.toInt() + ")\n")
+        stats.append("")
 
         if (st.starPlanets.isNotEmpty()) {
-            stats.append(st.starPlanets.size.toString() + " planet(s): ")
+            stats.append("Planets (" + st.starPlanets.size.toString() + "): ")
             for (pl in st.starPlanets) {
                 stats.append("  " + pl.name + " ")
             }
@@ -75,12 +75,12 @@ class StarFragment : Fragment() {
         paint = stats.paint
         paint.textSize = 40f
 
-        stats.setText("Lorem ipsum dolor sit amet\n")
-
-        stats.append("\n")
-        stats.append("id: " + st.id + " | ")
-        stats.append("refUID: " + st.uid + " | ")
-        stats.append("idxname: " + st.idxname + "\n")
+//        stats.setText("Lorem ipsum dolor sit amet\n")
+//
+//        stats.append("\n")
+//        stats.append("id: " + st.id + " | ")
+//        stats.append("refUID: " + st.uid + " | ")
+//        stats.append("idxname: " + st.idxname + "\n")
 
         return view
     }

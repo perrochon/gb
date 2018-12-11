@@ -1,6 +1,5 @@
 package com.zwsi.gb.feature
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBPlanet
 
 class PlanetFragment : Fragment() {
@@ -71,7 +69,7 @@ class PlanetFragment : Fragment() {
 
         // Get the View to draw planet on, then draw planet
         //
-        var planetView = view.findViewById<ImageView>(R.id.PlanetView)
+        var planetView = view.findViewById<ImageView>(R.id.ImageViewPlanet)
         val merged = Bitmap.createBitmap(p.width *50, p.height *50, d.config)
         var canvas = Canvas(merged)
 
