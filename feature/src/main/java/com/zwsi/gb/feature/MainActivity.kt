@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val version = findViewById<TextView>(R.id.version)
-        version.setText("0.0.0.309") // for now: 0.0.0.~ #commits...
+        version.setText("0.0.0.342") // for now: 0.0.0.~ #commits...
 
         Thread(Runnable {
             // Need to do this in other thread, as just checking for null will generate the universe
