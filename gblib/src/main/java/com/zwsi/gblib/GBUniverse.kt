@@ -40,7 +40,7 @@ class GBUniverse {
     val news: MutableList<String> = Collections.synchronizedList(arrayListOf<String>())
     val orders: MutableList<GBOrder> = Collections.synchronizedList(arrayListOf<GBOrder>())
 
-    var autoDo = false
+    var autoDo = false // TODO QUALITY Almost certain this shouldn't be in universe
     var turn = 0
 
     constructor(numberOfStars: Int) {

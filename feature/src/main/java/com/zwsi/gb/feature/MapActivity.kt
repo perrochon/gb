@@ -1,31 +1,19 @@
 package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.graphics.PointF
 import android.os.Bundle
 import android.os.SystemClock
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import com.davemorrissey.labs.subscaleview.ImageSource
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP
-
-import com.zwsi.gblib.GBController.Companion.universe
-import android.text.method.Touch.onTouchEvent
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.View
 import android.widget.Toast
+import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBPlanet
 
 
 class MapActivity : AppCompatActivity() {
-
-    var lastFragment : Fragment? = null //doing this because isInitialized didn't work
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -49,16 +37,19 @@ class MapActivity : AppCompatActivity() {
                     val any = imageView.clickTarget(e)
                     if (any is GBPlanet) {
                         val ft = getSupportFragmentManager().beginTransaction()
-                        lastFragment = PlanetFragment.newInstance(any.uid.toString())
+                        val fragment = PlanetFragment.newInstance(any.uid.toString())
                         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        ft.replace(R.id.details, lastFragment!!)
+                        ft.replace(R.id.details, fragment!!)
                         ft.commit()
 
-                    } else if (lastFragment != null) {
-                        val ft = getSupportFragmentManager().beginTransaction()
-                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        ft.remove(lastFragment!!)
-                        ft.commit()
+                    } else {
+                        val fragment = getSupportFragmentManager().findFragmentById(R.id.details)
+                        if (fragment != null) {
+                            val ft = getSupportFragmentManager().beginTransaction()
+                            ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                            ft.remove(fragment!!)
+                            ft.commit()
+                        }
                     }
 
                 }
@@ -78,15 +69,9 @@ class MapActivity : AppCompatActivity() {
 //            }
 //        })
 
-        imageView.setOnTouchListener {v: View, motionEvent: MotionEvent ->
+        imageView.setOnTouchListener { v: View, motionEvent: MotionEvent ->
             gestureDetector.onTouchEvent(motionEvent)
         }
-
-
-
-
-
-
 
 
     }
@@ -104,7 +89,7 @@ class MapActivity : AppCompatActivity() {
     /** Called when the user taps the Make Pod button */
     fun makeFactory(view: View) {
 
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();

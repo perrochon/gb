@@ -321,7 +321,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.alpha = 128
         for (s in GBViewModel.viewStars) {
             if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
-                sP1.set(s.loc.getLoc().x * uToSf + 30, s.loc.getLoc().y * uToSf - 10)
+                sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawText(s.name, vP1.x + 30, vP1.y - 10, paint)
             }
@@ -361,7 +361,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                         clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), p))
 
-                        // drawClickTargets(canvas)
+                        // planet names
+                        if (3> normScale) {
+                            paint.textSize = 50f
+                            paint.style = Style.FILL
+                            paint.color = labelColor
+                            paint.alpha = 128
+                            sP1.set(p.loc.getLoc().x * uToSf, p.loc.getLoc().y * uToSf)
+                            sourceToViewCoord(sP1, vP1)
+                            canvas.drawText(p.name, vP1.x + 32, vP1.y - 10, paint)
+                        }
+
 
                         for (sh in GBViewModel.viewOrbitShips[p.uid]!!.iterator()) {
                             paint.alpha = 128
