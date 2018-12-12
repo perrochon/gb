@@ -69,6 +69,8 @@ class PlanetFragment : Fragment() {
 
         // Get the View to draw planet on, then draw planet
         //
+        // TODO LOOKS use RoundedBitmapDrawable to make round corners?
+        //
         var planetView = view.findViewById<ImageView>(R.id.ImageViewPlanet)
         val merged = Bitmap.createBitmap(p.width *50, p.height *50, d.config)
         var canvas = Canvas(merged)
