@@ -12,6 +12,7 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.CRUISER
+import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
 import kotlin.math.sqrt
@@ -132,7 +133,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         // set behavior of parent
         setDebug(false)
-        maxScale = 12f
+        maxScale = 15f
 
         val fullResImage = ImageSource.resource(R.drawable.orion18000)
         val lowResImage = ImageSource.resource(R.drawable.orion1024)
@@ -196,7 +197,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         drawUntilStats = System.nanoTime() - startTimeNanos
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
 
-        //drawStats(canvas)
+        drawStats(canvas)
 
         //drawClickTargets(canvas)
 
@@ -239,26 +240,26 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             canvas.drawText(
                 "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
             )
-            canvas.drawText(
-                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(
-                    4
-                )}+",
-                8f,
-                l++ * h,
-                paint
-            )
-            canvas.drawText(
-                "Do:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average()!! / 1000).toInt().f(
-                    4
-                )}μs",
-                8f,
-                l++ * h,
-                paint
-            )
-
-            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
-
-            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
+//            canvas.drawText(
+//                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(
+//                    4
+//                )}+",
+//                8f,
+//                l++ * h,
+//                paint
+//            )
+//            canvas.drawText(
+//                "Do:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average()!! / 1000).toInt().f(
+//                    4
+//                )}μs",
+//                8f,
+//                l++ * h,
+//                paint
+//            )
+//
+//            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
+//
+//            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
 
         }
     }
@@ -372,13 +373,23 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             canvas.drawText(p.name, vP1.x + 32, vP1.y - 10, paint)
                         }
 
-
                         for (sh in GBViewModel.viewOrbitShips[p.uid]!!.iterator()) {
                             paint.alpha = 128
                             paint.color = Color.parseColor(sh.race.color)
                             drawShip(canvas, sh)
                         }
 
+
+                        if (2 > normScale) {
+
+                            // Draw Planet rectangle and ships in it...
+
+                            for (sh in GBViewModel.viewLandedShips[p.uid]!!.iterator()) {
+                                paint.alpha = 128
+                                paint.color = Color.parseColor(sh.race.color)
+                                drawShip(canvas, sh)
+                            }
+                        }
 
                     } // planet loop
 
@@ -400,7 +411,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     fun drawShip(canvas: Canvas, sh: GBShip) {
 
         paint.style = Style.STROKE
-        val radius = scale * 1f
+        var radius = scale * 1f
 
         paint.strokeWidth = strokeWidth.toFloat()
 
@@ -416,6 +427,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 canvas.drawCircle(vP1.x, vP1.y, radius, paint)
             }
             CRUISER -> {
+                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
+            }
+            FACTORY -> {
+                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
+                radius = radius *1.5f
                 canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
             }
             else -> {

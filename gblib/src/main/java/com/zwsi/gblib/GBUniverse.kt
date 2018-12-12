@@ -250,7 +250,7 @@ class GBUniverse {
     fun makeFactory(p: GBPlanet, race: GBRace) {
         GBLog.d("universe: Making factory for ${race.name} on ${p.name}.")
 
-        var loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
+        var loc = GBLocation(p, rand.nextInt(p.width), rand.nextInt(p.height)) // TODO Have caller give us a better location
 
         var order = GBOrder()
 

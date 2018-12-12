@@ -30,6 +30,7 @@ class GBViewModel {
 
         var viewStarShips: HashMap<Int, List<GBShip>> = HashMap()
         var viewOrbitShips: HashMap<Int, List<GBShip>> = HashMap()
+        var viewLandedShips: HashMap<Int, List<GBShip>> = HashMap()
         var viewRaceShips: HashMap<Int, List<GBShip>> = HashMap()
         var viewShipTrails: HashMap<Int, List<GBxy>> = HashMap()
 
@@ -43,6 +44,8 @@ class GBViewModel {
         init {
             fillViewStarShips()
             fillViewShipTrails()
+            fillViewOrbitShips()
+            fillViewLandedShips()
             update()
         }
 
@@ -63,6 +66,8 @@ class GBViewModel {
                 times["S"] = measureNanoTime { fillViewStarShips() }
 
                 times["O"] = measureNanoTime { fillViewOrbitShips() }
+
+                times["L"] = measureNanoTime { fillViewLandedShips() }
 
                 times["R"] = measureNanoTime { fillViewRaceShips() }
 
@@ -87,10 +92,17 @@ class GBViewModel {
             }
         }
 
-        fun fillViewOrbitShips() {
+        fun fillViewOrbitShips() {  // TODO combine with the next and iterate only once
             viewOrbitShips.clear()
             for (p in viewPlanets) {
                 viewOrbitShips.put(p.uid, p.getOrbitShipsList())
+            }
+        }
+
+        fun fillViewLandedShips() {
+            viewLandedShips.clear()
+            for (p in viewPlanets) {
+                viewLandedShips.put(p.uid, p.getLandedShipsList())
             }
         }
 

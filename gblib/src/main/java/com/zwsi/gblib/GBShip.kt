@@ -234,7 +234,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         } else {
             // we are not LANDED, so either in ORBIT, in SYTEM, or in DEEPSPACE
 
-            var distance = sxy.distance(dxy)
+            var distance = sxy.distance(dxy) - PLANET_ORBIT_SIZE
 
             if (distance < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 

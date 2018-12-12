@@ -5,6 +5,7 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLog.gbAssert
 import kotlin.math.*
 
@@ -144,7 +145,7 @@ class GBLocation {
     fun getLoc(): GBxy {
 
         if (level == LANDED) {
-            return GBxy(universe.allPlanets[refUID].loc.getLoc().x, universe.allPlanets[refUID].loc.getLoc().y)
+            return GBxy(universe.allPlanets[refUID].loc.getLoc().x + sx.toFloat()/10f, universe.allPlanets[refUID].loc.getLoc().y + 1f + sy.toFloat()/10f)
         }
         if (level == ORBIT) {
             return GBxy(universe.allPlanets[refUID].loc.getLoc().x + x, universe.allPlanets[refUID].loc.getLoc().y + y)

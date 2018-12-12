@@ -8,6 +8,7 @@ import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
+import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLog.gbAssert
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 
@@ -30,6 +31,8 @@ class GBOrder  {
         this.loc = loc
     }
 
+    // TODO check for nulls and correct types, but this can wait until we made ships a hierarchy and repalced orders with schedule
+
     // Type Pod
     fun makePod(factory: GBShip) {
 
@@ -37,7 +40,7 @@ class GBOrder  {
         type = POD
         uidShip = factory.uid
         uidRace = factory.race.uid
-        this.loc = factory.loc
+        this.loc = GBLocation(factory.loc.getPlanet()!!, rand.nextInt(factory.loc.getPlanet()!!.width), rand.nextInt(factory.loc.getPlanet()!!.height))
 
     }
 
@@ -47,7 +50,7 @@ class GBOrder  {
         type = CRUISER
         uidShip = factory.uid
         uidRace = factory.race.uid
-        this.loc = factory.loc
+        this.loc = GBLocation(factory.loc.getPlanet()!!, rand.nextInt(factory.loc.getPlanet()!!.width), rand.nextInt(factory.loc.getPlanet()!!.height))
 
     }
 
