@@ -27,7 +27,7 @@ class MapActivity : AppCompatActivity() {
         val turnObserver = Observer<Int> { newTurn ->
             imageView.turn = newTurn; imageView.invalidate()
         }  // TODO why is newTurn nullable?
-        GBViewModel.curentTurn.observe(this, turnObserver)
+        GBViewModel.currentTurn.observe(this, turnObserver)
 
         var myContext = this as Context
 

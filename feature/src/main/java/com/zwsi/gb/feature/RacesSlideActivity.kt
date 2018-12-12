@@ -29,7 +29,7 @@ class RacesSlideActivity : AppCompatActivity() {
         viewpager.setCurrentItem(startItem)
 
         val turnObserver = Observer<Int> {newTurn -> viewpager.invalidate()}  // TODO why is newTurn nullable?
-        GBViewModel.curentTurn.observe(this, turnObserver)
+        GBViewModel.currentTurn.observe(this, turnObserver)
 
     }
 

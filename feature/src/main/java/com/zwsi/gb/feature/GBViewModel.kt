@@ -1,7 +1,6 @@
 package com.zwsi.gb.feature
 
 import android.arch.lifecycle.MutableLiveData
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBShip
@@ -19,7 +18,7 @@ class GBViewModel {
     companion object {
 
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
-        val curentTurn by lazy {MutableLiveData<Int>()}
+        val currentTurn by lazy {MutableLiveData<Int>()}
 
         var viewStars = universe.allStars
         var viewPlanets = universe.allPlanets
@@ -48,6 +47,7 @@ class GBViewModel {
         }
 
         fun update() {
+            // This is (currently) called from the worker thread. So need to call postValue on the LiveData
             timeModelUpdate = measureNanoTime {
 
                 // Not updating stars and planets as those lists don't change
@@ -73,7 +73,7 @@ class GBViewModel {
                 timeLastTurn = GBController.elapsedTimeLastUpdate
             }
 
-            curentTurn.value = universe.turn
+            currentTurn.postValue(universe.turn)
 
             /*
             Note: You must call the setValue(T) method to update the LiveData object from the main thread. If the code is executed in a worker thread, you can use the postValue(T) method instead to update the LiveData object.
