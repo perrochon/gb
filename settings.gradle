@@ -1,1 +1,1 @@
-include ':feature', ':app', ':base', ':instantapp', ':gblib'
+include ':feature', ':app', ':base', ':gblib'

@@ -7,12 +7,12 @@
 ## Code Quality
 ### Gating for Mission 2 (don't want to propagate bad code more)
 * Unit Test Mission 1
-* Import GBController.universe in all files. Use universe. only. Think this through about companion, though.
 * Review all unit tests, and add whats missing (GBLocation? GBxy? Destroyed ships)
 * Review all TODO and warnings
 * Refactor to use resources for strings for Missions
 
 ### Not Gating
+* Import GBController.universe in all files. Use universe. only. Think this through about companion, though.
 * Create "live ships" list and use that instead of allShips.filter{alive} in most places
 * Passing race around on commands, to make sure actions are access controlled :-)
 * New should reset start view for MapView. (New is god level, so this is not critical)
