@@ -54,7 +54,6 @@ class PlanetFragment : Fragment() {
             button.visibility = View.GONE
         }
 
-
         // Get Bitmaps - TODO factor out, this code exists twice. But where to?
         val d = BitmapFactory.decodeResource(getResources(), R.drawable.desert)
         val f = BitmapFactory.decodeResource(getResources(), R.drawable.forest)
@@ -99,7 +98,6 @@ class PlanetFragment : Fragment() {
                 )
 
             }
-
 
         }
 

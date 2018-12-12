@@ -38,13 +38,7 @@ class ShipsSlideActivity : AppCompatActivity() {
         if (GBViewModel.viewShips.size == 0) {
             val hintText = this.findViewById<TextView>(R.id.hintTextView)
             hintText.visibility = (TextView.VISIBLE)
-            hintText.setText(
-                "You haven't built any ships yet.\n\n " +
-                        "Start making ships by creating a Factory on your home planet. " +
-                        "That Factory will be your first ship. Then order the Factory to make other ships. " +
-                        "Remember that you have to give the order to build the factory first, then click on " +
-                        "[Do] so your minions can execute your orders."
-            )
+            hintText.setText("There are no ships here.\n\n ")
         }
 
 
@@ -65,7 +59,7 @@ class ShipsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("ships")
         } else {
             displayList = ArrayList<Int>()
-            for (i in GBController.universe.getAllShipsList().filter{it.health > 0}) {
+            for (i in GBController.universe.getAllShipsList().filter { it.health > 0 }) {
                 displayList.add(i.uid)
             }
         }

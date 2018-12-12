@@ -67,66 +67,8 @@ class PlanetsSlideActivity : AppCompatActivity() {
 
     }
 
-
-    /** Called when the user taps the Make Pod button */
-    fun makeFactory(view: View) {
-
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
-            return;
-        }
-        lastClickTime = SystemClock.elapsedRealtime();
-
-
-        val parent = view.parent as View
-        val planet: GBPlanet = parent.tag as GBPlanet
-
-        val universe = universe
-        universe.makeFactory(planet, GBViewModel.viewRaces[0])
-
-        val message = "Ordered Factory on " + planet.name
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-
+    fun makeFactory(view:View) {
+        GlobalButtonOnClick.makeFactory(view)
     }
 
-    /** Called when the user taps the Colonize button */
-    fun colonize0(view: View) {
-
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
-            return;
-        }
-        lastClickTime = SystemClock.elapsedRealtime();
-
-        val parent = view.parent as View
-        val planet: GBPlanet = parent.tag as GBPlanet
-
-        val universe = universe
-        universe.landPopulation(planet, 0, 100)
-
-        // Need to move drawing of overlay into OnDraw then do. But it's god mode, so not critical
-        view.invalidate()
-
-        val message = "God Level: Landing Xenos on " + planet.name
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    /** Called when the user taps the Colonize button */
-    fun colonize1(view: View) {
-
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay){
-            return;
-        }
-        lastClickTime = SystemClock.elapsedRealtime();
-
-        val parent = view.parent as View
-        val planet: GBPlanet = parent.tag as GBPlanet
-
-        val universe = universe
-        universe.landPopulation(planet, 1, 100)
-
-        // Need to move drawing of overlay into OnDraw then do. But it's god mode, so not critical
-        // view.invalidate()
-
-        val message = "God Level: Landing Impi on " + planet.name
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-    }
 }
