@@ -41,7 +41,6 @@ class ShipsSlideActivity : AppCompatActivity() {
             hintText.setText("There are no ships here.\n\n ")
         }
 
-
     }
 
     private fun initViews() {
