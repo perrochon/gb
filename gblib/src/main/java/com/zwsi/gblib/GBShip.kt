@@ -27,6 +27,10 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val speed: Int
     var health: Int
 
+    internal val PLANET_ORBIT_SIZE = 2f  // TODO Where should this live.
+    // If it's too big, orbits of planets overlap, which is problematic. But we want it bigger for better space use
+    // in MapView.
+
     var dest: GBLocation? = null
     private val trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
     internal var lastTrailsUpdate = -1
@@ -191,7 +195,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             if ((dest.level != loc.level) || (dest.refUID != loc.refUID)) { // landed and we need to get to orbit
 
-                var next = GBLocation(loc.getPlanet()!!, 1f, rand.nextFloat()*2f*PI.toFloat())
+                var next = GBLocation(loc.getPlanet()!!, PLANET_ORBIT_SIZE, rand.nextFloat()*2f*PI.toFloat())
                 changeShipLocation(next)
                 universe.news.add("Launched $name to ${loc.getLocDesc()}.\n")
 
@@ -236,7 +240,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                 var next = GBLocation(
                     dest.getPlanet()!!,
-                    1f,
+                    PLANET_ORBIT_SIZE,
                     rand.nextFloat() * 2f * PI.toFloat()
                 ) // TODO one would think we could use dest?
                 changeShipLocation(next)
