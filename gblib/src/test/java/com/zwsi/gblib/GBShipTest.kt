@@ -178,7 +178,6 @@ class GBShipTest {
     fun shipInTwoStarsFailsConsistency() {
         val universe = GBController.makeUniverse()
 
-        val s0 = universe.allStars[0]
         val s1 = universe.allStars[1]
         val r0: GBRace = universe.allRaces[0]
 
@@ -209,7 +208,7 @@ class GBShipTest {
     }
 
     @Test
-    fun moveShip() {
+    fun moveCruiser() {
         val universe = GBController.makeUniverse()
 
         val s0 = universe.allStars[0]
@@ -220,28 +219,27 @@ class GBShipTest {
 
         val locations = arrayListOf<GBLocation>()
 
-        val loc01 = GBLocation(p0, 1, 1); locations.add(loc01)
-        val loc02 = GBLocation(p1, 1, 2); locations.add(loc01)
-        val loc03 = GBLocation(p0, 2, 1); locations.add(loc01)
-        val loc04 = GBLocation(p1, 2, 2); locations.add(loc01)
-        val loc11 = GBLocation(p0, 1f, 1f); locations.add(loc11)
-        val loc12 = GBLocation(p1, 1f, 2f); locations.add(loc12)
-        val loc13 = GBLocation(p0, 2f, .5f); locations.add(loc13)
-        val loc14 = GBLocation(p1, 2f, 3f); locations.add(loc14)
-        val loc21 = GBLocation(s0, 20f, 1f); locations.add(loc21)
-        val loc22 = GBLocation(s1, 30f, 2f); locations.add(loc22)
-        val loc23 = GBLocation(s0, 10f, 3f); locations.add(loc23)
-        val loc24 = GBLocation(s1, 15f, 0.5f); locations.add(loc24)
-        val loc31 = GBLocation(500f, 500f); locations.add(loc31)
+        locations.add(GBLocation(p0, 1, 1))
+        locations.add(GBLocation(p1, 1, 2))
+        locations.add(GBLocation(p0, 2, 1))
+        locations.add(GBLocation(p1, 2, 2))
+        locations.add(GBLocation(p0, 1f, 1f))
+        locations.add(GBLocation(p1, 1f, 2f))
+        locations.add(GBLocation(p0, 2f, .5f))
+        locations.add(GBLocation(p1, 2f, 3f))
+        locations.add(GBLocation(s0, 20f, 1f))
+        locations.add(GBLocation(s1, 30f, 2f))
+        locations.add(GBLocation(s0, 10f, 3f))
+        locations.add(GBLocation(s1, 15f, 0.5f))
+        locations.add(GBLocation(500f, 500f))
 
-        val sh0 = GBShip(0, r0, loc01)
-        // This will not work for spores, as they explode on landing, so use factory for now, which doesn't move...
+        val sh0 = GBShip(2, r0, locations.first())
 
         var lastLocation: GBxy
 
         for (loc1 in locations) {
             sh0.changeShipLocation(loc1)
-            consistency(sh0) // This now fails that pods self destruct. Need to fix the test
+            consistency(sh0)
             uniqueLocations()
             for (loc2 in locations) {
                 sh0.changeShipLocation(loc2)

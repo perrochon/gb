@@ -103,7 +103,7 @@ class GBLocationTest {
 
     @Test
     fun deepSpace() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
         val loc = GBLocation(500f, 400f)
         assertEquals(500f, loc.getLoc().x)
         assertEquals(400f, loc.getLoc().y)

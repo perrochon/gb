@@ -6,6 +6,5 @@ class SchedulerTest {
 
     @Test
     fun lambdaTest(): Unit {
-        var universe = GBController.makeSmallUniverse()
     }
 }
