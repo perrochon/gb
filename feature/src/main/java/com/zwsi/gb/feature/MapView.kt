@@ -247,11 +247,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             //                l++ * h,
             //                paint
             //            )
-            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
-            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
-            canvas.drawText(
-                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
-            )
+//            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
+//            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
+//            canvas.drawText(
+//                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
+//            )
 //            canvas.drawText(
 //                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(
 //                    4
