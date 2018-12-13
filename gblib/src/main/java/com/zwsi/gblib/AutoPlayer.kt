@@ -66,7 +66,7 @@ class AutoPlayer() {
             }
             GBScheduler.addInstructionAt(now, code)
 
-            for (i in 0..30) {
+            for (i in 0..10) {
                 code = {
                     val factory = r.raceShips.find { it.idxtype == GBData.FACTORY }
                     GBLog.d("Ordered Cruiser")
@@ -106,7 +106,7 @@ class AutoPlayer() {
             }
             GBScheduler.addInstructionAt(now, code)
 
-            for (i in 0..30) {
+            for (i in 0..10) {
                 code = {
                     val factory = r.raceShips.find { it.idxtype == GBData.FACTORY }
                     GBLog.d("Ordered Cruiser")
