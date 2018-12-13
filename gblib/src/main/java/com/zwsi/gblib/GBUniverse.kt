@@ -207,11 +207,11 @@ class GBUniverse {
             for (sh1 in s.starShips.shuffled()) {
                 if (sh1.idxtype == CRUISER) {
                     for (sh2 in s.starShips) {
-                        if ((sh2.health > 0) && (sh2.idxtype == POD) && (sh1.race != sh2.race)) {
+                        if ((sh2.health > 0) && (sh1.race != sh2.race)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
                                 GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
-                                sh2.health = 0
+                                sh2.health -= 40 // Cruiser Shot makes 40 damage
                             }
                         }
                     }
@@ -223,11 +223,11 @@ class GBUniverse {
             for (sh1 in p.orbitShips.shuffled()) {
                 if (sh1.idxtype == CRUISER) {
                     for (sh2 in p.star.starShips) {
-                        if ((sh2.health > 0) && (sh2.idxtype == POD) && (sh1.race != sh2.race)) {
+                        if ((sh2.health > 0) && (sh1.race != sh2.race)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
                                 GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
-                                sh2.health = 0
+                                sh2.health -= 40 // Cruiser Shot makes 40 damage
                             }
                         }
                     }

@@ -78,6 +78,133 @@ class GBData {
         }
 
 
+        // Types from: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
+        private val planetTypesNames =
+            arrayOf("M Class", "Jovian", "Water", "Desert", "Forest", "Iceball", "Airless", "Asteroid")
+
+        val planetTypesSize = arrayOf(
+            // min height, max height. Width will be within 2x height range
+            intArrayOf(4, 6), // M Class
+            intArrayOf(6, 8), // Jovian
+            intArrayOf(4, 6), // Water
+            intArrayOf(4, 6), // Desert
+            intArrayOf(3, 5), // Forest
+            intArrayOf(3, 4), // Iceball
+            intArrayOf(3, 5), // Airless
+            intArrayOf(2, 3)  // Asteroid
+        )
+
+        // Sectors
+        // Planets are rectangles of sectors with wrap-arounds on the sides. Think Mercator.
+        // Sector Types from: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
+        // Source had 7 types, added 8th type "rock" because I had a bitmap, and because asteroids and mountains are different
+        //private val sectorTypesNames = arrayOf("Water", "Land", "Gas", "Desert", "Mountain", "Forest", "Ice", "Rock")
+        private val sectorTypesConsole =
+            arrayOf("~", ".", "@", "-", "^", "*", "#", "x") //
+        val sectorTypesChance = arrayOf(
+            intArrayOf(0, 0, 0, 0, 1, 1, 1, 1, 5, 6), // M Class
+            intArrayOf(2, 2, 2, 2, 2, 2, 2, 2, 2, 2), // Jovian
+            intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 4), // Water
+            intArrayOf(3, 3, 3, 3, 3, 3, 3, 3, 7, 7), // Desert
+            intArrayOf(5, 5, 5, 5, 5, 5, 5, 5, 5, 1), // Forest
+            intArrayOf(7, 7, 6, 6, 6, 6, 6, 6, 6, 6), // Iceball
+            intArrayOf(1, 7, 7, 3, 3, 3, 4, 4, 4, 6), // Airless
+            intArrayOf(7, 7, 7, 7, 7, 7, 7, 7, 6, 6)  // Asteroid
+        )
+
+        // Races
+        data class RaceData(
+            val name: String,
+            val birthrate: Int, // 00...100 (originally 0..1?)
+            val explore: Int, // adventurism 00..100 (originally percent)
+            val absorption: Int,
+            val description: String,
+            val color: String
+        )
+
+        private val races = hashMapOf(
+            0 to RaceData(
+                "Xenos", 50, 20, 20, "You are a Xeno. \n\n Xenos can’t burn, they can’t " +
+                        "suffocate, they can glide, they can run at 20 mph, they can find underground materials fast, " +
+                        "and they walk at 5mph, they glide at 65mph.", "#ffff0000"
+            ),
+            1 to RaceData(
+                "Impi", 20, 50, 10, "Ancient legends rumor that Impis once visited us.\n\n" +
+                        "Impi can breath underwater, " +
+                        "they swim at 80mph, they can change color like a chameleon, they run at 30 mph, they walk at 5.3mph, " +
+                        "and can use all four hands for piloting, fighting and other activities.", "#ff00ff00"
+            ),
+            2 to RaceData(
+                "Rainbow Beetles", 10, 5, 0, "Ancient legends rumor that Rainbox Beetles once visited us.\n\n" +
+                        "Rainbow Beetles " +
+                        "are small but deadly, they have small snipers, they fly like a beetle at 25mph, they crawl at 40mph, " +
+                        "they can see all directions, they can hang upside down and climb walls.", "#ffff00ff"
+            ),
+            3 to RaceData(
+                "Warhide Tortois",
+                5,
+                20,
+                0,
+                "Ancient legends rumor that Warhide Tortoises" +
+                        " once visited us. \n\nHard shell, can see " +
+                        "with three heads, SUPER SHARP claws, moves at 25mph,  can swim at 65mph, sarp shell, can turn to a sping.",
+                "#ff0000FF"
+            )
+        )
+
+        fun getRaceName(idx: Int): String {
+            return races.get(idx)!!.name
+        }
+
+        fun getRaceBirthrate(idx: Int): Int {
+            return races.get(idx)!!.birthrate
+        }
+
+        fun getRaceExplore(idx: Int): Int {
+            return races.get(idx)!!.explore
+        }
+
+        fun getRaceAbsorption(idx: Int): Int {
+            return races.get(idx)!!.absorption
+        }
+
+        fun getRaceDescription(idx: Int): String {
+            return races.get(idx)!!.description
+        }
+
+        fun getRaceColor(idx: Int): String {
+            return races.get(idx)!!.color
+        }
+
+        const val FACTORY = 0
+        const val POD = 1
+        const val CRUISER = 2
+
+
+        data class ShipData(
+            val type: String,
+            val speed: Int,
+            val health: Int
+        )
+
+        private val ships = hashMapOf(
+            FACTORY to ShipData("Factory", 0, 500),
+            POD to ShipData("Spore Pod", 1, 10),
+            CRUISER to ShipData("Cruiser", 3, 100)
+        )
+
+        fun getShipType(idx: Int): String {
+            return ships.get(idx)!!.type
+        }
+
+        fun getShipSpeed(idx: Int): Int {
+            return ships.get(idx)!!.speed
+        }
+
+        fun getShipHealth(idx: Int): Int {
+            return ships.get(idx)!!.health
+        }
+
         // Stars
         // Stars from: https://github.com/kaladron/galactic-bloodshed/blob/master/data/star.list
         private val starNames = arrayOf(
@@ -1153,128 +1280,6 @@ class GBData {
             "Zrd",
             "Zurvan"
         )
-
-        // Types from: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
-        private val planetTypesNames =
-            arrayOf("M Class", "Jovian", "Water", "Desert", "Forest", "Iceball", "Airless", "Asteroid")
-
-        val planetTypesSize = arrayOf(
-            // min height, max height. Width will be within 2x height range
-            intArrayOf(4, 6), // M Class
-            intArrayOf(6, 8), // Jovian
-            intArrayOf(4, 6), // Water
-            intArrayOf(4, 6), // Desert
-            intArrayOf(3, 5), // Forest
-            intArrayOf(3, 4), // Iceball
-            intArrayOf(3, 5), // Airless
-            intArrayOf(2, 3)  // Asteroid
-        )
-
-        // Sectors
-        // Planets are rectangles of sectors with wrap-arounds on the sides. Think Mercator.
-        // Sector Types from: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
-        // Source had 7 types, added 8th type "rock" because I had a bitmap, and because asteroids and mountains are different
-        //private val sectorTypesNames = arrayOf("Water", "Land", "Gas", "Desert", "Mountain", "Forest", "Ice", "Rock")
-        private val sectorTypesConsole =
-            arrayOf("~", ".", "@", "-", "^", "*", "#", "x") //
-        val sectorTypesChance = arrayOf(
-            intArrayOf(0, 0, 0, 0, 1, 1, 1, 1, 5, 6), // M Class
-            intArrayOf(2, 2, 2, 2, 2, 2, 2, 2, 2, 2), // Jovian
-            intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 4), // Water
-            intArrayOf(3, 3, 3, 3, 3, 3, 3, 3, 7, 7), // Desert
-            intArrayOf(5, 5, 5, 5, 5, 5, 5, 5, 5, 1), // Forest
-            intArrayOf(7, 7, 6, 6, 6, 6, 6, 6, 6, 6), // Iceball
-            intArrayOf(1, 7, 7, 3, 3, 3, 4, 4, 4, 6), // Airless
-            intArrayOf(7, 7, 7, 7, 7, 7, 7, 7, 6, 6)  // Asteroid
-        )
-
-        // Races
-        data class RaceData(
-            val name: String,
-            val birthrate: Int, // 00...100 (originally 0..1?)
-            val explore: Int, // adventurism 00..100 (originally percent)
-            val absorption: Int,
-            val description: String,
-            val color: String
-        )
-
-        private val races = hashMapOf(
-            0 to RaceData(
-                "Xenos", 50, 20, 20, "You are a Xeno. \n\n Xenos can’t burn, they can’t " +
-                        "suffocate, they can glide, they can run at 20 mph, they can find underground materials fast, " +
-                        "and they walk at 5mph, they glide at 65mph.", "#ffff0000"
-            ),
-            1 to RaceData(
-                "Impi", 20, 50, 10, "Ancient legends rumor that Impis once visited us.\n\n" +
-                        "Impi can breath underwater, " +
-                        "they swim at 80mph, they can change color like a chameleon, they run at 30 mph, they walk at 5.3mph, " +
-                        "and can use all four hands for piloting, fighting and other activities.", "#ff00ff00"
-            ),
-            2 to RaceData(
-                "Rainbow Beetles", 10, 5, 0, "Ancient legends rumor that Rainbox Beetles once visited us.\n\n" +
-                        "Rainbow Beetles " +
-                        "are small but deadly, they have small snipers, they fly like a beetle at 25mph, they crawl at 40mph, " +
-                        "they can see all directions, they can hang upside down and climb walls.", "#ffff00ff"
-            ),
-            3 to RaceData(
-                "Warhide Tortois",
-                5,
-                20,
-                0,
-                "Ancient legends rumor that Warhide Tortoises" +
-                        " once visited us. \n\nHard shell, can see " +
-                        "with three heads, SUPER SHARP claws, moves at 25mph,  can swim at 65mph, sarp shell, can turn to a sping.",
-                "#ff0000FF"
-            )
-        )
-
-        fun getRaceName(idx: Int): String {
-            return races.get(idx)!!.name
-        }
-
-        fun getRaceBirthrate(idx: Int): Int {
-            return races.get(idx)!!.birthrate
-        }
-
-        fun getRaceExplore(idx: Int): Int {
-            return races.get(idx)!!.explore
-        }
-
-        fun getRaceAbsorption(idx: Int): Int {
-            return races.get(idx)!!.absorption
-        }
-
-        fun getRaceDescription(idx: Int): String {
-            return races.get(idx)!!.description
-        }
-
-        fun getRaceColor(idx: Int): String {
-            return races.get(idx)!!.color
-        }
-
-        const val FACTORY = 0
-        const val POD = 1
-        const val CRUISER = 2
-
-
-        data class ShipData(
-            val type: String,
-            val speed: Int
-        )
-
-        private val ships = hashMapOf(
-            FACTORY to ShipData("Factory", 0),
-            POD to ShipData("Spore Pod", 1),
-            CRUISER to ShipData("Cruiser", 3)
-        )
-
-        fun getShipType(idx: Int): String {
-            return ships.get(idx)!!.type
-        }
-
-        fun getShipSpeed(idx: Int): Int {
-            return ships.get(idx)!!.speed
-        }
 
     }
 

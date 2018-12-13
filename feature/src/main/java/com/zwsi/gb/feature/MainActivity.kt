@@ -46,8 +46,6 @@ class MainActivity : AppCompatActivity() {
             }
         }).start()
 
-
-
     }
 
     /** Called when the user taps the Create button */
