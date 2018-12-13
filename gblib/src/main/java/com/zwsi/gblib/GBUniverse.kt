@@ -203,15 +203,16 @@ class GBUniverse {
 
     fun fireShots() { // TODO use filtered lists
         allShots.clear()
+
+        // TODO: Perf and Feature: Create one list of all insystem ships, then find shots
+        // System Ships shoot at System only
         for (s in allStars) {
-            for (sh1 in s.starShips.shuffled()) {
-                if (sh1.idxtype == CRUISER) {
-                    for (sh2 in s.starShips) {
+            for (sh1 in s.starShipsList.shuffled()) {
+                if (sh1.idxtype == CRUISER && (sh1.health > 0)) {
+                    for (sh2 in s.starShipsList) {
                         if ((sh2.health > 0) && (sh1.race != sh2.race)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
-                                allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
-                                GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
-                                sh2.health -= 40 // Cruiser Shot makes 40 damage
+                                fireOneShot(sh1, sh2)
                             }
                         }
                     }
@@ -219,15 +220,14 @@ class GBUniverse {
                 }
             }
         }
+        // Orbit Ships shoot at System, Orbit, or landed ships
         for (p in allPlanets) {
             for (sh1 in p.orbitShips.shuffled()) {
-                if (sh1.idxtype == CRUISER) {
-                    for (sh2 in p.star.starShips) {
+                if ((sh1.idxtype == CRUISER && (sh1.health > 0))) {
+                    for (sh2 in p.star.starShips.union(p.orbitShips).union(p.landedShips)) {
                         if ((sh2.health > 0) && (sh1.race != sh2.race)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
-                                allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
-                                GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
-                                sh2.health -= 40 // Cruiser Shot makes 40 damage
+                                fireOneShot(sh1, sh2)
                             }
                         }
                     }
@@ -235,6 +235,12 @@ class GBUniverse {
                 }
             }
         }
+    }
+
+    fun fireOneShot (sh1: GBShip, sh2: GBShip) {
+        allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
+        GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
+        sh2.health -= 40 // Cruiser Shot makes 40 damage
 
     }
 
