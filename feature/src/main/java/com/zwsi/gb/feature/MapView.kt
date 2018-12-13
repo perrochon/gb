@@ -44,6 +44,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var bmRaceBeetle: Bitmap? = null
     private var bmRaceTortoise: Bitmap? = null
 
+    private val bitmaps = HashMap<Int, Bitmap>()
+
+
     val sourceSize = 18000  // TODO Quality Would be nice not to hard code here and below
     val universeSize = universe.universeMaxX
     val uToS = sourceSize / universeSize
@@ -129,6 +132,15 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         w = density / 420f * bmRaceTortoise!!.getWidth() / 30
         h = density / 420f * bmRaceTortoise!!.getHeight() / 30
         bmRaceTortoise = Bitmap.createScaledBitmap(bmRaceTortoise!!, w.toInt(), h.toInt(), true)!!
+
+        // Do a better way. If it works, we replace above... Neet do figure out planet/star, where we divide by 2/1
+        var drawables = listOf<Int>(R.drawable.podt, R.drawable.cruisert, R.drawable.factory)
+        for (i in drawables) {
+            val bm = BitmapFactory.decodeResource(getResources(), i)!!
+            w = density / 420f * bm!!.getWidth() / 60
+            h = density / 420f * bm!!.getHeight() / 60
+            bitmaps[i] = Bitmap.createScaledBitmap(bm!!, w.toInt(), h.toInt(), true)!!
+        }
 
 
         // set behavior of parent
@@ -355,8 +367,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         sourceToViewCoord(sP1, vP1)
                         canvas.drawBitmap(
                             bmPlanet!!,
-                            vP1.x - bmPlanet!!.getWidth() / 2,
-                            vP1.y - bmPlanet!!.getWidth() / 2,
+                            vP1.x - bmPlanet!!.width / 2,
+                            vP1.y - bmPlanet!!.height / 2,
                             null
                         )
                         clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), p))
@@ -378,10 +390,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             paint.style = Style.STROKE
                             paint.color = circleColor
                             paint.strokeWidth = strokeWidth.toFloat()
-                            val radius = 1f *uToS * scale // TODO Constant PLANETARY_ORBIT
+                            val radius = 1f * uToS * scale // TODO Constant PLANETARY_ORBIT
                             canvas.drawCircle(vP1.x, vP1.y, radius, paint)
 
-                            var o = (1f * 0.4f ) *uToS * scale
+                            var o = (1f * 0.4f) * uToS * scale
                             canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
 
                         }
@@ -440,14 +452,36 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
             POD -> {
                 canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+                if (1 > normScale) {
+                    canvas.drawBitmap(
+                        bitmaps[R.drawable.podt]!!,
+                        vP1.x - bitmaps[R.drawable.podt]!!.width / 2,
+                        vP1.y - bitmaps[R.drawable.podt]!!.height / 2,
+                        null
+                    )
+                }
             }
             CRUISER -> {
                 canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
+                if (1 > normScale) {
+                    canvas.drawBitmap(
+                        bitmaps[R.drawable.cruisert]!!,
+                        vP1.x - bitmaps[R.drawable.cruisert]!!.width / 2,
+                        vP1.y - bitmaps[R.drawable.cruisert]!!.height / 2,
+                        null
+                    )
+                }
             }
             FACTORY -> {
                 canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
-                radius = radius * 0.6f
-                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
+                if (1 > normScale) {
+                    canvas.drawBitmap(
+                        bitmaps[R.drawable.factory]!!,
+                        vP1.x - bitmaps[R.drawable.factory]!!.width / 2,
+                        vP1.y - bitmaps[R.drawable.factory]!!.height / 2,
+                        null
+                    )
+                }
             }
             else -> {
                 canvas.drawCircle(vP1.x, vP1.y, radius, paint)

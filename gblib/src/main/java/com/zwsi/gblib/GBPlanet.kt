@@ -117,6 +117,9 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
     }
 
+    fun sectorEmpty(x: Int, y: Int) : Boolean {
+        return landedShips.filter { (it.loc.sx == x) && (it.loc.sy == y) }.isEmpty()
+    }
 
     fun sectorX(i: Int): Int {
         return i % width
