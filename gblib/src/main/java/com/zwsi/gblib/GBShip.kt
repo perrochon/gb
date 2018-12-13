@@ -185,7 +185,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
         val dest = this.dest!!
         val dxy = dest.getLoc()       // use getLoc to get universal (x,y)
-        val sxy = loc.getLoc()        // center of planet for landed and orbit
+        val sxy = loc.getLoc()        // TODO no longer true : center of planet for landed and orbit
 
         GBLog.d("Moving $name from ${this.loc.getLocDesc()} to ${dest.getLocDesc()}.")
 
@@ -234,7 +234,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         } else {
             // we are not LANDED, so either in ORBIT, in SYTEM, or in DEEPSPACE
 
-            var distance = sxy.distance(dxy) - PLANET_ORBIT_SIZE
+            var distance = sxy.distance(dxy)
 
             if (distance < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
