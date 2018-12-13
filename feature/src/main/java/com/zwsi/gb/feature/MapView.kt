@@ -260,14 +260,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //                l++ * h,
 //                paint
 //            )
-//            canvas.drawText(
-//                "Do:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average()!! / 1000).toInt().f(
-//                    4
-//                )}μs",
-//                8f,
-//                l++ * h,
-//                paint
-//            )
+            canvas.drawText(
+                "Do:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average()!! / 1000).toInt().f(
+                    4
+                )}μs",
+                8f,
+                l++ * h,
+                paint
+            )
 //
 //            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
 //
