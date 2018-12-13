@@ -144,8 +144,9 @@ class GBLocation {
      * */
     fun getLoc(): GBxy {
 
-        if (level == LANDED) {
-            return GBxy(universe.allPlanets[refUID].loc.getLoc().x + sx.toFloat()/10f, universe.allPlanets[refUID].loc.getLoc().y + 1f + sy.toFloat()/10f)
+        if (level == LANDED) { // TODO This calculation is probably a rendering issue and belongs into MapView..
+            return GBxy(universe.allPlanets[refUID].loc.getLoc().x - 0.70f + sx.toFloat()/6f,
+                universe.allPlanets[refUID].loc.getLoc().y -0.35f + sy.toFloat()/6f)
         }
         if (level == ORBIT) {
             return GBxy(universe.allPlanets[refUID].loc.getLoc().x + x, universe.allPlanets[refUID].loc.getLoc().y + y)

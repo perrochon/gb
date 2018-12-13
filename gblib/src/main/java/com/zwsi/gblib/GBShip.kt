@@ -16,6 +16,8 @@ import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBLog.gbAssert
 import java.util.*
 import kotlin.math.PI
+import kotlin.math.atan
+import kotlin.math.atan2
 
 class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
@@ -27,7 +29,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val speed: Int
     var health: Int
 
-    internal val PLANET_ORBIT_SIZE = 2f  // TODO Where should this live.
+    internal val PLANET_ORBIT_SIZE = 1f  // TODO Where should this live.
     // If it's too big, orbits of planets overlap, which is problematic. But we want it bigger for better space use
     // in MapView.
 
@@ -195,7 +197,10 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             if ((dest.level != loc.level) || (dest.refUID != loc.refUID)) { // landed and we need to get to orbit
 
-                var next = GBLocation(loc.getPlanet()!!, PLANET_ORBIT_SIZE, rand.nextFloat()*2f*PI.toFloat())
+                //What direction are we heading
+                val t = atan2(dxy.y-sxy.y, dxy.x-sxy.x)
+
+                val next = GBLocation(loc.getPlanet()!!, PLANET_ORBIT_SIZE, t)
                 changeShipLocation(next)
                 universe.news.add("Launched $name to ${loc.getLocDesc()}.\n")
 
@@ -239,6 +244,10 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
             if (distance < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
                 var next = GBLocation(
+
+                    // where to insert in orbit?
+
+
                     dest.getPlanet()!!,
                     PLANET_ORBIT_SIZE,
                     rand.nextFloat() * 2f * PI.toFloat()

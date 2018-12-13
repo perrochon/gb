@@ -78,7 +78,7 @@ class ShipFragment : Fragment() {
             stats.append("Health: " + sh.health+ "\n")
             stats.append("Race: " + sh.race.name + "\n")
             stats.append("Location: " + sh.loc.getLocDesc() + "\n")
-            if (sh.dest != null) stats.append("Destination"+ sh.dest?.getLocDesc())
+            if (sh.dest != null) stats.append("Destination: "+ sh.dest?.getLocDesc())
 
             stats = view.findViewById<TextView>(R.id.ShipBackground)
             paint = stats.paint

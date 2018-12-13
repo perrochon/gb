@@ -133,7 +133,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         // set behavior of parent
         setDebug(false)
-        maxScale = 15f
+        maxScale = 30f
 
         val fullResImage = ImageSource.resource(R.drawable.orion18000)
         val lowResImage = ImageSource.resource(R.drawable.orion1024)
@@ -199,7 +199,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         drawStats(canvas)
 
-        drawClickTargets(canvas)
+        //drawClickTargets(canvas)
 
 
     } // onDraw
@@ -373,13 +373,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         }
 
 
-                        // planet orbit circles
+                        // planet orbit circles and surface rectangles
                         if (3 > normScale) {
                             paint.style = Style.STROKE
                             paint.color = circleColor
                             paint.strokeWidth = strokeWidth.toFloat()
-                            val radius = 2f *uToS * scale // TODO Constant PLANETARY_ORBIT
+                            val radius = 1f *uToS * scale // TODO Constant PLANETARY_ORBIT
                             canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+
+                            var o = (1f * 0.4f ) *uToS * scale
+                            canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
+
                         }
 
 
@@ -422,7 +426,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     fun drawShip(canvas: Canvas, sh: GBShip) {
 
         paint.style = Style.STROKE
-        var radius = scale * 1f
+        var radius = scale * 0.9f
 
         paint.strokeWidth = strokeWidth.toFloat()
 
@@ -442,7 +446,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
             FACTORY -> {
                 canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
-                radius = radius * 1.5f
+                radius = radius * 0.6f
                 canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
             }
             else -> {
@@ -450,7 +454,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
         }
 
-        if (10 > normScale) {
+        if (5 > normScale) {
             clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), sh))
         }
 
