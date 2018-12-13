@@ -199,7 +199,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         drawStats(canvas)
 
-        //drawClickTargets(canvas)
+        drawClickTargets(canvas)
 
 
     } // onDraw
@@ -359,11 +359,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             vP1.y - bmPlanet!!.getWidth() / 2,
                             null
                         )
-
                         clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), p))
 
                         // planet names
-                        if (3> normScale) {
+                        if (3 > normScale) {
                             paint.textSize = 50f
                             paint.style = Style.FILL
                             paint.color = labelColor
@@ -373,10 +372,22 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             canvas.drawText(p.name, vP1.x + 32, vP1.y - 10, paint)
                         }
 
+
+                        // planet orbit circles
+                        if (3 > normScale) {
+                            paint.style = Style.STROKE
+                            paint.color = circleColor
+                            paint.strokeWidth = strokeWidth.toFloat()
+                            val radius = 2f *uToS * scale // TODO Constant PLANETARY_ORBIT
+                            canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+                        }
+
+
                         for (sh in GBViewModel.viewOrbitShips[p.uid]!!.iterator()) {
                             paint.alpha = 128
                             paint.color = Color.parseColor(sh.race.color)
                             drawShip(canvas, sh)
+
                         }
 
 
@@ -431,7 +442,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
             FACTORY -> {
                 canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
-                radius = radius *1.5f
+                radius = radius * 1.5f
                 canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
             }
             else -> {
@@ -439,6 +450,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
         }
 
+        if (10 > normScale) {
+            clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), sh))
+        }
 
         // Don't draw trails zoomed out
         if (normScale > 10) {

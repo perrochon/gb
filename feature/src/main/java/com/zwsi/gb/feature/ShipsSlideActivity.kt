@@ -78,98 +78,20 @@ class ShipsSlideActivity : AppCompatActivity() {
 
     }
 
-    /** Called when the user taps the Go button */
-    fun goToLocation(view: View) {
-
-        val parent = view.parent as View
-        val ship = parent.tag as GBShip
-
-        Toast.makeText(view.context, ship.loc.getLocDesc(), Toast.LENGTH_SHORT).show()
-
-        if ((ship.loc.level == LANDED) or (ship.loc.level == ORBIT)) {
-            val intent = Intent(this, PlanetsSlideActivity::class.java)
-
-            intent.putExtra("title", "Planet")
-
-            val displayUID = ArrayList<Int>()
-            displayUID.add(ship.loc.refUID)
-            intent.putExtra("planets", displayUID)
-
-            intent.putExtra("planetUID", ship.loc.refUID)
-            startActivity(intent)
-        }
-        if (ship.loc.level == SYSTEM) {
-            val intent = Intent(this, StarsSlideActivity::class.java)
-            intent.putExtra("starUID", ship.loc.refUID)
-            startActivity(intent)
-        }
-
-
+    fun goToLocationShip(view: View) {
+        GlobalButtonOnClick.goToLocationShip(view)
     }
 
-    /** Called when the user taps the make Pod button */
     fun makePod(view: View) {
-
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-            return;
-        }
-        lastClickTime = SystemClock.elapsedRealtime();
-
-
-        val parent = view.parent as View
-        val ship: GBShip = parent.tag as GBShip
-
-        val message = "Ordered Pod in Factory " + ship.name
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-
-        universe.makePod(ship)
-
+        GlobalButtonOnClick.makePod(view)
     }
 
-    /** Called when the user taps the make Cruiser button */
     fun makeCruiser(view: View) {
-
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-            return;
-        }
-        lastClickTime = SystemClock.elapsedRealtime();
-
-        val parent = view.parent as View
-        val ship: GBShip = parent.tag as GBShip
-
-        val message = "Ordered Cruiser in Factory " + ship.name
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-
-        universe.makeCruiser(ship)
-
+        GlobalButtonOnClick.makeCruiser(view)
     }
 
     /** Called when the user taps the fly  To button */
     fun flyTo(view: View) {
-
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-            return;
-        }
-        lastClickTime = SystemClock.elapsedRealtime();
-
-        val parent = view.parent as View
-        val ship: GBShip = parent.tag as GBShip
-
-        var spinner = view.tag as Spinner
-        var destination = spinner.selectedItem.toString()
-        var planet: GBPlanet? = null
-
-        for (p in GBController.universe.allPlanets) { // TODO this is wasteful. Need to refactor to locations
-            if (p.name == destination)
-                planet = p
-        }
-
-        Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT).show()
-
-        if (ship.idxtype == POD) {
-            GBController.universe.flyShipLanded(ship, planet)
-        } else {
-            GBController.universe.flyShipOrbit(ship, planet)
-        }
+        GlobalButtonOnClick.flyTo(view)
     }
 }

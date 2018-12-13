@@ -2,11 +2,11 @@ package com.zwsi.gb.feature
 
 import android.content.Intent
 import android.os.SystemClock
+import android.support.v4.content.ContextCompat.startActivity
 import android.view.View
+import android.widget.Spinner
 import android.widget.Toast
-import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBPlanet
-import com.zwsi.gblib.GBStar
+import com.zwsi.gblib.*
 
 class GlobalButtonOnClick {
 
@@ -168,6 +168,98 @@ class GlobalButtonOnClick {
             view.context.startActivity(intent)
 
         }
+
+        /** Called when the user taps the Go button */
+        fun goToLocationShip(view: View) {
+
+            val ship = view.tag as GBShip
+
+            Toast.makeText(view.context, ship.loc.getLocDesc(), Toast.LENGTH_SHORT).show()
+
+            if ((ship.loc.level == GBLocation.LANDED) or (ship.loc.level == GBLocation.ORBIT)) {
+                val intent = Intent(view.context, PlanetsSlideActivity::class.java)
+
+                intent.putExtra("title", "Planet")
+
+                val displayUID = ArrayList<Int>()
+                displayUID.add(ship.loc.refUID)
+                intent.putExtra("planets", displayUID)
+
+                intent.putExtra("planetUID", ship.loc.refUID)
+                view.context.startActivity(intent)
+            }
+            if (ship.loc.level == GBLocation.SYSTEM) {
+                val intent = Intent(view.context, StarsSlideActivity::class.java)
+                intent.putExtra("starUID", ship.loc.refUID)
+                view.context.startActivity(intent)
+            }
+
+
+        }
+
+        /** Called when the user taps the make Pod button */
+        fun makePod(view: View) {
+
+            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
+
+            val ship = view.tag as GBShip
+
+            val message = "Ordered Pod in Factory " + ship.name
+            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
+            GBController.universe.makePod(ship)
+
+        }
+
+        /** Called when the user taps the make Cruiser button */
+        fun makeCruiser(view: View) {
+
+            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
+
+            val ship = view.tag as GBShip
+
+            val message = "Ordered Cruiser in Factory " + ship.name
+            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
+            GBController.universe.makeCruiser(ship)
+
+        }
+
+        /** Called when the user taps the fly  To button */
+        fun flyTo(view: View) {
+
+            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
+
+            val ship = view.getTag(R.id.TAG_FLYTO_SHIP) as GBShip // TODO Hardcoded keys, what can go wrong
+
+
+            var spinner = view.getTag(R.id.TAG_FLYTO_SPINNER) as Spinner
+            var destination = spinner.selectedItem.toString()
+            var planet: GBPlanet? = null
+
+            for (p in GBController.universe.allPlanets) { // TODO this is wasteful. Need to refactor to locations
+                if (p.name == destination)
+                    planet = p
+            }
+
+            Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT).show()
+
+            if (ship.idxtype == GBData.POD) {
+                GBController.universe.flyShipLanded(ship, planet)
+            } else {
+                GBController.universe.flyShipOrbit(ship, planet)
+            }
+        }
+
 
     }
 }

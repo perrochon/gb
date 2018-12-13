@@ -9,10 +9,10 @@ import android.support.v7.app.AppCompatActivity
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Spinner
 import android.widget.Toast
+import com.zwsi.gblib.*
 import com.zwsi.gblib.GBController.Companion.universe
-import com.zwsi.gblib.GBPlanet
-import com.zwsi.gblib.GBStar
 
 
 class MapActivity : AppCompatActivity() {
@@ -49,7 +49,12 @@ class MapActivity : AppCompatActivity() {
                         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.details, fragment!!)
                         ft.commit()
-
+                    } else if (any is GBShip) {
+                        val ft = getSupportFragmentManager().beginTransaction()
+                        val fragment = ShipFragment.newInstance(any.uid.toString())
+                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        ft.replace(R.id.details, fragment!!)
+                        ft.commit()
                     } else {
                         val fragment = getSupportFragmentManager().findFragmentById(R.id.details)
                         if (fragment != null) {
@@ -106,6 +111,21 @@ class MapActivity : AppCompatActivity() {
         GlobalButtonOnClick.goToShips(view)
     }
 
+    fun goToLocationShip(view: View) {
+        GlobalButtonOnClick.goToLocationShip(view)
+    }
 
+    fun makePod(view: View) {
+        GlobalButtonOnClick.makePod(view)
+    }
+
+    fun makeCruiser(view: View) {
+        GlobalButtonOnClick.makeCruiser(view)
+    }
+
+    /** Called when the user taps the fly  To button */
+    fun flyTo(view: View) {
+        GlobalButtonOnClick.flyTo(view)
+    }
 
 }

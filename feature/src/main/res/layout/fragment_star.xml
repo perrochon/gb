@@ -18,6 +18,7 @@
             android:id="@+id/StarStats"
             android:textColor="@android:color/holo_blue_bright"
             android:text=""
+            tools:text="Star Details"
             android:textSize="24sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

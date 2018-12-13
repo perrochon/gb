@@ -83,10 +83,7 @@ class ShipFragment : Fragment() {
             paint = stats.paint
             paint.textSize = 40f
 
-            stats.setText(
-                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor " +
-                        "invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n"
-            )
+            stats.setText("Lorem ipsum")
 
             stats.append("\n")
 
@@ -125,7 +122,12 @@ class ShipFragment : Fragment() {
             spinner.adapter = adapter
 
             val flyButton = view.findViewById<Button>(R.id.flyTo)
-            flyButton.tag = spinner
+            flyButton.setTag(R.id.TAG_FLYTO_SPINNER,spinner)
+            flyButton.setTag(R.id.TAG_FLYTO_SHIP, sh)
+
+            view.findViewById<Button>(R.id.goButton).tag=sh
+            view.findViewById<Button>(R.id.makePod).tag=sh
+            view.findViewById<Button>(R.id.makeCruiser).tag=sh
 
         }
         return view
