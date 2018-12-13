@@ -18,6 +18,7 @@
 * New should reset start view for MapView. (New is god level, so this is not critical)
 * Review orders vs. Scheduler. Should use scheduler for orders, too.
 * Upgrading thread management, maybe start using a handler
+* Refactor firing solution and move logic for firing and taking damage into each ship's class (depends on ship refactor)
 * Remove TileView library and code?
 * Get Rid of Feature Module? Having one feature module is kind of pointless, it seems
 * Refactor and apply naming conventions for UI elements (btn_do etc.) and other things

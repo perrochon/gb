@@ -134,7 +134,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         bmRaceTortoise = Bitmap.createScaledBitmap(bmRaceTortoise!!, w.toInt(), h.toInt(), true)!!
 
         // Do a better way. If it works, we replace above... Neet do figure out planet/star, where we divide by 2/1
-        var drawables = listOf<Int>(R.drawable.podt, R.drawable.cruisert, R.drawable.factory)
+        var drawables = listOf<Int>(R.drawable.podt, R.drawable.cruisert, R.drawable.factory, R.drawable.beetlepod)
         for (i in drawables) {
             val bm = BitmapFactory.decodeResource(getResources(), i)!!
             w = density / 420f * bm!!.getWidth() / 60
@@ -450,15 +450,27 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         sourceToViewCoord(sP1, vP1)
         when (sh.idxtype) {
 
+            // TODO: Ships should tell give me the ID of their bitmap and this when statement would go away
+            // But GBShips don't know anything about bitmaps, so the logic needs to live elsewhere.
+
             POD -> {
                 canvas.drawCircle(vP1.x, vP1.y, radius, paint)
                 if (1 > normScale) {
-                    canvas.drawBitmap(
-                        bitmaps[R.drawable.podt]!!,
-                        vP1.x - bitmaps[R.drawable.podt]!!.width / 2,
-                        vP1.y - bitmaps[R.drawable.podt]!!.height / 2,
-                        null
-                    )
+                    if (sh.race == GBViewModel.viewRaces[2]) {
+                        canvas.drawBitmap(
+                            bitmaps[R.drawable.beetlepod]!!,
+                            vP1.x - bitmaps[R.drawable.beetlepod]!!.width / 2,
+                            vP1.y - bitmaps[R.drawable.beetlepod]!!.height / 2,
+                            null
+                        )
+                    } else {
+                        canvas.drawBitmap(
+                            bitmaps[R.drawable.podt]!!,
+                            vP1.x - bitmaps[R.drawable.podt]!!.width / 2,
+                            vP1.y - bitmaps[R.drawable.podt]!!.height / 2,
+                            null
+                        )
+                    }
                 }
             }
             CRUISER -> {

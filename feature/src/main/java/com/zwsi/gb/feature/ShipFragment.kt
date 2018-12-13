@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
+import com.zwsi.gblib.GBData.Companion.POD
 
 class ShipFragment : Fragment() {
 
@@ -46,26 +48,33 @@ class ShipFragment : Fragment() {
 
             view!!.tag = sh
 
-            val imageView = view.findViewById<ImageView>(R.id.ShipView)
+            val shipView = view.findViewById<ImageView>(R.id.ShipView)
+            val shipRaceView = view.findViewById<ImageView>(R.id.ShipRaceView)
 
             if (sh.idxtype == FACTORY) {
-                imageView.setImageResource(R.drawable.factory)
+                shipView.setImageResource(R.drawable.factory)
 
                 view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
                 view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
 
-            } else if (sh.idxtype == com.zwsi.gblib.GBData.POD) {
+            } else if (sh.idxtype == POD) {
                 if (sh.race.uid == 2) {
-                    imageView.setImageResource(R.drawable.beetlepod)
-
+                    shipView.setImageResource(R.drawable.beetlepod)
                 } else {
-                    imageView.setImageResource(R.drawable.podt)
+                    shipView.setImageResource(R.drawable.podt)
                 }
-            } else if (sh.idxtype == 2) {
-                imageView.setImageResource(R.drawable.cruisert)
+            } else if (sh.idxtype == CRUISER) {
+                shipView.setImageResource(R.drawable.cruisert)
             } else
-                imageView.setImageResource(R.drawable.yellow)
+                shipView.setImageResource(R.drawable.yellow)
 
+            when (sh.race.uid) {
+                // TODO Quality if Ships only knew their drawable.. Fix here and in MapView.drawShip()
+                0 -> shipRaceView.setImageResource((R.drawable.xenost))
+                1 -> shipRaceView.setImageResource((R.drawable.impit))
+                2 -> shipRaceView.setImageResource((R.drawable.beetle))
+                3 -> shipRaceView.setImageResource((R.drawable.tortoise))
+            }
 
             var stats = view.findViewById<TextView>(R.id.ShipStats)
             var paint = stats.paint
