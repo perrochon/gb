@@ -36,22 +36,32 @@ class GBOrder  {
     // Type Pod
     fun makePod(factory: GBShip) {
 
-        gbAssert{ type == -1 }
-        type = POD
-        uidShip = factory.uid
-        uidRace = factory.race.uid
-        this.loc = GBLocation(factory.loc.getPlanet()!!, rand.nextInt(factory.loc.getPlanet()!!.width), rand.nextInt(factory.loc.getPlanet()!!.height))
-
+        if (factory.health > 0) {
+            gbAssert { type == -1 }
+            type = POD
+            uidShip = factory.uid
+            uidRace = factory.race.uid
+            this.loc = GBLocation(
+                factory.loc.getPlanet()!!,
+                rand.nextInt(factory.loc.getPlanet()!!.width),
+                rand.nextInt(factory.loc.getPlanet()!!.height)
+            )
+        }
     }
 
     // Type Cruiser
     fun makeCruiser(factory: GBShip) {
-        gbAssert{ type == -1 }
-        type = CRUISER
-        uidShip = factory.uid
-        uidRace = factory.race.uid
-        this.loc = GBLocation(factory.loc.getPlanet()!!, rand.nextInt(factory.loc.getPlanet()!!.width), rand.nextInt(factory.loc.getPlanet()!!.height))
-
+        if (factory.health > 0) {
+            gbAssert { type == -1 }
+            type = CRUISER
+            uidShip = factory.uid
+            uidRace = factory.race.uid
+            this.loc = GBLocation(
+                factory.loc.getPlanet()!!,
+                rand.nextInt(factory.loc.getPlanet()!!.width),
+                rand.nextInt(factory.loc.getPlanet()!!.height)
+            )
+        }
     }
 
     fun execute() {
