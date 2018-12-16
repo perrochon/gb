@@ -7,17 +7,14 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        minSdkVersion 26
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-}
-
-// adding this to debug TileView
-repositories {
-    mavenCentral()
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -29,5 +26,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
-    implementation 'android.arch.lifecycle:extensions:1.1.1' // added this to get ViewModelProviders
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    // added this to get ViewModelProviders
 }
