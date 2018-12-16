@@ -3,9 +3,11 @@ package com.zwsi.gb.feature
 //import android.content.Intent
 //import android.graphics.Bitmap
 
+/*
 // To redirect stdout to the text view
 //import java.io.IOException
 //import java.io.OutputStream
+*/
 import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
