@@ -40,6 +40,7 @@ class GBSector constructor(val planet: GBPlanet) {
     private var ownerName = ""
 
     // population
+    // TODO BUG fix population. Right now it goes in mysterious ways
     var population = 0
         private set
 
