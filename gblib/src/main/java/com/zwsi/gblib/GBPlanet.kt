@@ -179,8 +179,6 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
         movePlanet()
 
-        var race: GBRace? = null // TODO this works while there is only one race...
-
         //Reproduction
         for (i in 0 until width * height) {
 
@@ -203,7 +201,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
             var from = temps2[i]
 
-            if (sectors[from].population > 0) {
+            if (sectors[from].population > 5) {
 
                 GBLog.d(
                     "Found population of ${sectors[from].population} in sector [${sectorX(from)}][${sectorY(
@@ -242,9 +240,14 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
         } else if (sectors[to].owner == sectors[from].owner) {
             //moving to a friendly sector
-            GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Reloc! $number move")
-            sectors[from].changePopulation(-number)
-            sectors[to].changePopulation(+number)
+            var movers = number
+            if (sectors[to].population + number > sectors[to].maxPopulation) {
+                // Not enough room for all
+                movers = sectors[to].maxPopulation - sectors[to].population / 2
+            }
+            GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Reloc! $movers move")
+            sectors[from].changePopulation(-movers)
+            sectors[to].changePopulation(+movers)
 
         } else {
             // moving to an enemy sector

@@ -5,6 +5,8 @@
 package com.zwsi.gblib
 
 import kotlin.math.floor
+import kotlin.math.max
+import kotlin.math.min
 
 class GBSector constructor(val planet: GBPlanet) {
 
@@ -43,14 +45,18 @@ class GBSector constructor(val planet: GBPlanet) {
 
     fun assignPopulation(r: GBRace, number: Int) {
         assert(population == 0)
-        assert(number <= maxPopulation)
-        changePopulation(number)
+        population = number
         owner = r
     }
 
     fun changePopulation(number: Int) {
-        population += number
-        planet.population += number
+        var deltaPop = number
+        if (population + deltaPop > maxPopulation)
+            deltaPop = maxPopulation - population
+        if (population + deltaPop < 0)
+            deltaPop = - population
+        population += deltaPop
+        planet.population += deltaPop
     }
 
     fun growPopulation() {
