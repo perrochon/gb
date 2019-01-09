@@ -9,7 +9,7 @@ import kotlin.math.floor
 class GBSector constructor(val planet: GBPlanet) {
 
     // Fixed Properties: type, typeSymbol, revenue
-    internal var type = -1        // nonexisting type
+    var type = -1        // nonexisting type
         private set
     internal var typeSymbol = "?"
         private set
@@ -26,7 +26,7 @@ class GBSector constructor(val planet: GBPlanet) {
     }
 
     // Changing Properties: owner, population
-    internal var owner: GBRace? = null
+    var owner: GBRace? = null
         set(r) {
             field = r!!
             ownerID = field!!.uid
@@ -38,10 +38,12 @@ class GBSector constructor(val planet: GBPlanet) {
     private var ownerName = ""
 
     // population
-    internal var population = 0
+    var population = 0
         private set
 
     fun assignPopulation(r: GBRace, number: Int) {
+        assert(population == 0)
+        assert(number <= maxPopulation)
         changePopulation(number)
         owner = r
     }

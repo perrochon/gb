@@ -79,15 +79,15 @@ class PlanetsScrollActivity : AppCompatActivity() {
 
                     canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
 
-                    if (p.sectors[j].getPopulation() > 0) {
+                    if (p.sectors[j].population > 0) {
                         canvas.drawText(
-                            p.sectors[j].getPopulation().toString(),
+                            p.sectors[j].population.toString(),
                             p.sectorX(j) * 50f,
                             p.sectorY(j) * 50f + 40f,
                             paint
                         )
                         canvas.drawText(
-                            p.sectors[j].getOwner()!!.name.substring(0,1),
+                            p.sectors[j].owner!!.name.substring(0,1),
                             p.sectorX(j) * 50f + 20,
                             p.sectorY(j) * 50f + 20f,
                             paint

@@ -5,6 +5,7 @@
 
 package com.zwsi.gblib
 
+import junit.framework.Assert.assertTrue
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -47,14 +48,16 @@ class GBSectorTest {
 
         s.chooseType(2)
         s.assignPopulation(r, 10)
-        GBLog.i("Birthrate = ${s.getBirthrate()}")
-        GBLog.i("MaxPopulation = ${s.maxPopulation}")
+        //GBLog.i("Birthrate = ${s.getBirthrate()}")
+        //GBLog.i("MaxPopulation = ${s.maxPopulation}")
+        //GBLog.i("Population = ${s.population}")
 
         assertEquals(10, s.population)
-        for (i in 1..100) {
+        for (i in 1..1000) {
             s.growPopulation()
-            GBLog.i("Population = ${s.population}")
+            //GBLog.i("Population = ${s.population}")
         }
+        assertTrue("Population not close to MaxPopulation", s.maxPopulation < s.population + 10)
     }
 
 
