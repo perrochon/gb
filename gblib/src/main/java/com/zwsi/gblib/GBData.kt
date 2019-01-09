@@ -63,10 +63,6 @@ class GBData {
             return planetTypesNames[n]
         }
 
-        fun sectorTypeConsoleFromIdx(n: Int): String {
-            return sectorTypesConsole[n]
-        }
-
         fun selectPlanetHeight(typeIdx: Int): Int {
             val low = planetTypesSize[typeIdx][0]
             val hi = planetTypesSize[typeIdx][1]
@@ -99,8 +95,22 @@ class GBData {
         // Sector Types from: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
         // Source had 7 types, added 8th type "rock" because I had a bitmap, and because asteroids and mountains are different
         //private val sectorTypesNames = arrayOf("Water", "Land", "Gas", "Desert", "Mountain", "Forest", "Ice", "Rock")
-        private val sectorTypesConsole =
-            arrayOf("~", ".", "@", "-", "^", "*", "#", "x") //
+
+        private val sectorTypesConsole= arrayOf("~", ".", "@", "-", "^", "*", "#", "x")
+        fun sectorTypeConsoleFromIdx(n: Int): String {
+            return sectorTypesConsole[n]
+        }
+
+        private val sectorTypesMoney= arrayOf(1, 2, 1, 1, 2, 1, 0, 2)
+        fun sectorMoneyFromIdx(n: Int): Int {
+            return sectorTypesMoney[n]
+        }
+
+        private val sectorTypesMaxPopulation= arrayOf(1000, 2000, 200, 500, 800, 5000, 100, 200)
+        fun sectorMaxPopulationFromIdx(n: Int): Int {
+            return sectorTypesMaxPopulation[n]
+        }
+
         val sectorTypesChance = arrayOf(
             intArrayOf(0, 0, 0, 0, 1, 1, 1, 1, 5, 6), // M Class
             intArrayOf(2, 2, 2, 2, 2, 2, 2, 2, 2, 2), // Jovian

@@ -74,7 +74,8 @@ class GBPlanet(val sid: Int, val star: GBStar) {
         sectors = Array(width * height) { GBSector(this) }
 
         for (i in 0 until width * height) {
-            sectors[i].type = GBData.sectorTypesChance[idxtype][GBData.rand.nextInt(10)]
+            sectors[i].chooseType(idxtype)
+
         }
 
         GBLog.d(
@@ -183,13 +184,13 @@ class GBPlanet(val sid: Int, val star: GBStar) {
         //Reproduction
         for (i in 0 until width * height) {
 
-            if (sectors[i].getPopulation() > 0) {
+            if (sectors[i].population > 0) {
 
-                GBLog.d("Found population of ${sectors[i].getPopulation()} in sector [${sectorX(i)}][${sectorY(i)}] - growing")
+                GBLog.d("Found population of ${sectors[i].population} in sector [${sectorX(i)}][${sectorY(i)}] - growing")
 
                 sectors[i].growPopulation()
 
-                GBLog.d("New Population is ${sectors[i].getPopulation()}")
+                GBLog.d("New Population is ${sectors[i].population}")
 
             }
         }
@@ -202,15 +203,15 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
             var from = temps2[i]
 
-            if (sectors[from].getPopulation() > 0) {
+            if (sectors[from].population > 0) {
 
                 GBLog.d(
-                    "Found population of ${sectors[from].getPopulation()} in sector [${sectorX(from)}][${sectorY(
+                    "Found population of ${sectors[from].population} in sector [${sectorX(from)}][${sectorY(
                         from
                     )}] - migrating"
                 )
 
-                val movers = sectors[from].getPopulation() * sectors[from].getOwner()!!.explore / 100
+                val movers = sectors[from].population * sectors[from].owner!!.explore / 100
 
                 when (GBData.rand.nextInt(4)) {
                     0 -> migratePopulation(movers, from, east(from))
@@ -233,13 +234,13 @@ class GBPlanet(val sid: Int, val star: GBStar) {
         //assert(to < sectors.size) // TODO: This should never happen, but does in some cases.
         if (to >= sectors.size) return
 
-        if (sectors[to].getOwner() == null) {
+        if (sectors[to].owner == null) {
             //moving into an empty sector
             GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Explore $number move")
             sectors[from].changePopulation(-number)
-            sectors[to].setPopulation(sectors[from].getOwner()!!, number)
+            sectors[to].assignPopulation(sectors[from].owner!!, number)
 
-        } else if (sectors[to].getOwner() == sectors[from].getOwner()) {
+        } else if (sectors[to].owner == sectors[from].owner) {
             //moving to a friendly sector
             GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Reloc! $number move")
             sectors[from].changePopulation(-number)

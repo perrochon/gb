@@ -28,11 +28,11 @@ class GBTest {
                     GBController.doUniverse()
                 }
 
-                print("Time for do: $elapsed ")
-                for (j in 1..elapsed/10000 ) {
-                    print (" ")
-                }
-                print ("*\n")
+//                print("Time for do: $elapsed ")
+//                for (j in 1..elapsed/10000 ) {
+//                    print (" ")
+//                }
+//                print ("*\n")
             }
         }
 

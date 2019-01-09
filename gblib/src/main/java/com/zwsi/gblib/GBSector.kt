@@ -4,24 +4,56 @@
 
 package com.zwsi.gblib
 
+import kotlin.math.floor
+
 class GBSector constructor(val planet: GBPlanet) {
 
-    var type = -1        // nonexisting type
+    // Fixed Properties: type, typeSymbol, revenue
+    internal var type = -1        // nonexisting type
+        private set
+    internal var typeSymbol = "?"
+        private set
+    internal var revenue = 0
+        private set
+    internal var maxPopulation = 0
+        private set
 
-    internal var type_symbol = "?"
-        get() = GBData.sectorTypeConsoleFromIdx(type)
+    fun chooseType(planetIdxType: Int) {
+        type = GBData.sectorTypesChance[planetIdxType][GBData.rand.nextInt(10)]
+        typeSymbol = GBData.sectorTypeConsoleFromIdx(type)
+        revenue = GBData.sectorMoneyFromIdx(type)
+        maxPopulation = GBData.sectorMaxPopulationFromIdx(type)
+    }
 
-    private var population = 0
-    fun setPopulation(r:GBRace, number: Int) {
+    // Changing Properties: owner, population
+    internal var owner: GBRace? = null
+        set(r) {
+            field = r!!
+            ownerID = field!!.uid
+            ownerName = field!!.name
+        }
+
+    private var ownerID: Int = -1
+        private set
+    private var ownerName = ""
+
+    // population
+    internal var population = 0
+        private set
+
+    fun assignPopulation(r: GBRace, number: Int) {
         changePopulation(number)
-        setOwner(r)
+        owner = r
     }
-    fun getPopulation(): Int {
-        return population
-    }
+
     fun changePopulation(number: Int) {
         population += number
         planet.population += number
+    }
+
+    fun growPopulation() {
+        val populationChange =  population.toFloat() * (getBirthrate().toFloat() / 100f) * (1f - population.toFloat() / maxPopulation.toFloat())
+        changePopulation(populationChange.toInt())
     }
 
     fun landPopulation(r: GBRace, number: Int) {
@@ -30,34 +62,16 @@ class GBSector constructor(val planet: GBPlanet) {
             // Can't land on populated sector. They all die...
             return
         }
-        setPopulation(r, number)
+        assignPopulation(r, number)
     }
 
-
-    private var owner: GBRace? = null
-    private var ownerID: Int = -1
-    private var ownerName = ""
-
-    fun setOwner(r: GBRace?) {
-        owner = r
-        ownerID = r!!.uid
-        ownerName = r.name
-    }
-
-
-    fun growPopulation() {
-        changePopulation (population * getBirthrate() / 100)
-    }
-
-    fun getBirthrate() : Int {
+    fun getBirthrate(): Int {
         return owner?.birthrate ?: 0
     }
-    fun getOwner() : GBRace? {return owner}
 
     internal fun consoleDraw(): String {
-
         if (population == 0) {
-            return " $type_symbol "
+            return " $typeSymbol "
         } else {
             //return " \u001B[7m $type_symbol \u001B[m ";
             return " $ownerID "
@@ -65,6 +79,5 @@ class GBSector constructor(val planet: GBPlanet) {
 
         }
     }
-
 }
 
