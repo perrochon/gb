@@ -209,7 +209,7 @@ class GBPlanet(val sid: Int, val star: GBStar) {
                     )}] - migrating"
                 )
 
-                val movers = sectors[from].population * sectors[from].owner!!.explore / 100
+                val movers = sectors[from].population * sectors[from].owner!!.explore / 100 / 4
 
                 when (GBData.rand.nextInt(4)) {
                     0 -> migratePopulation(movers, from, east(from))
@@ -234,32 +234,36 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
         if (sectors[to].owner == null) {
             //moving into an empty sector
-            GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Explore $number move")
-            sectors[from].changePopulation(-number)
-            sectors[to].assignPopulation(sectors[from].owner!!, number)
+            var movers = number
+            if (sectors[to].population + number > sectors[to].maxPopulation) {
+                // Not enough room for all
+                movers = (sectors[to].maxPopulation - sectors[to].population) / 2
+            }
+
+            GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Explore $movers move")
+            sectors[from].movePopulation(movers, sectors[to])
 
         } else if (sectors[to].owner == sectors[from].owner) {
             //moving to a friendly sector
             var movers = number
             if (sectors[to].population + number > sectors[to].maxPopulation) {
                 // Not enough room for all
-                movers = sectors[to].maxPopulation - sectors[to].population / 2
+                movers = (sectors[to].maxPopulation - sectors[to].population) / 2
             }
             GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Reloc! $movers move")
-            sectors[from].changePopulation(-movers)
-            sectors[to].changePopulation(+movers)
+            sectors[from].movePopulation(movers, sectors[to])
 
         } else {
             // moving to an enemy sector
-            // We have a very simple form of war: They all die
-            GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Attack! $number die")
-            sectors[from].changePopulation(-number)
+            // We have a very simple form of war: They don't move... GBSector doesn't support war yet.
+            //GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Attack! $number die")
         }
     }
 
-    fun landPopulation(r: GBRace, number: Int) {
+    fun landPopulationOnEmptySector(r: GBRace, number: Int) {
         GBLog.d("GBPlanet: Landing $number of ${r.name}")
-        sectors[GBData.rand.nextInt(width * height)].landPopulation(r, number)
+        val target = sectors.toList().shuffled().firstOrNull({it.population==0})
+        target?.adjustPopulation(r, number) // If no empty sector, no population is landed
     }
 
 }

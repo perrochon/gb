@@ -29,6 +29,8 @@ class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
     val description: String
     val color: String
 
+    var population = 0 // (planetary) population. Ships don't have population
+
     internal val raceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
     internal var lastRaceShipsUpdate = -1
     internal var raceShipsList = raceShips.toList()

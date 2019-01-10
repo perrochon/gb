@@ -22,7 +22,6 @@ class GBSectorTest {
         assertEquals("?", s.typeSymbol)
         assertEquals(0, s.population)
         assertNull(s.owner)
-        assertEquals(0, s.getBirthrate())
 
         for (i in 0..7) {
             for (j in 1..10) { // Try a few times, as sector type is random
@@ -33,10 +32,15 @@ class GBSectorTest {
         }
 
         val r = universe.allRaces[0]
-        s.assignPopulation(r, 1000)
+        s.adjustPopulation(r, 100)
         assertEquals(r,s.owner)
-        assertEquals(r.birthrate, s.getBirthrate())
-        assertEquals(1000, s.population)
+        assertEquals(r.birthrate, s.owner!!.birthrate)
+        assertEquals(100, s.population)
+        s.adjustPopulation(r,-50)
+        assertEquals(50, s.population)
+        s.adjustPopulation(r,-50)
+        assertEquals(0, s.population)
+        assertNull(s.owner)
     }
 
     @Test
@@ -47,7 +51,7 @@ class GBSectorTest {
         val s = GBSector(p)
 
         s.chooseType(2)
-        s.assignPopulation(r, 10)
+        s.adjustPopulation(r, 10)
         //GBLog.i("Birthrate = ${s.getBirthrate()}")
         //GBLog.i("MaxPopulation = ${s.maxPopulation}")
         //GBLog.i("Population = ${s.population}")

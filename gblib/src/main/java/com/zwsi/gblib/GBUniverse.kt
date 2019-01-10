@@ -1,7 +1,6 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBData.Companion.CRUISER
-import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.rand
 import java.util.*
 import kotlin.math.PI
@@ -314,7 +313,7 @@ class GBUniverse {
 
     fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
         GBLog.d("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
-        p.landPopulation(allRaces[uId], number)
+        p.landPopulationOnEmptySector(allRaces[uId], number)
     }
 
 
