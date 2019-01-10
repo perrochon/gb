@@ -56,7 +56,7 @@ class GBSector constructor(val planet: GBPlanet) {
     var population = 0
         private set
 
-    fun changePopulation(difference: Int) {
+    private fun changePopulation(difference: Int) {
         // TODO Launch replace assert by just returning and doing nothing
         assert(population + difference <= maxPopulation, {"Attempt to increase population beyond max"})
         assert(population + difference >= 0, {"Attempt to decrease population below 0"})
@@ -65,9 +65,12 @@ class GBSector constructor(val planet: GBPlanet) {
         population += difference
         planet.population += difference
         owner!!.population += difference
+        if (population == 0) {
+            owner = null
+        }
     }
 
-    fun adjustPopulation(r: GBRace, number: Int) {
+    internal fun adjustPopulation(r: GBRace, number: Int) {
         GBLog.d("GBSector: Landing $number of ${r.name}")
         assert(population + number <= maxPopulation)
         assert(population + number >= 0 )
@@ -76,23 +79,25 @@ class GBSector constructor(val planet: GBPlanet) {
 
         owner = r
         changePopulation(number)
-        if (population == 0) {
-            owner = null
-        }
+
     }
 
-    fun movePopulation(number: Int, to: GBSector) {
+    internal fun movePopulation(number: Int, to: GBSector) {
         assert(owner != null)
         assert((to.owner == owner) || (to.owner == null))
         assert(number <= population)
         assert(to.population + number <= to.maxPopulation, {"${to.population},${number},${to.maxPopulation}"})
 
-        changePopulation(-number)
         to.owner = owner
         to.changePopulation(number)
+        changePopulation(-number)
+
     }
 
-    fun growPopulation() {
+    internal fun growPopulation() {
+
+        if (population == 0) return
+
         var difference =
             (population.toFloat() * (owner!!.birthrate.toFloat() / 100f) * (1f - population.toFloat() / maxPopulation.toFloat())).toInt()
 
