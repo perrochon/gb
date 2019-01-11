@@ -85,6 +85,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     var drawUntilStats = 0L
     var last20 = arrayListOf<Long>(60)
     var numberOfDraws = 0L
+    var screenWidthDp = 0
 
     var turn: Int? = 0  // TODO why nullable
 
@@ -96,6 +97,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         density = resources.displayMetrics.densityDpi.toFloat()
         strokeWidth = (density / 60f).toInt()
+
+        screenWidthDp =  resources.displayMetrics.widthPixels
 
         paint.isAntiAlias = true
         paint.strokeCap = Cap.ROUND
@@ -134,7 +137,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         bmRaceTortoise = Bitmap.createScaledBitmap(bmRaceTortoise!!, w.toInt(), h.toInt(), true)!!
 
         // Do a better way. If it works, we replace above... Neet do figure out planet/star, where we divide by 2/1
-        var drawables = listOf<Int>(R.drawable.podt, R.drawable.cruisert, R.drawable.factory, R.drawable.beetlepod)
+        val drawables = listOf<Int>(R.drawable.podt, R.drawable.cruisert, R.drawable.factory, R.drawable.beetlepod)
         for (i in drawables) {
             val bm = BitmapFactory.decodeResource(getResources(), i)!!
             w = density / 420f * bm!!.getWidth() / 60
@@ -153,9 +156,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         setImage(fullResImage, lowResImage);
         setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
-        setDoubleTapZoomScale(1.5f)
+        setDoubleTapZoomScale(screenWidthDp/700f)
         setScaleAndCenter(
-            1.5f,
+            screenWidthDp/700f,
             PointF(
                 com.zwsi.gb.feature.GBViewModel.viewRaces[0].home.star.loc.x * uToS,
                 com.zwsi.gb.feature.GBViewModel.viewRaces[0].home.star.loc.y * uToS
@@ -172,9 +175,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // TODO Perf MapView Drawing Performance: We do star visibility check 4 times on the whole list.
         //  Saves ~100mus when none are visible. Less when we actually draw
 
-        // Don't show the tiles on high zoom, as it's blurry anyway
-        // Problem with this may be that clicks no longer get handled propertly
-//        if (scale < 8)
         super.onDraw(canvas)
 
         // Don't draw anything before image is ready
@@ -229,29 +229,29 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             var l = 1f
             val h = 50
 
-            //            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
+                        canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
             canvas.drawText("Norm:${normScale.f(2)}|Scale:${scale.f(2)}|Turn:${turn!!.f(4)}", 8f, l++ * h, paint)
-            //            canvas.drawText(
-            //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
-            //                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
-            //            )
-            //            canvas.drawText(
-            //                "Uvisible: ${(vr.right - vr.left) / uToS}x${(vr.bottom - vr.top) / uToS}",
-            //                8f,
-            //                l++ * h,
-            //                paint
-            //            )
-            //            canvas.drawText(
-            //                "Svisible: ${(vr.right - vr.left)}x${(vr.bottom - vr.top)}" + " at " + vr,
-            //                8f,
-            //                l++ * h,
-            //                paint
-            //            )
-//            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
-//            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
-//            canvas.drawText(
-//                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
-//            )
+                        canvas.drawText(
+                            "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
+                                    + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
+                        )
+                        canvas.drawText(
+                            "Uvisible: ${(vr.right - vr.left) / uToS}x${(vr.bottom - vr.top) / uToS}",
+                            8f,
+                            l++ * h,
+                            paint
+                        )
+                        canvas.drawText(
+                            "Svisible: ${(vr.right - vr.left)}x${(vr.bottom - vr.top)}" + " at " + vr,
+                            8f,
+                            l++ * h,
+                            paint
+                        )
+            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
+            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
+            canvas.drawText(
+                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
+            )
 //            canvas.drawText(
 //                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(
 //                    4
@@ -261,7 +261,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //                paint
 //            )
             canvas.drawText(
-                "Do:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average()!! / 1000).toInt().f(
+                "Do:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average() / 1000).toInt().f(
                     4
                 )}μs",
                 8f,

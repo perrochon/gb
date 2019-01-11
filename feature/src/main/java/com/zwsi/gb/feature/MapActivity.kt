@@ -2,17 +2,17 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
 import android.content.Context
-import android.content.Intent
+import android.graphics.PointF
 import android.os.Bundle
-import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Spinner
-import android.widget.Toast
-import com.zwsi.gblib.*
-import com.zwsi.gblib.GBController.Companion.universe
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gblib.GBData
+import com.zwsi.gblib.GBPlanet
+import com.zwsi.gblib.GBShip
+import com.zwsi.gblib.GBStar
 
 
 class MapActivity : AppCompatActivity() {
@@ -38,29 +38,53 @@ class MapActivity : AppCompatActivity() {
 
                     val any = imageView.clickTarget(e)
                     if (any is GBPlanet) {
+                        imageView.animateScaleAndCenter(
+                            25f, PointF( // TODO Quality replace this with a constant from the view
+                                any.loc.getLoc().x * imageView.uToS,
+                                (any.loc.getLoc().y - 1f ) * imageView.uToS
+                            )
+                        )!!
+                            .withDuration(500)
+                            .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
+                            .withInterruptible(false)
+                            .start()
+
                         val ft = getSupportFragmentManager().beginTransaction()
                         val fragment = PlanetFragment.newInstance(any.uid.toString())
                         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        ft.replace(R.id.details, fragment!!)
+                        ft.replace(R.id.details, fragment)
                         ft.commit()
+
                     } else if (any is GBStar) {
+                        imageView.animateScaleAndCenter(
+                            1.5f, PointF( // TODO Quality replace this with a constant from the view
+                                any.loc.getLoc().x * imageView.uToS,
+                                (any.loc.getLoc().y - 17f ) * imageView.uToS
+                            )
+                        )!!
+                            .withDuration(500)
+                            .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
+                            .withInterruptible(false)
+                            .start()
+
                         val ft = getSupportFragmentManager().beginTransaction()
                         val fragment = StarFragment.newInstance(any.uid.toString())
                         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        ft.replace(R.id.details, fragment!!)
+                        ft.replace(R.id.details, fragment)
                         ft.commit()
+
                     } else if (any is GBShip) {
                         val ft = getSupportFragmentManager().beginTransaction()
                         val fragment = ShipFragment.newInstance(any.uid.toString())
                         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        ft.replace(R.id.details, fragment!!)
+                        ft.replace(R.id.details, fragment)
                         ft.commit()
                     } else {
                         val fragment = getSupportFragmentManager().findFragmentById(R.id.details)
                         if (fragment != null) {
                             val ft = getSupportFragmentManager().beginTransaction()
                             ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                            ft.remove(fragment!!)
+                            ft.remove(fragment)
                             ft.commit()
                         }
                     }
@@ -99,15 +123,15 @@ class MapActivity : AppCompatActivity() {
     }
 
 
-    fun makeFactory(view:View) {
+    fun makeFactory(view: View) {
         GlobalButtonOnClick.makeFactory(view)
     }
 
-    fun goToLocation(view:View) {
+    fun goToLocation(view: View) {
         GlobalButtonOnClick.goToLocation(view)
     }
 
-    fun goToShips(view:View) {
+    fun goToShips(view: View) {
         GlobalButtonOnClick.goToShips(view)
     }
 

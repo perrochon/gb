@@ -6,7 +6,7 @@
 
 ## Code Quality
 ### Gating for Mission 2 (don't want to propagate bad code more)
-* Unit Test Mission 1
+* Unit Test Mission 1 (or at least the lib part...)
 * Review all unit tests, and add whats missing (GBLocation? GBxy? Destroyed ships)
 * Review all TODO and warnings
 * Refactor to use resources for strings for Missions

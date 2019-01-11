@@ -24,7 +24,6 @@ class GBSectorTest {
 
     }
 
-
     @Test
     fun basicSector() {
         val universe = GBController.makeUniverse()
