@@ -33,9 +33,9 @@ class MapActivity : AppCompatActivity() {
 
         // Gestures
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                if (imageView.isReady) {
 
+            override fun onDoubleTap(e: MotionEvent): Boolean {
+                if (imageView.isReady) {
                     val any = imageView.clickTarget(e)
                     if (any is GBPlanet) {
                         imageView.animateScaleAndCenter(
@@ -48,13 +48,6 @@ class MapActivity : AppCompatActivity() {
                             .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                             .withInterruptible(false)
                             .start()
-
-                        val ft = getSupportFragmentManager().beginTransaction()
-                        val fragment = PlanetFragment.newInstance(any.uid.toString())
-                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        ft.replace(R.id.details, fragment)
-                        ft.commit()
-
                     } else if (any is GBStar) {
                         imageView.animateScaleAndCenter(
                             1.5f, PointF( // TODO Quality replace this with a constant from the view
@@ -67,6 +60,26 @@ class MapActivity : AppCompatActivity() {
                             .withInterruptible(false)
                             .start()
 
+
+                    } else if (any is GBShip) {
+                    } else {
+                        return super.onDoubleTap(e)
+                    }
+                }
+                return true
+            }
+
+            override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                if (imageView.isReady) {
+                    val any = imageView.clickTarget(e)
+                    if (any is GBPlanet) {
+                        val ft = getSupportFragmentManager().beginTransaction()
+                        val fragment = PlanetFragment.newInstance(any.uid.toString())
+                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        ft.replace(R.id.details, fragment)
+                        ft.commit()
+
+                    } else if (any is GBStar) {
                         val ft = getSupportFragmentManager().beginTransaction()
                         val fragment = StarFragment.newInstance(any.uid.toString())
                         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
