@@ -15,7 +15,6 @@ import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
-import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
 import kotlin.system.measureNanoTime
@@ -56,6 +55,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     val uToS = sourceSize / universeSize
     val uToSf = uToS.toFloat()
     val sSystemSize = universe.systemBoundary * uToS
+    val sOrbitSize = 1 * uToS
+
+    // TODO Quality Do all calculations in Float, and only change to Integer before drawing calls where needed
 
 
     // Object creation outside onDraw. These are only used in onDraw, but here for performance reasons?
@@ -195,7 +197,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     override fun onDraw(canvas: Canvas) {
 
         // TODO Perf MapView Drawing Performance: We do star visibility check 4 times on the whole list.
-        //  Saves ~100mus when none are visible. Less when we actually draw
+        //  Saves ~100mus when none are starVisible. Less when we actually draw
 
         super.onDraw(canvas)
 
@@ -306,7 +308,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (normScale > 50) {
 
             for (r in GBViewModel.viewRaces) {
-                if (visible(r.home.star.loc.getLoc().x.toInt() * uToS, r.home.star.loc.getLoc().y.toInt() * uToS)) {
+                if (starVisible(r.home.star.loc.getLoc().x * uToSf, r.home.star.loc.getLoc().y * uToSf)) {
                     sP1.set(r.home.star.loc.getLoc().x * uToSf + 50, r.home.star.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)
                     when (r.idx) {
@@ -335,8 +337,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 for (shot in GBViewModel.viewShots) {
                     paint.color = shotColor
                     paint.strokeWidth = strokeWidth.toFloat() / 4
-                    if (visible(shot.from.x.toInt() * uToS, shot.from.y.toInt() * uToS) ||
-                        visible(shot.to.x.toInt() * uToS, shot.to.y.toInt() * uToS)
+                    if (starVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||
+                        starVisible(shot.to.x * uToSf, shot.to.y * uToSf)
                     ) {
 
                         sP1.set(shot.from.x * uToS, shot.from.y * uToS)
@@ -359,7 +361,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.color = labelColor
         paint.alpha = 128
         for (s in GBViewModel.viewStars) {
-            if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
+            if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawText(s.name, vP1.x, vP1.y - 45, paint)
@@ -371,9 +373,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
         if (101 >= normScale) {
             for (sh in GBViewModel.viewDeepSpaceShips) {
-                if (visible(
-                        sh.loc.getLoc().x.toInt() * uToS,
-                        sh.loc.getLoc().y.toInt() * uToS
+                if (starVisible(
+                        sh.loc.getLoc().x * uToSf,
+                        sh.loc.getLoc().y * uToSf
                     )
                 ) {
                     paint.color = Color.parseColor(sh.race.color)
@@ -388,45 +390,49 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         if (1 > normScale) {
             for (s in GBViewModel.viewStars) {
-                if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
+                if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                     for (p in s.starPlanets) { // TODO PERF only draw one...
-
-                        sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
-                        sourceToViewCoord(sP1, vP1)
-
-                        for (j in 0 until p.sectors.size) {
-
-                            var o = (1f * 0.4f) * uToS * scale
-                            var size = 4 * o / p.width
-                            //canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
-                            canvas.drawBitmap(
-                                bmASurface[p!!.sectors[j].type]!!,
-                                null,
-                                RectF(
-                                    vP1.x - 2 * o + p.sectorX(j) * size,
-                                    vP1.y - o + p.sectorY(j) * size,
-                                    vP1.x - 2 * o + p.sectorX(j) * size + size,
-                                    vP1.y - o + p.sectorY(j) * size + size
-                                ),
-                                null
+                        if (planetVisible(
+                                p.loc.getLoc().x * uToSf,
+                                p.loc.getLoc().y * uToSf
                             )
+                        ) { // TODO Quality do this in Float
 
-                            if (p.sectors[j].population > 0) {
-                                var fill = p.sectors[j].population.toFloat() / p.sectors[j].maxPopulation.toFloat()
-                                paint.style = Style.STROKE
-                                paint.color = Color.parseColor(p.sectors[j].owner!!.color)
-                                paint.strokeWidth = strokeWidth.toFloat()
-                                canvas.drawLine(
-                                    vP1.x - 2 * o + p.sectorX(j) * size + size / 10f,
-                                    vP1.y - o + p.sectorY(j) * size + size * 0.8f,
-                                    vP1.x - 2 * o + p.sectorX(j) * size + size / 10f + fill * size * 0.8f,
-                                    vP1.y - o + p.sectorY(j) * size + size * 0.8f, paint
+                            sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
+                            sourceToViewCoord(sP1, vP1)
+
+                            for (j in 0 until p.sectors.size) {
+
+                                var o = (1f * 0.4f) * uToS * scale
+                                var size = 4 * o / p.width
+                                //canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
+                                canvas.drawBitmap(
+                                    bmASurface[p!!.sectors[j].type]!!,
+                                    null,
+                                    RectF(
+                                        vP1.x - 2 * o + p.sectorX(j) * size,
+                                        vP1.y - o + p.sectorY(j) * size,
+                                        vP1.x - 2 * o + p.sectorX(j) * size + size,
+                                        vP1.y - o + p.sectorY(j) * size + size
+                                    ),
+                                    null
                                 )
+
+                                if (p.sectors[j].population > 0) {
+                                    var fill = p.sectors[j].population.toFloat() / p.sectors[j].maxPopulation.toFloat()
+                                    paint.style = Style.STROKE
+                                    paint.color = Color.parseColor(p.sectors[j].owner!!.color)
+                                    paint.strokeWidth = strokeWidth.toFloat()
+                                    canvas.drawLine(
+                                        vP1.x - 2 * o + p.sectorX(j) * size + size / 10f,
+                                        vP1.y - o + p.sectorY(j) * size + size * 0.9f,
+                                        vP1.x - 2 * o + p.sectorX(j) * size + size / 10f + fill * size * 0.8f,
+                                        vP1.y - o + p.sectorY(j) * size + size * 0.9f, paint
+                                    )
+                                }
                             }
                         }
-
                     }
-
                 }
             }
         }
@@ -436,7 +442,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private fun drawPlanetsAndShips(canvas: Canvas) {
         if (30 > normScale) {
             for (s in GBViewModel.viewStars) {
-                if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
+                if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                     for (p in s.starPlanets) {
                         sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                         sourceToViewCoord(sP1, vP1)
@@ -504,13 +510,28 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         paint.color = Color.parseColor(sh.race.color)
                         drawShip(canvas, sh)
                     } // ships loop
-                }// if star visible?
+                }// if star starVisible?
             }// star loop
         }
     }
 
-    fun visible(x: Int, y: Int): Boolean {
-        rect.set(x - sSystemSize, y - sSystemSize, x + sSystemSize, y + sSystemSize)
+    fun starVisible(x: Float, y: Float): Boolean {
+        rect.set(
+            (x - sSystemSize.toFloat()).toInt(),
+            (y - sSystemSize.toFloat()).toInt(),
+            (x + sSystemSize.toFloat()).toInt(),
+            (y + sSystemSize.toFloat()).toInt()
+        )
+        return intersects(rect, vr)
+    }
+
+    fun planetVisible(x: Float, y: Float): Boolean {
+        rect.set(
+            (x - sOrbitSize.toFloat()).toInt(),
+            (y - sOrbitSize.toFloat()).toInt(),
+            (x + sOrbitSize.toFloat()).toInt(),
+            (y + sOrbitSize.toFloat()).toInt()
+        )
         return intersects(rect, vr)
     }
 
@@ -659,7 +680,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Always draw stars
         paint.style = Style.STROKE
         for (s in GBViewModel.viewStars) {
-            if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
+            if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawBitmap(bmStar!!, vP1.x - bmStar!!.getWidth() / 2, vP1.y - bmStar!!.getWidth() / 2, null)
@@ -677,7 +698,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val radius = sSystemSize.toFloat() * scale
 
             for (s in GBViewModel.viewStars) {
-                if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
+                if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                     sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)
                     canvas.drawCircle(vP1.x, vP1.y, radius, paint)
