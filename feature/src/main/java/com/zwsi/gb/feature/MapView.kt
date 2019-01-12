@@ -244,6 +244,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
             paint.textSize = 40f
             paint.setTypeface(Typeface.MONOSPACE);
+            paint.setTextAlign(Paint.Align.LEFT);
             paint.style = Style.FILL
             paint.color = Color.parseColor("#80ffbb33") // TODO Quality get color holo orange with alpha
             paint.color = debugTextColor
@@ -352,6 +353,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private fun drawStarNames(canvas: Canvas) {
         // Timing Info:  no star 500μs, 1 star 600μs, 15 stars 900μs
         paint.textSize = 50f
+        paint.setTextAlign(Paint.Align.CENTER);
         paint.style = Style.FILL
         paint.color = labelColor
         paint.alpha = 128
@@ -359,7 +361,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
-                canvas.drawText(s.name, vP1.x + 30, vP1.y - 10, paint)
+                canvas.drawText(s.name, vP1.x, vP1.y - 45, paint)
             }
         }
     }
@@ -438,13 +440,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         // planet names
                         if (4 > normScale) {
                             paint.textSize = 50f
+                            paint.setTextAlign(Paint.Align.CENTER);
                             paint.style = Style.FILL
                             paint.color = labelColor
                             paint.alpha = 128
                             sP1.set(p.loc.getLoc().x * uToSf, p.loc.getLoc().y * uToSf)
                             sourceToViewCoord(sP1, vP1)
                             var o = (1f * 0.4f) * uToS * scale
-                            canvas.drawText(p.name, vP1.x - o, vP1.y - o, paint)
+                            canvas.drawText(p.name, vP1.x, vP1.y - o * 1.1f, paint)
                         }
 
 
