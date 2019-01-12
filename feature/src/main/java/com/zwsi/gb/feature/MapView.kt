@@ -415,7 +415,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                                 var fill = p.sectors[j].population.toFloat() / p.sectors[j].maxPopulation.toFloat()
                                 paint.style = Style.STROKE
                                 paint.color = Color.parseColor(p.sectors[j].owner!!.color)
-                                paint.strokeWidth = strokeWidth.toFloat()/2
+                                paint.strokeWidth = strokeWidth.toFloat()
                                 canvas.drawLine(
                                     vP1.x - 2 * o + p.sectorX(j) * size + size / 10f,
                                     vP1.y - o + p.sectorY(j) * size + size * 0.8f,
