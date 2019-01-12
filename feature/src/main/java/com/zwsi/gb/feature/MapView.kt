@@ -45,6 +45,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var bmRaceBeetle: Bitmap? = null
     private var bmRaceTortoise: Bitmap? = null
 
+    private var bmASurface = HashMap<Int, Bitmap>()
+
     private val bitmaps = HashMap<Int, Bitmap>()
 
 
@@ -103,8 +105,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         density = resources.displayMetrics.densityDpi.toFloat()
         strokeWidth = (density / 60f).toInt()
 
-        screenWidthDp =  resources.displayMetrics.widthPixels
-        screenHeightDp =  resources.displayMetrics.heightPixels
+        screenWidthDp = resources.displayMetrics.widthPixels
+        screenHeightDp = resources.displayMetrics.heightPixels
         focusSize = min(screenHeightDp / 2, screenWidthDp)
 
         zoomLevelPlanet = focusSize / 40f
@@ -156,6 +158,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             bitmaps[i] = Bitmap.createScaledBitmap(bm!!, w.toInt(), h.toInt(), true)!!
         }
 
+        bmASurface[3] = BitmapFactory.decodeResource(getResources(), R.drawable.desert)!!
+        bmASurface[5] = BitmapFactory.decodeResource(getResources(), R.drawable.forest)!!
+        bmASurface[2] = BitmapFactory.decodeResource(getResources(), R.drawable.gas)!!
+        bmASurface[6] = BitmapFactory.decodeResource(getResources(), R.drawable.ice)!!
+        bmASurface[1] = BitmapFactory.decodeResource(getResources(), R.drawable.land)!!
+        bmASurface[4] = BitmapFactory.decodeResource(getResources(), R.drawable.mountain)!!
+        bmASurface[7] = BitmapFactory.decodeResource(getResources(), R.drawable.rock)!!
+        bmASurface[0] = BitmapFactory.decodeResource(getResources(), R.drawable.water)!!
 
         // set behavior of parent
         setDebug(false)
@@ -206,6 +216,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         times["SC"] = measureNanoTime { drawStarsAndCircles(canvas) }
 
+        times["SF"] = measureNanoTime { drawPlanetSurface(canvas) }
+
         times["PS"] = measureNanoTime { drawPlanetsAndShips(canvas) }
 
         times["DS"] = measureNanoTime { drawDeepSpaceShips(canvas) }
@@ -220,7 +232,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         drawUntilStats = System.nanoTime() - startTimeNanos
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
 
-        //drawStats(canvas)
+        drawStats(canvas)
 
         //drawClickTargets(canvas)
 
@@ -240,29 +252,29 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             var l = 1f
             val h = 50
 
-                        canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
+//            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
             canvas.drawText("Norm:${normScale.f(2)}|Scale:${scale.f(2)}|Turn:${turn!!.f(4)}", 8f, l++ * h, paint)
-                        canvas.drawText(
-                            "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
-                                    + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
-                        )
-                        canvas.drawText(
-                            "Uvisible: ${(vr.right - vr.left) / uToS}x${(vr.bottom - vr.top) / uToS}",
-                            8f,
-                            l++ * h,
-                            paint
-                        )
-                        canvas.drawText(
-                            "Svisible: ${(vr.right - vr.left)}x${(vr.bottom - vr.top)}" + " at " + vr,
-                            8f,
-                            l++ * h,
-                            paint
-                        )
-            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
-            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
-            canvas.drawText(
-                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
-            )
+//            canvas.drawText(
+//                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
+//                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
+//            )
+//            canvas.drawText(
+//                "Uvisible: ${(vr.right - vr.left) / uToS}x${(vr.bottom - vr.top) / uToS}",
+//                8f,
+//                l++ * h,
+//                paint
+//            )
+//            canvas.drawText(
+//                "Svisible: ${(vr.right - vr.left)}x${(vr.bottom - vr.top)}" + " at " + vr,
+//                8f,
+//                l++ * h,
+//                paint
+//            )
+//            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
+//            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
+//            canvas.drawText(
+//                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
+//            )
 //            canvas.drawText(
 //                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(
 //                    4
@@ -369,30 +381,70 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
     }
 
+    private fun drawPlanetSurface(canvas: Canvas) {
+
+        if (1 > normScale) {
+            for (s in GBViewModel.viewStars) {
+                if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
+                    for (p in s.starPlanets) { // TODO PERF only draw one...
+
+                        sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
+                        sourceToViewCoord(sP1, vP1)
+
+                        for (j in 0 until p.sectors.size) {
+
+                            var o = (1f * 0.4f) * uToS * scale
+                            var size = 4 * o / p.width
+                            //canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
+                            canvas.drawBitmap(
+                                bmASurface[p!!.sectors[j].type]!!,
+                                null,
+                                RectF(
+                                    vP1.x - 2 * o + p.sectorX(j) * size,
+                                    vP1.y - o + p.sectorY(j) * size,
+                                    vP1.x - 2 * o + p.sectorX(j) * size + size,
+                                    vP1.y - o + p.sectorY(j) * size + size
+                                ),
+                                null
+                            )
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+    }
+
+
     private fun drawPlanetsAndShips(canvas: Canvas) {
         if (30 > normScale) {
             for (s in GBViewModel.viewStars) {
                 if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
                     for (p in s.starPlanets) {
-                        sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
-                        sourceToViewCoord(sP1, vP1)
-                        canvas.drawBitmap(
-                            bmPlanet!!,
-                            vP1.x - bmPlanet!!.width / 2,
-                            vP1.y - bmPlanet!!.height / 2,
-                            null
-                        )
+                        if (normScale > 1) {
+                            sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
+                            sourceToViewCoord(sP1, vP1)
+                            canvas.drawBitmap(
+                                bmPlanet!!,
+                                vP1.x - bmPlanet!!.width / 2,
+                                vP1.y - bmPlanet!!.height / 2,
+                                null
+                            )
+                        }
                         clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), p))
 
                         // planet names
-                        if (3 > normScale) {
+                        if (4 > normScale) {
                             paint.textSize = 50f
                             paint.style = Style.FILL
                             paint.color = labelColor
                             paint.alpha = 128
                             sP1.set(p.loc.getLoc().x * uToSf, p.loc.getLoc().y * uToSf)
                             sourceToViewCoord(sP1, vP1)
-                            canvas.drawText(p.name, vP1.x + 32, vP1.y - 10, paint)
+                            var o = (1f * 0.4f) * uToS * scale
+                            canvas.drawText(p.name, vP1.x - o, vP1.y - o, paint)
                         }
 
 
