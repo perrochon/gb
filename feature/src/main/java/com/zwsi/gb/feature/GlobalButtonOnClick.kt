@@ -1,11 +1,15 @@
 package com.zwsi.gb.feature
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.PointF
 import android.os.SystemClock
 import android.support.v4.content.ContextCompat.startActivity
 import android.view.View
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.*
 
 class GlobalButtonOnClick {
@@ -118,20 +122,33 @@ class GlobalButtonOnClick {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            val intent = Intent(view.context, PlanetsSlideActivity::class.java)
+            //val intent = Intent(view.context, PlanetsSlideActivity::class.java)
 
-            val parent = view.parent.parent as View // TODO there must be a better (not layout dependent) way than this
-            val star = parent.tag as GBStar
+            val activity = view.context as Activity
+            val starFragment = activity.findViewById<View>(R.id.StarFragment)
+            val star = starFragment.tag as GBStar
 
-            Toast.makeText(view.context, "Going to planets of " + star.name, Toast.LENGTH_SHORT).show()
+            val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
-            val displayUID = ArrayList<Int>()
-            for (planet in star.starPlanets) {
-                displayUID.add(planet.uid)
-            }
-            intent.putExtra("planets", displayUID)
-            intent.putExtra("title", "Planets of " + star.name)
-            view.context.startActivity(intent)
+            imageView.animateScaleAndCenter(
+                1.5f, PointF( // TODO Quality replace this with a constant from the view
+                    star.loc.getLoc().x * imageView.uToS,
+                    (star.loc.getLoc().y - 17f ) * imageView.uToS
+                )
+            )!!
+                .withDuration(500)
+                .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
+                .withInterruptible(false)
+                .start()
+
+
+//            val displayUID = ArrayList<Int>()
+//            for (planet in star.starPlanets) {
+//                displayUID.add(planet.uid)
+//            }
+//            intent.putExtra("planets", displayUID)
+//            intent.putExtra("title", "Planets of " + star.name)
+//            view.context.startActivity(intent)
 
         }
 
