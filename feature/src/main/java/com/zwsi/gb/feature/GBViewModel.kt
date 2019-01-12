@@ -57,23 +57,23 @@ class GBViewModel {
                 // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
 
                 // Ships
-                times["A"] = measureNanoTime { viewShips = universe.getAllShipsList() }
+                times["mAS"] = measureNanoTime { viewShips = universe.getAllShipsList() }
 
-                times["D"] = measureNanoTime { viewDeepSpaceShips = universe.getDeepSpaceShipsList() }
+                times["mDS"] = measureNanoTime { viewDeepSpaceShips = universe.getDeepSpaceShipsList() }
 
-                times["+"] = measureNanoTime { viewDeadShips = universe.getDeadShipsList() }
+                times["m+S"] = measureNanoTime { viewDeadShips = universe.getDeadShipsList() }
 
-                times["S"] = measureNanoTime { fillViewStarShips() }
+                times["mSS"] = measureNanoTime { fillViewStarShips() }
 
-                times["O"] = measureNanoTime { fillViewOrbitShips() }
+                times["mOS"] = measureNanoTime { fillViewOrbitShips() }
 
-                times["L"] = measureNanoTime { fillViewLandedShips() }
+                times["mLS"] = measureNanoTime { fillViewLandedShips() }
 
-                times["R"] = measureNanoTime { fillViewRaceShips() }
+                times["mRS"] = measureNanoTime { fillViewRaceShips() }
 
-                times["T"] = measureNanoTime { fillViewShipTrails() }
+                times["mST"] = measureNanoTime { fillViewShipTrails() }
 
-                times["S"] = measureNanoTime { viewShots = universe.getAllShotsList() }
+                times["mSh"] = measureNanoTime { viewShots = universe.getAllShotsList() }
 
                 timeLastTurn = GBController.elapsedTimeLastUpdate
             }

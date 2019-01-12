@@ -217,20 +217,19 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         // times["GG"] = measureNanoTime { drawGrids(canvas) }
 
-        times["SC"] = measureNanoTime { drawStarsAndCircles(canvas) }
+        times["dS&C"] = measureNanoTime { drawStarsAndCircles(canvas) }
 
-        times["SF"] = measureNanoTime { drawPlanetSurface(canvas) }
+        times["dPSF"] = measureNanoTime { drawPlanetSurface(canvas) }
 
-        times["PS"] = measureNanoTime { drawPlanetsAndShips(canvas) }
+        times["dP&S"] = measureNanoTime { drawPlanetsAndShips(canvas) }
 
-        times["DS"] = measureNanoTime { drawDeepSpaceShips(canvas) }
+        times["dDSS"] = measureNanoTime { drawDeepSpaceShips(canvas) }
 
-        times["SN"] = measureNanoTime { drawStarNames(canvas) }
+        times["dSNa"] = measureNanoTime { drawStarNames(canvas) }
 
-        times["Ra"] = measureNanoTime { drawRaces(canvas) }
+        times["dRac"] = measureNanoTime { drawRaces(canvas) }
 
-        times["Sh"] = measureNanoTime { drawShots(canvas) }
-
+        times["dSho"] = measureNanoTime { drawShots(canvas) }
 
         drawUntilStats = System.nanoTime() - startTimeNanos
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
