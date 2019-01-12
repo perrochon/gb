@@ -15,7 +15,7 @@ class GBSector constructor(val planet: GBPlanet) {
         private set
     internal var revenue = 0
         private set
-    internal var maxPopulation = 0
+    var maxPopulation = 0
         private set
 
     fun chooseType(planetIdxType: Int) {

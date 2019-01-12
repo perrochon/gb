@@ -15,6 +15,7 @@ import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
+import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
 import kotlin.system.measureNanoTime
@@ -410,6 +411,18 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                                 null
                             )
 
+                            if (p.sectors[j].population > 0) {
+                                var fill = p.sectors[j].population.toFloat() / p.sectors[j].maxPopulation.toFloat()
+                                paint.style = Style.STROKE
+                                paint.color = Color.parseColor(p.sectors[j].owner!!.color)
+                                paint.strokeWidth = strokeWidth.toFloat()/2
+                                canvas.drawLine(
+                                    vP1.x - 2 * o + p.sectorX(j) * size + size / 10f,
+                                    vP1.y - o + p.sectorY(j) * size + size * 0.8f,
+                                    vP1.x - 2 * o + p.sectorX(j) * size + size / 10f + fill * size * 0.8f,
+                                    vP1.y - o + p.sectorY(j) * size + size * 0.8f, paint
+                                )
+                            }
                         }
 
                     }
