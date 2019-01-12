@@ -135,7 +135,8 @@ class ShipFragment : Fragment() {
             flyButton.setTag(R.id.TAG_FLYTO_SPINNER,spinner)
             flyButton.setTag(R.id.TAG_FLYTO_SHIP, sh)
 
-            view.findViewById<Button>(R.id.goButton).tag=sh
+            // TODO Quality could just tag the fragment, instead of every button. Like planet and star
+            view.findViewById<Button>(R.id.panzoomToShip).tag=sh
             view.findViewById<Button>(R.id.makePod).tag=sh
             view.findViewById<Button>(R.id.makeCruiser).tag=sh
 

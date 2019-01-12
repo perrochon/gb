@@ -15,6 +15,7 @@ import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBShip
+import kotlin.math.min
 import kotlin.math.sqrt
 import kotlin.system.measureNanoTime
 
@@ -86,6 +87,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     var last20 = arrayListOf<Long>(60)
     var numberOfDraws = 0L
     var screenWidthDp = 0
+    var screenHeightDp = 0
+    var focusSize = 0 // the area where we put stars and planets in the lower half of the screen (left for landscape?)
+    var zoomLevelStar = 0f
+    var zoomLevelPlanet = 0f
 
     var turn: Int? = 0  // TODO why nullable
 
@@ -99,6 +104,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         strokeWidth = (density / 60f).toInt()
 
         screenWidthDp =  resources.displayMetrics.widthPixels
+        screenHeightDp =  resources.displayMetrics.heightPixels
+        focusSize = min(screenHeightDp / 2, screenWidthDp)
+
+        zoomLevelPlanet = focusSize / 40f
+        zoomLevelStar = focusSize / 700f
+
 
         paint.isAntiAlias = true
         paint.strokeCap = Cap.ROUND
@@ -156,12 +167,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         setImage(fullResImage, lowResImage);
         setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
-        setDoubleTapZoomScale(screenWidthDp/700f)
+        setDoubleTapZoomScale(zoomLevelStar)
         setScaleAndCenter(
-            screenWidthDp/700f,
+            zoomLevelPlanet,
             PointF(
-                com.zwsi.gb.feature.GBViewModel.viewRaces[0].home.star.loc.x * uToS,
-                com.zwsi.gb.feature.GBViewModel.viewRaces[0].home.star.loc.y * uToS
+                com.zwsi.gb.feature.GBViewModel.viewRaces[0].home.loc.getLoc().x * uToS,
+                com.zwsi.gb.feature.GBViewModel.viewRaces[0].home.loc.getLoc().y * uToS
             )
         )
 
@@ -209,7 +220,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         drawUntilStats = System.nanoTime() - startTimeNanos
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
 
-        drawStats(canvas)
+        //drawStats(canvas)
 
         //drawClickTargets(canvas)
 

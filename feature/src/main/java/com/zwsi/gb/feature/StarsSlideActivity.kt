@@ -68,7 +68,7 @@ class StarsSlideActivity : AppCompatActivity() {
     }
 
     fun goToLocation(view:View) {
-        GlobalButtonOnClick.goToLocation(view)
+        //TODO DEPRECATED. Would have to create a map view and then zoom in
     }
 
     fun goToShips(view:View) {

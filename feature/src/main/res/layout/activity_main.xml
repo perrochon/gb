@@ -54,16 +54,19 @@
                 android:text="Stars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:id="@+id/StarsButton" android:onClick="stars"/>
         <Button
                 android:text="Planets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:id="@+id/Planets1Button" android:onClick="planets1"/>
         <Button
                 android:text="Planets"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:id="@+id/Planets2Button" android:onClick="planets2"/>
         <Button
                 android:text="Races"
@@ -75,6 +78,7 @@
                 android:text="Ships"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:id="@+id/ShipButton"
                 android:onClick="ships"/>
 

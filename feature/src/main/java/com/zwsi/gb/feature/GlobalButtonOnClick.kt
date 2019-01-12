@@ -4,9 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.PointF
 import android.os.SystemClock
-import android.support.v4.content.ContextCompat.startActivity
 import android.view.View
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
@@ -102,11 +100,12 @@ class GlobalButtonOnClick {
             lastClickTime = SystemClock.elapsedRealtime();
 
 
-            val parent = view.parent as View
-            val planet: GBPlanet = parent.tag as GBPlanet
+            val activity = view.context as Activity
+            val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
+            val planet: GBPlanet = planetFragment.tag as GBPlanet
 
             val universe = GBController.universe
-            universe.makeFactory(planet, GBViewModel.viewRaces[0])
+            universe.makeFactory(planet, GBViewModel.viewRaces[0]) // TODO Find Population and use owner...
 
             val message = "Ordered Factory on " + planet.name
 
@@ -114,8 +113,8 @@ class GlobalButtonOnClick {
 
         }
 
-        /** Called when the user taps the Go to Planets button */
-        fun goToLocation(view: View) {
+        /** Called when the user taps the (+) button on Star Fragment */
+        fun panzoomToStar(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
@@ -131,9 +130,63 @@ class GlobalButtonOnClick {
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
             imageView.animateScaleAndCenter(
-                1.5f, PointF( // TODO Quality replace this with a constant from the view
+                imageView.zoomLevelStar, PointF( // TODO Quality replace this with a constant from the view
                     star.loc.getLoc().x * imageView.uToS,
-                    (star.loc.getLoc().y - 17f ) * imageView.uToS
+                    (star.loc.getLoc().y-17f) * imageView.uToS
+                )
+            )!!
+                .withDuration(500)
+                .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
+                .withInterruptible(false)
+                .start()
+        }
+
+        /** Called when the user taps the (+) button on Star Fragment */
+        fun panzoomToPlanet(view: View) {
+
+            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
+
+            //val intent = Intent(view.context, PlanetsSlideActivity::class.java)
+
+            val activity = view.context as Activity
+            val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
+            val planet = planetFragment.tag as GBPlanet
+
+            val imageView = activity.findViewById<MapView>(R.id.mapView)!!
+
+            imageView.animateScaleAndCenter(
+                imageView.zoomLevelPlanet, PointF(
+                    planet.loc.getLoc().x * imageView.uToS,
+                    (planet.loc.getLoc().y-1) * imageView.uToS
+                )
+            )!!
+                .withDuration(500)
+                .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
+                .withInterruptible(false)
+                .start()
+        }
+
+        /** Called when the user taps the * button on Star Fragment */
+        fun panzoomToSystemStar(view: View) {
+
+            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
+
+            val activity = view.context as Activity
+            val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
+            val planet = planetFragment.tag as GBPlanet
+
+            val imageView = activity.findViewById<MapView>(R.id.mapView)!!
+
+            imageView.animateScaleAndCenter(
+                imageView.zoomLevelStar, PointF( // TODO Quality replace this with a constant from the view
+                    planet.star.loc.getLoc().x * imageView.uToS,
+                    (planet.star.loc.getLoc().y-17f) * imageView.uToS
                 )
             )!!
                 .withDuration(500)
@@ -142,15 +195,8 @@ class GlobalButtonOnClick {
                 .start()
 
 
-//            val displayUID = ArrayList<Int>()
-//            for (planet in star.starPlanets) {
-//                displayUID.add(planet.uid)
-//            }
-//            intent.putExtra("planets", displayUID)
-//            intent.putExtra("title", "Planets of " + star.name)
-//            view.context.startActivity(intent)
-
         }
+
 
         /** Called when the user taps the Go to Planets button */
         fun goToShips(view: View) {
@@ -187,29 +233,29 @@ class GlobalButtonOnClick {
         }
 
         /** Called when the user taps the Go button */
-        fun goToLocationShip(view: View) {
+        fun panzoomToShip(view: View) {
 
             val ship = view.tag as GBShip
 
-            Toast.makeText(view.context, ship.loc.getLocDesc(), Toast.LENGTH_SHORT).show()
+            val activity = view.context as Activity
+//            val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
+//            val planet = planetFragment.tag as GBPlanet
 
-            if ((ship.loc.level == GBLocation.LANDED) or (ship.loc.level == GBLocation.ORBIT)) {
-                val intent = Intent(view.context, PlanetsSlideActivity::class.java)
+            val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
-                intent.putExtra("title", "Planet")
+            imageView.animateScaleAndCenter(
+                imageView.zoomLevelPlanet, PointF( // TODO Quality replace this with a constant from the view
+                    ship.loc.getLoc().x * imageView.uToS,
+                    (ship.loc.getLoc().y-1f) * imageView.uToS
+                )
+            )!!
+                .withDuration(500)
+                .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
+                .withInterruptible(false)
+                .start()
 
-                val displayUID = ArrayList<Int>()
-                displayUID.add(ship.loc.refUID)
-                intent.putExtra("planets", displayUID)
 
-                intent.putExtra("planetUID", ship.loc.refUID)
-                view.context.startActivity(intent)
-            }
-            if (ship.loc.level == GBLocation.SYSTEM) {
-                val intent = Intent(view.context, StarsSlideActivity::class.java)
-                intent.putExtra("starUID", ship.loc.refUID)
-                view.context.startActivity(intent)
-            }
+
 
 
         }

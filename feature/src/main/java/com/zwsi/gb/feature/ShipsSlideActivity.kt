@@ -79,7 +79,8 @@ class ShipsSlideActivity : AppCompatActivity() {
     }
 
     fun goToLocationShip(view: View) {
-        GlobalButtonOnClick.goToLocationShip(view)
+        // TODO deprecated
+//        GlobalButtonOnClick.goToLocationShip(view)
     }
 
     fun makePod(view: View) {

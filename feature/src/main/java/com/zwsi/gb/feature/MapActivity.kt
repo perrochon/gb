@@ -39,7 +39,7 @@ class MapActivity : AppCompatActivity() {
                     val any = imageView.clickTarget(e)
                     if (any is GBPlanet) {
                         imageView.animateScaleAndCenter(
-                            25f, PointF( // TODO Quality replace this with a constant from the view
+                            imageView.zoomLevelPlanet, PointF(
                                 any.loc.getLoc().x * imageView.uToS,
                                 (any.loc.getLoc().y - 1f ) * imageView.uToS
                             )
@@ -50,7 +50,7 @@ class MapActivity : AppCompatActivity() {
                             .start()
                     } else if (any is GBStar) {
                         imageView.animateScaleAndCenter(
-                            1.5f, PointF( // TODO Quality replace this with a constant from the view
+                            imageView.zoomLevelStar, PointF( // TODO Quality replace this with a constant from the view
                                 any.loc.getLoc().x * imageView.uToS,
                                 (any.loc.getLoc().y - 17f ) * imageView.uToS
                             )
@@ -140,17 +140,25 @@ class MapActivity : AppCompatActivity() {
         GlobalButtonOnClick.makeFactory(view)
     }
 
-    fun goToLocation(view: View) {
-        GlobalButtonOnClick.goToLocation(view)
+    fun panzoomToStar(view: View) {
+        GlobalButtonOnClick.panzoomToStar(view)
     }
 
-    fun goToShips(view: View) {
-        GlobalButtonOnClick.goToShips(view)
+    fun panzoomToPlanet(view: View) {
+        GlobalButtonOnClick.panzoomToPlanet(view)
     }
 
-    fun goToLocationShip(view: View) {
-        GlobalButtonOnClick.goToLocationShip(view)
+    fun panzoomToSystemStar(view: View) {
+        GlobalButtonOnClick.panzoomToSystemStar(view)
     }
+
+    fun panzoomToShip(view: View) {
+        GlobalButtonOnClick.panzoomToShip(view)
+    }
+
+//    fun goToLocationShip(view: View) {
+//        GlobalButtonOnClick.goToLocationShip(view)
+//    }
 
     fun makePod(view: View) {
         GlobalButtonOnClick.makePod(view)
