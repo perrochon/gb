@@ -423,9 +423,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             for (s in GBViewModel.viewStars) {
                 if (visible(s.loc.getLoc().x.toInt() * uToS, s.loc.getLoc().y.toInt() * uToS)) {
                     for (p in s.starPlanets) {
+                        sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
+                        sourceToViewCoord(sP1, vP1)
                         if (normScale > 1) {
-                            sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
-                            sourceToViewCoord(sP1, vP1)
                             canvas.drawBitmap(
                                 bmPlanet!!,
                                 vP1.x - bmPlanet!!.width / 2,
