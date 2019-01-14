@@ -163,16 +163,13 @@ class GBPlanet(val sid: Int, val star: GBStar) {
         // TODO Use Keplers law for planet movement (or some form reduced to circles)
         // e.g. http://www.sjsu.edu/faculty/watkins/orbital.htm
         // Need to make sure that no planet goes faster than pods, or pods never catch up...
-        // Speed of pds is 1, so angular speed cannot be faster than 1/r
+        // Speed of pods is 1, so angular speed cannot be faster than 1/r
 
         val rt = loc.getSLocP()
-        val speed = 1/(rt.r+20)  // was 10 for a long time. Changing to 20 with orbiting ships
+        val speed = 1/(rt.r+10)  // was 10 for a long time. Changing to 20 with orbiting ships
         loc = GBLocation(star, rt.r, rt.t - speed) // y points down, anti-clockwise is negative angles...
     }
 
-    // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/doplanet.cc
-    // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/dosector.cc
-    // [kaladron] https://github.com/kaladron/galactic-bloodshed/blob/master/src/perm.cc
     fun doPlanet() {
 
         GBLog.d("Running Year on planet $name")
