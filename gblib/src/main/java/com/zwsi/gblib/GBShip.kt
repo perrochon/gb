@@ -1,8 +1,4 @@
 // Copyright 2018 Louis Perrochon. All rights reserved
-//
-// // Inspiration
-// https://github.com/kaladron/galactic-bloodshed/blob/master/data/exam.dat
-// https://github.com/kaladron/galactic-bloodshed/blob/master/data/ship.dat
 
 package com.zwsi.gblib
 
@@ -19,21 +15,22 @@ import kotlin.math.atan2
 
 class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
+    // properties that don't change over live time of ship
     val id: Int     // Unique global ID of this ship
     val uid: Int    // id in universe wide list
     val rid: Int    // id in list of ships of race/owner
     val name: String // name, first letters of race and type, then id
     val type: String // type in printable form
     val speed: Int   // speed of ship // TODO Feature: insystem and hyperspeed.
-    var health: Int  // health of ship. Goes down when shot at. Not going up (as of now)
 
+    // properties that change over lifetime of ship
+    var health: Int  // health of ship. Goes down when shot at. Not going up (as of now)
     var dest: GBLocation? = null
     private val trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
     internal var lastTrailsUpdate = -1
     internal var trailsList = trails.toList()
 
     fun getTrailList(): List<GBxy> {
-
         if (universe.turn > lastTrailsUpdate) {
             trailsList = trails.toList()
         }

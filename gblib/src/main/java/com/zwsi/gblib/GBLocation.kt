@@ -52,8 +52,7 @@ class GBLocation {
 
     // TODO Refactor fun: Location may be a case for subclassing, rather than field: Type and when()
 
-    var level: Int = -1
-        private set
+    val level: Int
     var x: Float = -1f
         private set
     var y: Float = -1f
