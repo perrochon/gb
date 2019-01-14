@@ -238,7 +238,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             var distance = sxy.distance(dxy)
 
-            if ((distance -1f) < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
+            if ((distance - 1f) < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
                 //What direction are we coming from
                 val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
