@@ -235,7 +235,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         drawUntilStats = System.nanoTime() - startTimeNanos
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
 
-        drawStats(canvas)
+        //drawStats(canvas)
 
         //drawClickTargets(canvas)
 

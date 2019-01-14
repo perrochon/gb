@@ -65,6 +65,9 @@ internal object GBLog {
 
     var assertionsEnabled = true
 
+
+    // TODO I am not sure this does what I expect it to do...
+
     inline fun gbAssert(message: String = "Assertion failure", test: () -> Boolean) {
         if (assertionsEnabled && !test()) AssertionError(message)
     }

@@ -30,11 +30,13 @@ data class GBxy(val x: Float, val y: Float) {
 }
 
 data class GBrt(val r: Float, val t: Float) {}
+
 data class GBsxy(val sx: Int, val sy: Int) {}
 
 data class GBVector(val from: GBxy, val to: GBxy) {}
 
-/** Where you are in the Universe as (x,y) -  (0,0) is top left corner. x to the right, y going down.
+/** GBLocation
+ * Where you are in the Universe as (x,y) -  (0,0) is top left corner. x to the right, y going down.
  *  In SYSTEM, polar coordinates are available (t, t) for radian and theta (in radian, 0 to the right)
  *  Level tells you if you are landed, in orbit, in system, or deep space.
  *      Theoretically, it could be derived from x,y and/or refUID, but we don't do that. We keep track manually.
@@ -52,22 +54,6 @@ data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val 
 
     // TODO Refactor fun: Location may be a case for subclassing, rather than field: Type and when()
 
-//    val level: Int
-//    var x: Float = -1f
-//        private set
-//    var y: Float = -1f
-//        private set
-//    var refUID: Int = -1
-//        private set
-//    var t: Float = -1f
-//        private set
-//    var r: Float = -1f
-//        private set
-//    var sx: Int = -1
-//        private set
-//    var sy: Int = -1
-//        private set
-
     companion object {
         const val LANDED = 1
         const val ORBIT = 2
@@ -84,20 +70,13 @@ data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val 
      *  */
     constructor(planet: GBPlanet, r: Float, t: Float):this(ORBIT, planet.uid, t=t, r=r, x=r*cos(t), y=r*sin(t)) {
         // These asserts may also catch mistaken use of Float (x,y).
-        gbAssert("Distance to planet too big", r > 3f)
+        gbAssert("Distance to planet too big", r < 3f)
     }
 
     /** Make a SYSTEM location from Float (r,t) radius from center and theta */
     constructor(star: GBStar, r: Float, t: Float):this(SYSTEM,star.uid, r=r, t=t, x=r*cos(t), y=r*sin(t)) {
         // These asserts may also catch mistaken use of Float (x,y).
-        gbAssert("Distance to star too big", r > GBData.SystemBoundary)
-
-//        this.level = SYSTEM
-//        this.refUID = star.uid
-//        this.r = r
-//        this.t = t
-//        this.x = r * cos(t)
-//        this.y = r * sin(t)
+        gbAssert("Distance to star too big", r < GBData.SystemBoundary)
     }
 
     // TODO  figure out how to not need boolean to set flag in constructor
@@ -106,19 +85,10 @@ data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val 
     // This takes universal coordinates... Used when moving ships in.
     // TODO Why do we set x and r in this one? Seems to be the only constructor that does both...
     constructor(star: GBStar, x: Float, y: Float, dummy: Boolean):this(SYSTEM, star.uid, x=x - star.loc.x, y=y - star.loc.y, r=sqrt(x * x + y * y), t=atan2(y, x)) {
-//        this.level = SYSTEM
-//        this.refUID = star.uid
-//        this.x = x - star.loc.x
-//        this.y = y - star.loc.y
-//        this.r = sqrt(x * x + y * y)
-//        this.t = atan2(y, x)
     }
 
     /** Make a DEEPSPACE location from Float (x,y) */
     constructor(x: Float, y: Float):this(DEEPSPACE, -1, x=x, y=y) {
-//        this.level = DEEPSPACE
-//        this.x = x
-//        this.y = y
     }
 
     /** Get Universal (x,y). Returns the center of the planet for LANDED and ORBIT. Used for distance, etc.
@@ -186,7 +156,7 @@ data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val 
     fun getLocDesc(): String {
         when (level) {
             LANDED -> {
-                return "Landed on " + universe.allPlanets[refUID].name +
+                return "Surface of " + universe.allPlanets[refUID].name +
                         "/" + universe.allPlanets[refUID].star.name
             }
             ORBIT -> {
@@ -200,7 +170,7 @@ data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val 
                 return "Deep Space"
             }
             else -> {
-                gbAssert("Limbo", { false })
+                gbAssert("Limbo", false)
                 return "Limbo"
             }
         }
@@ -208,42 +178,22 @@ data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val 
 
     fun getPlanet(): GBPlanet? {
         when (level) {
-            LANDED -> {
-                return universe.allPlanets[refUID]
-            }
-            ORBIT -> {
-                return universe.allPlanets[refUID]
-            }
-            SYSTEM -> {
-                gbAssert("Location is System, but asking for planet", { false })
-            }
-            DEEPSPACE -> {
-                gbAssert("Location is Deep Space, but asking for planet", { false })
-            }
-            else -> {
-                gbAssert("Ship dead or in limbo", { false })
-            }
+            LANDED -> return universe.allPlanets[refUID]
+            ORBIT -> return universe.allPlanets[refUID]
+            SYSTEM -> gbAssert("GBLocation: Location is SYSTEM, but asking for planet.", false)
+            DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for planet.", false)
+            else -> gbAssert("GBLocation: Location is Limbo, but asking for planet.", false)
         }
         return null
     }
 
     fun getStar(): GBStar? {
         when (level) {
-            LANDED -> {
-                return universe.allPlanets[refUID].star
-            }
-            ORBIT -> {
-                return universe.allPlanets[refUID].star
-            }
-            SYSTEM -> {
-                return universe.allStars[refUID]
-            }
-            DEEPSPACE -> {
-                gbAssert("Location is Deep Space, but asking for star", { false })
-            }
-            else -> {
-                gbAssert("Ship dead or in limbo", { false })
-            }
+            LANDED -> return universe.allPlanets[refUID].star
+            ORBIT -> return universe.allPlanets[refUID].star
+            SYSTEM -> return universe.allStars[refUID]
+            DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for star.", false)
+            else -> gbAssert("GBLocation: Location is Limbo, but asking for star.", false)
         }
         return null
     }

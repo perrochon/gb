@@ -79,7 +79,7 @@ class GBOrder  {
                 universe.news.add("Built a cruiser on Helle.\n\n")
             }
             else ->
-                gbAssert ( "unknown oder", {true} )
+                gbAssert ( "unknown order", {true} )
         }
 
     }
