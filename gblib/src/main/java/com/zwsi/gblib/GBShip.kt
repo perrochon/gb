@@ -8,26 +8,23 @@ package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.POD
-import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBLog.gbAssert
 import java.util.*
-import kotlin.math.PI
-import kotlin.math.atan
 import kotlin.math.atan2
 
 class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
-    val id: Int
-    val uid: Int
-    val rid: Int
-    val name: String
-    val type: String
-    val speed: Int
-    var health: Int
+    val id: Int     // Unique global ID of this ship
+    val uid: Int    // id in universe wide list
+    val rid: Int    // id in list of ships of race/owner
+    val name: String // name, first letters of race and type, then id
+    val type: String // type in printable form
+    val speed: Int   // speed of ship // TODO Feature: insystem and hyperspeed.
+    var health: Int  // health of ship. Goes down when shot at. Not going up (as of now)
 
     internal val PLANET_ORBIT_SIZE = 1f  // TODO Where should this live.
     // If it's too big, orbits of planets overlap, which is problematic. But we want it bigger for better space use
@@ -187,7 +184,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
         val dest = this.dest!!
         val dxy = dest.getLoc()       // use getLoc to get universal (x,y)
-        val sxy = loc.getLoc()        // TODO no longer true : center of planet for landed and orbit
+        val sxy = loc.getLoc()        // TODO no longer true  ? : center of planet for landed and orbit
 
         GBLog.d("Moving $name from ${this.loc.getLocDesc()} to ${dest.getLocDesc()}.")
 
@@ -198,7 +195,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
             if ((dest.level != loc.level) || (dest.refUID != loc.refUID)) { // landed and we need to get to orbit
 
                 //What direction are we heading
-                val t = atan2(dxy.y-sxy.y, dxy.x-sxy.x)
+                val t = atan2(dxy.y - sxy.y, dxy.x - sxy.x)
 
                 val next = GBLocation(loc.getPlanet()!!, PLANET_ORBIT_SIZE, t)
                 changeShipLocation(next)
@@ -241,17 +238,12 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             var distance = sxy.distance(dxy)
 
-            if (distance < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
+            if ((distance -1f) < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
-                var next = GBLocation(
+                //What direction are we coming from
+                val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
 
-                    // where to insert in orbit?
-
-
-                    dest.getPlanet()!!,
-                    PLANET_ORBIT_SIZE,
-                    rand.nextFloat() * 2f * PI.toFloat()
-                ) // TODO one would think we could use dest?
+                var next = GBLocation(dest.getPlanet()!!, PLANET_ORBIT_SIZE, t)
                 changeShipLocation(next)
                 universe.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 
