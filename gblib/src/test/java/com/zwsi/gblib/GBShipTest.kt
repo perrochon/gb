@@ -319,7 +319,7 @@ class GBShipTest {
             })
 
             uniqueLocations()
-            assertTrue(i < 1000)
+            assertTrue(i < 2000)
             i++
         }
 

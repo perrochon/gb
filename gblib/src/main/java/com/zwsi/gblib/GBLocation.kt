@@ -48,25 +48,25 @@ data class GBVector(val from: GBxy, val to: GBxy) {}
  *  DEEPSPACE: (x,y) are universal coordiantes
  *      Used by ships and stars
  */
-class GBLocation {
+data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val y: Float = -1f , val t: Float = -1f, val r: Float = -1f, val sx: Int = -1, val sy: Int = -1){
 
     // TODO Refactor fun: Location may be a case for subclassing, rather than field: Type and when()
 
-    val level: Int
-    var x: Float = -1f
-        private set
-    var y: Float = -1f
-        private set
-    var refUID: Int = -1
-        private set
-    var t: Float = -1f
-        private set
-    var r: Float = -1f
-        private set
-    var sx: Int = -1
-        private set
-    var sy: Int = -1
-        private set
+//    val level: Int
+//    var x: Float = -1f
+//        private set
+//    var y: Float = -1f
+//        private set
+//    var refUID: Int = -1
+//        private set
+//    var t: Float = -1f
+//        private set
+//    var r: Float = -1f
+//        private set
+//    var sx: Int = -1
+//        private set
+//    var sy: Int = -1
+//        private set
 
     companion object {
         const val LANDED = 1
@@ -76,64 +76,49 @@ class GBLocation {
     }
 
     // make a LANDED location by giving Surface Int x and y
-    constructor(planet: GBPlanet, sx: Int, sy: Int) {
-        this.level = LANDED
-        this.refUID = planet.uid
-        this.sx = sx
-        this.sy = sy
+    constructor(planet: GBPlanet, sx: Int, sy: Int) : this(LANDED, planet.uid, sx = sx, sy = sy) {
     }
 
     /** Make an ORBIT location by giving Float angle theta [t] and distance [r] to center.
      *  Note y is facing down, so 0<t<PI is below the center
      *  */
-
-    constructor(planet: GBPlanet, r: Float, t: Float) {
-
-        // These asserts may also catch mistaken use of floats
+    constructor(planet: GBPlanet, r: Float, t: Float):this(ORBIT, planet.uid, t=t, r=r, x=r*cos(t), y=r*sin(t)) {
+        // These asserts may also catch mistaken use of Float (x,y).
         gbAssert("Distance to planet too big", r > 3f)
-
-        this.level = ORBIT
-        this.refUID = planet.uid
-
-        this.t = t
-        this.r = r
-        this.x = r * cos(t)
-        this.y = r * sin(t)
     }
 
     /** Make a SYSTEM location from Float (r,t) radius from center and theta */
-    constructor(star: GBStar, r: Float, t: Float) {
-
+    constructor(star: GBStar, r: Float, t: Float):this(SYSTEM,star.uid, r=r, t=t, x=r*cos(t), y=r*sin(t)) {
         // These asserts may also catch mistaken use of Float (x,y).
         gbAssert("Distance to star too big", r > GBData.SystemBoundary)
 
-        this.level = SYSTEM
-        this.refUID = star.uid
-        this.r = r
-        this.t = t
-        this.x = r * cos(t)
-        this.y = r * sin(t)
+//        this.level = SYSTEM
+//        this.refUID = star.uid
+//        this.r = r
+//        this.t = t
+//        this.x = r * cos(t)
+//        this.y = r * sin(t)
     }
 
     // TODO  figure out how to not need boolean to set flag in constructor
     // Stupid: pass a boolean to use cartesian coordinates in constructor? Could use GBxy and GBrt to distinguish,
     // or subclasses instead of when
-
     // This takes universal coordinates... Used when moving ships in.
-    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) {
-        this.level = SYSTEM
-        this.refUID = star.uid
-        this.x = x - star.loc.x
-        this.y = y - star.loc.y
-        this.r = sqrt(x * x + y * y)
-        this.t = atan2(y, x)
+    // TODO Why do we set x and r in this one? Seems to be the only constructor that does both...
+    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean):this(SYSTEM, star.uid, x=x - star.loc.x, y=y - star.loc.y, r=sqrt(x * x + y * y), t=atan2(y, x)) {
+//        this.level = SYSTEM
+//        this.refUID = star.uid
+//        this.x = x - star.loc.x
+//        this.y = y - star.loc.y
+//        this.r = sqrt(x * x + y * y)
+//        this.t = atan2(y, x)
     }
 
     /** Make a DEEPSPACE location from Float (x,y) */
-    constructor(x: Float, y: Float) {
-        this.level = DEEPSPACE
-        this.x = x
-        this.y = y
+    constructor(x: Float, y: Float):this(DEEPSPACE, -1, x=x, y=y) {
+//        this.level = DEEPSPACE
+//        this.x = x
+//        this.y = y
     }
 
     /** Get Universal (x,y). Returns the center of the planet for LANDED and ORBIT. Used for distance, etc.
