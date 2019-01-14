@@ -14,6 +14,7 @@ import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
+import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import kotlin.math.min
 import kotlin.math.sqrt
@@ -741,10 +742,18 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             clickTargets.minBy { (it.center.x - x) * (it.center.x - x) + (it.center.y - y) * (it.center.y - y) }
 
         if ((closest != null)) {
-            var distance =
-                sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
+            val distance = sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
             if (distance < 80f) {
                 return closest.any
+            } else {
+                val closestPlanet = clickTargets.filter { it.any is GBPlanet }
+                    .minBy { (it.center.x - x) * (it.center.x - x) + (it.center.y - y) * (it.center.y - y) }
+                if (closestPlanet != null) {
+                    val distance = sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
+                    if (distance < universe.planetaryOrbit * uToSf * scale) {
+                        return closest.any
+                    }
+                }
             }
         }
         return null
