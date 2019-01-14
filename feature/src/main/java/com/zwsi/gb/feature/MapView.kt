@@ -466,6 +466,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             sourceToViewCoord(sP1, vP1)
                             var o = (1f * 0.4f) * uToS * scale
                             canvas.drawText(p.name, vP1.x, vP1.y - o * 1.1f, paint)
+                            clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y- o *1.1f), p))
                         }
 
 
