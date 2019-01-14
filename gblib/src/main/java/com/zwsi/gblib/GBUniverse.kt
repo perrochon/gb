@@ -1,6 +1,7 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBData.Companion.CRUISER
+import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.rand
 import java.util.*
 import kotlin.math.PI
@@ -57,8 +58,11 @@ class GBUniverse {
     val universeMaxY: Int
         get() = GBData.UniverseMaxY
 
-    val systemBoundary: Int
+    val systemBoundary: Float
         get() = GBData.SystemBoundary
+
+    val planetaryOrbit: Float
+        get() = GBData.PlanetaryOrbit
 
     fun getNumberOfStars(): Int {
         return numberOfStars
@@ -306,7 +310,7 @@ class GBUniverse {
     fun flyShipOrbit(sh: GBShip, p: GBPlanet) {
         GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
 
-        var loc = GBLocation(p, 1f, rand.nextFloat() * 2 * PI.toFloat()) // TODO Have caller give us a better location
+        var loc = GBLocation(p, PlanetaryOrbit, rand.nextFloat() * 2 * PI.toFloat()) // TODO Have caller give us a better location
         sh.dest = loc
 
     }

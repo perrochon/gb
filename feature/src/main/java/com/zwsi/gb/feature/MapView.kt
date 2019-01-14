@@ -474,7 +474,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             paint.style = Style.STROKE
                             paint.color = circleColor
                             paint.strokeWidth = strokeWidth.toFloat()
-                            val radius = 1f * uToS * scale // TODO Constant PLANETARY_ORBIT
+                            val radius = universe.planetaryOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
                             canvas.drawCircle(vP1.x, vP1.y, radius, paint)
 
                             var o = (1f * 0.4f) * uToS * scale

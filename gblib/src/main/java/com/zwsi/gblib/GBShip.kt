@@ -8,6 +8,7 @@ package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.POD
+import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -26,7 +27,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val speed: Int   // speed of ship // TODO Feature: insystem and hyperspeed.
     var health: Int  // health of ship. Goes down when shot at. Not going up (as of now)
 
-    internal val PLANET_ORBIT_SIZE = 1f  // TODO Where should this live.
+    internal val PLANET_ORBIT_SIZE = PlanetaryOrbit  // TODO Where should this live.
     // If it's too big, orbits of planets overlap, which is problematic. But we want it bigger for better space use
     // in MapView.
 
@@ -238,7 +239,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             var distance = sxy.distance(dxy)
 
-            if ((distance - 1f) < speed) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
+            if ((distance) < speed + PlanetaryOrbit) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
                 //What direction are we coming from
                 val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)

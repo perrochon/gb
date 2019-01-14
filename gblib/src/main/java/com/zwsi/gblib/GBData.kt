@@ -26,9 +26,9 @@ class GBData {
 
         internal const val UniverseMaxX = 1000 // Width of the Universe
         internal const val UniverseMaxY = 1000 // Height of the Universe
-        internal const val SystemBoundary = 20 // Radius of Solar Systems
-        internal const val MaxPlanetOrbit = 18 // Largest Planetary Orbit
-
+        internal const val SystemBoundary = 20f // Radius of Solar Systems
+        internal const val MaxPlanetOrbit = 18f // Radius of the Orbit of the outermost Planet
+        internal const val PlanetaryOrbit = 1f // Radius of Planetary Orbit
 
         private var nextGlobalID = 1000
 

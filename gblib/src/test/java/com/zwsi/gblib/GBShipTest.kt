@@ -6,6 +6,7 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -160,10 +161,10 @@ class GBShipTest {
         var sh = GBShip(1, r, GBLocation(500f, 500f))
         consistency(sh)
 
-        sh = GBShip(0, r, GBLocation(s, 10f, 1f))
+        sh = GBShip(0, r, GBLocation(s, 10f, PlanetaryOrbit))
         consistency(sh)
 
-        sh = GBShip(1, r, GBLocation(p, 5f, 1f))
+        sh = GBShip(1, r, GBLocation(p, 5f, PlanetaryOrbit))
         consistency(sh)
 
         sh = GBShip(1, r, GBLocation(p, 1, 1))
@@ -181,7 +182,7 @@ class GBShipTest {
         val s1 = universe.allStars[1]
         val r0: GBRace = universe.allRaces[0]
 
-        val sh0 = GBShip(0, r0, GBLocation(s1, 30f, 1f))
+        val sh0 = GBShip(0, r0, GBLocation(s1, 30f, PlanetaryOrbit))
         consistency(sh0)
 
         s1.starShips.add(sh0)
