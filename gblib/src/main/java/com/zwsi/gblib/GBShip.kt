@@ -27,10 +27,6 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     val speed: Int   // speed of ship // TODO Feature: insystem and hyperspeed.
     var health: Int  // health of ship. Goes down when shot at. Not going up (as of now)
 
-    internal val PLANET_ORBIT_SIZE = PlanetaryOrbit  // TODO Where should this live.
-    // If it's too big, orbits of planets overlap, which is problematic. But we want it bigger for better space use
-    // in MapView.
-
     var dest: GBLocation? = null
     private val trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
     internal var lastTrailsUpdate = -1
@@ -198,7 +194,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 //What direction are we heading
                 val t = atan2(dxy.y - sxy.y, dxy.x - sxy.x)
 
-                val next = GBLocation(loc.getPlanet()!!, PLANET_ORBIT_SIZE, t)
+                val next = GBLocation(loc.getPlanet()!!, PlanetaryOrbit, t)
                 changeShipLocation(next)
                 universe.news.add("Launched $name to ${loc.getLocDesc()}.\n")
 
@@ -244,7 +240,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 //What direction are we coming from
                 val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
 
-                var next = GBLocation(dest.getPlanet()!!, PLANET_ORBIT_SIZE, t)
+                var next = GBLocation(dest.getPlanet()!!, PlanetaryOrbit, t)
                 changeShipLocation(next)
                 universe.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 

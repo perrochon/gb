@@ -73,8 +73,7 @@ class GBData {
             return height * 2
         }
 
-
-        // Types from: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
+        // Types from: Galactic Bloodshed
         private val planetTypesNames =
             arrayOf("M Class", "Jovian", "Water", "Desert", "Forest", "Iceball", "Airless", "Asteroid")
 
@@ -92,7 +91,7 @@ class GBData {
 
         // Sectors
         // Planets are rectangles of sectors with wrap-arounds on the sides. Think Mercator.
-        // Sector Types from: http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
+        // Sector Types from: Galactic Bloodshed
         // Source had 7 types, added 8th type "rock" because I had a bitmap, and because asteroids and mountains are different
         //private val sectorTypesNames = arrayOf("Water", "Land", "Gas", "Desert", "Mountain", "Forest", "Ice", "Rock")
 
@@ -1290,8 +1289,5 @@ class GBData {
             "Zrd",
             "Zurvan"
         )
-
     }
-
-
 }

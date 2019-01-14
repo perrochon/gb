@@ -216,7 +216,7 @@ class GBLocation {
                 return "Deep Space"
             }
             else -> {
-                gbAssert("Location is Limbo", { false })
+                gbAssert("Limbo", { false })
                 return "Limbo"
             }
         }
