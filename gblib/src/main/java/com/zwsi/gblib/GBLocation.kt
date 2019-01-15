@@ -4,6 +4,7 @@
 
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.SystemBoundary
@@ -51,6 +52,7 @@ fun GBxy.towards(to: GBxy, distance: Float): GBxy {
  *  DEEPSPACE: (x,y) are universal coordiantes
  *      Used by ships and stars
  */
+@JsonClass(generateAdapter = true)
 data class GBLocation(
     val level: Int,
     val refUID: Int,

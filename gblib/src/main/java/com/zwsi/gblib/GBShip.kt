@@ -2,6 +2,7 @@
 
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
@@ -13,6 +14,7 @@ import com.zwsi.gblib.GBLog.gbAssert
 import java.util.*
 import kotlin.math.atan2
 
+@JsonClass(generateAdapter = true)
 class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
     // properties that don't change over live time of ship
@@ -26,8 +28,12 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     // properties that change over lifetime of ship
     var health: Int  // health of ship. Goes down when shot at. Not going up (as of now)
     var dest: GBLocation? = null
-    private val trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
+
+    @Transient
+    internal val trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
+    @Transient
     internal var lastTrailsUpdate = -1
+    @Transient
     internal var trailsList = trails.toList()
 
     fun getTrailList(): List<GBxy> {
