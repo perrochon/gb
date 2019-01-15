@@ -16,6 +16,7 @@ import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
+import com.zwsi.gblib.GBVector
 import kotlin.math.min
 import kotlin.math.sqrt
 import kotlin.system.measureNanoTime
@@ -334,7 +335,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (30 > normScale) {
 
             if (true) {
-                for (shot in GBViewModel.viewShots) {
+                for (shot : GBVector in GBViewModel.viewShots) {
                     paint.color = shotColor
                     paint.strokeWidth = strokeWidth.toFloat() / 4
                     if (starVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||

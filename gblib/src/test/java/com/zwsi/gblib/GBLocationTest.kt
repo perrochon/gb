@@ -8,7 +8,10 @@ package com.zwsi.gblib
 import com.zwsi.gblib.GBController.Companion.universe
 import org.junit.Assert.*
 import org.junit.Test
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.roundToInt
+import kotlin.math.sin
 
 class GBLocationTest {
 
@@ -75,10 +78,17 @@ class GBLocationTest {
     fun orbit() {
         val universe = GBController.makeUniverse()
         val p = universe.allPlanets[1]
-        val loc = GBLocation(p, 0f, 25f)
-        assertEquals(0f, loc.r)
+        val loc = GBLocation(p, 1f, 25f)
+        assertEquals(1f, loc.r)
         assertEquals(25f, loc.t)
         consistent(loc)
+    }
+
+    @Test(expected = AssertionError::class)
+    fun orbitTooFarOut() {
+        val universe = GBController.makeUniverse()
+        val p = universe.allPlanets[1]
+        val loc = GBLocation(p, 3f, 25f)
     }
 
     @Test
@@ -95,10 +105,16 @@ class GBLocationTest {
     fun system() {
         val universe = GBController.makeUniverse()
         val s = universe.allStars[3]
-        val loc = GBLocation(s, 200f, 2f)
-        assertEquals(200f, loc.r)
+        val loc = GBLocation(s, 2f, 2f)
         assertEquals(2f, loc.t)
         consistent(loc)
+    }
+
+    @Test(expected = AssertionError::class)
+    fun systemTooFarOut() {
+        val universe = GBController.makeUniverse()
+        val s = universe.allStars[3]
+        val loc = GBLocation(s, 200f, 2f)
     }
 
     @Test
@@ -146,29 +162,39 @@ class GBLocationTest {
         xy = loc.getSLocC()
         rt = loc.getSLocP()
         assertEquals(-10f, xy.x)
-        assertEquals(0f, (xy.y*1000).roundToInt()/1000f)
+        assertEquals(0f, (xy.y * 1000).roundToInt() / 1000f)
         assertEquals(10f, rt.r)
     }
 
     @Test
     fun towards() {
-        towards_helper(0f,0f,3f,4f)
-        towards_helper(4f,3f,0f,0f)
-        towards_helper(0f,0f,-3f,-4f)
-        towards_helper(-4f,-3f,0f,0f)
-        towards_helper(3f,5f,-3f,-4f)
-        towards_helper(-4f,3f,3f,7f)
-        towards_helper(0f,0f,0f,0f) // This logs a warning.
+        towards_helper(0f, 0f, 3f, 4f)
+        towards_helper(4f, 3f, 0f, 0f)
+        towards_helper(0f, 0f, -3f, -4f)
+        towards_helper(-4f, -3f, 0f, 0f)
+        towards_helper(3f, 5f, -3f, -4f)
+        towards_helper(-4f, 3f, 3f, 7f)
     }
 
-    fun towards_helper(x1 : Float, y1 : Float, x2 : Float, y2 : Float) {
-        val origin = GBxy(x1,y1)
-        val destination = GBxy(x2,y2)
+    @Test
+    fun towardsItself() {
+        towards_helper(0f, 0f, 0f, 0f)
+    }
+
+    fun towards_helper(x1: Float, y1: Float, x2: Float, y2: Float) {
+        val origin = GBxy(x1, y1)
+        val destination = GBxy(x2, y2)
         val distance = origin.distance(destination)
-        assertEquals(GBxy(x2,y2), origin.towards(destination, distance * 2)) // we are faster, so will arrive
-        assertEquals(GBxy(x2,y2), origin.towards(destination, distance * 1.00001f)) // we are faster, so will arrive
-        assertEquals(GBxy(x2,y2), origin.towards(destination, distance * 1f )) // we are faster, so will arrive
-        assertEquals(GBxy(x1+(x2-x1)/2f,y1+(y2-y1)/2), origin.towards(destination, distance * 0.5f)) // we are faster, so will arrive
+        assertEquals(GBxy(x2, y2), origin.towards(destination, distance * 2)) // we are faster, so will arrive
+        assertEquals(
+            GBxy(x2, y2),
+            origin.towards(destination, distance * 1.00001f)
+        ) // we are faster, so will arrive
+        assertEquals(GBxy(x2, y2), origin.towards(destination, distance * 1f)) // we are faster, so will arrive
+        assertEquals(
+            GBxy(x1 + (x2 - x1) / 2f, y1 + (y2 - y1) / 2),
+            origin.towards(destination, distance * 0.5f)
+        ) // we are faster, so will arrive
         assertEquals(GBxy(x1, y1), origin.towards(destination, 0f))
     }
 

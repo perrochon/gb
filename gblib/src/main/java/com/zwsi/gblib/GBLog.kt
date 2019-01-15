@@ -69,12 +69,12 @@ internal object GBLog {
     // TODO I am not sure this does what I expect it to do...
 
     inline fun gbAssert(message: String = "Assertion failure", test: () -> Boolean) {
-        if (assertionsEnabled && !test()) AssertionError(message)
+        if (assertionsEnabled && !test()) throw AssertionError(message)
     }
 
     // Could inline, but Kotlin compiler says it's not worth it...
     fun gbAssert(message: String = "Assertion failure", test: Boolean) {
-        if (assertionsEnabled && !test) AssertionError(message)
+        if (assertionsEnabled && !test) throw AssertionError(message)
     }
 }
 

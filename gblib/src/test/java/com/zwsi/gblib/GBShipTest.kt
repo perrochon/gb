@@ -7,6 +7,7 @@ package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
+import com.zwsi.gblib.GBData.Companion.SystemBoundary
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -161,10 +162,10 @@ class GBShipTest {
         var sh = GBShip(1, r, GBLocation(500f, 500f))
         consistency(sh)
 
-        sh = GBShip(0, r, GBLocation(s, 10f, PlanetaryOrbit))
+        sh = GBShip(0, r, GBLocation(s, SystemBoundary, 2f))
         consistency(sh)
 
-        sh = GBShip(1, r, GBLocation(p, 5f, PlanetaryOrbit))
+        sh = GBShip(1, r, GBLocation(p, PlanetaryOrbit, 2f))
         consistency(sh)
 
         sh = GBShip(1, r, GBLocation(p, 1, 1))
@@ -226,10 +227,10 @@ class GBShipTest {
         locations.add(GBLocation(p1, 2, 2))
         locations.add(GBLocation(p0, 1f, 1f))
         locations.add(GBLocation(p1, 1f, 2f))
-        locations.add(GBLocation(p0, 2f, .5f))
-        locations.add(GBLocation(p1, 2f, 3f))
+        locations.add(GBLocation(p0, 1.1f, .5f))
+        locations.add(GBLocation(p1, 1.1f, 3f))
         locations.add(GBLocation(s0, 20f, 1f))
-        locations.add(GBLocation(s1, 30f, 2f))
+        locations.add(GBLocation(s1, 21f, 2f))
         locations.add(GBLocation(s0, 10f, 3f))
         locations.add(GBLocation(s1, 15f, 0.5f))
         locations.add(GBLocation(500f, 500f))

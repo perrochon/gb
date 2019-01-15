@@ -5,35 +5,36 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.universe
-import com.zwsi.gblib.GBData.Companion.rand
+import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
+import com.zwsi.gblib.GBData.Companion.SystemBoundary
 import com.zwsi.gblib.GBLog.gbAssert
-import kotlin.math.*
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
-data class GBxy(val x: Float, val y: Float) {
+data class GBxy(val x: Float, val y: Float) {}
+data class GBrt(val r: Float, val t: Float) {}
+data class GBsxy(val sx: Int, val sy: Int) {}
+data class GBVector(val from: GBxy, val to: GBxy) {}
 
-    fun distance(to: GBxy): Float {
-        return sqrt((to.x - x) * (to.x - x) + (to.y - y) * (to.y - y))
-    }
+fun GBxy.distance(to: GBxy): Float {
+    return sqrt((to.x - x) * (to.x - x) + (to.y - y) * (to.y - y))
+}
 
-    fun towards(to: GBxy, speed: Float): GBxy {
-        val distance = this.distance(to)
+// Location in distance distance on path from this to to
+fun GBxy.towards(to: GBxy, distance: Float): GBxy {
 
-        if (speed > distance) { // we are there
-            return to
-        } else if (this == to) {
-            GBLog.w("Tyring to fly towards current location. Returning current location, but please investigate.")
-            return this
-        } else {
-            return GBxy(x + (to.x - x) * speed / distance, y + (to.y - y) * speed / distance)
-        }
+    val fullDistance = this.distance(to)
+    val fraction = distance / fullDistance
+
+    if (distance >= fullDistance) { // to is less than distance away (including to == this)
+        return to
+    } else {
+        return GBxy(x + (to.x - x) * fraction, y + (to.y - y) * fraction)
     }
 }
 
-data class GBrt(val r: Float, val t: Float) {}
-
-data class GBsxy(val sx: Int, val sy: Int) {}
-
-data class GBVector(val from: GBxy, val to: GBxy) {}
 
 /** GBLocation
  * Where you are in the Universe as (x,y) -  (0,0) is top left corner. x to the right, y going down.
@@ -50,7 +51,16 @@ data class GBVector(val from: GBxy, val to: GBxy) {}
  *  DEEPSPACE: (x,y) are universal coordiantes
  *      Used by ships and stars
  */
-data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val y: Float = -1f , val t: Float = -1f, val r: Float = -1f, val sx: Int = -1, val sy: Int = -1){
+data class GBLocation(
+    val level: Int,
+    val refUID: Int,
+    val x: Float = -1f,
+    val y: Float = -1f,
+    val t: Float = -1f,
+    val r: Float = -1f,
+    val sx: Int = -1,
+    val sy: Int = -1
+) {
 
     // TODO Refactor fun: Location may be a case for subclassing, rather than field: Type and when()
 
@@ -68,15 +78,29 @@ data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val 
     /** Make an ORBIT location by giving Float angle theta [t] and distance [r] to center.
      *  Note y is facing down, so 0<t<PI is below the center
      *  */
-    constructor(planet: GBPlanet, r: Float, t: Float):this(ORBIT, planet.uid, t=t, r=r, x=r*cos(t), y=r*sin(t)) {
+    constructor(planet: GBPlanet, r: Float, t: Float) : this(
+        ORBIT,
+        planet.uid,
+        t = t,
+        r = r,
+        x = r * cos(t),
+        y = r * sin(t)
+    ) {
         // These asserts may also catch mistaken use of Float (x,y).
-        gbAssert("Distance to planet too big", r < 3f)
+        gbAssert("Distance to planet too big", r <= 1.2f * PlanetaryOrbit)
     }
 
     /** Make a SYSTEM location from Float (r,t) radius from center and theta */
-    constructor(star: GBStar, r: Float, t: Float):this(SYSTEM,star.uid, r=r, t=t, x=r*cos(t), y=r*sin(t)) {
+    constructor(star: GBStar, r: Float, t: Float) : this(
+        SYSTEM,
+        star.uid,
+        r = r,
+        t = t,
+        x = r * cos(t),
+        y = r * sin(t)
+    ) {
         // These asserts may also catch mistaken use of Float (x,y).
-        gbAssert("Distance to star too big", r < GBData.SystemBoundary)
+        gbAssert("Distance to star too big", r <= 1.2f * SystemBoundary)
     }
 
     // TODO  figure out how to not need boolean to set flag in constructor
@@ -84,11 +108,18 @@ data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val 
     // or subclasses instead of when
     // This takes universal coordinates... Used when moving ships in.
     // TODO Why do we set x and r in this one? Seems to be the only constructor that does both...
-    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean):this(SYSTEM, star.uid, x=x - star.loc.x, y=y - star.loc.y, r=sqrt(x * x + y * y), t=atan2(y, x)) {
+    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) : this(
+        SYSTEM,
+        star.uid,
+        x = x - star.loc.x,
+        y = y - star.loc.y,
+        r = sqrt(x * x + y * y),
+        t = atan2(y, x)
+    ) {
     }
 
     /** Make a DEEPSPACE location from Float (x,y) */
-    constructor(x: Float, y: Float):this(DEEPSPACE, -1, x=x, y=y) {
+    constructor(x: Float, y: Float) : this(DEEPSPACE, -1, x = x, y = y) {
     }
 
     /** Get Universal (x,y). Returns the center of the planet for LANDED and ORBIT. Used for distance, etc.
@@ -102,8 +133,10 @@ data class GBLocation (val level: Int, val refUID: Int, val x: Float = -1f, val 
             // TODO This calculation is probably a rendering issue and belongs into MapView.
             // The constants have to be the same as the ones used to draw planet surfaces on the map
             var size = 1.6f / this.getPlanet()!!.width
-            return GBxy(universe.allPlanets[refUID].loc.getLoc().x - 0.80f + sx.toFloat() * size + size/2,
-                universe.allPlanets[refUID].loc.getLoc().y -0.4f + sy.toFloat() * size + size/2)
+            return GBxy(
+                universe.allPlanets[refUID].loc.getLoc().x - 0.80f + sx.toFloat() * size + size / 2,
+                universe.allPlanets[refUID].loc.getLoc().y - 0.4f + sy.toFloat() * size + size / 2
+            )
         }
         if (level == ORBIT) {
             return GBxy(universe.allPlanets[refUID].loc.getLoc().x + x, universe.allPlanets[refUID].loc.getLoc().y + y)
