@@ -7,12 +7,15 @@ apply plugin: 'kotlin-kapt'// added for moshi
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // JetBrains marked the the marking below as KT-23744 "Kotlin library and Gradle plugin versions are different"
+    // inspection false positive for non-JVM dependencies". Can ignore warning
+    // Plugin version (x.x.x) is not the same as library version (jdk7-x.x.x)
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.12'
-    kapt 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.11'
-    compile 'com.squareup.moshi:moshi:1.5.0' // added for moshi
+    kapt "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    implementation 'com.squareup.moshi:moshi:1.8.0' // added for moshi
     compileOnly 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'// added for moshi
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:0.6.1673' // added for moshi
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.11' // added for moshi
 }
 
 sourceCompatibility = "6"

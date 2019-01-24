@@ -37,6 +37,9 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 
 ## Features
 
+### Tutorial
+* Create link and open instructions in Web View...
+
 ### Mission Features for Mission 1 (Gating for Mission 2)
 * Revise all strings and fix text related issues of mission 1
 

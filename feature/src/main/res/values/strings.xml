@@ -2,9 +2,12 @@
 <resources>
     <string name="orion_nebula">Orion Nebula</string>
     <string name="m1n0">[Y] Commander! My name is Yonininji. I will be helping your with your missions. All my hints are
-        marked with [Y] at the beginning.
+        marked with [Y] at the beginning. [Y] Your first mission is to colonize your home system Jade. You can find your home planet Helle by
+        clicking on the [Maps] button on the right. Once there, click on the Planet, then on [Make Factory] to order your first factory.
+        Then press the [Do] button in the lower right to have your orders executed. Nothing happens unless you press
+        [Do] If you want enemies, press [Make] on this screen.
     </string>
-    <string name="m1n1">[Y] Your first mission is to colonize your home system Jade. You can find your home planet Helle by
+    <string name="m1n1"> [Y] Your first mission is to colonize your home system Jade. You can find your home planet Helle by
         clicking on the [Planets] button on the right. Once there, click on [Make Factory] to order your first factory.
         Then press the [Do] button in the lower right to have your orders executed. Nothing happens unless you press
         [Do]

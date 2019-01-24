@@ -73,6 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/RacesButton"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:onClick="races"/>
         <Button
                 android:text="Ships"
@@ -101,11 +103,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/CreateButton"
                 android:onClick="create"
-                android:visibility="visible"
+                android:visibility="gone"
                 tools:visibility="visible"
                 android:alpha="0.5"/>
         <Button
-                android:text="Make"
+                android:text="Start Other Races"
                 android:minWidth="10dp"
                 android:minHeight="10dp"
                 android:layout_width="wrap_content"
