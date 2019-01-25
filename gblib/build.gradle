@@ -15,7 +15,7 @@ dependencies {
     kapt "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     implementation 'com.squareup.moshi:moshi:1.8.0' // added for moshi
     compileOnly 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'// added for moshi
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.11' // added for moshi
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // added for moshi
 }
 
 sourceCompatibility = "6"
