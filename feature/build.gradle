@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':base')
     implementation project(':gblib')
@@ -28,4 +28,23 @@ dependencies {
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     // added this to get ViewModelProviders
+}
+
+// TODO: We have two libraries that request old support version. Below forcing both to 28.
+// ./gradlew feature:dependencies --configuration debugFeatureRuntimeClasspath
+// SSIV requests 27.1.0. Would have to compile (test) on our own to make it use 28 at compile
+// Lifecycle:1.1.1 requires 26.x  It's deprecated, so need to use AndroidX libraries, but using those
+//    don't compile because AppCompatActivity doesn't implement LifeCycleOwner anymore, so needs more work
+//    "It looks like there's a ComponentActivity both at androidx.activity.ComponentActivity and
+//     androidx.core.app.ComponentActivity. The former implements the LifecycleOwner interface,
+//     while the second doesn't. I think your IDE is using the first one and the runtime is trying
+//     to use the second one. I guess this is why AndroidX is still mostly in alpha. – (from 1.0)
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            details.useVersion '28.0.0'
+        }
+    }
 }
