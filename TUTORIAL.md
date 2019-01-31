@@ -35,11 +35,11 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 * Click on each ship in turn and set the pods destination to the other planets in your system.
 * Mission Success: Population on all planets. Armed ships (i.e. Cruiser) on all planets
 
-#Mission 2 - Explore another system
+# Mission 2 - Explore another system
 * Make a cruiser and send it to the closest system
 * Follow up with a few pods.
 
-#God Mode Fun Stuff
+# God Mode Fun Stuff
 * On the home screen, click on "Start Other Races" (or similar). This will put three more races in play
 * Click on "Cont". This will start automated turns. It's like fast-forward until you hit "Cont" again.
 You can leave it on and switch to the map and see what happens. Zoom all the way out to see other races ships
