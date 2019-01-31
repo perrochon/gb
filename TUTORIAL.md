@@ -1,5 +1,16 @@
 :tada: GB: A Galactic Bloodshed (and others) inspired 4x game for mobile :tada:
 
+## Overview
+
+Andromeda Rising, aka Galactic Bloodshed is a turn-based strategy game. As the leader of your
+race you manage your planet, build ships, eXplore your star sytem, eXpand to nearby systems, eXploit
+any resources you find, and eXterminate anyone in your way (4X).
+
+This game is in internal release only and has limited game play at this point. 
+Please do not install if you don't want to be an early tester.
+
+Current focus in on _enabling_ functionality, not limiting, so you play in _God Mode_ which lets
+you see everything, build unlimited ships, etc. Eventually, your expansion will be constraint.
 
 ## Tutorial
 
