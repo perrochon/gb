@@ -16,19 +16,34 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 
 # UX Navigation
 
-* Double click on stars, planets and ships pans and zooms to the target. Double click on empty space zooms out
-* Single click on stars, planets, and ships brings up the details window. Single click on empty space closes it.
-* Drag, pinch-zoom and double-click-drag pan and zoom the map.
+* Double click on stars, planets and ships should pan and zoom to the target. Double click on empty space should zoom out
+* Single click on stars, planets, and ships should bring up the details window. Single click on empty space should close it.
+* Drag, pinch-zoom and double-click-drag should pan and zoom the map.
 
-# Mission 1
+# Mission 1 - Secure your Star System
 * Click on Map - the map will show you your home planet (possibly named "Helle")
 * Pinch zoom out to see your home system "Jade" and a few other planets. 
 * Single click on planet to open planet detail window
-* Click on "Make Factory" to order a factory. *Note:* The game is turn based, so nothing happens yet. You first need to end your turn
+* Click on "Make Factory" to order a factory. 
+
+**Note:** The game is turn based, so nothing happens yet. You first need to end your turn
+
 * Click on "Do" to finish the turn. You see factory pop up on your home planet.
 * Zoom into your home planet and click on the factory
 * Make 5 pods and 1 cruiser
 * "Do"
 * Click on each ship in turn and set the pods destination to the other planets in your system.
+* Mission Success: Population on all planets. Armed ships (i.e. Cruiser) on all planets
 
+#Mission 2 - Explore another system
+* Make a cruiser and send it to the closest system
+* Follow up with a few pods.
+
+#God Mode Fun Stuff
+* On the home screen, click on "Start Other Races" (or similar). This will put three more races in play
+* Click on "Cont". This will start automated turns. It's like fast-forward until you hit "Cont" again.
+You can leave it on and switch to the map and see what happens. Zoom all the way out to see other races ships
+exploring. Beware of the beetles. 
+* Send cruisers to some of the other systems, or wait for the beetles to arrive. The cruisers will shoot down 
+pods (or enemy cruisers) if they are in reach.
 
