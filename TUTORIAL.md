@@ -2,7 +2,7 @@
 
 ## Overview
 
-Andromeda Rising, aka Galactic Bloodshed is a turn-based strategy game. As the leader of your
+Andromeda Rising, aka Galactic Bloodshed, is a turn-based strategy game. As the leader of your
 race you manage your planet, build ships, eXplore your star sytem, eXpand to nearby systems, eXploit
 any resources you find, and eXterminate anyone in your way (4X).
 
