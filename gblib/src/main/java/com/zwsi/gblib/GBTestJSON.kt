@@ -26,6 +26,8 @@ class GBTestJSON {
         @JvmStatic
         fun main(args: Array<String>) {
 
+            // TODO Quality: Move these tests into the Unit Tests of each class.
+
             println("Welcome to GB JSON Test")
             GBController.makeUniverse()
 
@@ -68,17 +70,15 @@ class GBTestJSON {
             println("  GBLocation out:  " + gameInfo2)
             assert(gameInfo1 == gameInfo2)
 
-
-//            println("GBShip")
-//            val ship1 = GBShip(0, universe.allRaces[0], loc1)
-//            println(ship1)
-//            val jsonAdapter3 = moshi.adapter<GBShip>(GBShip::class.java)
-//            json = jsonAdapter3.toJson(ship1)
-//            println(json)
-//            val ship2 = jsonAdapter3.fromJson(json)
-//            println(ship2)
-//            assert(ship1== ship2)
-
+            println("GBShip")
+            val ship1 = GBShip(0, universe.allRaces[0], loc1)
+            println(ship1)
+            val jsonAdapter4 = moshi.adapter<GBShip>(GBShip::class.java)
+            val json4 = jsonAdapter4.toJson(ship1)
+            println(json4)
+            val ship2 = jsonAdapter4.fromJson(json4)
+            println(ship2)
+            assert(ship1== ship2)
 
         }
 
