@@ -5,11 +5,20 @@
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.zwsi.gblib.GBController.Companion.universe
 import java.util.*
 
+
+@JsonClass(generateAdapter = true)
+data class GBSavedGame(
+    val location: GBLocation,
+    val locationList: List<GBLocation>
+) {
+
+}
 
 class GBTestJSON {
     companion object {
@@ -49,16 +58,15 @@ class GBTestJSON {
             println("  List<GBLocation> out:  " + list2)
             assert(list1 == list2)
 
-//            println("\nTesting Location and List combined")
-//            val combine = json1 + json2
-//            println("  JSON string: " + combine)
-//            val loc22 = jsonAdapter1.lenient().fromJson(combine)
-//            println("  GBLocation out:  " + loc22)
-//            assert(loc1 == loc22)
-//
-//            val list22 = jsonAdapter2.fromJson(combine)
-//            println("  List<GBLocation> out:  " + list22)
-//            assert(list1 == list22)
+            println("\nTesting Location and List combined")
+            val gameInfo1 = GBSavedGame(loc1, list1 )
+            println("  GBSavedGame in: " + gameInfo1)
+            val jsonAdapter3: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
+            val json3 = jsonAdapter3.toJson(gameInfo1)
+            println("  JSON string: " + json3)
+            val gameInfo2 = jsonAdapter3.lenient().fromJson(json3)
+            println("  GBLocation out:  " + gameInfo2)
+            assert(gameInfo1 == gameInfo2)
 
 
 //            println("GBShip")
