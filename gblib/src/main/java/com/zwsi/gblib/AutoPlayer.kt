@@ -10,7 +10,8 @@ class AutoPlayer() {
         fun playBeetle() {
 
             GBLog.d("Programming Beetles in turn $universe.turn")
-            var r = universe.allRaces[2]
+            // TODO Quality there must be an easier way...
+            var r = universe.allRaces.values.find { it.idx == 2 }!!
             var now = universe.turn + 1 // just in case we have a turn running....
 
 
@@ -23,11 +24,13 @@ class AutoPlayer() {
             }
             GBScheduler.addInstructionAt(now, code)
 
-            for (i in 0 until 10000) {
+            for (i in 1 until 10000) {
                 code = {
-                    val factory = r.raceShips.filter { it.idxtype == GBData.FACTORY }.first()
-                    GBLog.d("Ordered Pod")
-                    factory?.let { GBController.universe.makePod(it) }
+                    val factory = r.raceShips.filter { it.idxtype == GBData.FACTORY }.firstOrNull()
+                    if (factory != null) {
+                        GBLog.d("Ordered Pod")
+                        factory?.let { GBController.universe.makePod(it) }
+                    }
                 }
                 GBScheduler.addInstructionAt(now + 1 + i, code)
 
@@ -52,7 +55,7 @@ class AutoPlayer() {
         fun playImpi() {
 
             GBLog.d("Programming Impi in turn $universe.turn")
-            var r = universe.allRaces[1]
+            var r = universe.allRaces.values.find { it.idx == 1 }!!
 
             var now = universe.turn + 1 // just in case we have a turn running....
 
@@ -66,7 +69,7 @@ class AutoPlayer() {
             }
             GBScheduler.addInstructionAt(now, code)
 
-            for (i in 0..10) {
+            for (i in 1..20) {
                 code = {
                     val factory = r.raceShips.find { it.idxtype == GBData.FACTORY }
                     GBLog.d("Ordered Cruiser")
@@ -82,9 +85,10 @@ class AutoPlayer() {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
                 val p = universe.allPlanets[GBData.rand.nextInt(universe.allPlanets.size)]
-                if (p.star != universe.allRaces[2].home.star) {
-                    cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
-                }
+// TODO Enable this again, don't fly to main races home star.
+//                if (p.star != universe.allRaces[2].home.star) {
+//                    cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
+//                }
             }
             GBScheduler.addInstructionAlways(code)
 
@@ -93,7 +97,8 @@ class AutoPlayer() {
         fun playTortoise() {
 
             GBLog.d("Programming Tortoise in  turn  $universe.turn")
-            var r = universe.allRaces[3]
+            var r = universe.allRaces.values.find { it.idx == 3 }!!
+
 
             var now = universe.turn + 1 // just in case we have a turn running....
 
@@ -106,7 +111,7 @@ class AutoPlayer() {
             }
             GBScheduler.addInstructionAt(now, code)
 
-            for (i in 0..10) {
+            for (i in 1..20) {
                 code = {
                     val factory = r.raceShips.find { it.idxtype == GBData.FACTORY }
                     GBLog.d("Ordered Cruiser")
@@ -122,9 +127,10 @@ class AutoPlayer() {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
                 val p = universe.allPlanets[GBData.rand.nextInt(universe.allPlanets.size)]
-                if (p.star != universe.allRaces[2].home.star) {
-                    cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
-                }
+// TODO Enable this again, don't fly to main races home star.
+//                if (p.star != universe.allRaces[2].home.star) {
+//                    cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
+//                }
             }
             GBScheduler.addInstructionAlways(code)
         }
