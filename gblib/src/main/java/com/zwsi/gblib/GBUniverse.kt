@@ -17,7 +17,7 @@ class GBUniverse {
     // exposing these (for now)
     val allStars: MutableList<GBStar> = Collections.synchronizedList(arrayListOf<GBStar>()) // all the stars
     val allPlanets: MutableList<GBPlanet> = Collections.synchronizedList(arrayListOf<GBPlanet>()) // all the planets
-    val allRaces: MutableList<GBRace> = Collections.synchronizedList(arrayListOf<GBRace>()) // all the races
+    val allRaces: MutableMap<Int, GBRace> = Collections.synchronizedMap(hashMapOf<Int, GBRace>()) // all the races
 
     // List of ships. Lists are mutable and change during updates (dead ships...)
     // Not exposed to the app
@@ -68,6 +68,10 @@ class GBUniverse {
         return numberOfStars
     }
 
+    fun getAllRacesMap(): Map<Int,GBRace> {
+        return allRaces.toMap()
+    }
+
     fun getAllShipsList(): List<GBShip> {
         if (turn > lastAllShipsUpdate) {
             allShipsList = allShips.toList()
@@ -107,8 +111,8 @@ class GBUniverse {
         }
         println("The Universe contains $numberOfRaces race(s).\n")
 
-        for (i in allRaces) {
-            i.consoleDraw()
+        for ((id, race) in allRaces) {
+            race.consoleDraw()
         }
 
         println("News:")
@@ -134,16 +138,19 @@ class GBUniverse {
         // We only need one race for the early mission, but we land the others for God Mode...
 
         // The single player
-        val r0 = GBRace(this, 0, allStars[0].starPlanets[0])
+        val r0 = GBRace(0, 0, allStars[0].starPlanets[0])
+        allRaces[0] = r0
         landPopulation(allStars[0].starPlanets[0], r0.uid, 100)
 
 
-        // We only need one race for the early mission, but we land the others for God Mode...
+        // We only need one race for the early mission, but we create and land the others for God Mode...
         // Eventually, they will be dynamically landed (from tests, or from app)
-        val r1 = GBRace(this, 1, allStars[1].starPlanets[0])
-        val r2 = GBRace(this, 2, allStars[2].starPlanets[0])
-        val r3 = GBRace(this, 3, allStars[3].starPlanets[0])
-
+        val r1 = GBRace( 1, 1, allStars[1].starPlanets[0])
+        allRaces[1] = r1
+        val r2 = GBRace( 2, 2, allStars[2].starPlanets[0])
+        allRaces[2] = r2
+        val r3 = GBRace( 3, 3, allStars[3].starPlanets[0])
+        allRaces[3] = r3
 
         landPopulation(allStars[1].starPlanets[0], r1.uid, 100)
         landPopulation(allStars[2].starPlanets[0], r2.uid, 100)
@@ -316,8 +323,8 @@ class GBUniverse {
     }
 
     fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
-        GBLog.d("universe: Landing 100 of " + allRaces[uId].name + " on " + p.name + "")
-        p.landPopulationOnEmptySector(allRaces[uId], number)
+        GBLog.d("universe: Landing 100 of " + allRaces[uId]!!.name + " on " + p.name + "")
+        p.landPopulationOnEmptySector(allRaces[uId]!!, number)
     }
 
 

@@ -105,7 +105,7 @@ class GlobalButtonOnClick {
             val planet: GBPlanet = planetFragment.tag as GBPlanet
 
             val universe = GBController.universe
-            universe.makeFactory(planet, GBViewModel.viewRaces[0]) // TODO Find Population and use owner...
+            universe.makeFactory(planet, GBViewModel.viewRaces.toList().component1().second!!) // TODO Find Population and use owner...
 
             val message = "Ordered Factory on " + planet.name
 

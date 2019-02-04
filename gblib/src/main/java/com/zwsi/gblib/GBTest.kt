@@ -8,6 +8,9 @@
 package com.zwsi.gblib
 
 import com.zwsi.gb.gblib.AutoPlayer.Companion.playBeetle
+import com.zwsi.gb.gblib.AutoPlayer.Companion.playImpi
+import com.zwsi.gb.gblib.AutoPlayer.Companion.playTortoise
+import com.zwsi.gblib.GBController.Companion.universe
 import kotlin.system.measureNanoTime
 
 class GBTest {
@@ -19,6 +22,8 @@ class GBTest {
             println("Welcome to GB Test")
             GBController.makeUniverse()
             playBeetle()
+            playImpi()
+            playTortoise()
 
             var elapsed = 0L
 
@@ -27,6 +32,8 @@ class GBTest {
                 elapsed = measureNanoTime {
                     GBController.doUniverse()
                 }
+
+                println("${elapsed/1000}ms Ships: ${universe.allShips.size}")
 
 //                print("Time for do: $elapsed ")
 //                for (j in 1..elapsed/10000 ) {

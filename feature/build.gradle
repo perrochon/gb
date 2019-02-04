@@ -13,6 +13,14 @@ android {
         versionName ".407"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
     productFlavors {
     }
 }

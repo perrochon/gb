@@ -11,17 +11,17 @@
 
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonClass
+import com.zwsi.gblib.GBController.Companion.universe
 import java.util.*
 
-class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
+@JsonClass(generateAdapter = true)
+class GBRace(val idx: Int, val uid : Int, val home: GBPlanet) {
 
-    // TODO Quality Fix need to pass in universe because it's called from the constructor of universe.
+    // idx is the number to go look up static race information in GBData. Not needed with dynamic race design or load from json
+    // uId is key in Universe's map of allRaces
 
-    // uId is the Universe level ID (in Universe's list of allRaces)
-    // idx is the number to go look up in GBData. This would change with dynamic design
-
-    val id: Int
-    val uid: Int
+    val id: Int  // unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
     val name: String
     val birthrate: Int
     val explore: Int
@@ -31,24 +31,19 @@ class GBRace(val universe: GBUniverse, val idx: Int, val home: GBPlanet) {
 
     var population = 0 // (planetary) population. Ships don't have population
 
-    internal val raceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
+    @Transient internal val raceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
     internal var lastRaceShipsUpdate = -1
     internal var raceShipsList = raceShips.toList()
 
     init {
         id = GBData.getNextGlobalId()
-        universe.allRaces.add(this)
-        uid = universe.allRaces.indexOf(this)
-
         name = GBData.getRaceName(idx)
         birthrate = GBData.getRaceBirthrate(idx)
         explore = GBData.getRaceExplore(idx)
         absorption= GBData.getRaceAbsorption(idx)
         description = GBData.getRaceDescription(idx)
         color = GBData.getRaceColor(idx)
-
         GBLog.i("Created Race $name with birthrate $birthrate")
-
     }
 
     fun getRaceShipsList() : List<GBShip> {

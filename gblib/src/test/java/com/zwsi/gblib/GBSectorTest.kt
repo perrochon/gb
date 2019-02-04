@@ -42,7 +42,8 @@ class GBSectorTest {
             }
         }
 
-        val r = universe.allRaces[0]
+        val allRaces = universe.allRaces.values.first()
+        val r = allRaces
         s.adjustPopulation(r, 100)
         assertEquals(r,s.owner)
         assertEquals(r.birthrate, s.owner!!.birthrate)
@@ -58,7 +59,7 @@ class GBSectorTest {
     fun testGrowPopulation() {
         val universe = GBController.makeUniverse()
         val p = universe.allPlanets[0]
-        val r = universe.allRaces[0]
+        val r = universe.allRaces.toList().component1().second!!
         val s = GBSector(p)
 
         s.chooseType(2)
@@ -84,7 +85,7 @@ class GBSectorTest {
     fun testMovePopulation() {
         val universe = GBController.makeUniverse()
         val p = universe.allPlanets[0]
-        val r = universe.allRaces[0]
+        val r = GBController.universe.allRaces.toList().component1().second!!
         val s1 = GBSector(p)
         val s2 = GBSector(p)
 

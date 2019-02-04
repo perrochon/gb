@@ -186,8 +186,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         setScaleAndCenter(
             zoomLevelPlanet,
             PointF(
-                com.zwsi.gb.feature.GBViewModel.viewRaces[0].home.loc.getLoc().x * uToS,
-                com.zwsi.gb.feature.GBViewModel.viewRaces[0].home.loc.getLoc().y * uToS
+                com.zwsi.gb.feature.GBViewModel.viewRaces.toList().component1().second!!.home.loc.getLoc().x * uToS,
+                com.zwsi.gb.feature.GBViewModel.viewRaces.toList().component1().second!!.home.loc.getLoc().y * uToS
             )
         )
 
@@ -308,7 +308,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Timing Info:  no race 200μs, 1 race 400μs, more ?μs
         if (normScale > 50) {
 
-            for (r in GBViewModel.viewRaces) {
+            for ((key,r) in GBViewModel.viewRaces) {
                 if (starVisible(r.home.star.loc.getLoc().x * uToSf, r.home.star.loc.getLoc().y * uToSf)) {
                     sP1.set(r.home.star.loc.getLoc().x * uToSf + 50, r.home.star.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)

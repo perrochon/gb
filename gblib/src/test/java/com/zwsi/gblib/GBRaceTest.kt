@@ -15,9 +15,8 @@ class GBRaceTest {
         val universe = GBController.universe
 
         assertTrue(r.description.length > 0)
-        assertEquals(r.universe, universe)
-        assertTrue(universe.allRaces.contains(r))
-        assertEquals(r.uid, universe.allRaces.indexOf(r))
+        assertTrue(universe.allRaces.containsValue(r))
+        //assertEquals(r.uid, universe.allRaces.indexOf(r))
     }
 
 
@@ -25,9 +24,9 @@ class GBRaceTest {
     fun basic() {
         val universe = GBController.makeUniverse()
 
-        for (r in universe.allRaces) {
-            consistent(r)
-            assertEquals(r.getRaceShipsList().size,0 )
+        for ((key,race) in universe.allRaces) {
+            consistent(race)
+            assertEquals(race.getRaceShipsList().size,0 )
         }
     }
 }

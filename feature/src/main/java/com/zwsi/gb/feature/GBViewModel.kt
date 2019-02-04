@@ -22,7 +22,7 @@ class GBViewModel {
 
         var viewStars = universe.allStars
         var viewPlanets = universe.allPlanets
-        var viewRaces = universe.allRaces
+        var viewRaces = universe.getAllRacesMap()
 
         var viewShips = universe.getAllShipsList()
         var viewDeepSpaceShips = universe.getDeepSpaceShipsList()
@@ -108,8 +108,8 @@ class GBViewModel {
 
         fun fillViewRaceShips() {
             viewRaceShips.clear()
-            for (r in viewRaces) {
-                viewRaceShips.put(r.uid, r.getRaceShipsList())
+            for ((id, race) in viewRaces) {
+                viewRaceShips.put(race.uid, race.getRaceShipsList())
             }
         }
 

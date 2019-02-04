@@ -48,8 +48,8 @@ class RacesSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("races")
         } else {
             displayList = ArrayList<Int>()
-            for (i in GBViewModel.viewRaces) {
-                displayList.add(i.uid)
+            for ((key, race) in GBViewModel.viewRaces) {
+                displayList.add(race.uid)
             }
         }
 
