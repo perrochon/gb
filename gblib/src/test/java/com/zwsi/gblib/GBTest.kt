@@ -16,7 +16,8 @@ import kotlin.system.measureNanoTime
 
 class GBTest {
 
-    @Test
+    // TODO Quality exclude using categories.
+    //@Test
     fun runUniverse() {
 
         println("Welcome to GB Test")
