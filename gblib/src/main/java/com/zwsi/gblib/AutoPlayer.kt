@@ -80,14 +80,14 @@ class AutoPlayer() {
 
             code = {
                 GBLog.d("Directed Cruiser")
-                // Getting all ships, not just alive ships, so even "dead" pods will start moving again. Ok for God to do.
+                // TODO Fix: Getting all ships, not just this race...
                 val cruiser = GBController.universe.getAllShipsList().find {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
                 val p = universe.allPlanets[GBData.rand.nextInt(universe.allPlanets.size)]
 // TODO Enable this again, don't fly to main races home star.
 //                if (p.star != universe.allRaces[2].home.star) {
-//                    cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
+                    cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
 //                }
             }
             GBScheduler.addInstructionAlways(code)
@@ -122,14 +122,14 @@ class AutoPlayer() {
 
             code = {
                 GBLog.d("Directed Cruiser")
-                // Getting all ships, not just alive ships, so even "dead" pods will start moving again. Ok for God to do.
+                // TODO Fix: Getting all ships, not just this race...
                 val cruiser = GBController.universe.getAllShipsList().find {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
                 val p = universe.allPlanets[GBData.rand.nextInt(universe.allPlanets.size)]
 // TODO Enable this again, don't fly to main races home star.
 //                if (p.star != universe.allRaces[2].home.star) {
-//                    cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
+                    cruiser?.let { GBController.universe.flyShipOrbit(it, p) }
 //                }
             }
             GBScheduler.addInstructionAlways(code)

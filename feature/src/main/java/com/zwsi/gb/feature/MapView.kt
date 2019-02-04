@@ -236,7 +236,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         drawUntilStats = System.nanoTime() - startTimeNanos
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
 
-        //drawStats(canvas)
+        drawStats(canvas)
 
         //drawClickTargets(canvas)
 
@@ -280,14 +280,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //            canvas.drawText(
 //                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
 //            )
-//            canvas.drawText(
-//                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(
-//                    4
-//                )}+",
-//                8f,
-//                l++ * h,
-//                paint
-//            )
+            canvas.drawText(
+                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D|${GBViewModel.viewDeadShips.size.f(
+                    4
+                )}+",
+                8f,
+                l++ * h,
+                paint
+            )
             canvas.drawText(
                 "Do:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average() / 1000).toInt().f(
                     4
