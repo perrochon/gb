@@ -138,18 +138,18 @@ class GBUniverse {
         // We only need one race for the early mission, but we land the others for God Mode...
 
         // The single player
-        val r0 = GBRace(0, 0, allStars[0].starPlanets[0])
+        val r0 = GBRace(0, 0, allStars[0].starPlanets[0].uid)
         allRaces[0] = r0
         landPopulation(allStars[0].starPlanets[0], r0.uid, 100)
 
 
         // We only need one race for the early mission, but we create and land the others for God Mode...
         // Eventually, they will be dynamically landed (from tests, or from app)
-        val r1 = GBRace( 1, 1, allStars[1].starPlanets[0])
+        val r1 = GBRace( 1, 1, allStars[1].starPlanets[0].uid)
         allRaces[1] = r1
-        val r2 = GBRace( 2, 2, allStars[2].starPlanets[0])
+        val r2 = GBRace( 2, 2, allStars[2].starPlanets[0].uid)
         allRaces[2] = r2
-        val r3 = GBRace( 3, 3, allStars[3].starPlanets[0])
+        val r3 = GBRace( 3, 3, allStars[3].starPlanets[0].uid)
         allRaces[3] = r3
 
         landPopulation(allStars[1].starPlanets[0], r1.uid, 100)

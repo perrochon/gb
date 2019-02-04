@@ -19,7 +19,7 @@ class AutoPlayer() {
 
             code = {
                 GBLog.d("Ordered Factory")
-                var p = r.home
+                var p = r.getHome()
                 GBController.universe.makeFactory(p, r)
             }
             GBScheduler.addInstructionAt(now, code)
@@ -64,7 +64,7 @@ class AutoPlayer() {
 
             code = {
                 GBLog.d("Ordered Factory")
-                var p = r.home
+                var p = r.getHome()
                 GBController.universe.makeFactory(p, r)
             }
             GBScheduler.addInstructionAt(now, code)
@@ -106,7 +106,7 @@ class AutoPlayer() {
 
             code = {
                 GBLog.d("Ordered Factory")
-                var p = r.home
+                var p = r.getHome()
                 GBController.universe.makeFactory(p, r)
             }
             GBScheduler.addInstructionAt(now, code)

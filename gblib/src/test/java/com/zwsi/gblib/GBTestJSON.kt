@@ -8,12 +8,12 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.zwsi.gblib.GBController.Companion.universe
+import org.junit.Test
 import java.util.*
 
 class GBTestJSON {
 
-    // TODO Quality exclude using categories.
-    //@Test
+    @Test
     fun JSON() {
 
         // TODO Quality: Move these tests into the Unit Tests of each class.
@@ -50,8 +50,18 @@ class GBTestJSON {
         println("  List<GBLocation> out:  " + list2)
         assert(list1 == list2)
 
-        println("\nTesting Location and List combined")
-        val gameInfo1 = GBSavedGame(loc1, list1)
+        println("\n Testing GBRace")
+        val race1 = GBRace(0, 0, universe.allPlanets[0].uid)
+        println(race1)
+        val jsonAdapter4 = moshi.adapter<GBRace>(GBRace::class.java)
+        val json4 = jsonAdapter4.toJson(race1)
+        println(json4)
+        val race2 = jsonAdapter4.fromJson(json4)
+        println(race2)
+        assert(race1 == race2)
+
+        println("\nTesting Location, List, Race combined")
+        val gameInfo1 = GBSavedGame(loc1, list1, race1)
         println("  GBSavedGame in: " + gameInfo1)
         val jsonAdapter3: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
         val json3 = jsonAdapter3.toJson(gameInfo1)
@@ -60,15 +70,6 @@ class GBTestJSON {
         println("  GBLocation out:  " + gameInfo2)
         assert(gameInfo1 == gameInfo2)
 
-        println("\n Testing GBRace")
-        val race1 = GBRace(0, 0, universe.allPlanets[0])
-        println(race1)
-        val jsonAdapter4 = moshi.adapter<GBRace>(GBRace::class.java)
-        val json4 = jsonAdapter4.toJson(race1)
-        println(json4)
-        val race2 = jsonAdapter4.fromJson(json4)
-        println(race2)
-        assert(race1 == race2)
 
 
 //            println("GBShip")

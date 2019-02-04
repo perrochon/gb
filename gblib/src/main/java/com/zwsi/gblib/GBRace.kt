@@ -16,9 +16,10 @@ import com.zwsi.gblib.GBController.Companion.universe
 import java.util.*
 
 @JsonClass(generateAdapter = true)
-class GBRace(val idx: Int, val uid : Int, val home: GBPlanet) {
+data class GBRace(val idx: Int, val uid: Int, val homeUID: Int) {
 
-    // idx is the number to go look up static race information in GBData. Not needed with dynamic race design or load from json
+    // idx is the number to go look up static race information in GBData.
+    //      Not needed with dynamic race design or load from json
     // uId is key in Universe's map of allRaces
 
     val id: Int  // unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
@@ -31,8 +32,14 @@ class GBRace(val idx: Int, val uid : Int, val home: GBPlanet) {
 
     var population = 0 // (planetary) population. Ships don't have population
 
-    @Transient internal val raceShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
+    // Ships Lists
+    // TODO PERSISTENCE. Either store the ship lists, or rebuild them when ships are loaded. The latter seems smarter.
+    @Transient
+    internal val raceShips: MutableList<GBShip> =
+        Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
+    @Transient
     internal var lastRaceShipsUpdate = -1
+    @Transient
     internal var raceShipsList = raceShips.toList()
 
     init {
@@ -40,13 +47,17 @@ class GBRace(val idx: Int, val uid : Int, val home: GBPlanet) {
         name = GBData.getRaceName(idx)
         birthrate = GBData.getRaceBirthrate(idx)
         explore = GBData.getRaceExplore(idx)
-        absorption= GBData.getRaceAbsorption(idx)
+        absorption = GBData.getRaceAbsorption(idx)
         description = GBData.getRaceDescription(idx)
         color = GBData.getRaceColor(idx)
         GBLog.i("Created Race $name with birthrate $birthrate")
     }
 
-    fun getRaceShipsList() : List<GBShip> {
+    fun getHome() :GBPlanet {
+        return universe.allPlanets[homeUID]
+    }
+
+    fun getRaceShipsList(): List<GBShip> {
         if (universe.turn > lastRaceShipsUpdate) {
             raceShipsList = raceShips.toList().filter { it.health > 0 }
             lastRaceShipsUpdate = universe.turn
