@@ -9,22 +9,13 @@ import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.zwsi.gblib.GBController.Companion.universe
+import org.junit.Test
 import java.util.*
 
-
-@JsonClass(generateAdapter = true)
-data class GBSavedGame(
-    val location: GBLocation,
-    val locationList: List<GBLocation>
-) {
-
-}
-
 class GBTestJSON {
-    companion object {
 
-        @JvmStatic
-        fun main(args: Array<String>) {
+        @Test
+        fun JSON() {
 
             // TODO Quality: Move these tests into the Unit Tests of each class.
 
@@ -96,4 +87,4 @@ class GBTestJSON {
         }
 
     }
-}
+

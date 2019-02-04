@@ -11,37 +11,35 @@ import com.zwsi.gb.gblib.AutoPlayer.Companion.playBeetle
 import com.zwsi.gb.gblib.AutoPlayer.Companion.playImpi
 import com.zwsi.gb.gblib.AutoPlayer.Companion.playTortoise
 import com.zwsi.gblib.GBController.Companion.universe
+import org.junit.Test
 import kotlin.system.measureNanoTime
 
 class GBTest {
-    companion object {
 
-        @JvmStatic
-        fun main(args: Array<String>) {
+    @Test
+    fun runUniverse() {
 
-            println("Welcome to GB Test")
-            GBController.makeUniverse()
-            playBeetle()
-            playImpi()
-            playTortoise()
+        println("Welcome to GB Test")
+        GBController.makeUniverse()
+        playBeetle()
+        playImpi()
+        playTortoise()
 
-            var elapsed = 0L
+        var elapsed = 0L
 
-            for (i in 1..1000000) {
+        for (i in 1..11000) {
 
-                elapsed = measureNanoTime {
-                    GBController.doUniverse()
-                }
+            elapsed = measureNanoTime {
+                GBController.doUniverse()
+            }
 
-                println("Turn: $i ${elapsed/1000}ms Ships: ${universe.getAllShipsList().size} Dead: ${universe.getDeadShipsList().size}")
+            println("Turn: $i ${elapsed / 1000}ms Ships: ${universe.getAllShipsList().size} Dead: ${universe.getDeadShipsList().size}")
 
 //                print("Time for do: $elapsed ")
 //                for (j in 1..elapsed/10000 ) {
 //                    print (" ")
 //                }
 //                print ("*\n")
-            }
         }
-
     }
 }
