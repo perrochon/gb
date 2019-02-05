@@ -5,9 +5,13 @@
 
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import com.zwsi.gblib.GBController.Companion.u
 import org.junit.Assert.*
 import org.junit.Test
+import java.util.*
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -196,6 +200,37 @@ class GBLocationTest {
             origin.towards(destination, distance * 0.5f)
         ) // we are faster, so will arrive
         assertEquals(GBxy(x1, y1), origin.towards(destination, 0f))
+    }
+
+    @Test
+    fun JSONRace() {
+        val u = GBController.makeUniverse()
+        val moshi = Moshi.Builder().build()
+
+        val loc1 = GBLocation(100f, 100f)
+        val jsonAdapter1 = moshi.adapter<GBLocation>(GBLocation::class.java)
+        val json1 = jsonAdapter1.toJson(loc1)
+        val loc2 = jsonAdapter1.fromJson(json1)
+        assert(loc1 == loc2)
+    }
+
+    @Test
+    fun JSONList() {
+        val u = GBController.makeUniverse()
+        val moshi = Moshi.Builder().build()
+
+        val list1: MutableList<GBLocation> = Collections.synchronizedList(arrayListOf<GBLocation>())
+        list1.add(GBLocation(100f, 100f))
+        list1.add(GBLocation(1000f, 1000f))
+        list1.add(GBLocation(u.allPlanets[1], 1, 1))
+        list1.add(GBLocation(u.allPlanets[1], 1f, 1f))
+        list1.add(GBLocation(u.allStars[1], 10f, 1f))
+
+        val locListType = Types.newParameterizedType(List::class.java, GBLocation::class.java)
+        val jsonAdapter2: JsonAdapter<List<GBLocation>> = moshi.adapter(locListType)
+        val json2 = jsonAdapter2.toJson(list1)
+        val list2 = jsonAdapter2.fromJson(json2)
+        assert(list1 == list2)
     }
 
 }

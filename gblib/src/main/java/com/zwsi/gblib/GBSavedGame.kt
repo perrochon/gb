@@ -7,10 +7,10 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GBSavedGame(
-    val location: GBLocation,
-    val locationList: List<GBLocation>,
-    val race: GBRace,
-    val raceList: Map<Int, GBRace>
+    val location: GBLocation?,
+    val locationList: List<GBLocation>?,
+    val race: GBRace?,
+    val raceList: Map<Int, GBRace>?
 ) {
 
 }
