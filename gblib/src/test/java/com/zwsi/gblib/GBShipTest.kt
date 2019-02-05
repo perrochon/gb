@@ -31,8 +31,8 @@ class GBShipTest {
         assertTrue(universe.allShips.contains(ship))
         assertEquals(ship.uid, universe.allShips.indexOf(ship))
 
-        assertTrue(ship.race.raceShips.contains(ship))
-        assertEquals(ship.rid, ship.race.raceShips.indexOf(ship))
+        assertTrue(ship.race.raceShipsUID.contains(ship.uid))
+        assertTrue(ship.race.getRaceShipsList().contains(ship)) // This fails because list is cached
 
         if (!universe.deadShips.contains(ship)) {
 
@@ -99,8 +99,8 @@ class GBShipTest {
         // Make sure ship is only in one race
         found = 0
         for ((key, race) in universe.allRaces) {
-            for (sh in race.raceShips) {
-                if (sh.uid == ship.uid)
+            for (uid in race.getRaceShipsUIDList()) {
+                if (uid == ship.uid)
                     found++
             }
         }
@@ -203,7 +203,7 @@ class GBShipTest {
         val sh0 = GBShip(1, r0, GBLocation(s0, 30f, 1f))
         consistency(sh0)
 
-        r1.raceShips.add(sh0)
+        r1.raceShipsUID.add(sh0.uid)
 
         consistency(sh0)
         uniqueLocations()

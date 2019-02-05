@@ -20,7 +20,6 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     // properties that don't change over live time of ship
     val id: Int     // Unique global ID of this ship
     val uid: Int    // id in universe wide list
-    val rid: Int    // id in list of ships of race/owner
     val name: String // name, first letters of race and type, then id
     val type: String // type in printable form
     val speed: Int   // speed of ship // TODO Feature: insystem and hyperspeed.
@@ -49,8 +48,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         universe.allShips.add(this)
         uid = universe.allShips.indexOf(this)
 
-        race.raceShips.add(this)
-        rid = race.raceShips.indexOf(this)
+        race.raceShipsUID.add(this.uid)
 
         when (loc.level) {
             LANDED -> {
@@ -71,7 +69,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
         }
 
         type = GBData.getShipType(idxtype)
-        name = race.name.first().toString() + type.first().toString() + race.raceShips.indexOf(this)
+        name = race.name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
         speed = GBData.getShipSpeed(idxtype)
         health = GBData.getShipHealth(idxtype)
     }
@@ -164,7 +162,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                     gbAssert("Bad Parameters for ship removement $loc", { false })
                 }
             }
-            this.race.raceShips.remove(this)
+            this.race.raceShipsUID.remove(this.uid)
             universe.deadShips.add(this)
         }
     }

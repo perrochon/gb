@@ -35,12 +35,12 @@ data class GBRace(val idx: Int, val uid: Int, val homeUID: Int) {
     // Ships Lists
     // TODO PERSISTENCE. Either store the ship lists, or rebuild them when ships are loaded. The latter seems smarter.
     @Transient
-    internal val raceShips: MutableList<GBShip> =
-        Collections.synchronizedList(arrayListOf<GBShip>()) // Ships of this race
+    internal val raceShipsUID: MutableList<Int> =
+        Collections.synchronizedList(arrayListOf<Int>()) // Ships of this race
     @Transient
     internal var lastRaceShipsUpdate = -1
     @Transient
-    internal var raceShipsList = raceShips.toList()
+    internal var raceShipsList = raceShipsUID.map { universe.allShips[it]}
 
     init {
         id = GBData.getNextGlobalId()
@@ -57,9 +57,13 @@ data class GBRace(val idx: Int, val uid: Int, val homeUID: Int) {
         return universe.allPlanets[homeUID]
     }
 
+    fun getRaceShipsUIDList() : List<Int> {
+        return raceShipsUID.toList()
+    }
+
     fun getRaceShipsList(): List<GBShip> {
         if (universe.turn > lastRaceShipsUpdate) {
-            raceShipsList = raceShips.toList().filter { it.health > 0 }
+            raceShipsList = raceShipsUID.map { universe.allShips[it]}.filter { it.health > 0 }
             lastRaceShipsUpdate = universe.turn
         }
         return raceShipsList
