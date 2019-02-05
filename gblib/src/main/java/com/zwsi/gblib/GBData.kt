@@ -30,6 +30,9 @@ class GBData {
         internal const val MaxPlanetOrbit = 18f // Radius of the Orbit of the outermost Planet
         internal const val PlanetaryOrbit = 1f // Radius of Planetary Orbit
 
+        internal const val MinNumberOfPlanets = 2
+        internal const val MaxNumberOfPlanets = 8
+
         private var nextGlobalID = 1000
 
         fun getNextGlobalId(): Int {
