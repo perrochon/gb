@@ -38,13 +38,13 @@ class GBShipTest {
 
             when (ship.loc.level) {
                 LANDED -> {
-                    assertTrue(universe.allPlanets[ship.loc.uidRef].landedShips.contains(ship))
+                    assertTrue(universe.planet(ship.loc.uidRef).landedShips.contains(ship))
                 }
                 ORBIT -> {
-                    assertTrue(universe.allPlanets[ship.loc.uidRef].orbitShips.contains(ship))
+                    assertTrue(universe.planet(ship.loc.uidRef).orbitShips.contains(ship))
                 }
                 SYSTEM -> {
-                    assertTrue(universe.allStars[ship.loc.uidRef].starShips.contains(ship))
+                    assertTrue(universe.star(ship.loc.uidRef).starShips.contains(ship))
                 }
                 DEEPSPACE -> {
                     assertTrue(universe.deepSpaceShips.contains(ship))
@@ -66,15 +66,15 @@ class GBShipTest {
                 GBLog.d("Found in deep space: ship: " + sh.uid)
             }
         }
-        for (st in universe.allStars) {
-            for (sh in st.starShips) {
+        for ((key, star) in universe.allStars) {
+            for (sh in star.starShips) {
                 if (sh.uid == ship.uid) {
                     found++
-                    GBLog.d("Found in star: ship: " + sh.uid + " in star: " + st.uid)
+                    GBLog.d("Found in star: ship: " + sh.uid + " in star: " + star.uid)
                 }
             }
         }
-        for (pl in universe.allPlanets) {
+        for ((key, pl) in universe.allPlanets) {
             for (sh in pl.orbitShips) {
                 if (sh.uid == ship.uid) {
                     found++
@@ -117,19 +117,19 @@ class GBShipTest {
                 if (sh.uid == ship.uid)
                     found++
             }
-            for (st in un.allStars) {
+            for ((key, st) in un.allStars) {
                 for (sh in st.starShips) {
                     if (sh.uid == ship.uid)
                         found++
                 }
             }
-            for (pl in un.allPlanets) {
+            for ((key, pl) in un.allPlanets) {
                 for (sh in pl.orbitShips) {
                     if (sh.uid == ship.uid)
                         found++
                 }
             }
-            for (pl in un.allPlanets) {
+            for ((key, pl) in un.allPlanets) {
                 for (sh in pl.landedShips) {
                     if (sh.uid == ship.uid)
                         found++
@@ -155,9 +155,9 @@ class GBShipTest {
         }
 
         // Just in case there aren't any, make a few more
-        val s = u.allStars[0]
+        val s = u.star(0)
         val p: GBPlanet = s.starPlanets[0]
-        val r: GBRace = u.allRaces.toList().component1().second!!
+        val r: GBRace = u.allRaces.toList().component1().second
 
         var sh = GBShip(1, r, GBLocation(500f, 500f))
         consistency(sh)
@@ -180,7 +180,7 @@ class GBShipTest {
     fun shipInTwoStarsFailsConsistency() {
         val universe = GBController.makeUniverse()
 
-        val s1 = universe.allStars[1]
+        val s1 = universe.star(1)
         val r0= GBController.u.allRaces.toList().component1().second!!
 
         val sh0 = GBShip(0, r0, GBLocation(s1, 30f, PlanetaryOrbit))
@@ -196,7 +196,7 @@ class GBShipTest {
     fun shipInTwoRacesFailsConsistency() {
         val universe = GBController.makeUniverse()
 
-        val s0 = universe.allStars[0]
+        val s0 = universe.star(0)
         val r0= GBController.u.allRaces.toList().component1().second!!
         val r1= GBController.u.allRaces.toList().component2().second!!
 
@@ -213,9 +213,9 @@ class GBShipTest {
     fun moveCruiser() {
         val universe = GBController.makeUniverse()
 
-        val s0 = universe.allStars[0]
+        val s0 = universe.star(0)
         val p0 = s0.starPlanets[0]
-        val s1 = universe.allStars[1]
+        val s1 = universe.star(1)
         val p1 = s1.starPlanets[1]
         val r0 = GBController.u.allRaces.toList().component1().second!!
 
@@ -256,9 +256,9 @@ class GBShipTest {
         val universe = GBController.makeUniverse()
 
         val s0 = universe.allStars[0]
-        val p0 = s0.starPlanets[0]
+        val p0 = s0!!.starPlanets[0]
         val p1 = s0.starPlanets[1]
-        val r0 = GBController.u.allRaces.toList().component1().second!!
+        val r0 = GBController.u.allRaces.toList().component1().second
 
         val loc01 = GBLocation(p0, 1, 1);
         val loc02 = GBLocation(p1, 1, 2);
@@ -275,7 +275,7 @@ class GBShipTest {
 
             sh.doShip()
 
-            var distance_moved = lastLocation.getLoc().distance(sh.loc.getLoc())
+            val distance_moved = lastLocation.getLoc().distance(sh.loc.getLoc())
             assert(distance_moved < 5, {
                 "Ship moved $distance_moved from ${lastLocation.getLocDesc()} to ${sh.loc.getLocDesc()} : " +
                         "${lastLocation.getLoc()} -> ${sh.loc.getLoc()}"
@@ -294,8 +294,8 @@ class GBShipTest {
 
         val s0 = universe.allStars[0]
         val s1 = universe.allStars[1]
-        val p0 = s0.starPlanets[0]
-        val p1 = s1.starPlanets[1]
+        val p0 = s0!!.starPlanets[0]
+        val p1 = s1!!.starPlanets[1]
         val r0 = GBController.u.allRaces.toList().component1().second!!
 
         val loc01 = GBLocation(p0, 1, 1);

@@ -15,9 +15,9 @@ class GBStarTest {
         val universe = GBController.u
 
         assertTrue(s.name.length > 0)
-        assertTrue(s.universe == universe)
-        assertTrue(universe.allStars.contains(s))
-        assertEquals(s.uid, universe.allStars.indexOf(s))
+        assertTrue(universe.allStars.containsValue(s))
+        assertTrue(universe.allStars.containsKey(s.uid))
+        assertEquals(s.uid, universe.star(s.uid).uid)
     }
 
 
@@ -25,7 +25,7 @@ class GBStarTest {
     fun basic() {
         val universe = GBController.makeUniverse()
 
-        for (s in universe.allStars)
+        for ((key, s) in universe.allStars)
             consistent(s)
 
     }

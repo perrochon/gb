@@ -4,82 +4,45 @@
 
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonClass
+import com.zwsi.gblib.GBController.Companion.u
 import java.util.*
 
-class GBStar(val universe: GBUniverse) {
+@JsonClass(generateAdapter = true)
+data class GBStar(val uid: Int, val numberOfPlanets: Int, val x: Int, val y : Int) {
 
-    // TODO Quality Fix need to pass in universe because it's called from the constructor of universe.
-
-
-    val id: Int
-    val uid: Int
-    val idxname: Int
-
+    val id: Int // unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
     val name: String // name of this system
-
-    private val x: Int // x coordinate
-    private val y: Int // y coordinate
 
     val loc: GBLocation
 
+    @Transient
     var starPlanets: MutableList<GBPlanet> = arrayListOf() // the planets in this system
 
-    var numberOfPlanets = 2 // minimal number of planets
-
-    internal val starShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf<GBShip>()) // the ships in this system
+    @Transient
+    internal val starShips: MutableList<GBShip> =
+        Collections.synchronizedList(arrayListOf<GBShip>()) // the ships in this system
+    @Transient
     internal var lastStarShipsUpdate = -1
+    @Transient
     internal var starShipsList = starShips.toList()
 
     init {
         id = GBData.getNextGlobalId()
-        universe.allStars.add(this)
-        uid = universe.allStars.indexOf(this)
-
-        idxname = GBData.selectStarNameIdx()
-        name = GBData.starNameFromIdx(idxname)
-
-
-        // TODO fix getStarCoordinates. Return a GBxy?
-        val coordinates = getStarCoordinates()
-        x = coordinates[0]
-        y = coordinates[1]
-
-        loc = GBLocation(x.toFloat(),y.toFloat())
+        name = GBData.starNameFromIdx(GBData.selectStarNameIdx())
+        loc = GBLocation(x.toFloat(), y.toFloat())
         GBLog.d("Star $name location is ($x,$y)")
-
-        if (universe.numberOfStars > 3) {
-            // 2-8 stars. May adjust this later based on star type...
-            // if there are 3 or less stars in the Universe, we limit to 2 planets per system, as we are likely testing
-            numberOfPlanets += GBData.rand.nextInt(6)
-        }
-
-        makePlanets()
 
         GBLog.d("Made System $name")
     }
 
-    fun getStarShipsList() : List<GBShip> {
-        if (universe.turn > lastStarShipsUpdate) {
+    fun getStarShipsList(): List<GBShip> {
+        // TODO need smarter cache invalidation. But it's also cheap to produce this list.
+         if (u.turn > lastStarShipsUpdate) {
             starShipsList = starShips.toList().filter { it.health > 0 }
-            lastStarShipsUpdate = universe.turn
+            lastStarShipsUpdate = u.turn
         }
         return starShipsList
-    }
-
-
-
-
-    companion object {
-        var areas: ArrayList<Int> = ArrayList() // we fill it up on first call to GetStarCoordinates
-
-        // TODO This smells. Caller universe has to clear GBStar's data structue.
-        // Also, knowing areas (and keeping them) at a higher level, if they are made hierarchical
-        // (Say 4 areas each with 5 sub-areas, then place allStars into sub area) then place one race in each area.
-        // Of course for 17 allRaces, this would lead to three levels with 64 sub-sub-areas. Quadratic may be better.
-
-        fun resetStarCoordinates() {
-            areas.clear()
-        }
     }
 
     fun consoleDraw() {
@@ -95,55 +58,6 @@ class GBStar(val universe: GBUniverse) {
 
     }
 
-     fun makePlanets() {
-        GBLog.d("Making Planets for star $name")
 
-        for (i in 0 until numberOfPlanets) {
-            val p = GBPlanet(i, this)
-            starPlanets.add(p)
-
-        }
-
-    }
-
-    // Get random, but universally distributed coordinates for allStars
-    // Approach: break up the universe into n areas of equal size, and put one star in each area
-    // where n is the smallest square number bigger than numberOfStars. Then shuffle the areas as some will remain
-    // empty.
-
-
-    fun getStarCoordinates(): IntArray {
-
-        val nos = universe.getNumberOfStars().toDouble()
-        val dim = java.lang.Math.ceil(java.lang.Math.sqrt(nos)).toInt()
-
-        if (areas.isEmpty()) {
-
-            // TODO Does this work? areas = IntArray(dim * dim) { i -> i-1}
-
-            for (i in 0 until dim * dim) {
-                areas.add(i, i)
-            }
-            areas.shuffle()
-        }
-
-        val coordinates = IntArray(size = 2)
-        val area = areas.removeAt(0)
-
-        val areaX = area % dim   // coordinates of the chosen area
-        val areaY = area / dim   // coordinates of the chosen area
-        val areaWidth = GBData.UniverseMaxX / dim
-        val areaHeight = GBData.UniverseMaxY / dim
-        val marginX = areaWidth / 10 // no star in the edge of the area
-        val marginY = areaHeight / 10 // no star in the edge of the area
-
-        GBLog.d("Adding Star to area " + area + "[" + areaX + "][" + areaY + "] (" + areaWidth + "x" + areaHeight + "){" + marginX + ", " + marginY + "}")
-
-        coordinates[0] = GBData.rand.nextInt(areaWidth - 2 * marginX) + areaX * areaWidth + marginX
-        coordinates[1] = GBData.rand.nextInt(areaHeight - 2 * marginY) + areaY * areaHeight + marginY
-
-        return coordinates
-
-    }
 
 }

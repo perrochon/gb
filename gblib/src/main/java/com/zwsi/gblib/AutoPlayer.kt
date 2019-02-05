@@ -14,9 +14,7 @@ class AutoPlayer() {
             val r = u.allRaces.values.find { it.idx == 2 }!!
             val now = u.turn + 1 // just in case we have a turn running....
 
-            var code = {}
-
-            code = {
+            var code = {
                 val p = r.getHome()
                 GBController.u.makeFactory(p, r)
                 GBLog.d("Ordered Factory")
@@ -27,7 +25,7 @@ class AutoPlayer() {
                 code = {
                     val factory = r.getRaceShipsList().filter { it.idxtype == GBData.FACTORY }.firstOrNull()
                     if (factory != null) {
-                        factory?.let { GBController.u.makePod(it) }
+                        factory.let { GBController.u.makePod(it) }
                         GBLog.d("Ordered Pod")
                     }
                 }
@@ -36,10 +34,10 @@ class AutoPlayer() {
             }
             code = {
                 for (pod in r.getRaceShipsList().filter { (it.idxtype == GBData.POD) && (it.dest == null) }) {
-                    pod?.let {
+                    pod.let {
                         GBController.u.flyShipLanded(
                             it,
-                            u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]
+                            u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!
                         )
                     }
                 }
@@ -57,9 +55,7 @@ class AutoPlayer() {
             val r = u.allRaces.values.find { it.idx == 1 }!!
             val now = u.turn + 1 // just in case we have a turn running....
 
-            var code = {}
-
-            code = {
+            var code = {
                 val p = r.getHome()
                 GBController.u.makeFactory(p, r)
                 GBLog.d("Ordered Factory")
@@ -80,7 +76,7 @@ class AutoPlayer() {
                 val cruiser = r.getRaceShipsList().find {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
-                val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]
+                val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!
                 val homeBeetle = u.allRaces.values.find { it.idx == 2 }!!.getHome()
                 if (p != homeBeetle) {
                     cruiser?.let { GBController.u.flyShipOrbit(it, p) }
@@ -97,9 +93,7 @@ class AutoPlayer() {
             val r = u.allRaces.values.find { it.idx == 3 }!!
             val now = u.turn + 1 // just in case we have a turn running....
 
-            var code = {}
-
-            code = {
+            var code = {
                 val p = r.getHome()
                 GBController.u.makeFactory(p, r)
                 GBLog.d("Ordered Factory")
@@ -120,7 +114,7 @@ class AutoPlayer() {
                 val cruiser = r.getRaceShipsList().find {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
-                val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]
+                val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!
                 val homeBeetle = u.allRaces.values.find { it.idx == 2 }!!.getHome()
                 if (p != homeBeetle) {
                     cruiser?.let { GBController.u.flyShipOrbit(it, p) }

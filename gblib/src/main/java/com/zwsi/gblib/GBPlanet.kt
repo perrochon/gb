@@ -9,12 +9,11 @@ import com.zwsi.gblib.GBData.Companion.rand
 import java.util.*
 import kotlin.math.PI
 
-class GBPlanet(val sid: Int, val star: GBStar) {
+class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
     // sid is the "starID" (aka orbit), which planet of the parent star is this 0..
 
     // Set at creation
     val id: Int
-    val uid: Int
     val idxname: Int
     val idxtype: Int // idxtype of this planet
 
@@ -49,8 +48,6 @@ class GBPlanet(val sid: Int, val star: GBStar) {
 
     init {
         id = GBData.getNextGlobalId()
-        star.universe.allPlanets.add(this) // This has to be star.universe as we don't have a universe yet...
-        uid = star.universe.allPlanets.indexOf(this) // TODO Universe creation is not ideal just yet...
 
         idxname = GBData.selectPlanetNameIdx()
         name = GBData.planetNameFromIdx(idxname)

@@ -41,8 +41,8 @@ class PlanetsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("planets")
         } else {
             displayList = ArrayList<Int>()
-            for (i in GBViewModel.viewPlanets) {
-                displayList.add(i.uid)
+            for ((_, planet) in GBViewModel.viewPlanets) {
+                displayList.add(planet.uid)
             }
         }
 

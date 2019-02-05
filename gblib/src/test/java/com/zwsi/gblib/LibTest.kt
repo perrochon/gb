@@ -24,8 +24,8 @@ class LibTest {
         } else {
             assertEquals(GBController.numberOfStars, universe.allStars.size)
         }
-        assertEquals(universe.allStars[0].starPlanets[0], universe.allPlanets[0])
-        assertEquals(universe.allStars[0].starPlanets[1], universe.allPlanets[1])
+        assertEquals(universe.star(0).starPlanets[0], universe.planet(0))
+        assertEquals(universe.star(0).starPlanets[1], universe.planet(1))
     }
 
     @Test
@@ -44,10 +44,10 @@ class LibTest {
         val universe = GBController.makeSmallUniverse()
         consistent()
 
-        assertEquals(100, universe.allStars[0].starPlanets[0].population)
-        assertEquals(100, universe.allStars[1].starPlanets[0].population)
-        assertEquals(100, universe.allStars[2].starPlanets[0].population)
-        assertEquals(100, universe.allStars[3].starPlanets[0].population)
+        assertEquals(100, universe.star(0).starPlanets[0].population)
+        assertEquals(100, universe.star(1).starPlanets[0].population)
+        assertEquals(100, universe.star(2).starPlanets[0].population)
+        assertEquals(100, universe.star(3).starPlanets[0].population)
 
 
         populate()
@@ -65,10 +65,10 @@ class LibTest {
         val universe = GBController.makeBigUniverse()
         consistent()
 
-        assertEquals(100, universe.allStars[0].starPlanets[0].population)
-        assertEquals(100, universe.allStars[1].starPlanets[0].population)
-        assertEquals(100, universe.allStars[2].starPlanets[0].population)
-        assertEquals(100, universe.allStars[3].starPlanets[0].population)
+        assertEquals(100, universe.star(0).starPlanets[0].population)
+        assertEquals(100, universe.star(1).starPlanets[0].population)
+        assertEquals(100, universe.star(2).starPlanets[0].population)
+        assertEquals(100, universe.star(3).starPlanets[0].population)
 
 
         populate()
@@ -88,8 +88,8 @@ class LibTest {
     fun landPopulation() {
         val universe = GBController.makeUniverse()
         consistent()
-        universe.landPopulation(universe.allPlanets[1], universe.allRaces.values.first().uid, 55)
-        assertEquals(55, universe.allStars[0].starPlanets[1].population)
+        universe.landPopulation(universe.planet(1), universe.allRaces.values.first().uid, 55)
+        assertEquals(55, universe.star(0).starPlanets[1].population)
     }
 
     fun populate() {
@@ -107,32 +107,32 @@ class LibTest {
         val r3 = allRaces.toList().component4().second
 
         // Give each race a factory
-        GBShip(0, r0, GBLocation(allStars[0].starPlanets[0],5,1))
-        GBShip(0, r1, GBLocation(allStars[1].starPlanets[0],5,1))
-        GBShip(0, r2, GBLocation(allStars[2].starPlanets[0],4,1))
+        GBShip(0, r0, GBLocation(allStars[0]!!.starPlanets[0],5,1))
+        GBShip(0, r1, GBLocation(allStars[1]!!.starPlanets[0],5,1))
+        GBShip(0, r2, GBLocation(allStars[2]!!.starPlanets[0],4,1))
         shipsMade +=3
 
         if (numberOfStars > 3) {
-            GBShip(0, r3, GBLocation(allStars[3].starPlanets[0],PlanetaryOrbit,1f))
+            GBShip(0, r3, GBLocation(allStars[3]!!.starPlanets[0],PlanetaryOrbit,1f))
             shipsMade +=1
         }
 
         // Give each race a pod
-        GBShip(1, r0, GBLocation(allStars[0].starPlanets[0],PlanetaryOrbit,1f))
-        GBShip(1, r1, GBLocation(allStars[1].starPlanets[0],PlanetaryOrbit,1f))
-        GBShip(1, r2, GBLocation(allStars[2].starPlanets[0],PlanetaryOrbit,1f))
+        GBShip(1, r0, GBLocation(allStars[0]!!.starPlanets[0],PlanetaryOrbit,1f))
+        GBShip(1, r1, GBLocation(allStars[1]!!.starPlanets[0],PlanetaryOrbit,1f))
+        GBShip(1, r2, GBLocation(allStars[2]!!.starPlanets[0],PlanetaryOrbit,1f))
         shipsMade +=3
 
         if (numberOfStars > 3) {
-            GBShip(1, r3, GBLocation(allStars[3].starPlanets[0],PlanetaryOrbit,1f))
+            GBShip(1, r3, GBLocation(allStars[3]!!.starPlanets[0],PlanetaryOrbit,1f))
             shipsMade +=1
         }
 
         // Give each race a destroyer in system 3
-        GBShip(2, r0, GBLocation(allStars[2],SystemBoundary,1f))
-        GBShip(2, r1, GBLocation(allStars[2],SystemBoundary,2f))
-        GBShip(2, r2, GBLocation(allStars[2],SystemBoundary,3f))
-        GBShip(2, r3, GBLocation(allStars[2],SystemBoundary,.5f))
+        GBShip(2, r0, GBLocation(allStars[2]!!,SystemBoundary,1f))
+        GBShip(2, r1, GBLocation(allStars[2]!!,SystemBoundary,2f))
+        GBShip(2, r2, GBLocation(allStars[2]!!,SystemBoundary,3f))
+        GBShip(2, r3, GBLocation(allStars[2]!!,SystemBoundary,.5f))
         shipsMade +=4
 
         // Give each race a destroyer in deep space

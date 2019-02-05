@@ -50,7 +50,7 @@ class GBRaceTest {
         val u = GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
-        val race1 = GBRace(0, 0, u.allPlanets[0].uid)
+        val race1 = GBRace(0, 0, 0)
         val jsonAdapter = moshi.adapter<GBRace>(GBRace::class.java)
         val json = jsonAdapter.toJson(race1)
         val race2 = jsonAdapter.fromJson(json)

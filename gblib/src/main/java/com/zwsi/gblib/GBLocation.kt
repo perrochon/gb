@@ -110,7 +110,7 @@ data class GBLocation(
     // or subclasses instead of when
     // This takes universal coordinates... Used when moving ships in.
     // TODO Why do we set x and r in this one? Seems to be the only constructor that does both...
-    constructor(star: GBStar, x: Float, y: Float, dummy: Boolean) : this(
+    constructor(star: GBStar, x: Float, y: Float,  @Suppress("UNUSED_PARAMETER") dummy: Boolean) : this(
         SYSTEM,
         star.uid,
         x = x - star.loc.x,

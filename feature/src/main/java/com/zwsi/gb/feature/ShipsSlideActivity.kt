@@ -67,7 +67,7 @@ class ShipsSlideActivity : AppCompatActivity() {
 
     }
 
-    fun goToLocationShip(view: View) {
+    fun goToLocationShip( @Suppress("UNUSED_PARAMETER")view: View) {
         // TODO deprecated
 //        GlobalButtonOnClick.goToLocationShip(view)
     }

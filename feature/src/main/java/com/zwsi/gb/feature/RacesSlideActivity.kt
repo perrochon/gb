@@ -28,7 +28,7 @@ class RacesSlideActivity : AppCompatActivity() {
 
         viewpager.setCurrentItem(startItem)
 
-        val turnObserver = Observer<Int> {newTurn -> viewpager.invalidate()}  // TODO why is newTurn nullable?
+        val turnObserver = Observer<Int> {_ -> viewpager.invalidate()}  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
     }
@@ -48,7 +48,7 @@ class RacesSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("races")
         } else {
             displayList = ArrayList<Int>()
-            for ((key, race) in GBViewModel.viewRaces) {
+            for ((_, race) in GBViewModel.viewRaces) {
                 displayList.add(race.uid)
             }
         }

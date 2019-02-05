@@ -14,16 +14,15 @@ class GBPlanetTest {
     fun consistent(planet: GBPlanet){
         val universe = GBController.u
         assertTrue(planet.name.length > 0)
-        assertEquals(planet.star.universe,universe)
 
         assertTrue(planet.star.starPlanets.contains(planet))
-        assertTrue(universe.allPlanets.contains(planet))
+        assertTrue(universe.allPlanets.containsValue(planet))
 
         assertEquals(planet.sid,planet.star.starPlanets.indexOf(planet))
-        assertEquals(planet.uid,universe.allPlanets.indexOf(planet))
+        assertEquals(planet,universe.allPlanets[planet.uid])
 
         var count = 0
-        for (star in planet.star.universe.allStars) {
+        for ((uid, star) in universe.allStars) {
             for (pl in star.starPlanets) {
                 if (pl.uid == planet.uid)
                     count++
@@ -37,8 +36,8 @@ class GBPlanetTest {
         val universe = GBController.makeUniverse()
 
 
-        for (p in universe.allPlanets) {
-            consistent(p)
+        for ((key, planet) in universe.allPlanets) {
+            consistent(planet)
         }
     }
 
@@ -47,23 +46,23 @@ class GBPlanetTest {
         val universe = GBController.makeUniverse()
 
 
-        for (p in universe.allPlanets) {
-            val width = p.width
-            val height = p.height
+        for ((key, planet) in universe.allPlanets) {
+            val width = planet.width
+            val height = planet.height
 
-            assertEquals(width * height, p.size)
+            assertEquals(width * height, planet.size)
 
-            assertEquals(p.sectorX(0), 0)
-            assertEquals(p.sectorY(0), 0)
+            assertEquals(planet.sectorX(0), 0)
+            assertEquals(planet.sectorY(0), 0)
 
-            assertEquals(p.sectorX(width - 1), width - 1)
-            assertEquals(p.sectorY(width - 1), 0)
+            assertEquals(planet.sectorX(width - 1), width - 1)
+            assertEquals(planet.sectorY(width - 1), 0)
 
-            assertEquals(p.sectorX(width), 0)
-            assertEquals(p.sectorY(width), 1)
+            assertEquals(planet.sectorX(width), 0)
+            assertEquals(planet.sectorY(width), 1)
 
-            assertEquals(p.sectorX(width * height - 1), width - 1)
-            assertEquals(p.sectorY(width * height - 1), height - 1)
+            assertEquals(planet.sectorX(width * height - 1), width - 1)
+            assertEquals(planet.sectorY(width * height - 1), height - 1)
         }
     }
 
@@ -71,8 +70,8 @@ class GBPlanetTest {
     fun distanceToStar() {
         val universe = GBController.makeUniverse()
 
-        universe.allPlanets.forEach {
-            assert(it.loc.getLoc().distance(it.star.loc.getLoc())< (GBData.MaxPlanetOrbit*1.1f), {"Planet too far from star"} )
+        universe.allPlanets.forEach { (key, p) ->
+            assert(p.loc.getLoc().distance(p.star.loc.getLoc())< (GBData.MaxPlanetOrbit*1.1f), {"Planet too far from star"} )
         }
     }
 
@@ -80,25 +79,25 @@ class GBPlanetTest {
     fun sectorDirections() {
         val universe = GBController.makeUniverse()
 
-        for (p in universe.allPlanets) {
-            val width = p.width
-            val height = p.height
+        for ((key, planet) in universe.allPlanets) {
+            val width = planet.width
+            val height = planet.height
 
-            assertEquals(width * height, p.size)
+            assertEquals(width * height, planet.size)
 
-            assertEquals(p.east(0), 1)
-            assertEquals(p.west(0), width - 1)
-            assertEquals(p.north(0), 0)
-            assertEquals(p.south(0), width)
+            assertEquals(planet.east(0), 1)
+            assertEquals(planet.west(0), width - 1)
+            assertEquals(planet.north(0), 0)
+            assertEquals(planet.south(0), width)
 
-            assertEquals(p.east(width * height - 1), width * (height - 1))
-            assertEquals(p.west(width * height - 1), width * height - 2)
-            assertEquals(p.north(width * height - 1), width * (height - 1) - 1)
-            assertEquals(p.south(width * height - 1), width * height - 1)
+            assertEquals(planet.east(width * height - 1), width * (height - 1))
+            assertEquals(planet.west(width * height - 1), width * height - 2)
+            assertEquals(planet.north(width * height - 1), width * (height - 1) - 1)
+            assertEquals(planet.south(width * height - 1), width * height - 1)
 
-            assertEquals(p.west(width * (height - 1)), width * height - 1)
-            assertEquals(p.east(width * height - 2), width * height - 1)
-            assertEquals(p.south(width * (height - 1) - 1), width * height - 1)
+            assertEquals(planet.west(width * (height - 1)), width * height - 1)
+            assertEquals(planet.east(width * height - 2), width * height - 1)
+            assertEquals(planet.south(width * (height - 1) - 1), width * height - 1)
         }
     }
 
@@ -107,15 +106,15 @@ class GBPlanetTest {
 
         val universe = GBController.makeUniverse()
 
-        for (p in universe.allPlanets) {
+        for ((key, planet) in universe.allPlanets) {
 
-            val rt1 = p.loc.getSLocP()
-            val xy1 = p.loc.getSLocC()
+            val rt1 = planet.loc.getSLocP()
+            val xy1 = planet.loc.getSLocC()
 
-            p.movePlanet()
+            planet.movePlanet()
 
-            var rt2 = p.loc.getSLocP()
-            var xy2 = p.loc.getSLocC()
+            var rt2 = planet.loc.getSLocP()
+            var xy2 = planet.loc.getSLocC()
 
             assertEquals(rt1.r, rt2.r)
             assert(xy1.distance(xy2) < 0.99) // Or pods can never catch up

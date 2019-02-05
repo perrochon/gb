@@ -29,7 +29,7 @@ class MapActivity : AppCompatActivity() {
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
-        var myContext = this as Context
+        //var myContext = this as Context TODO this was unused. Can we remove?
 
         // Gestures
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
@@ -119,7 +119,7 @@ class MapActivity : AppCompatActivity() {
 //            }
 //        })
 
-        imageView.setOnTouchListener { v: View, motionEvent: MotionEvent ->
+        imageView.setOnTouchListener { _: View, motionEvent: MotionEvent ->
             gestureDetector.onTouchEvent(motionEvent)
         }
 

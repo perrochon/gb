@@ -34,7 +34,7 @@ class StarsActivity : AppCompatActivity() {
         val canvas = Canvas(merged);
 
         val stars = universe.allStars
-        for (s in stars) {
+        for ((_, s) in stars) {
             canvas.drawBitmap(bs, s.loc.getLoc().x, s.loc.getLoc().y, null)
             canvas.drawText(s.name,s.loc.getLoc().x + 30, s.loc.getLoc().y + 10, paint)
         }

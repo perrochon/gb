@@ -40,7 +40,7 @@ class StarFragment : Fragment() {
 
         // What is this fragment about, and make sure the fragment remembers
         val starID = arguments!!.getString("UID")!!.toInt()
-        val st = GBViewModel.viewStars[starID]
+        val st = GBViewModel.viewStars[starID]!!
         view!!.tag = st
 
         val imageView = view.findViewById<ImageView>(R.id.StarView)

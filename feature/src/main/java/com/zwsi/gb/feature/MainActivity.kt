@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
 
     /** Called when the user taps the Stars button */
-    fun starmap1(view: View) {
+    fun starmap1( @Suppress("UNUSED_PARAMETER")view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Stars button */
-    fun starmap2(view: View) {
+    fun starmap2( @Suppress("UNUSED_PARAMETER")view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Stars button */
-    fun stars(view: View) {
+    fun stars( @Suppress("UNUSED_PARAMETER")view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Planets button */
-    fun planets1(view: View) {
+    fun planets1( @Suppress("UNUSED_PARAMETER")view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Planets button */
-    fun planets2(view: View) {
+    fun planets2( @Suppress("UNUSED_PARAMETER")view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
@@ -170,12 +170,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Races button */
-    fun races(view: View) {
+    fun races( @Suppress("UNUSED_PARAMETER")view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
-        val racesUID = ArrayList<Int>()
         val intent = Intent(this, RacesSlideActivity::class.java)
 
         intent.putExtra("title", "All Races")
@@ -185,7 +184,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Ships button */
-    fun ships(view: View) {
+    fun ships( @Suppress("UNUSED_PARAMETER")view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }

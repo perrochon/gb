@@ -31,7 +31,7 @@ class GBLocationTest {
                 assertEquals(-1f, l.r)
                 assertEquals(l.getLLoc().sx, l.sx)
                 assertEquals(l.getLLoc().sy, l.sy)
-                assertNotEquals(null, u.allPlanets.getOrNull(l.uidRef)) //
+                assertNotEquals(null, u.allPlanets[l.uidRef]) //
                 // Do some checks on the LocDesc
             }
             GBLocation.ORBIT -> {
@@ -43,19 +43,19 @@ class GBLocationTest {
                 assertEquals(l.getOLocP().t, l.t)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
-                assertNotEquals(null, u.allPlanets.getOrNull(l.uidRef)) //
+                assertNotEquals(null, u.allPlanets[l.uidRef]) //
                 // Do some checks on the LocDesc
             }
             GBLocation.SYSTEM -> {
                 assertEquals(GBLocation.SYSTEM, l.level)
-                assertEquals(l.getLoc().x, u.allStars[l.uidRef].loc.x + l.x)
-                assertEquals(l.getLoc().y, u.allStars[l.uidRef].loc.y + l.y)
+                assertEquals(l.getLoc().x, u.allStars[l.uidRef]!!.loc.x + l.x)
+                assertEquals(l.getLoc().y, u.allStars[l.uidRef]!!.loc.y + l.y)
                 assertNotEquals(-1, l.uidRef)
                 assertEquals(l.getSLocP().r, l.r)
                 assertEquals(l.getSLocP().t, l.t)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
-                assertNotEquals(null, u.allStars.getOrNull(l.uidRef)) //
+                assertNotEquals(null, u.allStars[l.uidRef]) //
                 assertEquals(l.x, l.r * cos(l.t))
                 assertEquals(l.y, l.r * sin(l.t))
 
@@ -81,7 +81,7 @@ class GBLocationTest {
     @Test
     fun orbit() {
         val universe = GBController.makeUniverse()
-        val p = universe.allPlanets[1]
+        val p = universe.planet(1)
         val loc = GBLocation(p, 1f, 25f)
         assertEquals(1f, loc.r)
         assertEquals(25f, loc.t)
@@ -91,14 +91,14 @@ class GBLocationTest {
     @Test(expected = AssertionError::class)
     fun orbitTooFarOut() {
         val universe = GBController.makeUniverse()
-        val p = universe.allPlanets[1]
+        val p = universe.planet(1)
         val loc = GBLocation(p, 3f, 25f)
     }
 
     @Test
     fun landed() {
         val universe = GBController.makeUniverse()
-        val p = universe.allPlanets[2]
+        val p = universe.planet(2)
         val loc = GBLocation(p, 1, 2)
         assertEquals(1, loc.sx)
         assertEquals(2, loc.sy)
@@ -108,7 +108,7 @@ class GBLocationTest {
     @Test
     fun system() {
         val universe = GBController.makeUniverse()
-        val s = universe.allStars[3]
+        val s = universe.star(3)!!
         val loc = GBLocation(s, 2f, 2f)
         assertEquals(2f, loc.t)
         consistent(loc)
@@ -117,7 +117,7 @@ class GBLocationTest {
     @Test(expected = AssertionError::class)
     fun systemTooFarOut() {
         val universe = GBController.makeUniverse()
-        val s = universe.allStars[3]
+        val s = universe.star(3)!!
         val loc = GBLocation(s, 200f, 2f)
     }
 
@@ -155,7 +155,7 @@ class GBLocationTest {
     @Test
     fun planetMoveMath() { // TODO Refactor so this test can be done without a universe
         val universe = GBController.makeUniverse()
-        val s = universe.allStars[0]
+        val s = universe.star(0)
         var loc = GBLocation(s, 10f, 0f)
         var xy = loc.getSLocC()
         var rt = loc.getSLocP()
@@ -222,9 +222,9 @@ class GBLocationTest {
         val list1: MutableList<GBLocation> = Collections.synchronizedList(arrayListOf<GBLocation>())
         list1.add(GBLocation(100f, 100f))
         list1.add(GBLocation(1000f, 1000f))
-        list1.add(GBLocation(u.allPlanets[1], 1, 1))
-        list1.add(GBLocation(u.allPlanets[1], 1f, 1f))
-        list1.add(GBLocation(u.allStars[1], 10f, 1f))
+        list1.add(GBLocation(u.planet(1), 1, 1))
+        list1.add(GBLocation(u.planet(1), 1f, 1f))
+        list1.add(GBLocation(u.star(1), 10f, 1f))
 
         val locListType = Types.newParameterizedType(List::class.java, GBLocation::class.java)
         val jsonAdapter2: JsonAdapter<List<GBLocation>> = moshi.adapter(locListType)

@@ -24,7 +24,7 @@ class GBTestJSON {
         val moshi = Moshi.Builder().build()
 
         println("\n Testing GBRace")
-        val race1 = GBRace(0, 0, u.allPlanets[0].uid)
+        val race1 = GBRace(0, 0, u.planet(0).uid)
         println(race1)
         val jsonAdapter4 = moshi.adapter<GBRace>(GBRace::class.java)
         val json4 = jsonAdapter4.toJson(race1)

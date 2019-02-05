@@ -47,8 +47,8 @@ class StarsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("stars")
         } else {
             displayList = ArrayList<Int>()
-            for (i in GBViewModel.viewStars) {
-                displayList.add(i.uid)
+            for ((_, star) in GBViewModel.viewStars) {
+                displayList.add(star.uid)
             }
         }
 
@@ -67,7 +67,7 @@ class StarsSlideActivity : AppCompatActivity() {
 
     }
 
-    fun goToLocation(view:View) {
+    fun goToLocation( @Suppress("UNUSED_PARAMETER")view:View) {
         //TODO DEPRECATED. Would have to create a map view and then zoom in
     }
 

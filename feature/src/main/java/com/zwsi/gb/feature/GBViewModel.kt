@@ -20,8 +20,8 @@ class GBViewModel {
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
         val currentTurn by lazy {MutableLiveData<Int>()}
 
-        var viewStars = u.allStars
-        var viewPlanets = u.allPlanets
+        var viewStars = u.getAllStarsMap()
+        var viewPlanets = u.getAllPlanetsMap()
         var viewRaces = u.getAllRacesMap()
 
         var viewShips = u.getAllShipsList()
@@ -87,28 +87,28 @@ class GBViewModel {
 
         fun fillViewStarShips() {
             viewStarShips.clear()
-            for (s in viewStars) {
+            for ((_, s) in viewStars) {
                 viewStarShips.put(s.uid, s.getStarShipsList())
             }
         }
 
         fun fillViewOrbitShips() {  // TODO PERF combine with the next and iterate only once
             viewOrbitShips.clear()
-            for (p in viewPlanets) {
+            for ((_, p) in viewPlanets) {
                 viewOrbitShips.put(p.uid, p.getOrbitShipsList())
             }
         }
 
         fun fillViewLandedShips() {
             viewLandedShips.clear()
-            for (p in viewPlanets) {
+            for ((_, p) in viewPlanets) {
                 viewLandedShips.put(p.uid, p.getLandedShipsList())
             }
         }
 
         fun fillViewRaceShips() {
             viewRaceShips.clear()
-            for ((id, race) in viewRaces) {
+            for ((_, race) in viewRaces) {
                 viewRaceShips.put(race.uid, race.getRaceShipsList())
             }
         }

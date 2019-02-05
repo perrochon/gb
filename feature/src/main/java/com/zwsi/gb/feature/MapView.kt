@@ -158,9 +158,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         val drawables = listOf<Int>(R.drawable.podt, R.drawable.cruisert, R.drawable.factory, R.drawable.beetlepod)
         for (i in drawables) {
             val bm = BitmapFactory.decodeResource(getResources(), i)!!
-            w = density / 420f * bm!!.getWidth() / 60
-            h = density / 420f * bm!!.getHeight() / 60
-            bitmaps[i] = Bitmap.createScaledBitmap(bm!!, w.toInt(), h.toInt(), true)!!
+            w = density / 420f * bm.getWidth() / 60
+            h = density / 420f * bm.getHeight() / 60
+            bitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
         }
 
         bmASurface[3] = BitmapFactory.decodeResource(getResources(), R.drawable.desert)!!
@@ -186,8 +186,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         setScaleAndCenter(
             zoomLevelPlanet,
             PointF(
-                com.zwsi.gb.feature.GBViewModel.viewRaces.toList().component1().second!!.getHome().loc.getLoc().x * uToS,
-                com.zwsi.gb.feature.GBViewModel.viewRaces.toList().component1().second!!.getHome().loc.getLoc().y * uToS
+                com.zwsi.gb.feature.GBViewModel.viewRaces.toList().component1().second.getHome().loc.getLoc().x * uToS,
+                com.zwsi.gb.feature.GBViewModel.viewRaces.toList().component1().second.getHome().loc.getLoc().y * uToS
             )
         )
 
@@ -308,7 +308,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Timing Info:  no race 200μs, 1 race 400μs, more ?μs
         if (normScale > 50) {
 
-            for ((key,r) in GBViewModel.viewRaces) {
+            for ((_,r) in GBViewModel.viewRaces) {
                 if (starVisible(r.getHome().star.loc.getLoc().x * uToSf, r.getHome().star.loc.getLoc().y * uToSf)) {
                     sP1.set(r.getHome().star.loc.getLoc().x * uToSf + 50, r.getHome().star.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)
@@ -361,7 +361,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.style = Style.FILL
         paint.color = labelColor
         paint.alpha = 128
-        for (s in GBViewModel.viewStars) {
+        for ((_, s) in GBViewModel.viewStars) {
             if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
@@ -390,7 +390,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private fun drawPlanetSurface(canvas: Canvas) {
 
         if (1 > normScale) {
-            for (s in GBViewModel.viewStars) {
+            for ((_, s) in GBViewModel.viewStars) {
                 if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                     for (p in s.starPlanets) { // TODO PERF only draw one...
                         if (planetVisible(
@@ -404,11 +404,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                             for (j in 0 until p.sectors.size) {
 
-                                var o = (1f * 0.4f) * uToS * scale
-                                var size = 4 * o / p.width
+                                val o = (1f * 0.4f) * uToS * scale
+                                val size = 4 * o / p.width
                                 //canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
                                 canvas.drawBitmap(
-                                    bmASurface[p!!.sectors[j].type]!!,
+                                    bmASurface[p.sectors[j].type]!!,
                                     null,
                                     RectF(
                                         vP1.x - 2 * o + p.sectorX(j) * size,
@@ -420,7 +420,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                                 )
 
                                 if (p.sectors[j].population > 0) {
-                                    var fill = p.sectors[j].population.toFloat() / p.sectors[j].maxPopulation.toFloat()
+                                    val fill = p.sectors[j].population.toFloat() / p.sectors[j].maxPopulation.toFloat()
                                     paint.style = Style.STROKE
                                     paint.color = Color.parseColor(p.sectors[j].owner!!.color)
                                     paint.strokeWidth = strokeWidth.toFloat()
@@ -442,7 +442,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private fun drawPlanetsAndShips(canvas: Canvas) {
         if (30 > normScale) {
-            for (s in GBViewModel.viewStars) {
+            for ((_, s) in GBViewModel.viewStars) {
                 if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                     for (p in s.starPlanets) {
                         sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
@@ -681,7 +681,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     fun drawStarsAndCircles(canvas: Canvas) {
         // Always draw stars
         paint.style = Style.STROKE
-        for (s in GBViewModel.viewStars) {
+        for ((_, s) in GBViewModel.viewStars) {
             if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
@@ -699,7 +699,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             paint.strokeWidth = strokeWidth.toFloat()
             val radius = sSystemSize.toFloat() * scale
 
-            for (s in GBViewModel.viewStars) {
+            for ((_, s) in GBViewModel.viewStars) {
                 if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                     sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)
@@ -750,8 +750,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 val closestPlanet = clickTargets.filter { it.any is GBPlanet }
                     .minBy { (it.center.x - x) * (it.center.x - x) + (it.center.y - y) * (it.center.y - y) }
                 if (closestPlanet != null) {
-                    val distance = sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
-                    if (distance < u.planetaryOrbit * uToSf * scale) {
+                    val distance2 = sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
+                    if (distance2 < u.planetaryOrbit * uToSf * scale) {
                         return closest.any
                     }
                 }

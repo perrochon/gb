@@ -59,7 +59,7 @@ class PlanetsScrollActivity : AppCompatActivity() {
         // For now we show all allPlanets, but eventually each race only sees what they can see
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
 
-        for (s in GBViewModel.viewStars) {
+        for ((_, s) in GBViewModel.viewStars) {
             val planets = s.starPlanets
             for (p in planets) {
 

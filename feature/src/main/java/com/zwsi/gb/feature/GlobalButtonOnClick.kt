@@ -78,7 +78,7 @@ class GlobalButtonOnClick {
                 Thread(Runnable {
 
                     while (GBController.u.autoDo) {
-                        Thread.sleep(100)
+                        Thread.sleep(333)
                         GBController.doUniverse()
 
                         view.post {
@@ -105,7 +105,7 @@ class GlobalButtonOnClick {
             val planet: GBPlanet = planetFragment.tag as GBPlanet
 
             val universe = GBController.u
-            universe.makeFactory(planet, GBViewModel.viewRaces.toList().component1().second!!) // TODO Find Population and use owner...
+            universe.makeFactory(planet, GBViewModel.viewRaces.toList().component1().second) // TODO Find Population and use owner...
 
             val message = "Ordered Factory on " + planet.name
 
@@ -309,7 +309,7 @@ class GlobalButtonOnClick {
             var destination = spinner.selectedItem.toString()
             var planet: GBPlanet? = null
 
-            for (p in GBController.u.allPlanets) { // TODO this is wasteful. Need to refactor to locations
+            for ((_, p) in GBController.u.allPlanets) { // TODO this is wasteful. Need to refactor to locations
                 if (p.name == destination)
                     planet = p
             }

@@ -116,7 +116,7 @@ class ShipFragment : Fragment() {
                     destinationPlanets.add(p.name)
                 }
             }
-            for (s in u.allStars) {
+            for ((_, s) in u.allStars) {
                 destinationPlanets.add(s.starPlanets[0].name)
             }
 
