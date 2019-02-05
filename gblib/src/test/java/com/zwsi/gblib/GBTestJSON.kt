@@ -14,12 +14,12 @@ import java.util.*
 class GBTestJSON {
 
     @Test
-    fun JSON() {
+    fun basicJSON() {
 
         // TODO Quality: Move these tests into the Unit Tests of each class.
 
         println("Welcome to GB JSON Test")
-        GBController.makeUniverse()
+        val u = GBController.makeUniverse()
 
         val moshi = Moshi.Builder().build()
 
@@ -60,8 +60,10 @@ class GBTestJSON {
         println(race2)
         assert(race1 == race2)
 
+        val raceMap = mapOf(0 to race1)
+
         println("\nTesting Location, List, Race combined")
-        val gameInfo1 = GBSavedGame(loc1, list1, race1)
+        val gameInfo1 = GBSavedGame(loc1, list1, race1, u.allRaces)
         println("  GBSavedGame in: " + gameInfo1)
         val jsonAdapter3: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
         val json3 = jsonAdapter3.toJson(gameInfo1)
@@ -84,6 +86,7 @@ class GBTestJSON {
 
 
     }
+
 
 }
 
