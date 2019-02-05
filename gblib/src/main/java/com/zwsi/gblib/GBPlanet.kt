@@ -76,7 +76,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
         height = GBData.selectPlanetHeight(idxtype)
         width = GBData.selectPlanetWidth(height)
 
-        sectors = Array(width * height) { GBSector(this) }
+        sectors = Array(width * height) { GBSector(uid) }
 
         for (i in 0 until width * height) {
             sectors[i].chooseType(idxtype)
@@ -201,7 +201,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
 
         for (i in 0 until width * height) {
 
-            var from = temps2[i]
+            val from = temps2[i]
 
             if (sectors[from].population > 5) {
 

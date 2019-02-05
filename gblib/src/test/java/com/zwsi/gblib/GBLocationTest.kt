@@ -108,7 +108,7 @@ class GBLocationTest {
     @Test
     fun system() {
         val universe = GBController.makeUniverse()
-        val s = universe.star(3)!!
+        val s = universe.star(3)
         val loc = GBLocation(s, 2f, 2f)
         assertEquals(2f, loc.t)
         consistent(loc)
@@ -117,7 +117,7 @@ class GBLocationTest {
     @Test(expected = AssertionError::class)
     fun systemTooFarOut() {
         val universe = GBController.makeUniverse()
-        val s = universe.star(3)!!
+        val s = universe.star(3)
         val loc = GBLocation(s, 200f, 2f)
     }
 

@@ -4,19 +4,18 @@
 
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonClass
+import com.zwsi.gblib.GBController.Companion.u
 import kotlin.math.max
 
-class GBSector constructor(val planet: GBPlanet) {
+@JsonClass(generateAdapter = true)
+data class GBSector constructor(val uidPlanet: Int) {
 
     // Fixed Properties: type, typeSymbol, revenue
     var type = -1        // nonexisting type
-        private set
     internal var typeSymbol = "?"
-        private set
     internal var revenue = 0
-        private set
     var maxPopulation = 0
-        private set
 
     fun chooseType(planetIdxType: Int) {
         type = GBData.sectorTypesChance[planetIdxType][GBData.rand.nextInt(10)]
@@ -39,9 +38,8 @@ class GBSector constructor(val planet: GBPlanet) {
             }
         }
 
-    private var ownerID: Int = -1
-        private set
-    private var ownerName = ""
+    var ownerID: Int = -1
+    var ownerName = ""
 
 
     // population
@@ -54,7 +52,6 @@ class GBSector constructor(val planet: GBPlanet) {
     // All three call changePopulationOld to change the values. This will eventually need thread safety/proper transactions
 
     var population = 0
-        private set
 
     private fun changePopulation(difference: Int) {
         // TODO Launch replace assert by just returning and doing nothing
@@ -63,7 +60,8 @@ class GBSector constructor(val planet: GBPlanet) {
         assert(owner != null)
 
         population += difference
-        planet.population += difference
+        // TODO PERSISTENCE The below requires U which is not there yet in Universe constructor when races are landed!
+        //u.planet(uidPlanet).population += difference
         owner!!.population += difference
         if (population == 0) {
             owner = null

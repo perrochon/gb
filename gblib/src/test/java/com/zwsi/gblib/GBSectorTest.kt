@@ -5,6 +5,7 @@
 
 package com.zwsi.gblib
 
+import com.zwsi.gblib.GBController.Companion.u
 import junit.framework.Assert.assertTrue
 import org.junit.Assert.*
 import org.junit.Test
@@ -28,8 +29,8 @@ class GBSectorTest {
     fun basicSector() {
         val universe = GBController.makeUniverse()
         val p = universe.planet(0)
-        val s = GBSector(p)
-        assertEquals(s.planet, p)
+        val s = GBSector(p.uid)
+        assertEquals(u.star(s.uidPlanet), p)
         assertEquals(-1, s.type)
         assertEquals("?", s.typeSymbol)
         assertEquals(0, s.population)
@@ -60,7 +61,7 @@ class GBSectorTest {
         val universe = GBController.makeUniverse()
         val p = universe.planet(0)
         val r = universe.allRaces.toList().component1().second!!
-        val s = GBSector(p)
+        val s = GBSector(p.uid)
 
         s.chooseType(2)
 
@@ -86,8 +87,8 @@ class GBSectorTest {
         val universe = GBController.makeUniverse()
         val p = universe.planet(0)
         val r = GBController.u.allRaces.toList().component1().second!!
-        val s1 = GBSector(p)
-        val s2 = GBSector(p)
+        val s1 = GBSector(p.uid)
+        val s2 = GBSector(p.uid)
 
         s1.chooseType(2)
         s2.chooseType(2)
