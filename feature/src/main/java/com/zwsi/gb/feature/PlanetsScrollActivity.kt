@@ -8,14 +8,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
-import com.zwsi.gblib.GBController
 import android.support.constraint.ConstraintLayout
 import android.widget.TextView
 import android.support.constraint.ConstraintSet
 import android.support.v4.view.ViewCompat
-import com.zwsi.gblib.GBController.Companion.universe
-import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
-
 
 
 class PlanetsScrollActivity : AppCompatActivity() {

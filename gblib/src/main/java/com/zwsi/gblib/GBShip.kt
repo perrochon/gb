@@ -3,7 +3,7 @@
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
@@ -36,7 +36,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     internal var trailsList = trails.toList()
 
     fun getTrailList(): List<GBxy> {
-        if (universe.turn > lastTrailsUpdate) {
+        if (u.turn > lastTrailsUpdate) {
             trailsList = trails.toList()
         }
         return trailsList
@@ -45,8 +45,8 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     init {
         id = GBData.getNextGlobalId()
 
-        universe.allShips.add(this)
-        uid = universe.allShips.indexOf(this)
+        u.allShips.add(this)
+        uid = u.allShips.indexOf(this)
 
         race.raceShipsUID.add(this.uid)
 
@@ -61,7 +61,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 loc.getStar()!!.starShips.add(this)
             }
             DEEPSPACE -> {
-                universe.deepSpaceShips.add(this)
+                u.deepSpaceShips.add(this)
             }
             else -> {
                 gbAssert("Bad Parameters for ship placement $loc", { false })
@@ -91,7 +91,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 this.loc.getStar()!!.starShips.remove(this)
             }
             DEEPSPACE -> {
-                universe.deepSpaceShips.remove(this)
+                u.deepSpaceShips.remove(this)
             }
             else -> {
                 gbAssert("Bad Parameters for ship removement $loc", { false })
@@ -104,7 +104,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                     // This is a pod, they populate, then destroy.  We set health to 0, and clean up elsewhere
                     loc.getPlanet()!!.landedShips.add(this)
                     this.health = 0
-                    universe.landPopulation(this.loc.getPlanet()!!, race.uid, 1)
+                    u.landPopulation(this.loc.getPlanet()!!, race.uid, 1)
                 } else {
                     loc.getPlanet()!!.landedShips.add(this)
                 }
@@ -116,7 +116,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                 loc.getStar()!!.starShips.add(this)
             }
             DEEPSPACE -> {
-                universe.deepSpaceShips.add(this)
+                u.deepSpaceShips.add(this)
             }
             else -> {
                 gbAssert("Bad Parameters for ship placement $loc", { false })
@@ -156,14 +156,14 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
                     this.loc.getStar()!!.starShips.remove(this)
                 }
                 DEEPSPACE -> {
-                    universe.deepSpaceShips.remove(this)
+                    u.deepSpaceShips.remove(this)
                 }
                 else -> {
                     gbAssert("Bad Parameters for ship removement $loc", { false })
                 }
             }
             this.race.raceShipsUID.remove(this.uid)
-            universe.deadShips.add(this)
+            u.deadShips.add(this)
         }
     }
 
@@ -197,7 +197,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                 val next = GBLocation(loc.getPlanet()!!, PlanetaryOrbit, t)
                 changeShipLocation(next)
-                universe.news.add("Launched $name to ${loc.getLocDesc()}.\n")
+                u.news.add("Launched $name to ${loc.getLocDesc()}.\n")
 
                 return
             } else {
@@ -226,7 +226,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                 // in orbit at destination so we need to land
                 changeShipLocation(dest)
-                universe.news.add("$name ${loc.getLocDesc()}.\n")
+                u.news.add("$name ${loc.getLocDesc()}.\n")
 
                 return
 
@@ -243,7 +243,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                 var next = GBLocation(dest.getPlanet()!!, PlanetaryOrbit, t)
                 changeShipLocation(next)
-                universe.news.add("$name arrived in ${loc.getLocDesc()}.\n")
+                u.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 
                 if (dest.level == ORBIT) {
                     this.dest = null
@@ -274,7 +274,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                     GBLog.d(" Arrived in System")
 
-                    universe.news.add("$name arrived in ${loc.getLocDesc()}. ( ${loc.x.toInt()} , ${loc.y.toInt()} )\n")
+                    u.news.add("$name arrived in ${loc.getLocDesc()}. ( ${loc.x.toInt()} , ${loc.y.toInt()} )\n")
                     return
 
                 } else {
@@ -300,7 +300,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
                     GBLog.d("Left System")
 
-                    universe.news.add("$name entered ${loc.getLocDesc()}. ( ${loc.x.toInt()} , ${loc.y.toInt()} )\n")
+                    u.news.add("$name entered ${loc.getLocDesc()}. ( ${loc.x.toInt()} , ${loc.y.toInt()} )\n")
                     return
                 } else {
 

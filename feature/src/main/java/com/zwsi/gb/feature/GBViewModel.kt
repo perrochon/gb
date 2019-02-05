@@ -2,7 +2,7 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.MutableLiveData
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBxy
 import kotlin.system.measureNanoTime
@@ -20,13 +20,13 @@ class GBViewModel {
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
         val currentTurn by lazy {MutableLiveData<Int>()}
 
-        var viewStars = universe.allStars
-        var viewPlanets = universe.allPlanets
-        var viewRaces = universe.getAllRacesMap()
+        var viewStars = u.allStars
+        var viewPlanets = u.allPlanets
+        var viewRaces = u.getAllRacesMap()
 
-        var viewShips = universe.getAllShipsList()
-        var viewDeepSpaceShips = universe.getDeepSpaceShipsList()
-        var viewDeadShips = universe.getDeadShipsList()
+        var viewShips = u.getAllShipsList()
+        var viewDeepSpaceShips = u.getDeepSpaceShipsList()
+        var viewDeadShips = u.getDeadShipsList()
 
         var viewStarShips: HashMap<Int, List<GBShip>> = HashMap()
         var viewOrbitShips: HashMap<Int, List<GBShip>> = HashMap()
@@ -34,7 +34,7 @@ class GBViewModel {
         var viewRaceShips: HashMap<Int, List<GBShip>> = HashMap()
         var viewShipTrails: HashMap<Int, List<GBxy>> = HashMap()
 
-        var viewShots = universe.getAllShotsList()
+        var viewShots = u.getAllShotsList()
 
         var timeModelUpdate = 0L
         var timeLastTurn = 0L
@@ -57,11 +57,11 @@ class GBViewModel {
                 // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
 
                 // Ships
-                times["mAS"] = measureNanoTime { viewShips = universe.getAllShipsList() }
+                times["mAS"] = measureNanoTime { viewShips = u.getAllShipsList() }
 
-                times["mDS"] = measureNanoTime { viewDeepSpaceShips = universe.getDeepSpaceShipsList() }
+                times["mDS"] = measureNanoTime { viewDeepSpaceShips = u.getDeepSpaceShipsList() }
 
-                times["m+S"] = measureNanoTime { viewDeadShips = universe.getDeadShipsList() }
+                times["m+S"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
 
                 times["mSS"] = measureNanoTime { fillViewStarShips() }
 
@@ -73,12 +73,12 @@ class GBViewModel {
 
                 times["mST"] = measureNanoTime { fillViewShipTrails() }
 
-                times["mSh"] = measureNanoTime { viewShots = universe.getAllShotsList() }
+                times["mSh"] = measureNanoTime { viewShots = u.getAllShotsList() }
 
                 timeLastTurn = GBController.elapsedTimeLastUpdate
             }
 
-            currentTurn.postValue(universe.turn)
+            currentTurn.postValue(u.turn)
 
             /*
             Note: You must call the setValue(T) method to update the LiveData object from the main thread. If the code is executed in a worker thread, you can use the postValue(T) method instead to update the LiveData object.

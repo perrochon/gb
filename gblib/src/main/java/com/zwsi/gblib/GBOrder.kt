@@ -4,7 +4,7 @@
 
 package com.zwsi.gblib
 
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
@@ -67,16 +67,16 @@ class GBOrder  {
     fun execute() {
         when (type) {
             FACTORY -> {
-                GBShip(FACTORY, universe.race(uidRace), loc)
-                universe.news.add("Built a factory on Helle.\n\n")
+                GBShip(FACTORY, u.race(uidRace), loc)
+                u.news.add("Built a factory on Helle.\n\n")
             }
             POD -> {
-                GBShip(POD, universe.race(uidRace), loc)
-                universe.news.add("Built a pod on Helle.\n\n")
+                GBShip(POD, u.race(uidRace), loc)
+                u.news.add("Built a pod on Helle.\n\n")
             }
             CRUISER -> {
-                GBShip(CRUISER, universe.race(uidRace), loc)
-                universe.news.add("Built a cruiser on Helle.\n\n")
+                GBShip(CRUISER, u.race(uidRace), loc)
+                u.news.add("Built a cruiser on Helle.\n\n")
             }
             else ->
                 gbAssert ( "unknown order", {true} )

@@ -5,7 +5,7 @@
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.SystemBoundary
 import com.zwsi.gblib.GBLog.gbAssert
@@ -136,15 +136,15 @@ data class GBLocation(
             // The constants have to be the same as the ones used to draw planet surfaces on the map
             val size = 1.6f / this.getPlanet()!!.width
             return GBxy(
-                universe.planet(uidRef).loc.getLoc().x - 0.80f + sx.toFloat() * size + size / 2,
-                universe.planet(uidRef).loc.getLoc().y - 0.4f + sy.toFloat() * size + size / 2
+                u.planet(uidRef).loc.getLoc().x - 0.80f + sx.toFloat() * size + size / 2,
+                u.planet(uidRef).loc.getLoc().y - 0.4f + sy.toFloat() * size + size / 2
             )
         }
         if (level == ORBIT) {
-            return GBxy(universe.planet(uidRef).loc.getLoc().x + x, universe.planet(uidRef).loc.getLoc().y + y)
+            return GBxy(u.planet(uidRef).loc.getLoc().x + x, u.planet(uidRef).loc.getLoc().y + y)
         }
         if (level == SYSTEM) {
-            return GBxy(universe.star(uidRef).loc.getLoc().x + x, universe.star(uidRef).loc.getLoc().y + y)
+            return GBxy(u.star(uidRef).loc.getLoc().x + x, u.star(uidRef).loc.getLoc().y + y)
         } else {
             return GBxy(x, y)
         }
@@ -191,15 +191,15 @@ data class GBLocation(
     fun getLocDesc(): String {
         when (level) {
             LANDED -> {
-                return "Surface of " + universe.planet(uidRef).name +
-                        "/" + universe.planet(uidRef).star.name
+                return "Surface of " + u.planet(uidRef).name +
+                        "/" + u.planet(uidRef).star.name
             }
             ORBIT -> {
-                return "Orbit of " + universe.planet(uidRef).name +
-                        "/" + universe.planet(uidRef).star.name
+                return "Orbit of " + u.planet(uidRef).name +
+                        "/" + u.planet(uidRef).star.name
             }
             SYSTEM -> {
-                return "System " + universe.star(uidRef).name
+                return "System " + u.star(uidRef).name
             }
             DEEPSPACE -> {
                 return "Deep Space"
@@ -213,8 +213,8 @@ data class GBLocation(
 
     fun getPlanet(): GBPlanet? {
         when (level) {
-            LANDED -> return universe.planet(uidRef)
-            ORBIT -> return universe.planet(uidRef)
+            LANDED -> return u.planet(uidRef)
+            ORBIT -> return u.planet(uidRef)
             SYSTEM -> gbAssert("GBLocation: Location is SYSTEM, but asking for planet.", false)
             DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for planet.", false)
             else -> gbAssert("GBLocation: Location is Limbo, but asking for planet.", false)
@@ -224,9 +224,9 @@ data class GBLocation(
 
     fun getStar(): GBStar? {
         when (level) {
-            LANDED -> return universe.planet(uidRef).star
-            ORBIT -> return universe.planet(uidRef).star
-            SYSTEM -> return universe.star(uidRef)
+            LANDED -> return u.planet(uidRef).star
+            ORBIT -> return u.planet(uidRef).star
+            SYSTEM -> return u.star(uidRef)
             DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for star.", false)
             else -> gbAssert("GBLocation: Location is Limbo, but asking for star.", false)
         }

@@ -5,7 +5,7 @@
 
 package com.zwsi.gblib
 
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.SystemBoundary
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
@@ -20,7 +20,7 @@ class GBShipTest {
 
     fun consistency(ship: GBShip) {
 
-        val universe = GBController.universe
+        val universe = GBController.u
 
         GBLog.d("Looking at ship " + ship.uid + " with name " + ship.name)
 
@@ -110,7 +110,7 @@ class GBShipTest {
 
     // TODO use @After, but need to figure out access to Universe
     fun uniqueLocations() {
-        val un = GBController.universe
+        val un = GBController.u
         for (ship in un.allShips) {
             var found = 0
             for (sh in un.deepSpaceShips) {
@@ -147,17 +147,17 @@ class GBShipTest {
     fun basic() {
         GBController.makeUniverse()
 
-        GBLog.d("Testing " + universe.allShips.size + " ships")
+        GBLog.d("Testing " + u.allShips.size + " ships")
 
         // Test all ships there are
-        for (ship in universe.allShips) {
+        for (ship in u.allShips) {
             consistency(ship)
         }
 
         // Just in case there aren't any, make a few more
-        val s = universe.allStars[0]
+        val s = u.allStars[0]
         val p: GBPlanet = s.starPlanets[0]
-        val r: GBRace = universe.allRaces.toList().component1().second!!
+        val r: GBRace = u.allRaces.toList().component1().second!!
 
         var sh = GBShip(1, r, GBLocation(500f, 500f))
         consistency(sh)
@@ -181,7 +181,7 @@ class GBShipTest {
         val universe = GBController.makeUniverse()
 
         val s1 = universe.allStars[1]
-        val r0= GBController.universe.allRaces.toList().component1().second!!
+        val r0= GBController.u.allRaces.toList().component1().second!!
 
         val sh0 = GBShip(0, r0, GBLocation(s1, 30f, PlanetaryOrbit))
         consistency(sh0)
@@ -197,8 +197,8 @@ class GBShipTest {
         val universe = GBController.makeUniverse()
 
         val s0 = universe.allStars[0]
-        val r0= GBController.universe.allRaces.toList().component1().second!!
-        val r1= GBController.universe.allRaces.toList().component2().second!!
+        val r0= GBController.u.allRaces.toList().component1().second!!
+        val r1= GBController.u.allRaces.toList().component2().second!!
 
         val sh0 = GBShip(1, r0, GBLocation(s0, 30f, 1f))
         consistency(sh0)
@@ -217,7 +217,7 @@ class GBShipTest {
         val p0 = s0.starPlanets[0]
         val s1 = universe.allStars[1]
         val p1 = s1.starPlanets[1]
-        val r0 = GBController.universe.allRaces.toList().component1().second!!
+        val r0 = GBController.u.allRaces.toList().component1().second!!
 
         val locations = arrayListOf<GBLocation>()
 
@@ -258,7 +258,7 @@ class GBShipTest {
         val s0 = universe.allStars[0]
         val p0 = s0.starPlanets[0]
         val p1 = s0.starPlanets[1]
-        val r0 = GBController.universe.allRaces.toList().component1().second!!
+        val r0 = GBController.u.allRaces.toList().component1().second!!
 
         val loc01 = GBLocation(p0, 1, 1);
         val loc02 = GBLocation(p1, 1, 2);
@@ -296,7 +296,7 @@ class GBShipTest {
         val s1 = universe.allStars[1]
         val p0 = s0.starPlanets[0]
         val p1 = s1.starPlanets[1]
-        val r0 = GBController.universe.allRaces.toList().component1().second!!
+        val r0 = GBController.u.allRaces.toList().component1().second!!
 
         val loc01 = GBLocation(p0, 1, 1);
         val loc02 = GBLocation(p1, 1, 2);

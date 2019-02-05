@@ -7,7 +7,7 @@ package com.zwsi.gblib
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import org.junit.Test
 import java.util.*
 
@@ -37,9 +37,9 @@ class GBTestJSON {
         val list1: MutableList<GBLocation> = Collections.synchronizedList(arrayListOf<GBLocation>())
         list1.add(GBLocation(100f, 100f))
         list1.add(GBLocation(1000f, 1000f))
-        list1.add(GBLocation(universe.allPlanets[1], 1, 1))
-        list1.add(GBLocation(universe.allPlanets[1], 1f, 1f))
-        list1.add(GBLocation(universe.allStars[1], 10f, 1f))
+        list1.add(GBLocation(u.allPlanets[1], 1, 1))
+        list1.add(GBLocation(u.allPlanets[1], 1f, 1f))
+        list1.add(GBLocation(u.allStars[1], 10f, 1f))
         println("  List<GBLocation> in: " + list1)
 
         val locListType = Types.newParameterizedType(List::class.java, GBLocation::class.java)
@@ -51,7 +51,7 @@ class GBTestJSON {
         assert(list1 == list2)
 
         println("\n Testing GBRace")
-        val race1 = GBRace(0, 0, universe.allPlanets[0].uid)
+        val race1 = GBRace(0, 0, u.allPlanets[0].uid)
         println(race1)
         val jsonAdapter4 = moshi.adapter<GBRace>(GBRace::class.java)
         val json4 = jsonAdapter4.toJson(race1)

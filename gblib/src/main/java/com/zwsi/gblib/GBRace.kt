@@ -12,7 +12,7 @@
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import java.util.*
 
 @JsonClass(generateAdapter = true)
@@ -40,7 +40,7 @@ data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
     @Transient
     internal var lastRaceShipsUpdate = -1
     @Transient
-    internal var raceShipsList = raceShipsUID.map { universe.allShips[it]}
+    internal var raceShipsList = raceShipsUID.map { u.allShips[it]}
 
     init {
         id = GBData.getNextGlobalId()
@@ -54,7 +54,7 @@ data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
     }
 
     fun getHome() :GBPlanet {
-        return universe.planet(uidHome)
+        return u.planet(uidHome)
     }
 
     fun getRaceShipsUIDList() : List<Int> {
@@ -63,9 +63,9 @@ data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
 
     fun getRaceShipsList(): List<GBShip> {
         // TODO need smarter cache invalidation. But it's also cheap to produce this list.
-        if (universe.turn > lastRaceShipsUpdate) {
-            raceShipsList = raceShipsUID.map { universe.allShips[it]}.filter { it.health > 0 }
-            lastRaceShipsUpdate = universe.turn
+        if (u.turn > lastRaceShipsUpdate) {
+            raceShipsList = raceShipsUID.map { u.allShips[it]}.filter { it.health > 0 }
+            lastRaceShipsUpdate = u.turn
         }
         return raceShipsList
     }

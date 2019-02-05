@@ -1,6 +1,6 @@
 package com.zwsi.gblib
 
-import com.zwsi.gb.gblib.AutoPlayer
+import com.zwsi.gblib.AutoPlayer
 import org.junit.Test
 
 class AutoPlayerTest {

@@ -1,8 +1,8 @@
 package com.zwsi.gblib
 
-import com.zwsi.gb.gblib.AutoPlayer.Companion.playBeetle
-import com.zwsi.gb.gblib.AutoPlayer.Companion.playImpi
-import com.zwsi.gb.gblib.AutoPlayer.Companion.playTortoise
+import com.zwsi.gblib.AutoPlayer.Companion.playBeetle
+import com.zwsi.gblib.AutoPlayer.Companion.playImpi
+import com.zwsi.gblib.AutoPlayer.Companion.playTortoise
 import kotlin.system.measureNanoTime
 
 class GBController {
@@ -33,7 +33,7 @@ class GBController {
 
         var elapsedTimeLastUpdate = 0L
 
-        val universe: GBUniverse
+        val u: GBUniverse
             get() {
                 if (currentUniverse == null) {
                     if (smallUniverse) {
@@ -60,7 +60,7 @@ class GBController {
             smallUniverse = false
             bigUniverse = false
             currentUniverse = null
-            return universe
+            return u
         }
 
         @Synchronized
@@ -69,7 +69,7 @@ class GBController {
             smallUniverse = true
             bigUniverse = false
             currentUniverse = null
-            return universe
+            return u
         }
 
         @Synchronized
@@ -78,14 +78,14 @@ class GBController {
             bigUniverse = true
             smallUniverse = false
             currentUniverse = null
-            return universe
+            return u
         }
 
         @Synchronized
         fun doUniverse() {
-            GBLog.i("Runing Game Turn ${universe.turn}")
+            GBLog.i("Runing Game Turn ${u.turn}")
             elapsedTimeLastUpdate = measureNanoTime {
-                universe.doUniverse()
+                u.doUniverse()
             }
         }
 

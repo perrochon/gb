@@ -33,7 +33,7 @@ class GlobalButtonOnClick {
 //            val ps = PrintStream(baos)
 //            System.setOut(ps)
 
-                if (GBController.universe.autoDo) { // If we are running on autok, don't add extra do's
+                if (GBController.u.autoDo) { // If we are running on autok, don't add extra do's
                     return@Runnable
                 }
 
@@ -51,7 +51,7 @@ class GlobalButtonOnClick {
 
                 view.post {
                     // Worth making a string in this thread and post just result?
-                    for (s in GBController.universe.news)
+                    for (s in GBController.u.news)
                     //output.append(s)
 
                         MissionController.checkMissionStatus()
@@ -71,13 +71,13 @@ class GlobalButtonOnClick {
             val message = "God Mode: Continuous Do"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-            if (GBController.universe.autoDo) {
-                GBController.universe.autoDo = false
+            if (GBController.u.autoDo) {
+                GBController.u.autoDo = false
             } else {
-                GBController.universe.autoDo = true
+                GBController.u.autoDo = true
                 Thread(Runnable {
 
-                    while (GBController.universe.autoDo) {
+                    while (GBController.u.autoDo) {
                         Thread.sleep(200)
                         GBController.doUniverse()
 
@@ -104,7 +104,7 @@ class GlobalButtonOnClick {
             val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
             val planet: GBPlanet = planetFragment.tag as GBPlanet
 
-            val universe = GBController.universe
+            val universe = GBController.u
             universe.makeFactory(planet, GBViewModel.viewRaces.toList().component1().second!!) // TODO Find Population and use owner...
 
             val message = "Ordered Factory on " + planet.name
@@ -273,7 +273,7 @@ class GlobalButtonOnClick {
             val message = "Ordered Pod in Factory " + ship.name
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-            GBController.universe.makePod(ship)
+            GBController.u.makePod(ship)
 
         }
 
@@ -290,7 +290,7 @@ class GlobalButtonOnClick {
             val message = "Ordered Cruiser in Factory " + ship.name
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-            GBController.universe.makeCruiser(ship)
+            GBController.u.makeCruiser(ship)
 
         }
 
@@ -309,7 +309,7 @@ class GlobalButtonOnClick {
             var destination = spinner.selectedItem.toString()
             var planet: GBPlanet? = null
 
-            for (p in GBController.universe.allPlanets) { // TODO this is wasteful. Need to refactor to locations
+            for (p in GBController.u.allPlanets) { // TODO this is wasteful. Need to refactor to locations
                 if (p.name == destination)
                     planet = p
             }
@@ -317,9 +317,9 @@ class GlobalButtonOnClick {
             Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT).show()
 
             if (ship.idxtype == GBData.POD) {
-                GBController.universe.flyShipLanded(ship, planet)
+                GBController.u.flyShipLanded(ship, planet)
             } else {
-                GBController.universe.flyShipOrbit(ship, planet)
+                GBController.u.flyShipOrbit(ship, planet)
             }
         }
 

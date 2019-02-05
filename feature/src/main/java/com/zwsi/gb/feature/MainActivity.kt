@@ -16,7 +16,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import kotlinx.android.synthetic.main.activity_main.*
 
 var lastClickTime = 0L
@@ -38,10 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         Thread(Runnable {
             // Need to do this in other thread, as just checking for null will generate the universe
-            GBController.universe // Create Universe if we don't have one...
+            GBController.u // Create Universe if we don't have one...
             version.post {
                 // Worth making a string in this thread and post just result?
-                for (s in GBController.universe.news)
+                for (s in GBController.u.news)
                     output.append(s)
 
                 output.append(MissionController.getCurrentMission(this))
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
             view.post {
                 // Worth making a string in this thread and post just result?
-                for (s in universe.news)
+                for (s in u.news)
                     output.append(s)
 
                 output.append(MissionController.getCurrentMission(this))

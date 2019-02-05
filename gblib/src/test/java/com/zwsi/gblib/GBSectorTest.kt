@@ -85,7 +85,7 @@ class GBSectorTest {
     fun testMovePopulation() {
         val universe = GBController.makeUniverse()
         val p = universe.allPlanets[0]
-        val r = GBController.universe.allRaces.toList().component1().second!!
+        val r = GBController.u.allRaces.toList().component1().second!!
         val s1 = GBSector(p)
         val s2 = GBSector(p)
 

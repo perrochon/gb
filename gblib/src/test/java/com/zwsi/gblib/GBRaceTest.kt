@@ -12,7 +12,7 @@ import org.junit.Assert.*
 class GBRaceTest {
 
     fun consistent(r: GBRace){
-        val universe = GBController.universe
+        val universe = GBController.u
 
         assertTrue(r.description.length > 0)
         assertTrue(universe.allRaces.containsValue(r))

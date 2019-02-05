@@ -1,22 +1,11 @@
 package com.zwsi.gb.feature
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.SystemClock
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBController.Companion.universe
-import com.zwsi.gblib.GBData.Companion.POD
-import com.zwsi.gblib.GBLocation.Companion.LANDED
-import com.zwsi.gblib.GBLocation.Companion.ORBIT
-import com.zwsi.gblib.GBLocation.Companion.SYSTEM
-import com.zwsi.gblib.GBPlanet
-import com.zwsi.gblib.GBShip
 
 class ShipsSlideActivity : AppCompatActivity() {
 
@@ -58,7 +47,7 @@ class ShipsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("ships")
         } else {
             displayList = ArrayList<Int>()
-            for (i in GBController.universe.getAllShipsList().filter { it.health > 0 }) {
+            for (i in GBController.u.getAllShipsList().filter { it.health > 0 }) {
                 displayList.add(i.uid)
             }
         }

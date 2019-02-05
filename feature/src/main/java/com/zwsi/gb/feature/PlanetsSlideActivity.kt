@@ -1,15 +1,10 @@
 package com.zwsi.gb.feature
 
 import android.os.Bundle
-import android.os.SystemClock
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
-import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBController.Companion.universe
-import com.zwsi.gblib.GBPlanet
 
 class PlanetsSlideActivity : AppCompatActivity() {
 

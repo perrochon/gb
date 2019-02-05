@@ -5,12 +5,9 @@
 
 package com.zwsi.gblib
 
-import com.zwsi.gb.gblib.AutoPlayer
-import com.zwsi.gblib.GBController.Companion.universe
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.SystemBoundary
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class LibTest {
@@ -18,7 +15,7 @@ class LibTest {
     var shipsMade: Int = 0
 
     fun consistent() {
-        val universe = GBController.universe
+        val universe = GBController.u
 
         if (GBController.smallUniverse) {
             assertEquals(GBController.numberOfStarsSmall, universe.allStars.size)
@@ -100,8 +97,8 @@ class LibTest {
     }
 
     fun makeShips() {
-        val allRaces = GBController.universe.allRaces
-        val allStars = GBController.universe.allStars
+        val allRaces = GBController.u.allRaces
+        val allStars = GBController.u.allStars
         val numberOfStars = allStars.size
 
         val r0 = allRaces.toList().component1().second

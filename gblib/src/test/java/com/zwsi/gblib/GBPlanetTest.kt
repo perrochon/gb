@@ -12,7 +12,7 @@ import org.junit.Assert.*
 class GBPlanetTest {
 
     fun consistent(planet: GBPlanet){
-        val universe = GBController.universe
+        val universe = GBController.u
         assertTrue(planet.name.length > 0)
         assertEquals(planet.star.universe,universe)
 

@@ -12,7 +12,7 @@ import org.junit.Test
 class GBStarTest {
 
     fun consistent(s: GBStar) {
-        val universe = GBController.universe
+        val universe = GBController.u
 
         assertTrue(s.name.length > 0)
         assertTrue(s.universe == universe)

@@ -4,7 +4,7 @@
 
 package com.zwsi.gblib
 
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.rand
 import java.util.*
 import kotlin.math.PI
@@ -85,17 +85,17 @@ class GBPlanet(val sid: Int, val star: GBStar) {
     }
 
     fun getLandedShipsList() : List<GBShip> {
-        if (universe.turn > lastLandedShipsUpdate) {
+        if (u.turn > lastLandedShipsUpdate) {
             landedShipsList = landedShips.toList().filter { it.health > 0 }
-            lastLandedShipsUpdate = universe.turn
+            lastLandedShipsUpdate = u.turn
         }
         return landedShipsList
     }
 
     fun getOrbitShipsList() : List<GBShip> {
-        if (universe.turn > lastOrbitShipsUpdate) {
+        if (u.turn > lastOrbitShipsUpdate) {
             orbitShipsList = orbitShips.toList().filter { it.health > 0 }
-            lastOrbitShipsUpdate = universe.turn
+            lastOrbitShipsUpdate = u.turn
         }
         return orbitShipsList
     }

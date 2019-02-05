@@ -10,7 +10,7 @@ import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
@@ -53,10 +53,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
 
     val sourceSize = 18000  // TODO Quality Would be nice not to hard code here and below
-    val universeSize = universe.universeMaxX
+    val universeSize = u.universeMaxX
     val uToS = sourceSize / universeSize
     val uToSf = uToS.toFloat()
-    val sSystemSize = universe.systemBoundary * uToS
+    val sSystemSize = u.systemBoundary * uToS
     val sOrbitSize = 1 * uToS
 
     // TODO Quality Do all calculations in Float, and only change to Integer before drawing calls where needed
@@ -477,7 +477,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             paint.style = Style.STROKE
                             paint.color = circleColor
                             paint.strokeWidth = strokeWidth.toFloat()
-                            val radius = universe.planetaryOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
+                            val radius = u.planetaryOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
                             canvas.drawCircle(vP1.x, vP1.y, radius, paint)
 
                             var o = (1f * 0.4f) * uToS * scale
@@ -751,7 +751,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     .minBy { (it.center.x - x) * (it.center.x - x) + (it.center.y - y) * (it.center.y - y) }
                 if (closestPlanet != null) {
                     val distance = sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
-                    if (distance < universe.planetaryOrbit * uToSf * scale) {
+                    if (distance < u.planetaryOrbit * uToSf * scale) {
                         return closest.any
                     }
                 }

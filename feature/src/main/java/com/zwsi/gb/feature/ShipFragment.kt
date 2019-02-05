@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.zwsi.gblib.GBController.Companion.universe
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
@@ -116,7 +116,7 @@ class ShipFragment : Fragment() {
                     destinationPlanets.add(p.name)
                 }
             }
-            for (s in universe.allStars) {
+            for (s in u.allStars) {
                 destinationPlanets.add(s.starPlanets[0].name)
             }
 

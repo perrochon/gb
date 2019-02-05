@@ -15,7 +15,7 @@ class StarsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stars)
 
-        val universe = GBController.universe
+        val universe = GBController.u
 
         val starField = findViewById<ImageView>(R.id.starField)
 
