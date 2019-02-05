@@ -16,7 +16,8 @@ class GBUniverse {
     // Stars, Planets, Races are immutable lists (once built) of immutable elements. Things that do change are e.g. locations of things
     // exposing these (for now)
     val allStars: MutableMap<Int, GBStar> = Collections.synchronizedMap(hashMapOf<Int, GBStar>()) // all the stars
-    val allPlanets: MutableMap<Int, GBPlanet> = Collections.synchronizedMap(hashMapOf<Int, GBPlanet>()) // all the planets
+    val allPlanets: MutableMap<Int, GBPlanet> =
+        Collections.synchronizedMap(hashMapOf<Int, GBPlanet>()) // all the planets
     val allRaces: MutableMap<Int, GBRace> = Collections.synchronizedMap(hashMapOf<Int, GBRace>()) // all the races
 
     // List of ships. Lists are mutable and change during updates (dead ships...)
@@ -152,14 +153,15 @@ class GBUniverse {
         areas.clear()
         var uidPlanet = 0
         for (uidStar in 0 until numberOfStars) {
-            val numberOfPlanets = 8
+            val numberOfPlanets =
+                GBData.rand.nextInt(GBData.MaxNumberOfPlanets - GBData.MinNumberOfPlanets) + GBData.MinNumberOfPlanets
             val coordinates = getStarCoordinates()
             allStars[uidStar] = GBStar(uidStar, numberOfPlanets, coordinates.first, coordinates.second)
 
             for (sidPlanet in 0 until numberOfPlanets) {
                 allPlanets[uidPlanet] = GBPlanet(uidPlanet, sidPlanet, allStars[uidStar]!!)
                 star(uidStar).starPlanets.add(planet(uidPlanet))
-                uidPlanet ++;
+                uidPlanet++;
             }
         }
     }
