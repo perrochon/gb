@@ -55,7 +55,7 @@ fun GBxy.towards(to: GBxy, distance: Float): GBxy {
 @JsonClass(generateAdapter = true)
 data class GBLocation(
     val level: Int,
-    val refUID: Int,
+    val uidRef: Int,
     val x: Float = -1f,
     val y: Float = -1f,
     val t: Float = -1f,
@@ -134,17 +134,17 @@ data class GBLocation(
         if (level == LANDED) {
             // TODO This calculation is probably a rendering issue and belongs into MapView.
             // The constants have to be the same as the ones used to draw planet surfaces on the map
-            var size = 1.6f / this.getPlanet()!!.width
+            val size = 1.6f / this.getPlanet()!!.width
             return GBxy(
-                universe.allPlanets[refUID].loc.getLoc().x - 0.80f + sx.toFloat() * size + size / 2,
-                universe.allPlanets[refUID].loc.getLoc().y - 0.4f + sy.toFloat() * size + size / 2
+                universe.planet(uidRef).loc.getLoc().x - 0.80f + sx.toFloat() * size + size / 2,
+                universe.planet(uidRef).loc.getLoc().y - 0.4f + sy.toFloat() * size + size / 2
             )
         }
         if (level == ORBIT) {
-            return GBxy(universe.allPlanets[refUID].loc.getLoc().x + x, universe.allPlanets[refUID].loc.getLoc().y + y)
+            return GBxy(universe.planet(uidRef).loc.getLoc().x + x, universe.planet(uidRef).loc.getLoc().y + y)
         }
         if (level == SYSTEM) {
-            return GBxy(universe.allStars[refUID].loc.getLoc().x + x, universe.allStars[refUID].loc.getLoc().y + y)
+            return GBxy(universe.star(uidRef).loc.getLoc().x + x, universe.star(uidRef).loc.getLoc().y + y)
         } else {
             return GBxy(x, y)
         }
@@ -191,15 +191,15 @@ data class GBLocation(
     fun getLocDesc(): String {
         when (level) {
             LANDED -> {
-                return "Surface of " + universe.allPlanets[refUID].name +
-                        "/" + universe.allPlanets[refUID].star.name
+                return "Surface of " + universe.planet(uidRef).name +
+                        "/" + universe.planet(uidRef).star.name
             }
             ORBIT -> {
-                return "Orbit of " + universe.allPlanets[refUID].name +
-                        "/" + universe.allPlanets[refUID].star.name
+                return "Orbit of " + universe.planet(uidRef).name +
+                        "/" + universe.planet(uidRef).star.name
             }
             SYSTEM -> {
-                return "System " + universe.allStars[refUID].name
+                return "System " + universe.star(uidRef).name
             }
             DEEPSPACE -> {
                 return "Deep Space"
@@ -213,8 +213,8 @@ data class GBLocation(
 
     fun getPlanet(): GBPlanet? {
         when (level) {
-            LANDED -> return universe.allPlanets[refUID]
-            ORBIT -> return universe.allPlanets[refUID]
+            LANDED -> return universe.planet(uidRef)
+            ORBIT -> return universe.planet(uidRef)
             SYSTEM -> gbAssert("GBLocation: Location is SYSTEM, but asking for planet.", false)
             DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for planet.", false)
             else -> gbAssert("GBLocation: Location is Limbo, but asking for planet.", false)
@@ -224,9 +224,9 @@ data class GBLocation(
 
     fun getStar(): GBStar? {
         when (level) {
-            LANDED -> return universe.allPlanets[refUID].star
-            ORBIT -> return universe.allPlanets[refUID].star
-            SYSTEM -> return universe.allStars[refUID]
+            LANDED -> return universe.planet(uidRef).star
+            ORBIT -> return universe.planet(uidRef).star
+            SYSTEM -> return universe.star(uidRef)
             DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for star.", false)
             else -> gbAssert("GBLocation: Location is Limbo, but asking for star.", false)
         }

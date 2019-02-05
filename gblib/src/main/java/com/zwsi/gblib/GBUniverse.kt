@@ -35,6 +35,25 @@ class GBUniverse {
     internal var deepSpaceShipsList = deepSpaceShips.toList()
     internal var deadShipsList = deadShips.toList()
 
+    fun star(uid:Int) : GBStar {
+        return allStars[uid]
+    }
+
+    fun planet(uid:Int) : GBPlanet {
+        return allPlanets[uid]
+    }
+
+    fun race(uid:Int) : GBRace {
+        return allRaces[uid]!!
+    }
+
+    fun ship(uid:Int) : GBShip {
+        return allShips[uid]
+    }
+
+
+
+
     // Results of turns. Basically replaced every turn
     val allShots: MutableList<GBVector> = Collections.synchronizedList(arrayListOf<GBVector>())
     val news: MutableList<String> = Collections.synchronizedList(arrayListOf<String>())
@@ -322,9 +341,9 @@ class GBUniverse {
 
     }
 
-    fun landPopulation(p: GBPlanet, uId: Int, number: Int) {
-        GBLog.d("universe: Landing 100 of " + allRaces[uId]!!.name + " on " + p.name + "")
-        p.landPopulationOnEmptySector(allRaces[uId]!!, number)
+    fun landPopulation(p: GBPlanet, uidRace: Int, number: Int) {
+        GBLog.d("universe: Landing 100 of " + race(uidRace).name + " on " + p.name + "")
+        p.landPopulationOnEmptySector(race(uidRace), number)
     }
 
 

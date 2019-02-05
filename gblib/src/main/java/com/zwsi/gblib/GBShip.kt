@@ -190,7 +190,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             GBLog.d(name + " is landed")
 
-            if ((dest.level != loc.level) || (dest.refUID != loc.refUID)) { // landed and we need to get to orbit
+            if ((dest.level != loc.level) || (dest.uidRef != loc.uidRef)) { // landed and we need to get to orbit
 
                 //What direction are we heading
                 val t = atan2(dxy.y - sxy.y, dxy.x - sxy.x)
@@ -211,7 +211,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
             return
 
-        } else if ((loc.level == ORBIT) && (loc.refUID == dest.refUID)) {
+        } else if ((loc.level == ORBIT) && (loc.uidRef == dest.uidRef)) {
 
             // We arrived at the planet of destination
 

@@ -100,7 +100,7 @@ class ShipFragment : Fragment() {
             stats.append("id:" + sh.id + " | ")
             stats.append("refUID:" + sh.uid + " | ")
             stats.append("idxt:" + sh.idxtype + " | ")
-            stats.append("loca:" + sh.loc.level + "." + sh.loc.refUID)
+            stats.append("loca:" + sh.loc.level + "." + sh.loc.uidRef)
 
 
             if (sh.speed == 0) {

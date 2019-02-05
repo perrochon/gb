@@ -16,7 +16,7 @@ import com.zwsi.gblib.GBController.Companion.universe
 import java.util.*
 
 @JsonClass(generateAdapter = true)
-data class GBRace(val idx: Int, val uid: Int, val homeUID: Int) {
+data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
 
     // idx is the number to go look up static race information in GBData.
     //      Not needed with dynamic race design or load from json
@@ -54,7 +54,7 @@ data class GBRace(val idx: Int, val uid: Int, val homeUID: Int) {
     }
 
     fun getHome() :GBPlanet {
-        return universe.allPlanets[homeUID]
+        return universe.planet(uidHome)
     }
 
     fun getRaceShipsUIDList() : List<Int> {
@@ -62,6 +62,7 @@ data class GBRace(val idx: Int, val uid: Int, val homeUID: Int) {
     }
 
     fun getRaceShipsList(): List<GBShip> {
+        // TODO need smarter cache invalidation. But it's also cheap to produce this list.
         if (universe.turn > lastRaceShipsUpdate) {
             raceShipsList = raceShipsUID.map { universe.allShips[it]}.filter { it.health > 0 }
             lastRaceShipsUpdate = universe.turn

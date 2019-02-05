@@ -22,36 +22,36 @@ class GBLocationTest {
                 assertEquals(GBLocation.LANDED, l.level)
                 assertEquals(-1f, l.x)
                 assertEquals(-1f, l.y)
-                assertNotEquals(-1, l.refUID)
+                assertNotEquals(-1, l.uidRef)
                 assertEquals(-1f, l.t)
                 assertEquals(-1f, l.r)
                 assertEquals(l.getLLoc().sx, l.sx)
                 assertEquals(l.getLLoc().sy, l.sy)
-                assertNotEquals(null, universe.allPlanets.getOrNull(l.refUID)) //
+                assertNotEquals(null, universe.allPlanets.getOrNull(l.uidRef)) //
                 // Do some checks on the LocDesc
             }
             GBLocation.ORBIT -> {
                 assertEquals(GBLocation.ORBIT, l.level)
                 assertEquals(l.getOLocC().x, l.x)
                 assertEquals(l.getOLocC().y, l.y)
-                assertNotEquals(-1, l.refUID)
+                assertNotEquals(-1, l.uidRef)
                 assertEquals(l.getOLocP().r, l.r)
                 assertEquals(l.getOLocP().t, l.t)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
-                assertNotEquals(null, universe.allPlanets.getOrNull(l.refUID)) //
+                assertNotEquals(null, universe.allPlanets.getOrNull(l.uidRef)) //
                 // Do some checks on the LocDesc
             }
             GBLocation.SYSTEM -> {
                 assertEquals(GBLocation.SYSTEM, l.level)
-                assertEquals(l.getLoc().x, universe.allStars[l.refUID].loc.x + l.x)
-                assertEquals(l.getLoc().y, universe.allStars[l.refUID].loc.y + l.y)
-                assertNotEquals(-1, l.refUID)
+                assertEquals(l.getLoc().x, universe.allStars[l.uidRef].loc.x + l.x)
+                assertEquals(l.getLoc().y, universe.allStars[l.uidRef].loc.y + l.y)
+                assertNotEquals(-1, l.uidRef)
                 assertEquals(l.getSLocP().r, l.r)
                 assertEquals(l.getSLocP().t, l.t)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
-                assertNotEquals(null, universe.allStars.getOrNull(l.refUID)) //
+                assertNotEquals(null, universe.allStars.getOrNull(l.uidRef)) //
                 assertEquals(l.x, l.r * cos(l.t))
                 assertEquals(l.y, l.r * sin(l.t))
 
@@ -61,7 +61,7 @@ class GBLocationTest {
                 assertEquals(GBLocation.DEEPSPACE, l.level)
                 assertEquals(l.getLoc().x, l.x)
                 assertEquals(l.getLoc().y, l.y)
-                assertEquals(-1, l.refUID)
+                assertEquals(-1, l.uidRef)
                 assertEquals(-1f, l.r)
                 assertEquals(-1f, l.t)
                 assertEquals(-1, l.sx)

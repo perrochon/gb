@@ -38,13 +38,13 @@ class GBShipTest {
 
             when (ship.loc.level) {
                 LANDED -> {
-                    assertTrue(universe.allPlanets[ship.loc.refUID].landedShips.contains(ship))
+                    assertTrue(universe.allPlanets[ship.loc.uidRef].landedShips.contains(ship))
                 }
                 ORBIT -> {
-                    assertTrue(universe.allPlanets[ship.loc.refUID].orbitShips.contains(ship))
+                    assertTrue(universe.allPlanets[ship.loc.uidRef].orbitShips.contains(ship))
                 }
                 SYSTEM -> {
-                    assertTrue(universe.allStars[ship.loc.refUID].starShips.contains(ship))
+                    assertTrue(universe.allStars[ship.loc.uidRef].starShips.contains(ship))
                 }
                 DEEPSPACE -> {
                     assertTrue(universe.deepSpaceShips.contains(ship))
