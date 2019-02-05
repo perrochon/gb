@@ -1,5 +1,5 @@
 // Copyright 2018 Louis Perrochon. All rights reserved
-// GBTest tests saving to and restoring from JSON
+// To Save Game State
 
 package com.zwsi.gblib
 
@@ -7,11 +7,9 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GBSavedGame(
-    val location: GBLocation?,
-    val locationList: List<GBLocation>?,
-    val race: GBRace?,
     val raceList: Map<Int, GBRace>?,
-    val starList: Map<Int, GBStar>?
+    val starList: Map<Int, GBStar>?,
+    val planetList: Map<Int, GBPlanet>?
 ) {
 
 }

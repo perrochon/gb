@@ -33,7 +33,8 @@ data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
     var population = 0 // (planetary) population. Ships don't have population
 
     // Ships Lists
-    // TODO PERSISTENCE. Either store the ship lists, or rebuild them when ships are loaded. The latter seems smarter.
+    // TODO PERSISTENCE Save these, or rebuild on loading?
+    // If they are ships, as opposed to UIDs, need to rebuild, as the old objects will be gone...
     @Transient
     internal val raceShipsUID: MutableList<Int> =
         Collections.synchronizedList(arrayListOf<Int>()) // Ships of this race

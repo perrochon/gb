@@ -4,17 +4,17 @@
 
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.rand
 import java.util.*
 import kotlin.math.PI
 
-class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
+@JsonClass(generateAdapter = true)
+data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
     // sid is the "starID" (aka orbit), which planet of the parent star is this 0..
 
-    // Set at creation
     val id: Int
-    val idxname: Int
     val idxtype: Int // idxtype of this planet
 
     val name: String
@@ -22,13 +22,14 @@ class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
 
     val owner: GBRace? = null;
 
-    var loc : GBLocation
+    var loc: GBLocation
 
     val ownerName: String
         get() = owner?.name ?: "<not owned>"
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     // Sector are stored in a straight array, which makes some things easier (other's not so)
+    @Transient // TODO PERF STORE SECTORS!
     var sectors: Array<GBSector>
     var height: Int
     var width: Int
@@ -38,26 +39,33 @@ class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
 
     var population = 0;
 
-    internal val landedShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // the ships on ground of this planet
-    internal val orbitShips: MutableList<GBShip> = Collections.synchronizedList(arrayListOf()) // the ships in orbit of this planet
+    // TODO PERSISTENCE Save these, or rebuild on loading?
+    // If they are ships, as opposed to UIDs, need to rebuild, as the old objects will be gone...
+    @Transient
+    internal val landedShips: MutableList<GBShip> =
+        Collections.synchronizedList(arrayListOf()) // the ships on ground of this planet
+    @Transient
+    internal val orbitShips: MutableList<GBShip> =
+        Collections.synchronizedList(arrayListOf()) // the ships in orbit of this planet
+    @Transient
     internal var lastLandedShipsUpdate = -1
+    @Transient
     internal var landedShipsList = landedShips.toList()
+    @Transient
     internal var lastOrbitShipsUpdate = -1
+    @Transient
     internal var orbitShipsList = orbitShips.toList()
-
 
     init {
         id = GBData.getNextGlobalId()
-
-        idxname = GBData.selectPlanetNameIdx()
-        name = GBData.planetNameFromIdx(idxname)
+        name = GBData.planetNameFromIdx(GBData.selectPlanetNameIdx())
 
         idxtype = GBData.selectPlanetTypeIdx()
         type = GBData.planetTypeFromIdx(idxtype)
 
-        val orbitDist : Float = GBData.MaxPlanetOrbit.toFloat() / star.numberOfPlanets.toFloat()
+        val orbitDist: Float = GBData.MaxPlanetOrbit.toFloat() / star.numberOfPlanets.toFloat()
 
-        loc = GBLocation(star, (sid+1f)*orbitDist, rand.nextFloat() * 2f * PI.toFloat())
+        loc = GBLocation(star, (sid + 1f) * orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
         GBLog.d("Planet $name location is Polar ( ${loc.r} , ${loc.t} )")
         GBLog.d("Planet $name location is Cartesian( ${loc.x} , ${loc.y} )")
@@ -81,7 +89,7 @@ class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
         )
     }
 
-    fun getLandedShipsList() : List<GBShip> {
+    fun getLandedShipsList(): List<GBShip> {
         if (u.turn > lastLandedShipsUpdate) {
             landedShipsList = landedShips.toList().filter { it.health > 0 }
             lastLandedShipsUpdate = u.turn
@@ -89,7 +97,7 @@ class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
         return landedShipsList
     }
 
-    fun getOrbitShipsList() : List<GBShip> {
+    fun getOrbitShipsList(): List<GBShip> {
         if (u.turn > lastOrbitShipsUpdate) {
             orbitShipsList = orbitShips.toList().filter { it.health > 0 }
             lastOrbitShipsUpdate = u.turn
@@ -115,7 +123,7 @@ class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
 
     }
 
-    fun sectorEmpty(x: Int, y: Int) : Boolean {
+    fun sectorEmpty(x: Int, y: Int): Boolean {
         return landedShips.filter { (it.loc.sx == x) && (it.loc.sy == y) }.isEmpty()
     }
 
@@ -163,7 +171,7 @@ class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
         // Speed of pods is 1, so angular speed cannot be faster than 1/r
 
         val rt = loc.getSLocP()
-        val speed = 1/(rt.r+10)  // was 10 for a long time. Changing to 20 with orbiting ships
+        val speed = 1 / (rt.r + 10)  // was 10 for a long time. Changing to 20 with orbiting ships
         loc = GBLocation(star, rt.r, rt.t - speed) // y points down, anti-clockwise is negative angles...
     }
 
@@ -256,7 +264,7 @@ class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
 
     fun landPopulationOnEmptySector(r: GBRace, number: Int) {
         GBLog.d("GBPlanet: Landing $number of ${r.name}")
-        val target = sectors.toList().shuffled().firstOrNull({it.population==0})
+        val target = sectors.toList().shuffled().firstOrNull({ it.population == 0 })
         target?.adjustPopulation(r, number) // If no empty sector, no population is landed
     }
 

@@ -19,7 +19,8 @@ data class GBStar(val uid: Int, val numberOfPlanets: Int, val x: Int, val y : In
     @Transient
     var starPlanets: MutableList<GBPlanet> = arrayListOf() // the planets in this system
 
-    @Transient
+    // TODO PERSISTENCE Save these, or rebuild on loading?
+    // If they are ships, as opposed to UIDs, need to rebuild, as the old objects will be gone...    @Transient
     internal val starShips: MutableList<GBShip> =
         Collections.synchronizedList(arrayListOf<GBShip>()) // the ships in this system
     @Transient
