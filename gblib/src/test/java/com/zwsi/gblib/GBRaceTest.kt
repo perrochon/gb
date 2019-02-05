@@ -29,19 +29,19 @@ class GBRaceTest {
             assertEquals(race.getRaceShipsList().size,0 )
         }
 
-        assert(universe.allRaces[0] == universe.allRaces[0])
-        assert(universe.allRaces[0] != universe.allRaces[1])
+        assert(universe.race(0) == universe.race(0))
+        assert(universe.race(0) != universe.race(1))
 
         // TODO TEST add ships to class
 
         // Testing Data Class Behavior
-        val copy1 = universe.allRaces[1]
-        assert(universe.allRaces[1] == copy1)
-        assert(universe.allRaces[1] === copy1) // Pointing to the same class
+        val copy1 = universe.race(1)
+        assert(universe.race(1) == copy1)
+        assert(universe.race(1) === copy1) // Pointing to the same class
 
-        val copy2 = universe.allRaces[1]!!.copy()
-        assert(universe.allRaces[1] == copy2)
-        assert(universe.allRaces[1] !== copy2) // Pointing to different class
+        val copy2 = universe.race(1).copy()
+        assert(universe.race(1) == copy2)
+        assert(universe.race(1) !== copy2) // Pointing to different class
 
     }
 }
