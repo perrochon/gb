@@ -22,13 +22,12 @@ class GBTestJSON {
         println("\n Testing Object")
         val inObject = GBPlanet(u.getNextGlobalId(),0, 0, u.star(0))
         println("  in: " + inObject)
-        val jsonAdapter1 = moshi.adapter<GBPlanet>(GBPlanet::class.java)
+        val jsonAdapter1 = moshi.adapter<GBPlanet>(GBPlanet::class.java).indent("    ")
         val json1 = jsonAdapter1.toJson(inObject)
         println(json1)
         val outObject = jsonAdapter1.fromJson(json1)
         println("  out:" + outObject)
         assert(inObject == outObject)
-
     }
 
     @Test
@@ -40,7 +39,7 @@ class GBTestJSON {
         println("\nTesting GBSavedGame")
         val gameInfo1 = GBSavedGame(null, u.allStars, null)
         println("  GBSavedGame in: " + gameInfo1)
-        val jsonAdapter3: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
+        val jsonAdapter3: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("    ")
         val json3 = jsonAdapter3.toJson(gameInfo1)
         println("  JSON string: " + json3)
         val gameInfo2 = jsonAdapter3.lenient().fromJson(json3)

@@ -20,4 +20,16 @@ class GBSavedGameTest {
         assert(gameInfo1 == gameInfo2)
     }
 
+    @Test
+    fun JSONIfyBig() {
+        val u = GBController.makeBigUniverse()
+        val moshi = Moshi.Builder().build()
+
+        val gameInfo1 = GBSavedGame(u.allRaces, u.allStars, u.allPlanets)
+        val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
+        val json = jsonAdapter1.toJson(gameInfo1)
+        val gameInfo2 = jsonAdapter1.lenient().fromJson(json)
+        assert(gameInfo1 == gameInfo2)
+    }
+
 }
