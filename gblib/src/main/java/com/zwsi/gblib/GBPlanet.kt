@@ -20,12 +20,10 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     var type: String
 
     var uidPlanetOwner = 0
+
     val planetOwner: GBRace
         get() = u.race(uidPlanetOwner)
 
-
-    val ownerName: String
-        get() = planetOwner.name ?: "<not owned>"
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     // Sector are stored in a straight array, which makes some things easier (other's not so)
@@ -39,9 +37,8 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     var planetPopulation = 0;
 
     val star: GBStar
-        get() {
-            return u.star(uidStar)
-        }
+        get() = u.star(uidStar)
+
 
     // TODO PERSISTENCE Save these, or rebuild on loading?
     // If they are ships, as opposed to UIDs, need to rebuild, as the old objects will be gone...
@@ -210,7 +207,7 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
                     )}] - migrating"
                 )
 
-                val movers = sectors[from].population * sectors[from].owner!!.explore / 100 / 4
+                val movers = sectors[from].population * sectors[from].sectorOwner.explore / 100 / 4
 
                 when (GBData.rand.nextInt(4)) {
                     0 -> migratePopulation(movers, from, east(from))
@@ -241,7 +238,7 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
         //assert(to < sectors.size) // TODO: This should never happen, but does in some cases.
         if (to >= sectors.size) return
 
-        if (sectors[to].owner == null) {
+        if (sectors[to].uidSectorOwner == -1) {
             //moving into an empty sector
             var movers = number
             if (sectors[to].population + number > sectors[to].maxPopulation) {
@@ -252,7 +249,7 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
             GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Explore $movers move")
             movePopulation(sectors[from], movers, sectors[to])
 
-        } else if (sectors[to].owner == sectors[from].owner) {
+        } else if (sectors[to].uidSectorOwner == sectors[from].uidSectorOwner) {
             //moving to a friendly sector
             var movers = number
             if (sectors[to].population + number > sectors[to].maxPopulation) {
@@ -275,14 +272,17 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
             sector.population + difference <= sector.maxPopulation,
             { "Attempt to increase planetPopulation beyond max" })
         assert(sector.population + difference >= 0, { "Attempt to decrease planetPopulation below 0" })
-        assert(sector.owner != null)
+        assert(sector.uidSectorOwner != -1)
 
         sector.population += difference
         this.planetPopulation += difference
-        sector.owner!!.population += difference
+        // FIXME PERSISTENCE With only uidRace in Sector, we don't have access to u.race() during u construction.
+        // Need to refactor that first, or move all this code into GBController.
+        // FIXME Owner Population not being updated for a while.
+        //sector.sectorOwner.population += difference
 
         if (sector.population == 0) {
-            sector.owner = null
+            sector.uidSectorOwner = -1
         }
 
         if (this.planetPopulation == 0) {
@@ -296,20 +296,20 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
         assert(sector.population + number <= sector.maxPopulation)
         assert(sector.population + number >= 0)
         // TODO this assertion should hold but doesn't
-        assert((sector.owner == null) || (sector.owner == r), { "$planetOwner, $r" })
+        assert((sector.uidSectorOwner == -1 ) || (sector.uidSectorOwner == r.uid), { "$planetOwner, $r" })
 
-        sector.owner = r
+        sector.uidSectorOwner = r.uid
         changePopulation(sector, number)
 
     }
 
     internal fun movePopulation(from: GBSector, number: Int, to: GBSector) {
-        assert(from.owner != null)
-        assert((to.owner == from.owner) || (to.owner == null))
+        assert(from.uidSectorOwner != -1)
+        assert((to.uidSectorOwner == from.uidSectorOwner) || (to.uidSectorOwner == -1))
         assert(number <= from.population)
         assert(to.population + number <= to.maxPopulation, { "${to.population},${number},${to.maxPopulation}" })
 
-        to.owner = from.owner
+        to.uidSectorOwner = from.uidSectorOwner
         changePopulation(to, number)
         changePopulation(from, -number)
 
@@ -320,7 +320,7 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
         if (sector.population == 0) return
 
         var difference =
-            (sector.population.toFloat() * (sector.owner!!.birthrate.toFloat() / 100f) * (1f - sector.population.toFloat() / sector.maxPopulation.toFloat())).toInt()
+            (sector.population.toFloat() * (sector.sectorOwner.birthrate.toFloat() / 100f) * (1f - sector.population.toFloat() / sector.maxPopulation.toFloat())).toInt()
 
         if (sector.population + difference > sector.maxPopulation)
             difference = (sector.maxPopulation - sector.population)

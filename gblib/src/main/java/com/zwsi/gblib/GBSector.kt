@@ -5,8 +5,6 @@
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
-import com.zwsi.gblib.GBController.Companion.u
-import kotlin.math.max
 
 @JsonClass(generateAdapter = true)
 data class GBSector constructor(val uidPlanet: Int) {
@@ -26,23 +24,26 @@ data class GBSector constructor(val uidPlanet: Int) {
         maxPopulation = GBData.sectorMaxPopulationFromIdx(type)
     }
 
-    // TODO only store uid. We don't want to create two objects on restore...
-    // Changing Properties: planetOwner, planetPopulation
-    var owner: GBRace? = null
-        set(r) {
-            field = r
-            if (r==null){
-                ownerID = -1
-                ownerName = ""
+//    // FIXME only store uid. We don't want to create two objects on restore...
+//    // FIXME WHy is owner not serialized? Because it's null? Turns out that's the case..
+//    // Changing Properties: planetOwner, planetPopulation
+//    var owner: GBRace? = null
+//        set(r) {
+//            field = r
+//            if (r==null){
+//                uidSectorOwner = -1
+//
+//            } else {
+//                uidSectorOwner = field!!.uid
+//
+//            }
+//        }
 
-            } else {
-                ownerID = field!!.uid
-                ownerName = field!!.name
-            }
-        }
+    var uidSectorOwner: Int = -1
 
-    var ownerID: Int = -1
-    var ownerName = ""
+    val sectorOwner: GBRace
+        get() = GBController.u.race(uidSectorOwner)
+
 
 
     // planetPopulation
@@ -62,7 +63,7 @@ data class GBSector constructor(val uidPlanet: Int) {
             return " $typeSymbol "
         } else {
             //return " \u001B[7m $type_symbol \u001B[m ";
-            return " $ownerID "
+            return " $uidSectorOwner "
             //return "[$type_symbol]"
 
         }

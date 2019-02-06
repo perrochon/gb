@@ -18,9 +18,9 @@ class GBSectorTest {
         assertEquals(GBData.sectorMoneyFromIdx(s.type), s.revenue)
 
         if (s.population == 0) {
-            assertNull(s.owner)
+            assertEquals(-1, s.uidSectorOwner)
         } else {
-            assertNotNull(s.owner)
+            assertNotEquals(-1, s.uidSectorOwner)
         }
     }
 
@@ -33,7 +33,7 @@ class GBSectorTest {
         assertEquals(-1, s.type)
         assertEquals("?", s.typeSymbol)
         assertEquals(0, s.population)
-        assertNull(s.owner)
+        assertEquals(-1, s.sectorOwner) // FIXME This failing until universe constructor is fixed.
 
         for (i in 0..7) {
             for (j in 1..10) { // Try a few times, as sector type is random
@@ -45,14 +45,15 @@ class GBSectorTest {
         val allRaces = universe.allRaces.values.first()
         val r = allRaces
         p.adjustPopulation(s,r, 100)
-        assertEquals(r,s.owner)
-        assertEquals(r.birthrate, s.owner!!.birthrate)
+        assertEquals(r.uid,s.uidSectorOwner)
+        assertEquals(r, s.sectorOwner)
+        assertEquals(r.birthrate, s.sectorOwner.birthrate)
         assertEquals(100, s.population)
         p.adjustPopulation(s,r,-50)
         assertEquals(50, s.population)
         p.adjustPopulation(s,r,-50)
         assertEquals(0, s.population)
-        assertNull(s.owner)
+        assertEquals(-1, s.uidSectorOwner)
     }
 
     @Test
@@ -93,8 +94,8 @@ class GBSectorTest {
         s2.chooseType(2)
         p.adjustPopulation(s1,r, 10)
         p.adjustPopulation(s2,r, 0)
-        assertEquals(r,s1.owner)
-        assertEquals(null,s2.owner)
+        assertEquals(r.uid,s1.uidSectorOwner)
+        assertEquals(-1,s2.uidSectorOwner)
         assertEquals(10, s1.population)
         assertEquals(0, s2.population)
         p.movePopulation(s1,3, s2)
@@ -106,8 +107,8 @@ class GBSectorTest {
         p.movePopulation(s1,4, s2)
         assertEquals(0, s1.population)
         assertEquals(10, s2.population)
-        assertEquals(null,s1.owner)
-        assertEquals(r,s2.owner)
+        assertEquals(-1,s1.uidSectorOwner)
+        assertEquals(r.uid,s2.uidSectorOwner)
     }
 
     @Test

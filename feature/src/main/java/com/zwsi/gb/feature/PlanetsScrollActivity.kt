@@ -83,7 +83,7 @@ class PlanetsScrollActivity : AppCompatActivity() {
                             paint
                         )
                         canvas.drawText(
-                            p.sectors[j].owner!!.name.substring(0,1),
+                            p.sectors[j].sectorOwner!!.name.substring(0,1),
                             p.sectorX(j) * 50f + 20,
                             p.sectorY(j) * 50f + 20f,
                             paint
