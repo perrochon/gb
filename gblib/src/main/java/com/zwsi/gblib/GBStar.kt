@@ -49,12 +49,10 @@ data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: In
         println("\n  " + "====================")
         println("  $name System")
         println("  " + "====================")
-        println("  The $name system contains $numberOfPlanets planet(s).")
+        println("  The $name system contains ${starPlanets.size} planet(s) and ${starShips.size} ship(s).")
 
         for (i in starPlanets) {
-
             i.consoleDraw()
         }
-
     }
 }
