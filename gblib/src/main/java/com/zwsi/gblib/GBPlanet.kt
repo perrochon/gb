@@ -6,9 +6,7 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBData.Companion.rand
 import java.util.*
-import kotlin.math.PI
 
 @JsonClass(generateAdapter = true)
 data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLocation) {
@@ -21,11 +19,13 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     var name: String
     var type: String
 
-    // FIXME PERSISTENCE Change to UID
-    var planetOwner: GBRace? = null;
+    var uidPlanetOwner = 0
+    val planetOwner: GBRace
+        get() = u.race(uidPlanetOwner)
+
 
     val ownerName: String
-        get() = planetOwner?.name ?: "<not owned>"
+        get() = planetOwner.name ?: "<not owned>"
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     // Sector are stored in a straight array, which makes some things easier (other's not so)
@@ -286,7 +286,7 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
         }
 
         if (this.planetPopulation == 0) {
-            this.planetOwner = null
+            this.uidPlanetOwner = 0
         }
 
     }
