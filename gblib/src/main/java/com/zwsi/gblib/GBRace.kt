@@ -39,11 +39,10 @@ data class GBRace(internal val id: Int, internal val idx: Int, internal val uid:
     internal var raceShipsUIDList: MutableList<Int> =
         Collections.synchronizedList(arrayListOf<Int>()) // Ships of this race
 
-
     @Transient
     internal var lastRaceShipsUpdate = -1
     @Transient
-    internal var raceShipsList = raceShipsUIDList.map { u.allShips[it]}
+    internal val raceShipsList = raceShipsUIDList.map { u.allShips[it]}
 
     init {
         name = GBData.getRaceName(idx)
@@ -71,7 +70,6 @@ data class GBRace(internal val id: Int, internal val idx: Int, internal val uid:
         }
         return raceShipsList
     }
-
 
     fun consoleDraw() {
         println("")
