@@ -47,7 +47,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
         u.allShips.add(this)
         uid = u.allShips.indexOf(this)
 
-        race.raceShipsUID.add(this.uid)
+        race.raceShipsUIDList.add(this.uid)
 
         when (loc.level) {
             LANDED -> {
@@ -161,7 +161,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
                     gbAssert("Bad Parameters for ship removement $loc", { false })
                 }
             }
-            this.race.raceShipsUID.remove(this.uid)
+            this.race.raceShipsUIDList.remove(this.uid)
             u.deadShips.add(this)
         }
     }

@@ -37,7 +37,7 @@ class GBTestJSON {
         val moshi = Moshi.Builder().build()
 
         println("\nTesting GBSavedGame")
-        val gameInfo1 = GBSavedGame(null, u.allStars, null)
+        val gameInfo1 = GBSavedGame("Test", null, u.allStars, null)
         println("  GBSavedGame in: " + gameInfo1)
         val jsonAdapter3: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("    ")
         val json3 = jsonAdapter3.toJson(gameInfo1)

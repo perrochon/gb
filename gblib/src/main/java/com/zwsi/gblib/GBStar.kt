@@ -23,6 +23,7 @@ data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: In
     // If they are ships, as opposed to UIDs, need to rebuild, as the old objects will be gone...    @Transient
     internal val starShips: MutableList<GBShip> =
         Collections.synchronizedList(arrayListOf<GBShip>()) // the ships in this system
+
     @Transient
     internal var lastStarShipsUpdate = -1
     @Transient

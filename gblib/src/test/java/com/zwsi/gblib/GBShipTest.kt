@@ -5,7 +5,6 @@
 
 package com.zwsi.gblib
 
-import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.SystemBoundary
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
@@ -31,7 +30,7 @@ class GBShipTest {
         assertTrue(universe.allShips.contains(ship))
         assertEquals(ship.uid, universe.allShips.indexOf(ship))
 
-        assertTrue(ship.race.raceShipsUID.contains(ship.uid))
+        assertTrue(ship.race.raceShipsUIDList.contains(ship.uid))
         assertTrue(ship.race.getRaceShipsList().contains(ship)) // This fails because list is cached
 
         if (!universe.deadShips.contains(ship)) {
@@ -203,7 +202,7 @@ class GBShipTest {
         val sh0 = GBShip(u.getNextGlobalId(),1, r0, GBLocation(s0, 30f, 1f))
         consistency(sh0)
 
-        r1.raceShipsUID.add(sh0.uid)
+        r1.raceShipsUIDList.add(sh0.uid)
 
         consistency(sh0)
         uniqueLocations()
