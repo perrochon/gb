@@ -88,7 +88,7 @@ class GBViewModel {
         fun fillViewStarShips() {
             viewStarShips.clear()
             for ((_, s) in viewStars) {
-                viewStarShips.put(s.uid, s.getStarShipsList())
+                viewStarShips.put(s.uid, s.starShipList)
             }
         }
 

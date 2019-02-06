@@ -16,14 +16,6 @@ class LibTest {
 
     fun consistent() {
         val universe = GBController.u
-
-        if (GBController.smallUniverse) {
-            assertEquals(GBController.numberOfStarsSmall, universe.allStars.size)
-        } else if (GBController.bigUniverse) {
-            assertEquals(GBController.numberOfStarsBig, universe.allStars.size)
-        } else {
-            assertEquals(GBController.numberOfStars, universe.allStars.size)
-        }
         assertEquals(universe.star(0).starPlanetsList[0], universe.planet(0))
         assertEquals(universe.star(0).starPlanetsList[1], universe.planet(1))
     }

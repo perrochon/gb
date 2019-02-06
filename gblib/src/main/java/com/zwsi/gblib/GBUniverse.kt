@@ -71,10 +71,7 @@ class GBUniverse {
     constructor(numberOfStars: Int) {
         this.numberOfStars = numberOfStars
         this.numberOfRaces = GBController.numberOfRaces
-        GBLog.d("Making Stars")
-        makeStarsAndPlanets()
-        makeRaces()
-        GBLog.d("Universe made")
+
     }
 
     val universeMaxX: Int
@@ -155,7 +152,7 @@ class GBUniverse {
 
     }
 
-    private fun makeStarsAndPlanets() {
+    fun makeStarsAndPlanets() {
         GBLog.i("Making stars and planets")
         areas.clear()
         var uidPlanet = 0
@@ -225,7 +222,7 @@ class GBUniverse {
     }
 
 
-    private fun makeRaces() {
+    fun makeRaces() {
         GBLog.i("Making and landing Races")
 
         // TODO: Replace with full configuration driven solution instead of hard code.
