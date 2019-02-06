@@ -38,7 +38,8 @@ dependencies {
     // added this to get ViewModelProviders
 }
 
-// TODO: We have two libraries that request old support version. Below forcing both to 28.
+// FIXME We have two libraries that request old support version. Below forcing both to 28
+
 // ./gradlew feature:dependencies --configuration debugFeatureRuntimeClasspath
 // SSIV requests 27.1.0. Would have to compile (test) on our own to make it use 28 at compile
 // Lifecycle:1.1.1 requires 26.x  It's deprecated, so need to use AndroidX libraries, but using those

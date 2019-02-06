@@ -7,7 +7,7 @@
 //
 // GB Data is a separate class because later we want to read this from an external source (JSON file, web, db, etc.)
 
-// TODO Feature read universe data from a config file or other external data source
+// FEATURE read universe data from a config file or other external data source
 
 package com.zwsi.gblib
 
@@ -20,9 +20,8 @@ class GBData {
 
     companion object {
 
-        // FIXME these public methods could internal if the whole lib is Kotlin? Nobody outside the lib should call GBData
-
-        val rand = Random(1) // Our RNG. We could seed it for testing. Make it var, and assign in init block?
+        // FIXME these public methods be could internal if the whole lib is Kotlin? Nobody outside the lib should call GBData
+        internal val rand = Random(1) // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
         internal const val UniverseMaxX = 1000 // Width of the Universe
         internal const val UniverseMaxY = 1000 // Height of the Universe
@@ -33,11 +32,6 @@ class GBData {
         internal const val MinNumberOfPlanets = 2
         internal const val MaxNumberOfPlanets = 8
 
-        private var nextGlobalID = 1000
-
-        fun getNextGlobalId(): Int {
-            return nextGlobalID++
-        }
 
         fun selectStarNameIdx(): Int {
             // TODO Science no dupes in System Names - not a high priority, real world may have duplicates...

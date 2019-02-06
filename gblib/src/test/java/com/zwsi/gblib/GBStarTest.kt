@@ -36,7 +36,7 @@ class GBStarTest {
     fun JSON() {
         val u = GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
-        val inObject = GBStar(12, 5, 100, 200)
+        val inObject = GBStar(u.getNextGlobalId(),12, 5, 100, 200)
         val jsonAdapter1 = moshi.adapter<GBStar>(GBStar::class.java)
         val json1 = jsonAdapter1.toJson(inObject)
         val outObject = jsonAdapter1.fromJson(json1)

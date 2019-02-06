@@ -54,7 +54,7 @@ class GBController {
         // If you specifically ask for big or small, you get that.
         // After that, if you want a normal instead, you have to use make Universe
 
-        @Synchronized
+        //@Synchronized
         fun makeUniverse(): GBUniverse {
             GBLog.i("Making regular sized universe")
             smallUniverse = false
@@ -63,7 +63,7 @@ class GBController {
             return u
         }
 
-        @Synchronized
+        //@Synchronized
         fun makeSmallUniverse(): GBUniverse {
             GBLog.i("Making small universe")
             smallUniverse = true
@@ -72,7 +72,7 @@ class GBController {
             return u
         }
 
-        @Synchronized
+        //@Synchronized
         fun makeBigUniverse(): GBUniverse {
             GBLog.i("Making big universe")
             bigUniverse = true
@@ -81,7 +81,7 @@ class GBController {
             return u
         }
 
-        @Synchronized
+        //@Synchronized
         fun doUniverse() {
             GBLog.i("Runing Game Turn ${u.turn}")
             elapsedTimeLastUpdate = measureNanoTime {
@@ -89,9 +89,8 @@ class GBController {
             }
         }
 
-        // FIXME I think we can get rid of some of the syncs now
-        // TODO
-        @Synchronized
+        // FIXME I think we can get rid of some of the syncs now. Commented out 2/5/2019
+        //@Synchronized
         fun makeStuff() {
             playBeetle()
             playImpi()

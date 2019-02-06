@@ -67,15 +67,15 @@ class GBOrder  {
     fun execute() {
         when (type) {
             FACTORY -> {
-                GBShip(FACTORY, u.race(uidRace), loc)
+                GBShip(u.getNextGlobalId(), FACTORY, u.race(uidRace), loc)
                 u.news.add("Built a factory on Helle.\n\n")
             }
             POD -> {
-                GBShip(POD, u.race(uidRace), loc)
+                GBShip(u.getNextGlobalId(), POD, u.race(uidRace), loc)
                 u.news.add("Built a pod on Helle.\n\n")
             }
             CRUISER -> {
-                GBShip(CRUISER, u.race(uidRace), loc)
+                GBShip(u.getNextGlobalId(), CRUISER, u.race(uidRace), loc)
                 u.news.add("Built a cruiser on Helle.\n\n")
             }
             else ->

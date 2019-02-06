@@ -21,7 +21,7 @@ class GlobalButtonOnClick {
             lastClickTime = SystemClock.elapsedRealtime();
 
 
-            //output.setText("") // TODO: Refactor output back in...
+            //output.setText("") // TODO Refactor output back in...
 
             val message = "Executing Orders"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()

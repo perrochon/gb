@@ -92,7 +92,8 @@ class GBLocationTest {
     fun orbitTooFarOut() {
         val universe = GBController.makeUniverse()
         val p = universe.planet(1)
-        val loc = GBLocation(p, 3f, 25f)
+        val loc = GBLocation(p, 3f, 25f) // This should fail
+        consistent(loc)
     }
 
     @Test
@@ -118,7 +119,8 @@ class GBLocationTest {
     fun systemTooFarOut() {
         val universe = GBController.makeUniverse()
         val s = universe.star(3)
-        val loc = GBLocation(s, 200f, 2f)
+        val loc = GBLocation(s, 200f, 2f)  // This should fail
+        consistent(loc)
     }
 
     @Test
@@ -204,7 +206,6 @@ class GBLocationTest {
 
     @Test
     fun JSONRace() {
-        val u = GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
         val loc1 = GBLocation(100f, 100f)

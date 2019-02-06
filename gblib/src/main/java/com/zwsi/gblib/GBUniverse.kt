@@ -8,6 +8,12 @@ import kotlin.math.PI
 
 class GBUniverse {
 
+    internal var nextGlobalID = 1000
+
+    fun getNextGlobalId(): Int {
+        return nextGlobalID++
+    }
+
     internal var numberOfStars: Int
     internal var numberOfRaces: Int
 
@@ -156,10 +162,10 @@ class GBUniverse {
             val numberOfPlanets =
                 GBData.rand.nextInt(GBData.MaxNumberOfPlanets - GBData.MinNumberOfPlanets) + GBData.MinNumberOfPlanets
             val coordinates = getStarCoordinates()
-            allStars[uidStar] = GBStar(uidStar, numberOfPlanets, coordinates.first, coordinates.second)
+            allStars[uidStar] = GBStar(getNextGlobalId(), uidStar, numberOfPlanets, coordinates.first, coordinates.second)
 
             for (sidPlanet in 0 until numberOfPlanets) {
-                allPlanets[uidPlanet] = GBPlanet(uidPlanet, sidPlanet, allStars[uidStar]!!)
+                allPlanets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, allStars[uidStar]!!)
                 star(uidStar).starPlanets.add(planet(uidPlanet))
                 uidPlanet++;
             }
@@ -220,18 +226,18 @@ class GBUniverse {
         // We only need one race for the early mission, but we land the others for God Mode...
 
         // The single player
-        val r0 = GBRace(0, 0, allStars[0]!!.starPlanets[0].uid)
+        val r0 = GBRace(getNextGlobalId(), 0, 0, allStars[0]!!.starPlanets[0].uid)
         allRaces[0] = r0
         landPopulation(allStars[0]!!.starPlanets[0], r0.uid, 100)
 
 
         // We only need one race for the early mission, but we create and land the others for God Mode...
         // Eventually, they will be dynamically landed (from tests, or from app)
-        val r1 = GBRace(1, 1, allStars[1]!!.starPlanets[0].uid)
+        val r1 = GBRace(getNextGlobalId(),1, 1, allStars[1]!!.starPlanets[0].uid)
         allRaces[1] = r1
-        val r2 = GBRace(2, 2, allStars[2]!!.starPlanets[0].uid)
+        val r2 = GBRace(getNextGlobalId(), 2,2, allStars[2]!!.starPlanets[0].uid)
         allRaces[2] = r2
-        val r3 = GBRace(3, 3, allStars[3]!!.starPlanets[0].uid)
+        val r3 = GBRace(getNextGlobalId(),3, 3, allStars[3]!!.starPlanets[0].uid)
         allRaces[3] = r3
 
         landPopulation(allStars[1]!!.starPlanets[0], r1.uid, 100)

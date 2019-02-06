@@ -9,11 +9,11 @@ import com.zwsi.gblib.GBController.Companion.u
 import java.util.*
 
 @JsonClass(generateAdapter = true)
-data class GBStar(val uid: Int, val numberOfPlanets: Int, val x: Int, val y : Int) {
+data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: Int, val y : Int) {
 
-    val id: Int // unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
+    // int is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
+
     val name: String // name of this system
-
     val loc: GBLocation
 
     @Transient
@@ -29,7 +29,6 @@ data class GBStar(val uid: Int, val numberOfPlanets: Int, val x: Int, val y : In
     internal var starShipsList = starShips.toList()
 
     init {
-        id = GBData.getNextGlobalId()
         name = GBData.starNameFromIdx(GBData.selectStarNameIdx())
         loc = GBLocation(x.toFloat(), y.toFloat())
         GBLog.d("Star $name location is ($x,$y)")

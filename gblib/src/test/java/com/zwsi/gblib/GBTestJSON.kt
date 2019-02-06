@@ -20,7 +20,7 @@ class GBTestJSON {
         val moshi = Moshi.Builder().build()
 
         println("\n Testing Object")
-        val inObject = GBPlanet(0, 0, u.star(0))
+        val inObject = GBPlanet(u.getNextGlobalId(),0, 0, u.star(0))
         println("  in: " + inObject)
         val jsonAdapter1 = moshi.adapter<GBPlanet>(GBPlanet::class.java)
         val json1 = jsonAdapter1.toJson(inObject)

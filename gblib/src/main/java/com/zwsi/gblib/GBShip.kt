@@ -15,10 +15,11 @@ import java.util.*
 import kotlin.math.atan2
 
 @JsonClass(generateAdapter = true)
-class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
+class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocation) {
+
+    // id is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
 
     // properties that don't change over live time of ship
-    val id: Int     // Unique global ID of this ship
     val uid: Int    // id in universe wide list
     val name: String // name, first letters of race and type, then id
     val type: String // type in printable form
@@ -43,8 +44,6 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
     }
 
     init {
-        id = GBData.getNextGlobalId()
-
         u.allShips.add(this)
         uid = u.allShips.indexOf(this)
 

@@ -11,10 +11,11 @@ import java.util.*
 import kotlin.math.PI
 
 @JsonClass(generateAdapter = true)
-data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
+data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val star: GBStar) {
+
+    // int is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
     // sid is the "starID" (aka orbit), which planet of the parent star is this 0..
 
-    val id: Int
     val idxtype: Int // idxtype of this planet
 
     val name: String
@@ -56,7 +57,6 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
     internal var orbitShipsList = orbitShips.toList()
 
     init {
-        id = GBData.getNextGlobalId()
         name = GBData.planetNameFromIdx(GBData.selectPlanetNameIdx())
 
         idxtype = GBData.selectPlanetTypeIdx()

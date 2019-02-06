@@ -16,13 +16,14 @@ import com.zwsi.gblib.GBController.Companion.u
 import java.util.*
 
 @JsonClass(generateAdapter = true)
-data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
+data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
 
+    // id is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
     // idx is the number to go look up static race information in GBData.
     //      Not needed with dynamic race design or load from json
     // uId is key in Universe's map of allRaces
+    // id is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
 
-    val id: Int  // unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
     val name: String
     val birthrate: Int
     val explore: Int
@@ -44,7 +45,6 @@ data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
     internal var raceShipsList = raceShipsUID.map { u.allShips[it]}
 
     init {
-        id = GBData.getNextGlobalId()
         name = GBData.getRaceName(idx)
         birthrate = GBData.getRaceBirthrate(idx)
         explore = GBData.getRaceExplore(idx)

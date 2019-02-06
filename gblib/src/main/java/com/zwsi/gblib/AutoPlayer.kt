@@ -10,8 +10,7 @@ class AutoPlayer() {
         fun playBeetle() {
 
             GBLog.d("Programming Beetles in turn $u.turn")
-            // FIXME there must be an easier way...
-            val r = u.allRaces.values.find { it.idx == 2 }!!
+            val r = u.race(2)
             val now = u.turn + 1 // just in case we have a turn running....
 
             var code = {
@@ -52,7 +51,7 @@ class AutoPlayer() {
         fun playImpi() {
 
             GBLog.d("Programming Impi in turn $u.turn")
-            val r = u.allRaces.values.find { it.idx == 1 }!!
+            val r = u.race(1)
             val now = u.turn + 1 // just in case we have a turn running....
 
             var code = {
@@ -72,12 +71,11 @@ class AutoPlayer() {
             }
 
             code = {
-                // TODO Fix: Getting all ships, not just this race...
                 val cruiser = r.getRaceShipsList().find {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
                 val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!
-                val homeBeetle = u.allRaces.values.find { it.idx == 2 }!!.getHome()
+                val homeBeetle = u.race(2).getHome()
                 if (p != homeBeetle) {
                     cruiser?.let { GBController.u.flyShipOrbit(it, p) }
                 } // else just try again next time this code runs...
@@ -90,7 +88,7 @@ class AutoPlayer() {
         fun playTortoise() {
 
             GBLog.d("Programming Tortoise in  turn  $u.turn")
-            val r = u.allRaces.values.find { it.idx == 3 }!!
+            val r = u.race(3)
             val now = u.turn + 1 // just in case we have a turn running....
 
             var code = {
@@ -110,12 +108,11 @@ class AutoPlayer() {
             }
 
             code = {
-                // TODO Fix: Getting all ships, not just this race...
                 val cruiser = r.getRaceShipsList().find {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
                 val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!
-                val homeBeetle = u.allRaces.values.find { it.idx == 2 }!!.getHome()
+                val homeBeetle = u.race(2).getHome()
                 if (p != homeBeetle) {
                     cruiser?.let { GBController.u.flyShipOrbit(it, p) }
                 } // else just try again next time this code runs...
