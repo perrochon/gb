@@ -165,7 +165,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
 
 
     fun movePlanet() {
-        // TODO Use Keplers law for planet movement (or some form reduced to circles)
+        // TODO Use Keplers law for planet movement along ellipses
         // e.g. http://www.sjsu.edu/faculty/watkins/orbital.htm
         // Need to make sure that no planet goes faster than pods, or pods never catch up...
         // Speed of pods is 1, so angular speed cannot be faster than 1/r
@@ -224,6 +224,12 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
         }
     }
 
+    fun landPopulationOnEmptySector(r: GBRace, number: Int) {
+        GBLog.d("GBPlanet: Landing $number of ${r.name}")
+        val target = sectors.toList().shuffled().firstOrNull({ it.population == 0 })
+        target?.adjustPopulation(r, number) // If no empty sector, no population is landed
+    }
+
     fun migratePopulation(number: Int, from: Int, to: Int) {
         // attempt to migrate population
 
@@ -262,11 +268,6 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
         }
     }
 
-    fun landPopulationOnEmptySector(r: GBRace, number: Int) {
-        GBLog.d("GBPlanet: Landing $number of ${r.name}")
-        val target = sectors.toList().shuffled().firstOrNull({ it.population == 0 })
-        target?.adjustPopulation(r, number) // If no empty sector, no population is landed
-    }
 
 }
 
