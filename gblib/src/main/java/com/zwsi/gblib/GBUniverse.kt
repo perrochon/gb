@@ -56,7 +56,7 @@ class GBUniverse {
     }
 
     fun ship(uid: Int): GBShip {
-        return allShips[uid]
+        return allShips[uid]!!
     }
 
 
@@ -172,7 +172,7 @@ class GBUniverse {
                 val loc = GBLocation(allStars[uidStar]!!, (sidPlanet + 1f) * orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
                 allPlanets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, uidStar, loc)
-                star(uidStar).starPlanets.add(planet(uidPlanet))
+                star(uidStar).starUidPlanetList.add(uidPlanet)
                 uidPlanet++;
             }
         }
@@ -232,28 +232,27 @@ class GBUniverse {
         // We only need one race for the early mission, but we land the others for God Mode...
 
         // The single player
-        val r0 = GBRace(getNextGlobalId(), 0, 0, allStars[0]!!.starPlanets[0].uid)
+        val r0 = GBRace(getNextGlobalId(), 0, 0, allStars[0]!!.starPlanetsList[0].uid)
         allRaces[0] = r0
-        landPopulation(allStars[0]!!.starPlanets[0], r0.uid, 100)
+        landPopulation(allStars[0]!!.starPlanetsList[0], r0.uid, 100)
 
 
         // We only need one race for the early mission, but we create and land the others for God Mode...
         // Eventually, they will be dynamically landed (from tests, or from app)
-        val r1 = GBRace(getNextGlobalId(), 1, 1, allStars[1]!!.starPlanets[0].uid)
+        val r1 = GBRace(getNextGlobalId(), 1, 1, allStars[1]!!.starPlanetsList[0].uid)
         allRaces[1] = r1
-        val r2 = GBRace(getNextGlobalId(), 2, 2, allStars[2]!!.starPlanets[0].uid)
+        val r2 = GBRace(getNextGlobalId(), 2, 2, allStars[2]!!.starPlanetsList[0].uid)
         allRaces[2] = r2
-        val r3 = GBRace(getNextGlobalId(), 3, 3, allStars[3]!!.starPlanets[0].uid)
+        val r3 = GBRace(getNextGlobalId(), 3, 3, allStars[3]!!.starPlanetsList[0].uid)
         allRaces[3] = r3
 
-        landPopulation(allStars[1]!!.starPlanets[0], r1.uid, 100)
-        landPopulation(allStars[2]!!.starPlanets[0], r2.uid, 100)
-        landPopulation(allStars[3]!!.starPlanets[0], r3.uid, 100)
-        landPopulation(allStars[4]!!.starPlanets[0], r1.uid, 50)
-        landPopulation(allStars[4]!!.starPlanets[0], r2.uid, 50)
-        landPopulation(allStars[4]!!.starPlanets[0], r3.uid, 50)
+        landPopulation(allStars[1]!!.starPlanetsList[0], r1.uid, 100)
+        landPopulation(allStars[2]!!.starPlanetsList[0], r2.uid, 100)
+        landPopulation(allStars[3]!!.starPlanetsList[0], r3.uid, 100)
+        landPopulation(allStars[4]!!.starPlanetsList[0], r1.uid, 50)
+        landPopulation(allStars[4]!!.starPlanetsList[0], r2.uid, 50)
+        landPopulation(allStars[4]!!.starPlanetsList[0], r3.uid, 50)
     }
-
 
     internal fun doUniverse() {
         GBLog.d("Doing Universe: " + orders.toString())
@@ -270,7 +269,7 @@ class GBUniverse {
         orders.clear()
 
         for ((_, star) in allStars) {
-            for (p in star.starPlanets) {
+            for (p in star.starPlanetsList) {
                 p.doPlanet()
             }
         }
@@ -278,7 +277,7 @@ class GBUniverse {
         // Move dead ships to deadships
         // TODO: After we correctly implemented ViewModels and LiveData, we should not have to keep dead ships around
         for ((_, star) in allStars) {
-            for (sh in star.starShips.filter { it.health == 0 }) {
+            for (sh in star.starShipList.filter { it.health == 0 }) {
                 sh.killShip()
             }
             for (p in star.starPlanets) {
@@ -311,9 +310,9 @@ class GBUniverse {
         // TODO: Perf and Feature: Create one list of all insystem ships, then find shots
         // System Ships shoot at System only
         for ((_, star) in allStars) {
-            for (sh1 in star.starShipsList.shuffled()) {
+            for (sh1 in star.starShipList.shuffled()) {
                 if (sh1.idxtype == CRUISER && (sh1.health > 0)) {
-                    for (sh2 in star.starShipsList) {
+                    for (sh2 in star.starShipList) {
                         if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
@@ -328,7 +327,7 @@ class GBUniverse {
         for ((_, p) in allPlanets) {
             for (sh1 in p.orbitShips.shuffled()) {
                 if ((sh1.idxtype == CRUISER && (sh1.health > 0))) {
-                    for (sh2 in u.star(p.uidStar).starShips.union(p.orbitShips).union(p.landedShips)) {
+                    for (sh2 in u.star(p.uidStar).starShipList.union(p.orbitShips).union(p.landedShips)) {
                         if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
@@ -348,13 +347,13 @@ class GBUniverse {
 
     }
 
-    fun getPlanets(s: GBStar): Array<GBPlanet?> {
-        return s.starPlanets.toTypedArray()
-    } // TODO Deprecate this. Get it from stars.
+//    fun getPlanets(s: GBStar): Array<GBPlanet?> {
+//        return s.starPlanets.toTypedArray()
+//    } // FIXME DELETE 2/6/19 Deprecate this. Get it from stars.
 
 //    fun getSectors(p: GBPlanet): Array<GBSector> {
 //        return p.sectors
-//    } //TODO should this be in planet? Or Data?
+//    } //FIXME DELETE 2/6/19 should this be in planet? Or Data?
 
 
     fun makeFactory(p: GBPlanet, race: GBRace) {

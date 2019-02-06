@@ -62,7 +62,7 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
                 loc.getPlanet()!!.orbitShips.add(this)
             }
             SYSTEM -> {
-                loc.getStar()!!.starShips.add(this)
+                loc.getStar()!!.starUidShipList.add(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceShips.add(this)
@@ -93,7 +93,7 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
                 this.loc.getPlanet()!!.orbitShips.remove(this)
             }
             SYSTEM -> {
-                this.loc.getStar()!!.starShips.remove(this)
+                this.loc.getStar()!!.starUidShipList.remove(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceShips.remove(this)
@@ -118,7 +118,7 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
                 loc.getPlanet()!!.orbitShips.add(this)
             }
             SYSTEM -> {
-                loc.getStar()!!.starShips.add(this)
+                loc.getStar()!!.starUidShipList.add(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceShips.add(this)
@@ -158,7 +158,7 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
                     this.loc.getPlanet()!!.orbitShips.remove(this)
                 }
                 SYSTEM -> {
-                    this.loc.getStar()!!.starShips.remove(this)
+                    this.loc.getStar()!!.starUidShipList.remove(this.uid)
                 }
                 DEEPSPACE -> {
                     u.deepSpaceShips.remove(this)

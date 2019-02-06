@@ -215,10 +215,10 @@ class GlobalButtonOnClick {
             Toast.makeText(view.context, "Going to ships in system " + star.name, Toast.LENGTH_SHORT).show()
 
             val displayUID = ArrayList<Int>()
-            for (ship in star.getStarShipsList()) {
+            for (ship in star.starShipList) {
                 displayUID.add(ship.uid)
             }
-            for (planet in star.starPlanets) {
+            for (planet in star.starPlanetsList) {
                 for (ship in planet.getOrbitShipsList()) {
                     displayUID.add(ship.uid)
                 }

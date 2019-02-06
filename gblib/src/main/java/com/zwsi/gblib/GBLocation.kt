@@ -105,9 +105,6 @@ data class GBLocation(
         gbAssert("Distance to star too big", r <= 1.2f * SystemBoundary)
     }
 
-    // FIXME This constructure business is getting messier. Need this because no longer passing star into planet constructor
-
-
     // TODO  figure out how to not need boolean to set flag in constructor
     // Stupid: pass a boolean to use cartesian coordinates in constructor? Could use GBxy and GBrt to distinguish,
     // or subclasses instead of when

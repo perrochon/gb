@@ -112,12 +112,12 @@ class ShipFragment : Fragment() {
             // and first planet of each system outside.
             var destinationPlanets = arrayListOf<String>()
             if (sh.getStar() != null) {
-                for (p in sh.getStar()!!.starPlanets) {
+                for (p in sh.getStar()!!.starPlanetsList) {
                     destinationPlanets.add(p.name)
                 }
             }
             for ((_, s) in u.allStars) {
-                destinationPlanets.add(s.starPlanets[0].name)
+                destinationPlanets.add(s.starPlanetsList[0].name)
             }
 
             // Create an ArrayAdapter

@@ -392,7 +392,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (1 > normScale) {
             for ((_, s) in GBViewModel.viewStars) {
                 if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                    for (p in s.starPlanets) { // PERF only draw one...
+                    for (p in s.starPlanetsList) { // PERF only draw one...
                         if (planetVisible(
                                 p.loc.getLoc().x * uToSf,
                                 p.loc.getLoc().y * uToSf
@@ -444,7 +444,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (30 > normScale) {
             for ((_, s) in GBViewModel.viewStars) {
                 if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                    for (p in s.starPlanets) {
+                    for (p in s.starPlanetsList) {
                         sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                         sourceToViewCoord(sP1, vP1)
                         if (normScale > 1) {

@@ -60,8 +60,7 @@ class PlanetsScrollActivity : AppCompatActivity() {
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
 
         for ((_, s) in GBViewModel.viewStars) {
-            val planets = s.starPlanets
-            for (p in planets) {
+            for (p in s.starPlanetsList) {
 
                 val constraintLayout = ConstraintLayout(this)
                 planetList.addView(constraintLayout)
@@ -83,7 +82,7 @@ class PlanetsScrollActivity : AppCompatActivity() {
                             paint
                         )
                         canvas.drawText(
-                            p.sectors[j].sectorOwner!!.name.substring(0,1),
+                            p.sectors[j].sectorOwner.name.substring(0,1),
                             p.sectorX(j) * 50f + 20,
                             p.sectorY(j) * 50f + 20f,
                             paint

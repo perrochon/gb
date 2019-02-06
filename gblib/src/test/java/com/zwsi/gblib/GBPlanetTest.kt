@@ -15,15 +15,16 @@ class GBPlanetTest {
         val universe = GBController.u
         assertTrue(planet.name.length > 0)
 
-        assertTrue(planet.star.starPlanets.contains(planet))
+        assertTrue(planet.star.starUidPlanetList.contains(planet.uid))
+        assertTrue(planet.star.starPlanetsList.contains(planet))
         assertTrue(universe.allPlanets.containsValue(planet))
 
-        assertEquals(planet.sid,planet.star.starPlanets.indexOf(planet))
+        assertEquals(planet.sid,planet.star.starPlanetsList.indexOf(planet))
         assertEquals(planet,universe.allPlanets[planet.uid])
 
         var count = 0
         for ((uid, star) in universe.allStars) {
-            for (pl in star.starPlanets) {
+            for (pl in star.starPlanetsList) {
                 if (pl.uid == planet.uid)
                     count++
             }
