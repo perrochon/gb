@@ -17,13 +17,15 @@ import kotlin.math.atan2
 @JsonClass(generateAdapter = true)
 class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
+    // FIXME Use uidRace instead of Race above to remove duplication in JSON.
+
     // id is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
 
     // properties that don't change over live time of ship
-    val uid: Int    // id in universe wide list
-    val name: String // name, first letters of race and type, then id
-    val type: String // type in printable form
-    val speed: Int   // speed of ship // TODO Feature: insystem and hyperspeed.
+    var uid: Int    // id in universe wide list
+    var name: String // name, first letters of race and type, then id
+    var type: String // type in printable form
+    var speed: Int   // speed of ship // TODO Feature: insystem and hyperspeed.
 
     // properties that change over lifetime of ship
     var health: Int  // health of ship. Goes down when shot at. Not going up (as of now)

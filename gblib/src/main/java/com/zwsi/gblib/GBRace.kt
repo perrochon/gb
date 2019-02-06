@@ -42,7 +42,7 @@ data class GBRace(internal val id: Int, internal val idx: Int, internal val uid:
     @Transient
     internal var lastRaceShipsUpdate = -1
     @Transient
-    internal val raceShipsList = raceShipsUIDList.map { u.allShips[it]}
+    internal var raceShipsList = raceShipsUIDList.map { u.allShips[it]}
 
     init {
         name = GBData.getRaceName(idx)
