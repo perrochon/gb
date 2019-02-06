@@ -225,8 +225,10 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
 
     fun landPopulationOnEmptySector(r: GBRace, number: Int) {
         GBLog.d("GBPlanet: Landing $number of ${r.name}")
-        val target = sectors.toList().shuffled().firstOrNull({ it.population == 0 })!!
-        adjustPopulation(target, r, number) // If no empty sector, no planetPopulation is landed
+        val target = sectors.toList().shuffled().firstOrNull({ it.population == 0 })
+        if (target != null) {
+            adjustPopulation(target, r, number) // If no empty sector, no planetPopulation is landed
+        }
     }
 
     fun migratePopulation(number: Int, from: Int, to: Int) {
@@ -325,10 +327,6 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
 
         changePopulation(sector, difference)
     }
-
-
-
-
 
 }
 
