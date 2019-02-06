@@ -9,6 +9,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gblib.*
+import com.zwsi.gblib.GBController.Companion.u
 
 class GlobalButtonOnClick {
 
@@ -185,8 +186,8 @@ class GlobalButtonOnClick {
 
             imageView.animateScaleAndCenter(
                 imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
-                    planet.star.loc.getLoc().x * imageView.uToS,
-                    (planet.star.loc.getLoc().y-17f) * imageView.uToS
+                    u.star(planet.uidStar).loc.getLoc().x * imageView.uToS,
+                    (u.star(planet.uidStar).loc.getLoc().y-17f) * imageView.uToS
                 )
             )!!
                 .withDuration(500)

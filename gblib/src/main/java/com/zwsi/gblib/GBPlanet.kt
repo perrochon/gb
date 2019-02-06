@@ -11,19 +11,18 @@ import java.util.*
 import kotlin.math.PI
 
 @JsonClass(generateAdapter = true)
-data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val star: GBStar) {
+data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLocation) {
 
     // int is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
     // sid is the "starID" (aka orbit), which planet of the parent star is this 0..
 
-    val idxtype: Int // idxtype of this planet
+    var idxtype: Int // idxtype of this planet
 
-    val name: String
-    val type: String
+    var name: String
+    var type: String
 
+    // FIXME PERSISTENCE Change to UID
     var planetOwner: GBRace? = null;
-
-    var loc: GBLocation
 
     val ownerName: String
         get() = planetOwner?.name ?: "<not owned>"
@@ -38,6 +37,11 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val star: GBStar) {
         get() = width * height
 
     var planetPopulation = 0;
+
+    val star: GBStar
+        get() {
+            return u.star(uidStar)
+        }
 
     // TODO PERSISTENCE Save these, or rebuild on loading?
     // If they are ships, as opposed to UIDs, need to rebuild, as the old objects will be gone...
@@ -61,10 +65,6 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val star: GBStar) {
 
         idxtype = GBData.selectPlanetTypeIdx()
         type = GBData.planetTypeFromIdx(idxtype)
-
-        val orbitDist: Float = GBData.MaxPlanetOrbit.toFloat() / star.numberOfPlanets.toFloat()
-
-        loc = GBLocation(star, (sid + 1f) * orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
         GBLog.d("Planet $name location is Polar ( ${loc.r} , ${loc.t} )")
         GBLog.d("Planet $name location is Cartesian( ${loc.x} , ${loc.y} )")
@@ -171,7 +171,7 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val star: GBStar) {
 
         val rt = loc.getSLocP()
         val speed = 1 / (rt.r + 10)  // was 10 for a long time. Changing to 20 with orbiting ships
-        loc = GBLocation(star, rt.r, rt.t - speed) // y points down, anti-clockwise is negative angles...
+        loc = GBLocation(u.star(uidStar), rt.r, rt.t - speed) // y points down, anti-clockwise is negative angles...
     }
 
     fun doPlanet() {
@@ -271,8 +271,10 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val star: GBStar) {
 
     private fun changePopulation(sector: GBSector, difference: Int) {
         // TODO Launch replace assert by just returning and doing nothing
-        assert(sector.population + difference <= sector.maxPopulation, {"Attempt to increase planetPopulation beyond max"})
-        assert(sector.population + difference >= 0, {"Attempt to decrease planetPopulation below 0"})
+        assert(
+            sector.population + difference <= sector.maxPopulation,
+            { "Attempt to increase planetPopulation beyond max" })
+        assert(sector.population + difference >= 0, { "Attempt to decrease planetPopulation below 0" })
         assert(sector.owner != null)
 
         sector.population += difference
@@ -292,9 +294,9 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val star: GBStar) {
     internal fun adjustPopulation(sector: GBSector, r: GBRace, number: Int) {
         GBLog.d("GBSector: Landing $number of ${r.name}")
         assert(sector.population + number <= sector.maxPopulation)
-        assert(sector.population + number >= 0 )
+        assert(sector.population + number >= 0)
         // TODO this assertion should hold but doesn't
-        assert((sector.owner == null) || (sector.owner == r), {"$planetOwner, $r"})
+        assert((sector.owner == null) || (sector.owner == r), { "$planetOwner, $r" })
 
         sector.owner = r
         changePopulation(sector, number)
@@ -305,7 +307,7 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val star: GBStar) {
         assert(from.owner != null)
         assert((to.owner == from.owner) || (to.owner == null))
         assert(number <= from.population)
-        assert(to.population + number <= to.maxPopulation, {"${to.population},${number},${to.maxPopulation}"})
+        assert(to.population + number <= to.maxPopulation, { "${to.population},${number},${to.maxPopulation}" })
 
         to.owner = from.owner
         changePopulation(to, number)
@@ -320,10 +322,10 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val star: GBStar) {
         var difference =
             (sector.population.toFloat() * (sector.owner!!.birthrate.toFloat() / 100f) * (1f - sector.population.toFloat() / sector.maxPopulation.toFloat())).toInt()
 
-        if (sector.population + difference> sector.maxPopulation)
-            difference= (sector.maxPopulation - sector.population)
+        if (sector.population + difference > sector.maxPopulation)
+            difference = (sector.maxPopulation - sector.population)
         if (sector.population + difference < 0)
-            difference= -sector.population
+            difference = -sector.population
 
         changePopulation(sector, difference)
     }

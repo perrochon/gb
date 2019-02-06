@@ -1,5 +1,6 @@
 package com.zwsi.gblib
 
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.rand
@@ -162,10 +163,15 @@ class GBUniverse {
             val numberOfPlanets =
                 GBData.rand.nextInt(GBData.MaxNumberOfPlanets - GBData.MinNumberOfPlanets) + GBData.MinNumberOfPlanets
             val coordinates = getStarCoordinates()
-            allStars[uidStar] = GBStar(getNextGlobalId(), uidStar, numberOfPlanets, coordinates.first, coordinates.second)
+            allStars[uidStar] =
+                GBStar(getNextGlobalId(), uidStar, numberOfPlanets, coordinates.first, coordinates.second)
+
+            val orbitDist: Float = GBData.MaxPlanetOrbit.toFloat() / numberOfPlanets.toFloat()
 
             for (sidPlanet in 0 until numberOfPlanets) {
-                allPlanets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, allStars[uidStar]!!)
+                val loc = GBLocation(allStars[uidStar]!!, (sidPlanet + 1f) * orbitDist, rand.nextFloat() * 2f * PI.toFloat())
+
+                allPlanets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, uidStar, loc)
                 star(uidStar).starPlanets.add(planet(uidPlanet))
                 uidPlanet++;
             }
@@ -233,11 +239,11 @@ class GBUniverse {
 
         // We only need one race for the early mission, but we create and land the others for God Mode...
         // Eventually, they will be dynamically landed (from tests, or from app)
-        val r1 = GBRace(getNextGlobalId(),1, 1, allStars[1]!!.starPlanets[0].uid)
+        val r1 = GBRace(getNextGlobalId(), 1, 1, allStars[1]!!.starPlanets[0].uid)
         allRaces[1] = r1
-        val r2 = GBRace(getNextGlobalId(), 2,2, allStars[2]!!.starPlanets[0].uid)
+        val r2 = GBRace(getNextGlobalId(), 2, 2, allStars[2]!!.starPlanets[0].uid)
         allRaces[2] = r2
-        val r3 = GBRace(getNextGlobalId(),3, 3, allStars[3]!!.starPlanets[0].uid)
+        val r3 = GBRace(getNextGlobalId(), 3, 3, allStars[3]!!.starPlanets[0].uid)
         allRaces[3] = r3
 
         landPopulation(allStars[1]!!.starPlanets[0], r1.uid, 100)
@@ -322,7 +328,7 @@ class GBUniverse {
         for ((_, p) in allPlanets) {
             for (sh1 in p.orbitShips.shuffled()) {
                 if ((sh1.idxtype == CRUISER && (sh1.health > 0))) {
-                    for (sh2 in p.star.starShips.union(p.orbitShips).union(p.landedShips)) {
+                    for (sh2 in u.star(p.uidStar).starShips.union(p.orbitShips).union(p.landedShips)) {
                         if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
@@ -354,10 +360,10 @@ class GBUniverse {
     fun makeFactory(p: GBPlanet, race: GBRace) {
         GBLog.d("universe: Making factory for ${race.name} on ${p.name}.")
 
-        var loc =
+        val loc =
             GBLocation(p, rand.nextInt(p.width), rand.nextInt(p.height)) // TODO Have caller give us a better location
 
-        var order = GBOrder()
+        val order = GBOrder()
 
         order.makeFactory(loc, race)
 
@@ -371,7 +377,7 @@ class GBUniverse {
     fun makePod(factory: GBShip) {
         GBLog.d("universe: Making Pod for ?? in Factory " + factory.name + "")
 
-        var order = GBOrder()
+        val order = GBOrder()
         order.makePod(factory)
 
         GBLog.d("Pod ordered: " + order.toString())
@@ -384,7 +390,7 @@ class GBUniverse {
     fun makeCruiser(factory: GBShip) {
         GBLog.d("universe: Making Cruiser for ?? in Factory " + factory.name + "")
 
-        var order = GBOrder()
+        val order = GBOrder()
         order.makeCruiser(factory)
 
         GBLog.d("Cruiser ordered: " + order.toString())
@@ -398,7 +404,7 @@ class GBUniverse {
     fun flyShipLanded(sh: GBShip, p: GBPlanet) {
         GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
 
-        var loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
+        val loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
         sh.dest = loc
 
     }
@@ -406,7 +412,7 @@ class GBUniverse {
     fun flyShipOrbit(sh: GBShip, p: GBPlanet) {
         GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
 
-        var loc = GBLocation(
+        val loc = GBLocation(
             p,
             PlanetaryOrbit,
             rand.nextFloat() * 2 * PI.toFloat()
