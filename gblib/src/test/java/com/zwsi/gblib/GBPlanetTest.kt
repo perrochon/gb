@@ -1,8 +1,5 @@
 // Copyright 2018 Louis Perrochon. All rights reserved
 
-//
-//
-
 package com.zwsi.gblib
 
 import org.junit.Test

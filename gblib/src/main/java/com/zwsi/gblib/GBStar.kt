@@ -11,9 +11,9 @@ import java.util.*
 @JsonClass(generateAdapter = true)
 data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: Int, val y: Int) {
 
-    // id is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
+    // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
 
-    var name: String // name of this system
+    var name: String
     var loc: GBLocation
 
     init {
@@ -21,9 +21,6 @@ data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: In
         loc = GBLocation(x.toFloat(), y.toFloat())
         GBLog.d("Made System $name at location ($x,$y)")
     }
-
-    @Transient
-    var starPlanets: MutableList<GBPlanet> = arrayListOf() // the planets in this system
 
     // Planets
     var starUidPlanetList: MutableList<Int> =
@@ -47,7 +44,7 @@ data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: In
         println("  " + "====================")
         println("  The $name system contains ${starUidPlanetList.size} planet(s) and ${starUidShipList.size} ship(s).")
 
-        for (i in starPlanets) {
+        for (i in starPlanetsList) {
             i.consoleDraw()
         }
     }

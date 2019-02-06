@@ -219,10 +219,10 @@ class GlobalButtonOnClick {
                 displayUID.add(ship.uid)
             }
             for (planet in star.starPlanetsList) {
-                for (ship in planet.getOrbitShipsList()) {
+                for (ship in planet.orbitShips) {
                     displayUID.add(ship.uid)
                 }
-                for (ship in planet.getLandedShipsList()) {
+                for (ship in planet.landedShips) {
                     displayUID.add(ship.uid)
                 }
             }

@@ -108,7 +108,7 @@ class PlanetFragment : Fragment() {
         planetStats.setText("${p.name} in ${p.star.name}\n")
         planetStats.append("Population ${p.planetPopulation} | Size ${p.size}\n")
 
-        var ships = p.getLandedShipsList()
+        var ships = p.landedShips
         if (ships.isNotEmpty()) {
             planetStats.append("Ships landed (${ships.size.toString()}): ")
             for (sh in ships) {
@@ -116,7 +116,7 @@ class PlanetFragment : Fragment() {
             }
         }
 
-        ships = p.getOrbitShipsList()
+        ships = p.orbitShips
         if (ships.isNotEmpty()) {
             planetStats.append(ships.size.toString() + " ships in orbit: ")
             for (sh in ships) {

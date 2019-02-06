@@ -56,7 +56,7 @@ class GBUniverse {
     }
 
     fun ship(uid: Int): GBShip {
-        return allShips[uid]!!
+        return allShips[uid]
     }
 
 
@@ -277,7 +277,7 @@ class GBUniverse {
             for (sh in star.starShipList.filter { it.health == 0 }) {
                 sh.killShip()
             }
-            for (p in star.starPlanets) {
+            for (p in star.starPlanetsList) {
                 for (sh in p.landedShips.filter { it.health == 0 }) {
                     sh.killShip()
                 }

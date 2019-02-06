@@ -56,10 +56,10 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
 
         when (loc.level) {
             LANDED -> {
-                loc.getPlanet()!!.landedShips.add(this)
+                loc.getPlanet()!!.landedUidShips.add(this.uid)
             }
             ORBIT -> {
-                loc.getPlanet()!!.orbitShips.add(this)
+                loc.getPlanet()!!.orbitUidShips.add(this.uid)
             }
             SYSTEM -> {
                 loc.getStar()!!.starUidShipList.add(this.uid)
@@ -87,10 +87,10 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
         // PERF no need to always do these whens, e.g. if things are the same, no need to remove and add
         when (this.loc.level) {
             LANDED -> {
-                this.loc.getPlanet()!!.landedShips.remove(this)
+                this.loc.getPlanet()!!.landedUidShips.remove(this.uid)
             }
             ORBIT -> {
-                this.loc.getPlanet()!!.orbitShips.remove(this)
+                this.loc.getPlanet()!!.orbitUidShips.remove(this.uid)
             }
             SYSTEM -> {
                 this.loc.getStar()!!.starUidShipList.remove(this.uid)
@@ -107,15 +107,15 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
                 if (idxtype == POD) {
                     // TODO We should really handle this somewhere else. If pod were a subtype of ship, it could overwrite
                     // This is a pod, they populate, then destroy.  We set health to 0, and clean up elsewhere
-                    loc.getPlanet()!!.landedShips.add(this)
+                    loc.getPlanet()!!.landedUidShips.add(this.uid)
                     this.health = 0
                     u.landPopulation(this.loc.getPlanet()!!, uidRace, 1)
                 } else {
-                    loc.getPlanet()!!.landedShips.add(this)
+                    loc.getPlanet()!!.landedUidShips.add(this.uid)
                 }
             }
             ORBIT -> {
-                loc.getPlanet()!!.orbitShips.add(this)
+                loc.getPlanet()!!.orbitUidShips.add(this.uid)
             }
             SYSTEM -> {
                 loc.getStar()!!.starUidShipList.add(this.uid)
@@ -152,10 +152,10 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
             // TODO factor out ship death (and call it from where pods explode, or set health to 0 there)
             when (this.loc.level) {
                 LANDED -> {
-                    this.loc.getPlanet()!!.landedShips.remove(this)
+                    this.loc.getPlanet()!!.landedUidShips.remove(this.uid)
                 }
                 ORBIT -> {
-                    this.loc.getPlanet()!!.orbitShips.remove(this)
+                    this.loc.getPlanet()!!.orbitUidShips.remove(this.uid)
                 }
                 SYSTEM -> {
                     this.loc.getStar()!!.starUidShipList.remove(this.uid)

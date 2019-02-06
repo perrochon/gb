@@ -20,10 +20,16 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     var type: String
 
     var uidPlanetOwner = 0
-
     val planetOwner: GBRace
         get() = u.race(uidPlanetOwner)
 
+    val star: GBStar
+        get() = u.star(uidStar)
+
+    val size: Int
+        get() = width * height
+
+    var planetPopulation = 0;
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     // Sector are stored in a straight array, which makes some things easier (other's not so)
@@ -31,31 +37,44 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     var height: Int
     var width: Int
 
-    val size: Int
-        get() = width * height
-
-    var planetPopulation = 0;
-
-    val star: GBStar
-        get() = u.star(uidStar)
-
 
     // TODO PERSISTENCE Save these, or rebuild on loading?
     // If they are ships, as opposed to UIDs, need to rebuild, as the old objects will be gone...
-    @Transient
-    internal val landedShips: MutableList<GBShip> =
-        Collections.synchronizedList(arrayListOf()) // the ships on ground of this planet
-    @Transient
-    internal val orbitShips: MutableList<GBShip> =
-        Collections.synchronizedList(arrayListOf()) // the ships in orbit of this planet
-    @Transient
-    internal var lastLandedShipsUpdate = -1
-    @Transient
-    internal var landedShipsList = landedShips.toList()
-    @Transient
-    internal var lastOrbitShipsUpdate = -1
-    @Transient
-    internal var orbitShipsList = orbitShips.toList()
+
+    // Landed Ships
+    var landedUidShips: MutableList<Int> =
+        Collections.synchronizedList(arrayListOf<Int>()) // UID of ships. Persistent
+
+    val landedShips: List<GBShip>
+        // PERF ?? Cache the list and only recompute if the hashcode changes.
+        get() = Collections.synchronizedList(landedUidShips.map { u.ship(it) })
+
+
+    // Orbit Ships
+    var orbitUidShips: MutableList<Int> =
+        Collections.synchronizedList(arrayListOf<Int>()) // UID of ships. Persistent
+
+    val orbitShips: List<GBShip>
+        // PERF ?? Cache the list and only recompute if the hashcode changes.
+        get() = Collections.synchronizedList(orbitUidShips.map { u.ship(it) })
+
+
+    //    @Transient
+//    internal val landedShips: MutableList<GBShip> =
+//        Collections.synchronizedList(arrayListOf()) // the ships on ground of this planet
+//    @Transient
+//    internal val orbitShips: MutableList<GBShip> =
+//        Collections.synchronizedList(arrayListOf()) // the ships in orbit of this planet
+//    @Transient
+//    internal var lastLandedShipsUpdate = -1
+//    @Transient
+//    internal var landedShipsList = landedShips.toList()
+//    @Transient
+//    internal var lastOrbitShipsUpdate = -1
+//    @Transient
+//    internal var orbitShipsList = orbitShips.toList()
+
+
 
     init {
         name = GBData.planetNameFromIdx(GBData.selectPlanetNameIdx())
@@ -85,21 +104,21 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
         )
     }
 
-    fun getLandedShipsList(): List<GBShip> {
-        if (u.turn > lastLandedShipsUpdate) {
-            landedShipsList = landedShips.toList().filter { it.health > 0 }
-            lastLandedShipsUpdate = u.turn
-        }
-        return landedShipsList
-    }
-
-    fun getOrbitShipsList(): List<GBShip> {
-        if (u.turn > lastOrbitShipsUpdate) {
-            orbitShipsList = orbitShips.toList().filter { it.health > 0 }
-            lastOrbitShipsUpdate = u.turn
-        }
-        return orbitShipsList
-    }
+//    fun getLandedShipsList(): List<GBShip> {
+//        if (u.turn > lastLandedShipsUpdate) {
+//            landedShipsList = landedShips.toList().filter { it.health > 0 }
+//            lastLandedShipsUpdate = u.turn
+//        }
+//        return landedShipsList
+//    }
+//
+//    fun getOrbitShipsList(): List<GBShip> {
+//        if (u.turn > lastOrbitShipsUpdate) {
+//            orbitShipsList = orbitShips.toList().filter { it.health > 0 }
+//            lastOrbitShipsUpdate = u.turn
+//        }
+//        return orbitShipsList
+//    }
 
     fun consoleDraw() {
         println(
