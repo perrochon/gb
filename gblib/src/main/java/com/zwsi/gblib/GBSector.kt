@@ -5,6 +5,7 @@
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
+import com.zwsi.gblib.GBController.Companion.u
 
 @JsonClass(generateAdapter = true)
 data class GBSector constructor(val uidPlanet: Int) {
@@ -42,7 +43,7 @@ data class GBSector constructor(val uidPlanet: Int) {
     var uidSectorOwner: Int = -1
 
     val sectorOwner: GBRace
-        get() = GBController.u.race(uidSectorOwner)
+        get() = u.race(uidSectorOwner)
 
 
 

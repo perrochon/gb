@@ -74,12 +74,14 @@ class AutoPlayer() {
                 val cruiser = r.raceShipsList.find {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
-                val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!
-                val homeBeetle = u.race(2).getHome()
-                if (p != homeBeetle) {
-                    cruiser?.let { GBController.u.flyShipOrbit(it, p) }
-                } // else just try again next time this code runs...
-                GBLog.d("Directed Cruiser")
+                if (cruiser != null) {
+                    val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!
+                    val homeBeetle = u.race(2).getHome()
+                    if (p != homeBeetle) {
+                        cruiser.let { GBController.u.flyShipOrbit(it, p) }
+                    } // else just try again next time this code runs...
+                    GBLog.d("Directed Cruiser")
+                }
             }
             GBScheduler.addInstructionAlways(code)
 
@@ -111,13 +113,14 @@ class AutoPlayer() {
                 val cruiser = r.raceShipsList.find {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
-                val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!
-                val homeBeetle = u.race(2).getHome()
-                if (p != homeBeetle) {
-                    cruiser?.let { GBController.u.flyShipOrbit(it, p) }
-                } // else just try again next time this code runs...
-
-                GBLog.d("Directed Cruiser")
+                if (cruiser != null) {
+                    val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!
+                    val homeBeetle = u.race(2).getHome()
+                    if (p != homeBeetle) {
+                        cruiser.let { GBController.u.flyShipOrbit(it, p) }
+                    } // else just try again next time this code runs...
+                    GBLog.d("Directed Cruiser")
+                }
             }
             GBScheduler.addInstructionAlways(code)
         }

@@ -49,9 +49,8 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
     }
 
     init {
-        u.allShips.add(this)
-        uid = u.allShips.indexOf(this)
-
+        this.uid = u.getNextGlobalId()
+        u.allShips[uid]=this
         u.race(uidRace).raceShipsUIDList.add(this.uid)
 
         when (loc.level) {

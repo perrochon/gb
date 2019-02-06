@@ -27,8 +27,8 @@ class GBShipTest {
 
         assertEquals(universe, universe)
 
-        assertTrue(universe.allShips.contains(ship))
-        assertEquals(ship.uid, universe.allShips.indexOf(ship))
+        assertTrue(universe.allShips.containsValue(ship))
+        assertEquals(ship, universe.allShips[ship.uid])
 
         assertTrue(universe.race(ship.uidRace).raceShipsUIDList.contains(ship.uid))
         assertTrue(universe.race(ship.uidRace).raceShipsList.contains(ship)) // This fails because list is cached
@@ -110,7 +110,7 @@ class GBShipTest {
     // TODO use @After, but need to figure out access to Universe
     fun uniqueLocations() {
         val un = GBController.u
-        for (ship in un.allShips) {
+        for ((_, ship) in un.allShips) {
             var found = 0
             for (sh in un.deepSpaceShips) {
                 if (sh.uid == ship.uid)
@@ -149,7 +149,7 @@ class GBShipTest {
         GBLog.d("Testing " + u.allShips.size + " ships")
 
         // Test all ships there are
-        for (ship in u.allShips) {
+        for ((_, ship) in u.allShips) {
             consistency(ship)
         }
 

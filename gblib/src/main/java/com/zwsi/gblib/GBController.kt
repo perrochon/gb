@@ -24,18 +24,18 @@ class GBController {
 
         var elapsedTimeLastUpdate = 0L
 
-        private var _u : GBUniverse? = null
+        private var _u: GBUniverse? = null
 
         val u: GBUniverse
             get() {
                 if (_u == null) {
                     _u = makeUniverse()
                 }
-                return _u?: throw AssertionError("Set to null by another thread")
+                return _u ?: throw AssertionError("Set to null by another thread")
             }
 
-        fun makeUniverse(stars: Int = numberOfStars) : GBUniverse {
-            _u  = GBUniverse(stars)
+        fun makeUniverse(stars: Int = numberOfStars): GBUniverse {
+            _u = GBUniverse(stars)
             _u!!.makeStarsAndPlanets()
             _u!!.makeRaces()
             GBLog.d("Universe made with $stars stars")

@@ -22,15 +22,18 @@ class GBUniverse {
 
     // Stars, Planets, Races are immutable lists (once built) of immutable elements. Things that do change are e.g. locations of things
     // exposing these (for now)
-    val allStars: MutableMap<Int, GBStar> = Collections.synchronizedMap(hashMapOf<Int, GBStar>()) // all the stars
+    val allStars: MutableMap<Int, GBStar> =
+        Collections.synchronizedMap(hashMapOf<Int, GBStar>()) // all the stars
     val allPlanets: MutableMap<Int, GBPlanet> =
         Collections.synchronizedMap(hashMapOf<Int, GBPlanet>()) // all the planets
-    val allRaces: MutableMap<Int, GBRace> = Collections.synchronizedMap(hashMapOf<Int, GBRace>()) // all the races
+    val allRaces: MutableMap<Int, GBRace> =
+        Collections.synchronizedMap(hashMapOf<Int, GBRace>()) // all the races
 
     // List of ships. Lists are mutable and change during updates (dead ships...)
     // Not exposed to the app
-    internal val allShips: MutableList<GBShip> =
-        Collections.synchronizedList(arrayListOf<GBShip>()) // all ships, alive or dead
+    internal val allShips: MutableMap<Int, GBShip> =
+        Collections.synchronizedMap(hashMapOf<Int, GBShip>()) // all ships, alive or dead
+
     internal val deepSpaceShips: MutableList<GBShip> =
         Collections.synchronizedList(arrayListOf()) // ships in transit between system
     internal val deadShips: MutableList<GBShip> =
@@ -39,7 +42,7 @@ class GBUniverse {
     internal var lastAllShipsUpdate = -1
     internal var lastDeepSpaceShipsUpdate = -1
     internal var lastDeadShipsUpdate = -1
-    internal var allShipsList = allShips.toList()
+    internal var allShipsList = allShips.values.toList()
     internal var deepSpaceShipsList = deepSpaceShips.toList()
     internal var deadShipsList = deadShips.toList()
 
@@ -56,7 +59,7 @@ class GBUniverse {
     }
 
     fun ship(uid: Int): GBShip {
-        return allShips[uid]
+        return allShips[uid]!!
     }
 
 
@@ -104,7 +107,7 @@ class GBUniverse {
 
     fun getAllShipsList(): List<GBShip> {
         if (turn > lastAllShipsUpdate) {
-            allShipsList = allShips.toList()
+            allShipsList = allShips.values.toList()
             lastAllShipsUpdate = turn
         }
         return allShipsList
@@ -166,7 +169,8 @@ class GBUniverse {
             val orbitDist: Float = GBData.MaxPlanetOrbit.toFloat() / numberOfPlanets.toFloat()
 
             for (sidPlanet in 0 until numberOfPlanets) {
-                val loc = GBLocation(allStars[uidStar]!!, (sidPlanet + 1f) * orbitDist, rand.nextFloat() * 2f * PI.toFloat())
+                val loc =
+                    GBLocation(allStars[uidStar]!!, (sidPlanet + 1f) * orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
                 allPlanets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, uidStar, loc)
                 star(uidStar).starUidPlanetList.add(uidPlanet)
@@ -290,7 +294,7 @@ class GBUniverse {
             sh.killShip()
         }
 
-        for (sh in allShips.filter { it.health > 0 }) {
+        for ((_,sh) in allShips.filter { (_, ship) -> ship.health > 0 }) {
             sh.doShip()
         }
 
