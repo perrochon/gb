@@ -64,6 +64,7 @@ data class GBRace(internal val id: Int, internal val idx: Int, internal val uid:
 
     fun getRaceShipsList(): List<GBShip> {
         // TODO need smarter cache invalidation. But it's also cheap to produce this list.
+        // FIXME Recompute when UIDList.hashcode() changed since last time.
         if (u.turn > lastRaceShipsUpdate) {
             raceShipsList = raceShipsUIDList.map { u.allShips[it]}.filter { it.health > 0 }
             lastRaceShipsUpdate = u.turn
