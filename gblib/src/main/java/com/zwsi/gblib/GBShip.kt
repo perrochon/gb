@@ -79,7 +79,7 @@ class GBShip(val idxtype: Int, val race: GBRace, var loc: GBLocation) {
 
         GBLog.d("Changing " + name + " from " + this.loc.getLocDesc() + " to " + loc.getLocDesc())
 
-        // TODO Performance: no need to always do these whens, e.g. if things are the same, no need to remove and add
+        // PERF no need to always do these whens, e.g. if things are the same, no need to remove and add
         when (this.loc.level) {
             LANDED -> {
                 this.loc.getPlanet()!!.landedShips.remove(this)

@@ -92,7 +92,7 @@ class GBViewModel {
             }
         }
 
-        fun fillViewOrbitShips() {  // TODO PERF combine with the next and iterate only once
+        fun fillViewOrbitShips() {  // PERF combine with the next and iterate only once
             viewOrbitShips.clear()
             for ((_, p) in viewPlanets) {
                 viewOrbitShips.put(p.uid, p.getOrbitShipsList())

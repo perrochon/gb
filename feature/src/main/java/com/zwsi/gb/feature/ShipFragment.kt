@@ -41,7 +41,7 @@ class ShipFragment : Fragment() {
 
         // What is this fragment about, and make sure the fragment remembers
         val shipID = arguments!!.getString("UID")!!.toInt()
-        val sh = GBViewModel.viewShips.get(shipID)
+        val sh = GBViewModel.viewShips[shipID]
 
         if (sh != null) {
 
@@ -69,7 +69,7 @@ class ShipFragment : Fragment() {
                 shipView.setImageResource(R.drawable.yellow)
 
             when (sh.race.uid) {
-                // TODO Quality if Ships only knew their drawable.. Fix here and in MapView.drawShip()
+                // FIXME if Ships only knew their drawable.. Fix here and in MapView.drawShip()
                 0 -> shipRaceView.setImageResource((R.drawable.xenost))
                 1 -> shipRaceView.setImageResource((R.drawable.impit))
                 2 -> shipRaceView.setImageResource((R.drawable.beetle))
@@ -135,7 +135,7 @@ class ShipFragment : Fragment() {
             flyButton.setTag(R.id.TAG_FLYTO_SPINNER,spinner)
             flyButton.setTag(R.id.TAG_FLYTO_SHIP, sh)
 
-            // TODO Quality could just tag the fragment, instead of every button. Like planet and star
+            // FIXME could just tag the fragment, instead of every button. Like planet and star
             view.findViewById<Button>(R.id.panzoomToShip).tag=sh
             view.findViewById<Button>(R.id.makePod).tag=sh
             view.findViewById<Button>(R.id.makeCruiser).tag=sh

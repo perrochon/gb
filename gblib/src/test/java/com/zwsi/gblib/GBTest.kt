@@ -15,7 +15,7 @@ import kotlin.system.measureNanoTime
 
 class GBTest {
 
-    // TODO Quality exclude using categories.
+    // FIXME exclude using categories.
     //@Test
     fun runUniverse() {
 

@@ -49,7 +49,7 @@ class PlanetFragment : Fragment() {
         p = GBViewModel.viewPlanets[planetID]!!
         view!!.tag = p
 
-        if (p.population == 0) {
+        if (p.planetPopulation == 0) {
             val button = view.findViewById<Button>(R.id.makefactory)
             button.visibility = View.GONE
         }
@@ -106,7 +106,7 @@ class PlanetFragment : Fragment() {
         paint.textSize = 40f
 
         planetStats.setText("${p.name} in ${p.star.name}\n")
-        planetStats.append("Population ${p.population} | Size ${p.size}\n")
+        planetStats.append("Population ${p.planetPopulation} | Size ${p.size}\n")
 
         var ships = p.getLandedShipsList()
         if (ships.isNotEmpty()) {

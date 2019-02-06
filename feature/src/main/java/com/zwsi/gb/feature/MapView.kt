@@ -52,14 +52,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private val bitmaps = HashMap<Int, Bitmap>()
 
 
-    val sourceSize = 18000  // TODO Quality Would be nice not to hard code here and below
+    val sourceSize = 18000  // FIXME Would be nice not to hard code here and below
     val universeSize = u.universeMaxX
     val uToS = sourceSize / universeSize
     val uToSf = uToS.toFloat()
     val sSystemSize = u.systemBoundary * uToS
     val sOrbitSize = 1 * uToS
 
-    // TODO Quality Do all calculations in Float, and only change to Integer before drawing calls where needed
+    // FIXME Do all calculations in Float, and only change to Integer before drawing calls where needed
 
 
     // Object creation outside onDraw. These are only used in onDraw, but here for performance reasons?
@@ -178,7 +178,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         val fullResImage = ImageSource.resource(R.drawable.orion18000)
         val lowResImage = ImageSource.resource(R.drawable.orion1024)
-        fullResImage.dimensions(18000, 18000) // TODO Quality Would be nice not to hard code here and above
+        fullResImage.dimensions(18000, 18000) // FIXME Would be nice not to hard code here and above
 
         setImage(fullResImage, lowResImage);
         setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
@@ -198,7 +198,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     override fun onDraw(canvas: Canvas) {
 
-        // TODO Perf MapView Drawing Performance: We do star visibility check 4 times on the whole list.
+        // PERF MapView Drawing Performance: We do star visibility check 4 times on the whole list.
         //  Saves ~100mus when none are starVisible. Less when we actually draw
 
         super.onDraw(canvas)
@@ -250,7 +250,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             paint.setTypeface(Typeface.MONOSPACE);
             paint.setTextAlign(Paint.Align.LEFT);
             paint.style = Style.FILL
-            paint.color = Color.parseColor("#80ffbb33") // TODO Quality get color holo orange with alpha
+            paint.color = Color.parseColor("#80ffbb33") // FIXME get color holo orange with alpha
             paint.color = debugTextColor
             paint.alpha = 255
 
@@ -392,12 +392,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (1 > normScale) {
             for ((_, s) in GBViewModel.viewStars) {
                 if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                    for (p in s.starPlanets) { // TODO PERF only draw one...
+                    for (p in s.starPlanets) { // PERF only draw one...
                         if (planetVisible(
                                 p.loc.getLoc().x * uToSf,
                                 p.loc.getLoc().y * uToSf
                             )
-                        ) { // TODO Quality do this in Float
+                        ) { // FIXME do this in Float
 
                             sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                             sourceToViewCoord(sP1, vP1)

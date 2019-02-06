@@ -90,7 +90,7 @@ class GlobalButtonOnClick {
         }
 
 
-        // TODO QUALITY this is currently duplicated
+        // FIXME this is currently duplicated
         /** Called when the user taps the Make Pod button */
         fun makeFactory(view: View) {
 
@@ -105,7 +105,7 @@ class GlobalButtonOnClick {
             val planet: GBPlanet = planetFragment.tag as GBPlanet
 
             val universe = GBController.u
-            universe.makeFactory(planet, GBViewModel.viewRaces.toList().component1().second) // TODO Find Population and use owner...
+            universe.makeFactory(planet, GBViewModel.viewRaces.toList().component1().second) // TODO Find Population and use planetOwner...
 
             val message = "Ordered Factory on " + planet.name
 
@@ -130,7 +130,7 @@ class GlobalButtonOnClick {
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
             imageView.animateScaleAndCenter(
-                imageView.zoomLevelStar, PointF( // TODO Quality replace this with a constant from the view
+                imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
                     star.loc.getLoc().x * imageView.uToS,
                     (star.loc.getLoc().y-17f) * imageView.uToS
                 )
@@ -184,7 +184,7 @@ class GlobalButtonOnClick {
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
             imageView.animateScaleAndCenter(
-                imageView.zoomLevelStar, PointF( // TODO Quality replace this with a constant from the view
+                imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
                     planet.star.loc.getLoc().x * imageView.uToS,
                     (planet.star.loc.getLoc().y-17f) * imageView.uToS
                 )
@@ -244,7 +244,7 @@ class GlobalButtonOnClick {
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
             imageView.animateScaleAndCenter(
-                imageView.zoomLevelPlanet, PointF( // TODO Quality replace this with a constant from the view
+                imageView.zoomLevelPlanet, PointF( // FEATURE Quality replace this with a constant from the view
                     ship.loc.getLoc().x * imageView.uToS,
                     (ship.loc.getLoc().y-1f) * imageView.uToS
                 )

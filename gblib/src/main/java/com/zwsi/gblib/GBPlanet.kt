@@ -20,16 +20,15 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
     val name: String
     val type: String
 
-    val owner: GBRace? = null;
+    var planetOwner: GBRace? = null;
 
     var loc: GBLocation
 
     val ownerName: String
-        get() = owner?.name ?: "<not owned>"
+        get() = planetOwner?.name ?: "<not owned>"
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     // Sector are stored in a straight array, which makes some things easier (other's not so)
-    @Transient // TODO PERF STORE SECTORS!
     var sectors: Array<GBSector>
     var height: Int
     var width: Int
@@ -37,7 +36,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
     val size: Int
         get() = width * height
 
-    var population = 0;
+    var planetPopulation = 0;
 
     // TODO PERSISTENCE Save these, or rebuild on loading?
     // If they are ships, as opposed to UIDs, need to rebuild, as the old objects will be gone...
@@ -186,9 +185,9 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
 
             if (sectors[i].population > 0) {
 
-                GBLog.d("Found population of ${sectors[i].population} in sector [${sectorX(i)}][${sectorY(i)}] - growing")
+                GBLog.d("Found planetPopulation of ${sectors[i].population} in sector [${sectorX(i)}][${sectorY(i)}] - growing")
 
-                sectors[i].growPopulation()
+                growPopulation(sectors[i])
 
                 GBLog.d("New Population is ${sectors[i].population}")
 
@@ -206,7 +205,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
             if (sectors[from].population > 5) {
 
                 GBLog.d(
-                    "Found population of ${sectors[from].population} in sector [${sectorX(from)}][${sectorY(
+                    "Found planetPopulation of ${sectors[from].population} in sector [${sectorX(from)}][${sectorY(
                         from
                     )}] - migrating"
                 )
@@ -226,12 +225,12 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
 
     fun landPopulationOnEmptySector(r: GBRace, number: Int) {
         GBLog.d("GBPlanet: Landing $number of ${r.name}")
-        val target = sectors.toList().shuffled().firstOrNull({ it.population == 0 })
-        target?.adjustPopulation(r, number) // If no empty sector, no population is landed
+        val target = sectors.toList().shuffled().firstOrNull({ it.population == 0 })!!
+        adjustPopulation(target, r, number) // If no empty sector, no planetPopulation is landed
     }
 
     fun migratePopulation(number: Int, from: Int, to: Int) {
-        // attempt to migrate population
+        // attempt to migrate planetPopulation
 
         GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}]")
 
@@ -249,7 +248,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
             }
 
             GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Explore $movers move")
-            sectors[from].movePopulation(movers, sectors[to])
+            movePopulation(sectors[from], movers, sectors[to])
 
         } else if (sectors[to].owner == sectors[from].owner) {
             //moving to a friendly sector
@@ -259,7 +258,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
                 movers = (sectors[to].maxPopulation - sectors[to].population) / 2
             }
             GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Reloc! $movers move")
-            sectors[from].movePopulation(movers, sectors[to])
+            movePopulation(sectors[from], movers, sectors[to])
 
         } else {
             // moving to an enemy sector
@@ -267,6 +266,68 @@ data class GBPlanet(val uid: Int, val sid: Int, val star: GBStar) {
             //GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}] Attack! $number die")
         }
     }
+
+    private fun changePopulation(sector: GBSector, difference: Int) {
+        // TODO Launch replace assert by just returning and doing nothing
+        assert(sector.population + difference <= sector.maxPopulation, {"Attempt to increase planetPopulation beyond max"})
+        assert(sector.population + difference >= 0, {"Attempt to decrease planetPopulation below 0"})
+        assert(sector.owner != null)
+
+        sector.population += difference
+        this.planetPopulation += difference
+        sector.owner!!.population += difference
+
+        if (sector.population == 0) {
+            sector.owner = null
+        }
+
+        if (this.planetPopulation == 0) {
+            this.planetOwner = null
+        }
+
+    }
+
+    internal fun adjustPopulation(sector: GBSector, r: GBRace, number: Int) {
+        GBLog.d("GBSector: Landing $number of ${r.name}")
+        assert(sector.population + number <= sector.maxPopulation)
+        assert(sector.population + number >= 0 )
+        // TODO this assertion should hold but doesn't
+        assert((sector.owner == null) || (sector.owner == r), {"$planetOwner, $r"})
+
+        sector.owner = r
+        changePopulation(sector, number)
+
+    }
+
+    internal fun movePopulation(from: GBSector, number: Int, to: GBSector) {
+        assert(from.owner != null)
+        assert((to.owner == from.owner) || (to.owner == null))
+        assert(number <= from.population)
+        assert(to.population + number <= to.maxPopulation, {"${to.population},${number},${to.maxPopulation}"})
+
+        to.owner = from.owner
+        changePopulation(to, number)
+        changePopulation(from, -number)
+
+    }
+
+    internal fun growPopulation(sector: GBSector) {
+
+        if (sector.population == 0) return
+
+        var difference =
+            (sector.population.toFloat() * (sector.owner!!.birthrate.toFloat() / 100f) * (1f - sector.population.toFloat() / sector.maxPopulation.toFloat())).toInt()
+
+        if (sector.population + difference> sector.maxPopulation)
+            difference= (sector.maxPopulation - sector.population)
+        if (sector.population + difference < 0)
+            difference= -sector.population
+
+        changePopulation(sector, difference)
+    }
+
+
+
 
 
 }
@@ -282,7 +343,7 @@ Class M -    - These allPlanets are usually about 60% water, 20% land, and an
 Jovian -     - These allPlanets are 100% gaseous, and they are usually
                twice as large as the typical class M planet.  They tend
                to be very high in fertility, too, so you can easily build
-               up a large population for taxation and tech purposes.
+               up a large planetPopulation for taxation and tech purposes.
                Also, ships in orbit around Jovians add fuel to their
                holds every update (tankers are twice as efficient at this),
                so even if you're not a Jovian-typeIdx race, having one of

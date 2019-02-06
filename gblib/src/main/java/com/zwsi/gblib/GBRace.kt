@@ -30,7 +30,7 @@ data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
     val description: String
     val color: String
 
-    var population = 0 // (planetary) population. Ships don't have population
+    var population = 0 // (planetary) planetPopulation. Ships don't have planetPopulation
 
     // Ships Lists
     // TODO PERSISTENCE Save these, or rebuild on loading?
@@ -111,7 +111,7 @@ of each race:
 		light creatures.
 
 	3) Birthrate - This factor (infection rate for mesos) controls
-		how rapidly the population in the sector will try to
+		how rapidly the planetPopulation in the sector will try to
 		adjust toi the maximum support of the sector. High
 		values mean that the populations multiply faster.
 
@@ -130,19 +130,19 @@ of each race:
 		allPlanets under the player's control.
 
 		   Collective intelligence is related to the allRaces total
-		population, a sort of collective intelligence. Specifically,
-		C IQ = 200* [ (2/PI) atan(population/50000)]^2. It's usually
+		planetPopulation, a sort of collective intelligence. Specifically,
+		C IQ = 200* [ (2/PI) atan(planetPopulation/50000)]^2. It's usually
 		a good idea to take advantage of the 'technology investment'
 		option to keep pace with more intelligent racial types.
 
 	6) Adventurism - This described how often a sector's
-		population wants to move and explore other sectors.
+		planetPopulation wants to move and explore other sectors.
 		High value tend to explore and conquer allPlanets on their
 		own more efficiently. If you have a low value, you can
 		order movements with the 'move' option.
 
 	7) Sexes - Each race has a number of sexes. This represent the
-		minimum population that a sector must have in order to
+		minimum planetPopulation that a sector must have in order to
 		be able to reproduce. Lower values are preferable to high
 		values for colonization efforts.
 
@@ -164,17 +164,17 @@ there are 11 basic attributes for each race:
 
 ** Absorbtion -- Only metamorphs may have this attribute, which allows them to
         absorb enemy troops and civilians in combat if the morph wins.
-        Combined with pods, it allows metamorphs to replace alien population
+        Combined with pods, it allows metamorphs to replace alien planetPopulation
         on allPlanets when pods burst.
 
-** Adventurism -- This described how willing a sector's population is to
+** Adventurism -- This described how willing a sector's planetPopulation is to
         move and explore other sectors.  High value tend to settle allPlanets on
         their own far more efficiently. If you have a low value, you can order
         movements with the 'move' option.
 
-** Birthrate -- This factor determines how rapidly the population in the
-        sector will converge to the maximum population supportable on the
-        there.  High values mean that the population multiplies faster.
+** Birthrate -- This factor determines how rapidly the planetPopulation in the
+        sector will converge to the maximum planetPopulation supportable on the
+        there.  High values mean that the planetPopulation multiplies faster.
 
 ** Fertilize -- This attribute represents the percentage chance that a race
         will increase by one percent the fertility of any sector it owns.  Any
@@ -193,8 +193,8 @@ there are 11 basic attributes for each race:
         individual allPlanets under the race's control.
 
 ** Collective IQ; IQ limit -- The intelligence of a race with collective IQ is
-        related to the race's total population, as follows:
-                IQ = IQ_limit * [ (2/PI) atan(population/50000)]^2.
+        related to the race's total planetPopulation, as follows:
+                IQ = IQ_limit * [ (2/PI) atan(planetPopulation/50000)]^2.
         [Note:  Be careful with this one!  If you can't build pods, then
         having a collective IQ could be disastrous as you won't have the
         knowhow to build *any* kind of useful ships for a looooong time.]
@@ -217,7 +217,7 @@ there are 11 basic attributes for each race:
         sectors unless the podding race has absorbtion.
 
 ** Sexes -- Each race has a number of sexes. This represent the minimum
-        population that a sector must have in order to be able to reproduce.
+        planetPopulation that a sector must have in order to be able to reproduce.
         Lower values are preferable to high values for colonization efforts.
         It is not recommended to have more than 3 to 6 sexes at the outside,
         unless you are really looking for a challenge

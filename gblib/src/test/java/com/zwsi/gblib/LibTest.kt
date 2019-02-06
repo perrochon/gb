@@ -44,10 +44,10 @@ class LibTest {
         val universe = GBController.makeSmallUniverse()
         consistent()
 
-        assertEquals(100, universe.star(0).starPlanets[0].population)
-        assertEquals(100, universe.star(1).starPlanets[0].population)
-        assertEquals(100, universe.star(2).starPlanets[0].population)
-        assertEquals(100, universe.star(3).starPlanets[0].population)
+        assertEquals(100, universe.star(0).starPlanets[0].planetPopulation)
+        assertEquals(100, universe.star(1).starPlanets[0].planetPopulation)
+        assertEquals(100, universe.star(2).starPlanets[0].planetPopulation)
+        assertEquals(100, universe.star(3).starPlanets[0].planetPopulation)
 
 
         populate()
@@ -65,10 +65,10 @@ class LibTest {
         val universe = GBController.makeBigUniverse()
         consistent()
 
-        assertEquals(100, universe.star(0).starPlanets[0].population)
-        assertEquals(100, universe.star(1).starPlanets[0].population)
-        assertEquals(100, universe.star(2).starPlanets[0].population)
-        assertEquals(100, universe.star(3).starPlanets[0].population)
+        assertEquals(100, universe.star(0).starPlanets[0].planetPopulation)
+        assertEquals(100, universe.star(1).starPlanets[0].planetPopulation)
+        assertEquals(100, universe.star(2).starPlanets[0].planetPopulation)
+        assertEquals(100, universe.star(3).starPlanets[0].planetPopulation)
 
 
         populate()
@@ -89,7 +89,7 @@ class LibTest {
         val universe = GBController.makeUniverse()
         consistent()
         universe.landPopulation(universe.planet(1), universe.allRaces.values.first().uid, 55)
-        assertEquals(55, universe.star(0).starPlanets[1].population)
+        assertEquals(55, universe.star(0).starPlanets[1].planetPopulation)
     }
 
     fun populate() {

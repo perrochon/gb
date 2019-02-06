@@ -50,7 +50,7 @@ class MapActivity : AppCompatActivity() {
                             .start()
                     } else if (any is GBStar) {
                         imageView.animateScaleAndCenter(
-                            imageView.zoomLevelStar, PointF( // TODO Quality replace this with a constant from the view
+                            imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
                                 any.loc.getLoc().x * imageView.uToS,
                                 (any.loc.getLoc().y - 17f ) * imageView.uToS
                             )

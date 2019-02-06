@@ -89,7 +89,9 @@ class GBController {
             }
         }
 
-        @Synchronized //TODO I think we can get rid of some of the syncs now
+        // FIXME I think we can get rid of some of the syncs now
+        // TODO
+        @Synchronized
         fun makeStuff() {
             playBeetle()
             playImpi()

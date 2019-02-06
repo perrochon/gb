@@ -75,7 +75,7 @@ object MissionController {
         if (missionStatus == 5) {
             var success = true
             for (p in GBController.u.allStars[0]!!.starPlanets) {
-                if (p.population == 0) {
+                if (p.planetPopulation == 0) {
                     success = false
                 }
             }
