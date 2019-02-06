@@ -89,7 +89,7 @@ class LibTest {
     }
 
     fun makeShips() {
-        var u = GBController.u
+        val u = GBController.u
 
         val allRaces = u.allRaces
         val allStars = u.allStars

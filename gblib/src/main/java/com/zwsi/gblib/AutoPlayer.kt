@@ -22,7 +22,7 @@ class AutoPlayer() {
 
             for (i in 1 until 10000) {
                 code = {
-                    val factory = r.getRaceShipsList().filter { it.idxtype == GBData.FACTORY }.firstOrNull()
+                    val factory = r.raceShipsList.filter { it.idxtype == GBData.FACTORY }.firstOrNull()
                     if (factory != null) {
                         factory.let { GBController.u.makePod(it) }
                         GBLog.d("Ordered Pod")
@@ -32,7 +32,7 @@ class AutoPlayer() {
 
             }
             code = {
-                for (pod in r.getRaceShipsList().filter { (it.idxtype == GBData.POD) && (it.dest == null) }) {
+                for (pod in r.raceShipsList.filter { (it.idxtype == GBData.POD) && (it.dest == null) }) {
                     pod.let {
                         GBController.u.flyShipLanded(
                             it,
@@ -63,7 +63,7 @@ class AutoPlayer() {
 
             for (i in 1..20) {
                 code = {
-                    val factory = r.getRaceShipsList().find { it.idxtype == GBData.FACTORY }
+                    val factory = r.raceShipsList.find { it.idxtype == GBData.FACTORY }
                     factory?.let { GBController.u.makeCruiser(it) }
                     GBLog.d("Ordered Cruiser")
                 }
@@ -71,7 +71,7 @@ class AutoPlayer() {
             }
 
             code = {
-                val cruiser = r.getRaceShipsList().find {
+                val cruiser = r.raceShipsList.find {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
                 val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!
@@ -100,7 +100,7 @@ class AutoPlayer() {
 
             for (i in 1..20) {
                 code = {
-                    val factory = r.getRaceShipsList().find { it.idxtype == GBData.FACTORY }
+                    val factory = r.raceShipsList.find { it.idxtype == GBData.FACTORY }
                     factory?.let { GBController.u.makeCruiser(it) }
                     GBLog.d("Ordered Cruiser")
                 }
@@ -108,7 +108,7 @@ class AutoPlayer() {
             }
 
             code = {
-                val cruiser = r.getRaceShipsList().find {
+                val cruiser = r.raceShipsList.find {
                     ((it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED))
                 }
                 val p = u.allPlanets[GBData.rand.nextInt(u.allPlanets.size)]!!

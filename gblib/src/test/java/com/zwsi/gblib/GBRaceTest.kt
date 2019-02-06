@@ -24,7 +24,7 @@ class GBRaceTest {
 
         for ((key,race) in universe.allRaces) {
             consistent(race)
-            assertEquals(race.getRaceShipsList().size,0 )
+            assertEquals(race.raceShipsList.size,0 )
         }
 
         // TODO TEST add ships to race and check again

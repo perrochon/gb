@@ -17,10 +17,9 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
-    // id is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
+    // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
     // idx is the number to go look up static race information in GBData.
     //      Not needed with dynamic race design or load from json
-    // uId is key in Universe's map of allRaces
 
     // TODO val properties outside constructor are not serialized
     // Options: (1) Leave var and live with it (2) move it all into constructor (3) different/custom adaptor
@@ -39,10 +38,10 @@ data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
     internal var raceShipsUIDList: MutableList<Int> =
         Collections.synchronizedList(arrayListOf<Int>()) // Ships of this race
 
-    @Transient
-    internal var lastRaceShipsUpdate = -1
-    @Transient
-    internal var raceShipsList = raceShipsUIDList.map { u.allShips[it] }
+    val raceShipsList: List<GBShip>
+        // PERF ?? Cache the list and only recompute if the hashcode changes.
+        get() = Collections.synchronizedList(raceShipsUIDList.map { u.ship(it) })
+
 
     init {
         name = GBData.getRaceName(idx)
@@ -60,16 +59,6 @@ data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
 
     fun getRaceShipsUIDList(): List<Int> {
         return raceShipsUIDList.toList()
-    }
-
-    fun getRaceShipsList(): List<GBShip> {
-        // TODO need smarter cache invalidation. But it's also cheap to produce this list.
-        // FIXME Recompute when UIDList.hashcode() changed since last time.
-        if (u.turn > lastRaceShipsUpdate) {
-            raceShipsList = raceShipsUIDList.map { u.allShips[it] }.filter { it.health > 0 }
-            lastRaceShipsUpdate = u.turn
-        }
-        return raceShipsList
     }
 
     fun consoleDraw() {

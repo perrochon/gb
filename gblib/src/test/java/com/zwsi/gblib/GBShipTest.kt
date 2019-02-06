@@ -31,7 +31,7 @@ class GBShipTest {
         assertEquals(ship.uid, universe.allShips.indexOf(ship))
 
         assertTrue(universe.race(ship.uidRace).raceShipsUIDList.contains(ship.uid))
-        assertTrue(universe.race(ship.uidRace).getRaceShipsList().contains(ship)) // This fails because list is cached
+        assertTrue(universe.race(ship.uidRace).raceShipsList.contains(ship)) // This fails because list is cached
 
         if (!universe.deadShips.contains(ship)) {
 

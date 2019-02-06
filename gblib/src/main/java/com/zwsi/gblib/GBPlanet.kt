@@ -10,12 +10,10 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLocation) {
-
-    // int is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
-    // sid is the "starID" (aka orbit), which planet of the parent star is this 0..
+    // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
+    // sid is the "Star ID" (aka orbit), where in the order of planets of the parent star is this 0..n
 
     var idxtype: Int // idxtype of this planet
-
     var name: String
     var type: String
 
@@ -37,10 +35,6 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     var height: Int
     var width: Int
 
-
-    // TODO PERSISTENCE Save these, or rebuild on loading?
-    // If they are ships, as opposed to UIDs, need to rebuild, as the old objects will be gone...
-
     // Landed Ships
     var landedUidShips: MutableList<Int> =
         Collections.synchronizedList(arrayListOf<Int>()) // UID of ships. Persistent
@@ -57,24 +51,6 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     val orbitShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
         get() = Collections.synchronizedList(orbitUidShips.map { u.ship(it) })
-
-
-    //    @Transient
-//    internal val landedShips: MutableList<GBShip> =
-//        Collections.synchronizedList(arrayListOf()) // the ships on ground of this planet
-//    @Transient
-//    internal val orbitShips: MutableList<GBShip> =
-//        Collections.synchronizedList(arrayListOf()) // the ships in orbit of this planet
-//    @Transient
-//    internal var lastLandedShipsUpdate = -1
-//    @Transient
-//    internal var landedShipsList = landedShips.toList()
-//    @Transient
-//    internal var lastOrbitShipsUpdate = -1
-//    @Transient
-//    internal var orbitShipsList = orbitShips.toList()
-
-
 
     init {
         name = GBData.planetNameFromIdx(GBData.selectPlanetNameIdx())
@@ -102,40 +78,6 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
             "Made Planet " + name + " of idxtype " + type
                     + ". Planet size is " + height + "x" + width
         )
-    }
-
-//    fun getLandedShipsList(): List<GBShip> {
-//        if (u.turn > lastLandedShipsUpdate) {
-//            landedShipsList = landedShips.toList().filter { it.health > 0 }
-//            lastLandedShipsUpdate = u.turn
-//        }
-//        return landedShipsList
-//    }
-//
-//    fun getOrbitShipsList(): List<GBShip> {
-//        if (u.turn > lastOrbitShipsUpdate) {
-//            orbitShipsList = orbitShips.toList().filter { it.health > 0 }
-//            lastOrbitShipsUpdate = u.turn
-//        }
-//        return orbitShipsList
-//    }
-
-    fun consoleDraw() {
-        println(
-            "\n    " + name + " of idxtype " + type
-                    + " and size " + height + "x" + width + "\n"
-        )
-
-        for (i in 0 until width * height) {
-            if (sectorX(i) == 0)
-                print("    ")
-
-            print(sectors[i].consoleDraw())
-
-            if (sectorX(i) == width - 1)
-                println()
-        }
-
     }
 
     fun sectorEmpty(x: Int, y: Int): Boolean {
@@ -347,6 +289,24 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
             difference = -sector.population
 
         changePopulation(sector, difference)
+    }
+
+    fun consoleDraw() {
+        println(
+            "\n    " + name + " of idxtype " + type
+                    + " and size " + height + "x" + width + "\n"
+        )
+
+        for (i in 0 until width * height) {
+            if (sectorX(i) == 0)
+                print("    ")
+
+            print(sectors[i].consoleDraw())
+
+            if (sectorX(i) == width - 1)
+                println()
+        }
+
     }
 
 }

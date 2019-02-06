@@ -10,11 +10,10 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: Int, val y: Int) {
-
     // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
 
     var name: String
-    var loc: GBLocation
+    var loc: GBLocation  // FIXME pass in a GBLocation instead of (x,y)
 
     init {
         name = GBData.starNameFromIdx(GBData.selectStarNameIdx())
@@ -24,7 +23,7 @@ data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: In
 
     // Planets
     var starUidPlanetList: MutableList<Int> =
-        Collections.synchronizedList(arrayListOf<Int>()) // UID of ships. Persistent
+        Collections.synchronizedList(arrayListOf<Int>()) // UID of planets. Persistent
 
     val starPlanetsList: List<GBPlanet>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
