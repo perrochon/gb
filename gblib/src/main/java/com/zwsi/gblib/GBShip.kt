@@ -38,6 +38,9 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
     @Transient
     internal var trailsList = trails.toList()
 
+    val race: GBRace
+        get() = u.race(uidRace)
+
     fun getTrailList(): List<GBxy> {
         if (u.turn > lastTrailsUpdate) {
             trailsList = trails.toList()
@@ -70,7 +73,8 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
         }
 
         type = GBData.getShipType(idxtype)
-        name = u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
+        name =
+            u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
         speed = GBData.getShipSpeed(idxtype)
         health = GBData.getShipHealth(idxtype)
     }

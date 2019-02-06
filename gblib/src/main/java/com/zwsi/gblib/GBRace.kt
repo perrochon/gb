@@ -16,7 +16,7 @@ import com.zwsi.gblib.GBController.Companion.u
 import java.util.*
 
 @JsonClass(generateAdapter = true)
-data class GBRace(internal val id: Int, internal val idx: Int, internal val uid: Int, internal val uidHome: Int) {
+data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
     // id is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
     // idx is the number to go look up static race information in GBData.
     //      Not needed with dynamic race design or load from json
@@ -26,15 +26,15 @@ data class GBRace(internal val id: Int, internal val idx: Int, internal val uid:
     // Options: (1) Leave var and live with it (2) move it all into constructor (3) different/custom adaptor
 
     // Properties that don't really change after construction
-    internal var name: String
-    internal var birthrate: Int
-    internal var explore: Int
-    internal var absorption: Int
-    internal var description: String
-    internal var color: String
+    var name: String
+    var birthrate: Int
+    var explore: Int
+    var absorption: Int
+    var description: String
+    var color: String
 
     // Properties that DO change after construction
-    internal var population = 0 // (planetary) planetPopulation. Ships don't have planetPopulation
+    var population = 0 // (planetary) planetPopulation. Ships don't have planetPopulation
 
     internal var raceShipsUIDList: MutableList<Int> =
         Collections.synchronizedList(arrayListOf<Int>()) // Ships of this race
@@ -42,7 +42,7 @@ data class GBRace(internal val id: Int, internal val idx: Int, internal val uid:
     @Transient
     internal var lastRaceShipsUpdate = -1
     @Transient
-    internal var raceShipsList = raceShipsUIDList.map { u.allShips[it]}
+    internal var raceShipsList = raceShipsUIDList.map { u.allShips[it] }
 
     init {
         name = GBData.getRaceName(idx)
@@ -54,11 +54,11 @@ data class GBRace(internal val id: Int, internal val idx: Int, internal val uid:
         GBLog.i("Created Race $name with birthrate $birthrate")
     }
 
-    fun getHome() :GBPlanet {
+    fun getHome(): GBPlanet {
         return u.planet(uidHome)
     }
 
-    fun getRaceShipsUIDList() : List<Int> {
+    fun getRaceShipsUIDList(): List<Int> {
         return raceShipsUIDList.toList()
     }
 
@@ -66,7 +66,7 @@ data class GBRace(internal val id: Int, internal val idx: Int, internal val uid:
         // TODO need smarter cache invalidation. But it's also cheap to produce this list.
         // FIXME Recompute when UIDList.hashcode() changed since last time.
         if (u.turn > lastRaceShipsUpdate) {
-            raceShipsList = raceShipsUIDList.map { u.allShips[it]}.filter { it.health > 0 }
+            raceShipsList = raceShipsUIDList.map { u.allShips[it] }.filter { it.health > 0 }
             lastRaceShipsUpdate = u.turn
         }
         return raceShipsList
