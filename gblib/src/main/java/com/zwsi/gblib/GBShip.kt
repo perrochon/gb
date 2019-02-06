@@ -15,7 +15,7 @@ import java.util.*
 import kotlin.math.atan2
 
 @JsonClass(generateAdapter = true)
-class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocation) {
+class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocation) {
 
     // FIXME Use uidRace instead of Race above to remove duplication in JSON.
 
@@ -49,7 +49,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
         u.allShips.add(this)
         uid = u.allShips.indexOf(this)
 
-        race.raceShipsUIDList.add(this.uid)
+        u.race(uidRace).raceShipsUIDList.add(this.uid)
 
         when (loc.level) {
             LANDED -> {
@@ -70,7 +70,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
         }
 
         type = GBData.getShipType(idxtype)
-        name = race.name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
+        name = u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
         speed = GBData.getShipSpeed(idxtype)
         health = GBData.getShipHealth(idxtype)
     }
@@ -105,7 +105,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
                     // This is a pod, they populate, then destroy.  We set health to 0, and clean up elsewhere
                     loc.getPlanet()!!.landedShips.add(this)
                     this.health = 0
-                    u.landPopulation(this.loc.getPlanet()!!, race.uid, 1)
+                    u.landPopulation(this.loc.getPlanet()!!, uidRace, 1)
                 } else {
                     loc.getPlanet()!!.landedShips.add(this)
                 }
@@ -163,7 +163,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
                     gbAssert("Bad Parameters for ship removement $loc", { false })
                 }
             }
-            this.race.raceShipsUIDList.remove(this.uid)
+            u.race(uidRace).raceShipsUIDList.remove(this.uid)
             u.deadShips.add(this)
         }
     }
@@ -235,14 +235,14 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
         } else {
             // we are not LANDED, so either in ORBIT, in SYTEM, or in DEEPSPACE
 
-            var distance = sxy.distance(dxy)
+            val distance = sxy.distance(dxy)
 
             if ((distance) < speed + PlanetaryOrbit) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
                 //What direction are we coming from
                 val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
 
-                var next = GBLocation(dest.getPlanet()!!, PlanetaryOrbit, t)
+                val next = GBLocation(dest.getPlanet()!!, PlanetaryOrbit, t)
                 changeShipLocation(next)
                 u.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 
@@ -253,7 +253,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
                 return
             }
 
-            var nxy = sxy.towards(dxy, speed.toFloat())
+            val nxy = sxy.towards(dxy, speed.toFloat())
 
 
             GBLog.d("Flying from (${sxy.x}, ${sxy.y}) direction (${dxy.x}, ${dxy.y}) until (${nxy.x}, ${nxy.y}) at speed $speed\n")
@@ -261,7 +261,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
 
             if (loc.level == DEEPSPACE) {
 
-                var distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
+                val distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
 
 
                 if (distanceToStar < GBData.SystemBoundary) { // we arrived at destination System
@@ -269,7 +269,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
                     // TODO check if destination is the system, in which case we would just stop here.
                     // We can't fly to a system yet, so not a bug just yet.
 
-                    var next = GBLocation(dest.getStar()!!, nxy.x, nxy.y, true)
+                    val next = GBLocation(dest.getStar()!!, nxy.x, nxy.y, true)
 
                     changeShipLocation(next)
 
@@ -279,7 +279,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
                     return
 
                 } else {
-                    var next = GBLocation(nxy.x, nxy.y)
+                    val next = GBLocation(nxy.x, nxy.y)
                     changeShipLocation(next)
 
                     GBLog.d(" Flying Deep Space")
@@ -292,11 +292,11 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
 
             } else {
 
-                var distanceToStar = sxy.distance(loc.getStar()!!.loc.getLoc())
+                val distanceToStar = sxy.distance(loc.getStar()!!.loc.getLoc())
 
                 if (distanceToStar > GBData.SystemBoundary) {  // we left the system
 
-                    var next = GBLocation(nxy.x, nxy.y)
+                    val next = GBLocation(nxy.x, nxy.y)
                     changeShipLocation(next)
 
                     GBLog.d("Left System")
@@ -305,7 +305,7 @@ class GBShip(val id: Int, val idxtype: Int, val race: GBRace, var loc: GBLocatio
                     return
                 } else {
 
-                    var next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
+                    val next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
                     changeShipLocation(next)
 
                     GBLog.d("Flying insystem ")

@@ -40,7 +40,7 @@ class GBOrder  {
             gbAssert { type == -1 }
             type = POD
             uidShip = factory.uid
-            uidRace = factory.race.uid
+            uidRace = factory.uidRace
             this.loc = GBLocation(
                 factory.loc.getPlanet()!!,
                 rand.nextInt(factory.loc.getPlanet()!!.width),
@@ -55,7 +55,7 @@ class GBOrder  {
             gbAssert { type == -1 }
             type = CRUISER
             uidShip = factory.uid
-            uidRace = factory.race.uid
+            uidRace = factory.uidRace
             this.loc = GBLocation(
                 factory.loc.getPlanet()!!,
                 rand.nextInt(factory.loc.getPlanet()!!.width),
@@ -67,15 +67,15 @@ class GBOrder  {
     fun execute() {
         when (type) {
             FACTORY -> {
-                GBShip(u.getNextGlobalId(), FACTORY, u.race(uidRace), loc)
+                GBShip(u.getNextGlobalId(), FACTORY, uidRace, loc)
                 u.news.add("Built a factory on Helle.\n\n")
             }
             POD -> {
-                GBShip(u.getNextGlobalId(), POD, u.race(uidRace), loc)
+                GBShip(u.getNextGlobalId(), POD, uidRace, loc)
                 u.news.add("Built a pod on Helle.\n\n")
             }
             CRUISER -> {
-                GBShip(u.getNextGlobalId(), CRUISER, u.race(uidRace), loc)
+                GBShip(u.getNextGlobalId(), CRUISER, uidRace, loc)
                 u.news.add("Built a cruiser on Helle.\n\n")
             }
             else ->

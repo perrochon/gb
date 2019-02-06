@@ -308,7 +308,7 @@ class GBUniverse {
             for (sh1 in star.starShipsList.shuffled()) {
                 if (sh1.idxtype == CRUISER && (sh1.health > 0)) {
                     for (sh2 in star.starShipsList) {
-                        if ((sh2.health > 0) && (sh1.race != sh2.race)) {
+                        if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
                             }
@@ -323,7 +323,7 @@ class GBUniverse {
             for (sh1 in p.orbitShips.shuffled()) {
                 if ((sh1.idxtype == CRUISER && (sh1.health > 0))) {
                     for (sh2 in p.star.starShips.union(p.orbitShips).union(p.landedShips)) {
-                        if ((sh2.health > 0) && (sh1.race != sh2.race)) {
+                        if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
                             }

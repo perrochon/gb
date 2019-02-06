@@ -30,8 +30,8 @@ class GBShipTest {
         assertTrue(universe.allShips.contains(ship))
         assertEquals(ship.uid, universe.allShips.indexOf(ship))
 
-        assertTrue(ship.race.raceShipsUIDList.contains(ship.uid))
-        assertTrue(ship.race.getRaceShipsList().contains(ship)) // This fails because list is cached
+        assertTrue(universe.race(ship.uidRace).raceShipsUIDList.contains(ship.uid))
+        assertTrue(universe.race(ship.uidRace).getRaceShipsList().contains(ship)) // This fails because list is cached
 
         if (!universe.deadShips.contains(ship)) {
 
@@ -158,16 +158,16 @@ class GBShipTest {
         val p: GBPlanet = s.starPlanets[0]
         val r: GBRace = u.allRaces.toList().component1().second
 
-        var sh = GBShip(u.getNextGlobalId(),1, r, GBLocation(500f, 500f))
+        var sh = GBShip(u.getNextGlobalId(),1, r.uid, GBLocation(500f, 500f))
         consistency(sh)
 
-        sh = GBShip(u.getNextGlobalId(),0, r, GBLocation(s, SystemBoundary, 2f))
+        sh = GBShip(u.getNextGlobalId(),0, r.uid, GBLocation(s, SystemBoundary, 2f))
         consistency(sh)
 
-        sh = GBShip(u.getNextGlobalId(),1, r, GBLocation(p, PlanetaryOrbit, 2f))
+        sh = GBShip(u.getNextGlobalId(),1, r.uid, GBLocation(p, PlanetaryOrbit, 2f))
         consistency(sh)
 
-        sh = GBShip(u.getNextGlobalId(),1, r, GBLocation(p, 1, 1))
+        sh = GBShip(u.getNextGlobalId(),1, r.uid, GBLocation(p, 1, 1))
         consistency(sh)
 
         uniqueLocations()
@@ -182,7 +182,7 @@ class GBShipTest {
         val s1 = u.star(1)
         val r0= GBController.u.allRaces.toList().component1().second
 
-        val sh0 = GBShip(u.getNextGlobalId(),0, r0, GBLocation(s1, 30f, PlanetaryOrbit))
+        val sh0 = GBShip(u.getNextGlobalId(),0, r0.uid, GBLocation(s1, 30f, PlanetaryOrbit))
         consistency(sh0)
 
         s1.starShips.add(sh0)
@@ -199,7 +199,7 @@ class GBShipTest {
         val r0= GBController.u.allRaces.toList().component1().second
         val r1= GBController.u.allRaces.toList().component2().second
 
-        val sh0 = GBShip(u.getNextGlobalId(),1, r0, GBLocation(s0, 30f, 1f))
+        val sh0 = GBShip(u.getNextGlobalId(),1, r0.uid, GBLocation(s0, 30f, 1f))
         consistency(sh0)
 
         r1.raceShipsUIDList.add(sh0.uid)
@@ -234,7 +234,7 @@ class GBShipTest {
         locations.add(GBLocation(s1, 15f, 0.5f))
         locations.add(GBLocation(500f, 500f))
 
-        val sh0 = GBShip(u.getNextGlobalId(),2, r0, locations.first())
+        val sh0 = GBShip(u.getNextGlobalId(),2, r0.uid, locations.first())
 
         for (loc1 in locations) {
             sh0.changeShipLocation(loc1)
@@ -260,7 +260,7 @@ class GBShipTest {
         val loc01 = GBLocation(p0, 1, 1);
         val loc02 = GBLocation(p1, 1, 2);
 
-        val sh = GBShip(u.getNextGlobalId(),1, r0, loc01)
+        val sh = GBShip(u.getNextGlobalId(),1, r0.uid, loc01)
 
         sh.dest = loc02
 
@@ -298,7 +298,7 @@ class GBShipTest {
         val loc01 = GBLocation(p0, 1, 1);
         val loc02 = GBLocation(p1, 1, 2);
 
-        val sh = GBShip(u.getNextGlobalId(),1, r0, loc01)
+        val sh = GBShip(u.getNextGlobalId(),1, r0.uid, loc01)
 
         sh.dest = loc02
 
