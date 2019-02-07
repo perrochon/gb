@@ -1,5 +1,7 @@
 // Copyright 2018-2019 Louis Perrochon. All rights reserved
 
+// GBShip deals with ship stuff
+
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
@@ -16,10 +18,7 @@ import kotlin.math.atan2
 
 @JsonClass(generateAdapter = true)
 class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocation) {
-
-    // FIXME Use uidRace instead of Race above to remove duplication in JSON.
-
-    // id is a unique object ID. Not currently used anywhere TODO QUALITY id can probably be removed
+    // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
 
     // properties that don't change over live time of ship
     var uid: Int    // id in universe wide list
@@ -31,21 +30,17 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
     var health: Int  // health of ship. Goes down when shot at. Not going up (as of now)
     var dest: GBLocation? = null
 
-    @Transient
-    internal val trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
-    @Transient
-    internal var lastTrailsUpdate = -1
-    @Transient
-    internal var trailsList = trails.toList()
-
     val race: GBRace
         get() = u.race(uidRace)
 
+    // TODO These are a cool but nice to have feature. They are also an app feature more than a lib feature
+    // They are irrelevant for text based UI. But persistent in the client is even worse :-)
+    @Transient
+    internal val trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
+
     fun getTrailList(): List<GBxy> {
-        if (u.turn > lastTrailsUpdate) {
-            trailsList = trails.toList()
-        }
-        return trailsList
+        // PERF ?? Cache the list and only recompute if the hashcode changes.
+        return trails.toList()
     }
 
     init {
@@ -77,7 +72,6 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
         speed = GBData.getShipSpeed(idxtype)
         health = GBData.getShipHealth(idxtype)
     }
-
 
     fun changeShipLocation(loc: GBLocation) {
 
@@ -321,7 +315,6 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
             }
         }
     }
-
 
     fun getStar(): GBStar? {
         return loc.getStar()
