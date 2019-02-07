@@ -1,4 +1,4 @@
-// Copyright 2018 Louis Perrochon. All rights reserved
+// Copyright 2018-2019 Louis Perrochon. All rights reserved
 //
 // // Location. Can be planet surface, planet orbit, system space, or deep space. All have different coordinates, etc.
 

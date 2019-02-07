@@ -1,4 +1,4 @@
-// Copyright 2018 Louis Perrochon. All rights reserved
+// Copyright 2018-2019 Louis Perrochon. All rights reserved
 
 // Tests GBLocation
 //
