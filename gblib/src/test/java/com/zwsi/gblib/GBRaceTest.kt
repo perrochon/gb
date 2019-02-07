@@ -22,7 +22,7 @@ class GBRaceTest {
     fun basic() {
         val universe = GBController.makeUniverse()
 
-        for ((key,race) in universe.allRaces) {
+        for ((_,race) in universe.allRaces) {
             consistent(race)
             assertEquals(race.raceShipsList.size,0 )
         }

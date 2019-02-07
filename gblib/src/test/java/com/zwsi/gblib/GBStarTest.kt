@@ -27,7 +27,7 @@ class GBStarTest {
     fun basic() {
         val universe = GBController.makeUniverse()
 
-        for ((key, s) in universe.allStars)
+        for ((_, s) in universe.allStars)
             consistent(s)
 
     }

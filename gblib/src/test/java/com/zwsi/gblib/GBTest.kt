@@ -26,7 +26,7 @@ class GBTest {
         playImpi()
         playTortoise()
 
-        var elapsed = 0L
+        var elapsed : Long
 
         for (i in 1..11000) {
 

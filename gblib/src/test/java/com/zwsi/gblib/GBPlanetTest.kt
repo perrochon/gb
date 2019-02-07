@@ -20,7 +20,7 @@ class GBPlanetTest {
         assertEquals(planet,universe.allPlanets[planet.uid])
 
         var count = 0
-        for ((uid, star) in universe.allStars) {
+        for ((_, star) in universe.allStars) {
             for (pl in star.starPlanetsList) {
                 if (pl.uid == planet.uid)
                     count++
@@ -34,7 +34,7 @@ class GBPlanetTest {
         val universe = GBController.makeUniverse()
 
 
-        for ((key, planet) in universe.allPlanets) {
+        for ((_, planet) in universe.allPlanets) {
             consistent(planet)
         }
     }
@@ -44,7 +44,7 @@ class GBPlanetTest {
         val universe = GBController.makeUniverse()
 
 
-        for ((key, planet) in universe.allPlanets) {
+        for ((_, planet) in universe.allPlanets) {
             val width = planet.width
             val height = planet.height
 
@@ -68,7 +68,7 @@ class GBPlanetTest {
     fun distanceToStar() {
         val universe = GBController.makeUniverse()
 
-        universe.allPlanets.forEach { (key, p) ->
+        universe.allPlanets.forEach { (_, p) ->
             assert(p.loc.getLoc().distance(p.star.loc.getLoc())< (GBData.MaxPlanetOrbit*1.1f), {"Planet too far from star"} )
         }
     }
@@ -77,7 +77,7 @@ class GBPlanetTest {
     fun sectorDirections() {
         val universe = GBController.makeUniverse()
 
-        for ((key, planet) in universe.allPlanets) {
+        for ((_, planet) in universe.allPlanets) {
             val width = planet.width
             val height = planet.height
 
@@ -104,15 +104,15 @@ class GBPlanetTest {
 
         val universe = GBController.makeUniverse()
 
-        for ((key, planet) in universe.allPlanets) {
+        for ((_, planet) in universe.allPlanets) {
 
             val rt1 = planet.loc.getSLocP()
             val xy1 = planet.loc.getSLocC()
 
             planet.movePlanet()
 
-            var rt2 = planet.loc.getSLocP()
-            var xy2 = planet.loc.getSLocC()
+            val rt2 = planet.loc.getSLocP()
+            val xy2 = planet.loc.getSLocC()
 
             assertEquals(rt1.r, rt2.r)
             assert(xy1.distance(xy2) < 0.99) // Or pods can never catch up

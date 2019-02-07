@@ -14,8 +14,8 @@ class GBSavedGameTest {
         val u = GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
-        var description = "Initial Universe: Number of Ships: ${u.allShips.size}"
-        val gameInfo1 = GBSavedGame("Test", u.allRaces, u.allStars, u.allPlanets)
+        val description = "Initial Universe: Number of Ships: ${u.allShips.size}"
+        val gameInfo1 = GBSavedGame(description, u.allRaces, u.allStars, u.allPlanets)
         val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
         val json = jsonAdapter1.toJson(gameInfo1)
         File("testoutput/GBSavedGameTestJSONifyInitialUniverse.json").writeText(json)
@@ -37,7 +37,7 @@ class GBSavedGameTest {
                 GBController.doUniverse()
         }
 
-        var description = "Universe After $turns turns: Number of Ships: ${u.allShips.size}"
+        val description = "Universe After $turns turns: Number of Ships: ${u.allShips.size}"
         val gameInfo1 = GBSavedGame(description, u.allRaces, u.allStars, u.allPlanets)
         val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
         val json = jsonAdapter1.toJson(gameInfo1)
