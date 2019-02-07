@@ -166,6 +166,15 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
         }
     }
 
+    // planetPopulation
+    // TODO BUG fix planetPopulation. Right now it goes in mysterious ways
+    // Three ways populations can change:
+    // 1. Adjusting: Changing planetPopulation in just one sector (setup, landing, killing)
+    // 2. Moving: Moving from one sector to another.
+    // 3. Growth: (reproduction, and reduction due to incompatibility).
+    // 4. Kill: Population gets killed by external influence (war)
+    // All three call changePopulationOld to change the values. This will eventually need thread safety/proper transactions
+
     fun landPopulationOnEmptySector(r: GBRace, number: Int) {
         GBLog.d("GBPlanet: Landing $number of ${r.name}")
         val target = sectors.toList().shuffled().firstOrNull({ it.population == 0 })

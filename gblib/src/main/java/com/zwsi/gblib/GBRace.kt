@@ -15,7 +15,7 @@ data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
     //      Not needed with dynamic race design or load from json
 
     // TODO val properties outside constructor are not serialized
-    // Options: (1) Leave var and live with it (2) move it all into constructor (3) different/custom adaptor
+    // Options: (1) Leave var and live with it (2) move it all into constructor (3) different/custom moshi adapter
 
     // Properties that don't really change after construction
     var name: String
