@@ -22,21 +22,21 @@ class GBUniverse {
 
     // Stars, Planets, Races are immutable lists (once built) of immutable elements. Things that do change are e.g. locations of things
     // exposing these (for now)
-    val allStars: MutableMap<Int, GBStar> =
+    var allStars: MutableMap<Int, GBStar> =
         Collections.synchronizedMap(hashMapOf<Int, GBStar>()) // all the stars
-    val allPlanets: MutableMap<Int, GBPlanet> =
+    var allPlanets: MutableMap<Int, GBPlanet> =
         Collections.synchronizedMap(hashMapOf<Int, GBPlanet>()) // all the planets
-    val allRaces: MutableMap<Int, GBRace> =
+    var allRaces: MutableMap<Int, GBRace> =
         Collections.synchronizedMap(hashMapOf<Int, GBRace>()) // all the races
 
     // List of ships. Lists are mutable and change during updates (dead ships...)
     // Not exposed to the app
-    internal val allShips: MutableMap<Int, GBShip> =
+    var allShips: MutableMap<Int, GBShip> =
         Collections.synchronizedMap(hashMapOf<Int, GBShip>()) // all ships, alive or dead
 
-    internal val deepSpaceShips: MutableList<GBShip> =
+    internal var deepSpaceShips: MutableList<GBShip> =
         Collections.synchronizedList(arrayListOf()) // ships in transit between system
-    internal val deadShips: MutableList<GBShip> =
+    internal var deadShips: MutableList<GBShip> =
         Collections.synchronizedList(arrayListOf()) // all dead ships in the Universe
 
     internal var lastAllShipsUpdate = -1
@@ -69,6 +69,8 @@ class GBUniverse {
 
     var autoDo = false // FIXME Almost certain this shouldn't be in universe
     var turn = 0
+
+   // FIXME PERSISTENCE persist turn, which races are playing
 
     constructor(numberOfStars: Int) {
         this.numberOfStars = numberOfStars

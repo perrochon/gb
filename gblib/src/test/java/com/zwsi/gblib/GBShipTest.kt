@@ -5,6 +5,8 @@
 
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.SystemBoundary
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
@@ -14,6 +16,7 @@ import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.io.File
 
 class GBShipTest {
 
@@ -323,5 +326,45 @@ class GBShipTest {
 
     }
 
-    // FIXME Need to put JSON Tests here
+    @Test
+    fun JSON() {
+        val u = GBController.makeUniverse()
+        val moshi = Moshi.Builder().build()
+
+        val p0 = u.planet(0)
+        val r0 = u.race(0)
+        val loc01 = GBLocation(p0, 1, 1);
+
+        val inObject = GBShip(u.getNextGlobalId(),1, r0.uid, loc01)
+
+        val jsonAdapter1 = moshi.adapter<GBShip>(GBShip::class.java)
+        val json1 = jsonAdapter1.toJson(inObject)
+        val outObject = jsonAdapter1.fromJson(json1)
+        assert(inObject == outObject)
+    }
+
+    @Test
+    fun JSONMap() {
+        val u = GBController.makeUniverse()
+        val moshi = Moshi.Builder().build()
+
+        // Need to make ships
+        AutoPlayer.playBeetle()
+
+        for (i in 1..2) {
+            GBController.doUniverse()
+        }
+
+        val gameInfo1 = GBSavedGame("Shiplist Only", shipList = u.allShips)
+        File("testoutput/GBSShipTestJSONMap.in.txt").writeText(gameInfo1.toString())
+        val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
+        val json = jsonAdapter1.toJson(gameInfo1)
+        val gameInfo2 = jsonAdapter1.lenient().fromJson(json)
+
+        File("testoutput/GBSShipTestJSONMap.json").writeText(json)
+        File("testoutput/GBSShipTestJSONMap.in.txt").writeText(gameInfo1.toString())
+        File("testoutput/GBSShipTestJSONMap.out.txt").writeText(gameInfo2.toString())
+
+        assert(gameInfo1 == gameInfo2)
+    }
 }

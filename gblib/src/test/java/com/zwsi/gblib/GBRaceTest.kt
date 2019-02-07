@@ -59,7 +59,7 @@ class GBRaceTest {
         val u = GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
-        val gameInfo1 = GBSavedGame("Test", u.allRaces, null, null)
+        val gameInfo1 = GBSavedGame("Racelist only", raceList = u.allRaces)
         val jsonAdapter2: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
         val json3 = jsonAdapter2.toJson(gameInfo1)
         val gameInfo2 = jsonAdapter2.lenient().fromJson(json3)

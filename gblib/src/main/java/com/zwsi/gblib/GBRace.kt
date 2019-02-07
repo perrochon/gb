@@ -52,6 +52,10 @@ data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
 
     fun getRaceShipsUIDList(): List<Int> {
         return raceShipsUIDList.toList()
+        // FIXME Consistent Exception 2/7 java.util.ConcurrentModificationException called from ViewModel updating.
+        // Need to understand wht toList does. Likely a lib update removed a ship from raceships while the
+        // Viewmodel updated. Is this a safe way of creating a copy?
+        // Only impacts raceShips, none of the other lists. It may be a different problem...
     }
 
     fun consoleDraw() {
