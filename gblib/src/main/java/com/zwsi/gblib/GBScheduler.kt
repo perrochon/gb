@@ -6,6 +6,8 @@ class GBInstruction(var t: Int, var code: () -> Unit?) {}
 
 class GBScheduler {
 
+    // FIXME PERSISTENCE This needs to be persisted, too. Fun Fun.
+
     companion object {
 
         var scheduledActions= arrayListOf<GBInstruction>()

@@ -12,6 +12,9 @@ import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLog.gbAssert
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 
+// FIXME PERSISTENCE. Pending orders need to be persistent, too. Maybe easier to make them GBInstructions as those need
+// to be persisted...
+
 
 class GBOrder  {
 
