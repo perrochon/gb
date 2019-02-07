@@ -1,6 +1,6 @@
 // Copyright 2018 Louis Perrochon. All rights reserved
 
-// GBPlanet deals with anything on the planetary level
+// GBPlanet deals with planetary level
 
 package com.zwsi.gblib
 
@@ -13,11 +13,13 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
     // sid is the "Star ID" (aka orbit), where in the order of planets of the parent star is this 0..n
 
-    var idxtype: Int // idxtype of this planet
-    var name: String
-    var type: String
+    var name = GBData.planetNameFromIdx(GBData.selectPlanetNameIdx())
+    var idxtype = GBData.selectPlanetTypeIdx() // idxtype of this planet
+    var type = GBData.planetTypeFromIdx(idxtype)
+    var height = GBData.selectPlanetHeight(idxtype)  // FIXME NICE one call returning a Pair()
+    var width = GBData.selectPlanetWidth(height)
 
-    var uidPlanetOwner = 0
+    var uidPlanetOwner = -1
     val planetOwner: GBRace
         get() = u.race(uidPlanetOwner)
 
@@ -32,8 +34,6 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     // Sector are stored in a straight array, which makes some things easier (other's not so)
     var sectors: Array<GBSector>
-    var height: Int
-    var width: Int
 
     // Landed Ships
     var landedUidShips: MutableList<Int> =
@@ -42,7 +42,6 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     val landedShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
         get() = Collections.synchronizedList(landedUidShips.map { u.ship(it) })
-
 
     // Orbit Ships
     var orbitUidShips: MutableList<Int> =
@@ -53,20 +52,7 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
         get() = Collections.synchronizedList(orbitUidShips.map { u.ship(it) })
 
     init {
-        name = GBData.planetNameFromIdx(GBData.selectPlanetNameIdx())
-
-        idxtype = GBData.selectPlanetTypeIdx()
-        type = GBData.planetTypeFromIdx(idxtype)
-
-        GBLog.d("Planet $name location is Polar ( ${loc.r} , ${loc.t} )")
-        GBLog.d("Planet $name location is Cartesian( ${loc.x} , ${loc.y} )")
-
-
         // Make Sectors
-        // Get random width and corresponding height within type appropriate bounds (e.g. jovians are bigger
-        height = GBData.selectPlanetHeight(idxtype)
-        width = GBData.selectPlanetWidth(height)
-
         sectors = Array(width * height) { GBSector(uid) }
 
         for (i in 0 until width * height) {
@@ -74,10 +60,9 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
 
         }
 
-        GBLog.d(
-            "Made Planet " + name + " of idxtype " + type
-                    + ". Planet size is " + height + "x" + width
-        )
+        GBLog.d("Made Planet $name of idxtype $type. Planet size is ${height}x$width")
+        GBLog.d("  Planet $name location is Polar ( ${loc.r} , ${loc.t} )")
+        GBLog.d("  Planet $name location is Cartesian( ${loc.x} , ${loc.y} )")
     }
 
     fun sectorEmpty(x: Int, y: Int): Boolean {
@@ -189,7 +174,7 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
         }
     }
 
-    fun migratePopulation(number: Int, from: Int, to: Int) {
+    private fun migratePopulation(number: Int, from: Int, to: Int) {
         // attempt to migrate planetPopulation
 
         GBLog.d("$number from [${sectorX(from)}][${sectorY(from)}]->[${sectorX(to)}][${sectorY(to)}]")
@@ -257,7 +242,7 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
         assert(sector.population + number <= sector.maxPopulation)
         assert(sector.population + number >= 0)
         // TODO this assertion should hold but doesn't
-        assert((sector.uidSectorOwner == -1 ) || (sector.uidSectorOwner == r.uid), { "$planetOwner, $r" })
+        assert((sector.uidSectorOwner == -1) || (sector.uidSectorOwner == r.uid), { "$planetOwner, $r" })
 
         sector.uidSectorOwner = r.uid
         changePopulation(sector, number)
@@ -308,60 +293,4 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
         }
 
     }
-
 }
-
-/*
-http://web.archive.org/web/20060501033212/http://monkeybutts.net:80/games/gb/
-
-Class M -    - These allPlanets are usually about 60% water, 20% land, and an
-               even mix of everything else.  Once in a while, you'll find
-               a class M with an abnormal atmosphere (like heavy in
-               methane content).
-
-Jovian -     - These allPlanets are 100% gaseous, and they are usually
-               twice as large as the typical class M planet.  They tend
-               to be very high in fertility, too, so you can easily build
-               up a large planetPopulation for taxation and tech purposes.
-               Also, ships in orbit around Jovians add fuel to their
-               holds every update (tankers are twice as efficient at this),
-               so even if you're not a Jovian-typeIdx race, having one of
-               these nearby can be a tremendous asset.
-
-Water -      - These are largely water allPlanets, and I've found that they
-               are generally resource poor.  They can be quite large, ranging
-               up in size to class M quality, but they are usually about 40%
-               smaller. On some versions there is also mountain sectors. That
-               will rise the resource deposity a lot.
-
-Desert -     - These allPlanets are usually 80% desert and 15% mtn/land.  They
-               are _very_ nice as far as resource content is concerned, and
-               their size range is much like Class M allPlanets.
-
-Forest -     - These allPlanets are almost entirely covered in forest, which is
-               the rarest sector typeIdx.  Resource content is fairly good.
-               Size range is between Water allPlanets and Class M's.  Fertility
-               is higher than on a normal class M.
-
-Iceball -    - These allPlanets are generally small (1/5 the size of class M's
-               or less), and they consist of around 75% ice and 25% mountain.
-               Relative to their size, they are resource rich, but the
-               small number of sectors means that resources will come more
-               slowly.
-
-Airless -    - These allPlanets are mostly land (75%) with some mountain and
-               ice sectors.  The atmosphere is almost always hostile, of
-               course, but these allPlanets are probably the most resource
-               rich relative to their size (ie. 1/3 the res of a typical
-               class M but 1/5 the size).
-
-Asteroid -   - These are just floating rocks in space, not good for a
-               heck of a lot.  They don't count as allPlanets in victory
-               conditions, and they usually have very few resources,
-               and the small number of sectors make it very difficult
-               for most asteroids to ever contribute to your cause,
-               though having colonies on them have other advantages,
-               such as morale bonus.  Sector types are random but range
-               among land, desert, ice, and mountain.
-
-*/

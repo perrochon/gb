@@ -1,6 +1,6 @@
 // Copyright 2018 Louis Perrochon. All rights reserved
 
-// GBStar deals with anything on the star system wide level
+// GBStar deals with system wide level
 
 package com.zwsi.gblib
 

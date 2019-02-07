@@ -15,7 +15,6 @@ import com.zwsi.gblib.GBLocation.Companion.LANDED
 // FIXME PERSISTENCE. Pending orders need to be persistent, too. Maybe easier to make them GBInstructions as those need
 // to be persisted...
 
-
 class GBOrder  {
 
     // TODO Lambdas? Or use the scheduler instead?
