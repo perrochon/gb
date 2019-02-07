@@ -144,7 +144,7 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
 
     fun killShip() {
 
-        if (health == 0) {
+        if (health <= 0) {
 
             GBLog.d("Removing dead ship $name from " + this.loc.getLocDesc())
 
@@ -167,6 +167,7 @@ class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocatio
                 }
             }
             u.race(uidRace).raceShipsUIDList.remove(this.uid)
+            u.allShips.remove(this.uid)
             u.deadShips.add(this)
         }
     }

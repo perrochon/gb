@@ -62,7 +62,6 @@ class GBUniverse {
         return allShips[uid]!!
     }
 
-
     // Results of turns. Basically replaced every turn
     val allShots: MutableList<GBVector> = Collections.synchronizedList(arrayListOf<GBVector>())
     val news: MutableList<String> = Collections.synchronizedList(arrayListOf<String>())
@@ -277,20 +276,24 @@ class GBUniverse {
 
         // Move dead ships to deadships
         // TODO: After we correctly implemented ViewModels and LiveData, we should not have to keep dead ships around
-        for ((_, star) in allStars) {
-            for (sh in star.starShipList.filter { it.health == 0 }) {
-                sh.killShip()
-            }
-            for (p in star.starPlanetsList) {
-                for (sh in p.landedShips.filter { it.health == 0 }) {
-                    sh.killShip()
-                }
-                for (sh in p.orbitShips.filter { it.health == 0 }) {
-                    sh.killShip()
-                }
-            }
-        }
-        for (sh in deepSpaceShips.filter { it.health == 0 }) {
+//        for ((_, star) in allStars) {
+//            for (sh in star.starShipList.filter { it.health <= 0 }) {
+//                sh.killShip()
+//            }
+//            for (p in star.starPlanetsList) {
+//                for (sh in p.landedShips.filter { it.health <= 0 }) {
+//                    sh.killShip()
+//                }
+//                for (sh in p.orbitShips.filter { it.health <= 0 }) {
+//                    sh.killShip()
+//                }
+//            }
+//        }
+//        for (sh in deepSpaceShips.filter { it.health <= 0 }) {
+//            sh.killShip()
+//        }
+
+        for ((_,sh) in allShips.filter { (_,ship) -> ship.health <= 0 }) {
             sh.killShip()
         }
 

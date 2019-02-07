@@ -6,7 +6,6 @@ class GBInstruction(var t: Int, var code: () -> Unit?) {}
 
 class GBScheduler {
 
-
     companion object {
 
         var scheduledActions= arrayListOf<GBInstruction>()

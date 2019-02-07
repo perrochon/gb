@@ -10,17 +10,14 @@ class GBController {
     companion object {
 
         val numberOfStars = 24
-        val numberOfRaces =
-            4 // This should not be bigger than what we have in the data. Or smaller than 4 (tests will fail)
+        val numberOfRaces = 4   // <= what we have in GBData. >= 4 or tests will fail
 
         // Small universe has some hard coded rules around how many stars and how many planets per systems
         // Do not change these values...
         val numberOfStarsSmall = 5
-        val numberOfRacesSmall = numberOfRaces
 
         // Big Universe just has a lot of stars, but is otherwise the same as regular sized
         val numberOfStarsBig = 100
-        val numberOfRacesBig = numberOfRaces
 
         var elapsedTimeLastUpdate = 0L
 
@@ -34,26 +31,31 @@ class GBController {
                 return _u ?: throw AssertionError("Set to null by another thread")
             }
 
+        @Synchronized
         fun makeUniverse(stars: Int = numberOfStars): GBUniverse {
             _u = GBUniverse(stars)
             _u!!.makeStarsAndPlanets()
             _u!!.makeRaces()
             GBLog.d("Universe made with $stars stars")
+            GBScheduler.scheduledActions.clear()
             return _u!!
         }
 
+        @Synchronized
         fun makeSmallUniverse(): GBUniverse {
             return makeUniverse(numberOfStarsSmall)
         }
 
+        @Synchronized
         fun makeBigUniverse(): GBUniverse {
             return makeUniverse(numberOfStarsBig)
         }
 
+        @Synchronized
         fun doUniverse() {
-            GBLog.i("Runing Game Turn ${u.turn}")
+            GBLog.i("Runing Game Turn ${_u!!.turn}")
             elapsedTimeLastUpdate = measureNanoTime {
-                u.doUniverse()
+                _u!!.doUniverse()
             }
         }
 

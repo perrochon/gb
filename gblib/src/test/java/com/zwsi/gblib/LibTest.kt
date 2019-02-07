@@ -26,9 +26,7 @@ class LibTest {
         assertEquals(24, GBController.numberOfStars)
         assertEquals(4, GBController.numberOfRaces)
         assertEquals(5, GBController.numberOfStarsSmall)
-        assertEquals(4, GBController.numberOfRacesSmall)
         assertEquals(100, GBController.numberOfStarsBig)
-        assertEquals(4, GBController.numberOfRacesBig)
     }
 
     @Test

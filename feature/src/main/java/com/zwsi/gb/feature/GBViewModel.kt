@@ -109,7 +109,7 @@ class GBViewModel {
         fun fillViewRaceShips() {
             viewRaceShips.clear()
             for ((_, race) in viewRaces) {
-                viewRaceShips.put(race.uid, race.getRaceShipsList())
+                viewRaceShips.put(race.uid, race.raceShipsList)
             }
         }
 
