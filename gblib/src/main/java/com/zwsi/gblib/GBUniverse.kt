@@ -301,7 +301,7 @@ class GBUniverse {
         // last thing we do...
         turn++
 
-        SaveReload()
+        //SaveReload()
 
 
     }

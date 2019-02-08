@@ -53,7 +53,7 @@ class AutoPlayer() {
                 GBController.u.makeFactory(p, r)
                 GBLog.d("Ordered Factory")
             } else {
-                if (r.raceShipsList.size < 6) {
+                if (r.raceShipsList.size < 31) {
                     factory.let { GBController.u.makeCruiser(it) }
                     GBLog.d("Ordered Cruiser")
                 }
@@ -80,7 +80,7 @@ class AutoPlayer() {
                 GBController.u.makeFactory(p, r)
                 GBLog.d("Ordered Factory")
             } else {
-                if (r.raceShipsList.size < 6) {
+                if (r.raceShipsList.size < 31) {
                     factory.let { GBController.u.makeCruiser(it) }
                     GBLog.d("Ordered Cruiser")
                 }

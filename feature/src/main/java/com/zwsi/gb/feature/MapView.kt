@@ -223,15 +223,15 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         times["dPSF"] = measureNanoTime { drawPlanetSurface(canvas) }
 
-        times["dP&S"] = measureNanoTime { drawPlanetsAndShips(canvas) }
+        times["dP&s"] = measureNanoTime { drawPlanetsAndShips(canvas) }
 
-        times["dDSS"] = measureNanoTime { drawDeepSpaceShips(canvas) }
+        times["dDSs"] = measureNanoTime { drawDeepSpaceShips(canvas) }
 
         times["dSNa"] = measureNanoTime { drawStarNames(canvas) }
 
         times["dRac"] = measureNanoTime { drawRaces(canvas) }
 
-        times["dSho"] = measureNanoTime { drawShots(canvas) }
+        times["dsho"] = measureNanoTime { drawShots(canvas) }
 
         drawUntilStats = System.nanoTime() - startTimeNanos
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
@@ -373,7 +373,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private fun drawDeepSpaceShips(canvas: Canvas) {
         // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
         if (101 >= normScale) {
-            for (sh in GBViewModel.viewDeepSpaceShips) {
+            //for (sh in GBViewModel.viewDeepSpaceShips) {
+            for ((_,sh) in GBViewModel.viewShips) {
                 if (starVisible(
                         sh.loc.getLoc().x * uToSf,
                         sh.loc.getLoc().y * uToSf
@@ -486,32 +487,32 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         }
 
 
-                        for (sh in GBViewModel.viewOrbitShips[p.uid]!!.iterator()) {
-                            paint.alpha = 128
-                            paint.color = Color.parseColor(sh.race.color)
-                            drawShip(canvas, sh)
+//                        for (sh in GBViewModel.viewOrbitShips[p.uid]!!.iterator()) {
+//                            paint.alpha = 128
+//                            paint.color = Color.parseColor(sh.race.color)
+//                            drawShip(canvas, sh)
+//
+//                        }
 
-                        }
 
-
-                        if (2 > normScale) {
-
-                            // Draw Planet rectangle and ships in it...
-
-                            for (sh in GBViewModel.viewLandedShips[p.uid]!!.iterator()) {
-                                paint.alpha = 128
-                                paint.color = Color.parseColor(sh.race.color)
-                                drawShip(canvas, sh)
-                            }
-                        }
+//                        if (2 > normScale) {
+//
+//                            // Draw Planet rectangle and ships in it...
+//
+//                            for (sh in GBViewModel.viewLandedShips[p.uid]!!.iterator()) {
+//                                paint.alpha = 128
+//                                paint.color = Color.parseColor(sh.race.color)
+//                                drawShip(canvas, sh)
+//                            }
+//                        }
 
                     } // planet loop
 
-                    for (sh in GBViewModel.viewStarShips[s.uid]!!.iterator()) {
-                        paint.alpha = 255
-                        paint.color = Color.parseColor(sh.race.color)
-                        drawShip(canvas, sh)
-                    } // ships loop
+//                    for (sh in GBViewModel.viewStarShips[s.uid]!!.iterator()) {
+//                        paint.alpha = 255
+//                        paint.color = Color.parseColor(sh.race.color)
+//                        drawShip(canvas, sh)
+//                    } // ships loop
                 }// if star starVisible?
             }// star loop
         }
