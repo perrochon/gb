@@ -17,14 +17,13 @@ import java.util.*
 import kotlin.math.atan2
 
 @JsonClass(generateAdapter = true)
-data class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocation) {
+data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocation) {
     // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
 
     // FIXME Data class compiler generated functions like equal etc. only work for what's in the constructor, not the body.
     // Minimally, UID needs to get into the comparison, i.e. into the constructor...
 
     // properties that don't change over live time of ship
-    var uid: Int    // id in universe wide list
     var name: String // name, first letters of race and type, then id
     var type: String // type in printable form
     var speed: Int   // speed of ship // TODO Feature: insystem and hyperspeed.
@@ -47,7 +46,8 @@ data class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLo
     }
 
     init {
-        this.uid = u.getNextGlobalId()
+        // TODO For stars, planets, races, the caller ads to the u list. For ships, the ship ads. Problematic Inconsistency?
+        // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in allShips. Dangerous?
         u.allShips[uid]=this
         u.race(uidRace).raceShipsUIDList.add(this.uid)
 
@@ -62,7 +62,7 @@ data class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLo
                 loc.getStar()!!.starUidShipList.add(this.uid)
             }
             DEEPSPACE -> {
-                u.deepSpaceShips.add(this)
+                u.deepSpaceUidShips.add(this.uid)
             }
             else -> {
                 gbAssert("Bad Parameters for ship placement $loc", { false })
@@ -92,7 +92,7 @@ data class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLo
                 this.loc.getStar()!!.starUidShipList.remove(this.uid)
             }
             DEEPSPACE -> {
-                u.deepSpaceShips.remove(this)
+                u.deepSpaceUidShips.remove(this.uid)
             }
             else -> {
                 gbAssert("Bad Parameters for ship removement $loc", { false })
@@ -117,7 +117,7 @@ data class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLo
                 loc.getStar()!!.starUidShipList.add(this.uid)
             }
             DEEPSPACE -> {
-                u.deepSpaceShips.add(this)
+                u.deepSpaceUidShips.add(this.uid)
             }
             else -> {
                 gbAssert("Bad Parameters for ship placement $loc", { false })
@@ -157,7 +157,7 @@ data class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLo
                     this.loc.getStar()!!.starUidShipList.remove(this.uid)
                 }
                 DEEPSPACE -> {
-                    u.deepSpaceShips.remove(this)
+                    u.deepSpaceUidShips.remove(this.uid)
                 }
                 else -> {
                     gbAssert("Bad Parameters for ship removement $loc", { false })
@@ -165,7 +165,7 @@ data class GBShip(val id: Int, val idxtype: Int, val uidRace: Int, var loc: GBLo
             }
             u.race(uidRace).raceShipsUIDList.remove(this.uid)
             u.allShips.remove(this.uid)
-            u.deadShips.add(this)
+            u.deadShips[this.uid] = this
         }
     }
 

@@ -25,7 +25,7 @@ class GBViewModel {
         var viewRaces = u.getAllRacesMap()
 
         var viewShips = u.getAllShipsList()
-        var viewDeepSpaceShips = u.getDeepSpaceShipsList()
+        var viewDeepSpaceShips = u.deepSpaceShips
         var viewDeadShips = u.getDeadShipsList()
 
         var viewStarShips: HashMap<Int, List<GBShip>> = HashMap()
@@ -59,7 +59,7 @@ class GBViewModel {
                 // Ships
                 times["mAS"] = measureNanoTime { viewShips = u.getAllShipsList() }
 
-                times["mDS"] = measureNanoTime { viewDeepSpaceShips = u.getDeepSpaceShipsList() }
+                times["mDS"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }
 
                 times["m+S"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
 

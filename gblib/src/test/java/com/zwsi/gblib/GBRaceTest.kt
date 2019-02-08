@@ -8,6 +8,7 @@ import com.squareup.moshi.Moshi
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.io.File
 
 class GBRaceTest {
 
@@ -51,6 +52,7 @@ class GBRaceTest {
         val jsonAdapter = moshi.adapter<GBRace>(GBRace::class.java)
         val json = jsonAdapter.toJson(race1)
         val race2 = jsonAdapter.fromJson(json)
+
         assert(race1 == race2)
     }
 
@@ -60,9 +62,15 @@ class GBRaceTest {
         val moshi = Moshi.Builder().build()
 
         val gameInfo1 = GBSavedGame("Racelist only", raceList = u.allRaces)
+        //File("testoutput/GBRaceTestJSONMap.in.txt").writeText(gameInfo1.toString())
+
         val jsonAdapter2: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
-        val json3 = jsonAdapter2.toJson(gameInfo1)
-        val gameInfo2 = jsonAdapter2.lenient().fromJson(json3)
+        val json = jsonAdapter2.toJson(gameInfo1)
+        val gameInfo2 = jsonAdapter2.lenient().fromJson(json)
+
+        //File("testoutput/GBRaceTestJSONMap.json").writeText(json)
+        //File("testoutput/GBRaceTestJSONMap.out.txt").writeText(gameInfo2.toString())
+
         assert(gameInfo1 == gameInfo2)
     }
 }

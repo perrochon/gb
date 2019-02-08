@@ -36,7 +36,7 @@ class GBShipTest {
         assertTrue(universe.race(ship.uidRace).raceShipsUIDList.contains(ship.uid))
         assertTrue(universe.race(ship.uidRace).raceShipsList.contains(ship)) // This fails because list is cached
 
-        if (!universe.deadShips.contains(ship)) {
+        if (!universe.deadShips.contains(ship.uid)) {
 
             when (ship.loc.level) {
                 LANDED -> {
@@ -61,6 +61,7 @@ class GBShipTest {
         var found = 0
 
         GBLog.d("Looking all over for ship: " + ship.uid)
+
 
         for (sh in universe.deepSpaceShips) {  // TODO use "contains"
             if (sh.uid == ship.uid) {
@@ -90,7 +91,7 @@ class GBShipTest {
                 }
             }
         }
-        for (sh in universe.deadShips) {
+        for ((_, sh) in universe.deadShips) {
             if (sh.uid == ship.uid) {
                 found++
                 GBLog.d("Found among the dead: ship: " + sh.uid)
@@ -137,7 +138,7 @@ class GBShipTest {
                         found++
                 }
             }
-            for (sh in un.deadShips) {
+            for ((_, sh) in un.deadShips) {
                 if (sh.uid == ship.uid)
                     found++
             }
@@ -345,7 +346,7 @@ class GBShipTest {
 
     @Test
     fun JSONMap() {
-        val u = GBController.makeUniverse()
+        val u = GBController.makeSmallUniverse()
         val moshi = Moshi.Builder().build()
 
         // Need to make ships
@@ -356,14 +357,15 @@ class GBShipTest {
         }
 
         val gameInfo1 = GBSavedGame("Shiplist Only", shipList = u.allShips)
-        File("testoutput/GBSShipTestJSONMap.in.txt").writeText(gameInfo1.toString())
+        //File("testoutput/GBSShipTestJSONMap.in.txt").writeText(gameInfo1.toString())
+
         val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
         val json = jsonAdapter1.toJson(gameInfo1)
         val gameInfo2 = jsonAdapter1.lenient().fromJson(json)
 
-        File("testoutput/GBSShipTestJSONMap.json").writeText(json)
-        File("testoutput/GBSShipTestJSONMap.in.txt").writeText(gameInfo1.toString())
-        File("testoutput/GBSShipTestJSONMap.out.txt").writeText(gameInfo2.toString())
+        //File("testoutput/GBSShipTestJSONMap.map.txt").writeText(u.allShips.toString())
+        //File("testoutput/GBSShipTestJSONMap.json").writeText(json)
+        //File("testoutput/GBSShipTestJSONMap.out.txt").writeText(gameInfo2.toString())
 
         assert(gameInfo1 == gameInfo2)
     }

@@ -34,17 +34,24 @@ class GBUniverse {
     var allShips: MutableMap<Int, GBShip> =
         Collections.synchronizedMap(hashMapOf<Int, GBShip>()) // all ships, alive or dead
 
-    internal var deepSpaceShips: MutableList<GBShip> =
-        Collections.synchronizedList(arrayListOf()) // ships in transit between system
-    internal var deadShips: MutableList<GBShip> =
-        Collections.synchronizedList(arrayListOf()) // all dead ships in the Universe
+    // Deep Space Ships UID
+    var deepSpaceUidShips: MutableList<Int> =
+        Collections.synchronizedList(arrayListOf<Int>()) // UID of ships. Persistent
+
+    val deepSpaceShips: List<GBShip>
+        // PERF ?? Cache the list and only recompute if the hashcode changes.
+        get() = Collections.synchronizedList(deepSpaceUidShips.map { u.ship(it) })
+
+    // all dead ships in the Universe. Keep here so they don't get garbage collected
+    internal var deadShips: MutableMap<Int, GBShip> =
+        Collections.synchronizedMap(hashMapOf<Int, GBShip>())
 
     internal var lastAllShipsUpdate = -1
-    internal var lastDeepSpaceShipsUpdate = -1
-    internal var lastDeadShipsUpdate = -1
+//    internal var lastDeepSpaceShipsUpdate = -1
+      internal var lastDeadShipsUpdate = -1
     internal var allShipsList = allShips.values.toList()
-    internal var deepSpaceShipsList = deepSpaceShips.toList()
-    internal var deadShipsList = deadShips.toList()
+//    internal var deepSpaceShipsList = deepSpaceShips.toList()
+      internal var deadShipsList = deadShips.values.toList()
 
     fun star(uid: Int): GBStar {
         return allStars[uid]!!
@@ -70,7 +77,7 @@ class GBUniverse {
     var autoDo = false // FIXME Almost certain this shouldn't be in universe
     var turn = 0
 
-   // FIXME PERSISTENCE persist turn, which races are playing
+    // FIXME PERSISTENCE persist turn, which races are playing
 
     constructor(numberOfStars: Int) {
         this.numberOfStars = numberOfStars
@@ -114,17 +121,17 @@ class GBUniverse {
         return allShipsList
     }
 
-    fun getDeepSpaceShipsList(): List<GBShip> {
-        if (turn > lastDeepSpaceShipsUpdate) {
-            deepSpaceShipsList = deepSpaceShips.toList().filter { it.health > 0 }
-            lastDeepSpaceShipsUpdate = turn
-        }
-        return deepSpaceShipsList
-    }
+//    private fun getDeepSpaceShipsList(): List<GBShip> {
+//        if (turn > lastDeepSpaceShipsUpdate) {
+//            deepSpaceShipsList = deepSpaceShips.toList().filter { it.health > 0 }
+//            lastDeepSpaceShipsUpdate = turn
+//        }
+//        return deepSpaceShipsList
+//    }
 
     fun getDeadShipsList(): List<GBShip> {
         if (turn > lastDeadShipsUpdate) {
-            deadShipsList = deadShips.toList()
+            deadShipsList = deadShips.values.toList()
             lastDeadShipsUpdate = turn
         }
         return deadShipsList
@@ -295,11 +302,11 @@ class GBUniverse {
 //            sh.killShip()
 //        }
 
-        for ((_,sh) in allShips.filter { (_,ship) -> ship.health <= 0 }) {
+        for ((_, sh) in allShips.filter { (_, ship) -> ship.health <= 0 }) {
             sh.killShip()
         }
 
-        for ((_,sh) in allShips.filter { (_, ship) -> ship.health > 0 }) {
+        for ((_, sh) in allShips.filter { (_, ship) -> ship.health > 0 }) {
             sh.doShip()
         }
 
