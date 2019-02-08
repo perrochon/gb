@@ -614,7 +614,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         //FIXME PERSISTENCE Fix Trails and turn them back on after restore.
 
-        var trail = viewShipTrails.get(sh.uid)
+        //return
+
+        val trail = viewShipTrails.get(sh.uid)
 
         if (trail != null) {
             paint.strokeWidth = strokeWidth.toFloat() / 2
@@ -627,7 +629,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
             val iterate = trail.iterator()
 
-            var from = iterate.next()
+            val from = iterate.next()
             sP1.set(from.x * uToS, from.y * uToS)
             sourceToViewCoord(sP1, vP1)
 
