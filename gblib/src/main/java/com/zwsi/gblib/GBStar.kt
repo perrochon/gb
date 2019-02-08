@@ -7,6 +7,7 @@ package com.zwsi.gblib
 import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
 import java.util.*
+import kotlin.collections.HashSet
 
 @JsonClass(generateAdapter = true)
 data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: Int, val y: Int) {
@@ -22,16 +23,16 @@ data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: In
     }
 
     // Planets
-    var starUidPlanetList: MutableList<Int> =
-        Collections.synchronizedList(arrayListOf<Int>()) // UID of planets. Persistent
+    var starUidPlanetList: MutableSet<Int> =
+        Collections.synchronizedSet(HashSet<Int>()) // UID of planets. Persistent
 
     val starPlanetsList: List<GBPlanet>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
         get() = Collections.synchronizedList(starUidPlanetList.map { u.planet(it) })
 
     // Ships
-    internal var starUidShipList: MutableList<Int> =
-        Collections.synchronizedList(arrayListOf<Int>()) // UID of ships. Persistent
+    internal var starUidShipList: MutableSet<Int> =
+        Collections.synchronizedSet(HashSet<Int>()) // UID of ships. Persistent
 
     val starShipList: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.

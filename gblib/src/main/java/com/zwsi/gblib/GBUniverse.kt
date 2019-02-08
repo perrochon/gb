@@ -6,6 +6,7 @@ import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.rand
+import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import java.util.*
 import kotlin.math.PI
 
@@ -37,8 +38,8 @@ class GBUniverse {
         Collections.synchronizedMap(hashMapOf<Int, GBShip>()) // all ships, alive or dead
 
     // Deep Space Ships UID
-    var deepSpaceUidShips: MutableList<Int> =
-        Collections.synchronizedList(arrayListOf<Int>()) // UID of ships. Persistent
+    var deepSpaceUidShips: MutableSet<Int> =
+        Collections.synchronizedSet(HashSet<Int>()) // UID of ships. Persistent
 
     val deepSpaceShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
@@ -271,9 +272,10 @@ class GBUniverse {
 
         news.clear()
 
-        //GBScheduler.doSchedule()
-
-        // PERFORMANCE / MEMORY LEAK remove actions from before this turn
+        // FIXME only do this if other races are playing
+        AutoPlayer.playBeetle()
+        AutoPlayer.playImpi()
+        AutoPlayer.playTortoise()
 
         for (o in orders) {
             o.execute()
@@ -299,6 +301,12 @@ class GBUniverse {
         // last thing we do...
         turn++
 
+        SaveReload()
+
+
+    }
+
+    fun SaveReload() {
         //FIXME PERSISTENCE Great Persistence Experiment
         // Not ready just yet...
         val moshi = Moshi.Builder().build()
@@ -309,18 +317,20 @@ class GBUniverse {
 
         assert(gameInfo1 == gameInfo2)
 
-//        u.allStars = gameInfo2.starList!!
-//        u.allPlanets = gameInfo2.planetList!!
-//        u.allRaces = gameInfo2.raceList!!
+        u.allStars = gameInfo2.starList!!
+        u.allPlanets = gameInfo2.planetList!!
+        u.allRaces = gameInfo2.raceList!!
 
         // FIXME QUALITY Is this still wrapped in synchronized Collection?
-//        u.allShips = gameInfo2.shipList!!
-//        u.deepSpaceUidShips.clear()
-//        u.allShips.filterValues { it.health > 0 }.keys.forEach{u.deepSpaceUidShips.add(it)}
-//        u.deadShips.clear()
+        u.allShips = gameInfo2.shipList!!
+        u.deepSpaceUidShips.clear()
+        u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach{u.deepSpaceUidShips.add(it)}
+        u.deadShips.clear()
 
+        GBScheduler.scheduledActions.clear()
 
     }
+
 
     fun fireShots() { // TODO use filtered lists
         allShots.clear()

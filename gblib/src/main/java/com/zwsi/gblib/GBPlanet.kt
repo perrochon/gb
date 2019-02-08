@@ -36,16 +36,16 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     var sectors: Array<GBSector>
 
     // Landed Ships
-    var landedUidShips: MutableList<Int> =
-        Collections.synchronizedList(arrayListOf<Int>()) // UID of ships. Persistent
+    var landedUidShips: MutableSet<Int> =
+        Collections.synchronizedSet(HashSet<Int>()) // UID of ships. Persistent
 
     val landedShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
         get() = Collections.synchronizedList(landedUidShips.map { u.ship(it) })
 
     // Orbit Ships
-    var orbitUidShips: MutableList<Int> =
-        Collections.synchronizedList(arrayListOf<Int>()) // UID of ships. Persistent
+    var orbitUidShips: MutableSet<Int> =
+        Collections.synchronizedSet(HashSet<Int>()) // UID of ships. Persistent
 
     val orbitShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.

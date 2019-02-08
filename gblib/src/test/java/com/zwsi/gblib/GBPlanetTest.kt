@@ -16,7 +16,7 @@ class GBPlanetTest {
         assertTrue(planet.star.starPlanetsList.contains(planet))
         assertTrue(universe.allPlanets.containsValue(planet))
 
-        assertEquals(planet.sid,planet.star.starPlanetsList.indexOf(planet))
+        assertEquals(planet.sid,planet.star.starPlanetsList.indexOf(planet)) // Fails because now using set, not list...
         assertEquals(planet,universe.allPlanets[planet.uid])
 
         var count = 0

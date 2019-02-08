@@ -63,8 +63,8 @@ class GBController {
         //@Synchronized
         fun makeStuff() {
             playBeetle()
-            playImpi()
-            playTortoise()
+            //playImpi()  // FIXME
+            //playTortoise() // FIXME
         }
 
     }

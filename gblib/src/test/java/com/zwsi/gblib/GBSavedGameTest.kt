@@ -4,6 +4,7 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import org.junit.Test
 import java.io.File
 
@@ -97,61 +98,84 @@ class GBSavedGameTest {
         val u = GBController.makeSmallUniverse()
         val moshi = Moshi.Builder().build()
 
-        var info = "Universe After 1 turn"
-        var gameInfo1 = GBSavedGame(info, u)
-        File("testoutput/GBSavedGameTestPersistAndRestoreShips1.in.txt").writeText(gameInfo1.toString())
-
-        val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
-
-        var json = jsonAdapter.toJson(gameInfo1)
-        File("testoutput/GBSavedGameTestPersistAndRestoreShips1.json").writeText(json)
-        var gameInfo2 = jsonAdapter.lenient().fromJson(json)!!
-        File("testoutput/GBSavedGameTestPersistAndRestoreShips1.in.txt").writeText(gameInfo2.toString())
-        assert(gameInfo1 == gameInfo2)
-
+        // First Turn
         u.makeFactory(u.planet(0), u.race(0))
 
         GBController.doUniverse()
 
+        var info = "Universe After 1 turn"
+        var gameInfo1 = GBSavedGame(info, u)
+        File("testoutput/GBSavedGameTestPersistAndRestoreShips1.in.txt").writeText(
+            gameInfo1.toString().replace(
+                "GBStar",
+                "\nGBStar", true
+            ).replace(
+                "GBPlanet",
+                "\nGBPlanet", true
+            ).replace(
+                "GBShip",
+                "\nGBShip", true
+            ).replace(
+                "GBRace",
+                "\nGBRace", true
+            )
+        )
+        val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
+        var json = jsonAdapter.toJson(gameInfo1)
+        File("testoutput/GBSavedGameTestPersistAndRestoreShips1.json").writeText(json)
+        var gameInfo2 = jsonAdapter.lenient().fromJson(json)!!
+        File("testoutput/GBSavedGameTestPersistAndRestoreShips1.out.txt").writeText(gameInfo2.toString())
+        assert(gameInfo1 == gameInfo2)
+        u.allStars = gameInfo2.starList!!
+        u.allPlanets = gameInfo2.planetList!!
+        u.allRaces = gameInfo2.raceList!!
         u.allShips = gameInfo2.shipList!!
         u.deepSpaceUidShips.clear()
-        u.allShips.filterValues { it.health > 0 }.keys.forEach { u.deepSpaceUidShips.add(it) }
+        u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
         GBScheduler.scheduledActions.clear()
 
-        info = "Universe After 1 turn"
+        //Second Turn
+        val factory = u.allShips.filter { it.value.idxtype == GBData.FACTORY }.values.firstOrNull()!!
+        u.makeCruiser(factory)
+
+        GBController.doUniverse()
+
+        info = "Universe After 2 turn"
         gameInfo1 = GBSavedGame(info, u)
         File("testoutput/GBSavedGameTestPersistAndRestoreShips2.in.txt").writeText(gameInfo1.toString())
-
         json = jsonAdapter.toJson(gameInfo1)
         File("testoutput/GBSavedGameTestPersistAndRestoreShips2.json").writeText(json)
         gameInfo2 = jsonAdapter.lenient().fromJson(json)!!
-        File("testoutput/GBSavedGameTestPersistAndRestoreShips2.in.txt").writeText(gameInfo2.toString())
+        File("testoutput/GBSavedGameTestPersistAndRestoreShips2.out.txt").writeText(gameInfo2.toString())
         assert(gameInfo1 == gameInfo2)
-
-        GBController.doUniverse()
-
+        u.allStars = gameInfo2.starList!!
+        u.allPlanets = gameInfo2.planetList!!
+        u.allRaces = gameInfo2.raceList!!
         u.allShips = gameInfo2.shipList!!
         u.deepSpaceUidShips.clear()
-        u.allShips.filterValues { it.health > 0 }.keys.forEach { u.deepSpaceUidShips.add(it) }
+        u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
         GBScheduler.scheduledActions.clear()
 
-        info = "Universe After 1 turn"
+        // Third Turn
+        val cruiser = u.allShips.filter { it.value.idxtype == GBData.CRUISER }.values.firstOrNull()!!
+        cruiser.dest = GBLocation(u.planet(1), 0f, 0f)
+        GBController.doUniverse()
+
+        info = "Universe After 3 turn"
         gameInfo1 = GBSavedGame(info, u)
         File("testoutput/GBSavedGameTestPersistAndRestoreShips3.in.txt").writeText(gameInfo1.toString())
-
         json = jsonAdapter.toJson(gameInfo1)
         File("testoutput/GBSavedGameTestPersistAndRestoreShips3.json").writeText(json)
         gameInfo2 = jsonAdapter.lenient().fromJson(json)!!
-        File("testoutput/GBSavedGameTestPersistAndRestoreShips3.in.txt").writeText(gameInfo2.toString())
+        File("testoutput/GBSavedGameTestPersistAndRestoreShips3.out.txt").writeText(gameInfo2.toString())
         assert(gameInfo1 == gameInfo2)
-
-        GBController.doUniverse()
-
+        u.allStars = gameInfo2.starList!!
+        u.allPlanets = gameInfo2.planetList!!
+        u.allRaces = gameInfo2.raceList!!
         u.allShips = gameInfo2.shipList!!
         u.deepSpaceUidShips.clear()
-        u.allShips.filterValues { it.health > 0 }.keys.forEach { u.deepSpaceUidShips.add(it) }
+        u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
         GBScheduler.scheduledActions.clear()
-
 
     }
 
@@ -184,7 +208,7 @@ class GBSavedGameTest {
             u.deepSpaceUidShips.clear()
 
             // FIXME QUALITY Is this still wrapped in synchronized Collection?
-            u.allShips.filterValues { it.health > 0 }.keys.forEach { u.deepSpaceUidShips.add(it) }
+            u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
 
             u.deadShips.clear()
             // Not restoring any dead ships that we may have saved...
