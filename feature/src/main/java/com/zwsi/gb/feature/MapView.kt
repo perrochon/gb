@@ -289,7 +289,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 paint
             )
             canvas.drawText(
-                "Do:${(GBViewModel.timeLastTurn / 1000L).f(6)}μs|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average() / 1000).toInt().f(
+                "Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}ms|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average() / 1000).toInt().f(
                     4
                 )}μs",
                 8f,
@@ -611,6 +611,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             return
         }
 
+        //FIXME PERSISTENCE Fix Trails and turn them back on after restore.
+
+        return
+
         var trail = viewShipTrails.get(sh.uid)
 
         if (trail != null) {
@@ -618,7 +622,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             paint.strokeJoin = Paint.Join.ROUND
             paint.strokeCap = Cap.BUTT
             paint.color = trailColor
-            val alphaFade = paint.alpha / trail.size
+            val alphaFade = paint.alpha / (trail.size+1)
             paint.alpha = 0
 
 

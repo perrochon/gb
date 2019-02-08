@@ -9,24 +9,24 @@ import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.rand
-import com.zwsi.gblib.GBLog.gbAssert
 import com.zwsi.gblib.GBLocation.Companion.LANDED
+import com.zwsi.gblib.GBLog.gbAssert
 
 // FIXME PERSISTENCE. Pending orders need to be persistent, too. Maybe easier to make them GBInstructions as those need
 // to be persisted...
 
-class GBOrder  {
+class GBOrder {
 
     // TODO Lambdas? Or use the scheduler instead?
 
     var type = -1
     var uidShip = -1
     var uidRace = -1
-    lateinit var loc : GBLocation
+    lateinit var loc: GBLocation
 
     // Type Factory
     fun makeFactory(loc: GBLocation, race: GBRace) {
-        gbAssert{ type == -1 }
+        gbAssert { type == -1 }
         type = FACTORY
         uidRace = race.uid
         gbAssert { loc.level == LANDED }
@@ -81,7 +81,7 @@ class GBOrder  {
                 u.news.add("Built a cruiser on Helle.\n\n")
             }
             else ->
-                gbAssert ( "unknown order", {true} )
+                gbAssert("unknown order", { true })
         }
 
     }

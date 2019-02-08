@@ -41,7 +41,7 @@ object MissionController {
             return
         }
         if (missionStatus == 1) {
-            for (s in GBController.u.getAllShipsList()) {
+            for ((_, s) in GBController.u.getAllShipsMap()) {
                 if (s.idxtype == FACTORY) {
                     missionStatus++
                     return
@@ -49,7 +49,7 @@ object MissionController {
             }
         }
         if (missionStatus == 2) {
-            for (s in GBController.u.getAllShipsList()) {
+            for ((_, s) in GBController.u.getAllShipsMap()) {
                 if (s.idxtype == POD) {
                     missionStatus++
                     return
@@ -57,7 +57,7 @@ object MissionController {
             }
         }
         if (missionStatus == 3) {
-            for (s in GBController.u.getAllShipsList()) {
+            for ((_, s) in GBController.u.getAllShipsMap()) {
                 if (s.loc.level == ORBIT) {
                     missionStatus++
                     return
@@ -65,7 +65,7 @@ object MissionController {
             }
         }
         if (missionStatus == 4) {
-            for (s in GBController.u.getAllShipsList()) {
+            for ((_, s) in GBController.u.getAllShipsMap()) {
                 if ((s.loc.level == LANDED) && (s.loc.getPlanet()!!.uid > 0)) {
                     missionStatus++
                     return

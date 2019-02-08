@@ -1,5 +1,7 @@
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
@@ -49,7 +51,7 @@ class GBUniverse {
     internal var lastAllShipsUpdate = -1
 //    internal var lastDeepSpaceShipsUpdate = -1
       internal var lastDeadShipsUpdate = -1
-    internal var allShipsList = allShips.values.toList()
+    internal var allShipsList = allShips.toMap()
 //    internal var deepSpaceShipsList = deepSpaceShips.toList()
       internal var deadShipsList = deadShips.values.toList()
 
@@ -114,9 +116,9 @@ class GBUniverse {
     }
 
     // FIXME this is clumsy. Either use hascode, or just compute list every time.
-    fun getAllShipsList(): List<GBShip> {
+    fun getAllShipsMap(): Map<Int, GBShip> {
         if (turn > lastAllShipsUpdate) {
-            allShipsList = allShips.values.toList()
+            allShipsList = allShips.toMap()
             lastAllShipsUpdate = turn
         }
         return allShipsList
@@ -269,7 +271,7 @@ class GBUniverse {
 
         news.clear()
 
-        GBScheduler.doSchedule()
+        //GBScheduler.doSchedule()
 
         // PERFORMANCE / MEMORY LEAK remove actions from before this turn
 
@@ -297,8 +299,25 @@ class GBUniverse {
         // last thing we do...
         turn++
 
-        //Great Persistence Experiment
+        //FIXME PERSISTENCE Great Persistence Experiment
         // Not ready just yet...
+        val moshi = Moshi.Builder().build()
+        val gameInfo1 = GBSavedGame("The Real Thing", u)
+        val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
+        val json = jsonAdapter.toJson(gameInfo1)
+        val gameInfo2 = jsonAdapter.lenient().fromJson(json)!!
+
+        assert(gameInfo1 == gameInfo2)
+
+//        u.allStars = gameInfo2.starList!!
+//        u.allPlanets = gameInfo2.planetList!!
+//        u.allRaces = gameInfo2.raceList!!
+
+        // FIXME QUALITY Is this still wrapped in synchronized Collection?
+//        u.allShips = gameInfo2.shipList!!
+//        u.deepSpaceUidShips.clear()
+//        u.allShips.filterValues { it.health > 0 }.keys.forEach{u.deepSpaceUidShips.add(it)}
+//        u.deadShips.clear()
 
 
     }

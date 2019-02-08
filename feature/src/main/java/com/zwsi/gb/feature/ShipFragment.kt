@@ -40,8 +40,8 @@ class ShipFragment : Fragment() {
         val view: View? = inflater.inflate(R.layout.fragment_ship, container, false);
 
         // What is this fragment about, and make sure the fragment remembers
-        val shipID = arguments!!.getString("UID")!!.toInt()
-        val sh = GBViewModel.viewShips[shipID]
+        val uid = arguments!!.getString("UID")!!.toInt()
+        val sh = GBViewModel.viewShips[uid]
 
         if (sh != null) {
 

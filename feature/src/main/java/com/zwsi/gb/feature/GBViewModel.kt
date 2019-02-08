@@ -24,7 +24,7 @@ class GBViewModel {
         var viewPlanets = u.getAllPlanetsMap()
         var viewRaces = u.getAllRacesMap()
 
-        var viewShips = u.getAllShipsList()
+        var viewShips = u.getAllShipsMap()
         var viewDeepSpaceShips = u.deepSpaceShips
         var viewDeadShips = u.getDeadShipsList()
 
@@ -57,7 +57,7 @@ class GBViewModel {
                 // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
 
                 // Ships
-                times["mAS"] = measureNanoTime { viewShips = u.getAllShipsList() }
+                times["mAS"] = measureNanoTime { viewShips = u.getAllShipsMap() }
 
                 times["mDS"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }
 
@@ -115,8 +115,8 @@ class GBViewModel {
 
         fun fillViewShipTrails() {
             viewShipTrails.clear()
-            for (sh in viewShips.filter { it.health > 0 }) {
-                viewShipTrails.put(sh.uid, sh.getTrailList())
+            for ((_, s) in viewShips.filterValues{ it.health > 0 }) {
+                viewShipTrails.put(s.uid, s.getTrailList())
             }
         }
 
