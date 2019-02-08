@@ -331,7 +331,6 @@ class GBUniverse {
 
     }
 
-
     fun fireShots() { // TODO use filtered lists
         allShots.clear()
 

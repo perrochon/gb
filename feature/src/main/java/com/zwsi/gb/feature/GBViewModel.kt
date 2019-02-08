@@ -57,23 +57,29 @@ class GBViewModel {
                 // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
 
                 // Ships
-                times["mAS"] = measureNanoTime { viewShips = u.getAllShipsMap() }
+                times["mAS"] = measureNanoTime { viewStars= u.allStars }
 
-                times["mDS"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }
+                times["mAP"] = measureNanoTime { viewPlanets = u.allPlanets }
 
-                times["m+S"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
+                times["mAR"] = measureNanoTime { viewRaces = u.allRaces }
 
-                times["mSS"] = measureNanoTime { fillViewStarShips() }
+                times["mAs"] = measureNanoTime { viewShips = u.getAllShipsMap() }
 
-                times["mOS"] = measureNanoTime { fillViewOrbitShips() }
+                times["mDs"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }
 
-                times["mLS"] = measureNanoTime { fillViewLandedShips() }
+                times["m+s"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
 
-                times["mRS"] = measureNanoTime { fillViewRaceShips() }
+                times["mSs"] = measureNanoTime { fillViewStarShips() }
 
-                times["mST"] = measureNanoTime { fillViewShipTrails() }
+                times["mOs"] = measureNanoTime { fillViewOrbitShips() }
 
-                times["mSh"] = measureNanoTime { viewShots = u.getAllShotsList() }
+                times["mLs"] = measureNanoTime { fillViewLandedShips() }
+
+                times["mRs"] = measureNanoTime { fillViewRaceShips() }
+
+                times["mSt"] = measureNanoTime { fillViewShipTrails() }
+
+                times["msh"] = measureNanoTime { viewShots = u.getAllShotsList() }
 
                 timeLastTurn = GBController.elapsedTimeLastUpdate
             }
