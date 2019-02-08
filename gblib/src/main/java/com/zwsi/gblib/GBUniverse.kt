@@ -113,6 +113,7 @@ class GBUniverse {
         return allRaces.toMap()
     }
 
+    // FIXME this is clumsy. Either use hascode, or just compute list every time.
     fun getAllShipsList(): List<GBShip> {
         if (turn > lastAllShipsUpdate) {
             allShipsList = allShips.values.toList()
