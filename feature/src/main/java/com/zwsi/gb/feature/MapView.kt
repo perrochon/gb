@@ -614,8 +614,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         //FIXME PERSISTENCE Fix Trails and turn them back on after restore.
 
-        return
-
         var trail = viewShipTrails.get(sh.uid)
 
         if (trail != null) {

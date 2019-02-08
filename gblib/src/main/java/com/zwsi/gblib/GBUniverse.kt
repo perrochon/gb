@@ -43,7 +43,7 @@ class GBUniverse {
 
     val deepSpaceShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
-        get() = Collections.synchronizedList(deepSpaceUidShips.map { u.ship(it) })
+        get() = Collections.synchronizedList(deepSpaceUidShips.map { u.ship(it) }) // FIXME 2/8/19 on updates java.util.ConcurrentModificationException
 
     // all dead ships in the Universe. Keep here so they don't get garbage collected
     internal var deadShips: MutableMap<Int, GBShip> =
