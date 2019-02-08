@@ -98,9 +98,14 @@ class GBSavedGameTest {
         val moshi = Moshi.Builder().build()
         val turns = 5
 
+
         for (i in 1..turns) {
-            AutoPlayer.playBeetle()
             GBController.doUniverse()
+
+            // FIXME Need to run this inside until Autoplayer refactor.
+            AutoPlayer.playBeetle()
+            AutoPlayer.playImpi()
+            AutoPlayer.playTortoise()
 
             val info = "Universe After $i turns"
             val gameInfo1 = GBSavedGame(info, shipList = u.allShips)
@@ -115,7 +120,8 @@ class GBSavedGameTest {
 
             u.deepSpaceUidShips.clear()
 
-            // FIXME Re-create DeepSpaceShip
+            // FIXME QUALITY Is this still wrapped in synchronized Collection?
+            u.allShips.filterValues { it.health > 0 }.keys.forEach{u.deepSpaceUidShips.add(it)}
 
             u.deadShips.clear()
             // Not restoring any dead ships that we may have saved...
