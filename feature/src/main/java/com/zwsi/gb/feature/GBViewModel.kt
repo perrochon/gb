@@ -69,7 +69,7 @@ class GBViewModel {
 
                     times["mAs"] = measureNanoTime { viewShips = u.getAllShipsMap() }
 
-                    //times["mDs"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }  // FIXME PERSISTENCE
+                    times["mDs"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }  // FIXME PERSISTENCE
 
                     times["m+s"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
 
@@ -90,12 +90,12 @@ class GBViewModel {
             }
             timeLastTurn = GBController.elapsedTimeLastUpdate
 
-
             /*
             Note: You must call the setValue(T) method to update the LiveData object from the main thread.
             If the code is executed in a worker thread, you can use the postValue(T) method instead
             to update the LiveData object.
              */
+            // FIXME why is this not setValue
             currentTurn.postValue(u.turn)
 
         }

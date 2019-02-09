@@ -228,7 +228,7 @@ data class GBLocation(
             LANDED -> return u.planet(uidRef).star
             ORBIT -> return u.planet(uidRef).star
             SYSTEM -> return u.star(uidRef)
-            DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for star.", false)
+            DEEPSPACE -> return null //gbAssert("GBLocation: Location is DEEPSPACE, but asking for star.", false)
             else -> gbAssert("GBLocation: Location is Limbo, but asking for star.", false)
         }
         return null

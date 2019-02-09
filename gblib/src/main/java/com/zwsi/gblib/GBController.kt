@@ -65,7 +65,7 @@ class GBController {
 
         // FIXME I think we can get rid of some of the syncs now. Commented out 2/5/2019
         fun makeStuff() {
-            playBeetle()
+            //playBeetle()
             //playImpi()  // FIXME
             //playTortoise() // FIXME
         }

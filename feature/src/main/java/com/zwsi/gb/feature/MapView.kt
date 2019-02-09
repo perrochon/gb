@@ -11,9 +11,12 @@ import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gblib.GBController.Companion.u
+import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
+import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
 import com.zwsi.gblib.GBData.Companion.POD
+import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBVector
@@ -114,8 +117,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         screenHeightDp = resources.displayMetrics.heightPixels
         focusSize = min(screenHeightDp / 2, screenWidthDp)
 
-        zoomLevelPlanet = focusSize / 40f
-        zoomLevelStar = focusSize / 700f
+        zoomLevelPlanet = focusSize / PlanetaryOrbit /  40f
+        zoomLevelStar = focusSize / MaxSystemOrbit / 40f
 
 
         paint.isAntiAlias = true
