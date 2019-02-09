@@ -545,9 +545,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         paint.strokeWidth = strokeWidth.toFloat()
 
-        if (sh.health == 0) {
+        if (sh.health <= 0) {
             paint.color = deadColor
         }
+        // FIXME: Pods turn white when entering orbit. I think they turn dead, and we currently draw all ships, instead
+        // of orbit ships, so we get the death flash of the white ones. Maybe this is a feature...
 
         sP1.set(sh.loc.getLoc().x * uToS, sh.loc.getLoc().y * uToS)
         sourceToViewCoord(sP1, vP1)

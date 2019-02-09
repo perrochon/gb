@@ -65,7 +65,7 @@ class GBViewModel {
 
                 times["mAs"] = measureNanoTime { viewShips = u.getAllShipsMap() }
 
-                times["mDs"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }
+                //times["mDs"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }  // FIXME PERSISTENCE
 
                 times["m+s"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
 

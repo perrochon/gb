@@ -44,6 +44,11 @@ class GBUniverse(internal var numberOfStars: Int) {
         // PERF ?? Cache the list and only recompute if the hashcode changes.
         get() = Collections.synchronizedList(deepSpaceUidShips.map { u.ship(it) })
     // FIXME 2/8/19 on updates java.util.ConcurrentModificationException xx
+    // This is curious, because we are not really using this list, other than getting it's size.
+    // Also it only seems to happen during drags/zooms, which is where we are getting the size...
+    // We had (have?) similar issues with star ship lists. Once we started drawing all ships all the time
+    // we no longer accessed the star ship lists, or orbit/landed ship lists. That error went away
+    //
 
     // all dead ships in the Universe. Keep here so they don't get garbage collected
     internal var deadShips: MutableMap<Int, GBShip> =
