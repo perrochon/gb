@@ -1,8 +1,6 @@
 # Roadmap
 
-#Show Stopping
-
-#Regression
+# Regression
 
 ## Code Quality
 ### Gating for Mission 2 (don't want to propagate bad code more)

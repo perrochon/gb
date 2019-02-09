@@ -1,5 +1,7 @@
 :tada: GB: A Galactic Bloodshed (and others) inspired 4x game for mobile :tada:
 
+This tutorial is at: https://github.com/perrochon/gb/blob/master/TUTORIAL.md
+
 ## Overview
 
 Andromeda Rising, aka Galactic Bloodshed, is a turn-based strategy game. As the leader of your
@@ -26,7 +28,7 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 * Single click on planet to open planet detail window
 * Click on "Make Factory" to order a factory. 
 
-**Note:** The game is turn based, so nothing happens yet. You first need to end your turn
+**Note:** The game is turn based, so nothing happens at this point. You first need to end your turn
 
 * Click on "Do" to finish the turn. You see factory pop up on your home planet.
 * Zoom into your home planet and click on the factory
@@ -47,3 +49,9 @@ exploring. Beware of the beetles.
 * Send cruisers to some of the other systems, or wait for the beetles to arrive. The cruisers will shoot down 
 pods (or enemy cruisers) if they are in reach.
 
+#FAQ
+
+*Why can't I shoot at ships passing through a star system? Ships not entering/leaving a system are either way above
+or below in the galactic planet. It may look like they fly through the system, but they are way above. One way to tell
+if a Pod is in-system is to watch it's trail. If it's straight, it may be heading elsewhere. If it curves toward a planet
+then it's in-system.
