@@ -23,11 +23,10 @@ data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: In
     }
 
     // Planets
-    var starUidPlanetList: MutableSet<Int> =
-        Collections.synchronizedSet(HashSet<Int>()) // UID of planets. Persistent
+    var starUidPlanetList: MutableSet<Int> = Collections.synchronizedSet(HashSet<Int>()) // UID of planets. Persistent
 
     val starPlanetsList: List<GBPlanet>
-        // PERF ?? Cache the list and only recompute if the hashcode changes.
+        // PERF ?? Cache the list and only recompute if the hashcode changes. Which it pretty much never does...
         get() = Collections.synchronizedList(starUidPlanetList.map { u.planet(it) })
 
     // Ships

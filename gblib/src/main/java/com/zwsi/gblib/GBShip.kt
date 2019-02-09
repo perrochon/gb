@@ -36,19 +36,16 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
         get() = u.race(uidRace)
 
     // TODO These are a cool but nice to have feature. They are also an app feature more than a lib feature
-    // They are irrelevant for text based UI. But persistent in the client is even worse :-)
-    @Transient
-    internal val trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
+    // They are irrelevant for text based UI. But persistence in the client is problematic if an update is missed
+    var trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
 
-    fun getTrailList(): List<GBxy> {
-        // PERF ?? Cache the list and only recompute if the hashcode changes.
-        return trails.toList()
-    }
+    val trailList: List<GBxy>
+        get() = trails.toList()
 
     init {
         // TODO For stars, planets, races, the caller ads to the u list. For ships, the ship ads. Problematic Inconsistency?
         // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in allShips. Dangerous?
-        u.allShips[uid]=this
+        u.allShips[uid] = this
         u.race(uidRace).raceShipsUIDList.add(this.uid)
 
         when (loc.level) {

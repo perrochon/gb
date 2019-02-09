@@ -103,7 +103,7 @@ data class GBLocation(
         y = r * sin(t)
     ) {
         // These asserts may also catch mistaken use of Float (x,y).
-        gbAssert("Distance to star too big", r <= 1.2f * SystemBoundary)
+        gbAssert("Distance to star too big: $r > 1.2 * $SystemBoundary", r <= 1.2f * SystemBoundary)
     }
 
     // TODO  figure out how to not need boolean to set flag in constructor

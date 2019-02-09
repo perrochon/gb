@@ -122,7 +122,7 @@ class GBViewModel {
         fun fillViewShipTrails() {
             viewShipTrails.clear()
             for ((_, s) in viewShips.filterValues{ it.health > 0 }) {
-                viewShipTrails.put(s.uid, s.getTrailList())
+                viewShipTrails.put(s.uid, s.trailList)
             }
         }
 

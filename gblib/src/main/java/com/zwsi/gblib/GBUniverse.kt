@@ -10,7 +10,7 @@ import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import java.util.*
 import kotlin.math.PI
 
-class GBUniverse {
+class GBUniverse(internal var numberOfStars: Int) {
 
     internal var nextGlobalID = 1000
 
@@ -18,7 +18,6 @@ class GBUniverse {
         return nextGlobalID++
     }
 
-    internal var numberOfStars: Int
     internal var numberOfRaces: Int
 
     // TODO Concurrency - for now these are all synchronized. Expensive, but may be safer until we figure out threads
@@ -43,7 +42,8 @@ class GBUniverse {
 
     val deepSpaceShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
-        get() = Collections.synchronizedList(deepSpaceUidShips.map { u.ship(it) }) // FIXME 2/8/19 on updates java.util.ConcurrentModificationException
+        get() = Collections.synchronizedList(deepSpaceUidShips.map { u.ship(it) })
+    // FIXME 2/8/19 on updates java.util.ConcurrentModificationException xx
 
     // all dead ships in the Universe. Keep here so they don't get garbage collected
     internal var deadShips: MutableMap<Int, GBShip> =
@@ -81,12 +81,6 @@ class GBUniverse {
     var turn = 0
 
     // FIXME PERSISTENCE persist turn, which races are playing
-
-    constructor(numberOfStars: Int) {
-        this.numberOfStars = numberOfStars
-        this.numberOfRaces = GBController.numberOfRaces
-
-    }
 
     val universeMaxX: Int
         get() = GBData.UniverseMaxX
@@ -178,7 +172,7 @@ class GBUniverse {
             allStars[uidStar] =
                 GBStar(getNextGlobalId(), uidStar, numberOfPlanets, coordinates.first, coordinates.second)
 
-            val orbitDist: Float = GBData.MaxPlanetOrbit.toFloat() / numberOfPlanets.toFloat()
+            val orbitDist: Float = GBData.MaxSystemOrbit.toFloat() / numberOfPlanets.toFloat()
 
             for (sidPlanet in 0 until numberOfPlanets) {
                 val loc =
@@ -301,7 +295,7 @@ class GBUniverse {
         // last thing we do...
         turn++
 
-        //SaveReload()
+        SaveReload()
 
 
     }
@@ -450,6 +444,10 @@ class GBUniverse {
     fun landPopulation(p: GBPlanet, uidRace: Int, number: Int) {
         GBLog.d("universe: Landing 100 of " + race(uidRace).name + " on " + p.name + "")
         p.landPopulationOnEmptySector(race(uidRace), number)
+    }
+
+    init {
+        this.numberOfRaces = GBController.numberOfRaces
     }
 
 
