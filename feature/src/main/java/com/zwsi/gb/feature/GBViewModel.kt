@@ -2,6 +2,7 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.MutableLiveData
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBController.Companion.lock
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBxy
@@ -18,7 +19,7 @@ class GBViewModel {
     companion object {
 
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
-        val currentTurn by lazy {MutableLiveData<Int>()}
+        val currentTurn by lazy { MutableLiveData<Int>() }
 
         var viewStars = u.getAllStarsMap()
         var viewPlanets = u.getAllPlanetsMap()
@@ -53,42 +54,50 @@ class GBViewModel {
             // This is (currently) called from the worker thread. So need to call postValue on the LiveData
             timeModelUpdate = measureNanoTime {
 
-                // Not updating stars and planets as those lists don't change
-                // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
+                lock.lock();  // block until condition holds
+                try {
+                    // Not updating stars and planets as those lists don't change
+                    // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
+                    // If we save/reload stars each time, we need to get the new versions.
 
-                // Ships
-                times["mAS"] = measureNanoTime { viewStars= u.allStars }
+                    // Ships
+                    times["mAS"] = measureNanoTime { viewStars = u.allStars }
 
-                times["mAP"] = measureNanoTime { viewPlanets = u.allPlanets }
+                    times["mAP"] = measureNanoTime { viewPlanets = u.allPlanets }
 
-                times["mAR"] = measureNanoTime { viewRaces = u.allRaces }
+                    times["mAR"] = measureNanoTime { viewRaces = u.allRaces }
 
-                times["mAs"] = measureNanoTime { viewShips = u.getAllShipsMap() }
+                    times["mAs"] = measureNanoTime { viewShips = u.getAllShipsMap() }
 
-                //times["mDs"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }  // FIXME PERSISTENCE
+                    //times["mDs"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }  // FIXME PERSISTENCE
 
-                times["m+s"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
+                    times["m+s"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
 
-                times["mSs"] = measureNanoTime { fillViewStarShips() }
+                    times["mSs"] = measureNanoTime { fillViewStarShips() }
 
-                times["mOs"] = measureNanoTime { fillViewOrbitShips() }
+                    times["mOs"] = measureNanoTime { fillViewOrbitShips() }
 
-                times["mLs"] = measureNanoTime { fillViewLandedShips() }
+                    times["mLs"] = measureNanoTime { fillViewLandedShips() }
 
-                times["mRs"] = measureNanoTime { fillViewRaceShips() }
+                    times["mRs"] = measureNanoTime { fillViewRaceShips() }
 
-                times["mSt"] = measureNanoTime { fillViewShipTrails() }
+                    times["mSt"] = measureNanoTime { fillViewShipTrails() }
 
-                times["msh"] = measureNanoTime { viewShots = u.getAllShotsList() }
-
-                timeLastTurn = GBController.elapsedTimeLastUpdate
+                    times["msh"] = measureNanoTime { viewShots = u.getAllShotsList() }
+                } finally {
+                    lock.unlock()
+                }
             }
+            timeLastTurn = GBController.elapsedTimeLastUpdate
 
-            currentTurn.postValue(u.turn)
 
             /*
-            Note: You must call the setValue(T) method to update the LiveData object from the main thread. If the code is executed in a worker thread, you can use the postValue(T) method instead to update the LiveData object.
+            Note: You must call the setValue(T) method to update the LiveData object from the main thread.
+            If the code is executed in a worker thread, you can use the postValue(T) method instead
+            to update the LiveData object.
              */
+            currentTurn.postValue(u.turn)
+
         }
 
         fun fillViewStarShips() {
@@ -121,7 +130,7 @@ class GBViewModel {
 
         fun fillViewShipTrails() {
             viewShipTrails.clear()
-            for ((_, s) in viewShips.filterValues{ it.health > 0 }) {
+            for ((_, s) in viewShips.filterValues { it.health > 0 }) {
                 viewShipTrails.put(s.uid, s.trailList)
             }
         }

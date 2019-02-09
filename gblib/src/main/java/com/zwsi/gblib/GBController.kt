@@ -3,11 +3,14 @@ package com.zwsi.gblib
 import com.zwsi.gblib.AutoPlayer.Companion.playBeetle
 import com.zwsi.gblib.AutoPlayer.Companion.playImpi
 import com.zwsi.gblib.AutoPlayer.Companion.playTortoise
+import java.util.concurrent.locks.ReentrantLock
 import kotlin.system.measureNanoTime
 
 class GBController {
 
     companion object {
+
+        val lock = ReentrantLock()
 
         val numberOfStars = 24
         val numberOfRaces = 4   // <= what we have in GBData. >= 4 or tests will fail
@@ -31,7 +34,6 @@ class GBController {
                 return _u ?: throw AssertionError("Set to null by another thread")
             }
 
-        @Synchronized
         fun makeUniverse(stars: Int = numberOfStars): GBUniverse {
             _u = GBUniverse(stars)
             _u!!.makeStarsAndPlanets()
@@ -41,26 +43,27 @@ class GBController {
             return _u!!
         }
 
-        @Synchronized
         fun makeSmallUniverse(): GBUniverse {
             return makeUniverse(numberOfStarsSmall)
         }
 
-        @Synchronized
         fun makeBigUniverse(): GBUniverse {
             return makeUniverse(numberOfStarsBig)
         }
 
-        @Synchronized
         fun doUniverse() {
             GBLog.i("Runing Game Turn ${_u!!.turn}")
-            elapsedTimeLastUpdate = measureNanoTime {
-                _u!!.doUniverse()
+            lock.lock();
+            try {
+                elapsedTimeLastUpdate = measureNanoTime {
+                    _u!!.doUniverse()
+                }
+            } finally {
+                lock.unlock()
             }
         }
 
         // FIXME I think we can get rid of some of the syncs now. Commented out 2/5/2019
-        //@Synchronized
         fun makeStuff() {
             playBeetle()
             //playImpi()  // FIXME

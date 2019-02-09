@@ -300,7 +300,7 @@ class GBUniverse(internal var numberOfStars: Int) {
         // last thing we do...
         turn++
 
-        SaveReload()
+        //SaveReload()
 
 
     }

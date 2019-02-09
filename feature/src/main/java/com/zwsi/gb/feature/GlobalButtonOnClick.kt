@@ -106,7 +106,10 @@ class GlobalButtonOnClick {
             val planet: GBPlanet = planetFragment.tag as GBPlanet
 
             val universe = GBController.u
-            universe.makeFactory(planet, GBViewModel.viewRaces.toList().component1().second) // TODO Find Population and use planetOwner...
+            universe.makeFactory(
+                planet,
+                GBViewModel.viewRaces.toList().component1().second
+            ) // TODO Find Population and use planetOwner...
 
             val message = "Ordered Factory on " + planet.name
 
@@ -133,7 +136,7 @@ class GlobalButtonOnClick {
             imageView.animateScaleAndCenter(
                 imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
                     star.loc.getLoc().x * imageView.uToS,
-                    (star.loc.getLoc().y-17f) * imageView.uToS
+                    (star.loc.getLoc().y - 17f) * imageView.uToS
                 )
             )!!
                 .withDuration(500)
@@ -161,7 +164,7 @@ class GlobalButtonOnClick {
             imageView.animateScaleAndCenter(
                 imageView.zoomLevelPlanet, PointF(
                     planet.loc.getLoc().x * imageView.uToS,
-                    (planet.loc.getLoc().y-1) * imageView.uToS
+                    (planet.loc.getLoc().y - 1) * imageView.uToS
                 )
             )!!
                 .withDuration(500)
@@ -187,7 +190,7 @@ class GlobalButtonOnClick {
             imageView.animateScaleAndCenter(
                 imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
                     u.star(planet.uidStar).loc.getLoc().x * imageView.uToS,
-                    (u.star(planet.uidStar).loc.getLoc().y-17f) * imageView.uToS
+                    (u.star(planet.uidStar).loc.getLoc().y - 17f) * imageView.uToS
                 )
             )!!
                 .withDuration(500)
@@ -247,16 +250,13 @@ class GlobalButtonOnClick {
             imageView.animateScaleAndCenter(
                 imageView.zoomLevelPlanet, PointF( // FEATURE Quality replace this with a constant from the view
                     ship.loc.getLoc().x * imageView.uToS,
-                    (ship.loc.getLoc().y-1f) * imageView.uToS
+                    (ship.loc.getLoc().y - 1f) * imageView.uToS
                 )
             )!!
                 .withDuration(500)
                 .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                 .withInterruptible(false)
                 .start()
-
-
-
 
 
         }
@@ -315,7 +315,8 @@ class GlobalButtonOnClick {
                     planet = p
             }
 
-            Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT)
+                .show()
 
             if (ship.idxtype == GBData.POD) {
                 GBController.u.flyShipLanded(ship, planet)
