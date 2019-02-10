@@ -54,7 +54,7 @@ class GBViewModel {
             // This is (currently) called from the worker thread. So need to call postValue on the LiveData
             timeModelUpdate = measureNanoTime {
 
-                lock.lock();  // block until condition holds
+                lock.lock();  // lock for copying over data into view
                 try {
                     // Not updating stars and planets as those lists don't change
                     // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location

@@ -8,7 +8,9 @@ import android.view.View
 import android.widget.Spinner
 import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gblib.*
+import com.zwsi.gblib.GBController.Companion.lock
 import com.zwsi.gblib.GBController.Companion.u
 
 class GlobalButtonOnClick {
@@ -274,7 +276,12 @@ class GlobalButtonOnClick {
             val message = "Ordered Pod in Factory " + ship.name
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-            GBController.u.makePod(ship)
+            lock.lock(); // makePod
+            try {
+                GBController.u.makePod(ship)
+            } finally {
+                lock.unlock()
+            }
 
         }
 
@@ -291,7 +298,12 @@ class GlobalButtonOnClick {
             val message = "Ordered Cruiser in Factory " + ship.name
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-            GBController.u.makeCruiser(ship)
+            lock.lock(); // makeCruiser
+            try {
+                GBController.u.makeCruiser(ship)
+            } finally {
+                lock.unlock()
+            }
 
         }
 
@@ -305,12 +317,11 @@ class GlobalButtonOnClick {
 
             val ship = view.getTag(R.id.TAG_FLYTO_SHIP) as GBShip // TODO Hardcoded keys, what can go wrong
 
-
-            var spinner = view.getTag(R.id.TAG_FLYTO_SPINNER) as Spinner
-            var destination = spinner.selectedItem.toString()
+            val spinner = view.getTag(R.id.TAG_FLYTO_SPINNER) as Spinner
+            val destination = spinner.selectedItem.toString()
             var planet: GBPlanet? = null
 
-            for ((_, p) in GBController.u.allPlanets) { // TODO this is wasteful. Need to refactor to locations
+            for ((_, p) in viewPlanets) { // TODO this is wasteful. Need to refactor to locations
                 if (p.name == destination)
                     planet = p
             }
@@ -318,10 +329,15 @@ class GlobalButtonOnClick {
             Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT)
                 .show()
 
-            if (ship.idxtype == GBData.POD) {
-                GBController.u.flyShipLanded(ship, planet)
-            } else {
-                GBController.u.flyShipOrbit(ship, planet)
+            lock.lock(); // FlyTo
+            try {
+                if (ship.idxtype == GBData.POD) {
+                    GBController.u.flyShipLanded(ship, planet)
+                } else {
+                    GBController.u.flyShipOrbit(ship, planet)
+                }
+            } finally {
+                lock.unlock()
             }
         }
 

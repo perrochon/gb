@@ -24,35 +24,25 @@ class GBUniverse(internal var numberOfStars: Int) {
 
     // Stars, Planets, Races are immutable lists (once built) of immutable elements. Things that do change are e.g. locations of things
     // exposing these (for now)
-    var allStars: MutableMap<Int, GBStar> =
-        Collections.synchronizedMap(hashMapOf<Int, GBStar>()) // all the stars
-    var allPlanets: MutableMap<Int, GBPlanet> =
-        Collections.synchronizedMap(hashMapOf<Int, GBPlanet>()) // all the planets
-    var allRaces: MutableMap<Int, GBRace> =
-        Collections.synchronizedMap(hashMapOf<Int, GBRace>()) // all the races
+    // TODO: With Locks, we should not need synchronized collections anymore,
+    // e.g. Collections.synchronizedMap(hashMapOf<Int, GBStar>())
+    var allStars: MutableMap<Int, GBStar> =  hashMapOf<Int, GBStar>() // all the stars
+    var allPlanets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>() // all the planets
+    var allRaces: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>() // all the races
 
     // List of ships. Lists are mutable and change during updates (dead ships...)
     // Not exposed to the app
-    var allShips: MutableMap<Int, GBShip> =
-        Collections.synchronizedMap(hashMapOf<Int, GBShip>()) // all ships, alive or dead
+    var allShips: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>() // all ships, alive or dead
 
     // Deep Space Ships UID
-    var deepSpaceUidShips: MutableSet<Int> =
-        Collections.synchronizedSet(HashSet<Int>()) // UID of ships. Persistent
+    var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
 
     val deepSpaceShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
-        get() = Collections.synchronizedList(deepSpaceUidShips.map { u.ship(it) })
-    // FIXME 2/8/19 on updates java.util.ConcurrentModificationException xx
-    // This is curious, because we are not really using this list, other than getting it's size.
-    // Also it only seems to happen during drags/zooms, which is where we are getting the size...
-    // We had (have?) similar issues with star ship lists. Once we started drawing all ships all the time
-    // we no longer accessed the star ship lists, or orbit/landed ship lists. That error went away
-    //
+        get() = deepSpaceUidShips.map { u.ship(it) }
 
     // all dead ships in the Universe. Keep here so they don't get garbage collected
-    internal var deadShips: MutableMap<Int, GBShip> =
-        Collections.synchronizedMap(hashMapOf<Int, GBShip>())
+    internal var deadShips: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>()
 
     internal var lastAllShipsUpdate = -1
 //    internal var lastDeepSpaceShipsUpdate = -1
@@ -300,7 +290,8 @@ class GBUniverse(internal var numberOfStars: Int) {
         // last thing we do...
         turn++
 
-        SaveReload()
+        //SaveReload()
+        // PERF without reload single digit ms update time, with reload low 100's ms update time.
 
 
     }

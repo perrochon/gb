@@ -10,6 +10,10 @@ class GBController {
 
     companion object {
 
+        // gblib is not thread safe. lock is used to synchronize access.
+        // Currently only locking for access to collections (e.g. for copying to ViewModel) which throw exceptions
+        // Not locking for reading stars, ships, planets and such. Stale information is ok to read.
+        // TODO QUALITY Review all the locking
         val lock = ReentrantLock()
 
         val numberOfStars = 24
@@ -53,7 +57,7 @@ class GBController {
 
         fun doUniverse() {
             GBLog.i("Runing Game Turn ${_u!!.turn}")
-            lock.lock();
+            lock.lock(); // lock for the game turn
             try {
                 elapsedTimeLastUpdate = measureNanoTime {
                     _u!!.doUniverse()
@@ -63,11 +67,11 @@ class GBController {
             }
         }
 
-        // FIXME I think we can get rid of some of the syncs now. Commented out 2/5/2019
+
         fun makeStuff() {
             //playBeetle()
-            //playImpi()  // FIXME
-            //playTortoise() // FIXME
+            //playImpi()
+            //playTortoise()
         }
 
     }
