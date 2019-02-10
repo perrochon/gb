@@ -10,28 +10,42 @@ import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import java.util.*
 import kotlin.math.PI
 
-class GBUniverse(internal var numberOfStars: Int) {
+class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
 
-    internal var nextGlobalID = 1000
+    //numberOfRaces <= what we have in GBData. >= 4 or tests will fail
+
+    val universeMaxX: Int
+        get() = GBData.UniverseMaxX
+
+    val universeMaxY: Int
+        get() = GBData.UniverseMaxY
+
+    val systemBoundary: Float
+        get() = GBData.SystemBoundary
+
+    val planetaryOrbit: Float
+        get() = GBData.PlanetaryOrbit
+
+    internal var nextGlobalID = 1000  // FIXME PERSISTENCE persist
 
     fun getNextGlobalId(): Int {
         return nextGlobalID++
     }
 
-    internal var numberOfRaces: Int
+    //internal var numberOfRaces = GBController.numberOfRaces
 
     // Stars, Planets, Races are immutable lists (once built) of immutable elements. Things that do change are e.g. locations of things
     // exposing these (for now)
     // TODO: With Locks, we should not need synchronized collections anymore,
     // e.g. Collections.synchronizedMap(hashMapOf<Int, GBStar>())
-    var allStars: MutableMap<Int, GBStar> =  hashMapOf<Int, GBStar>() // all the stars
-    var allPlanets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>() // all the planets
-    var allRaces: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>() // all the races
+    internal var allStars: MutableMap<Int, GBStar> =  hashMapOf<Int, GBStar>() // all the stars
+    internal var allPlanets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>() // all the planets
+    internal var allRaces: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>() // all the races
 
 
     // List of ships. Lists are mutable and change during updates (dead ships...)
     // Not exposed to the app
-    var allShips: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>() // all ships, alive or dead
+    internal var allShips: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>() // all ships, alive or dead
 
 
     // Deep Space Ships UID
@@ -43,7 +57,6 @@ class GBUniverse(internal var numberOfStars: Int) {
 
     // some dead ships in the Universe. Keep here so they don't get garbage collected too early. Keep one turn
     internal var deadShips: MutableMap<Int, GBShip> = hashMapOf()
-
 
     fun star(uid: Int): GBStar {
         return allStars[uid]!!
@@ -67,35 +80,10 @@ class GBUniverse(internal var numberOfStars: Int) {
     val orders: MutableList<GBOrder> = arrayListOf<GBOrder>()
 
     var autoDo = false // FIXME Almost certain this shouldn't be in universe
+
     var turn = 0
 
     // FIXME PERSISTENCE persist turn, which races are playing
-
-    val universeMaxX: Int
-        get() = GBData.UniverseMaxX
-
-    val universeMaxY: Int
-        get() = GBData.UniverseMaxY
-
-    val systemBoundary: Float
-        get() = GBData.SystemBoundary
-
-    val planetaryOrbit: Float
-        get() = GBData.PlanetaryOrbit
-
-    fun getNumberOfStars(): Int {
-        return numberOfStars
-    }
-
-
-
-//    private fun getDeepSpaceShipsList(): List<GBShip> {
-//        if (turn > lastDeepSpaceShipsUpdate) {
-//            deepSpaceShipsList = deepSpaceShips.toList().filter { it.health > 0 }
-//            lastDeepSpaceShipsUpdate = turn
-//        }
-//        return deepSpaceShipsList
-//    }
 
 
     fun getAllShotsList(): List<GBVector> {
@@ -407,10 +395,6 @@ class GBUniverse(internal var numberOfStars: Int) {
     fun landPopulation(p: GBPlanet, uidRace: Int, number: Int) {
         GBLog.d("universe: Landing 100 of " + race(uidRace).name + " on " + p.name + "")
         p.landPopulationOnEmptySector(race(uidRace), number)
-    }
-
-    init {
-        this.numberOfRaces = GBController.numberOfRaces
     }
 
 

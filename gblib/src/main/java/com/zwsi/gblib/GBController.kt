@@ -1,8 +1,6 @@
 package com.zwsi.gblib
 
-import com.zwsi.gblib.AutoPlayer.Companion.playBeetle
-import com.zwsi.gblib.AutoPlayer.Companion.playImpi
-import com.zwsi.gblib.AutoPlayer.Companion.playTortoise
+import org.jetbrains.kotlin.utils.newHashMapWithExpectedSize
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.system.measureNanoTime
 
@@ -33,13 +31,13 @@ class GBController {
         val u: GBUniverse
             get() {
                 if (_u == null) {
-                    _u = makeUniverse()
+                    _u = makeUniverse(numberOfStars, numberOfRaces)
                 }
                 return _u ?: throw AssertionError("Set to null by another thread")
             }
 
-        fun makeUniverse(stars: Int = numberOfStars): GBUniverse {
-            _u = GBUniverse(stars)
+        fun makeUniverse(stars: Int, races: Int): GBUniverse {
+            _u = GBUniverse(stars, races)
             _u!!.makeStarsAndPlanets()
             _u!!.makeRaces()
             GBLog.d("Universe made with $stars stars")
@@ -48,11 +46,11 @@ class GBController {
         }
 
         fun makeSmallUniverse(): GBUniverse {
-            return makeUniverse(numberOfStarsSmall)
+            return makeUniverse(numberOfStarsSmall, numberOfRaces)
         }
 
         fun makeBigUniverse(): GBUniverse {
-            return makeUniverse(numberOfStarsBig)
+            return makeUniverse(numberOfStarsBig, numberOfRaces)
         }
 
         fun doUniverse() {
