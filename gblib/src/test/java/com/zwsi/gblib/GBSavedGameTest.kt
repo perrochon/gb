@@ -207,7 +207,6 @@ class GBSavedGameTest {
 
             u.deepSpaceUidShips.clear()
 
-            // FIXME QUALITY Is this still wrapped in synchronized Collection?
             u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
 
             u.deadShips.clear()

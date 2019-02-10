@@ -29,11 +29,11 @@ data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
     var population = 0 // (planetary) planetPopulation. Ships don't have planetPopulation
 
     internal var raceShipsUIDList: MutableSet<Int> =
-        Collections.synchronizedSet(HashSet<Int>()) // Ships of this race
+        HashSet<Int>() // Ships of this race
 
     val raceShipsList: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
-        get() = Collections.synchronizedList(raceShipsUIDList.map { u.ship(it) })
+        get() = raceShipsUIDList.map { u.ship(it) }
 
 
     init {

@@ -220,7 +220,7 @@ class GBLocationTest {
         val u = GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
-        val list1: MutableList<GBLocation> = Collections.synchronizedList(arrayListOf<GBLocation>())
+        val list1: MutableList<GBLocation> = arrayListOf<GBLocation>()
         list1.add(GBLocation(100f, 100f))
         list1.add(GBLocation(1000f, 1000f))
         list1.add(GBLocation(u.planet(1), 1, 1))

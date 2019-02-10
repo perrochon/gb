@@ -20,8 +20,6 @@ class GBUniverse(internal var numberOfStars: Int) {
 
     internal var numberOfRaces: Int
 
-    // TODO Concurrency - for now these are all synchronized. Expensive, but may be safer until we figure out threads
-
     // Stars, Planets, Races are immutable lists (once built) of immutable elements. Things that do change are e.g. locations of things
     // exposing these (for now)
     // TODO: With Locks, we should not need synchronized collections anymore,
@@ -68,9 +66,9 @@ class GBUniverse(internal var numberOfStars: Int) {
     }
 
     // Results of turns. Basically replaced every turn
-    val allShots: MutableList<GBVector> = Collections.synchronizedList(arrayListOf<GBVector>())
-    val news: MutableList<String> = Collections.synchronizedList(arrayListOf<String>())
-    val orders: MutableList<GBOrder> = Collections.synchronizedList(arrayListOf<GBOrder>())
+    val allShots: MutableList<GBVector> = arrayListOf<GBVector>()
+    val news: MutableList<String> = arrayListOf<String>()
+    val orders: MutableList<GBOrder> = arrayListOf<GBOrder>()
 
     var autoDo = false // FIXME Almost certain this shouldn't be in universe
     var turn = 0
@@ -290,7 +288,7 @@ class GBUniverse(internal var numberOfStars: Int) {
         // last thing we do...
         turn++
 
-        //SaveReload()
+        SaveReload()
         // PERF without reload single digit ms update time, with reload low 100's ms update time.
 
 
@@ -311,7 +309,6 @@ class GBUniverse(internal var numberOfStars: Int) {
         u.allPlanets = gameInfo2.planetList!!
         u.allRaces = gameInfo2.raceList!!
 
-        // FIXME QUALITY Is this still wrapped in synchronized Collection?
         u.allShips = gameInfo2.shipList!!
         u.deepSpaceUidShips.clear()
         u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach{u.deepSpaceUidShips.add(it)}

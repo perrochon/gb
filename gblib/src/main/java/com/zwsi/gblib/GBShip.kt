@@ -37,7 +37,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
     // TODO These are a cool but nice to have feature. They are also an app feature more than a lib feature
     // They are irrelevant for text based UI. But persistence in the client is problematic if an update is missed
-    var trails: MutableList<GBxy> = Collections.synchronizedList(arrayListOf<GBxy>())
+    var trails: MutableList<GBxy> = arrayListOf<GBxy>()
 
     val trailList: List<GBxy>
         get() = trails.toList()
