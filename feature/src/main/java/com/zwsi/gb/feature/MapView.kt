@@ -375,7 +375,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
         if (101 >= normScale) {
             //for (sh in GBViewModel.viewDeepSpaceShips) {
-            for ((_,sh) in GBViewModel.viewShips) {
+            for ((_,sh) in GBViewModel.viewShips) { // FIXME Drawing all ships here. This is wasteful on zoom, and needs refactoring if we keep it
                 if (starVisible(
                         sh.loc.getLoc().x * uToSf,
                         sh.loc.getLoc().y * uToSf
@@ -406,7 +406,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                             for (j in 0 until p.sectors.size) {
 
-                                val o = (1f * 0.4f) * uToS * scale
+                                val o = (PlanetaryOrbit * 0.4f) * uToS * scale
                                 val size = 4 * o / p.width
                                 //canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
                                 canvas.drawBitmap(
@@ -468,7 +468,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             paint.alpha = 128
                             sP1.set(p.loc.getLoc().x * uToSf, p.loc.getLoc().y * uToSf)
                             sourceToViewCoord(sP1, vP1)
-                            var o = (1f * 0.4f) * uToS * scale
+                            var o = (PlanetaryOrbit * 0.4f) * uToS * scale
                             canvas.drawText(p.name, vP1.x, vP1.y - o * 1.1f, paint)
                             clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y- o *1.1f), p))
                         }
@@ -482,7 +482,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             val radius = u.planetaryOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
                             canvas.drawCircle(vP1.x, vP1.y, radius, paint)
 
-                            var o = (1f * 0.4f) * uToS * scale
+                            var o = (PlanetaryOrbit * 0.4f) * uToS * scale
                             canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
 
                         }

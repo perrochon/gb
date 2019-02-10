@@ -36,7 +36,7 @@ class GBController {
                 return _u ?: throw AssertionError("Set to null by another thread")
             }
 
-        fun makeUniverse(stars: Int, races: Int): GBUniverse {
+        fun makeUniverse(stars: Int = numberOfStars, races: Int = numberOfRaces): GBUniverse {
             _u = GBUniverse(stars, races)
             _u!!.makeStarsAndPlanets()
             _u!!.makeRaces()
