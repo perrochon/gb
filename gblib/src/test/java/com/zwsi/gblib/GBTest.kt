@@ -33,7 +33,7 @@ class GBTest {
                 GBController.doUniverse()
             }
 
-            println("Turn: $i ${elapsed / 1000}ms Ships: ${u.getAllShipsMap().size} Dead: ${u.getDeadShipsList().size}")
+            println("Turn: $i ${elapsed / 1000}ms Ships: ${u.allShips.size}")
 
 //                print("Time for do: $elapsed ")
 //                for (j in 1..elapsed/10000 ) {

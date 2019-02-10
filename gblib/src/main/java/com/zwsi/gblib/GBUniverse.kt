@@ -28,9 +28,11 @@ class GBUniverse(internal var numberOfStars: Int) {
     var allPlanets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>() // all the planets
     var allRaces: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>() // all the races
 
+
     // List of ships. Lists are mutable and change during updates (dead ships...)
     // Not exposed to the app
     var allShips: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>() // all ships, alive or dead
+
 
     // Deep Space Ships UID
     var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
@@ -39,15 +41,9 @@ class GBUniverse(internal var numberOfStars: Int) {
         // PERF ?? Cache the list and only recompute if the hashcode changes.
         get() = deepSpaceUidShips.map { u.ship(it) }
 
-    // all dead ships in the Universe. Keep here so they don't get garbage collected
-    internal var deadShips: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>()
+    // some dead ships in the Universe. Keep here so they don't get garbage collected too early. Keep one turn
+    internal var deadShips: MutableMap<Int, GBShip> = hashMapOf()
 
-    internal var lastAllShipsUpdate = -1
-//    internal var lastDeepSpaceShipsUpdate = -1
-      internal var lastDeadShipsUpdate = -1
-    internal var allShipsList = allShips.toMap()
-//    internal var deepSpaceShipsList = deepSpaceShips.toList()
-      internal var deadShipsList = deadShips.values.toList()
 
     fun star(uid: Int): GBStar {
         return allStars[uid]!!
@@ -91,26 +87,7 @@ class GBUniverse(internal var numberOfStars: Int) {
         return numberOfStars
     }
 
-    fun getAllStarsMap(): Map<Int, GBStar> {
-        return allStars.toMap()
-    }
 
-    fun getAllPlanetsMap(): Map<Int, GBPlanet> {
-        return allPlanets.toMap()
-    }
-
-    fun getAllRacesMap(): Map<Int, GBRace> {
-        return allRaces.toMap()
-    }
-
-    // FIXME this is clumsy. Either use hascode, or just compute list every time.
-    fun getAllShipsMap(): Map<Int, GBShip> {
-        if (turn > lastAllShipsUpdate) {
-            allShipsList = allShips.toMap()
-            lastAllShipsUpdate = turn
-        }
-        return allShipsList
-    }
 
 //    private fun getDeepSpaceShipsList(): List<GBShip> {
 //        if (turn > lastDeepSpaceShipsUpdate) {
@@ -120,13 +97,6 @@ class GBUniverse(internal var numberOfStars: Int) {
 //        return deepSpaceShipsList
 //    }
 
-    fun getDeadShipsList(): List<GBShip> {
-        if (turn > lastDeadShipsUpdate) {
-            deadShipsList = deadShips.values.toList()
-            lastDeadShipsUpdate = turn
-        }
-        return deadShipsList
-    }
 
     fun getAllShotsList(): List<GBVector> {
         return allShots.toList()

@@ -36,7 +36,7 @@ class GBShipTest {
         assertTrue(universe.race(ship.uidRace).raceShipsUIDList.contains(ship.uid))
         assertTrue(universe.race(ship.uidRace).raceShipsList.contains(ship)) // This fails because list is cached
 
-        if (!universe.deadShips.contains(ship.uid)) {
+        if (ship.health>0) {
 
             when (ship.loc.level) {
                 LANDED -> {
@@ -91,12 +91,12 @@ class GBShipTest {
                 }
             }
         }
-        for ((_, sh) in universe.deadShips) {
-            if (sh.uid == ship.uid) {
-                found++
-                GBLog.d("Found among the dead: ship: " + sh.uid)
-            }
-        }
+//        for ((_, sh) in universe.deadShips) {
+//            if (sh.uid == ship.uid) {
+//                found++
+//                GBLog.d("Found among the dead: ship: " + sh.uid)
+//            }
+//        }
         assertEquals(1, found)
 
         // Make sure ship is only in one race

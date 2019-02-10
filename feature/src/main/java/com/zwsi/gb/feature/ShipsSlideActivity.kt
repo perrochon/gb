@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.viewShips
 import com.zwsi.gblib.GBController
 
 class ShipsSlideActivity : AppCompatActivity() {
@@ -47,7 +48,7 @@ class ShipsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("ships")
         } else {
             displayList = ArrayList<Int>()
-            for ((uid, _) in GBController.u.getAllShipsMap().filterValues { it.health > 0 }) {
+            for ((uid, _) in viewShips.filterValues { it.health > 0 }) {
                 displayList.add(uid)
             }
         }

@@ -6,6 +6,8 @@
 package com.zwsi.gb.feature
 
 import android.content.Context
+import com.zwsi.gb.feature.GBViewModel.Companion.viewShips
+import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
@@ -41,7 +43,7 @@ object MissionController {
             return
         }
         if (missionStatus == 1) {
-            for ((_, s) in GBController.u.getAllShipsMap()) {
+            for ((_, s) in viewShips) {
                 if (s.idxtype == FACTORY) {
                     missionStatus++
                     return
@@ -49,7 +51,7 @@ object MissionController {
             }
         }
         if (missionStatus == 2) {
-            for ((_, s) in GBController.u.getAllShipsMap()) {
+            for ((_, s) in viewShips) {
                 if (s.idxtype == POD) {
                     missionStatus++
                     return
@@ -57,7 +59,7 @@ object MissionController {
             }
         }
         if (missionStatus == 3) {
-            for ((_, s) in GBController.u.getAllShipsMap()) {
+            for ((_, s) in viewShips) {
                 if (s.loc.level == ORBIT) {
                     missionStatus++
                     return
@@ -65,7 +67,7 @@ object MissionController {
             }
         }
         if (missionStatus == 4) {
-            for ((_, s) in GBController.u.getAllShipsMap()) {
+            for ((_, s) in viewShips) {
                 if ((s.loc.level == LANDED) && (s.loc.getPlanet()!!.uid > 0)) {
                     missionStatus++
                     return
@@ -74,7 +76,7 @@ object MissionController {
         }
         if (missionStatus == 5) {
             var success = true
-            for (p in GBController.u.star(0).starPlanetsList) {
+            for (p in viewStars[0]!!.starPlanetsList) {
                 if (p.planetPopulation == 0) {
                     success = false
                 }

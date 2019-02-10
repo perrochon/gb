@@ -67,8 +67,23 @@ class GBController {
             }
         }
 
+        fun getAllStarsMap(): Map<Int, GBStar> {
+            return _u!!.allStars.toMap()
+        }
 
-        fun makeStuff() {
+        fun getAllPlanetsMap(): Map<Int, GBPlanet> {
+            return _u!!.allPlanets.toMap()
+        }
+
+        fun getAllRacesMap(): Map<Int, GBRace> {
+            return _u!!.allRaces.toMap()
+        }
+
+        fun getAllShipsMap(): Map<Int, GBShip> {
+            return _u!!.allShips.toMap()
+        }
+
+            fun makeStuff() {
             //playBeetle()
             //playImpi()
             //playTortoise()

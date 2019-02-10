@@ -9,21 +9,30 @@ android {
     defaultConfig {
         minSdkVersion 24 // scheduledActions.removeIf in GBScheduler requires 24.
         targetSdkVersion 28
-        versionCode 4
+        versionCode version_code
         versionName ".477"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
+            buildConfigField "int", "VERSIONCODE", "4"
+            buildConfigField "String", "VERSIONNAME", "\".0.0.0.500d\""
+            buildConfigField "boolean", "SHOWSTATS", "true"
         }
         debug {
             minifyEnabled false
+            buildConfigField "int", "VERSIONCODE", "4"
+            buildConfigField "String", "VERSIONNAME", "\"0.0.0.500r\""
+            buildConfigField "boolean", "SHOWSTATS", "true"
         }
     }
-    productFlavors {
-    }
 }
+
+
+
+
+
 
 dependencies {
     //implementation fileTree(include: ['*.jar'], dir: 'libs')

@@ -21,13 +21,13 @@ class GBViewModel {
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
         val currentTurn by lazy { MutableLiveData<Int>() }
 
-        var viewStars = u.getAllStarsMap()
-        var viewPlanets = u.getAllPlanetsMap()
-        var viewRaces = u.getAllRacesMap()
+        var viewStars = GBController.getAllStarsMap()
+        var viewPlanets = GBController.getAllPlanetsMap()
+        var viewRaces = GBController.getAllRacesMap()
 
-        var viewShips = u.getAllShipsMap()
+        var viewShips = GBController.getAllShipsMap()
         var viewDeepSpaceShips = u.deepSpaceShips
-        var viewDeadShips = u.getDeadShipsList()
+        //var viewDeadShips = u.getDeadShipsList()
 
         var viewStarShips: HashMap<Int, List<GBShip>> = HashMap()
         var viewOrbitShips: HashMap<Int, List<GBShip>> = HashMap()
@@ -61,17 +61,17 @@ class GBViewModel {
                     // If we save/reload stars each time, we need to get the new versions.
 
                     // Ships
-                    times["mAS"] = measureNanoTime { viewStars = u.allStars }
+                    times["mAS"] = measureNanoTime { viewStars = GBController.getAllStarsMap() }
 
-                    times["mAP"] = measureNanoTime { viewPlanets = u.allPlanets }
+                    times["mAP"] = measureNanoTime { viewPlanets = GBController.getAllPlanetsMap() }
 
-                    times["mAR"] = measureNanoTime { viewRaces = u.allRaces }
+                    times["mAR"] = measureNanoTime { viewRaces = GBController.getAllRacesMap() }
 
-                    times["mAs"] = measureNanoTime { viewShips = u.getAllShipsMap() }
+                    times["mAs"] = measureNanoTime { viewShips = GBController.getAllShipsMap() }
 
                     times["mDs"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }  // FIXME PERSISTENCE
 
-                    times["m+s"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
+                    //times["m+s"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
 
                     times["mSs"] = measureNanoTime { fillViewStarShips() }
 

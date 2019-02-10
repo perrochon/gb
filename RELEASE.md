@@ -15,6 +15,8 @@ Steps for release, because I always forget some. // TODO Automate this
 - Write release notes in e-mail. Paste those into Play
 - Release and send e-mail
 
+https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variable-in-gradle-usable-in-java
+
 ### Release Notes
 
 next release
