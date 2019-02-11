@@ -21,6 +21,7 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 
 next release
 - System size doubled. It's not like the game is "to scale" anyway. Larger system makes better use of screen real estate
+- Double click on planet keeps planet "geocentric" through turns (i.e. the background moves). Not sure this is an improvement.
 
 
 477

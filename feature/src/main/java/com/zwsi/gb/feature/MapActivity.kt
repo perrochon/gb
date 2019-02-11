@@ -40,7 +40,6 @@ class MapActivity : AppCompatActivity() {
             override fun onDoubleTap(e: MotionEvent): Boolean {
                 if (imageView.isReady) {
                     val any = imageView.clickTarget(e)
-                    imageView.keepCenterOnPlanet = null
                     if (any is GBPlanet) {
                         imageView.animateScaleAndCenter(
                             imageView.zoomLevelPlanet, PointF(
@@ -54,6 +53,7 @@ class MapActivity : AppCompatActivity() {
                             .start()
                         imageView.keepCenterOnPlanet = any.uid
                     } else if (any is GBStar) {
+                        imageView.keepCenterOnPlanet = null
                         imageView.animateScaleAndCenter(
                             imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
                                 any.loc.getLoc().x * imageView.uToS,
@@ -66,6 +66,7 @@ class MapActivity : AppCompatActivity() {
                             .start()
 
                     } else if (any is GBShip) {
+                        imageView.keepCenterOnPlanet = null
                     } else {
                         return super.onDoubleTap(e)
                     }
@@ -106,7 +107,6 @@ class MapActivity : AppCompatActivity() {
                             ft.commit()
                         }
                     }
-
                 }
                 return true
             }

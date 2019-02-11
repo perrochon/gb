@@ -1,7 +1,7 @@
 # Roadmap
 
 # Regression
-
+* Persistence: Setting FlyTo during autoupdate doesn't work (it sends to old ship...)
 
 ## Code Quality
 ### Gating for Mission 2 (don't want to propagate bad code more)

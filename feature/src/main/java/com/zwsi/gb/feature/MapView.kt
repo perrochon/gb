@@ -694,7 +694,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (keepCenterOnPlanet != null) {
             val b = viewPlanets[keepCenterOnPlanet!!]!!
             setScaleAndCenter(
-                zoomLevelPlanet,
+                getScale(),
                 PointF(
                     b.loc.getLoc().x * this.uToS,
                     (b.loc.getLoc().y - u.planetaryOrbit) * this.uToS
