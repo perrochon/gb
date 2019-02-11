@@ -112,12 +112,12 @@ class ShipFragment : Fragment() {
             // and first planet of each system outside.
             var destinationPlanets = arrayListOf<String>()
             if (sh.getStar() != null) {
-                for (p in sh.getStar()!!.starPlanetsList) {
+                for (p in GBViewModel.viewStarPlanets[sh.getStar()!!.uid]!!) {
                     destinationPlanets.add(p.name)
                 }
             }
             for ((_, s) in viewStars) {
-                destinationPlanets.add(s.starPlanetsList[0].name)
+                destinationPlanets.add(GBViewModel.viewStarPlanets[s.uid]!![0].name)
             }
 
             // Create an ArrayAdapter

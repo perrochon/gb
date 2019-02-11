@@ -8,7 +8,11 @@ import android.view.View
 import android.widget.Spinner
 import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.viewLandedShips
+import com.zwsi.gb.feature.GBViewModel.Companion.viewOrbitShips
 import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
+import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
+import com.zwsi.gb.feature.GBViewModel.Companion.viewStarShips
 import com.zwsi.gblib.*
 import com.zwsi.gblib.GBController.Companion.lock
 import com.zwsi.gblib.GBController.Companion.u
@@ -220,14 +224,14 @@ class GlobalButtonOnClick {
             Toast.makeText(view.context, "Going to ships in system " + star.name, Toast.LENGTH_SHORT).show()
 
             val displayUID = ArrayList<Int>()
-            for (ship in star.starShipList) {
+            for (ship in viewStarShips[star.uid]!!) {
                 displayUID.add(ship.uid)
             }
-            for (planet in star.starPlanetsList) {
-                for (ship in planet.orbitShips) {
+            for (planet in viewStarPlanets[star.uid]!!) {
+                for (ship in viewOrbitShips[planet.uid]!!) {
                     displayUID.add(ship.uid)
                 }
-                for (ship in planet.landedShips) {
+                for (ship in viewLandedShips[planet.uid]!!) {
                     displayUID.add(ship.uid)
                 }
             }

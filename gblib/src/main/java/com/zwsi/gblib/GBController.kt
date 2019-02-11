@@ -1,6 +1,5 @@
 package com.zwsi.gblib
 
-import org.jetbrains.kotlin.utils.newHashMapWithExpectedSize
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.system.measureNanoTime
 
@@ -65,6 +64,10 @@ class GBController {
             }
         }
 
+        // Accessors to various lists.
+        // TODO Limit visibility here to what each race can see
+        // TODO More defensive coding in terms of lock? We assume these are called only from within a locked section
+
         fun getAllStarsMap(): Map<Int, GBStar> {
             return _u!!.allStars.toMap()
         }
@@ -83,6 +86,26 @@ class GBController {
 
         fun getAllDeepSpaceUidShipsList(): List<Int> {
             return _u!!.deepSpaceUidShips.toList()
+        }
+
+        fun getStarPlanetsList(uidStar: Int): List<GBPlanet> {
+            return _u!!.star(uidStar).starUidPlanetList.map { u.planet(it) }
+        }
+
+        fun getStarShipList(uidStar: Int): List<GBShip> {
+            return _u!!.star(uidStar).starUidShipList.map { u.ship(it) }
+        }
+
+        fun getPlanetLandedShipsList(uidPlanet: Int): List<GBShip> {
+            return _u!!.planet(uidPlanet).landedUidShips.map { u.ship(it) }
+        }
+
+        fun getPlanetOrbitShipsList(uidPlanet: Int): List<GBShip> {
+            return _u!!.planet(uidPlanet).orbitUidShips.map { u.ship(it) }
+        }
+
+        fun getRaceShipsList(uidRace: Int): List<GBShip> {
+            return _u!!.race(uidRace).raceShipsUIDList.map { u.ship(it) }
         }
 
         fun makeStuff() {

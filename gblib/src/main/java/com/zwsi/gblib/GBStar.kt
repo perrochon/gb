@@ -23,16 +23,17 @@ data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: In
     }
 
     // Planets
-    var starUidPlanetList: MutableSet<Int> = HashSet<Int>() // UID of planets. Persistent
+    // PERF ?? Don't save, compute on load. Save happens every turn, re-loads are rare. Smaller file. Likely not worth it.
+    internal var starUidPlanetList: MutableSet<Int> = HashSet<Int>() // UID of planets. Persistent
 
-    val starPlanetsList: List<GBPlanet>
-        // PERF ?? Cache the list and only recompute if the hashcode changes. Which it pretty much never does...
+    internal val starPlanetsList: List<GBPlanet>
+        // PERF ?? Cache the list and only recompute if the hashcode changes. Which is rare
         get() = starUidPlanetList.map { u.planet(it) }
 
     // Ships
     internal var starUidShipList: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
 
-    val starShipList: List<GBShip>
+    internal val starShipList: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
         get() = starUidShipList.map { u.ship(it) }
 

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.viewOrbitShips
 import com.zwsi.gblib.GBPlanet
 
 class PlanetFragment : Fragment() {
@@ -108,7 +109,7 @@ class PlanetFragment : Fragment() {
         planetStats.setText("${p.name} in ${p.star.name}\n")
         planetStats.append("Population ${p.planetPopulation} | Size ${p.size}\n")
 
-        var ships = p.landedShips
+        var ships = GBViewModel.viewLandedShips[p.uid]!!
         if (ships.isNotEmpty()) {
             planetStats.append("Ships landed (${ships.size.toString()}): ")
             for (sh in ships) {
@@ -116,7 +117,7 @@ class PlanetFragment : Fragment() {
             }
         }
 
-        ships = p.orbitShips
+        ships = viewOrbitShips[p.uid]!!
         if (ships.isNotEmpty()) {
             planetStats.append(ships.size.toString() + " ships in orbit: ")
             for (sh in ships) {

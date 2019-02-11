@@ -42,22 +42,17 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
     internal var allPlanets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>() // all the planets
     internal var allRaces: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>() // all the races
 
-
     // List of ships. Lists are mutable and change during updates (dead ships...)
     // Not exposed to the app
     internal var allShips: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>() // all ships, alive or dead
 
-
     // Deep Space Ships UID
-    var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
-
-    val deepSpaceShips: List<GBShip>
-        // PERF ?? Cache the list and only recompute if the hashcode changes.
-        get() = deepSpaceUidShips.map { u.ship(it) }
+    internal var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships.
 
     // some dead ships in the Universe. Keep here so they don't get garbage collected too early. Keep one turn
     internal var deadShips: MutableMap<Int, GBShip> = hashMapOf()
 
+    // Helper functions for map access. Also include null check.
     fun star(uid: Int): GBStar {
         return allStars[uid]!!
     }
@@ -188,6 +183,9 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
 
         // TODO: Replace with full configuration driven solution instead of hard code.
         // We only need one race for the early mission, but we land the others for God Mode...
+
+        // PERF ?? Each starPlanetsList call below re-creates the List. But this all happens only once.
+        // And the code below will need to change anyway.
 
         // The single player
         val r0 = GBRace(getNextGlobalId(), 0, 0, allStars[0]!!.starPlanetsList[0].uid)

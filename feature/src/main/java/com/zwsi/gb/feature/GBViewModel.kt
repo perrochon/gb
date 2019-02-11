@@ -5,6 +5,7 @@ import android.graphics.PointF
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.lock
 import com.zwsi.gblib.GBController.Companion.u
+import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBxy
 import kotlin.system.measureNanoTime
@@ -17,7 +18,11 @@ class GBViewModel {
     // wasteful to not share the ViewModel. That's why this is an app scoped singleton.
     //
 
+    // All App classes need to go through ViewModel to access any data.
+    // ViewModel copies all Stars, Planets, Races, Ships and all of their collections. // FIXME Really?
+
     companion object {
+
 
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
         val currentTurn by lazy { MutableLiveData<Int>() }
@@ -30,6 +35,14 @@ class GBViewModel {
         var viewDeepSpaceShips = GBController.getAllDeepSpaceUidShipsList()
         //var viewDeadShips = u.getDeadShipsList()
 
+
+        // FIXME  THINK THIS THROUGH: If we "restore" on update (JSONify copy) we have copies of all stars, planets, etc.
+        // And we don't need the below separate copies. If we don't "restore", we point to the original.
+        // How does it work if we send over the wire? We copy each time?
+
+        // PERF Likely, we want GBObjects below. They may take more memory, but operations should be faster on draw
+        // FIXME We don't have a view of starPlanetLists...
+        var viewStarPlanets: HashMap<Int, List<GBPlanet>> = HashMap()
         var viewStarShips: HashMap<Int, List<GBShip>> = HashMap()
         var viewOrbitShips: HashMap<Int, List<GBShip>> = HashMap()
         var viewLandedShips: HashMap<Int, List<GBShip>> = HashMap()
@@ -74,6 +87,8 @@ class GBViewModel {
 
                     //times["m+s"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
 
+                    times["mSP"] = measureNanoTime { fillViewStarPlanets() }
+
                     times["mSs"] = measureNanoTime { fillViewStarShips() }
 
                     times["mOs"] = measureNanoTime { fillViewOrbitShips() }
@@ -103,24 +118,31 @@ class GBViewModel {
 
         }
 
+        fun fillViewStarPlanets() {
+            viewStarPlanets.clear()
+            for ((_, s) in viewStars) {
+                viewStarPlanets.put(s.uid, GBController.getStarPlanetsList(s.uid))
+            }
+        }
+
         fun fillViewStarShips() {
             viewStarShips.clear()
             for ((_, s) in viewStars) {
-                viewStarShips.put(s.uid, s.starShipList)
+                viewStarShips.put(s.uid, GBController.getStarShipList(s.uid))
             }
         }
 
         fun fillViewOrbitShips() {  // PERF combine with the next and iterate only once
             viewOrbitShips.clear()
             for ((_, p) in viewPlanets) {
-                viewOrbitShips.put(p.uid, p.orbitShips)
+                viewOrbitShips.put(p.uid, GBController.getPlanetOrbitShipsList(p.uid))
             }
         }
 
         fun fillViewLandedShips() {
             viewLandedShips.clear()
             for ((_, p) in viewPlanets) {
-                viewLandedShips.put(p.uid, p.landedShips)
+                viewLandedShips.put(p.uid, GBController.getPlanetLandedShipsList(p.uid))
             }
         }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
 import com.zwsi.gblib.GBController
 
 class StarFragment : Fragment() {
@@ -55,15 +56,15 @@ class StarFragment : Fragment() {
         stats.setText("${st.name} at (" + (st.loc.getLoc().x.toInt()) + ", " + st.loc.getLoc().y.toInt() + ")\n")
         stats.append("")
 
-        if (st.starUidPlanetList.isNotEmpty()) {
-            stats.append("Planets (" + st.starPlanetsList.size.toString() + "): ")
-            for (pl in st.starPlanetsList) {
+        if (viewStarPlanets[st.uid]!!.isNotEmpty()) {
+            stats.append("Planets (" + viewStarPlanets[st.uid]!!.size.toString() + "): ")
+            for (pl in GBViewModel.viewStarPlanets[st.uid]!!) {
                 stats.append("  " + pl.name + " ")
             }
             stats.append("\n")
         }
 
-        var ships = st.starShipList
+        val ships = GBViewModel.viewStarShips[st.uid]!!
         if (ships.isNotEmpty()) {
             stats.append("Ships (${ships.size.toString()}): ")
             for (sh in ships) {

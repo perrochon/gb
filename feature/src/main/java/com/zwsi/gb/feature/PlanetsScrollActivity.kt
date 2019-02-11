@@ -12,6 +12,7 @@ import android.support.constraint.ConstraintLayout
 import android.widget.TextView
 import android.support.constraint.ConstraintSet
 import android.support.v4.view.ViewCompat
+import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
 
 
 class PlanetsScrollActivity : AppCompatActivity() {
@@ -60,7 +61,7 @@ class PlanetsScrollActivity : AppCompatActivity() {
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
 
         for ((_, s) in GBViewModel.viewStars) {
-            for (p in s.starPlanetsList) {
+            for (p in viewStarPlanets[s.uid]!!) {
 
                 val constraintLayout = ConstraintLayout(this)
                 planetList.addView(constraintLayout)

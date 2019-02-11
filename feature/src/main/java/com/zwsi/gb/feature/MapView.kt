@@ -12,6 +12,7 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShips
+import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
@@ -401,7 +402,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (1 > normScale) {
             for ((_, s) in GBViewModel.viewStars) {
                 if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                    for (p in s.starPlanetsList) { // PERF only draw one...
+                    for (p in GBViewModel.viewStarPlanets[s.uid]!!) { // PERF only draw one...
                         if (planetVisible(
                                 p.loc.getLoc().x * uToSf,
                                 p.loc.getLoc().y * uToSf
@@ -453,7 +454,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (30 > normScale) {
             for ((_, s) in GBViewModel.viewStars) {
                 if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                    for (p in s.starPlanetsList) {
+                    for (p in viewStarPlanets[s.uid]!!) {
                         sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                         sourceToViewCoord(sP1, vP1)
                         if (normScale > 1) {
@@ -495,32 +496,32 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         }
 
 
-//                        for (sh in GBViewModel.viewOrbitShips[p.uid]!!.iterator()) {
-//                            paint.alpha = 128
-//                            paint.color = Color.parseColor(sh.race.color)
-//                            drawShip(canvas, sh)
-//
-//                        }
+                        // Draw orbit ships
+                        for (sh in GBViewModel.viewOrbitShips[p.uid]!!) {
+                            paint.alpha = 128
+                            paint.color = Color.parseColor(sh.race.color)
+                            drawShip(canvas, sh)
+                        }
 
 
-//                        if (2 > normScale) {
-//
-//                            // Draw Planet rectangle and ships in it...
-//
-//                            for (sh in GBViewModel.viewLandedShips[p.uid]!!.iterator()) {
-//                                paint.alpha = 128
-//                                paint.color = Color.parseColor(sh.race.color)
-//                                drawShip(canvas, sh)
-//                            }
-//                        }
+                        // Draw landed ships
+                        if (30 > normScale) {
+                            for (sh in GBViewModel.viewLandedShips[p.uid]!!) {
+                                paint.alpha = 128
+                                paint.color = Color.parseColor(sh.race.color)
+                                drawShip(canvas, sh)
+                            }
+                        }
 
                     } // planet loop
 
-//                    for (sh in GBViewModel.viewStarShips[s.uid]!!.iterator()) {
-//                        paint.alpha = 255
-//                        paint.color = Color.parseColor(sh.race.color)
-//                        drawShip(canvas, sh)
-//                    } // ships loop
+                    // Draw In System Ship
+                    for (sh in GBViewModel.viewStarShips[s.uid]!!) {
+                        paint.alpha = 255
+                        paint.color = Color.parseColor(sh.race.color)
+                        drawShip(canvas, sh)
+                    } // ships loop
+
                 }// if star starVisible?
             }// star loop
         }

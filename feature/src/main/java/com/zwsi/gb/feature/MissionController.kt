@@ -7,6 +7,7 @@ package com.zwsi.gb.feature
 
 import android.content.Context
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShips
+import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData.Companion.FACTORY
@@ -76,7 +77,7 @@ object MissionController {
         }
         if (missionStatus == 5) {
             var success = true
-            for (p in viewStars[0]!!.starPlanetsList) {
+            for (p in viewStarPlanets[0]!!) {
                 if (p.planetPopulation == 0) {
                     success = false
                 }
