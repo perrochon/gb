@@ -1,6 +1,7 @@
 package com.zwsi.gb.feature
 
 import android.arch.lifecycle.MutableLiveData
+import android.graphics.PointF
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.lock
 import com.zwsi.gblib.GBController.Companion.u
@@ -88,6 +89,8 @@ class GBViewModel {
                     lock.unlock()
                 }
             }
+
+
             timeLastTurn = GBController.elapsedTimeLastUpdate
 
             /*

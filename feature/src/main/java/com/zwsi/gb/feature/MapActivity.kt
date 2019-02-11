@@ -22,10 +22,12 @@ class MapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
-        val imageView = findViewById<MapView>(R.id.mapView)!!
+        val imageView: MapView = findViewById<MapView>(R.id.mapView)!!
 
         val turnObserver = Observer<Int> { newTurn ->
-            imageView.turn = newTurn; imageView.invalidate()
+            imageView.turn = newTurn;
+            imageView.fooCenterOnPlanet() // FIXME name
+            imageView.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
@@ -34,9 +36,11 @@ class MapActivity : AppCompatActivity() {
         // Gestures
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
 
+            // Double Tap
             override fun onDoubleTap(e: MotionEvent): Boolean {
                 if (imageView.isReady) {
                     val any = imageView.clickTarget(e)
+                    imageView.keepCenterOnPlanet = null
                     if (any is GBPlanet) {
                         imageView.animateScaleAndCenter(
                             imageView.zoomLevelPlanet, PointF(
@@ -48,6 +52,7 @@ class MapActivity : AppCompatActivity() {
                             .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                             .withInterruptible(false)
                             .start()
+                        imageView.keepCenterOnPlanet = any.uid
                     } else if (any is GBStar) {
                         imageView.animateScaleAndCenter(
                             imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
@@ -60,7 +65,6 @@ class MapActivity : AppCompatActivity() {
                             .withInterruptible(false)
                             .start()
 
-
                     } else if (any is GBShip) {
                     } else {
                         return super.onDoubleTap(e)
@@ -69,6 +73,7 @@ class MapActivity : AppCompatActivity() {
                 return true
             }
 
+            // Single Tap
             override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
                 if (imageView.isReady) {
                     val any = imageView.clickTarget(e)

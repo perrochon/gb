@@ -9,9 +9,9 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
@@ -101,6 +101,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     var focusSize = 0 // the area where we put stars and planets in the lower half of the screen (left for landscape?)
     var zoomLevelStar = 0f
     var zoomLevelPlanet = 0f
+    var keepCenterOnPlanet: Int? = null
 
     var turn: Int? = 0  // TODO why nullable
 
@@ -117,7 +118,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         screenHeightDp = resources.displayMetrics.heightPixels
         focusSize = min(screenHeightDp / 2, screenWidthDp)
 
-        zoomLevelPlanet = focusSize / PlanetaryOrbit /  40f
+        zoomLevelPlanet = focusSize / PlanetaryOrbit / 40f
         zoomLevelStar = focusSize / MaxSystemOrbit / 40f
 
 
@@ -199,6 +200,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
 
+
     override fun onDraw(canvas: Canvas) {
 
         // PERF MapView Drawing Performance: We do star visibility check 4 times on the whole list.
@@ -239,7 +241,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         drawUntilStats = System.nanoTime() - startTimeNanos
         last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
 
-        if (BuildConfig.SHOWSTATS) drawStats(canvas)
+        if (BuildConfig.SHOWSTATS) {
+            drawStats(canvas)
+        }
 
         //drawClickTargets(canvas)
 
@@ -305,11 +309,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
     }
 
+
     private fun drawRaces(canvas: Canvas) {
         // Timing Info:  no race 200μs, 1 race 400μs, more ?μs
         if (normScale > 50) {
 
-            for ((_,r) in GBViewModel.viewRaces) {
+            for ((_, r) in GBViewModel.viewRaces) {
                 if (starVisible(r.getHome().star.loc.getLoc().x * uToSf, r.getHome().star.loc.getLoc().y * uToSf)) {
                     sP1.set(r.getHome().star.loc.getLoc().x * uToSf + 50, r.getHome().star.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)
@@ -336,7 +341,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (30 > normScale) {
 
             if (true) {
-                for (shot : GBVector in GBViewModel.viewShots) {
+                for (shot: GBVector in GBViewModel.viewShots) {
                     paint.color = shotColor
                     paint.strokeWidth = strokeWidth.toFloat() / 4
                     if (starVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||
@@ -375,7 +380,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
         if (101 >= normScale) {
             //for (sh in GBViewModel.viewDeepSpaceShips) {
-            for ((_,sh) in GBViewModel.viewShips) { // FIXME Drawing all ships here. This is wasteful on zoom, and needs refactoring if we keep it
+            for ((_, sh) in GBViewModel.viewShips) { // FIXME Drawing all ships here. This is wasteful on zoom, and needs refactoring if we keep it
                 if (starVisible(
                         sh.loc.getLoc().x * uToSf,
                         sh.loc.getLoc().y * uToSf
@@ -470,7 +475,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             sourceToViewCoord(sP1, vP1)
                             var o = (PlanetaryOrbit * 0.4f) * uToS * scale
                             canvas.drawText(p.name, vP1.x, vP1.y - o * 1.1f, paint)
-                            clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y- o *1.1f), p))
+                            clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y - o * 1.1f), p))
                         }
 
 
@@ -624,7 +629,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             paint.strokeJoin = Paint.Join.ROUND
             paint.strokeCap = Cap.BUTT
             paint.color = trailColor
-            val alphaFade = paint.alpha / (trail.size+1)
+            val alphaFade = paint.alpha / (trail.size + 1)
             paint.alpha = 0
 
 
@@ -683,6 +688,21 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
         }
     }
+
+
+    fun fooCenterOnPlanet() {
+        if (keepCenterOnPlanet != null) {
+            val b = viewPlanets[keepCenterOnPlanet!!]!!
+            setScaleAndCenter(
+                zoomLevelPlanet,
+                PointF(
+                    b.loc.getLoc().x * this.uToS,
+                    (b.loc.getLoc().y - u.planetaryOrbit) * this.uToS
+                )
+            )
+        }
+    }
+
 
     fun drawStarsAndCircles(canvas: Canvas) {
         // Always draw stars
@@ -749,14 +769,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             clickTargets.minBy { (it.center.x - x) * (it.center.x - x) + (it.center.y - y) * (it.center.y - y) }
 
         if ((closest != null)) {
-            val distance = sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
+            val distance =
+                sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
             if (distance < 80f) {
                 return closest.any
             } else {
                 val closestPlanet = clickTargets.filter { it.any is GBPlanet }
                     .minBy { (it.center.x - x) * (it.center.x - x) + (it.center.y - y) * (it.center.y - y) }
                 if (closestPlanet != null) {
-                    val distance2 = sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
+                    val distance2 =
+                        sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
                     if (distance2 < u.planetaryOrbit * uToSf * scale) {
                         return closest.any
                     }
