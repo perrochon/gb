@@ -11,6 +11,7 @@ import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
+import com.zwsi.gb.feature.GBViewModel.Companion.viewShips
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
@@ -380,7 +381,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
         if (101 >= normScale) {
             //for (sh in GBViewModel.viewDeepSpaceShips) {
-            for ((_, sh) in GBViewModel.viewShips) { // FIXME Drawing all ships here. This is wasteful on zoom, and needs refactoring if we keep it
+            for (uid in GBViewModel.viewDeepSpaceShips) {
+                val sh = viewShips[uid]!!
                 if (starVisible(
                         sh.loc.getLoc().x * uToSf,
                         sh.loc.getLoc().y * uToSf

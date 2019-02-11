@@ -49,7 +49,7 @@ class GBShipTest {
                     assertTrue(universe.star(ship.loc.uidRef).starUidShipList.contains(ship.uid))
                 }
                 DEEPSPACE -> {
-                    assertTrue(universe.deepSpaceShips.contains(ship))
+                    assertTrue(universe.deepSpaceUidShips.contains(ship.uid))
                 }
                 else -> {
                     assert(false)
@@ -63,10 +63,10 @@ class GBShipTest {
         GBLog.d("Looking all over for ship: " + ship.uid)
 
 
-        for (sh in universe.deepSpaceShips) {  // TODO use "contains"
-            if (sh.uid == ship.uid) {
+        for (uid in universe.deepSpaceUidShips) {  // TODO use "contains"
+            if (uid == ship.uid) {
                 found++
-                GBLog.d("Found in deep space: ship: " + sh.uid)
+                GBLog.d("Found in deep space: ship: " + uid)
             }
         }
         for ((_, star) in universe.allStars) {
@@ -116,8 +116,8 @@ class GBShipTest {
         val un = GBController.u
         for ((_, ship) in un.allShips) {
             var found = 0
-            for (sh in un.deepSpaceShips) {
-                if (sh.uid == ship.uid)
+            for (uid in un.deepSpaceUidShips) {
+                if (uid == ship.uid)
                     found++
             }
             for ((_, st) in un.allStars) {

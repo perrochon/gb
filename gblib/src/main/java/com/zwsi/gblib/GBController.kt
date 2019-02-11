@@ -81,7 +81,11 @@ class GBController {
             return _u!!.allShips.toMap()
         }
 
-            fun makeStuff() {
+        fun getAllDeepSpaceUidShipsList(): List<Int> {
+            return _u!!.deepSpaceUidShips.toList()
+        }
+
+        fun makeStuff() {
             //playBeetle()
             //playImpi()
             //playTortoise()

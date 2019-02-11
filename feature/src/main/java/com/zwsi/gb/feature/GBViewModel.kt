@@ -27,7 +27,7 @@ class GBViewModel {
         var viewRaces = GBController.getAllRacesMap()
 
         var viewShips = GBController.getAllShipsMap()
-        var viewDeepSpaceShips = u.deepSpaceShips
+        var viewDeepSpaceShips = GBController.getAllDeepSpaceUidShipsList()
         //var viewDeadShips = u.getDeadShipsList()
 
         var viewStarShips: HashMap<Int, List<GBShip>> = HashMap()
@@ -70,7 +70,7 @@ class GBViewModel {
 
                     times["mAs"] = measureNanoTime { viewShips = GBController.getAllShipsMap() }
 
-                    times["mDs"] = measureNanoTime { viewDeepSpaceShips = u.deepSpaceShips }  // FIXME PERSISTENCE
+                    times["mDs"] = measureNanoTime { viewDeepSpaceShips = GBController.getAllDeepSpaceUidShipsList() }  // FIXME PERSISTENCE
 
                     //times["m+s"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
 
