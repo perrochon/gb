@@ -95,7 +95,7 @@ class GBViewModel {
 
                     times["mRs"] = measureNanoTime { fillViewRaceShips() }
 
-                    times["mSt"] = measureNanoTime { fillViewShipTrails() }
+                    times["mst"] = measureNanoTime { fillViewShipTrails() }
 
                     times["msh"] = measureNanoTime { viewShots = u.getAllShotsList() } // Fixme
                 } finally {
