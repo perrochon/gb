@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.gi
 import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
@@ -57,10 +58,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
 
     val sourceSize = 18000  // FIXME Would be nice not to hard code here and below
-    val universeSize = u.universeMaxX
+    val universeSize = gi.universeMaxX
     val uToS = sourceSize / universeSize
     val uToSf = uToS.toFloat()
-    val sSystemSize = u.systemBoundary * uToS
+    val sSystemSize = gi.systemBoundary * uToS
     val sOrbitSize = 1 * uToS
 
     // FIXME Do all calculations in Float, and only change to Integer before drawing calls where needed
@@ -490,7 +491,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             paint.style = Style.STROKE
                             paint.color = circleColor
                             paint.strokeWidth = strokeWidth.toFloat()
-                            val radius = u.planetaryOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
+                            val radius = gi.planetaryOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
                             canvas.drawCircle(vP1.x, vP1.y, radius, paint)
 
                             var o = (PlanetaryOrbit * 0.4f) * uToS * scale
@@ -703,7 +704,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 getScale(),
                 PointF(
                     b.loc.getLoc().x * this.uToS,
-                    (b.loc.getLoc().y - u.planetaryOrbit) * this.uToS
+                    (b.loc.getLoc().y - gi.planetaryOrbit) * this.uToS
                 )
             )
         }
@@ -785,7 +786,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 if (closestPlanet != null) {
                     val distance2 =
                         sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
-                    if (distance2 < u.planetaryOrbit * uToSf * scale) {
+                    if (distance2 < gi.planetaryOrbit * uToSf * scale) {
                         return closest.any
                     }
                 }

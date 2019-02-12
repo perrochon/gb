@@ -9,6 +9,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.gi
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
@@ -44,7 +45,7 @@ class MapActivity : AppCompatActivity() {
                         imageView.animateScaleAndCenter(
                             imageView.zoomLevelPlanet, PointF(
                                 any.loc.getLoc().x * imageView.uToS,
-                                (any.loc.getLoc().y - u.planetaryOrbit) * imageView.uToS
+                                (any.loc.getLoc().y - gi.planetaryOrbit) * imageView.uToS
                             )
                         )!!
                             .withDuration(500)

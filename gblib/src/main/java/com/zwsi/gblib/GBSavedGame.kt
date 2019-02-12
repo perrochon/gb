@@ -8,6 +8,11 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class GBSavedGame(
+    val turn: Int = -1,
+    val universeMaxX: Int = -1,
+    val universeMaxY: Int = -1,
+    val systemBoundary: Float = -1f,
+    val planetaryOrbit: Float = -1f,
     val description: String = "Partial Saved Game",
     val starList: MutableMap<Int, GBStar>? = null,
     val planetList: MutableMap<Int, GBPlanet>? = null,
@@ -17,6 +22,11 @@ data class GBSavedGame(
 
     // If you want to save everything, just pass in the Universe :-)
     constructor(description: String, u: GBUniverse) : this(
+        u.turn,
+        u.universeMaxX,
+        u.universeMaxY,
+        u.systemBoundary,
+        u.planetaryOrbit,
         description,
         u.allStars,
         u.allPlanets,
