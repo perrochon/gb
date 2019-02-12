@@ -60,12 +60,13 @@ class GBViewModel {
 
         fun update(gameinfo: GBSavedGame, _elapsedTimeLastUpdate : Long, _writeFileTime: Long, _fromJsonTime: Long) {
 
-            timeLastTurn = _elapsedTimeLastUpdate
-            timeFileWrite = _writeFileTime
-            timeFromJson = _fromJsonTime
-
             // This is (currently) called from the worker thread. So need to call postValue on the LiveData
             timeModelUpdate = measureNanoTime {
+
+                timeLastTurn = _elapsedTimeLastUpdate
+                timeFileWrite = _writeFileTime
+                timeFromJson = _fromJsonTime
+
 
                 lock.lock();  // lock for copying over data into view
                 try {
@@ -88,9 +89,7 @@ class GBViewModel {
 
                     times["mDs"] = measureNanoTime { getDeepSpaceShipsList() }
 
-                    //times["m+s"] = measureNanoTime { viewDeadShips = u.getDeadShipsList() }
-
-                    times["mPS"] = measureNanoTime { fillViewStarPlanetsAndShips() }
+                    times["mPs"] = measureNanoTime { fillViewStarPlanetsAndShips() }
 
                     times["mLO"] = measureNanoTime { fillViewLandedAndOrbitShips() }
 

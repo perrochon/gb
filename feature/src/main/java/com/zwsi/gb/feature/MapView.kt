@@ -290,25 +290,25 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             // Turn Stats
             canvas.drawText(
                 "Turn:${turn!!.f(4)}" +
-                        "|AS:${GBViewModel.viewShips.size.f(4)}" +
-                        "|DS:${GBViewModel.viewDeepSpaceShips.size.f(4)}D",
+                        "|As:${GBViewModel.viewShips.size.f(4)}" +
+                        "|Ds:${GBViewModel.viewDeepSpaceShips.size.f(4)}",
                 8f,
                 l++ * h,
                 paint
             )
             // Performance Stats
             canvas.drawText(
-                "|Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}ms" +
+                "Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}ms" +
                         "|FW:${(GBViewModel.timeFileWrite / 1000000L).f(2)}ms" +
                         "|FJ:${(GBViewModel.timeFromJson / 1000000L).f(2)}ms" +
-                        "|MU:${(GBViewModel.timeModelUpdate / 100000L).f(2)}ms" +
-                        "|Draw: ${(last20.average() / 1000000).toInt().f(2)}ms",
+                        "|MU:${(GBViewModel.timeModelUpdate / 1000000L).f(2)}ms" +
+                        "|Draw:${(last20.average() / 1000000).toInt().f(2)}ms",
                 8f,
                 l++ * h,
                 paint
             )
 
-//            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
+            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
 
 //            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
 
