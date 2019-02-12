@@ -230,9 +230,9 @@ class GlobalButtonOnClick {
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
             imageView.animateScaleAndCenter(
-                imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
-                    u.star(planet.uidStar).loc.getLoc().x * imageView.uToS,
-                    (u.star(planet.uidStar).loc.getLoc().y - 17f) * imageView.uToS
+                imageView.zoomLevelStar, PointF(
+                    planet.star.loc.getLoc().x * imageView.uToS,
+                    (planet.star.loc.getLoc().y - 17f) * imageView.uToS
                 )
             )!!
                 .withDuration(500)
