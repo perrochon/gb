@@ -70,6 +70,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
     }
 
     // Results of turns. Basically replaced every turn
+    // FIXME Need unit tests for shots, especially as they get more fancy
     val allShots: MutableList<GBVector> = arrayListOf<GBVector>()
     val news: MutableList<String> = arrayListOf<String>()
     val orders: MutableList<GBOrder> = arrayListOf<GBOrder>()

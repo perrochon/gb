@@ -49,7 +49,7 @@ class GBViewModel {
         var viewRaceShips: HashMap<Int, List<GBShip>> = HashMap()
         var viewShipTrails: HashMap<Int, List<GBxy>> = HashMap()
 
-        var viewShots = u.getAllShotsList()
+        lateinit var viewShots : MutableList<GBVector>
 
         var timeModelUpdate = 0L
         var timeLastTurn = 0L
@@ -78,18 +78,18 @@ class GBViewModel {
                     // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
                     // If we save/reload stars each time, we need to get the new versions.
 
-                    // FIXME: The below constructs should really be able to go away as gameinfo has all we need,
-                    // and is not access from the other thread after initial construction.
+                    // FIXME: The below constructs should really be able to go away as gi has all that is needed
+                    // Using gi is safe as it is not accessed from the other thread after initial construction.
                     // FIXME: Lock no longer needed here, really.
 
                     // Ships
-                    times["mAS"] = measureNanoTime { viewStars = gameinfo.starList!! }
+                    times["mAS"] = measureNanoTime { viewStars = gi.starList!! }
 
-                    times["mAP"] = measureNanoTime { viewPlanets = gameinfo.planetList!! }
+                    times["mAP"] = measureNanoTime { viewPlanets = gi.planetList!! }
 
-                    times["mAR"] = measureNanoTime { viewRaces = gameinfo.raceList!! }
+                    times["mAR"] = measureNanoTime { viewRaces = gi.raceList!! }
 
-                    times["mAs"] = measureNanoTime { viewShips = gameinfo.shipList!! }
+                    times["mAs"] = measureNanoTime { viewShips = gi.shipList!! }
 
                     times["mDs"] = measureNanoTime { getDeepSpaceShipsList() }
 
@@ -101,7 +101,7 @@ class GBViewModel {
 
                     times["mst"] = measureNanoTime { fillViewShipTrails() }
 
-                    times["msh"] = measureNanoTime { viewShots = u.getAllShotsList() } // Fixme
+                    times["msh"] = measureNanoTime { viewShots = gi.shots!! }
                 } finally {
                     lock.unlock()
                 }

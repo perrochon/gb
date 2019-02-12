@@ -13,7 +13,6 @@ import com.zwsi.gb.feature.GBViewModel.Companion.gi
 import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
-import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
@@ -292,7 +291,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             canvas.drawText(
                 "Turn:${turn!!.f(4)}" +
                         "|As:${GBViewModel.viewShips.size.f(4)}" +
-                        "|Ds:${GBViewModel.viewDeepSpaceShips.size.f(4)}",
+                        "|Ds:${GBViewModel.viewDeepSpaceShips.size.f(4)}" +
+                        "|sh:${gi.shots!!.size.f(3)}",
                 8f,
                 l++ * h,
                 paint
