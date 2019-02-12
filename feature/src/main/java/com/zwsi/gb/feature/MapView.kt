@@ -11,7 +11,6 @@ import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
-import com.zwsi.gb.feature.GBViewModel.Companion.viewShips
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
@@ -202,7 +201,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
 
-
     override fun onDraw(canvas: Canvas) {
 
         // PERF MapView Drawing Performance: We do star visibility check 4 times on the whole list.
@@ -267,7 +265,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val h = 50
 
 //            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
-            canvas.drawText("Norm:${normScale.f(2)}|Scale:${scale.f(2)}|Turn:${turn!!.f(4)}", 8f, l++ * h, paint)
+//            canvas.drawText("Norm:${normScale.f(2)}|Scale:${scale.f(2)}", 8f, l++ * h, paint)
 //            canvas.drawText(
 //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
 //                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
@@ -289,24 +287,30 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //            canvas.drawText(
 //                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
 //            )
+            // Turn Stats
             canvas.drawText(
-                "${GBViewModel.viewShips.size.f(5)}A|${GBViewModel.viewDeepSpaceShips.size.f(4)}D",
+                "Turn:${turn!!.f(4)}" +
+                        "|AS:${GBViewModel.viewShips.size.f(4)}" +
+                        "|DS:${GBViewModel.viewDeepSpaceShips.size.f(4)}D",
                 8f,
                 l++ * h,
                 paint
             )
+            // Performance Stats
             canvas.drawText(
-                "Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}ms|Model:${(GBViewModel.timeModelUpdate / 1000L).f(5)}μs|Draw: ${(last20.average() / 1000).toInt().f(
-                    4
-                )}μs",
+                "|Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}ms" +
+                        "|FW:${(GBViewModel.timeFileWrite / 1000000L).f(2)}ms" +
+                        "|FJ:${(GBViewModel.timeFromJson / 1000000L).f(2)}ms" +
+                        "|MU:${(GBViewModel.timeModelUpdate / 100000L).f(2)}ms" +
+                        "|Draw: ${(last20.average() / 1000000).toInt().f(2)}ms",
                 8f,
                 l++ * h,
                 paint
             )
 
-            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
+//            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
 
-            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
+//            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
 
         }
     }
@@ -382,8 +386,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
         if (101 >= normScale) {
             //for (sh in GBViewModel.viewDeepSpaceShips) {
-            for (uid in GBViewModel.viewDeepSpaceShips) {
-                val sh = viewShips[uid]!!
+            for (sh in GBViewModel.viewDeepSpaceShips) {
                 if (starVisible(
                         sh.loc.getLoc().x * uToSf,
                         sh.loc.getLoc().y * uToSf

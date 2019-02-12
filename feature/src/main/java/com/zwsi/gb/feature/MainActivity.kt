@@ -15,9 +15,14 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.u
+import com.zwsi.gblib.GBSavedGame
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
+import kotlin.system.measureNanoTime
 
 var lastClickTime = 0L
 val clickDelay = 300L
@@ -37,15 +42,37 @@ class MainActivity : AppCompatActivity() {
         version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
 
         Thread(Runnable {
-            // Need to do this in other thread, as just checking for null will generate the universe
-            GBController.u // Create Universe if we don't have one...
-            version.post {
-                // Worth making a string in this thread and post just result?
-                for (s in GBController.u.news)
-                    output.append(s)
 
-                output.append(MissionController.getCurrentMission(this))
+            val json = GBController.makeUniverse() // Create Universe if we don't have one...
+
+            // This writes to (or not) /data/data/com.zwsi.gb.app/files/CurrentGame.json
+            val writeFileTime = measureNanoTime {
+                val file = File(this.filesDir, "CurrentGame.json").writeText(json)
             }
+
+            // FIXME. Need to disable all (most) buttons until we do have a Universe!!!!
+
+            // We create gameinfo in the worker thread, not the UI thread
+            var gameInfo = GBSavedGame()
+            val fromJsonTime = measureNanoTime {
+                val moshi = Moshi.Builder().build()
+                val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
+                gameInfo = jsonAdapter.lenient().fromJson(json)!!
+            }
+
+            version.post {
+                GBViewModel.update(gameInfo, GBController.elapsedTimeLastUpdate, writeFileTime, fromJsonTime)
+                // Enable Buttons Here
+            }
+
+            // FIXME This should come back in gameinfo json... Commenting out as nothing useful in there anyway...
+//            version.post {
+//                // Worth making a string in this thread and post just result?
+//                for (s in GBController.u.news)
+//                    output.append(s)
+//
+//                output.append(MissionController.getCurrentMission(this))
+//            }
         }).start()
 
     }

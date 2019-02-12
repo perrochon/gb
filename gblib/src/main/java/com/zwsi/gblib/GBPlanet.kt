@@ -38,14 +38,14 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
     var sectors: Array<GBSector>
 
     // Landed Ships
-    internal var landedUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
+    var landedUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
 
     internal val landedShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
         get() = landedUidShips.map { u.ship(it) }
 
     // Orbit Ships
-    internal var orbitUidShips: MutableSet<Int> =
+    var orbitUidShips: MutableSet<Int> =
         HashSet<Int>() // UID of ships. Persistent
 
     internal val orbitShips: List<GBShip>

@@ -1,5 +1,8 @@
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import java.io.File
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.system.measureNanoTime
 
@@ -30,37 +33,40 @@ class GBController {
         val u: GBUniverse
             get() {
                 if (_u == null) {
-                    _u = makeUniverse(numberOfStars, numberOfRaces)
+                    makeUniverse(numberOfStars, numberOfRaces)
                 }
-                return _u ?: throw AssertionError("Set to null by another thread")
+                return _u ?: throw AssertionError("Failed to make")
             }
 
-        fun makeUniverse(stars: Int = numberOfStars, races: Int = numberOfRaces): GBUniverse {
-            _u = GBUniverse(stars, races)
-            _u!!.makeStarsAndPlanets()
-            _u!!.makeRaces()
-            GBLog.d("Universe made with $stars stars")
-            return _u!!
-        }
-
-        fun makeSmallUniverse(): GBUniverse {
-            return makeUniverse(numberOfStarsSmall, numberOfRaces)
-        }
-
-        fun makeBigUniverse(): GBUniverse {
-            return makeUniverse(numberOfStarsBig, numberOfRaces)
-        }
-
-        fun doUniverse() {
-            GBLog.i("Runing Game Turn ${_u!!.turn}")
+        fun makeUniverse(stars: Int = numberOfStars, races: Int = numberOfRaces): String {
+            GBLog.i("Making Universe with $stars stars")
+            var json: String? = null;
             lock.lock(); // lock for the game turn
             try {
                 elapsedTimeLastUpdate = measureNanoTime {
-                    _u!!.doUniverse()
+                    _u = GBUniverse(stars, races)
+                    _u!!.makeStarsAndPlanets()
+                    _u!!.makeRaces()
+                    json = Save()
+                    // PERF without reload single digit ms update time, with reload low 100's ms update time.
                 }
             } finally {
                 lock.unlock()
             }
+            // SERVER Add Fog of War filters here before we return the data (if we worry about cheaters)
+            GBLog.d("Universe made with $stars stars")
+            return json ?: throw AssertionError("Json with saved game is null")
+
+            // FIXME Need to build a unit test that makes sure the json we send out here is consistent, and enough.
+
+        }
+
+        fun makeSmallUniverse(): String {
+            return makeUniverse(numberOfStarsSmall, numberOfRaces)
+        }
+
+        fun makeBigUniverse(): String {
+            return makeUniverse(numberOfStarsBig, numberOfRaces)
         }
 
         // Accessors to various lists.
@@ -111,6 +117,34 @@ class GBController {
             //playBeetle()
             //playImpi()
             //playTortoise()
+        }
+
+        fun doUniverse(): String {
+            GBLog.i("Runing Game Turn ${_u!!.turn}")
+            var json: String? = null;
+            lock.lock(); // lock for the game turn
+            try {
+                elapsedTimeLastUpdate = measureNanoTime {
+                    _u!!.doUniverse()
+                    json = Save()
+                    // PERF without reload single digit ms update time, with reload low 100's ms update time.
+                }
+            } finally {
+                lock.unlock()
+            }
+            // SERVER Add Fog of War filters here before we return the data (if we worry about cheaters)
+            return json ?: throw AssertionError("Json with saved game is null")
+        }
+
+        fun Save(): String {
+            val moshi = Moshi.Builder().build()
+            val gameInfo = GBSavedGame("Current Game", u)
+            val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
+            val json = jsonAdapter.toJson(gameInfo)
+            // SERVER Want to save in the controller, but Controller has no Android access so can't find the directory
+            // For now we just save from an app module
+            //File(context.filesDir, "CurrentGame.json").writeText(json)
+            return json
         }
 
     }

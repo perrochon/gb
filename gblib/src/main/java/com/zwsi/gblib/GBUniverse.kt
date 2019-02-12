@@ -243,31 +243,6 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         // last thing we do...
         turn++
 
-        SaveReload()
-        // PERF without reload single digit ms update time, with reload low 100's ms update time.
-
-
-    }
-
-    fun SaveReload() {
-        //FIXME PERSISTENCE Great Persistence Experiment
-        // Not ready just yet...
-        val moshi = Moshi.Builder().build()
-        val gameInfo1 = GBSavedGame("The Real Thing", u)
-        val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
-        val json = jsonAdapter.toJson(gameInfo1)
-        val gameInfo2 = jsonAdapter.lenient().fromJson(json)!!
-
-        assert(gameInfo1 == gameInfo2)
-
-        u.allStars = gameInfo2.starList!!
-        u.allPlanets = gameInfo2.planetList!!
-        u.allRaces = gameInfo2.raceList!!
-
-        u.allShips = gameInfo2.shipList!!
-        u.deepSpaceUidShips.clear()
-        u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach{u.deepSpaceUidShips.add(it)}
-        u.deadShips.clear()
     }
 
     fun fireShots() {

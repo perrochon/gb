@@ -38,8 +38,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
-    // added this to get ViewModelProviders
+    implementation 'android.arch.lifecycle:extensions:1.1.1'  // added this to get ViewModelProviders
+    implementation 'com.squareup.moshi:moshi:1.8.0' // added for moshi
+    compileOnly 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'// added for moshi
+    // Next line because of the below URL. Not sure this is the correct line, though.
+    // https://developer.android.com/studio/build/dependencies?utm_source=android-studio#annotation_processor
+    annotationProcessor 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // added for moshi
 }
 
 // FIXME We have two libraries that request old support version. Below forcing both to 28
