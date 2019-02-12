@@ -66,16 +66,16 @@ class GBOrder {
     fun execute() {
         when (type) {
             FACTORY -> {
-                GBShip(u.getNextGlobalId(), FACTORY, uidRace, loc)
-                u.news.add("Built a factory on Helle.\n\n")
+                val ship = GBShip(u.getNextGlobalId(), FACTORY, uidRace, loc)
+                u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
             }
             POD -> {
-                GBShip(u.getNextGlobalId(), POD, uidRace, loc)
-                u.news.add("Built a pod on Helle.\n\n")
+                val ship = GBShip(u.getNextGlobalId(), POD, uidRace, loc)
+                u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
             }
             CRUISER -> {
-                GBShip(u.getNextGlobalId(), CRUISER, uidRace, loc)
-                u.news.add("Built a cruiser on Helle.\n\n")
+                val ship = GBShip(u.getNextGlobalId(), CRUISER, uidRace, loc)
+                u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
             }
             else ->
                 gbAssert("unknown order", { true })

@@ -71,7 +71,7 @@ class AutoPlayer() {
 
             // Find factory and order a cruiser, up to a certain number of ships. If we don't have a factory order one
             GBLog.d("Playing Tortoise in  turn  $u.turn")
-            val r = u.race(1)
+            val r = u.race(3)
 
             val factory = r.raceShipsList.filter { it.idxtype == GBData.FACTORY }.firstOrNull()
             if (factory == null) {

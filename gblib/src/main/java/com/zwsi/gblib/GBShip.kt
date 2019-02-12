@@ -98,6 +98,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     loc.getPlanet()!!.landedUidShips.add(this.uid)
                     this.health = 0
                     u.landPopulation(this.loc.getPlanet()!!, uidRace, 1)
+                    u.news.add("${u.race(uidRace).name} landed on ${this.loc.getPlanet()!!.name}")
                 } else {
                     loc.getPlanet()!!.landedUidShips.add(this.uid)
                 }
@@ -191,7 +192,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
                 val next = GBLocation(loc.getPlanet()!!, PlanetaryOrbit, t)
                 changeShipLocation(next)
-                u.news.add("Launched $name to ${loc.getLocDesc()}.\n")
+                u.news.add("$name launched from ${loc.getPlanet()!!.name}.\n")
 
                 return
             } else {
@@ -268,7 +269,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
                     GBLog.d(" Arrived in System")
 
-                    u.news.add("$name arrived in ${loc.getLocDesc()}. ( ${loc.x.toInt()} , ${loc.y.toInt()} )\n")
+                    u.news.add("$name arrived in ${loc.getLocDesc()}.\n")
                     return
 
                 } else {
@@ -294,7 +295,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
                     GBLog.d("Left System")
 
-                    u.news.add("$name entered ${loc.getLocDesc()}. ( ${loc.x.toInt()} , ${loc.y.toInt()} )\n")
+                    //u.news.add("$name entered Deep Space.\n")
                     return
                 } else {
 

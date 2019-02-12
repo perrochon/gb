@@ -111,7 +111,7 @@ data class GBLocation(
     // or subclasses instead of when
     // This takes universal coordinates... Used when moving ships in.
     // TODO Why do we set x and r in this one? Seems to be the only constructor that does both...
-    constructor(star: GBStar, x: Float, y: Float,  @Suppress("UNUSED_PARAMETER") dummy: Boolean) : this(
+    constructor(star: GBStar, x: Float, y: Float, @Suppress("UNUSED_PARAMETER") dummy: Boolean) : this(
         SYSTEM,
         star.uid,
         x = x - star.loc.x,
@@ -212,7 +212,7 @@ data class GBLocation(
         }
     }
 
-    fun getPlanet(): GBPlanet? {
+    fun getPlanet(): GBPlanet {
         when (level) {
             LANDED -> return u.planet(uidRef)
             ORBIT -> return u.planet(uidRef)
@@ -220,17 +220,17 @@ data class GBLocation(
             DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for planet.", false)
             else -> gbAssert("GBLocation: Location is Limbo, but asking for planet.", false)
         }
-        return null
+        null!! // FIXME There must be a better way :-)
     }
 
-    fun getStar(): GBStar? {
+    fun getStar(): GBStar {
         when (level) {
             LANDED -> return u.planet(uidRef).star
             ORBIT -> return u.planet(uidRef).star
             SYSTEM -> return u.star(uidRef)
-            DEEPSPACE -> return null //gbAssert("GBLocation: Location is DEEPSPACE, but asking for star.", false)
+            DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for star.", false)
             else -> gbAssert("GBLocation: Location is Limbo, but asking for star.", false)
         }
-        return null
+        null!! // FIXME There must be a better way :-)
     }
 }

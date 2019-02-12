@@ -285,7 +285,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
         GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
         sh2.health -= 40 // Cruiser Shot makes 40 damage
-
+        u.news.add("${sh1.name} fired at ${sh2.name}.\n")
     }
 
 
