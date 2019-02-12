@@ -69,7 +69,7 @@ class LibTest {
         consistent()
 
         // mini-stress test
-        for (i in 1..100)
+        for (i in 1..20)
             universe.doUniverse()
 
     }

@@ -13,7 +13,6 @@ import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBLog.gbAssert
-import java.util.*
 import kotlin.math.atan2
 
 @JsonClass(generateAdapter = true)
@@ -52,7 +51,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 loc.getPlanet()!!.orbitUidShips.add(this.uid)
             }
             SYSTEM -> {
-                loc.getStar()!!.starUidShipList.add(this.uid)
+                loc.getStar()!!.starUidShipSet.add(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceUidShips.add(this.uid)
@@ -82,7 +81,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 this.loc.getPlanet()!!.orbitUidShips.remove(this.uid)
             }
             SYSTEM -> {
-                this.loc.getStar()!!.starUidShipList.remove(this.uid)
+                this.loc.getStar()!!.starUidShipSet.remove(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceUidShips.remove(this.uid)
@@ -107,7 +106,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 loc.getPlanet()!!.orbitUidShips.add(this.uid)
             }
             SYSTEM -> {
-                loc.getStar()!!.starUidShipList.add(this.uid)
+                loc.getStar()!!.starUidShipSet.add(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceUidShips.add(this.uid)
@@ -147,7 +146,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     this.loc.getPlanet()!!.orbitUidShips.remove(this.uid)
                 }
                 SYSTEM -> {
-                    this.loc.getStar()!!.starUidShipList.remove(this.uid)
+                    this.loc.getStar()!!.starUidShipSet.remove(this.uid)
                 }
                 DEEPSPACE -> {
                     u.deepSpaceUidShips.remove(this.uid)

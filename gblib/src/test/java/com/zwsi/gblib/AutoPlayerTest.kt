@@ -9,21 +9,21 @@ class AutoPlayerTest {
     fun testBeetle() {
         val universe = GBController.makeUniverse()
         AutoPlayer.playBeetle()
-        for (i in 1..200) universe.doUniverse()
+        for (i in 1..50) universe.doUniverse()
     }
 
     @Test
     fun testTortoise() {
         val universe = GBController.makeUniverse()
         AutoPlayer.playTortoise()
-        for (i in 1..200) universe.doUniverse()
+        for (i in 1..50) universe.doUniverse()
     }
 
     @Test
     fun testImpi() {
         val universe = GBController.makeUniverse()
         AutoPlayer.playImpi()
-        for (i in 1..200) universe.doUniverse()
+        for (i in 1..50) universe.doUniverse()
     }
 
     @Test

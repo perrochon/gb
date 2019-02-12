@@ -30,7 +30,7 @@ class GBSavedGameTest {
     fun AgedUniverse() {
         val u = GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
-        val turns = 50
+        val turns = 25
 
         AutoPlayer.playBeetle()
         AutoPlayer.playImpi()

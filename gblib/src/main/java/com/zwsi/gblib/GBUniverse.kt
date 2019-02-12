@@ -125,7 +125,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
                     GBLocation(allStars[uidStar]!!, (sidPlanet + 1f) * orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
                 allPlanets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, uidStar, loc)
-                star(uidStar).starUidPlanetList.add(uidPlanet)
+                star(uidStar).starUidPlanetSet.add(uidPlanet)
                 uidPlanet++;
             }
         }

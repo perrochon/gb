@@ -16,7 +16,6 @@ import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 class GBShipTest {
 
@@ -46,7 +45,7 @@ class GBShipTest {
                     assertTrue(universe.planet(ship.loc.uidRef).orbitShips.contains(ship))
                 }
                 SYSTEM -> {
-                    assertTrue(universe.star(ship.loc.uidRef).starUidShipList.contains(ship.uid))
+                    assertTrue(universe.star(ship.loc.uidRef).starUidShipSet.contains(ship.uid))
                 }
                 DEEPSPACE -> {
                     assertTrue(universe.deepSpaceUidShips.contains(ship.uid))
@@ -183,13 +182,16 @@ class GBShipTest {
     fun shipInTwoStarsFailsConsistency() {
         val u = GBController.makeUniverse()
 
-        val s1 = u.star(1)
-        val r0= GBController.u.allRaces.toList().component1().second
 
-        val sh0 = GBShip(u.getNextGlobalId(),0, r0.uid, GBLocation(s1, 30f, PlanetaryOrbit))
+        val s0 = u.star(0)
+        val s1 = u.star(1)
+        val r0= u.race(0)
+
+        val sh0 = GBShip(u.getNextGlobalId(),0, r0.uid, GBLocation(s0, 30f, PlanetaryOrbit))
+
         consistency(sh0)
 
-        s1.starUidShipList.add(sh0.uid)
+        s1.starUidShipSet.add(sh0.uid)
         consistency(sh0)
         uniqueLocations()
 

@@ -88,11 +88,11 @@ class GBController {
         }
 
         fun getStarPlanetsList(uidStar: Int): List<GBPlanet> {
-            return _u!!.star(uidStar).starUidPlanetList.map { u.planet(it) }
+            return _u!!.star(uidStar).starUidPlanetSet.map { u.planet(it) }
         }
 
         fun getStarShipList(uidStar: Int): List<GBShip> {
-            return _u!!.star(uidStar).starUidShipList.map { u.ship(it) }
+            return _u!!.star(uidStar).starUidShipSet.map { u.ship(it) }
         }
 
         fun getPlanetLandedShipsList(uidPlanet: Int): List<GBShip> {

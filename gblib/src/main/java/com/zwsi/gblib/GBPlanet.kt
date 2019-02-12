@@ -12,6 +12,7 @@ import java.util.*
 data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLocation) {
     // FIXME DELETE id can probably be removed
     // id is a unique object ID. Not currently used anywhere
+    // FIXME DELETE sid can probably be removed.
     // sid is the "Star ID" (aka orbit), where in the order of planets of the parent star is this 0..n
 
     var name = GBData.planetNameFromIdx(GBData.selectPlanetNameIdx())

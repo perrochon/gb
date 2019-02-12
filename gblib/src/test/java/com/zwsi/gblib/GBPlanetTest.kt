@@ -12,11 +12,9 @@ class GBPlanetTest {
         val universe = GBController.u
         assertTrue(planet.name.length > 0)
 
-        assertTrue(planet.star.starUidPlanetList.contains(planet.uid))
+        assertTrue(planet.star.starUidPlanetSet.contains(planet.uid))
         assertTrue(planet.star.starPlanetsList.contains(planet))
         assertTrue(universe.allPlanets.containsValue(planet))
-
-        assertEquals(planet.sid,planet.star.starPlanetsList.indexOf(planet)) // Fails because now using set, not list...
         assertEquals(planet,universe.allPlanets[planet.uid])
 
         var count = 0
