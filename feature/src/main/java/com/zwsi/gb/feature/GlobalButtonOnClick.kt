@@ -17,7 +17,6 @@ import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStarShips
 import com.zwsi.gblib.*
 import com.zwsi.gblib.GBController.Companion.lock
-import com.zwsi.gblib.GBController.Companion.u
 import java.io.File
 import kotlin.system.measureNanoTime
 
@@ -139,8 +138,7 @@ class GlobalButtonOnClick {
             val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
             val planet: GBPlanet = planetFragment.tag as GBPlanet
 
-            val universe = GBController.u
-            universe.makeFactory(
+            GBController.makeFactory(
                 planet,
                 GBViewModel.viewRaces.toList().component1().second
             ) // TODO Find Population and use planetOwner...
@@ -310,7 +308,7 @@ class GlobalButtonOnClick {
 
             lock.lock(); // makePod
             try {
-                GBController.u.makePod(ship)
+                GBController.makePod(ship)
             } finally {
                 lock.unlock()
             }
@@ -332,7 +330,7 @@ class GlobalButtonOnClick {
 
             lock.lock(); // makeCruiser
             try {
-                GBController.u.makeCruiser(ship)
+                GBController.makeCruiser(ship)
             } finally {
                 lock.unlock()
             }
@@ -364,9 +362,9 @@ class GlobalButtonOnClick {
             lock.lock(); // FlyTo
             try {
                 if (ship.idxtype == GBData.POD) {
-                    GBController.u.flyShipLanded(ship, planet)
+                    GBController.flyShipLanded(ship, planet)
                 } else {
-                    GBController.u.flyShipOrbit(ship, planet)
+                    GBController.flyShipOrbit(ship, planet)
                 }
             } finally {
                 lock.unlock()

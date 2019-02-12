@@ -1,12 +1,8 @@
 package com.zwsi.gblib
 
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
-import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.rand
-import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import java.util.*
 import kotlin.math.PI
 
@@ -38,7 +34,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
     // exposing these (for now)
     // TODO: With Locks, we should not need synchronized collections anymore,
     // e.g. Collections.synchronizedMap(hashMapOf<Int, GBStar>())
-    internal var allStars: MutableMap<Int, GBStar> =  hashMapOf<Int, GBStar>() // all the stars
+    internal var allStars: MutableMap<Int, GBStar> = hashMapOf<Int, GBStar>() // all the stars
     internal var allPlanets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>() // all the planets
     internal var allRaces: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>() // all the races
 
@@ -189,7 +185,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         // The single player
         val r0 = GBRace(getNextGlobalId(), 0, 0, allStars[0]!!.starPlanetsList[0].uid)
         allRaces[0] = r0
-        landPopulation(allStars[0]!!.starPlanetsList[0], r0.uid, 100)
+        allStars[0]!!.starPlanetsList[0].landPopulationOnEmptySector(r0, 100)
 
 
         // We only need one race for the early mission, but we create and land the others for God Mode...
@@ -201,12 +197,9 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         val r3 = GBRace(getNextGlobalId(), 3, 3, allStars[3]!!.starPlanetsList[0].uid)
         allRaces[3] = r3
 
-        landPopulation(allStars[1]!!.starPlanetsList[0], r1.uid, 100)
-        landPopulation(allStars[2]!!.starPlanetsList[0], r2.uid, 100)
-        landPopulation(allStars[3]!!.starPlanetsList[0], r3.uid, 100)
-        landPopulation(allStars[4]!!.starPlanetsList[0], r1.uid, 50)
-        landPopulation(allStars[4]!!.starPlanetsList[0], r2.uid, 50)
-        landPopulation(allStars[4]!!.starPlanetsList[0], r3.uid, 50)
+        allStars[1]!!.starPlanetsList[0].landPopulationOnEmptySector(r1, 100)
+        allStars[2]!!.starPlanetsList[0].landPopulationOnEmptySector(r2, 100)
+        allStars[3]!!.starPlanetsList[0].landPopulationOnEmptySector(r3, 100)
     }
 
     internal fun doUniverse() {
@@ -288,74 +281,5 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         u.news.add("${sh1.name} fired at ${sh2.name}.\n")
     }
 
-
-    fun makeFactory(p: GBPlanet, race: GBRace) {
-        GBLog.d("universe: Making factory for ${race.name} on ${p.name}.")
-
-        val loc =
-            GBLocation(p, rand.nextInt(p.width), rand.nextInt(p.height)) // TODO Have caller give us a better location?
-
-        val order = GBOrder()
-
-        order.makeFactory(loc, race)
-
-        GBLog.d("Order made: " + order.toString())
-
-        orders.add(order)
-
-        GBLog.d("Current Orders: " + orders.toString())
-    }
-
-    fun makePod(factory: GBShip) {
-        GBLog.d("universe: Making Pod for ?? in Factory " + factory.name + "")
-
-        val order = GBOrder()
-        order.makePod(factory)
-
-        GBLog.d("Pod ordered: " + order.toString())
-
-        orders.add(order)
-
-        GBLog.d("Current Orders: " + orders.toString())
-    }
-
-    fun makeCruiser(factory: GBShip) {
-        GBLog.d("universe: Making Cruiser for ?? in Factory " + factory.name + "")
-
-        val order = GBOrder()
-        order.makeCruiser(factory)
-
-        GBLog.d("Cruiser ordered: " + order.toString())
-
-        orders.add(order)
-
-        GBLog.d("Current Orders: " + orders.toString())
-    }
-
-
-    fun flyShipLanded(sh: GBShip, p: GBPlanet) {
-        GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
-
-        val loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location?
-        sh.dest = loc
-
-    }
-
-    fun flyShipOrbit(sh: GBShip, p: GBPlanet) {
-        GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
-
-        val loc = GBLocation(
-            p,
-            PlanetaryOrbit,
-            rand.nextFloat() * 2 * PI.toFloat()
-        ) // TODO Have caller give us a better location?
-        sh.dest = loc
-
-    }
-
-    fun landPopulation(p: GBPlanet, uidRace: Int, number: Int) {
-        GBLog.d("universe: Landing 100 of " + race(uidRace).name + " on " + p.name + "")
-        p.landPopulationOnEmptySector(race(uidRace), number)
-    }
 
 }

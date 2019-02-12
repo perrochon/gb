@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.gi
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
 import com.zwsi.gblib.GBController
 
@@ -15,8 +16,6 @@ class StarsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stars)
-
-        val universe = GBController.u
 
         val starField = findViewById<ImageView>(R.id.starField)
 
@@ -31,7 +30,7 @@ class StarsActivity : AppCompatActivity() {
 
         val bs = BitmapFactory.decodeResource(getResources(), R.drawable.star)
 
-        val merged = Bitmap.createBitmap(universe.universeMaxX, universe.universeMaxY, bs.config);
+        val merged = Bitmap.createBitmap(gi.universeMaxX, gi.universeMaxY, bs.config);
         val canvas = Canvas(merged);
 
         val stars = viewStars

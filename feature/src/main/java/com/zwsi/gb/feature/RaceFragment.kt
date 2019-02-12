@@ -41,7 +41,6 @@ class RaceFragment : Fragment() {
 
         // What is this fragment about, and make sure the fragment remembers
         val raceID = arguments!!.getString("UID")!!.toInt()
-        // val r = GBController.universe.allRaces[raceID] // TODO remove
         val r = GBViewModel.viewRaces.values.filter { it.uid == raceID }.first()
         view!!.tag = r
 

@@ -4,6 +4,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import java.io.File
 import java.util.concurrent.locks.ReentrantLock
+import kotlin.math.PI
 import kotlin.system.measureNanoTime
 
 class GBController {
@@ -30,7 +31,7 @@ class GBController {
 
         private var _u: GBUniverse? = null
 
-        val u: GBUniverse
+        val u: GBUniverse // FIXME PERSISTENCE make this internal
             get() {
                 if (_u == null) {
                     makeUniverse(numberOfStars, numberOfRaces)
@@ -146,6 +147,76 @@ class GBController {
             //File(context.filesDir, "CurrentGame.json").writeText(json)
             return json
         }
+
+        fun makeFactory(p: GBPlanet, race: GBRace) {
+            GBLog.d("universe: Making factory for ${race.name} on ${p.name}.")
+
+            val loc =
+                GBLocation(p, GBData.rand.nextInt(p.width), GBData.rand.nextInt(p.height)) // TODO Have caller give us a better location?
+
+            val order = GBOrder()
+
+            order.makeFactory(loc, race)
+
+            GBLog.d("Order made: " + order.toString())
+
+            u.orders.add(order)
+
+            GBLog.d("Current Orders: " + u.orders.toString())
+        }
+
+        fun makePod(factory: GBShip) {
+            GBLog.d("universe: Making Pod for ?? in Factory " + factory.name + "")
+
+            val order = GBOrder()
+            order.makePod(factory)
+
+            GBLog.d("Pod ordered: " + order.toString())
+
+            u.orders.add(order)
+
+            GBLog.d("Current Orders: " + u.orders.toString())
+        }
+
+        fun makeCruiser(factory: GBShip) {
+            GBLog.d("universe: Making Cruiser for ?? in Factory " + factory.name + "")
+
+            val order = GBOrder()
+            order.makeCruiser(factory)
+
+            GBLog.d("Cruiser ordered: " + order.toString())
+
+            u.orders.add(order)
+
+            GBLog.d("Current Orders: " + u.orders.toString())
+        }
+
+
+        fun flyShipLanded(sh: GBShip, p: GBPlanet) {
+            GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
+
+            val loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location?
+            sh.dest = loc
+
+        }
+
+        fun flyShipOrbit(sh: GBShip, p: GBPlanet) {
+            GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
+
+            val loc = GBLocation(
+                p,
+                GBData.PlanetaryOrbit,
+                GBData.rand.nextFloat() * 2 * PI.toFloat()
+            ) // TODO Have caller give us a better location?
+            sh.dest = loc
+
+        }
+
+        fun landPopulation(p: GBPlanet, uidRace: Int, number: Int) {
+            GBLog.d("universe: Landing 100 of " + u.race(uidRace).name + " on " + p.name + "")
+            p.landPopulationOnEmptySector(u.race(uidRace), number)
+        }
+
 
     }
 }
