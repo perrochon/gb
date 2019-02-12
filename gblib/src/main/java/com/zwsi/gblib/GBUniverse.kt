@@ -70,9 +70,8 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
     }
 
     // Results of turns. Basically replaced every turn
-    // FIXME Need unit tests for shots, especially as they get more fancy
-    val allShots: MutableList<GBVector> = arrayListOf<GBVector>()
-    val news: MutableList<String> = arrayListOf<String>()
+    val allShots: MutableList<GBVector> = arrayListOf<GBVector>()    // FIXME Need tests
+    val news: MutableList<String> = arrayListOf<String>() // FIXME Need Tests
     val orders: MutableList<GBOrder> = arrayListOf<GBOrder>()
 
     var autoDo = false // FIXME Almost certain this shouldn't be in universe
@@ -358,6 +357,5 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         GBLog.d("universe: Landing 100 of " + race(uidRace).name + " on " + p.name + "")
         p.landPopulationOnEmptySector(race(uidRace), number)
     }
-
 
 }

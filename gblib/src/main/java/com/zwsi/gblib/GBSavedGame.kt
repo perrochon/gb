@@ -18,7 +18,8 @@ data class GBSavedGame(
     val planetList: MutableMap<Int, GBPlanet>? = null,
     val raceList: MutableMap<Int, GBRace>? = null,
     val shipList: MutableMap<Int, GBShip>? = null,
-    val shots: MutableList<GBVector>? = null
+    val shots: MutableList<GBVector>? = null,
+    val news: MutableList<String>? = null
 ) {
 
     // If you want to save everything, just pass in the Universe :-)
@@ -33,7 +34,8 @@ data class GBSavedGame(
         u.allPlanets,
         u.allRaces,
         u.allShips,
-        u.allShots
+        u.allShots,
+        u.news
     ) {
     }
 }

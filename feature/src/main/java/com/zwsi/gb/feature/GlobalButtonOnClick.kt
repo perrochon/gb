@@ -73,14 +73,6 @@ class GlobalButtonOnClick {
 //                // output.append(baos.toString())
 //            }
 
-                view.post {
-                    // Worth making a string in this thread and post just result?
-                    for (s in GBController.u.news)
-                    //output.append(s)
-
-                        MissionController.checkMissionStatus()
-                    //output.append(MissionController.getCurrentMission(this))
-                }
 
             }).start()
 

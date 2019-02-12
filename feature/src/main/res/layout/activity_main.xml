@@ -26,7 +26,7 @@
             app:layout_constraintEnd_toStartOf="@+id/linearLayout1" android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2">
         <TextView
-                android:id="@+id/output"
+                android:id="@+id/messageBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="bottom"

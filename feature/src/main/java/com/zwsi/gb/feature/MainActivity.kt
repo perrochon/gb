@@ -17,12 +17,13 @@ import android.widget.TextView
 import android.widget.Toast
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zwsi.gb.feature.GBViewModel.Companion.gi
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBSavedGame
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import kotlin.system.measureNanoTime
+import android.arch.lifecycle.Observer
 
 var lastClickTime = 0L
 val clickDelay = 300L
@@ -37,6 +38,17 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val messageBox: TextView = findViewById<TextView>(R.id.messageBox)!!
+
+        val turnObserver = Observer<Int> { newTurn ->
+            messageBox.setText("Turn: ${newTurn.toString()}\n")
+            for (article in gi.news!!) {
+                messageBox.append(article)
+            }
+            messageBox.invalidate()
+        }  // TODO why is newTurn nullable?
+        GBViewModel.currentTurn.observe(this, turnObserver)
 
         val version = findViewById<TextView>(R.id.version)
         version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
@@ -65,14 +77,6 @@ class MainActivity : AppCompatActivity() {
                 // Enable Buttons Here
             }
 
-            // FIXME This should come back in gameinfo json... Commenting out as nothing useful in there anyway...
-//            version.post {
-//                // Worth making a string in this thread and post just result?
-//                for (s in GBController.u.news)
-//                    output.append(s)
-//
-//                output.append(MissionController.getCurrentMission(this))
-//            }
         }).start()
 
     }
@@ -85,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         lastClickTime = SystemClock.elapsedRealtime();
 
 
-        output.setText("")
+        messageBox.setText("")
 
         val message = "God Level: Recreating the Universe"
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
@@ -108,10 +112,10 @@ class MainActivity : AppCompatActivity() {
 
             view.post {
                 // Worth making a string in this thread and post just result?
-                for (s in u.news)
-                    output.append(s)
+                for (s in gi.news!!)
+                    messageBox.append(s)
 
-                output.append(MissionController.getCurrentMission(this))
+                messageBox.append(MissionController.getCurrentMission(this))
 
             }
 
