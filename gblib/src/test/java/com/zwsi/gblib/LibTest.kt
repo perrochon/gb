@@ -5,6 +5,7 @@
 
 package com.zwsi.gblib
 
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.SystemBoundary
 import org.junit.Assert.assertEquals
@@ -15,9 +16,9 @@ class LibTest {
     var shipsMade: Int = 0
 
     fun consistent() {
-        val universe = GBController.u
-        assertEquals(universe.star(0).starPlanetsList[0], universe.planet(0))
-        assertEquals(universe.star(0).starPlanetsList[1], universe.planet(1))
+        GBController.u
+        assertEquals(u.star(0).starPlanetsList[0], u.planet(0))
+        assertEquals(u.star(0).starPlanetsList[1], u.planet(1))
     }
 
     @Test
@@ -31,17 +32,17 @@ class LibTest {
 
     @Test
     fun SmallUniverse() {
-        val universe = GBController.makeSmallUniverse()
+        GBController.makeSmallUniverse()
         consistent()
 
-        assertEquals(100, universe.star(0).starPlanetsList[0].planetPopulation)
-        assertEquals(100, universe.star(1).starPlanetsList[0].planetPopulation)
-        assertEquals(100, universe.star(2).starPlanetsList[0].planetPopulation)
-        assertEquals(100, universe.star(3).starPlanetsList[0].planetPopulation)
+        assertEquals(100, u.star(0).starPlanetsList[0].planetPopulation)
+        assertEquals(100, u.star(1).starPlanetsList[0].planetPopulation)
+        assertEquals(100, u.star(2).starPlanetsList[0].planetPopulation)
+        assertEquals(100, u.star(3).starPlanetsList[0].planetPopulation)
 
 
         populate()
-        assertEquals(shipsMade, universe.allShips.size)
+        assertEquals(shipsMade, u.allShips.size)
         consistent()
 
 
@@ -52,17 +53,17 @@ class LibTest {
 
     @Test
     fun BigUniverse() {
-        val universe = GBController.makeBigUniverse()
+        GBController.makeBigUniverse()
         consistent()
 
-        assertEquals(100, universe.star(0).starPlanetsList[0].planetPopulation)
-        assertEquals(100, universe.star(1).starPlanetsList[0].planetPopulation)
-        assertEquals(100, universe.star(2).starPlanetsList[0].planetPopulation)
-        assertEquals(100, universe.star(3).starPlanetsList[0].planetPopulation)
+        assertEquals(100, u.star(0).starPlanetsList[0].planetPopulation)
+        assertEquals(100, u.star(1).starPlanetsList[0].planetPopulation)
+        assertEquals(100, u.star(2).starPlanetsList[0].planetPopulation)
+        assertEquals(100, u.star(3).starPlanetsList[0].planetPopulation)
 
 
         populate()
-        assertEquals(shipsMade, universe.allShips.size)
+        assertEquals(shipsMade, u.allShips.size)
         consistent()
 
         GBController.doUniverse()
@@ -70,16 +71,16 @@ class LibTest {
 
         // mini-stress test
         for (i in 1..20)
-            universe.doUniverse()
+            u.doUniverse()
 
     }
 
     @Test
     fun landPopulation() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
         consistent()
-        universe.landPopulation(universe.planet(1), universe.allRaces.values.first().uid, 55)
-        assertEquals(55, universe.star(0).starPlanetsList[1].planetPopulation)
+        u.landPopulation(u.planet(1), u.allRaces.values.first().uid, 55)
+        assertEquals(55, u.star(0).starPlanetsList[1].planetPopulation)
     }
 
     fun populate() {
@@ -87,7 +88,7 @@ class LibTest {
     }
 
     fun makeShips() {
-        val u = GBController.u
+        GBController.makeUniverse()
 
         val allRaces = u.allRaces
         val allStars = u.allStars

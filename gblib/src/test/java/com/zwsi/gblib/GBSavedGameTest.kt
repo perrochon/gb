@@ -4,6 +4,7 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import org.junit.Test
 import java.io.File
@@ -14,7 +15,7 @@ class GBSavedGameTest {
 
     @Test
     fun InitialUniverse() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
         val info = "Initial Universe: Number of Ships: ${u.allShips.size}"
@@ -28,7 +29,7 @@ class GBSavedGameTest {
 
     @Test
     fun AgedUniverse() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
         val turns = 25
 
@@ -55,7 +56,7 @@ class GBSavedGameTest {
 
     @Test
     fun InitialBigUniverse() {
-        val u = GBController.makeBigUniverse()
+        GBController.makeBigUniverse()
         val moshi = Moshi.Builder().build()
 
         val info = "Initial Big Universe "
@@ -68,7 +69,7 @@ class GBSavedGameTest {
 
     @Test
     fun PersistAndRestoreStarsPlanetsRaces() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
         val turns = 10
 
@@ -95,7 +96,7 @@ class GBSavedGameTest {
 
     @Test
     fun PersistAndRestoreShips() {
-        val u = GBController.makeSmallUniverse()
+        GBController.makeSmallUniverse()
         val moshi = Moshi.Builder().build()
 
         // First Turn
@@ -178,7 +179,7 @@ class GBSavedGameTest {
 
     @Test
     fun PersistAndRestoreShipsLong() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
         val turns = 5
 

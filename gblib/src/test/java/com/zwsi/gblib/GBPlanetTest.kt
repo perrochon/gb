@@ -2,6 +2,7 @@
 
 package com.zwsi.gblib
 
+import com.zwsi.gblib.GBController.Companion.u
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -29,10 +30,10 @@ class GBPlanetTest {
 
     @Test
     fun basic() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
 
 
-        for ((_, planet) in universe.allPlanets) {
+        for ((_, planet) in u.allPlanets) {
             consistent(planet)
         }
     }
@@ -42,7 +43,7 @@ class GBPlanetTest {
         val universe = GBController.makeUniverse()
 
 
-        for ((_, planet) in universe.allPlanets) {
+        for ((_, planet) in u.allPlanets) {
             val width = planet.width
             val height = planet.height
 
@@ -66,7 +67,7 @@ class GBPlanetTest {
     fun distanceToStar() {
         val universe = GBController.makeUniverse()
 
-        universe.allPlanets.forEach { (_, p) ->
+        u.allPlanets.forEach { (_, p) ->
             assert(p.loc.getLoc().distance(p.star.loc.getLoc())< (GBData.MaxSystemOrbit*1.1f), {"Planet too far from star"} )
         }
     }
@@ -75,7 +76,7 @@ class GBPlanetTest {
     fun sectorDirections() {
         val universe = GBController.makeUniverse()
 
-        for ((_, planet) in universe.allPlanets) {
+        for ((_, planet) in u.allPlanets) {
             val width = planet.width
             val height = planet.height
 
@@ -102,7 +103,7 @@ class GBPlanetTest {
 
         val universe = GBController.makeUniverse()
 
-        for ((_, planet) in universe.allPlanets) {
+        for ((_, planet) in u.allPlanets) {
 
             val rt1 = planet.loc.getSLocP()
             val xy1 = planet.loc.getSLocC()

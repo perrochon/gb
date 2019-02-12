@@ -7,6 +7,7 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zwsi.gblib.GBController.Companion.u
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -17,9 +18,9 @@ class GBStarTest {
         val universe = GBController.u
 
         assertTrue(s.name.length > 0)
-        assertTrue(universe.allStars.containsValue(s))
-        assertTrue(universe.allStars.containsKey(s.uid))
-        assertEquals(s.uid, universe.star(s.uid).uid)
+        assertTrue(u.allStars.containsValue(s))
+        assertTrue(u.allStars.containsKey(s.uid))
+        assertEquals(s.uid, u.star(s.uid).uid)
     }
 
 
@@ -27,14 +28,14 @@ class GBStarTest {
     fun basic() {
         val universe = GBController.makeUniverse()
 
-        for ((_, s) in universe.allStars)
+        for ((_, s) in u.allStars)
             consistent(s)
 
     }
 
     @Test
     fun JSON() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
         val inObject = GBStar(u.getNextGlobalId(),12, 5, 100, 200)
         val jsonAdapter1 = moshi.adapter<GBStar>(GBStar::class.java)
@@ -45,7 +46,7 @@ class GBStarTest {
 
     @Test
     fun JSONMap() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
         val gameInfo1 = GBSavedGame("Starlist Only", starList = u.allStars)

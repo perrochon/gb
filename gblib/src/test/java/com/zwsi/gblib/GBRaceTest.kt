@@ -5,6 +5,7 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zwsi.gblib.GBController.Companion.u
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -13,39 +14,39 @@ import java.io.File
 class GBRaceTest {
 
     fun consistent(r: GBRace){
-        val universe = GBController.u
+        GBController.u
         assertTrue(r.description.length > 0)
-        assertTrue(universe.allRaces.containsValue(r))
-        assertEquals(r, universe.race(r.uid))
+        assertTrue(u.allRaces.containsValue(r))
+        assertEquals(r, u.race(r.uid))
     }
 
     @Test
     fun basic() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
 
-        for ((_,race) in universe.allRaces) {
+        for ((_,race) in u.allRaces) {
             consistent(race)
             assertEquals(race.raceShipsList.size,0 )
         }
 
         // TODO TEST add ships to race and check again
 
-        assert(universe.race(0) == universe.race(0))
-        assert(universe.race(0) != universe.race(1))
+        assert(u.race(0) == u.race(0))
+        assert(u.race(0) != u.race(1))
 
         // Testing Data Class Behavior
-        val copy1 = universe.race(1)
-        assert(universe.race(1) == copy1)
-        assert(universe.race(1) === copy1) // Pointing to the same class
+        val copy1 = u.race(1)
+        assert(u.race(1) == copy1)
+        assert(u.race(1) === copy1) // Pointing to the same class
 
-        val copy2 = universe.race(1).copy()
-        assert(universe.race(1) == copy2)
-        assert(universe.race(1) !== copy2) // Pointing to different class
+        val copy2 = u.race(1).copy()
+        assert(u.race(1) == copy2)
+        assert(u.race(1) !== copy2) // Pointing to different class
     }
 
     @Test
     fun JSONRace() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
         val race1 = GBRace(u.getNextGlobalId(), 0, 0, 0)
@@ -58,7 +59,8 @@ class GBRaceTest {
 
     @Test
     fun JSONMap() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
+
         val moshi = Moshi.Builder().build()
 
         val gameInfo1 = GBSavedGame("Racelist only", raceList = u.allRaces)

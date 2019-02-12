@@ -1,38 +1,39 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.AutoPlayer
+import com.zwsi.gblib.GBController.Companion.u
 import org.junit.Test
 
 class AutoPlayerTest {
 
     @Test
     fun testBeetle() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
         AutoPlayer.playBeetle()
-        for (i in 1..50) universe.doUniverse()
+        for (i in 1..50) u.doUniverse()
     }
 
     @Test
     fun testTortoise() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
         AutoPlayer.playTortoise()
-        for (i in 1..50) universe.doUniverse()
+        for (i in 1..50) u.doUniverse()
     }
 
     @Test
     fun testImpi() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
         AutoPlayer.playImpi()
-        for (i in 1..50) universe.doUniverse()
+        for (i in 1..50) u.doUniverse()
     }
 
     @Test
     fun testTogether() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
         AutoPlayer.playBeetle()
         AutoPlayer.playImpi()
         AutoPlayer.playTortoise()
-        for (i in 1..200) universe.doUniverse()
+        for (i in 1..200) u.doUniverse()
     }
 
 }

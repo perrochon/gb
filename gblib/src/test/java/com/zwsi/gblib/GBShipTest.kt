@@ -7,6 +7,7 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
 import com.zwsi.gblib.GBData.Companion.SystemBoundary
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
@@ -147,7 +148,7 @@ class GBShipTest {
 
     @Test
     fun basic() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
 
         GBLog.d("Testing " + u.allShips.size + " ships")
 
@@ -180,7 +181,7 @@ class GBShipTest {
 
     @Test(expected = java.lang.AssertionError::class)
     fun shipInTwoStarsFailsConsistency() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
 
 
         val s0 = u.star(0)
@@ -199,7 +200,7 @@ class GBShipTest {
 
     @Test(expected = java.lang.AssertionError::class)
     fun shipInTwoRacesFailsConsistency() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
 
         val s0 = u.star(0)
         val r0= GBController.u.allRaces.toList().component1().second
@@ -216,7 +217,7 @@ class GBShipTest {
 
     @Test
     fun moveCruiser() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
 
         val s0 = u.star(0)
         val p0 = s0.starPlanetsList[0]
@@ -256,7 +257,7 @@ class GBShipTest {
 
     @Test
     fun sendPodInSystem() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
 
         val s0 = u.star(0)
         val p0 = s0.starPlanetsList[0]
@@ -293,7 +294,7 @@ class GBShipTest {
 
     @Test
     fun sendPodOtherSystem() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
 
         val s0 = u.star(0)
         val s1 = u.star(1)
@@ -331,7 +332,7 @@ class GBShipTest {
 
     @Test
     fun JSON() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
         val p0 = u.planet(0)
@@ -348,7 +349,7 @@ class GBShipTest {
 
     @Test
     fun JSONMap() {
-        val u = GBController.makeSmallUniverse()
+        GBController.makeSmallUniverse()
         val moshi = Moshi.Builder().build()
 
         // Need to make ships

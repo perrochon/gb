@@ -80,8 +80,8 @@ class GBLocationTest {
 
     @Test
     fun orbit() {
-        val universe = GBController.makeUniverse()
-        val p = universe.planet(1)
+        GBController.makeUniverse()
+        val p = u.planet(1)
         val loc = GBLocation(p, 1f, 25f)
         assertEquals(1f, loc.r)
         assertEquals(25f, loc.t)
@@ -90,16 +90,16 @@ class GBLocationTest {
 
     @Test(expected = AssertionError::class)
     fun orbitTooFarOut() {
-        val universe = GBController.makeUniverse()
-        val p = universe.planet(1)
+        GBController.makeUniverse()
+        val p = u.planet(1)
         val loc = GBLocation(p, 3f, 25f) // This should fail
         consistent(loc)
     }
 
     @Test
     fun landed() {
-        val universe = GBController.makeUniverse()
-        val p = universe.planet(2)
+        GBController.makeUniverse()
+        val p = u.planet(2)
         val loc = GBLocation(p, 1, 2)
         assertEquals(1, loc.sx)
         assertEquals(2, loc.sy)
@@ -108,8 +108,8 @@ class GBLocationTest {
 
     @Test
     fun system() {
-        val universe = GBController.makeUniverse()
-        val s = universe.star(3)
+        GBController.makeUniverse()
+        val s = u.star(3)
         val loc = GBLocation(s, 2f, 2f)
         assertEquals(2f, loc.t)
         consistent(loc)
@@ -117,8 +117,8 @@ class GBLocationTest {
 
     @Test(expected = AssertionError::class)
     fun systemTooFarOut() {
-        val universe = GBController.makeUniverse()
-        val s = universe.star(3)
+        GBController.makeUniverse()
+        val s = u.star(3)
         val loc = GBLocation(s, 200f, 2f)  // This should fail
         consistent(loc)
     }
@@ -157,7 +157,7 @@ class GBLocationTest {
     @Test
     fun planetMoveMath() { // TODO Refactor so this test can be done without a universe
         val universe = GBController.makeUniverse()
-        val s = universe.star(0)
+        val s = u.star(0)
         var loc = GBLocation(s, 10f, 0f)
         var xy = loc.getSLocC()
         var rt = loc.getSLocP()
@@ -217,7 +217,7 @@ class GBLocationTest {
 
     @Test
     fun JSONList() {
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
         val list1: MutableList<GBLocation> = arrayListOf<GBLocation>()

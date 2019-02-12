@@ -17,7 +17,7 @@ class GBTestJSON {
     @Test
     fun JSON() {
 
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
         val inObject = GBPlanet(u.getNextGlobalId(),0, 0, 0, GBLocation(1,0))
@@ -31,7 +31,7 @@ class GBTestJSON {
     @Test
     fun JSONMap() {
 
-        val u = GBController.makeUniverse()
+        GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
         val gameInfo1 = GBSavedGame("Starlist only", starList = u.allStars)
