@@ -162,7 +162,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
             }
             u.race(uidRace).raceShipsUIDList.remove(this.uid)
             u.allShips.remove(this.uid)
-            //u.deadShips[this.uid] = this // TODO Deadships removal, or maybe a counter?
+            // u.deadShips[this.uid] = this // TODO Cleanup deadship code.
         }
     }
 

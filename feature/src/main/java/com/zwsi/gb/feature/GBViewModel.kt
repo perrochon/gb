@@ -39,6 +39,8 @@ class GBViewModel {
         // FIXME  THINK THIS THROUGH: If we "restore" on update (JSONify copy) we have copies of all stars, planets, etc.
         // And we don't need the below separate copies. If we don't "restore", we point to the original.
         // How does it work if we send over the wire? We copy each time?
+        // "Copying" (save/restore) the whole bundle allows us to put the non-GodMode filters into GBLib.
+        // So maybe going forward, we send a copy of the data on update.
 
         // PERF Likely, we want GBObjects below. They may take more memory, but operations should be faster on draw
         // FIXME We don't have a view of starPlanetLists...
