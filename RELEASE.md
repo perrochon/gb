@@ -22,7 +22,8 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 next release
 - System size doubled. It's not like the game is "to scale" anyway. Larger system makes better use of screen real estate
 - Double click on planet keeps planet "geocentric" through turns (i.e. the background moves). Not sure this is an improvement.
-- Verify that all ships always visible (requires fixes)
+- #Before release Verify that all ships always visible (requires fixes)
+- News now update again each turn on the main screen (and are more concise)
 
 477
 -Online Tutorial https://github.com/perrochon/gb/blob/master/TUTORIAL.md
