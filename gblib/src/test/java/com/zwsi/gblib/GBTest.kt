@@ -15,7 +15,7 @@ import kotlin.system.measureNanoTime
 
 class GBTest {
 
-    // FIXME exclude using categories.
+    // FIXME BUILD exclude using categories.
     //@Test
     fun runUniverse() {
 

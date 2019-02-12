@@ -10,7 +10,7 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
-    // FIXME id can probably be removed
+    // FIXME DELETE id can probably be removed
     // id is a unique object ID. Not currently used anywhere
     // idx is the number to go look up static race information in GBData.
     //      Not needed with dynamic race design or load from json

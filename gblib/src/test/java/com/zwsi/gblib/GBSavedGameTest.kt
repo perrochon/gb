@@ -186,11 +186,6 @@ class GBSavedGameTest {
         for (i in 1..turns) {
             GBController.doUniverse()
 
-            // FIXME Need to run this inside until Autoplayer refactor.
-            AutoPlayer.playBeetle()
-            AutoPlayer.playImpi()
-            AutoPlayer.playTortoise()
-
             val info = "Universe After $i turns"
             val gameInfo1 = GBSavedGame(info, shipList = u.allShips)
 

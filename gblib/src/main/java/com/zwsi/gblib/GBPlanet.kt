@@ -10,14 +10,14 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLocation) {
-    // FIXME id can probably be removed
+    // FIXME DELETE id can probably be removed
     // id is a unique object ID. Not currently used anywhere
     // sid is the "Star ID" (aka orbit), where in the order of planets of the parent star is this 0..n
 
     var name = GBData.planetNameFromIdx(GBData.selectPlanetNameIdx())
     var idxtype = GBData.selectPlanetTypeIdx() // idxtype of this planet
     var type = GBData.planetTypeFromIdx(idxtype)
-    var height = GBData.selectPlanetHeight(idxtype)  // FIXME NICE one call returning a Pair()
+    var height = GBData.selectPlanetHeight(idxtype)  // FIXME NICE one call returning a Pair(height, width)
     var width = GBData.selectPlanetWidth(height)
 
     var uidPlanetOwner = -1

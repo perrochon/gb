@@ -11,10 +11,11 @@ import kotlin.collections.HashSet
 
 @JsonClass(generateAdapter = true)
 data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: Int, val y: Int) {
-    // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
+    // FIXME DELETE id can probably be removed
+    // id is a unique object ID. Not currently used anywhere
 
     var name: String
-    var loc: GBLocation  // FIXME pass in a GBLocation instead of (x,y)
+    var loc: GBLocation  // FIXME NICE pass in a GBLocation instead of (x,y)
 
     init {
         name = GBData.starNameFromIdx(GBData.selectStarNameIdx())

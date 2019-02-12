@@ -18,10 +18,6 @@ import kotlin.math.atan2
 
 @JsonClass(generateAdapter = true)
 data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocation) {
-    // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
-
-    // FIXME Data class compiler generated functions like equal etc. only work for what's in the constructor, not the body.
-    // Minimally, UID needs to get into the comparison, i.e. into the constructor...
 
     // properties that don't change over live time of ship
     var name: String // name, first letters of race and type, then id

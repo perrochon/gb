@@ -174,7 +174,6 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         coordinates[1] = GBData.rand.nextInt(areaHeight - 2 * marginY) + areaY * areaHeight + marginY
 
         return Pair(coordinates[0], coordinates[1])
-
     }
 
 
@@ -215,7 +214,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
 
         news.clear()
 
-        // FIXME only do this if other races are playing
+        // FEATURE only do this if other races are playing
         AutoPlayer.playBeetle()
         AutoPlayer.playImpi()
         AutoPlayer.playTortoise()
@@ -271,10 +270,10 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         u.deadShips.clear()
     }
 
-    fun fireShots() { // TODO use filtered lists
+    fun fireShots() {
         allShots.clear()
 
-        // TODO: Perf and Feature: Create one list of all insystem ships, then find shots
+        // PERF Create one list of all insystem ships, then find shots
         // System Ships shoot at System only
         for ((_, star) in allStars) {
             for (sh1 in star.starShipList.shuffled()) {
@@ -314,20 +313,12 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
 
     }
 
-//    fun getPlanets(s: GBStar): Array<GBPlanet?> {
-//        return s.starPlanets.toTypedArray()
-//    } // FIXME DELETE 2/6/19 Deprecate this. Get it from stars.
-
-//    fun getSectors(p: GBPlanet): Array<GBSector> {
-//        return p.sectors
-//    } //FIXME DELETE 2/6/19 should this be in planet? Or Data?
-
 
     fun makeFactory(p: GBPlanet, race: GBRace) {
         GBLog.d("universe: Making factory for ${race.name} on ${p.name}.")
 
         val loc =
-            GBLocation(p, rand.nextInt(p.width), rand.nextInt(p.height)) // TODO Have caller give us a better location
+            GBLocation(p, rand.nextInt(p.width), rand.nextInt(p.height)) // TODO Have caller give us a better location?
 
         val order = GBOrder()
 
@@ -370,7 +361,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
     fun flyShipLanded(sh: GBShip, p: GBPlanet) {
         GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
 
-        val loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location
+        val loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location?
         sh.dest = loc
 
     }
@@ -382,7 +373,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
             p,
             PlanetaryOrbit,
             rand.nextFloat() * 2 * PI.toFloat()
-        ) // TODO Have caller give us a better location
+        ) // TODO Have caller give us a better location?
         sh.dest = loc
 
     }

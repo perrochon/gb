@@ -20,7 +20,7 @@ class GBData {
 
     companion object {
 
-        // FIXME these public methods be could internal if the whole lib is Kotlin? Nobody outside the lib should call GBData
+        // FIXME NICE these public methods be could internal if the whole lib is Kotlin? Nobody outside the lib should call GBData
         // Need to go through GB Controller and GBUniverse for everything.
         internal val rand = Random(1) // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
