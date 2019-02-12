@@ -269,9 +269,6 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         u.deepSpaceUidShips.clear()
         u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach{u.deepSpaceUidShips.add(it)}
         u.deadShips.clear()
-
-        GBScheduler.scheduledActions.clear()
-
     }
 
     fun fireShots() { // TODO use filtered lists

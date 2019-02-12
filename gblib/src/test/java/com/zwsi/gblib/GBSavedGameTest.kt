@@ -132,7 +132,6 @@ class GBSavedGameTest {
         u.allShips = gameInfo2.shipList!!
         u.deepSpaceUidShips.clear()
         u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
-        GBScheduler.scheduledActions.clear()
 
         //Second Turn
         val factory = u.allShips.filter { it.value.idxtype == GBData.FACTORY }.values.firstOrNull()!!
@@ -154,7 +153,6 @@ class GBSavedGameTest {
         u.allShips = gameInfo2.shipList!!
         u.deepSpaceUidShips.clear()
         u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
-        GBScheduler.scheduledActions.clear()
 
         // Third Turn
         val cruiser = u.allShips.filter { it.value.idxtype == GBData.CRUISER }.values.firstOrNull()!!
@@ -175,7 +173,6 @@ class GBSavedGameTest {
         u.allShips = gameInfo2.shipList!!
         u.deepSpaceUidShips.clear()
         u.allShips.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
-        GBScheduler.scheduledActions.clear()
 
     }
 
@@ -211,8 +208,6 @@ class GBSavedGameTest {
 
             u.deadShips.clear()
             // Not restoring any dead ships that we may have saved...
-
-            GBScheduler.scheduledActions.clear() // FIXME -> Need Autoplayer to be more robust
 
         }
 

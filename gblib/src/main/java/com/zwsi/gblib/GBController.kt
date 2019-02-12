@@ -40,7 +40,6 @@ class GBController {
             _u!!.makeStarsAndPlanets()
             _u!!.makeRaces()
             GBLog.d("Universe made with $stars stars")
-            GBScheduler.scheduledActions.clear()
             return _u!!
         }
 

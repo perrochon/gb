@@ -10,7 +10,8 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLocation) {
-    // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
+    // FIXME id can probably be removed
+    // id is a unique object ID. Not currently used anywhere
     // sid is the "Star ID" (aka orbit), where in the order of planets of the parent star is this 0..n
 
     var name = GBData.planetNameFromIdx(GBData.selectPlanetNameIdx())
@@ -230,9 +231,9 @@ data class GBPlanet(val id: Int, val uid: Int, val sid: Int, val uidStar: Int, v
 
         sector.population += difference
         this.planetPopulation += difference
-        // FIXME PERSISTENCE With only uidRace in Sector, we don't have access to u.race() during u construction.
+        // FIXME Bug/Regression Owner Population not being updated right now.
+        // With only uidRace in Sector, we don't have access to u.race() during u construction.
         // Need to refactor that first, or move all this code into GBController.
-        // FIXME Owner Population not being updated for a while.
         //sector.sectorOwner.population += difference
 
         if (sector.population == 0) {

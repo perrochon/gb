@@ -12,11 +12,8 @@ import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLog.gbAssert
 
-// FIXME PERSISTENCE. Pending orders need to be persistent, too. Maybe easier to make them GBInstructions as those need
-// to be persisted...
 
 class GBOrder {
-
     // TODO Lambdas? Or use the scheduler instead?
 
     var type = -1

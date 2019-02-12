@@ -10,7 +10,8 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
-    // id is a unique object ID. Not currently used anywhere FIXME DELETE id can probably be removed
+    // FIXME id can probably be removed
+    // id is a unique object ID. Not currently used anywhere
     // idx is the number to go look up static race information in GBData.
     //      Not needed with dynamic race design or load from json
 
@@ -52,10 +53,6 @@ data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
 
     fun getRaceShipsUIDList(): List<Int> {
         return raceShipsUIDList.toList()
-        // FIXME Consistent Exception 2/7 java.util.ConcurrentModificationException called from ViewModel updating.
-        // Need to understand wht toList does. Likely a lib update removed a ship from raceships while the
-        // Viewmodel updated. Is this a safe way of creating a copy?
-        // Only impacts raceShips, none of the other lists. It may be a different problem...
     }
 
     fun consoleDraw() {
