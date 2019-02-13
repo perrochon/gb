@@ -1,5 +1,6 @@
 package com.zwsi.gb.feature
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBStar
 
 class StarFragment : Fragment() {
 
@@ -37,20 +39,33 @@ class StarFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view: View? = inflater.inflate(R.layout.fragment_star, container, false);
+        val view: View? = inflater.inflate(R.layout.fragment_star, container, false);
+
+        val turnObserver = Observer<Int> { newTurn ->
+            // FIXIT UPDATE Need to call setStats but don't have a star. Need to keep a copy of UID somewhere
+            // Needs more thinking
+            view!!.invalidate()
+        }  // TODO why is newTurn nullable?
+        GBViewModel.currentTurn.observe(this, turnObserver)
+
 
         // What is this fragment about, and make sure the fragment remembers
         val starID = arguments!!.getString("UID")!!.toInt()
         val st = GBViewModel.viewStars[starID]!!
         view!!.tag = st
 
+        setStats(view, st)
+
         val imageView = view.findViewById<ImageView>(R.id.StarView)
 
         imageView.setImageResource(R.drawable.yellow)
 
+        return view
+    }
 
-        var stats = view.findViewById<TextView>(R.id.StarStats)
-        var paint = stats.paint
+    fun setStats(view: View, st: GBStar) {
+        val stats = view.findViewById<TextView>(R.id.StarStats)
+        val paint = stats.paint
         paint.textSize = 40f
 
         stats.setText("${st.name} at (" + (st.loc.getLoc().x.toInt()) + ", " + st.loc.getLoc().y.toInt() + ")\n")
@@ -72,17 +87,5 @@ class StarFragment : Fragment() {
             }
         }
 
-        stats = view.findViewById<TextView>(R.id.StarBackground)
-        paint = stats.paint
-        paint.textSize = 40f
-
-//        stats.setText("Lorem ipsum dolor sit amet\n")
-//
-//        stats.append("\n")
-//        stats.append("id: " + st.id + " | ")
-//        stats.append("refUID: " + st.uid + " | ")
-//        stats.append("idxname: " + st.idxname + "\n")
-
-        return view
     }
 }
