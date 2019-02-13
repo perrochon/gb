@@ -1,16 +1,10 @@
 package com.zwsi.gb.feature
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.SystemClock
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
-import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBShip
-import com.zwsi.gblib.GBStar
 
 class StarsSlideActivity : AppCompatActivity() {
 
@@ -72,7 +66,7 @@ class StarsSlideActivity : AppCompatActivity() {
     }
 
     fun goToShips(view:View) {
-        GlobalButtonOnClick.goToShips(view)
+        GlobalStuff.goToShips(view)
     }
 
 

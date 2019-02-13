@@ -7,12 +7,12 @@ import android.support.v7.app.AppCompatActivity
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.widget.TextView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.gi
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBStar
-
 
 class MapActivity : AppCompatActivity() {
 
@@ -20,6 +20,11 @@ class MapActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
+
+        // Set up the Version View
+        val version = findViewById<TextView>(R.id.version)
+        version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+
 
         val imageView: MapView = findViewById<MapView>(R.id.mapView)!!
 
@@ -132,49 +137,49 @@ class MapActivity : AppCompatActivity() {
 
     /** Called when the user taps the Do button */
     fun doUniverse(view: View) {
-        GlobalButtonOnClick.doUniverse(view)
+        GlobalStuff.doUniverse(view)
     }
 
     fun continuousDo(view: View) {
-        GlobalButtonOnClick.toggleContinuous(view)
+        GlobalStuff.toggleContinuous(view)
     }
 
 
     fun makeFactory(view: View) {
-        GlobalButtonOnClick.makeFactory(view)
+        GlobalStuff.makeFactory(view)
     }
 
     fun panzoomToStar(view: View) {
-        GlobalButtonOnClick.panzoomToStar(view)
+        GlobalStuff.panzoomToStar(view)
     }
 
     fun panzoomToPlanet(view: View) {
-        GlobalButtonOnClick.panzoomToPlanet(view)
+        GlobalStuff.panzoomToPlanet(view)
     }
 
     fun panzoomToSystemStar(view: View) {
-        GlobalButtonOnClick.panzoomToSystemStar(view)
+        GlobalStuff.panzoomToSystemStar(view)
     }
 
     fun panzoomToShip(view: View) {
-        GlobalButtonOnClick.panzoomToShip(view)
+        GlobalStuff.panzoomToShip(view)
     }
 
 //    fun goToLocationShip(view: View) {
-//        GlobalButtonOnClick.goToLocationShip(view)
+//        GlobalStuff.goToLocationShip(view)
 //    }
 
     fun makePod(view: View) {
-        GlobalButtonOnClick.makePod(view)
+        GlobalStuff.makePod(view)
     }
 
     fun makeCruiser(view: View) {
-        GlobalButtonOnClick.makeCruiser(view)
+        GlobalStuff.makeCruiser(view)
     }
 
     /** Called when the user taps the fly  To button */
     fun flyTo(view: View) {
-        GlobalButtonOnClick.flyTo(view)
+        GlobalStuff.flyTo(view)
     }
 
 }

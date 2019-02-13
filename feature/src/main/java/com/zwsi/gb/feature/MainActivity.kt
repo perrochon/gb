@@ -39,6 +39,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Set up the Version View
+        val version = findViewById<TextView>(R.id.version)
+        version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+
+
         // Set up the MessageBox View to listen to news
         val messageBox: TextView = findViewById<TextView>(R.id.messageBox)!!
         messageBox.setText("Welcome to Andromeda Rising!\n")
@@ -52,35 +57,11 @@ class MainActivity : AppCompatActivity() {
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
-        // Set up the Version View
-        val version = findViewById<TextView>(R.id.version)
-        version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+        // FIXME. Need to disable all (most) buttons until we do have a Universe!!!!
 
-        Thread(Runnable {
+        GlobalStuff.makeUniverse(applicationContext)
 
-            val json = GBController.makeUniverse() // Create Universe if we don't have one...
-
-            // This writes to (or not) /data/data/com.zwsi.gb.app/files/CurrentGame.json
-            val writeFileTime = measureNanoTime {
-                val file = File(this.filesDir, "CurrentGame.json").writeText(json)
-            }
-
-            // FIXME. Need to disable all (most) buttons until we do have a Universe!!!!
-
-            // We create gameinfo in the worker thread, not the UI thread
-            var gameInfo = GBSavedGame()
-            val fromJsonTime = measureNanoTime {
-                val moshi = Moshi.Builder().build()
-                val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
-                gameInfo = jsonAdapter.lenient().fromJson(json)!!
-            }
-
-            version.post {
-                GBViewModel.update(gameInfo, GBController.elapsedTimeLastUpdate, writeFileTime, fromJsonTime)
-                // Enable Buttons Here
-            }
-
-        }).start()
+        var test = applicationContext
 
     }
 
@@ -99,19 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         Thread(Runnable {
 
-            // Capture output from tester in an byte array
-//            val baos = ByteArrayOutputStream()
-//            val ps = PrintStream(baos)
-//            System.setOut(ps)
-
             GBController.makeUniverse()
-
-//            System.out.flush()
-
-            view.post {
-                // This is going to the button's UI thread, which is the same as the ScrollView
-                // output.append(baos.toString())
-            }
 
             view.post {
                 // Worth making a string in this thread and post just result?
@@ -128,11 +97,11 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Do button */
     fun doUniverse(view: View) {
-        GlobalButtonOnClick.doUniverse(view)
+        GlobalStuff.doUniverse(view)
     }
 
     fun continuousDo(view: View) {
-        GlobalButtonOnClick.toggleContinuous(view)
+        GlobalStuff.toggleContinuous(view)
     }
 
     fun makeStuff(view: View) {

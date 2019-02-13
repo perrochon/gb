@@ -70,8 +70,6 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
     val news: MutableList<String> = arrayListOf<String>() // FIXME Need Tests
     val orders: MutableList<GBOrder> = arrayListOf<GBOrder>()
 
-    var autoDo = false // FIXME Almost certain this shouldn't be in universe
-
     var turn = 0
 
     // FIXME PERSISTENCE persist turn, which races are playing

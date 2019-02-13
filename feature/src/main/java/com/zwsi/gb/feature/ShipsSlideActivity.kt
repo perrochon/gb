@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShips
-import com.zwsi.gblib.GBController
 
 class ShipsSlideActivity : AppCompatActivity() {
 
@@ -70,19 +69,19 @@ class ShipsSlideActivity : AppCompatActivity() {
 
     fun goToLocationShip( @Suppress("UNUSED_PARAMETER")view: View) {
         // TODO deprecated
-//        GlobalButtonOnClick.goToLocationShip(view)
+//        GlobalStuff.goToLocationShip(view)
     }
 
     fun makePod(view: View) {
-        GlobalButtonOnClick.makePod(view)
+        GlobalStuff.makePod(view)
     }
 
     fun makeCruiser(view: View) {
-        GlobalButtonOnClick.makeCruiser(view)
+        GlobalStuff.makeCruiser(view)
     }
 
     /** Called when the user taps the fly  To button */
     fun flyTo(view: View) {
-        GlobalButtonOnClick.flyTo(view)
+        GlobalStuff.flyTo(view)
     }
 }

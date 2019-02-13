@@ -270,8 +270,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             var l = 1f
             val h = 50
 
-            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
-            canvas.drawText("Norm:${normScale.f(2)}|Scale:${scale.f(2)}", 8f, l++ * h, paint)
+            canvas.drawText(
+                "MS:${maxScale.toInt()}|mS:${minScale.f(3)}|DY:${density.toInt()}" +
+                        "|NS:${normScale.f(2)}|SC:${scale.f(2)}", 8f, l++ * h, paint
+            )
 //            canvas.drawText(
 //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
 //                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
@@ -295,7 +297,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //            )
             // Turn Stats
             canvas.drawText(
-                "Turn:${turn!!.f(4)}" +
+                "TU:${turn!!.f(4)}" +
                         "|As:${GBViewModel.viewShips.size.f(4)}" +
                         "|Ds:${GBViewModel.viewDeepSpaceShips.size.f(4)}" +
                         "|sh:${gi.shots!!.size.f(3)}",
@@ -303,16 +305,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 l++ * h,
                 paint
             )
-            // Memroy Stats
-            canvas.drawText(
-                "MM:${(Runtime.getRuntime().maxMemory() / 1048576).f(3)}" +
-                        "|TM:${(Runtime.getRuntime().totalMemory() / 1048576).f(3)}" +
-                        "|UM:${((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576).f(3)}" +
-                        "|FM:${(Runtime.getRuntime().freeMemory() / 1048576).f(3)}",
-                8f,
-                l++ * h,
-                paint
-            )
+//            // Memory Stats
+//            canvas.drawText(
+//                "MM:${(Runtime.getRuntime().maxMemory() / 1048576).f(3)}" +
+//                        "|TM:${(Runtime.getRuntime().totalMemory() / 1048576).f(3)}" +
+//                        "|UM:${((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576).f(3)}" +
+//                        "|FM:${(Runtime.getRuntime().freeMemory() / 1048576).f(3)}",
+//                8f,
+//                l++ * h,
+//                paint
+//            )
             // Performance Stats
             canvas.drawText(
                 "Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}ms" +

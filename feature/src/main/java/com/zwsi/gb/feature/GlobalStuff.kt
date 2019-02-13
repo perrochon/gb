@@ -1,8 +1,11 @@
 package com.zwsi.gb.feature
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.PointF
+import android.os.Handler
+import android.os.Looper
 import android.os.SystemClock
 import android.view.View
 import android.widget.Spinner
@@ -20,58 +23,75 @@ import com.zwsi.gblib.GBController.Companion.lock
 import java.io.File
 import kotlin.system.measureNanoTime
 
-class GlobalButtonOnClick {
+// TODO rename this, once we know what all it does :-)
+class GlobalStuff {
 
     companion object {
 
+        val moshi = Moshi.Builder().build()
+        val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
+
+
+        // We need the application context to write to a file
+        fun makeUniverse(context: Context){
+            Thread(Runnable {
+
+                val json = GBController.makeUniverse()  // SERVER Talk to not-remote server
+
+                processGameInfo(context, json)
+
+            }).start()
+        }
+
+        // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
+        fun processGameInfo(context: Context, json: String) {
+
+            // FYI only. This writes (on my setup) to  /data/data/com.zwsi.gb.app/files/CurrentGame.json
+            val writeFileTime = measureNanoTime {
+                File(context.filesDir, "CurrentGame.json").writeText(json)
+            }
+
+            // We create gameinfo in the worker thread, not the UI thread
+            var gameInfo = GBSavedGame()
+            val fromJsonTime = measureNanoTime {
+
+                gameInfo = jsonAdapter.lenient().fromJson(json)!!
+            }
+
+            Handler(Looper.getMainLooper()).post({
+                GBViewModel.update(gameInfo, GBController.elapsedTimeLastUpdate, writeFileTime, fromJsonTime)
+            })
+
+            // FIXME DELETE we had the code below
+//                version.post {
+//                    GBViewModel.update(gameInfo, GBController.elapsedTimeLastUpdate, writeFileTime, fromJsonTime)
+//                    // Enable Buttons Here
+//                }
+
+
+        }
+
+        var autoDo = false
+
         fun doUniverse(view: View) {
+
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-
-            //output.setText("") // TODO Refactor output back in...
+            if (autoDo) { // If we are running on auto, ignore manual Do
+                return
+            }
 
             val message = "Executing Orders"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
             Thread(Runnable {
 
-                // Capture output from tester in an byte array
-//            val baos = ByteArrayOutputStream()
-//            val ps = PrintStream(baos)
-//            System.setOut(ps)
+                val json = GBController.doUniverse() // SERVER Talk to not-remote server
 
-                if (GBController.u.autoDo) { // If we are running on autok, don't add extra do's
-                    return@Runnable
-                }
-
-                // SERVER This is where we would talk to the server, and get a JSON with new state back
-                val json = GBController.doUniverse()
-
-                // This writes to (or not) /data/data/com.zwsi.gb.app/files/CurrentGame.json
-                val writeFileTime = measureNanoTime {
-                    File(view.context.filesDir, "CurrentGame.json").writeText(json)
-                }
-                // We create gameinfo in the worker thread, not the UI thread
-                var gameInfo = GBSavedGame()
-                val fromJsonTime = measureNanoTime {
-                    val moshi = Moshi.Builder().build()
-                    val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
-                    gameInfo = jsonAdapter.lenient().fromJson(json)!!
-                }
-
-                view.post {
-                    GBViewModel.update(gameInfo, GBController.elapsedTimeLastUpdate, writeFileTime, fromJsonTime)
-                }
-
-//            System.out.flush()
-
-//            view.post { // This is going to the button's UI thread, which is the same as the ScrollView
-//                // output.append(baos.toString())
-//            }
-
+                processGameInfo(view.context.applicationContext, json)
 
             }).start()
 
@@ -83,46 +103,32 @@ class GlobalButtonOnClick {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            val message = "God Mode: Continuous Do"
-            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+            if (autoDo) {
+                autoDo = false
+                val message = "God Mode: Continuous Do OFF"
+                Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-            if (GBController.u.autoDo) {
-                GBController.u.autoDo = false
             } else {
-                GBController.u.autoDo = true
+                autoDo = true
+                val message = "God Mode: Continuous Do ON"
+                Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
                 Thread(Runnable {
 
-                    while (GBController.u.autoDo) {
-                        Thread.sleep(333)
-                        val json = GBController.doUniverse()
+                    while (autoDo) {
 
-                        // This writes to (or not) /data/data/com.zwsi.gb.app/files/CurrentGame.json
-                        val writeFileTime = measureNanoTime {
-                            val file = File(view.context.filesDir, "CurrentGame.json").writeText(json)
-                        }
-                        // FIXME This code is duplicated in two locations in this file, and in Main Activity
-                        // We create gameinfo in the worker thread, not the UI thread
-                        var gameInfo = GBSavedGame()
-                        val fromJsonTime = measureNanoTime {
-                            val moshi = Moshi.Builder().build()
-                            val jsonAdapter: JsonAdapter<GBSavedGame> =
-                                moshi.adapter(GBSavedGame::class.java).indent("  ")
-                            gameInfo = jsonAdapter.lenient().fromJson(json)!!
-                        }
+                        val json = GBController.doUniverse() // SERVER Talk to not-remote server
+                        processGameInfo(view.context.applicationContext, json)
 
-                        view.post {
-                            GBViewModel.update(
-                                gameInfo,
-                                GBController.elapsedTimeLastUpdate,
-                                writeFileTime,
-                                fromJsonTime
-                            )
-                        }
+                        Thread.sleep(200) // let everything else catch up before we do another turn
+
                     }
                 }).start()
-            }
-        }
 
+            }
+
+
+        }
 
         // FIXME this is currently duplicated
         /** Called when the user taps the Make Pod button */

@@ -63,7 +63,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
     }
 
     fun makeFactory(view:View) {
-        GlobalButtonOnClick.makeFactory(view)
+        GlobalStuff.makeFactory(view)
     }
 
 }
