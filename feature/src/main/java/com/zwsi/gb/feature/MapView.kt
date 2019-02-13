@@ -303,7 +303,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 l++ * h,
                 paint
             )
-            var test = Runtime.getRuntime().totalMemory()
             // Memroy Stats
             canvas.drawText(
                 "MM:${(Runtime.getRuntime().maxMemory() / 1048576).f(3)}" +

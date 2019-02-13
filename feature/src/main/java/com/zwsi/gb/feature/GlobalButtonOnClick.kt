@@ -52,7 +52,7 @@ class GlobalButtonOnClick {
 
                 // This writes to (or not) /data/data/com.zwsi.gb.app/files/CurrentGame.json
                 val writeFileTime = measureNanoTime {
-                    val file = File(view.context.filesDir, "CurrentGame.json").writeText(json)
+                    File(view.context.filesDir, "CurrentGame.json").writeText(json)
                 }
                 // We create gameinfo in the worker thread, not the UI thread
                 var gameInfo = GBSavedGame()
