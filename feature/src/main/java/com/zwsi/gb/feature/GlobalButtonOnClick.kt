@@ -149,7 +149,7 @@ class GlobalButtonOnClick {
 
         }
 
-        /** Called when the user taps the (+) button on Star Fragment */
+        /** Called when the user taps the (*) button on Star Fragment */
         fun panzoomToStar(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
@@ -165,6 +165,7 @@ class GlobalButtonOnClick {
 
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
+            imageView.unpinPlanet()
             imageView.animateScaleAndCenter(
                 imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
                     star.loc.getLoc().x * imageView.uToS,
