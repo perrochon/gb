@@ -220,7 +220,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         normScale = ((1 / scale) - (1 / maxScale)) / (1 / minScale - 1 / maxScale) * 100
 
-        if (normScale > 4) {
+        if (normScale > 10) {
             unpinPlanet()
         }
 
@@ -270,8 +270,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             var l = 1f
             val h = 50
 
-//            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
-//            canvas.drawText("Norm:${normScale.f(2)}|Scale:${scale.f(2)}", 8f, l++ * h, paint)
+            canvas.drawText("maxScale: $maxScale / minScale: $minScale / density: $density", 8f, l++ * h, paint)
+            canvas.drawText("Norm:${normScale.f(2)}|Scale:${scale.f(2)}", 8f, l++ * h, paint)
 //            canvas.drawText(
 //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
 //                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
@@ -420,7 +420,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private fun drawPlanetSurface(canvas: Canvas) {
 
-        if (1 > normScale) {
+        if (2 > normScale) {
             for ((_, s) in GBViewModel.viewStars) {
                 if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                     for (p in GBViewModel.viewStarPlanets[s.uid]!!) { // PERF only draw one...

@@ -40,6 +40,7 @@ class MapActivity : AppCompatActivity() {
                 if (imageView.isReady) {
                     val any = imageView.clickTarget(e)
                     if (any is GBPlanet) {
+                        imageView.pinPlanet(any.uid)
                         imageView.animateScaleAndCenter(
                             imageView.zoomLevelPlanet, PointF(
                                 any.loc.getLoc().x * imageView.uToS,
@@ -50,7 +51,6 @@ class MapActivity : AppCompatActivity() {
                             .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                             .withInterruptible(false)
                             .start()
-                        imageView.pinPlanet(any.uid)
                     } else if (any is GBStar) {
                         imageView.unpinPlanet()
                         imageView.animateScaleAndCenter(

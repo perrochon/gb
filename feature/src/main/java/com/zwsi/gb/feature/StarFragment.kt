@@ -27,7 +27,6 @@ class StarFragment : Fragment() {
             f.setArguments(bdl)
 
             return f
-
         }
     }
 
@@ -47,7 +46,6 @@ class StarFragment : Fragment() {
             view!!.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
-
 
         // What is this fragment about, and make sure the fragment remembers
         val starID = arguments!!.getString("UID")!!.toInt()

@@ -194,6 +194,7 @@ class GlobalButtonOnClick {
 
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
+            imageView.pinPlanet(planet.uid)
             imageView.animateScaleAndCenter(
                 imageView.zoomLevelPlanet, PointF(
                     planet.loc.getLoc().x * imageView.uToS,
