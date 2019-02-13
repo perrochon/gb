@@ -15,20 +15,8 @@ class StarFragment : Fragment() {
     companion object {
 
         fun newInstance(message: String): StarFragment {
-
-            val f = StarFragment()
-// FIXME DELETE Is just using the tag enough?
-//            val bdl = Bundle(1)
-//            bdl.putString("uidStar", message)
-//            f.setArguments(bdl)
-            return f
+            return StarFragment()
         }
-    }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
