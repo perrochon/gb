@@ -56,4 +56,4 @@ pods (or enemy cruisers) if they are in reach.
 *Why can't I shoot at ships passing through a star system? Ships not entering/leaving a system are either way above
 or below in the galactic planet. It may look like they fly through the system, but they are way above. One way to tell
 if a Pod is in-system is to watch it's trail. If it's straight, it may be heading elsewhere. If it curves toward a planet
-then it's in-system.
+then it's in-system. Another way to tell is by looking closely at the color. Deep space ships are more muted than in-system.

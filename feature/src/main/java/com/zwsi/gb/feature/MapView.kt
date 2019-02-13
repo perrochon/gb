@@ -206,7 +206,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     override fun onDraw(canvas: Canvas) {
 
         // PERF MapView Drawing Performance: We do star visibility check 4 times on the whole list.
-        //  Saves ~100mus when none are starVisible. Less when we actually draw
+        //  Saves ~100mus when none are pointVisible. Less when we actually draw
 
         super.onDraw(canvas)
 
@@ -339,7 +339,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (normScale > 50) {
 
             for ((_, r) in GBViewModel.viewRaces) {
-                if (starVisible(r.getHome().star.loc.getLoc().x * uToSf, r.getHome().star.loc.getLoc().y * uToSf)) {
+                if (pointVisible(r.getHome().star.loc.getLoc().x * uToSf, r.getHome().star.loc.getLoc().y * uToSf)) {
                     sP1.set(r.getHome().star.loc.getLoc().x * uToSf + 50, r.getHome().star.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)
                     when (r.idx) {
@@ -362,14 +362,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
     private fun drawShots(canvas: Canvas) {
-        if (30 > normScale) {
+        if (40 > normScale) {
 
             if (true) {
                 for (shot: GBVector in GBViewModel.viewShots) {
                     paint.color = shotColor
                     paint.strokeWidth = strokeWidth.toFloat() / 4
-                    if (starVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||
-                        starVisible(shot.to.x * uToSf, shot.to.y * uToSf)
+                    if (pointVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||
+                        pointVisible(shot.to.x * uToSf, shot.to.y * uToSf)
                     ) {
 
                         sP1.set(shot.from.x * uToS, shot.from.y * uToS)
@@ -392,7 +392,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.color = labelColor
         paint.alpha = 128
         for ((_, s) in GBViewModel.viewStars) {
-            if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
+            if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawText(s.name, vP1.x, vP1.y - 45, paint)
@@ -405,7 +405,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (101 >= normScale) {
             //for (sh in GBViewModel.viewDeepSpaceShips) {
             for (sh in GBViewModel.viewDeepSpaceShips) {
-                if (starVisible(
+                if (pointVisible(
                         sh.loc.getLoc().x * uToSf,
                         sh.loc.getLoc().y * uToSf
                     )
@@ -422,7 +422,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         if (1 > normScale) {
             for ((_, s) in GBViewModel.viewStars) {
-                if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
+                if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                     for (p in GBViewModel.viewStarPlanets[s.uid]!!) { // PERF only draw one...
                         if (planetVisible(
                                 p.loc.getLoc().x * uToSf,
@@ -474,7 +474,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private fun drawPlanetsAndShips(canvas: Canvas) {
         if (30 > normScale) {
             for ((_, s) in GBViewModel.viewStars) {
-                if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
+                if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                     for (p in viewStarPlanets[s.uid]!!) {
                         sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                         sourceToViewCoord(sP1, vP1)
@@ -543,12 +543,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         drawShip(canvas, sh)
                     } // ships loop
 
-                }// if star starVisible?
+                }// if star pointVisible?
             }// star loop
         }
     }
 
-    fun starVisible(x: Float, y: Float): Boolean {
+    fun pointVisible(x: Float, y: Float): Boolean {
         rect.set(
             (x - sSystemSize.toFloat()).toInt(),
             (y - sSystemSize.toFloat()).toInt(),
@@ -745,7 +745,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Always draw stars
         paint.style = Style.STROKE
         for ((_, s) in GBViewModel.viewStars) {
-            if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
+            if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
                 canvas.drawBitmap(bmStar!!, vP1.x - bmStar!!.getWidth() / 2, vP1.y - bmStar!!.getWidth() / 2, null)
@@ -763,7 +763,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val radius = sSystemSize.toFloat() * scale
 
             for ((_, s) in GBViewModel.viewStars) {
-                if (starVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
+                if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                     sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)
                     canvas.drawCircle(vP1.x, vP1.y, radius, paint)
