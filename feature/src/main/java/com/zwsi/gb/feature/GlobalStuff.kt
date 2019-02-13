@@ -31,16 +31,13 @@ class GlobalStuff {
 
         val moshi = Moshi.Builder().build()
         val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
-
+        var autoDo = false
 
         // We need the application context to write to a file
         fun makeUniverse(context: Context){
             Thread(Runnable {
-
                 val json = GBController.makeUniverse()  // SERVER Talk to not-remote server
-
                 processGameInfo(context, json)
-
             }).start()
         }
 
@@ -67,24 +64,13 @@ class GlobalStuff {
             // We create gameinfo in the worker thread, not the UI thread
             var gameInfo = GBSavedGame()
             val fromJsonTime = measureNanoTime {
-
                 gameInfo = jsonAdapter.lenient().fromJson(json)!!
             }
 
             Handler(Looper.getMainLooper()).post({
                 GBViewModel.update(gameInfo, GBController.elapsedTimeLastUpdate, writeFileTime, fromJsonTime)
             })
-
-            // FIXME DELETE we had the code below
-//                version.post {
-//                    GBViewModel.update(gameInfo, GBController.elapsedTimeLastUpdate, writeFileTime, fromJsonTime)
-//                    // Enable Buttons Here
-//                }
-
-
         }
-
-        var autoDo = false
 
         fun doUniverse(view: View) {
 
@@ -101,11 +87,8 @@ class GlobalStuff {
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
             Thread(Runnable {
-
                 val json = GBController.doUniverse() // SERVER Talk to not-remote server
-
                 processGameInfo(view.context.applicationContext, json)
-
             }).start()
 
         }
@@ -127,31 +110,25 @@ class GlobalStuff {
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
                 Thread(Runnable {
-
                     while (autoDo) {
-
                         val json = GBController.doUniverse() // SERVER Talk to not-remote server
                         processGameInfo(view.context.applicationContext, json)
-
                         Thread.sleep(333) // let everything else catch up before we do another turn
-
                     }
                 }).start()
-
             }
 
 
         }
 
         // FIXME this is currently duplicated
-        /** Called when the user taps the Make Pod button */
+        /** Called when the user taps the Make Factory button */
         fun makeFactory(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
             }
             lastClickTime = SystemClock.elapsedRealtime();
-
 
             val activity = view.context as Activity
             val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
@@ -179,8 +156,11 @@ class GlobalStuff {
             //val intent = Intent(view.context, PlanetsSlideActivity::class.java)
 
             val activity = view.context as Activity
-            val starFragment = activity.findViewById<View>(R.id.StarFragment)
-            val star = starFragment.tag as GBStar
+//            val starFragment = activity.findViewById<View>(R.id.StarFragment)
+//            val star = starFragment.tag as GBStar
+
+            // Stars don't go away, so the below !! should be safe
+            val star = GBViewModel.viewStars[(view.tag as String).toInt()]!!
 
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
@@ -226,33 +206,33 @@ class GlobalStuff {
                 .start()
         }
 
-        /** Called when the user taps the * button on Star Fragment */
-        fun panzoomToSystemStar(view: View) {
-
-            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
-            }
-            lastClickTime = SystemClock.elapsedRealtime();
-
-            val activity = view.context as Activity
-            val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
-            val planet = planetFragment.tag as GBPlanet
-
-            val imageView = activity.findViewById<MapView>(R.id.mapView)!!
-
-            imageView.animateScaleAndCenter(
-                imageView.zoomLevelStar, PointF(
-                    planet.star.loc.getLoc().x * imageView.uToS,
-                    (planet.star.loc.getLoc().y - 17f) * imageView.uToS
-                )
-            )!!
-                .withDuration(500)
-                .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
-                .withInterruptible(false)
-                .start()
-
-
-        }
+//        /** Called when the user taps the * button on Star Fragment */
+//        fun panzoomToSystemStar(view: View) {
+//
+//            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+//                return;
+//            }
+//            lastClickTime = SystemClock.elapsedRealtime();
+//
+//            val activity = view.context as Activity
+//            val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
+//            val planet = planetFragment.tag as GBPlanet
+//
+//            val imageView = activity.findViewById<MapView>(R.id.mapView)!!
+//
+//            imageView.animateScaleAndCenter(
+//                imageView.zoomLevelStar, PointF(
+//                    planet.star.loc.getLoc().x * imageView.uToS,
+//                    (planet.star.loc.getLoc().y - 17f) * imageView.uToS
+//                )
+//            )!!
+//                .withDuration(500)
+//                .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
+//                .withInterruptible(false)
+//                .start()
+//
+//
+//        }
 
 
         /** Called when the user taps the Go to Planets button */

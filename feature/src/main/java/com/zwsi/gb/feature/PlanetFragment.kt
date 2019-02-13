@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.viewLandedShips
 import com.zwsi.gb.feature.GBViewModel.Companion.viewOrbitShips
+import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gblib.GBPlanet
 
 class PlanetFragment : Fragment() {
@@ -28,6 +30,9 @@ class PlanetFragment : Fragment() {
 
         val view: View = inflater.inflate(R.layout.fragment_planet, container, false)!!
 
+        // Planets don't go away, so the below !! should be safe
+        val p = GBViewModel.viewPlanets[tag!!.toInt()]!!
+
         setDetails(view)
 
         val turnObserver = Observer<Int> { newTurn->
@@ -35,6 +40,24 @@ class PlanetFragment : Fragment() {
             view.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
+
+        val factoryButton: Button = view.findViewById(R.id.makefactory)
+        factoryButton.tag = tag
+        factoryButton.setOnClickListener(View.OnClickListener {
+            GlobalStuff.doUniverse(it)
+        })
+
+        val starButton: Button = view.findViewById(R.id.panzoomToSystemStar)
+        starButton.tag = p.star.uid.toString()
+        starButton.setOnClickListener(View.OnClickListener {
+            GlobalStuff.panzoomToStar(it)
+        })
+
+        val planetButton: Button = view.findViewById(R.id.panzoomToPlanet)
+        planetButton.tag = tag
+        planetButton.setOnClickListener(View.OnClickListener {
+            GlobalStuff.panzoomToPlanet(it)
+        })
 
         return view
 
@@ -96,7 +119,7 @@ class PlanetFragment : Fragment() {
 
     private fun setDetails(view: View) {
 
-        // Stars don't go away, so the below !! should be safe
+        // Planets don't go away, so the below !! should be safe
         val p = GBViewModel.viewPlanets[tag!!.toInt()]!!
 
         if (p.planetPopulation == 0) {
@@ -110,20 +133,21 @@ class PlanetFragment : Fragment() {
 
         paint.textSize = 40f
 
-        planetStats.setText("${p.name} in ${p.star.name}\n")
-        planetStats.append("Population ${p.planetPopulation} | Size ${p.size}\n")
+        planetStats.setText("${p.name} in ${p.star.name} system\n")
+        planetStats.append("Size: ${p.size} | Population: ${p.planetPopulation.f(6)} \n")
 
-        var ships = GBViewModel.viewLandedShips[p.uid]!!
+        var ships = viewLandedShips[p.uid]!!
         if (ships.isNotEmpty()) {
             planetStats.append("Ships landed (${ships.size.toString()}): ")
             for (sh in ships) {
                 planetStats.append(sh.name + " ")
             }
+            planetStats.append("\n")
         }
 
         ships = viewOrbitShips[p.uid]!!
         if (ships.isNotEmpty()) {
-            planetStats.append(ships.size.toString() + " ships in orbit: ")
+            planetStats.append(" Ships in orbit (${ships.size.toString()}): ")
             for (sh in ships) {
                 planetStats.append(sh.name + " ")
             }

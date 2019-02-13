@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
+import com.zwsi.gb.feature.GBViewModel.Companion.viewStarShips
 
 class StarFragment : Fragment() {
 
@@ -31,10 +33,12 @@ class StarFragment : Fragment() {
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
-        //val imageView = view.findViewById<ImageView>(R.id.StarView)
+        val starButton: Button = view.findViewById(R.id.panzoomToStar)
+        starButton.tag = tag
+        starButton.setOnClickListener(View.OnClickListener {
+            GlobalStuff.panzoomToStar(it)
+        })
 
-        //Fixme DELETE Why not in XML?
-        //imageView.setImageResource(R.drawable.yellow)
 
         return view
     }
@@ -50,19 +54,20 @@ class StarFragment : Fragment() {
 
         stats.setText("${star.name} at (" + (star.loc.getLoc().x.toInt()) + ", " + star.loc.getLoc().y.toInt() + ")\n")
 
-        if (viewStarPlanets[star.uid]!!.isNotEmpty()) {
-            stats.append("Planets (" + viewStarPlanets[star.uid]!!.size.toString() + "): ")
-            for (pl in GBViewModel.viewStarPlanets[star.uid]!!) {
-                stats.append("  " + pl.name + " ")
+        val planets = viewStarPlanets[star.uid]!!
+        if (planets.isNotEmpty()) {
+            stats.append("Planets (${planets.size}): ")
+            for (p in planets) {
+                stats.append("  " + p.name + " ")
             }
             stats.append("\n")
         }
 
-        val ships = GBViewModel.viewStarShips[star.uid]!!
+        val ships = viewStarShips[star.uid]!!
         if (ships.isNotEmpty()) {
             stats.append("Ships (${ships.size.toString()}): ")
-            for (sh in ships) {
-                stats.append(sh.name + " ")
+            for (s in ships) {
+                stats.append(s.name + " ")
             }
         }
 
