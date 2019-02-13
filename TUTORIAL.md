@@ -18,9 +18,11 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 
 # UX Navigation
 
-* Double click on stars, planets and ships should pan and zoom to the target. Double click on empty space should zoom out
-* Single click on stars, planets, and ships should bring up the details window. Single click on empty space should close it.
-* Drag, pinch-zoom and double-click-drag should pan and zoom the map.
+* Double click on stars, planets and ships pans and zooms to the target. Double click on empty space zooms out.
+* Single click on stars, planets, and ships brings up the details window. Single click on empty space closes it.
+* Drag, pinch-zoom and double-click-drag pans and zooms the map.
+* Double click on a planet pins the planet in a "geo-centric" view. Everything will now move around the plannet. 
+  Double click on a star, or zoom out to go back to regular heliocentric mode.
 
 # Mission 1 - Secure your Star System
 * Click on Map - the map will show you your home planet (possibly named "Helle")
