@@ -308,7 +308,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             canvas.drawText(
                 "MM:${(Runtime.getRuntime().maxMemory() / 1048576).f(3)}" +
                         "|TM:${(Runtime.getRuntime().totalMemory() / 1048576).f(3)}" +
-                        "|UM:${((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory()) / 1048576).f(3)}" +
+                        "|UM:${((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576).f(3)}" +
                         "|FM:${(Runtime.getRuntime().freeMemory() / 1048576).f(3)}",
                 8f,
                 l++ * h,
@@ -472,10 +472,13 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
 
     private fun drawPlanetsAndShips(canvas: Canvas) {
-        if (30 > normScale) {
-            for ((_, s) in GBViewModel.viewStars) {
-                if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                    for (p in viewStarPlanets[s.uid]!!) {
+        for ((_, s) in GBViewModel.viewStars) {
+            if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
+
+                for (p in viewStarPlanets[s.uid]!!) {
+
+                    if (30 > normScale) {
+
                         sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                         sourceToViewCoord(sP1, vP1)
                         if (normScale > 1) {
@@ -515,37 +518,34 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
 
                         }
+                    } // if scale
 
-
-                        // Draw orbit ships
-                        for (sh in GBViewModel.viewOrbitShips[p.uid]!!) {
-                            paint.alpha = 128
-                            paint.color = Color.parseColor(sh.race.color)
-                            drawShip(canvas, sh)
-                        }
-
-
-                        // Draw landed ships
-                        if (30 > normScale) {
-                            for (sh in GBViewModel.viewLandedShips[p.uid]!!) {
-                                paint.alpha = 128
-                                paint.color = Color.parseColor(sh.race.color)
-                                drawShip(canvas, sh)
-                            }
-                        }
-
-                    } // planet loop
-
-                    // Draw In System Ship
-                    for (sh in GBViewModel.viewStarShips[s.uid]!!) {
-                        paint.alpha = 255
+                    // Draw orbit ships
+                    for (sh in GBViewModel.viewOrbitShips[p.uid]!!) {
+                        paint.alpha = 128
                         paint.color = Color.parseColor(sh.race.color)
                         drawShip(canvas, sh)
-                    } // ships loop
+                    }
 
-                }// if star pointVisible?
-            }// star loop
-        }
+                    // Draw landed ships
+
+                    for (sh in GBViewModel.viewLandedShips[p.uid]!!) {
+                        paint.alpha = 128
+                        paint.color = Color.parseColor(sh.race.color)
+                        drawShip(canvas, sh)
+                    }
+
+                } // planet loop
+
+                // Draw In System Ship
+                for (sh in GBViewModel.viewStarShips[s.uid]!!) {
+                    paint.alpha = 255
+                    paint.color = Color.parseColor(sh.race.color)
+                    drawShip(canvas, sh)
+                } // ships loop
+
+            }// if star pointVisible?
+        }// star loop
     }
 
     fun pointVisible(x: Float, y: Float): Boolean {
@@ -571,7 +571,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     fun drawShip(canvas: Canvas, sh: GBShip) {
 
         paint.style = Style.STROKE
-        var radius = scale * 0.9f
+        val radius = scale * 2f
 
         paint.strokeWidth = strokeWidth.toFloat()
 
@@ -756,18 +756,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
         // Draw circles
-        if (40 > normScale) {
-            paint.style = Style.STROKE
-            paint.color = circleColor
-            paint.strokeWidth = strokeWidth.toFloat()
-            val radius = sSystemSize.toFloat() * scale
+        // was if (40 > normScale) {
+        paint.style = Style.STROKE
+        paint.color = circleColor
+        paint.strokeWidth = strokeWidth.toFloat()
+        val radius = sSystemSize.toFloat() * scale
 
-            for ((_, s) in GBViewModel.viewStars) {
-                if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                    sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
-                    sourceToViewCoord(sP1, vP1)
-                    canvas.drawCircle(vP1.x, vP1.y, radius, paint)
-                }
+        for ((_, s) in GBViewModel.viewStars) {
+            if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
+                sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
+                sourceToViewCoord(sP1, vP1)
+                canvas.drawCircle(vP1.x, vP1.y, radius, paint)
             }
         }
 
