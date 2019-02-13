@@ -90,7 +90,7 @@ class MapActivity : AppCompatActivity() {
                         val ft = getSupportFragmentManager().beginTransaction()
                         val fragment = StarFragment.newInstance(any.uid.toString())
                         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        ft.replace(R.id.details, fragment)
+                        ft.replace(R.id.details, fragment, any.uid.toString())
                         ft.commit()
 
                     } else if (any is GBShip) {

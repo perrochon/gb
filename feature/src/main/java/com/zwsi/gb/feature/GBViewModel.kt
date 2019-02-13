@@ -25,12 +25,14 @@ class GBViewModel {
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
         val currentTurn by lazy { MutableLiveData<Int>() }
 
-        lateinit var viewStars: MutableMap<Int, GBStar>
-        lateinit var viewPlanets : MutableMap<Int, GBPlanet>
-        lateinit var viewRaces : MutableMap<Int, GBRace>
-        lateinit var viewShips : MutableMap<Int, GBShip>
 
-        lateinit var viewDeepSpaceShips : List<GBShip>
+
+        lateinit var viewStars: MutableMap<Int, GBStar>
+        lateinit var viewPlanets: MutableMap<Int, GBPlanet>
+        lateinit var viewRaces: MutableMap<Int, GBRace>
+        lateinit var viewShips: MutableMap<Int, GBShip> // FIXME ? Getter returning a fake ship instead of null
+
+        lateinit var viewDeepSpaceShips: List<GBShip>
 
 
         // FIXME  THINK THIS THROUGH: If we "restore" on update (JSONify copy) we have copies of all stars, planets, etc.
@@ -48,18 +50,18 @@ class GBViewModel {
         var viewRaceShips: HashMap<Int, List<GBShip>> = HashMap()
         var viewShipTrails: HashMap<Int, List<GBxy>> = HashMap()
 
-        lateinit var viewShots : MutableList<GBVector>
+        lateinit var viewShots: MutableList<GBVector>
 
         var timeModelUpdate = 0L
         var timeLastTurn = 0L
         var timeFileWrite = 0L
         var timeFromJson = 0L
 
-        lateinit var gi : GBSavedGame
+        lateinit var gi: GBSavedGame
 
         var times = mutableMapOf<String, Long>()
 
-        fun update(gameinfo: GBSavedGame, _elapsedTimeLastUpdate : Long, _writeFileTime: Long, _fromJsonTime: Long) {
+        fun update(gameinfo: GBSavedGame, _elapsedTimeLastUpdate: Long, _writeFileTime: Long, _fromJsonTime: Long) {
 
             // This is (currently) called from the worker thread. So need to call postValue on the LiveData
             timeModelUpdate = measureNanoTime {
@@ -140,7 +142,7 @@ class GBViewModel {
         fun fillViewRaceShips() {
             viewRaceShips.clear()
             for ((_, race) in viewRaces) {
-                viewRaceShips.put(race.uid, race.raceShipsUIDList.map { viewShips[it]!!})
+                viewRaceShips.put(race.uid, race.raceShipsUIDList.map { viewShips[it]!! })
             }
         }
 

@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
-import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBStar
 
 class StarFragment : Fragment() {
 
@@ -19,13 +17,10 @@ class StarFragment : Fragment() {
         fun newInstance(message: String): StarFragment {
 
             val f = StarFragment()
-
-            val bdl = Bundle(1)
-
-            bdl.putString("UID", message)
-
-            f.setArguments(bdl)
-
+// FIXME DELETE Is just using the tag enough?
+//            val bdl = Bundle(1)
+//            bdl.putString("uidStar", message)
+//            f.setArguments(bdl)
             return f
         }
     }
@@ -40,43 +35,42 @@ class StarFragment : Fragment() {
 
         val view: View = inflater.inflate(R.layout.fragment_star, container, false)!!
 
-        // What is this fragment about, and make sure the fragment remembers
-        val starID = arguments!!.getString("UID")!!.toInt()
-        val st = GBViewModel.viewStars[starID]!!
-        view.tag = st
-
-        setStats(view, st)
+        setDetails(view)
 
         val turnObserver = Observer<Int> { newTurn->
-            setStats(view,st)
+            setDetails(view)
             view.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
-        val imageView = view.findViewById<ImageView>(R.id.StarView)
+        //val imageView = view.findViewById<ImageView>(R.id.StarView)
 
-        imageView.setImageResource(R.drawable.yellow)
+        //Fixme DELETE Why not in XML?
+        //imageView.setImageResource(R.drawable.yellow)
 
         return view
     }
 
-    fun setStats(view: View, st: GBStar) {
+    private fun setDetails(view: View) {
+
+        // Stars don't go away, so the below !! should be safe
+        val star = GBViewModel.viewStars[tag!!.toInt()]!!
+
         val stats = view.findViewById<TextView>(R.id.StarStats)
         val paint = stats.paint
         paint.textSize = 40f
 
-        stats.setText("${st.name} at (" + (st.loc.getLoc().x.toInt()) + ", " + st.loc.getLoc().y.toInt() + ")\n")
-        stats.append("")
+        stats.setText("${star.name} at (" + (star.loc.getLoc().x.toInt()) + ", " + star.loc.getLoc().y.toInt() + ")\n")
 
-        if (viewStarPlanets[st.uid]!!.isNotEmpty()) {
-            stats.append("Planets (" + viewStarPlanets[st.uid]!!.size.toString() + "): ")
-            for (pl in GBViewModel.viewStarPlanets[st.uid]!!) {
+        if (viewStarPlanets[star.uid]!!.isNotEmpty()) {
+            stats.append("Planets (" + viewStarPlanets[star.uid]!!.size.toString() + "): ")
+            for (pl in GBViewModel.viewStarPlanets[star.uid]!!) {
                 stats.append("  " + pl.name + " ")
             }
             stats.append("\n")
         }
 
-        val ships = GBViewModel.viewStarShips[st.uid]!!
+        val ships = GBViewModel.viewStarShips[star.uid]!!
         if (ships.isNotEmpty()) {
             stats.append("Ships (${ships.size.toString()}): ")
             for (sh in ships) {
