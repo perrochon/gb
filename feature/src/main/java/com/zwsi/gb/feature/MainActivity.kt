@@ -39,10 +39,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Set up the MessageBox View to listen to news
         val messageBox: TextView = findViewById<TextView>(R.id.messageBox)!!
+        messageBox.setText("Welcome to Andromeda Rising!\n")
 
         val turnObserver = Observer<Int> { newTurn ->
-            messageBox.setText("Turn: ${newTurn.toString()}\n")
+            messageBox.append("Turn: ${newTurn.toString()}\n")
             for (article in gi.news!!) {
                 messageBox.append(article)
             }
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
+        // Set up the Version View
         val version = findViewById<TextView>(R.id.version)
         version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
 
