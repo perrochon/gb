@@ -1,14 +1,8 @@
 package com.zwsi.gb.feature
 
-//import android.content.Intent
-//import android.graphics.Bitmap
 
-/*
-// To redirect stdout to the text view
-//import java.io.IOException
-//import java.io.OutputStream
-*/
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
@@ -73,6 +67,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /** Called when the user taps the Map button */
+    fun mapView( @Suppress("UNUSED_PARAMETER")view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+        val intent = Intent(this, MapActivity::class.java)
+        startActivity(intent)
+    }
+
     // TODO DELETE unless we need it again
     fun makeStuff(view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
@@ -101,15 +105,6 @@ class MainActivity : AppCompatActivity() {
 //        startActivity(intent)
 //    }
 //
-//    /** Called when the user taps the Stars button */
-//    fun starmap2( @Suppress("UNUSED_PARAMETER")view: View) {
-//        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-//            return;
-//        }
-//        lastClickTime = SystemClock.elapsedRealtime();
-//        val intent = Intent(this, MapActivity::class.java)
-//        startActivity(intent)
-//    }
 //
 //    /** Called when the user taps the Stars button */
 //    fun stars( @Suppress("UNUSED_PARAMETER")view: View) {
