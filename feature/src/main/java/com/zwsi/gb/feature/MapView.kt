@@ -514,7 +514,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             val radius = gi.planetaryOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
                             canvas.drawCircle(vP1.x, vP1.y, radius, paint)
 
-                            var o = (PlanetaryOrbit * 0.4f) * uToS * scale
+                            val o = (PlanetaryOrbit * 0.4f) * uToS * scale
                             canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
 
                         }

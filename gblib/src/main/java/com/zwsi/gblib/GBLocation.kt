@@ -135,10 +135,10 @@ data class GBLocation(
         if (level == LANDED) {
             // TODO This calculation is probably a rendering issue and belongs into MapView.
             // The constants have to be the same as the ones used to draw planet surfaces on the map
-            val size = 1.6f / this.getPlanet()!!.width
+            val size = PlanetaryOrbit * 1.6f / this.getPlanet().width
             return GBxy(
-                u.planet(uidRef).loc.getLoc().x - 0.80f + sx.toFloat() * size + size / 2,
-                u.planet(uidRef).loc.getLoc().y - 0.4f + sy.toFloat() * size + size / 2
+                u.planet(uidRef).loc.getLoc().x - PlanetaryOrbit * .80f + sx.toFloat() * size + size / 2,
+                u.planet(uidRef).loc.getLoc().y - PlanetaryOrbit * .4f + sy.toFloat() * size + size / 2
             )
         }
         if (level == ORBIT) {
