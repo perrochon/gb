@@ -42,39 +42,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/StarmapButton2" android:onClick="starmap2"/>
-        <Button
-                android:text="Stars"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:id="@+id/StarsButton" android:onClick="stars"/>
-        <Button
-                android:text="Planets"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:id="@+id/Planets1Button" android:onClick="planets1"/>
-        <Button
-                android:text="Planets"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:id="@+id/Planets2Button" android:onClick="planets2"/>
-        <Button
-                android:text="Races"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/RacesButton"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:onClick="races"/>
-        <Button
-                android:text="Ships"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:id="@+id/ShipButton"
-                android:onClick="ships"/>
+        <!--<Button-->
+                <!--android:text="Stars"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:visibility="gone"-->
+                <!--android:id="@+id/StarsButton" android:onClick="stars"/>-->
+        <!--<Button-->
+                <!--android:text="Planets"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:visibility="gone"-->
+                <!--android:id="@+id/Planets1Button" android:onClick="planets1"/>-->
+        <!--<Button-->
+                <!--android:text="Planets"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:visibility="gone"-->
+                <!--android:id="@+id/Planets2Button" android:onClick="planets2"/>-->
+        <!--<Button-->
+                <!--android:text="Races"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/RacesButton"-->
+                <!--android:visibility="gone"-->
+                <!--tools:visibility="visible"-->
+                <!--android:onClick="races"/>-->
+        <!--<Button-->
+                <!--android:text="Ships"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:visibility="gone"-->
+                <!--android:id="@+id/ShipButton"-->
+                <!--android:onClick="ships"/>-->
 
     </LinearLayout>
     <LinearLayout
@@ -95,13 +95,12 @@
                 android:minHeight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/CreateButton"
-                android:onClick="create"
-                android:visibility="gone"
+                android:id="@+id/NewButton"
+                android:visibility="visible"
                 tools:visibility="visible"
                 android:alpha="0.5"/>
         <Button
-                android:text="Start Other Races"
+                android:text="Make Stuff"
                 android:minWidth="10dp"
                 android:minHeight="10dp"
                 android:layout_width="wrap_content"
@@ -118,7 +117,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ContinuousButton"
-                android:onClick="continuousDo"
                 android:visibility="visible"
                 tools:visibility="visible"
                 android:alpha="0.5" android:layout_marginBottom="8dp"
@@ -129,7 +127,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/DoButton"
                 android:text="@string/button_Do"
-                android:onClick="doUniverse"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
     </LinearLayout>

@@ -40,7 +40,7 @@ class StarFragment : Fragment() {
 
         val view: View? = inflater.inflate(R.layout.fragment_star, container, false);
 
-        val turnObserver = Observer<Int> { newTurn ->
+        val turnObserver = Observer<Int> { _->
             // FIXIT UPDATE Need to call setStats but don't have a star. Need to keep a copy of UID somewhere
             // Needs more thinking
             view!!.invalidate()

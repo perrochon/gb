@@ -20,6 +20,7 @@ import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStarShips
 import com.zwsi.gblib.*
 import com.zwsi.gblib.GBController.Companion.lock
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import kotlin.system.measureNanoTime
 
@@ -41,6 +42,18 @@ class GlobalStuff {
                 processGameInfo(context, json)
 
             }).start()
+        }
+
+        fun makeUniverse(view: View) {
+            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
+
+            val message = "God Mode: Recreating the Universe"
+            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
+            makeUniverse(view.context.applicationContext)
         }
 
         // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
@@ -120,7 +133,7 @@ class GlobalStuff {
                         val json = GBController.doUniverse() // SERVER Talk to not-remote server
                         processGameInfo(view.context.applicationContext, json)
 
-                        Thread.sleep(200) // let everything else catch up before we do another turn
+                        Thread.sleep(333) // let everything else catch up before we do another turn
 
                     }
                 }).start()
