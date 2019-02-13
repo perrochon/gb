@@ -41,7 +41,7 @@ class MapActivity : AppCompatActivity() {
             override fun onDoubleTap(e: MotionEvent): Boolean {
                 if (imageView.isReady) {
                     val any = imageView.clickTarget(e)
-                    if (any is GBPlanet) {
+                    if (any is GBPlanet) {  // FIXME Call GlobalStuff.panzomm methods with imageview...
                         imageView.pinPlanet(any.uid)
                         imageView.animateScaleAndCenter(
                             imageView.zoomLevelPlanet, PointF(
@@ -49,7 +49,7 @@ class MapActivity : AppCompatActivity() {
                                 (any.loc.getLoc().y - gi.planetaryOrbit) * imageView.uToS
                             )
                         )!!
-                            .withDuration(500)
+                            .withDuration(1000)
                             .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                             .withInterruptible(false)
                             .start()
@@ -61,7 +61,7 @@ class MapActivity : AppCompatActivity() {
                                 (any.loc.getLoc().y - 17f ) * imageView.uToS
                             )
                         )!!
-                            .withDuration(500)
+                            .withDuration(1000)
                             .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                             .withInterruptible(false)
                             .start()
@@ -140,21 +140,21 @@ class MapActivity : AppCompatActivity() {
         GlobalStuff.toggleContinuous(view)
     }
 
-    fun makeFactory(view: View) {
-        GlobalStuff.makeFactory(view)
-    }
+//    fun makeFactory(view: View) {
+//        GlobalStuff.makeFactory(view)
+//    }
+//
+//    fun panzoomToStar(view: View) {
+//        GlobalStuff.panzoomToStar(view)
+//    }
+//
+//    fun panzoomToPlanet(view: View) {
+//        GlobalStuff.panzoomToPlanet(view)
+//    }
 
-    fun panzoomToStar(view: View) {
-        GlobalStuff.panzoomToStar(view)
-    }
-
-    fun panzoomToPlanet(view: View) {
-        GlobalStuff.panzoomToPlanet(view)
-    }
-
-    fun panzoomToSystemStar(view: View) {
-        GlobalStuff.panzoomToSystemStar(view)
-    }
+//    fun panzoomToSystemStar(view: View) {
+//        GlobalStuff.panzoomToSystemStar(view)
+//    }
 
     fun panzoomToShip(view: View) {
         GlobalStuff.panzoomToShip(view)

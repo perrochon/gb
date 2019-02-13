@@ -145,7 +145,7 @@ class GlobalStuff {
 
         }
 
-        /** Called when the user taps the (*) button on Star Fragment */
+        /** Zoom the mapview to a star (UID should be in View.tag) */
         fun panzoomToStar(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
@@ -153,31 +153,28 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            //val intent = Intent(view.context, PlanetsSlideActivity::class.java)
 
             val activity = view.context as Activity
-//            val starFragment = activity.findViewById<View>(R.id.StarFragment)
-//            val star = starFragment.tag as GBStar
 
             // Stars don't go away, so the below !! should be safe
-            val star = GBViewModel.viewStars[(view.tag as String).toInt()]!!
+            val star = GBViewModel.viewStars[(view.tag as String).toInt()]!!  // FIXME direct way?
 
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
             imageView.unpinPlanet()
             imageView.animateScaleAndCenter(
-                imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
+                imageView.zoomLevelStar, PointF(
                     star.loc.getLoc().x * imageView.uToS,
                     (star.loc.getLoc().y - 17f) * imageView.uToS
                 )
             )!!
-                .withDuration(500)
+                .withDuration(1000)
                 .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                 .withInterruptible(false)
                 .start()
         }
 
-        /** Called when the user taps the (+) button on Star Fragment */
+        /** Zoom the mapview to a planet (UID should be in View.tag) */
         fun panzoomToPlanet(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
@@ -185,13 +182,13 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            //val intent = Intent(view.context, PlanetsSlideActivity::class.java)
-
             val activity = view.context as Activity
-            val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
-            val planet = planetFragment.tag as GBPlanet
+//            val planetFragment = activity.findViewById<View>(R.id.PlanetFragment)
 
-            val imageView = activity.findViewById<MapView>(R.id.mapView)!!
+            // Stars don't go away, so the below !! should be safe
+            val planet = GBViewModel.viewPlanets[(view.tag as String).toInt()]!!
+
+            val imageView = activity.findViewById<MapView>(R.id.mapView)!!  // FIXME direct way?
 
             imageView.pinPlanet(planet.uid)
             imageView.animateScaleAndCenter(
@@ -200,7 +197,7 @@ class GlobalStuff {
                     (planet.loc.getLoc().y - 1) * imageView.uToS
                 )
             )!!
-                .withDuration(500)
+                .withDuration(1000)
                 .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                 .withInterruptible(false)
                 .start()
