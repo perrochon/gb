@@ -25,7 +25,6 @@ class MapActivity : AppCompatActivity() {
         val version = findViewById<TextView>(R.id.version)
         version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
 
-
         val imageView: MapView = findViewById<MapView>(R.id.mapView)!!
 
         val turnObserver = Observer<Int> { newTurn ->
@@ -34,8 +33,6 @@ class MapActivity : AppCompatActivity() {
             imageView.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
-
-        //var myContext = this as Context TODO this was unused. Can we remove?
 
         // Gestures
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
@@ -132,7 +129,6 @@ class MapActivity : AppCompatActivity() {
             gestureDetector.onTouchEvent(motionEvent)
         }
 
-
     }
 
     /** Called when the user taps the Do button */
@@ -143,7 +139,6 @@ class MapActivity : AppCompatActivity() {
     fun continuousDo(view: View) {
         GlobalStuff.toggleContinuous(view)
     }
-
 
     fun makeFactory(view: View) {
         GlobalStuff.makeFactory(view)

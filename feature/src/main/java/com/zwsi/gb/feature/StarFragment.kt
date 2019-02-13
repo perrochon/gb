@@ -38,21 +38,20 @@ class StarFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val view: View? = inflater.inflate(R.layout.fragment_star, container, false);
-
-        val turnObserver = Observer<Int> { _->
-            // FIXIT UPDATE Need to call setStats but don't have a star. Need to keep a copy of UID somewhere
-            // Needs more thinking
-            view!!.invalidate()
-        }  // TODO why is newTurn nullable?
-        GBViewModel.currentTurn.observe(this, turnObserver)
+        val view: View = inflater.inflate(R.layout.fragment_star, container, false)!!
 
         // What is this fragment about, and make sure the fragment remembers
         val starID = arguments!!.getString("UID")!!.toInt()
         val st = GBViewModel.viewStars[starID]!!
-        view!!.tag = st
+        view.tag = st
 
         setStats(view, st)
+
+        val turnObserver = Observer<Int> { newTurn->
+            setStats(view,st)
+            view.invalidate()
+        }  // TODO why is newTurn nullable?
+        GBViewModel.currentTurn.observe(this, turnObserver)
 
         val imageView = view.findViewById<ImageView>(R.id.StarView)
 
