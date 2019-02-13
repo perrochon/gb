@@ -102,7 +102,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     var focusSize = 0 // the area where we put stars and planets in the lower half of the screen (left for landscape?)
     var zoomLevelStar = 0f
     var zoomLevelPlanet = 0f
-    var keepCenterOnPlanet: Int? = null
+    private var pinnedUidPlanet: Int? = null
+    private var pinnedPlanetX = 0f
+    private var pinnedPlanetY = 0f
 
     var turn: Int? = 0  // TODO why nullable
 
@@ -218,6 +220,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         normScale = ((1 / scale) - (1 / maxScale)) / (1 / minScale - 1 / maxScale) * 100
 
+        if (normScale > 4) {
+            unpinPlanet()
+        }
+
         visibleFileRect(vr)
 
         clickTargets.clear()
@@ -293,6 +299,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         "|As:${GBViewModel.viewShips.size.f(4)}" +
                         "|Ds:${GBViewModel.viewDeepSpaceShips.size.f(4)}" +
                         "|sh:${gi.shots!!.size.f(3)}",
+                8f,
+                l++ * h,
+                paint
+            )
+            var test = Runtime.getRuntime().totalMemory()
+            // Memroy Stats
+            canvas.drawText(
+                "MM:${(Runtime.getRuntime().maxMemory() / 1048576).f(3)}" +
+                        "|TM:${(Runtime.getRuntime().totalMemory() / 1048576).f(3)}" +
+                        "|UM:${((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory()) / 1048576).f(3)}" +
+                        "|FM:${(Runtime.getRuntime().freeMemory() / 1048576).f(3)}",
                 8f,
                 l++ * h,
                 paint
@@ -696,17 +713,30 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
     }
 
+    fun pinPlanet(uidP: Int) {
+        pinnedUidPlanet = uidP
+        pinnedPlanetX = viewPlanets[uidP]!!.loc.getLoc().x
+        pinnedPlanetY = viewPlanets[uidP]!!.loc.getLoc().y
+    }
 
-    fun fooCenterOnPlanet() {
-        if (keepCenterOnPlanet != null) {
-            val b = viewPlanets[keepCenterOnPlanet!!]!!
+    fun unpinPlanet() {
+        pinnedUidPlanet = null
+    }
+
+    fun shiftToPinnedPlanet() {
+        if (pinnedUidPlanet != null) {
+            val p = viewPlanets[pinnedUidPlanet!!]!!
+            val dx = (p.loc.getLoc().x - pinnedPlanetX) * uToS
+            val dy = (p.loc.getLoc().y - pinnedPlanetY) * uToS
             setScaleAndCenter(
                 getScale(),
                 PointF(
-                    b.loc.getLoc().x * this.uToS,
-                    (b.loc.getLoc().y - gi.planetaryOrbit) * this.uToS
+                    center!!.x + dx,
+                    center!!.y + dy
                 )
             )
+            pinnedPlanetX = p.loc.getLoc().x
+            pinnedPlanetY = p.loc.getLoc().y
         }
     }
 

@@ -1,7 +1,6 @@
 package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
-import android.content.Context
 import android.graphics.PointF
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,7 +9,6 @@ import android.view.MotionEvent
 import android.view.View
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.gi
-import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBStar
@@ -27,7 +25,7 @@ class MapActivity : AppCompatActivity() {
 
         val turnObserver = Observer<Int> { newTurn ->
             imageView.turn = newTurn;
-            imageView.fooCenterOnPlanet() // FIXME name
+            imageView.shiftToPinnedPlanet()
             imageView.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
@@ -52,9 +50,9 @@ class MapActivity : AppCompatActivity() {
                             .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                             .withInterruptible(false)
                             .start()
-                        imageView.keepCenterOnPlanet = any.uid
+                        imageView.pinPlanet(any.uid)
                     } else if (any is GBStar) {
-                        imageView.keepCenterOnPlanet = null
+                        imageView.unpinPlanet()
                         imageView.animateScaleAndCenter(
                             imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
                                 any.loc.getLoc().x * imageView.uToS,
@@ -67,7 +65,7 @@ class MapActivity : AppCompatActivity() {
                             .start()
 
                     } else if (any is GBShip) {
-                        imageView.keepCenterOnPlanet = null
+                        imageView.unpinPlanet()
                     } else {
                         return super.onDoubleTap(e)
                     }
