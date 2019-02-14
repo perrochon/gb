@@ -1,7 +1,6 @@
 # Roadmap
 
 # Short Term
-* Spinner with cursor loader so we can put more than strings... Or lookup table...
 * Better looking spinner
 * Review Locking
 * Population growth on planets
