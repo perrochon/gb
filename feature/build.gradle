@@ -17,13 +17,13 @@ android {
         release {
             minifyEnabled false
             buildConfigField "int", "VERSIONCODE", "5"
-            buildConfigField "String", "VERSIONNAME", "\".0.0.0.500r\""
-            buildConfigField "boolean", "SHOWSTATS", "true"
+            buildConfigField "String", "VERSIONNAME", "\".0.0.0.551r\""
+            buildConfigField "boolean", "SHOWSTATS", "false"
         }
         debug {
             minifyEnabled false
-            buildConfigField "int", "VERSIONCODE", "4"
-            buildConfigField "String", "VERSIONNAME", "\"0.0.0.500d\""
+            buildConfigField "int", "VERSIONCODE", "5"
+            buildConfigField "String", "VERSIONNAME", "\"0.0.0.551d\""
             buildConfigField "boolean", "SHOWSTATS", "true"
         }
     }
