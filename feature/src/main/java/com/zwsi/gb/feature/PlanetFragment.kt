@@ -30,8 +30,6 @@ class PlanetFragment : Fragment() {
 
         val view: View = inflater.inflate(R.layout.fragment_planet, container, false)!!
 
-        // Planets don't go away, so the below !! should be safe
-        val p = GBViewModel.viewPlanets[tag!!.toInt()]!!
 
         setDetails(view)
 
@@ -42,19 +40,19 @@ class PlanetFragment : Fragment() {
         GBViewModel.currentTurn.observe(this, turnObserver)
 
         val factoryButton: Button = view.findViewById(R.id.makefactory)
-        factoryButton.tag = p.uid
+        factoryButton.tag = tag!!.toInt()
         factoryButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeFactory(it)
         })
 
         val starButton: Button = view.findViewById(R.id.panzoomToSystemStar)
-        starButton.tag = p.star.uid.toString()
+        starButton.tag = tag!!.toInt()
         starButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.panzoomToStar(it)
         })
 
         val planetButton: Button = view.findViewById(R.id.panzoomToPlanet)
-        planetButton.tag = tag
+        planetButton.tag = tag!!.toInt()
         planetButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.panzoomToPlanet(it)
         })

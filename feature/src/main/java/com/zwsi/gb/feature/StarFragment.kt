@@ -34,7 +34,7 @@ class StarFragment : Fragment() {
         GBViewModel.currentTurn.observe(this, turnObserver)
 
         val starButton: Button = view.findViewById(R.id.panzoomToStar)
-        starButton.tag = tag
+        starButton.tag = tag!!.toInt()
         starButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.panzoomToStar(it)
         })
