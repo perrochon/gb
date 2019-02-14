@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
+import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.distance
+
 
 class ShipFragment : Fragment() {
 
@@ -54,10 +57,10 @@ class ShipFragment : Fragment() {
             GlobalStuff.panzoomToShip(it)
         })
 
-        val flyToButton: Button = view.findViewById(R.id.flyTo)
-        flyToButton.setOnClickListener(View.OnClickListener {
-            GlobalStuff.flyTo(it)
-        })
+//        val flyToButton: Button = view.findViewById(R.id.flyTo)
+//        flyToButton.setOnClickListener(View.OnClickListener {
+//            GlobalStuff.flyTo(it)
+//        })
 
         setSpinner(view)
 
@@ -123,7 +126,7 @@ class ShipFragment : Fragment() {
         } else {
             if (sh.speed == 0) {
                 view.findViewById<Spinner>(R.id.spinner).setVisibility(View.GONE)
-                view.findViewById<Button>(R.id.flyTo).setVisibility(View.GONE)
+//                view.findViewById<Button>(R.id.flyTo).setVisibility(View.GONE)
             } else {
                 // TODO: better selection of possible targets once we have visibility.
                 // Right now it's all insystem and first planet of each system outside.
@@ -131,11 +134,24 @@ class ShipFragment : Fragment() {
                 val destinationStrings = arrayListOf<String>()
                 val destinationUids = HashMap<String, Int>()
 
+                var currentUidDestination: Int? = null
+
+                // Put current destination first, and avoid listing it again.
+                if (sh.dest != null) {
+                    // TODO Needs to change for locations other than planets
+                    val key = "${sh.dest!!.getPlanet().name} (current)"
+                    destinationStrings.add(key)
+                    currentUidDestination = sh.dest!!.getPlanet().uid
+                    destinationUids[key] = currentUidDestination
+                }
+
                 if (sh.getStar() != null) {
                     for (p in GBViewModel.viewStarPlanets[sh.getStar()!!.uid]!!) {
-                        val key = "${p.name} (insystem)"
-                        destinationStrings.add(key)
-                        destinationUids[key]=p.uid
+                        if (p.uid != currentUidDestination) {
+                            val key = "${p.name} (insystem)"
+                            destinationStrings.add(key)
+                            destinationUids[key] = p.uid
+                        }
                     }
                 }
                 val sortedStars =
@@ -146,7 +162,7 @@ class ShipFragment : Fragment() {
                 for ((_, s) in sortedStars) {
                     val key = "${s.name} system"
                     destinationStrings.add(key)
-                    destinationUids[key]=GBViewModel.viewStarPlanets[s.uid]!![0].uid
+                    destinationUids[key] = GBViewModel.viewStarPlanets[s.uid]!![0].uid
                 }
 
                 // Create an ArrayAdapter
@@ -160,10 +176,48 @@ class ShipFragment : Fragment() {
                 val spinner = view.findViewById<Spinner>(R.id.spinner)
                 spinner.adapter = adapter
 
-                val flyButton = view.findViewById<Button>(R.id.flyTo)
-                flyButton.setTag(R.id.TAG_FLYTO_SPINNER, spinner)
-                flyButton.setTag(R.id.TAG_FLYTO_UIDS, destinationUids)
-                flyButton.setTag(R.id.TAG_FLYTO_SHIP, sh.uid)
+                spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                    }
+
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        val destination = parent!!.getItemAtPosition(position).toString()
+
+                        val uidPlanet = destinationUids[destination]
+
+                        val planet = GBViewModel.viewPlanets[uidPlanet]!!
+
+                        GBController.lock.lock(); // FlyTo
+                        try {
+                            if (sh.idxtype == GBData.POD) {
+                                GBController.flyShipLanded(sh, planet)
+                            } else {
+                                GBController.flyShipOrbit(sh, planet)
+                            }
+                        } finally {
+                            GBController.lock.unlock()
+                        }
+
+                        Toast.makeText(
+                            view!!.context,
+                            "Ordered " + sh.name + " to fly to " + planet.name,
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+
+                        view.invalidate()
+
+                    }
+
+                }
+
+//                // FIXME DELETE No longer needing this button...
+//                val flyButton = view.findViewById<Button>(R.id.flyTo)
+//                flyButton.visibility = View.GONE
+//                flyButton.setTag(R.id.TAG_FLYTO_SPINNER, spinner)
+//                flyButton.setTag(R.id.TAG_FLYTO_UIDS, destinationUids)
+//                flyButton.setTag(R.id.TAG_FLYTO_SHIP, sh.uid)
             }
         }
 

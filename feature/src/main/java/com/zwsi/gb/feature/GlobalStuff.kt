@@ -275,46 +275,38 @@ class GlobalStuff {
             }
         }
 
-        /** Called when the user taps the fly  To button */
-        fun flyTo(view: View) {
-
-            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
-            }
-            lastClickTime = SystemClock.elapsedRealtime();
-
-            // Stars don't go away, so the below !! should be safe
-            val ship = GBViewModel.viewShips[view.getTag(R.id.TAG_FLYTO_SHIP)]!!
-
-            //val ship = view.getTag(R.id.TAG_FLYTO_SHIP) as GBShip // FIXME  Hardcoded keys, what can go wrong
-
-            val spinner = view.getTag(R.id.TAG_FLYTO_SPINNER) as Spinner
-            val destination = spinner.selectedItem.toString()
-
-            val destinationUids = view.getTag(R.id.TAG_FLYTO_UIDS) as HashMap<String, Int>
-            var uidPlanet = destinationUids[destination]
-
-            var planet = viewPlanets[uidPlanet]
+//        /** Called when the user taps the fly  To button */
+//        fun flyTo(view: View) {
 //
-//            for ((_, p) in viewPlanets) { // FIXME this is wasteful. Need to refactor to locations
-//                if (p.name == destination) // ALSO breaks when there are duplicate names...
-//                    planet = p
+//            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+//                return;
 //            }
-
-            Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT)
-                .show()
-
-            lock.lock(); // FlyTo
-            try {
-                if (ship.idxtype == GBData.POD) {
-                    GBController.flyShipLanded(ship, planet)
-                } else {
-                    GBController.flyShipOrbit(ship, planet)
-                }
-            } finally {
-                lock.unlock()
-            }
-        }
+//            lastClickTime = SystemClock.elapsedRealtime();
+//
+//            // Stars don't go away, so the below !! should be safe
+//            val ship = GBViewModel.viewShips[view.getTag(R.id.TAG_FLYTO_SHIP)]!!
+//
+//            //val ship = view.getTag(R.id.TAG_FLYTO_SHIP) as GBShip // FIXME  Hardcoded keys, what can go wrong
+//
+//            val spinner = view.getTag(R.id.TAG_FLYTO_SPINNER) as Spinner
+//            val destination = spinner.selectedItem.toString()
+//
+//            val destinationUids = view.getTag(R.id.TAG_FLYTO_UIDS) as HashMap<String, Int>
+//            val uidPlanet = destinationUids[destination]
+//
+//            val planet = viewPlanets[uidPlanet]!!
+//
+//            lock.lock(); // FlyTo
+//            try {
+//                if (ship.idxtype == GBData.POD) {
+//                    GBController.flyShipLanded(ship, planet)
+//                } else {
+//                    GBController.flyShipOrbit(ship, planet)
+//                }
+//            } finally {
+//                lock.unlock()
+//            }
+//        }
 
 
     }

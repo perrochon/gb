@@ -172,9 +172,9 @@ class MapActivity : AppCompatActivity() {
 //        GlobalStuff.makeCruiser(view)
 //    }
 
-    /** Called when the user taps the fly  To button */
-    fun flyTo(view: View) {
-        GlobalStuff.flyTo(view)
-    }
-
+//    /** Called when the user taps the fly  To button */
+//    fun flyTo(view: View) {
+//        GlobalStuff.flyTo(view)
+//    }
+//
 }

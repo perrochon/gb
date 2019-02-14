@@ -251,7 +251,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             drawStats(canvas)
         }
 
-        //drawClickTargets(canvas)
+        drawClickTargets(canvas)
 
 
     } // onDraw

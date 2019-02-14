@@ -89,10 +89,11 @@ class PlanetFragment : Fragment() {
 
         ships = viewOrbitShips[p.uid]!!
         if (ships.isNotEmpty()) {
-            planetStats.append(" Ships in orbit (${ships.size.toString()}): ")
+            planetStats.append("Ships in orbit (${ships.size.toString()}): ")
             for (sh in ships) {
                 planetStats.append(sh.name + " ")
             }
+            planetStats.append("\n")
         }
 
     }

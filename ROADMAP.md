@@ -1,8 +1,9 @@
 # Roadmap
 
 # Short Term
-* (*) button goes to wrong star in planet detail window 
-* Spinner react on select. Update Destination for the ship, get rid of FlyTo button
+* Spinner react on select. Update Destination for the ship, get rid of FlyTo button. WHY DOES THIS WORK, WHERE 
+DO LIB CLASSES GET UPDATED?
+* GBClasses in GBController instead of UIDs
 * Better looking spinner
 * Review Locking
 * Population growth on planets

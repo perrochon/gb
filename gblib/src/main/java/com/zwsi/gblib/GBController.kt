@@ -148,6 +148,9 @@ class GBController {
             return json
         }
 
+        // FIXME PERSISTENCE All of these need to change to UID...
+        // FIXME PERSISTENCE Put locks inside these calls
+
         fun makeFactory(p: GBPlanet, race: GBRace) {
             GBLog.d("universe: Making factory for ${race.name} on ${p.name}.")
 
@@ -191,6 +194,8 @@ class GBController {
             GBLog.d("Current Orders: " + u.orders.toString())
         }
 
+        // FIXME Which object gets updated here? The one in u, or the one in allships?
+        // Need to update the view model, because people may click on it again...
 
         fun flyShipLanded(sh: GBShip, p: GBPlanet) {
             GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
