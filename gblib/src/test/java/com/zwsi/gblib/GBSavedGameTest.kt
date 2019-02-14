@@ -100,7 +100,7 @@ class GBSavedGameTest {
         val moshi = Moshi.Builder().build()
 
         // First Turn
-        u.makeFactory(u.planet(0), u.race(0))
+        GBController.makeFactory(u.planet(0), u.race(0))
 
         GBController.doUniverse()
 
@@ -136,7 +136,7 @@ class GBSavedGameTest {
 
         //Second Turn
         val factory = u.allShips.filter { it.value.idxtype == GBData.FACTORY }.values.firstOrNull()!!
-        u.makeCruiser(factory)
+        GBController.makeCruiser(factory)
 
         GBController.doUniverse()
 

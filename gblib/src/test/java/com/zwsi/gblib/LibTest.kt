@@ -79,7 +79,7 @@ class LibTest {
     fun landPopulation() {
         GBController.makeUniverse()
         consistent()
-        u.landPopulation(u.planet(1), u.allRaces.values.first().uid, 55)
+        GBController.landPopulation(u.planet(1), u.allRaces.values.first().uid, 55)
         assertEquals(55, u.star(0).starPlanetsList[1].planetPopulation)
     }
 
