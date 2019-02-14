@@ -57,12 +57,7 @@ class ShipFragment : Fragment() {
             GlobalStuff.panzoomToShip(it)
         })
 
-//        val flyToButton: Button = view.findViewById(R.id.flyTo)
-//        flyToButton.setOnClickListener(View.OnClickListener {
-//            GlobalStuff.flyTo(it)
-//        })
-
-        setSpinner(view)
+        setSpinner(view, this)
 
         return view
     }
@@ -117,7 +112,7 @@ class ShipFragment : Fragment() {
 
     }
 
-    private fun setSpinner(view: View) {
+    private fun setSpinner(view: View, fragment: ShipFragment) {
 
         val sh = GBViewModel.viewShips[tag!!.toInt()]
 
@@ -178,18 +173,27 @@ class ShipFragment : Fragment() {
                 spinner.adapter = adapter
 
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+                    var first = true // TODO need empty entry in the selection list
+
                     override fun onNothingSelected(parent: AdapterView<*>?) {
 
                     }
 
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    override fun onItemSelected(parent: AdapterView<*>?, spinnerView: View?, position: Int, id: Long) {
+
+                        if (first) {
+                            first = false
+                            return
+                        }
+
                         val destination = parent!!.getItemAtPosition(position).toString()
 
                         val uidPlanet = destinationUids[destination]
 
                         val planet = GBViewModel.viewPlanets[uidPlanet]!!
 
-                        GBController.lock.lock(); // FlyTo
+                        GBController.lock.lock(); // FIXME move locks into GBController
                         try {
                             if (sh.idxtype == GBData.POD) {
                                 GBController.flyShipLanded(sh, planet)
@@ -201,24 +205,17 @@ class ShipFragment : Fragment() {
                         }
 
                         Toast.makeText(
-                            view!!.context,
+                            view.context,
                             "Ordered " + sh.name + " to fly to " + planet.name,
                             Toast.LENGTH_SHORT
                         )
                             .show()
 
-                        view.invalidate()
-
+                        fragment.setDetails(view)
                     }
 
                 }
 
-//                // FIXME DELETE No longer needing this button...
-//                val flyButton = view.findViewById<Button>(R.id.flyTo)
-//                flyButton.visibility = View.GONE
-//                flyButton.setTag(R.id.TAG_FLYTO_SPINNER, spinner)
-//                flyButton.setTag(R.id.TAG_FLYTO_UIDS, destinationUids)
-//                flyButton.setTag(R.id.TAG_FLYTO_SHIP, sh.uid)
             }
         }
 

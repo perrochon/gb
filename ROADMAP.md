@@ -1,7 +1,6 @@
 # Roadmap
 
 # Short Term
-* WHY DOES THIS WORK, WHERE DO LIB and VIEWMODEL CLASSES GET UPDATED? Are we using the same objects?
 * GBClasses in GBController instead of UIDs (related to above...)
 * Better looking spinner
 * Review Locking

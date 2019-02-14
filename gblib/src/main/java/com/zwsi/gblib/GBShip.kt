@@ -45,13 +45,13 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
         when (loc.level) {
             LANDED -> {
-                loc.getPlanet()!!.landedUidShips.add(this.uid)
+                loc.getPlanet().landedUidShips.add(this.uid)
             }
             ORBIT -> {
-                loc.getPlanet()!!.orbitUidShips.add(this.uid)
+                loc.getPlanet().orbitUidShips.add(this.uid)
             }
             SYSTEM -> {
-                loc.getStar()!!.starUidShipSet.add(this.uid)
+                loc.getStar().starUidShipSet.add(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceUidShips.add(this.uid)
@@ -75,13 +75,13 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
         // PERF no need to always do these whens, e.g. if things are the same, no need to remove and add
         when (this.loc.level) {
             LANDED -> {
-                this.loc.getPlanet()!!.landedUidShips.remove(this.uid)
+                this.loc.getPlanet().landedUidShips.remove(this.uid)
             }
             ORBIT -> {
-                this.loc.getPlanet()!!.orbitUidShips.remove(this.uid)
+                this.loc.getPlanet().orbitUidShips.remove(this.uid)
             }
             SYSTEM -> {
-                this.loc.getStar()!!.starUidShipSet.remove(this.uid)
+                this.loc.getStar().starUidShipSet.remove(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceUidShips.remove(this.uid)
@@ -95,19 +95,19 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 if (idxtype == POD) {
                     // TODO We should really handle this somewhere else. If pod were a subtype of ship, it could overwrite
                     // This is a pod, they populate, then destroy.  We set health to 0, and clean up elsewhere
-                    loc.getPlanet()!!.landedUidShips.add(this.uid)
+                    loc.getPlanet().landedUidShips.add(this.uid)
                     this.health = 0
-                    GBController.landPopulation(this.loc.getPlanet()!!, uidRace, 1)
-                    u.news.add("${u.race(uidRace).name} landed on ${this.loc.getPlanet()!!.name}")
+                    GBController.landPopulation(this.loc.getPlanet(), uidRace, 1)
+                    u.news.add("${u.race(uidRace).name} landed on ${this.loc.getPlanet().name}")
                 } else {
-                    loc.getPlanet()!!.landedUidShips.add(this.uid)
+                    loc.getPlanet().landedUidShips.add(this.uid)
                 }
             }
             ORBIT -> {
-                loc.getPlanet()!!.orbitUidShips.add(this.uid)
+                loc.getPlanet().orbitUidShips.add(this.uid)
             }
             SYSTEM -> {
-                loc.getStar()!!.starUidShipSet.add(this.uid)
+                loc.getStar().starUidShipSet.add(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceUidShips.add(this.uid)
@@ -141,13 +141,13 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
             // TODO factor out ship death (and call it from where pods explode, or set health to 0 there)
             when (this.loc.level) {
                 LANDED -> {
-                    this.loc.getPlanet()!!.landedUidShips.remove(this.uid)
+                    this.loc.getPlanet().landedUidShips.remove(this.uid)
                 }
                 ORBIT -> {
-                    this.loc.getPlanet()!!.orbitUidShips.remove(this.uid)
+                    this.loc.getPlanet().orbitUidShips.remove(this.uid)
                 }
                 SYSTEM -> {
-                    this.loc.getStar()!!.starUidShipSet.remove(this.uid)
+                    this.loc.getStar().starUidShipSet.remove(this.uid)
                 }
                 DEEPSPACE -> {
                     u.deepSpaceUidShips.remove(this.uid)
@@ -164,7 +164,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
     fun moveOrbitShip() {
         if ((this.dest == null) && (this.loc.level == ORBIT)) {
-            this.loc = GBLocation(this.loc.getPlanet()!!, this.loc.getOLocP().r, this.loc.getOLocP().t + 0.2f)
+            this.loc = GBLocation(this.loc.getPlanet(), this.loc.getOLocP().r, this.loc.getOLocP().t + 0.2f)
         }
     }
 
@@ -190,9 +190,9 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 //What direction are we heading
                 val t = atan2(dxy.y - sxy.y, dxy.x - sxy.x)
 
-                val next = GBLocation(loc.getPlanet()!!, PlanetaryOrbit, t)
+                val next = GBLocation(loc.getPlanet(), PlanetaryOrbit, t)
                 changeShipLocation(next)
-                u.news.add("$name launched from ${loc.getPlanet()!!.name}.\n")
+                u.news.add("$name launched from ${loc.getPlanet().name}.\n")
 
                 return
             } else {
@@ -236,7 +236,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 //What direction are we coming from
                 val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
 
-                val next = GBLocation(dest.getPlanet()!!, PlanetaryOrbit, t)
+                val next = GBLocation(dest.getPlanet(), PlanetaryOrbit, t)
                 changeShipLocation(next)
                 u.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 
@@ -255,7 +255,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
             if (loc.level == DEEPSPACE) {
 
-                val distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
+                val distanceToStar = sxy.distance(dest.getStar().loc.getLoc())
 
 
                 if (distanceToStar < GBData.SystemBoundary) { // we arrived at destination System
@@ -263,7 +263,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     // TODO check if destination is the system, in which case we would just stop here.
                     // We can't fly to a system yet, so not a bug just yet.
 
-                    val next = GBLocation(dest.getStar()!!, nxy.x, nxy.y, true)
+                    val next = GBLocation(dest.getStar(), nxy.x, nxy.y, true)
 
                     changeShipLocation(next)
 
@@ -286,7 +286,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
             } else {
 
-                val distanceToStar = sxy.distance(loc.getStar()!!.loc.getLoc())
+                val distanceToStar = sxy.distance(loc.getStar().loc.getLoc())
 
                 if (distanceToStar > GBData.SystemBoundary) {  // we left the system
 
@@ -299,7 +299,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     return
                 } else {
 
-                    val next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
+                    val next = GBLocation(loc.getStar(), nxy.x, nxy.y, true)
                     changeShipLocation(next)
 
                     GBLog.d("Flying insystem ")
