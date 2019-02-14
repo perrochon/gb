@@ -1,9 +1,9 @@
 # Roadmap
 
 # Short Term
-* Spinner react on select. Update Destination for the ship, get rid of FlyTo button. WHY DOES THIS WORK, WHERE 
-DO LIB CLASSES GET UPDATED?
-* GBClasses in GBController instead of UIDs
+* Spinner react on select. Update Destination for the ship, get rid of FlyTo button. 
+* WHY DOES THIS WORK, WHERE DO LIB and VIEWMODEL CLASSES GET UPDATED? Are we using the same objects?
+* GBClasses in GBController instead of UIDs (related to above...)
 * Better looking spinner
 * Review Locking
 * Population growth on planets
