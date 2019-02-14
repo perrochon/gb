@@ -135,7 +135,7 @@ data class GBLocation(
         if (level == LANDED) {
             // TODO This calculation is probably a rendering issue and belongs into MapView.
             // The constants have to be the same as the ones used to draw planet surfaces on the map
-            val size = PlanetaryOrbit * 1.6f / this.getPlanet().width
+            val size = PlanetaryOrbit * 1.6f / this.getPlanet()!!.width
             return GBxy(
                 u.planet(uidRef).loc.getLoc().x - PlanetaryOrbit * .80f + sx.toFloat() * size + size / 2,
                 u.planet(uidRef).loc.getLoc().y - PlanetaryOrbit * .4f + sy.toFloat() * size + size / 2
@@ -212,25 +212,21 @@ data class GBLocation(
         }
     }
 
-    fun getPlanet(): GBPlanet {
+    fun getPlanet(): GBPlanet? {
         when (level) {
             LANDED -> return u.planet(uidRef)
             ORBIT -> return u.planet(uidRef)
-            SYSTEM -> gbAssert("GBLocation: Location is SYSTEM, but asking for planet.", false)
-            DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for planet.", false)
-            else -> gbAssert("GBLocation: Location is Limbo, but asking for planet.", false)
+            else -> return null
         }
-        null!! // FIXME There must be a better way :-)
+        null
     }
 
-    fun getStar(): GBStar {
+    fun getStar(): GBStar? {
         when (level) {
             LANDED -> return u.planet(uidRef).star
             ORBIT -> return u.planet(uidRef).star
             SYSTEM -> return u.star(uidRef)
-            DEEPSPACE -> gbAssert("GBLocation: Location is DEEPSPACE, but asking for star.", false)
-            else -> gbAssert("GBLocation: Location is Limbo, but asking for star.", false)
+            else -> return null
         }
-        null!! // FIXME There must be a better way :-)
     }
 }

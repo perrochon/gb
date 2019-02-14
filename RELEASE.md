@@ -20,8 +20,8 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 ### Release Notes
 
 next release
-- Awesome new detail windows. Colored, rounded frames and all.
-- System size doubled. It's not like the game is "to scale" anyway. Larger system makes better use of screen real estate
+- Awesome new buttons and detail windows. Colored rounded frames and all.
+- System size doubled. Larger system makes better use of screen real estate. It's not like the game is "to scale" anyway. This creates some interesting overlapping binary stars
 - Double click on a planet pins the planet in a "geo-centric" view. Everything will now move around the planet.  Double click on a star, or zoom out to go back to regular heliocentric mode.
 - News now updates again each turn on the main screen (and is more concise)
 
@@ -36,19 +36,19 @@ next release
 -Cruisers shoot at cruisers. This means all other races are now your enemy, and will shoot  at you, and your factories. Missions are broken, but Mission 2 is now informally "Destroy the Beetle Factory"
 
 361
-- New Name: Andromeda Rising (which puts it very high up in Android's alphabetical list of apps :-)
-- Play the game from the map. No more clumsy lists.
+-New Name: Andromeda Rising (which puts it very high up in Android's alphabetical list of apps :-)
+-Play the game from the map. No more clumsy lists.
 -Cruisers, that (automatically) shoot on Pods of other races. Just fly a cruiser to the Rainbow Beetle home system and wait and see. Or wait until they find you. Better have a cruiser in orbit around your planets.
 -A lot of stability improvements, e.g. device rotation works better now. 
 -Gameplay video: https://photos.app.goo.gl/TgM8vpACFLwv82FH6
 
 .228
-- Zoomable, pannable map of the stars (not yet restricted to the areas you explored)
-- Pods can now fly to other systems, as well
-- A new God mode butten called "Make". Press it once, then look at the Starmap. It's God mode, and if you don't understand what it does exactly, that would not be unexpected.
+-Zoomable, pannable map of the stars (not yet restricted to the areas you explored)
+-Pods can now fly to other systems, as well
+-A new God mode butten called "Make". Press it once, then look at the Starmap. It's God mode, and if you don't understand what it does exactly, that would not be unexpected.
 
 .193
-- Missions! To be more accurate: Mission. The game now includes our most exciting mission ever: Tata! Mission 1. 
+-Missions! To be more accurate: Mission. The game now includes our most exciting mission ever: Tata! Mission 1. 
 - Ships. They can go places.
-- Lots of additional exploration: View planets of a star, view ships in a system, etc.
-- Lots of bugs fixed. More bugs and bad code introduced, too.
+-Lots of additional exploration: View planets of a star, view ships in a system, etc.
+-Lots of bugs fixed. More bugs and bad code introduced, too.

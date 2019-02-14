@@ -69,7 +69,7 @@ object MissionController {
         }
         if (missionStatus == 4) {
             for ((_, s) in viewShips) {
-                if ((s.loc.level == LANDED) && (s.loc.getPlanet().uid > 0)) {
+                if ((s.loc.level == LANDED) && (s.loc.getPlanet()!!.uid > 0)) {
                     missionStatus++
                     return
                 }

@@ -134,9 +134,9 @@ class ShipFragment : Fragment() {
                 // Put current destination first, and avoid listing it again.
                 if (sh.dest != null) {
                     // TODO Needs to change for locations other than planets
-                    val key = "${sh.dest!!.getPlanet().name} (current)"
+                    val key = "${sh.dest!!.getPlanet()!!.name} (current)"
                     destinationStrings.add(key)
-                    currentUidDestination = sh.dest!!.getPlanet().uid
+                    currentUidDestination = sh.dest!!.getPlanet()!!.uid
                     destinationUids[key] = currentUidDestination
                 }
 

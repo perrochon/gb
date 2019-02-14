@@ -1,6 +1,7 @@
 # Roadmap
 
 # Short Term
+* Empty first entry in spinner
 * GBClasses in GBController instead of UIDs (related to above...)
 * Better looking spinner
 * Review Locking
