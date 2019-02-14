@@ -1,7 +1,9 @@
 # Roadmap
+* Spinner with cursor loader so we can put more than strings... Or lookup table...
+* Better looking spinner
+* Population growth on planets
 
 # Regression
-* Persistence: Setting FlyTo during autoupdate doesn't work (it sends to old ship...)
 
 ## Code Quality
 ### Gating for Mission 2 (don't want to propagate bad code more)

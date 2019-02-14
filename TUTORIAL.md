@@ -18,9 +18,10 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 
 # UX Navigation
 
-* Double click on stars, planets and ships pans and zooms to the target. Double click on empty space zooms out.
+* Double click on stars, planets and ships panzooms to the target. Double click on empty space zooms out.
 * Single click on stars, planets, and ships brings up the details window. Single click on empty space closes it.
-* Drag, pinch-zoom and double-click-drag pans and zooms the map.
+* Drag, pinch-zoom, and double-click-drag pans, zooms, and panzooms the map.
+* (+) in a detail window panzooms to what's described in the window. Click on (*) to panzoom to it's star.
 * Double click on a planet pins the planet in a "geo-centric" view. Everything will now move around the plannet. 
   Double click on a star, or zoom out to go back to regular heliocentric mode.
 
@@ -34,9 +35,9 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 
 * Click on "Do" to finish the turn. You see factory pop up on your home planet.
 * Zoom into your home planet and click on the factory
-* Make 5 pods and 1 cruiser
-* "Do"
-* Click on each ship in turn and set the pods destination to the other planets in your system.
+* Make 5 pods and 1 cruiser and "Do"
+* Click on each ship in turn and set the pods destination to the other planets in your system. You need to select a 
+  destination in the dropdown, then click on "Fly To"
 * Mission Success: Population on all planets. Armed ships (i.e. Cruiser) on all planets
 
 # Mission 2 - Explore another system
@@ -44,7 +45,6 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 * Follow up with a few pods.
 
 # God Mode Fun Stuff
-* On the home screen, click on "Start Other Races" (or similar). This will put three more races in play
 * Click on "Cont". This will start automated turns. It's like fast-forward until you hit "Cont" again.
 You can leave it on and switch to the map and see what happens. Zoom all the way out to see other races ships
 exploring. Beware of the beetles. 
