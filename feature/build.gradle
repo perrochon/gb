@@ -16,7 +16,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            buildConfigField "int", "VERSIONCODE", "4"
+            buildConfigField "int", "VERSIONCODE", "5"
             buildConfigField "String", "VERSIONNAME", "\".0.0.0.500r\""
             buildConfigField "boolean", "SHOWSTATS", "true"
         }

@@ -114,6 +114,8 @@ class ShipFragment : Fragment() {
 
     private fun setSpinner(view: View, fragment: ShipFragment) {
 
+        // FIXME Setting Destination after update/DO doesn't work
+
         val sh = GBViewModel.viewShips[tag!!.toInt()]
 
         if (sh == null) {
@@ -138,6 +140,9 @@ class ShipFragment : Fragment() {
                     destinationStrings.add(key)
                     currentUidDestination = sh.dest!!.getPlanet()!!.uid
                     destinationUids[key] = currentUidDestination
+                } else {
+                    val key = "Set Destination"
+                    destinationStrings.add(key)
                 }
 
                 if (sh.getStar() != null) {
@@ -174,20 +179,16 @@ class ShipFragment : Fragment() {
 
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
-                    var first = true // TODO need empty entry in the selection list
-
                     override fun onNothingSelected(parent: AdapterView<*>?) {
-
                     }
 
                     override fun onItemSelected(parent: AdapterView<*>?, spinnerView: View?, position: Int, id: Long) {
 
-                        if (first) {
-                            first = false
+                        val destination = parent!!.getItemAtPosition(position).toString()
+
+                        if (destination.equals("Set Destination")) { // FIXME make this a constant
                             return
                         }
-
-                        val destination = parent!!.getItemAtPosition(position).toString()
 
                         val uidPlanet = destinationUids[destination]
 

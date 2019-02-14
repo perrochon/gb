@@ -3,12 +3,12 @@
 Steps for release, because I always forget some. // TODO Automate this
 
 ### Release
-- Turn off stats display
-- Increase versionCode and versionName number in 3 gradle files
-- Turn of experimental persistence
+- Turn off stats display (should be automatic now)
+- Turn off click circles (should be automatic now)
 - Build and test
 - Commit and get commit #
-- Increase version number in GBMainActivity to last commit #
+- Increase versionCode and versionName number in 3 gradle files last commit # +1
+- Increase version number in GBMainActivity to last commit # +1
 - Commit again
 - Create AAB
 - Upload that to Android Play
@@ -24,6 +24,10 @@ next release
 - System size doubled. Larger system makes better use of screen real estate. It's not like the game is "to scale" anyway. This creates some interesting overlapping binary stars
 - Double click on a planet pins the planet in a "geo-centric" view. Everything will now move around the planet.  Double click on a star, or zoom out to go back to regular heliocentric mode.
 - News now updates again each turn on the main screen (and is more concise)
+- No longer need to click "Fly To" after selecting destination. Selection in the drop down will set it.
+Known Issues:
+- Click target circles displayed for this release. Not sure if this is a good feature.
+- Direction setting dropdown not working if window stays open during update. Work around: close and reopen detail window
 
 477
 -Online Tutorial https://github.com/perrochon/gb/blob/master/TUTORIAL.md
