@@ -2,16 +2,22 @@
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageViewLayout" android:orientation="vertical">
+        android:id="@+id/imageViewLayout"
+        android:orientation="vertical"
+        >
 
     <com.zwsi.gb.feature.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
     <FrameLayout
             android:id="@+id/details"
             android:layout_width="match_parent"
@@ -20,7 +26,9 @@
             app:layout_constraintStart_toStartOf="@+id/mapView"
             android:layout_marginEnd="32dp"
             android:layout_marginTop="32dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="32dp"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="32dp"
+            />
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -30,7 +38,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:padding="0dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
         <Button
                 android:text="Cont"
                 android:layout_width="wrap_content"
@@ -41,9 +50,12 @@
                 android:onClick="continuousDo"
                 android:visibility="visible"
                 tools:visibility="visible"
-                android:alpha="0.5" android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/DoButton"/>
+                android:alpha="0.5"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/DoButton"
+                />
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,13 +63,19 @@
                 android:text="@string/button_Do"
                 android:onClick="doUniverse"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/border_message"
+                />
     </LinearLayout>
     <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/version" android:text="Version"
+            android:layout_height="wrap_content"
+            android:id="@+id/version"
+            android:text="Version"
             android:textColor="@android:color/holo_green_light"
             android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
 </android.support.constraint.ConstraintLayout>

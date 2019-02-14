@@ -50,10 +50,11 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/border_planet"
                 />
 
         <Button
-                android:text="*"
+                android:text=" (*) "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/panzoomToSystemStar"
@@ -63,10 +64,11 @@
                 tools:visibility="visible"
                 android:minWidth="0dp"
                 android:layout_marginStart="8dp"
+                android:background="@drawable/border_planet"
                 />
 
         <Button
-                android:text="(+)"
+                android:text=" (+) "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/panzoomToPlanet"
@@ -76,6 +78,7 @@
                 tools:visibility="visible"
                 android:layout_marginStart="8dp"
                 android:minWidth="0dp"
+                android:background="@drawable/border_planet"
                 />
 
         <ImageView

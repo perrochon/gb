@@ -55,10 +55,11 @@
                 tools:visibility="visible"
                 android:onClick="goToShips"
                 android:layout_marginStart="8dp"
+                android:background="@drawable/border_star"
                 />
 
         <Button
-                android:text="(+)"
+                android:text=" (+) "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/panzoomToStar"
@@ -69,6 +70,7 @@
                 android:minWidth="0dp"
                 android:onClick="panzoomToStar"
                 android:layout_marginStart="8dp"
+                android:background="@drawable/border_star"
                 />
 
         <ImageView
