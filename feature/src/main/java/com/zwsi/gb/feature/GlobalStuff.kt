@@ -290,12 +290,16 @@ class GlobalStuff {
 
             val spinner = view.getTag(R.id.TAG_FLYTO_SPINNER) as Spinner
             val destination = spinner.selectedItem.toString()
-            var planet: GBPlanet? = null
 
-            for ((_, p) in viewPlanets) { // FIXME this is wasteful. Need to refactor to locations
-                if (p.name == destination) // ALSO breaks when there are duplicate names...
-                    planet = p
-            }
+            val destinationUids = view.getTag(R.id.TAG_FLYTO_UIDS) as HashMap<String, Int>
+            var uidPlanet = destinationUids[destination]
+
+            var planet = viewPlanets[uidPlanet]
+//
+//            for ((_, p) in viewPlanets) { // FIXME this is wasteful. Need to refactor to locations
+//                if (p.name == destination) // ALSO breaks when there are duplicate names...
+//                    planet = p
+//            }
 
             Toast.makeText(view.context, "Ordered " + ship.name + " to fly to " + planet!!.name, Toast.LENGTH_SHORT)
                 .show()

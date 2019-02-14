@@ -127,11 +127,15 @@ class ShipFragment : Fragment() {
             } else {
                 // TODO: better selection of possible targets once we have visibility.
                 // Right now it's all insystem and first planet of each system outside.
-                val destinationPlanets = arrayListOf<String>()
+                // TODO: If we have fly to a star system update the lists here
+                val destinationStrings = arrayListOf<String>()
+                val destinationUids = HashMap<String, Int>()
 
                 if (sh.getStar() != null) {
                     for (p in GBViewModel.viewStarPlanets[sh.getStar()!!.uid]!!) {
-                        destinationPlanets.add(p.name)
+                        val key = "${p.name} (insystem)"
+                        destinationStrings.add(key)
+                        destinationUids[key]=p.uid
                     }
                 }
                 val sortedStars =
@@ -140,12 +144,14 @@ class ShipFragment : Fragment() {
                     }.take(6).drop(1)
 
                 for ((_, s) in sortedStars) {
-                    destinationPlanets.add(GBViewModel.viewStarPlanets[s.uid]!![0].name)
+                    val key = "${s.name} system"
+                    destinationStrings.add(key)
+                    destinationUids[key]=GBViewModel.viewStarPlanets[s.uid]!![0].uid
                 }
 
                 // Create an ArrayAdapter
                 val adapter =
-                    ArrayAdapter<String>(this.activity!!, android.R.layout.simple_spinner_item, destinationPlanets)
+                    ArrayAdapter<String>(this.activity!!, android.R.layout.simple_spinner_item, destinationStrings)
 
                 // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -156,8 +162,8 @@ class ShipFragment : Fragment() {
 
                 val flyButton = view.findViewById<Button>(R.id.flyTo)
                 flyButton.setTag(R.id.TAG_FLYTO_SPINNER, spinner)
+                flyButton.setTag(R.id.TAG_FLYTO_UIDS, destinationUids)
                 flyButton.setTag(R.id.TAG_FLYTO_SHIP, sh.uid)
-
             }
         }
 

@@ -2,4 +2,5 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <item name="TAG_FLYTO_SHIP" type="id"/>
     <item name="TAG_FLYTO_SPINNER" type="id"/>
+    <item name="TAG_FLYTO_UIDS" type="id"/>
 </resources>
