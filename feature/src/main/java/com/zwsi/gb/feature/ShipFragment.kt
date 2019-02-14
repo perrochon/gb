@@ -167,7 +167,8 @@ class ShipFragment : Fragment() {
 
                 // Create an ArrayAdapter
                 val adapter =
-                    ArrayAdapter<String>(this.activity!!, android.R.layout.simple_spinner_item, destinationStrings)
+                //ArrayAdapter<String>(this.activity!!, android.R.layout.simple_spinner_item, destinationStrings)
+                    ArrayAdapter<String>(this.activity!!, R.layout.spinner_item, destinationStrings)
 
                 // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
