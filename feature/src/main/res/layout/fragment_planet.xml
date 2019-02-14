@@ -14,7 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/PlanetStats"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="@android:color/holo_green_light"
             android:text="Planet Details"
             android:textSize="24sp"
             android:layout_marginTop="8dp"
