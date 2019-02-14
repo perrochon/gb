@@ -152,7 +152,7 @@ class ShipFragment : Fragment() {
                 val sortedStars =
                     viewStars.toList().sortedBy { (_, s) ->
                         s.loc.getLoc().distance(sh.loc.getLoc())
-                    }.take(6).drop(1)
+                    }.take(6).drop(1)  // FIXME Don't drop the first if in DEEP SPACE, otherwise can't go back.
 
                 for ((_, s) in sortedStars) {
                     val key = "${s.name} system"
