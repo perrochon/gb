@@ -61,13 +61,13 @@ class StarsSlideActivity : AppCompatActivity() {
 
     }
 
-    fun goToLocation( @Suppress("UNUSED_PARAMETER")view:View) {
-        //TODO DEPRECATED. Would have to create a map view and then zoom in
-    }
+//    fun goToLocation( @Suppress("UNUSED_PARAMETER")view:View) {
+//        //TODO DEPRECATED. Would have to create a map view and then zoom in
+//    }
 
-    fun goToShips(view:View) {
-        GlobalStuff.goToShips(view)
-    }
+//    fun goToShips(view:View) {
+//        GlobalStuff.goToShips(view)
+//    }
 
 
 }

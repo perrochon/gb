@@ -164,13 +164,13 @@ class MapActivity : AppCompatActivity() {
 //        GlobalStuff.goToLocationShip(view)
 //    }
 
-    fun makePod(view: View) {
-        GlobalStuff.makePod(view)
-    }
-
-    fun makeCruiser(view: View) {
-        GlobalStuff.makeCruiser(view)
-    }
+//    fun makePod(view: View) {
+//        GlobalStuff.makePod(view)
+//    }
+//
+//    fun makeCruiser(view: View) {
+//        GlobalStuff.makeCruiser(view)
+//    }
 
     /** Called when the user taps the fly  To button */
     fun flyTo(view: View) {

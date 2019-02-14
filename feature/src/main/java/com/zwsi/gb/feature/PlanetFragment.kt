@@ -35,16 +35,16 @@ class PlanetFragment : Fragment() {
 
         setDetails(view)
 
-        val turnObserver = Observer<Int> { newTurn->
+        val turnObserver = Observer<Int> { _->
             setDetails(view)
             view.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
         val factoryButton: Button = view.findViewById(R.id.makefactory)
-        factoryButton.tag = tag
+        factoryButton.tag = p.uid
         factoryButton.setOnClickListener(View.OnClickListener {
-            GlobalStuff.doUniverse(it)
+            GlobalStuff.makeFactory(it)
         })
 
         val starButton: Button = view.findViewById(R.id.panzoomToSystemStar)

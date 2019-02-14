@@ -27,7 +27,7 @@ class StarFragment : Fragment() {
 
         setDetails(view)
 
-        val turnObserver = Observer<Int> { newTurn->
+        val turnObserver = Observer<Int> { _->
             setDetails(view)
             view.invalidate()
         }  // TODO why is newTurn nullable?
