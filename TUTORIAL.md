@@ -26,8 +26,8 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
   Double click on a star, or zoom out to go back to regular heliocentric mode.
 
 # Mission 1 - Secure your Star System
-* Click on Map - the map will show you your home planet (possibly named "Helle")
-* Pinch zoom out to see your home system "Jade" and a few other planets. 
+* Click on Map - the map will show you your home planet
+* Pinch zoom out to see your home system and a few other planets. 
 * Single click on planet to open planet detail window
 * Click on "Make Factory" to order a factory. 
 
@@ -37,23 +37,27 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 * Zoom into your home planet and click on the factory
 * Make 5 pods and 1 cruiser and "Do"
 * Click on each ship in turn and set the pods destination to the other planets in your system. You need to select a 
-  destination in the dropdown, then click on "Fly To"
-* Mission Success: Population on all planets. Armed ships (i.e. Cruiser) on all planets
+  destination in the dropdown.
+* Mission Success: Population on all planets. Armed ships (i.e. cruiser) around all planets
 
 # Mission 2 - Explore another system
-* Make a cruiser and send it to the closest system
-* Follow up with a few pods.
+* Zoom out all the way. By now, you should see other ships from other races. They are not friendly. 
+* Make cruisers and send them to the closest system as defense. The cruisers will shoot down pods and enemy cruisers if 
+  they are in reach.
+* Follow up with a few pods and start populating another stat system. Once you have population on a planet, you can build
+  a factory there and build cruisers locally.
 
 # God Mode Fun Stuff
-* Click on "Cont". This will start automated turns. It's like fast-forward until you hit "Cont" again.
-You can leave it on and switch to the map and see what happens. Zoom all the way out to see other races ships
+* Click on "Cont(inue)". This will start automated turns until you hit "Cont" again. It's like fast-forward. 
+You can leave it on and see your planets orbit your star. Zoom all the way out to see other races' ships
 exploring. Beware of the beetles. 
-* Send cruisers to some of the other systems, or wait for the beetles to arrive. The cruisers will shoot down 
-pods (or enemy cruisers) if they are in reach.
+* Send cruisers to some of the other systems, or wait for the beetles to arrive. 
 
 #FAQ
 
-*Why can't I shoot at ships passing through a star system? Ships not entering/leaving a system are either way above
-or below in the galactic planet. It may look like they fly through the system, but they are way above. One way to tell
+* Why don't my ships shoot at enemy ships passing through a star system? It may look like they fly through the system, 
+but they are way above or below in the galactic planet. One way to tell
 if a Pod is in-system is to watch it's trail. If it's straight, it may be heading elsewhere. If it curves toward a planet
 then it's in-system. Another way to tell is by looking closely at the color. Deep space ships are more muted than in-system.
+
+* What are the circles around some ships? An experimental feature shows click targets. If it has a circle, you can click it.

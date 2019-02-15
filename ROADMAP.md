@@ -48,6 +48,7 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 * Research
 
 #### Frontend
+* Mark "active" object (the one with the detail screen open). Maybe a colored click circle?
 * Run Tests on phone (text based)
 
 ### General
