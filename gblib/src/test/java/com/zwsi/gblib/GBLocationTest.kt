@@ -11,7 +11,6 @@ import com.squareup.moshi.Types
 import com.zwsi.gblib.GBController.Companion.u
 import org.junit.Assert.*
 import org.junit.Test
-import java.util.*
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -31,7 +30,7 @@ class GBLocationTest {
                 assertEquals(-1f, l.r)
                 assertEquals(l.getLLoc().sx, l.sx)
                 assertEquals(l.getLLoc().sy, l.sy)
-                assertNotEquals(null, u.allPlanets[l.uidRef]) //
+                assertNotEquals(null, u.planets[l.uidRef]) //
                 // Do some checks on the LocDesc
             }
             GBLocation.ORBIT -> {
@@ -43,19 +42,19 @@ class GBLocationTest {
                 assertEquals(l.getOLocP().t, l.t)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
-                assertNotEquals(null, u.allPlanets[l.uidRef]) //
+                assertNotEquals(null, u.planets[l.uidRef]) //
                 // Do some checks on the LocDesc
             }
             GBLocation.SYSTEM -> {
                 assertEquals(GBLocation.SYSTEM, l.level)
-                assertEquals(l.getLoc().x, u.allStars[l.uidRef]!!.loc.x + l.x)
-                assertEquals(l.getLoc().y, u.allStars[l.uidRef]!!.loc.y + l.y)
+                assertEquals(l.getLoc().x, u.stars[l.uidRef]!!.loc.x + l.x)
+                assertEquals(l.getLoc().y, u.stars[l.uidRef]!!.loc.y + l.y)
                 assertNotEquals(-1, l.uidRef)
                 assertEquals(l.getSLocP().r, l.r)
                 assertEquals(l.getSLocP().t, l.t)
                 assertEquals(-1, l.sx)
                 assertEquals(-1, l.sx)
-                assertNotEquals(null, u.allStars[l.uidRef]) //
+                assertNotEquals(null, u.stars[l.uidRef]) //
                 assertEquals(l.x, l.r * cos(l.t))
                 assertEquals(l.y, l.r * sin(l.t))
 
@@ -156,7 +155,7 @@ class GBLocationTest {
 
     @Test
     fun planetMoveMath() { // TODO Refactor so this test can be done without a universe
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
         val s = u.star(0)
         var loc = GBLocation(s, 10f, 0f)
         var xy = loc.getSLocC()

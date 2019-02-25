@@ -9,14 +9,13 @@ import com.zwsi.gblib.GBController.Companion.u
 import org.junit.Test
 
 import org.junit.Assert.*
-import java.io.File
 
 class GBRaceTest {
 
     fun consistent(r: GBRace){
         GBController.u
         assertTrue(r.description.length > 0)
-        assertTrue(u.allRaces.containsValue(r))
+        assertTrue(u.races.containsValue(r))
         assertEquals(r, u.race(r.uid))
     }
 
@@ -24,7 +23,7 @@ class GBRaceTest {
     fun basic() {
         GBController.makeUniverse()
 
-        for ((_,race) in u.allRaces) {
+        for ((_,race) in u.races) {
             consistent(race)
             assertEquals(race.raceShipsList.size,0 )
         }
@@ -63,7 +62,7 @@ class GBRaceTest {
 
         val moshi = Moshi.Builder().build()
 
-        val gameInfo1 = GBSavedGame("Racelist only", raceList = u.allRaces)
+        val gameInfo1 = GBSavedGame("Racelist only", races = u.races)
         //File("testoutput/GBRaceTestJSONMap.in.txt").writeText(gameInfo1.toString())
 
         val jsonAdapter2: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)

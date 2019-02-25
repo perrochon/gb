@@ -46,7 +46,7 @@ class MapActivity : AppCompatActivity() {
                         imageView.animateScaleAndCenter(
                             imageView.zoomLevelPlanet, PointF(
                                 any.loc.getLoc().x * imageView.uToS,
-                                (any.loc.getLoc().y - gi.planetaryOrbit) * imageView.uToS
+                                (any.loc.getLoc().y - gi.planetOrbit) * imageView.uToS
                             )
                         )!!
                             .withDuration(1000)

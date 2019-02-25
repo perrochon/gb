@@ -17,8 +17,8 @@ class GBMissionTest {
 //
 //
 //        assertEquals(0, universe.missionController.getMissionStatus())
-//        val p = universe.allPlanets[0]
-//        universe.makeFactory(universe.allPlanets[0])
+//        val p = universe.planets[0]
+//        universe.makeFactory(universe.planets[0])
 //
 //        universe.doUniverse()
 //        assertEquals(1, universe.missionController.getMissionStatus())

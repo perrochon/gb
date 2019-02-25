@@ -42,7 +42,7 @@ class LibTest {
 
 
         populate()
-        assertEquals(shipsMade, u.allShips.size)
+        assertEquals(shipsMade, u.ships.size)
         consistent()
 
 
@@ -63,7 +63,7 @@ class LibTest {
 
 
         populate()
-        assertEquals(shipsMade, u.allShips.size)
+        assertEquals(shipsMade, u.ships.size)
         consistent()
 
         GBController.doUniverse()
@@ -79,7 +79,7 @@ class LibTest {
     fun landPopulation() {
         GBController.makeUniverse()
         consistent()
-        GBController.landPopulation(u.planet(1), u.allRaces.values.first().uid, 55)
+        GBController.landPopulation(1, 0, 55)
         assertEquals(55, u.star(0).starPlanetsList[1].planetPopulation)
     }
 
@@ -90,8 +90,8 @@ class LibTest {
     fun makeShips() {
         GBController.makeUniverse()
 
-        val allRaces = u.allRaces
-        val allStars = u.allStars
+        val allRaces = u.races
+        val allStars = u.stars
         val numberOfStars = allStars.size
 
         val r0 = allRaces.toList().component1().second

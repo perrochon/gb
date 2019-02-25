@@ -1,82 +1,83 @@
 package com.zwsi.gblib
 
+import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.rand
 import java.util.*
 import kotlin.math.PI
 
-class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
+@JsonClass(generateAdapter = true)
+data class GBUniverse(
+    // Constant Fields
+    val description: String = "Unitialized Universe",
+    val universeMaxX: Int = -1,
+    val universeMaxY: Int = -1,
+    val starMaxOrbit: Float = -1f,
+    val planetOrbit: Float = -1f,
+    val numberOfStars: Int = -1,
+    val numberOfRaces: Int = -1,
+    // Variable Fields
+    var nextGlobalID: Int = -1,
+    var turn: Int = -1,
+    // Collections
+    // TODO: With Locks, we should not need synchronized collections anymore. We used to have
+    // e.g. Collections.synchronizedMap(hashMapOf<Int, GBStar>())
+    // FIXME PERSISTENCE SavedGameTest reassign these lists, instead of creating a new Universe. Once fixed, can use val
+    var stars: MutableMap<Int, GBStar> = hashMapOf<Int, GBStar>(),
+    var planets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>(),
+    var races: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>(),
+    var ships: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>(),
+    // deepSpace rebuilt on load
+    // dead ships not needed
+    val shots: MutableList<GBVector> = arrayListOf<GBVector>()  ,
+    val news: MutableList<String> = arrayListOf<String>()
+    // orders not needed while we only save/restore at beginning of turn
+) {
 
     //numberOfRaces <= what we have in GBData. >= 4 or tests will fail
+    constructor(_numberOfStars: Int, _numberOfRaces: Int) : this(
+        "A Universe",
+        GBData.UniverseMaxX,
+        GBData.UniverseMaxY,
+        GBData.SystemBoundary,
+        GBData.PlanetaryOrbit,
+        _numberOfStars,
+        _numberOfRaces,
+        1000,
+        0
+    ) {
+    }
 
-    val universeMaxX: Int
-        get() = GBData.UniverseMaxX
+    @Transient
+    var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships.
 
-    val universeMaxY: Int
-        get() = GBData.UniverseMaxY
+    // FIXME PERSISTENCE dead ships in the Universe. Keep here so they don't get garbage collected too early. Keep one turn
+    @Transient
+    var deadShips: MutableMap<Int, GBShip> = hashMapOf()
 
-    val systemBoundary: Float
-        get() = GBData.SystemBoundary
-
-    val planetaryOrbit: Float
-        get() = GBData.PlanetaryOrbit
-
-    internal var nextGlobalID = 1000  // FIXME PERSISTENCE persist
+    @Transient
+    val orders: MutableList<GBOrder> = arrayListOf<GBOrder>()
 
     fun getNextGlobalId(): Int {
         return nextGlobalID++
     }
 
-    //internal var numberOfRaces = GBController.numberOfRaces
-
-    // Stars, Planets, Races are immutable lists (once built) of immutable elements. Things that do change are e.g. locations of things
-    // exposing these (for now)
-    // TODO: With Locks, we should not need synchronized collections anymore,
-    // e.g. Collections.synchronizedMap(hashMapOf<Int, GBStar>())
-    internal var allStars: MutableMap<Int, GBStar> = hashMapOf<Int, GBStar>() // all the stars
-    internal var allPlanets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>() // all the planets
-    internal var allRaces: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>() // all the races
-
-    // List of ships. Lists are mutable and change during updates (dead ships...)
-    // Not exposed to the app
-    internal var allShips: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>() // all ships, alive or dead
-
-    // Deep Space Ships UID
-    internal var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships.
-
-    // some dead ships in the Universe. Keep here so they don't get garbage collected too early. Keep one turn
-    internal var deadShips: MutableMap<Int, GBShip> = hashMapOf()
-
-    // Helper functions for map access. Also include null check.
+    // Helper functions with null check for map access. Use e.g. stars(uid) instead of stars[uid]!!
     fun star(uid: Int): GBStar {
-        return allStars[uid]!!
+        return stars[uid]!!
     }
 
     fun planet(uid: Int): GBPlanet {
-        return allPlanets[uid]!!
+        return planets[uid]!!
     }
 
     fun race(uid: Int): GBRace {
-        return allRaces[uid]!!
+        return races[uid]!!
     }
 
     fun ship(uid: Int): GBShip {
-        return allShips[uid]!!
-    }
-
-    // Results of turns. Basically replaced every turn
-    val allShots: MutableList<GBVector> = arrayListOf<GBVector>()    // FIXME Need tests
-    val news: MutableList<String> = arrayListOf<String>() // FIXME Need Tests
-    val orders: MutableList<GBOrder> = arrayListOf<GBOrder>()
-
-    var turn = 0
-
-    // FIXME PERSISTENCE persist turn, which races are playing
-
-
-    fun getAllShotsList(): List<GBVector> {
-        return allShots.toList()
+        return ships[uid]!!
     }
 
     internal fun consoleDraw() {
@@ -85,12 +86,12 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         println("=============================================")
         println("The Universe contains $numberOfStars star(s).\n")
 
-        for ((_, star) in allStars) {
+        for ((_, star) in stars) {
             star.consoleDraw()
         }
         println("The Universe contains $numberOfRaces race(s).\n")
 
-        for ((_, race) in allRaces) {
+        for ((_, race) in races) {
             race.consoleDraw()
         }
 
@@ -98,7 +99,6 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         for (s in news) {
             println(s)
         }
-
     }
 
     fun makeStarsAndPlanets() {
@@ -109,23 +109,23 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
             val numberOfPlanets =
                 GBData.rand.nextInt(GBData.MaxNumberOfPlanets - GBData.MinNumberOfPlanets) + GBData.MinNumberOfPlanets
             val coordinates = getStarCoordinates()
-            allStars[uidStar] =
+            stars[uidStar] =
                 GBStar(getNextGlobalId(), uidStar, numberOfPlanets, coordinates.first, coordinates.second)
 
             val orbitDist: Float = GBData.MaxSystemOrbit.toFloat() / numberOfPlanets.toFloat()
 
             for (sidPlanet in 0 until numberOfPlanets) {
                 val loc =
-                    GBLocation(allStars[uidStar]!!, (sidPlanet + 1f) * orbitDist, rand.nextFloat() * 2f * PI.toFloat())
+                    GBLocation(stars[uidStar]!!, (sidPlanet + 1f) * orbitDist, rand.nextFloat() * 2f * PI.toFloat())
 
-                allPlanets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, uidStar, loc)
+                planets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, uidStar, loc)
                 star(uidStar).starUidPlanetSet.add(uidPlanet)
                 uidPlanet++;
             }
         }
     }
 
-    // Get random, but universally distributed coordinates for allStars
+    // Get random, but universally distributed coordinates for stars
     // Approach: break up the universe into n areas of equal size, and put one star in each area
     // where n is the smallest square number bigger than numberOfStars. Then shuffle the areas as some will remain
     // empty.
@@ -134,8 +134,8 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
     var areas: ArrayList<Int> = ArrayList() // we fill it up on first call to GetStarCoordinates
 
     // Knowing areas (and keeping them) at a higher level, if they are made hierarchical
-    // (Say 4 areas each with 5 sub-areas, then place allStars into sub area) then place one race in each area.
-    // Of course for 17 allRaces, this would lead to three levels with 64 sub-sub-areas. Quadratic may be better.
+    // (Say 4 areas each with 5 sub-areas, then place stars into sub area) then place one race in each area.
+    // Of course for 17 races, this would lead to three levels with 64 sub-sub-areas. Quadratic may be better.
 
     fun getStarCoordinates(): Pair<Int, Int> {
 
@@ -181,23 +181,23 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         // And the code below will need to change anyway.
 
         // The single player
-        val r0 = GBRace(getNextGlobalId(), 0, 0, allStars[0]!!.starPlanetsList[0].uid)
-        allRaces[0] = r0
-        allStars[0]!!.starPlanetsList[0].landPopulationOnEmptySector(r0, 100)
+        val r0 = GBRace(getNextGlobalId(), 0, 0, stars[0]!!.starPlanetsList[0].uid)
+        races[0] = r0
+        stars[0]!!.starPlanetsList[0].landPopulationOnEmptySector(r0, 100)
 
 
         // We only need one race for the early mission, but we create and land the others for God Mode...
         // Eventually, they will be dynamically landed (from tests, or from app)
-        val r1 = GBRace(getNextGlobalId(), 1, 1, allStars[1]!!.starPlanetsList[0].uid)
-        allRaces[1] = r1
-        val r2 = GBRace(getNextGlobalId(), 2, 2, allStars[2]!!.starPlanetsList[0].uid)
-        allRaces[2] = r2
-        val r3 = GBRace(getNextGlobalId(), 3, 3, allStars[3]!!.starPlanetsList[0].uid)
-        allRaces[3] = r3
+        val r1 = GBRace(getNextGlobalId(), 1, 1, stars[1]!!.starPlanetsList[0].uid)
+        races[1] = r1
+        val r2 = GBRace(getNextGlobalId(), 2, 2, stars[2]!!.starPlanetsList[0].uid)
+        races[2] = r2
+        val r3 = GBRace(getNextGlobalId(), 3, 3, stars[3]!!.starPlanetsList[0].uid)
+        races[3] = r3
 
-        allStars[1]!!.starPlanetsList[0].landPopulationOnEmptySector(r1, 100)
-        allStars[2]!!.starPlanetsList[0].landPopulationOnEmptySector(r2, 100)
-        allStars[3]!!.starPlanetsList[0].landPopulationOnEmptySector(r3, 100)
+        stars[1]!!.starPlanetsList[0].landPopulationOnEmptySector(r1, 100)
+        stars[2]!!.starPlanetsList[0].landPopulationOnEmptySector(r2, 100)
+        stars[3]!!.starPlanetsList[0].landPopulationOnEmptySector(r3, 100)
     }
 
     internal fun doUniverse() {
@@ -206,6 +206,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         news.clear()
 
         // FEATURE only do this if other races are playing
+        // FIXME PERSISTENCE persist which races are playing
         AutoPlayer.playBeetle()
         AutoPlayer.playImpi()
         AutoPlayer.playTortoise()
@@ -215,17 +216,17 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
         }
         orders.clear()
 
-        for ((_, star) in allStars) {
+        for ((_, star) in stars) {
             for (p in star.starPlanetsList) {
                 p.doPlanet()
             }
         }
 
-        for ((_, sh) in allShips.filter { (_, ship) -> ship.health <= 0 }) {
+        for ((_, sh) in ships.filter { (_, ship) -> ship.health <= 0 }) {
             sh.killShip()
         }
 
-        for ((_, sh) in allShips.filter { (_, ship) -> ship.health > 0 }) {
+        for ((_, sh) in ships.filter { (_, ship) -> ship.health > 0 }) {
             sh.doShip()
         }
 
@@ -237,11 +238,11 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
     }
 
     fun fireShots() {
-        allShots.clear()
+        shots.clear()
 
         // PERF Create one list of all insystem ships, then find shots
         // System Ships shoot at System only
-        for ((_, star) in allStars) {
+        for ((_, star) in stars) {
             for (sh1 in star.starShipList.shuffled()) {
                 if (sh1.idxtype == CRUISER && (sh1.health > 0)) {
                     for (sh2 in star.starShipList) {
@@ -256,7 +257,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
             }
         }
         // Orbit Ships shoot at System, Orbit, or landed ships
-        for ((_, p) in allPlanets) {
+        for ((_, p) in planets) {
             for (sh1 in p.orbitShips.shuffled()) {
                 if ((sh1.idxtype == CRUISER && (sh1.health > 0))) {
                     for (sh2 in u.star(p.uidStar).starShipList.union(p.orbitShips).union(p.landedShips)) {
@@ -273,7 +274,7 @@ class GBUniverse(internal var numberOfStars: Int, val numberOfRaces: Int) {
     }
 
     fun fireOneShot(sh1: GBShip, sh2: GBShip) {
-        allShots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
+        shots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
         GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
         sh2.health -= 40 // Cruiser Shot makes 40 damage
         u.news.add("${sh1.name} fired at ${sh2.name}.\n")

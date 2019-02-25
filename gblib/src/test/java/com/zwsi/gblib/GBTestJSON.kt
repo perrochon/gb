@@ -6,10 +6,8 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import com.zwsi.gblib.GBController.Companion.u
 import org.junit.Test
-import java.util.*
 
 // Scratch class for testing JSON related stuff while developing. Finished tests go elsewhere
 class GBTestJSON {
@@ -34,7 +32,7 @@ class GBTestJSON {
         GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
-        val gameInfo1 = GBSavedGame("Starlist only", starList = u.allStars)
+        val gameInfo1 = GBSavedGame("Starlist only", stars = u.stars)
         val jsonAdapter3: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("    ")
         val json3 = jsonAdapter3.toJson(gameInfo1)
         val gameInfo2 = jsonAdapter3.lenient().fromJson(json3)

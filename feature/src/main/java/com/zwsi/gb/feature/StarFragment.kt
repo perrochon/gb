@@ -16,7 +16,7 @@ class StarFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(message: String): StarFragment {
+        fun newInstance(@Suppress("UNUSED_PARAMETER")message: String): StarFragment {
             return StarFragment()
         }
     }

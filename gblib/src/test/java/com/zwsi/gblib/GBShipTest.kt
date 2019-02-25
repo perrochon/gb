@@ -30,8 +30,8 @@ class GBShipTest {
 
         assertEquals(universe, universe)
 
-        assertTrue(universe.allShips.containsValue(ship))
-        assertEquals(ship, universe.allShips[ship.uid])
+        assertTrue(universe.ships.containsValue(ship))
+        assertEquals(ship, universe.ships[ship.uid])
 
         assertTrue(universe.race(ship.uidRace).raceShipsUIDList.contains(ship.uid))
         assertTrue(universe.race(ship.uidRace).raceShipsList.contains(ship)) // This fails because list is cached
@@ -69,7 +69,7 @@ class GBShipTest {
                 GBLog.d("Found in deep space: ship: " + uid)
             }
         }
-        for ((_, star) in universe.allStars) {
+        for ((_, star) in universe.stars) {
             for (sh in star.starShipList) {
                 if (sh.uid == ship.uid) {
                     found++
@@ -77,7 +77,7 @@ class GBShipTest {
                 }
             }
         }
-        for ((_, pl) in universe.allPlanets) {
+        for ((_, pl) in universe.planets) {
             for (sh in pl.orbitShips) {
                 if (sh.uid == ship.uid) {
                     found++
@@ -101,7 +101,7 @@ class GBShipTest {
 
         // Make sure ship is only in one race
         found = 0
-        for ((_, race) in universe.allRaces) {
+        for ((_, race) in universe.races) {
             for (uid in race.getRaceShipsUIDList()) {
                 if (uid == ship.uid)
                     found++
@@ -114,25 +114,25 @@ class GBShipTest {
     // TODO use @After, but need to figure out access to Universe
     fun uniqueLocations() {
         val un = GBController.u
-        for ((_, ship) in un.allShips) {
+        for ((_, ship) in un.ships) {
             var found = 0
             for (uid in un.deepSpaceUidShips) {
                 if (uid == ship.uid)
                     found++
             }
-            for ((_, st) in un.allStars) {
+            for ((_, st) in un.stars) {
                 for (sh in st.starShipList) {
                     if (sh.uid == ship.uid)
                         found++
                 }
             }
-            for ((_, pl) in un.allPlanets) {
+            for ((_, pl) in un.planets) {
                 for (sh in pl.orbitShips) {
                     if (sh.uid == ship.uid)
                         found++
                 }
             }
-            for ((_, pl) in un.allPlanets) {
+            for ((_, pl) in un.planets) {
                 for (sh in pl.landedShips) {
                     if (sh.uid == ship.uid)
                         found++
@@ -150,17 +150,17 @@ class GBShipTest {
     fun basic() {
         GBController.makeUniverse()
 
-        GBLog.d("Testing " + u.allShips.size + " ships")
+        GBLog.d("Testing " + u.ships.size + " ships")
 
         // Test all ships there are
-        for ((_, ship) in u.allShips) {
+        for ((_, ship) in u.ships) {
             consistency(ship)
         }
 
         // Just in case there aren't any, make a few more
         val s = u.star(0)
         val p: GBPlanet = s.starPlanetsList.first()
-        val r: GBRace = u.allRaces.toList().component1().second
+        val r: GBRace = u.races.toList().component1().second
 
         var sh = GBShip(u.getNextGlobalId(),1, r.uid, GBLocation(500f, 500f))
         consistency(sh)
@@ -203,8 +203,8 @@ class GBShipTest {
         GBController.makeUniverse()
 
         val s0 = u.star(0)
-        val r0= GBController.u.allRaces.toList().component1().second
-        val r1= GBController.u.allRaces.toList().component2().second
+        val r0= GBController.u.races.toList().component1().second
+        val r1= GBController.u.races.toList().component2().second
 
         val sh0 = GBShip(u.getNextGlobalId(),1, r0.uid, GBLocation(s0, 30f, 1f))
         consistency(sh0)
@@ -223,7 +223,7 @@ class GBShipTest {
         val p0 = s0.starPlanetsList[0]
         val s1 = u.star(1)
         val p1 = s1.starPlanetsList[1]
-        val r0 = GBController.u.allRaces.toList().component1().second
+        val r0 = GBController.u.races.toList().component1().second
 
         val locations = arrayListOf<GBLocation>()
 
@@ -262,7 +262,7 @@ class GBShipTest {
         val s0 = u.star(0)
         val p0 = s0.starPlanetsList[0]
         val p1 = s0.starPlanetsList[1]
-        val r0 = u.allRaces.toList().component1().second
+        val r0 = u.races.toList().component1().second
 
         val loc01 = GBLocation(p0, 1, 1);
         val loc02 = GBLocation(p1, 1, 2);
@@ -286,7 +286,7 @@ class GBShipTest {
             })
 
             uniqueLocations()
-            assertTrue(i < 30)
+            assertTrue(i < 40)
             i++
         }
     }
@@ -300,7 +300,7 @@ class GBShipTest {
         val s1 = u.star(1)
         val p0 = s0.starPlanetsList[0]
         val p1 = s1.starPlanetsList[1]
-        val r0 = u.allRaces.toList().component1().second
+        val r0 = u.races.toList().component1().second
 
         val loc01 = GBLocation(p0, 1, 1);
         val loc02 = GBLocation(p1, 1, 2);
@@ -359,14 +359,14 @@ class GBShipTest {
             GBController.doUniverse()
         }
 
-        val gameInfo1 = GBSavedGame("Shiplist Only", shipList = u.allShips)
+        val gameInfo1 = GBSavedGame("Shiplist Only", ships = u.ships)
         //File("testoutput/GBSShipTestJSONMap.in.txt").writeText(gameInfo1.toString())
 
         val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
         val json = jsonAdapter1.toJson(gameInfo1)
         val gameInfo2 = jsonAdapter1.lenient().fromJson(json)
 
-        //File("testoutput/GBSShipTestJSONMap.map.txt").writeText(u.allShips.toString())
+        //File("testoutput/GBSShipTestJSONMap.map.txt").writeText(u.ships.toString())
         //File("testoutput/GBSShipTestJSONMap.json").writeText(json)
         //File("testoutput/GBSShipTestJSONMap.out.txt").writeText(gameInfo2.toString())
 

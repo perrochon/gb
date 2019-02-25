@@ -7,16 +7,12 @@ import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import android.view.View
-import android.widget.Spinner
 import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.lock
-import com.zwsi.gblib.GBData
-import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBSavedGame
 import java.io.File
 import kotlin.system.measureNanoTime
@@ -53,19 +49,21 @@ class GlobalStuff {
         // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
         fun processGameInfo(context: Context, json: String) {
 
+            // FIXME PERSISTENCE: We save in controller, because only controller finds a writable directory...
+
             // FYI only. This writes (on my setup) to  /data/data/com.zwsi.gb.app/files/CurrentGame.json
             val writeFileTime = measureNanoTime {
                 File(context.filesDir, "CurrentGame.json").writeText(json)
             }
 
             // We create gameinfo in the worker thread, not the UI thread
-            var gameInfo = GBSavedGame()
+            var gameInfo: GBSavedGame? = null
             val fromJsonTime = measureNanoTime {
                 gameInfo = jsonAdapter.lenient().fromJson(json)!!
             }
 
             Handler(Looper.getMainLooper()).post({
-                GBViewModel.update(gameInfo, GBController.elapsedTimeLastUpdate, writeFileTime, fromJsonTime)
+                GBViewModel.update(gameInfo!!, GBController.elapsedTimeLastUpdate, writeFileTime, fromJsonTime)
             })
         }
 
@@ -130,10 +128,8 @@ class GlobalStuff {
             // Planets don't go away, so the below !! should be safe
             val planet = GBViewModel.viewPlanets[view.tag]!!
 
-            GBController.makeFactory(
-                planet,
-                GBViewModel.viewRaces.toList().component1().second
-            ) // TODO Find Population and use planetOwner...
+            // TODO Simplify (use .first) ? Or better, find Population and use planetOwner...
+            GBController.makeFactory(planet.uid, GBViewModel.viewRaces.toList().component1().second.uid)
 
             val message = "Ordered Factory on " + planet.name
 
@@ -236,15 +232,15 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            val ship = GBViewModel.viewShips[view.tag ]
-            if (ship != null) {
+            val factory = GBViewModel.viewShips[view.tag]
+            if (factory != null) {
 
-                val message = "Ordered Pod in Factory " + ship.name
+                val message = "Ordered Pod in Factory " + factory.name
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
                 lock.lock(); // makePod
                 try {
-                    GBController.makePod(ship)
+                    GBController.makePod(factory.uid)
                 } finally {
                     lock.unlock()
                 }
@@ -259,16 +255,16 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            val ship = GBViewModel.viewShips[view.tag]
-            if (ship != null) {
+            val factory = GBViewModel.viewShips[view.tag]
+            if (factory != null) {
 
 
-                val message = "Ordered Cruiser in Factory " + ship.name
+                val message = "Ordered Cruiser in Factory " + factory.name
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
                 lock.lock(); // makeCruiser
                 try {
-                    GBController.makeCruiser(ship)
+                    GBController.makeCruiser(factory.uid)
                 } finally {
                     lock.unlock()
                 }

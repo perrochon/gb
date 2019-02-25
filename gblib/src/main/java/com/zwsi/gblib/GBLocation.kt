@@ -218,7 +218,6 @@ data class GBLocation(
             ORBIT -> return u.planet(uidRef)
             else -> return null
         }
-        null
     }
 
     fun getStar(): GBStar? {

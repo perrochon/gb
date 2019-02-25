@@ -15,11 +15,11 @@ class GBPlanetTest {
 
         assertTrue(planet.star.starUidPlanetSet.contains(planet.uid))
         assertTrue(planet.star.starPlanetsList.contains(planet))
-        assertTrue(universe.allPlanets.containsValue(planet))
-        assertEquals(planet,universe.allPlanets[planet.uid])
+        assertTrue(universe.planets.containsValue(planet))
+        assertEquals(planet,universe.planets[planet.uid])
 
         var count = 0
-        for ((_, star) in universe.allStars) {
+        for ((_, star) in universe.stars) {
             for (pl in star.starPlanetsList) {
                 if (pl.uid == planet.uid)
                     count++
@@ -33,17 +33,17 @@ class GBPlanetTest {
         GBController.makeUniverse()
 
 
-        for ((_, planet) in u.allPlanets) {
+        for ((_, planet) in u.planets) {
             consistent(planet)
         }
     }
 
     @Test
     fun sizes() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
 
 
-        for ((_, planet) in u.allPlanets) {
+        for ((_, planet) in u.planets) {
             val width = planet.width
             val height = planet.height
 
@@ -65,18 +65,18 @@ class GBPlanetTest {
 
     @Test
     fun distanceToStar() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
 
-        u.allPlanets.forEach { (_, p) ->
+        u.planets.forEach { (_, p) ->
             assert(p.loc.getLoc().distance(p.star.loc.getLoc())< (GBData.MaxSystemOrbit*1.1f), {"Planet too far from star"} )
         }
     }
 
     @Test
     fun sectorDirections() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
 
-        for ((_, planet) in u.allPlanets) {
+        for ((_, planet) in u.planets) {
             val width = planet.width
             val height = planet.height
 
@@ -101,9 +101,9 @@ class GBPlanetTest {
     @Test
     fun planetMoves() {
 
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
 
-        for ((_, planet) in u.allPlanets) {
+        for ((_, planet) in u.planets) {
 
             val rt1 = planet.loc.getSLocP()
             val xy1 = planet.loc.getSLocC()

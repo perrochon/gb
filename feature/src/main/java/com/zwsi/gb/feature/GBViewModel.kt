@@ -84,13 +84,13 @@ class GBViewModel {
                     // FIXME: Lock no longer needed here, really.
 
                     // Ships
-                    times["mAS"] = measureNanoTime { viewStars = gi.starList!! }
+                    times["mAS"] = measureNanoTime { viewStars = gi.stars!! }
 
-                    times["mAP"] = measureNanoTime { viewPlanets = gi.planetList!! }
+                    times["mAP"] = measureNanoTime { viewPlanets = gi.planets!! }
 
-                    times["mAR"] = measureNanoTime { viewRaces = gi.raceList!! }
+                    times["mAR"] = measureNanoTime { viewRaces = gi.races!! }
 
-                    times["mAs"] = measureNanoTime { viewShips = gi.shipList!! }
+                    times["mAs"] = measureNanoTime { viewShips = gi.ships!! }
 
                     times["mDs"] = measureNanoTime { getDeepSpaceShipsList() }
 

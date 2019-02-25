@@ -39,8 +39,8 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
     init {
         // TODO For stars, planets, races, the caller ads to the u list. For ships, the ship ads. Problematic Inconsistency?
-        // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in allShips. Dangerous?
-        u.allShips[uid] = this
+        // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in ships. Dangerous?
+        u.ships[uid] = this
         u.race(uidRace).raceShipsUIDList.add(this.uid)
 
         when (loc.level) {
@@ -97,7 +97,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     // This is a pod, they populate, then destroy.  We set health to 0, and clean up elsewhere
                     loc.getPlanet()!!.landedUidShips.add(this.uid)
                     this.health = 0
-                    GBController.landPopulation(this.loc.getPlanet()!!, uidRace, 1)
+                    GBController.landPopulation(this.loc.getPlanet()!!.uid, uidRace, 1)
                     u.news.add("${u.race(uidRace).name} landed on ${this.loc.getPlanet()!!.name}")
                 } else {
                     loc.getPlanet()!!.landedUidShips.add(this.uid)
@@ -157,7 +157,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 }
             }
             u.race(uidRace).raceShipsUIDList.remove(this.uid)
-            u.allShips.remove(this.uid)
+            u.ships.remove(this.uid)
             // u.deadShips[this.uid] = this // TODO Cleanup deadship code.
         }
     }

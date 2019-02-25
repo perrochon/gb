@@ -60,7 +60,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     val universeSize = gi.universeMaxX
     val uToS = sourceSize / universeSize
     val uToSf = uToS.toFloat()
-    val sSystemSize = gi.systemBoundary * uToS
+    val sSystemSize = gi.starMaxOrbit * uToS
     val sOrbitSize = 1 * uToS
 
     // FIXME Do all calculations in Float, and only change to Integer before drawing calls where needed
@@ -512,7 +512,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             paint.style = Style.STROKE
                             paint.color = circleColor
                             paint.strokeWidth = strokeWidth.toFloat()
-                            val radius = gi.planetaryOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
+                            val radius = gi.planetOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
                             canvas.drawCircle(vP1.x, vP1.y, radius, paint)
 
                             val o = (PlanetaryOrbit * 0.4f) * uToS * scale
@@ -816,7 +816,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 if (closestPlanet != null) {
                     val distance2 =
                         sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
-                    if (distance2 < gi.planetaryOrbit * uToSf * scale) {
+                    if (distance2 < gi.planetOrbit * uToSf * scale) {
                         return closest.any
                     }
                 }

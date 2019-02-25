@@ -18,17 +18,17 @@ class GBStarTest {
         val universe = GBController.u
 
         assertTrue(s.name.length > 0)
-        assertTrue(u.allStars.containsValue(s))
-        assertTrue(u.allStars.containsKey(s.uid))
+        assertTrue(u.stars.containsValue(s))
+        assertTrue(u.stars.containsKey(s.uid))
         assertEquals(s.uid, u.star(s.uid).uid)
     }
 
 
     @Test
     fun basic() {
-        val universe = GBController.makeUniverse()
+        GBController.makeUniverse()
 
-        for ((_, s) in u.allStars)
+        for ((_, s) in u.stars)
             consistent(s)
 
     }
@@ -49,7 +49,7 @@ class GBStarTest {
         GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
-        val gameInfo1 = GBSavedGame("Starlist Only", starList = u.allStars)
+        val gameInfo1 = GBSavedGame("Starlist Only", stars = u.stars)
         val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
         val json = jsonAdapter1.toJson(gameInfo1)
         val gameInfo2 = jsonAdapter1.lenient().fromJson(json)

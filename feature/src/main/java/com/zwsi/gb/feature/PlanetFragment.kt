@@ -21,7 +21,7 @@ class PlanetFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(message: String): PlanetFragment {
+        fun newInstance(@Suppress("UNUSED_PARAMETER")message: String): PlanetFragment {
             return PlanetFragment()
         }
     }

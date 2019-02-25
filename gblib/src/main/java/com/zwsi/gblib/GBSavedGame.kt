@@ -1,5 +1,5 @@
 // Copyright 2018-2019 Louis Perrochon. All rights reserved
-// To Save Game State.
+// To save Game State.
 // This saves much of what is in GBUniverse. Eventually, maybe GBUniverse should be persisted.
 
 package com.zwsi.gblib
@@ -12,14 +12,19 @@ data class GBSavedGame(
     val turn: Int = -1,
     val universeMaxX: Int = -1,
     val universeMaxY: Int = -1,
-    val systemBoundary: Float = -1f,
-    val planetaryOrbit: Float = -1f,
-    val starList: MutableMap<Int, GBStar>? = null,
-    val planetList: MutableMap<Int, GBPlanet>? = null,
-    val raceList: MutableMap<Int, GBRace>? = null,
-    val shipList: MutableMap<Int, GBShip>? = null,
+    val starMaxOrbit: Float = -1f,
+    val planetOrbit: Float = -1f,
+    val nextGlobalID : Int = -1,
+    val stars: MutableMap<Int, GBStar>? = null,
+    val planets: MutableMap<Int, GBPlanet>? = null,
+    val races: MutableMap<Int, GBRace>? = null,
+    val ships: MutableMap<Int, GBShip>? = null,
+    // deepSpace rebuilt on load
+    // dead ships not needed
     val shots: MutableList<GBVector>? = null,
     val news: MutableList<String>? = null
+
+    // orders not needed while we only save/restore at beginning of turn
 ) {
 
     // If you want to save everything, just pass in the Universe :-)
@@ -28,13 +33,14 @@ data class GBSavedGame(
         u.turn,
         u.universeMaxX,
         u.universeMaxY,
-        u.systemBoundary,
-        u.planetaryOrbit,
-        u.allStars,
-        u.allPlanets,
-        u.allRaces,
-        u.allShips,
-        u.allShots,
+        u.starMaxOrbit,
+        u.planetOrbit,
+        u.nextGlobalID,
+        u.stars,
+        u.planets,
+        u.races,
+        u.ships,
+        u.shots,
         u.news
     ) {
     }

@@ -56,8 +56,8 @@ class PlanetsScrollActivity : AppCompatActivity() {
         paint.textSize = 20f
 
 
-        // Now add more allPlanets below
-        // For now we show all allPlanets, but eventually each race only sees what they can see
+        // Now add more planets below
+        // For now we show all planets, but eventually each race only sees what they can see
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
 
         for ((_, s) in GBViewModel.viewStars) {

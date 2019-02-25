@@ -197,9 +197,9 @@ class ShipFragment : Fragment() {
                         GBController.lock.lock(); // FIXME move locks into GBController
                         try {
                             if (sh.idxtype == GBData.POD) {
-                                GBController.flyShipLanded(sh, planet)
+                                GBController.flyShipLanded(sh.uid, planet.uid)
                             } else {
-                                GBController.flyShipOrbit(sh, planet)
+                                GBController.flyShipOrbit(sh.uid, planet.uid)
                             }
                         } finally {
                             GBController.lock.unlock()

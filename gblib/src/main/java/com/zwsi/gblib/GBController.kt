@@ -33,9 +33,9 @@ class GBController {
 
         val u: GBUniverse // FIXME PERSISTENCE make this internal
             get() {
-                if (_u == null) {
-                    makeUniverse(numberOfStars, numberOfRaces)
-                }
+//                if (_u == null) {
+//                    makeUniverse(numberOfStars, numberOfRaces)
+//                }
                 return _u ?: throw AssertionError("Failed to make")
             }
 
@@ -48,7 +48,7 @@ class GBController {
                     _u = GBUniverse(stars, races)
                     _u!!.makeStarsAndPlanets()
                     _u!!.makeRaces()
-                    json = Save()
+                    json = save() // FIXME Take this out of lock. So need to move lock into try block
                     // PERF without reload single digit ms update time, with reload low 100's ms update time.
                 }
             } finally {
@@ -70,24 +70,49 @@ class GBController {
             return makeUniverse(numberOfStarsBig, numberOfRaces)
         }
 
+        fun loadUniverse(): String {
+
+            val gameInfo = load()
+
+            var json: String? = null;
+            lock.lock(); // lock for the game turn
+            try {
+                elapsedTimeLastUpdate = measureNanoTime {
+                    _u = null // get rid of old Universe
+
+                    json = save()
+                    // PERF without reload single digit ms update time, with reload low 100's ms update time.
+                }
+            } finally {
+                lock.unlock()
+            }
+            // SERVER Add Fog of War filters here before we return the data (if we worry about cheaters)
+            GBLog.d("Universe loaded with ${u.numberOfStars} stars")
+            return json ?: throw AssertionError("Json with saved game is null")
+
+            // FIXME Need to build a unit test that makes sure the json we send out here is consistent, and enough.
+
+        }
+
+
         // Accessors to various lists.
         // TODO Limit visibility here to what each race can see
         // TODO More defensive coding in terms of lock? We assume these are called only from within a locked section
 
         fun getAllStarsMap(): Map<Int, GBStar> {
-            return _u!!.allStars.toMap()
+            return _u!!.stars.toMap()
         }
 
         fun getAllPlanetsMap(): Map<Int, GBPlanet> {
-            return _u!!.allPlanets.toMap()
+            return _u!!.planets.toMap()
         }
 
         fun getAllRacesMap(): Map<Int, GBRace> {
-            return _u!!.allRaces.toMap()
+            return _u!!.races.toMap()
         }
 
         fun getAllShipsMap(): Map<Int, GBShip> {
-            return _u!!.allShips.toMap()
+            return _u!!.ships.toMap()
         }
 
         fun getAllDeepSpaceUidShipsList(): List<Int> {
@@ -127,7 +152,7 @@ class GBController {
             try {
                 elapsedTimeLastUpdate = measureNanoTime {
                     _u!!.doUniverse()
-                    json = Save()
+                    json = save()
                     // PERF without reload single digit ms update time, with reload low 100's ms update time.
                 }
             } finally {
@@ -137,25 +162,41 @@ class GBController {
             return json ?: throw AssertionError("Json with saved game is null")
         }
 
-        fun Save(): String {
+        fun save(): String {
             val moshi = Moshi.Builder().build()
             val gameInfo = GBSavedGame("Current Game", u)
             val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
             val json = jsonAdapter.toJson(gameInfo)
             // SERVER Want to save in the controller, but Controller has no Android access so can't find the directory
             // For now we just save from an app module
-            //File(context.filesDir, "CurrentGame.json").writeText(json)
+            // The below only works in unit tests
+            //File("CurrentGame.json").writeText(json)
             return json
         }
 
-        // FIXME PERSISTENCE All of these need to change to UID...
+        fun load(): GBSavedGame {
+
+            val moshi = Moshi.Builder().build() // FIXME PERSISTENCE Only have one moshi builder
+            val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
+            val json = File("CurrentGame.json").readText()
+            val gameInfo: GBSavedGame = jsonAdapter.lenient().fromJson(json)!!
+
+            return gameInfo
+
+        }
+
         // FIXME PERSISTENCE Put locks inside these calls
 
-        fun makeFactory(p: GBPlanet, race: GBRace) {
-            GBLog.d("universe: Making factory for ${race.name} on ${p.name}.")
+        fun makeFactory(uidPlanet: Int, uidRace: Int) {
 
+            val planet = u.planet(uidPlanet)
+            val race = u.race(uidRace)
+
+            GBLog.d("universe: Making factory for ${race.name} on ${planet.name}.")
+
+            // TODO Have caller give us a better location (or find one ourselves) for factory ?
             val loc =
-                GBLocation(p, GBData.rand.nextInt(p.width), GBData.rand.nextInt(p.height)) // TODO Have caller give us a better location?
+                GBLocation(planet, GBData.rand.nextInt(planet.width), GBData.rand.nextInt(planet.height))
 
             val order = GBOrder()
 
@@ -168,7 +209,10 @@ class GBController {
             GBLog.d("Current Orders: " + u.orders.toString())
         }
 
-        fun makePod(factory: GBShip) {
+        fun makePod(uidFactory: Int) {
+
+            val factory = u.ship(uidFactory)
+
             GBLog.d("universe: Making Pod for ?? in Factory " + factory.name + "")
 
             val order = GBOrder()
@@ -181,7 +225,10 @@ class GBController {
             GBLog.d("Current Orders: " + u.orders.toString())
         }
 
-        fun makeCruiser(factory: GBShip) {
+        fun makeCruiser(uidFactory: Int) {
+
+            val factory = u.ship(uidFactory)
+
             GBLog.d("universe: Making Cruiser for ?? in Factory " + factory.name + "")
 
             val order = GBOrder()
@@ -197,31 +244,37 @@ class GBController {
         // FIXME Which object gets updated here? The one in u, or the one in allships?
         // Need to update the view model, because people may click on it again...
 
-        fun flyShipLanded(sh: GBShip, p: GBPlanet) {
-            GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
+        fun flyShipLanded(uidShip: Int, uidPlanet: Int) {
 
-            val loc = GBLocation(p, 0, 0) // TODO Have caller give us a better location?
-            sh.dest = loc
+            val ship = u.ship(uidShip)
+            val planet = u.planet(uidPlanet)
 
-        }
+            GBLog.d("Setting Destination of " + ship.name + " to " + planet.name)
 
-        fun flyShipOrbit(sh: GBShip, p: GBPlanet) {
-            GBLog.d("Setting Destination of " + sh.name + " to " + p.name)
-
-            val loc = GBLocation(
-                p,
-                GBData.PlanetaryOrbit,
-                GBData.rand.nextFloat() * 2 * PI.toFloat()
-            ) // TODO Have caller give us a better location?
-            sh.dest = loc
+            val loc = GBLocation(planet, 0, 0) // TODO Have caller give us a better location?
+            ship.dest = loc
 
         }
 
-        fun landPopulation(p: GBPlanet, uidRace: Int, number: Int) {
-            GBLog.d("universe: Landing 100 of " + u.race(uidRace).name + " on " + p.name + "")
-            p.landPopulationOnEmptySector(u.race(uidRace), number)
+        fun flyShipOrbit(uidShip: Int, uidPlanet: Int) {
+
+            val ship = u.ship(uidShip)
+            val planet = u.planet(uidPlanet)
+
+            GBLog.d("Setting Destination of " + ship.name + " to " + planet.name)
+
+            // TODO Have caller give us a better location?
+            val loc = GBLocation(planet, GBData.PlanetaryOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
+            ship.dest = loc
         }
 
+        fun landPopulation(uidPlanet: Int, uidRace: Int, number: Int) {
 
+            val planet = u.planet(uidPlanet)
+            val race = u.race(uidRace)
+
+            GBLog.d("universe: Landing 100 of " + race.name + " on " + planet.name + "")
+            planet.landPopulationOnEmptySector(race, number)
+        }
     }
 }
