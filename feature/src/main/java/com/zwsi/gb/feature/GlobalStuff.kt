@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.squareup.moshi.JsonAdapter
@@ -29,7 +30,7 @@ class GlobalStuff {
         // We need the application context to write to a file
         fun makeUniverse(context: Context) {
             Thread(Runnable {
-                GBController.currentFilePath = context.filesDir
+                GBController.currentFilePath = context.filesDir // FIXME PERSISTENCE This is duplicated.
                 val json = GBController.makeUniverse()  // SERVER Talk to not-remote server
                 processGameInfo(json)
             }).start()
@@ -42,7 +43,10 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            val message = "God Mode: Recreating the Universe"
+//            val messageBox: TextView = view.findViewById<TextView>(R.id.messageBox)!!
+//            messageBox.setText("")
+
+            val message = "Creating a new Universe"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
             makeUniverse(view.context.applicationContext)
@@ -54,11 +58,14 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
+//            val messageBox: TextView = view.findViewById<TextView>(R.id.messageBox)!!
+//            messageBox.setText("")
+
             var message = "Loading Universe ${number}"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
             val json = when (number) {
-                0 -> File(GBController.currentFilePath, "CurrentGame.json").readText()
+                0 -> File(view.context.filesDir, "CurrentGame.json").readText()
                 1 -> view.context.resources.openRawResource(R.raw.level1).reader().readText()
                 2 -> view.context.resources.openRawResource(R.raw.level2).reader().readText()
                 else -> view.context.resources.openRawResource(R.raw.level3).reader().readText()
@@ -69,6 +76,7 @@ class GlobalStuff {
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
             }
             Thread(Runnable {
+                GBController.currentFilePath = view.context.filesDir
                 GBController.loadUniverse(json)  // SERVER Talk to not-remote server
                 processGameInfo(json)
             }).start()
@@ -112,6 +120,7 @@ class GlobalStuff {
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
             Thread(Runnable {
+                GBController.currentFilePath = view.context.filesDir
                 val json = GBController.doUniverse() // SERVER Talk to not-remote server
                 processGameInfo(json)
             }).start()

@@ -153,7 +153,7 @@ class GBController {
             if (currentFilePath == null) {
                 File("CurrentGame.json").writeText(json)
             } else {
-                File(currentFilePath, "CurrentGame.json").writeText(json)
+                File(currentFilePath, "CurrentGame.json").writeText(json) // FIXME PERSISTENCE Make this a constant
             }
             return json
         }

@@ -16,7 +16,7 @@ import java.io.File
 class GBMakeLevels {
 
 
-    @Test
+    //@Test
     fun makeLevels() {
         GBController.makeUniverse()
         val turns = 100

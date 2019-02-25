@@ -19,12 +19,12 @@ import kotlin.math.atan2
 data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocation) {
 
     // properties that don't change over live time of ship
-    var name: String // name, first letters of race and type, then id
-    var type: String // type in printable form
-    var speed: Int   // speed of ship // TODO Feature: insystem and hyperspeed.
+    var name: String = "noname"// name, first letters of race and type, then id
+    var type: String = "notype"// type in printable form
+    var speed: Int = -1  // speed of ship // TODO Feature: insystem and hyperspeed.
 
     // properties that change over lifetime of ship
-    var health: Int  // health of ship. Goes down when shot at. Not going up (as of now)
+    var health: Int = -1  // health of ship. Goes down when shot at. Not going up (as of now)
     var dest: GBLocation? = null
 
     val race: GBRace
@@ -37,12 +37,13 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     val trailList: List<GBxy>
         get() = trails.toList()
 
-    init {
-        // TODO For stars, planets, races, the caller ads to the u list. For ships, the ship ads. Problematic Inconsistency?
-        // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in ships. Dangerous?
+
+    // TODO For stars, planets, races, the caller ads to the u list. For ships, the ship ads. Problematic Inconsistency?
+    // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in ships. Dangerous?
+    // This needs to be called when creating new ships. It's not needed when ships are created by restoring from JSON
+    fun initializeShip() {
         u.ships[uid] = this
         u.race(uidRace).raceShipsUIDList.add(this.uid)
-
         when (loc.level) {
             LANDED -> {
                 loc.getPlanet()!!.landedUidShips.add(this.uid)
@@ -60,12 +61,12 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 gbAssert("Bad Parameters for ship placement $loc", { false })
             }
         }
-
         type = GBData.getShipType(idxtype)
         name =
             u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
         speed = GBData.getShipSpeed(idxtype)
         health = GBData.getShipHealth(idxtype)
+
     }
 
     fun changeShipLocation(loc: GBLocation) {

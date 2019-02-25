@@ -67,14 +67,17 @@ class GBOrder {
         when (type) {
             FACTORY -> {
                 val ship = GBShip(u.getNextGlobalId(), FACTORY, uidRace, loc)
+                ship.initializeShip()
                 u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
             }
             POD -> {
                 val ship = GBShip(u.getNextGlobalId(), POD, uidRace, loc)
+                ship.initializeShip()
                 u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
             }
             CRUISER -> {
                 val ship = GBShip(u.getNextGlobalId(), CRUISER, uidRace, loc)
+                ship.initializeShip()
                 u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
             }
             else ->

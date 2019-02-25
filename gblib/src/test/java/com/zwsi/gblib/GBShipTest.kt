@@ -163,15 +163,19 @@ class GBShipTest {
         val r: GBRace = u.races.toList().component1().second
 
         var sh = GBShip(u.getNextGlobalId(),1, r.uid, GBLocation(500f, 500f))
+        sh.initializeShip()
         consistency(sh)
 
         sh = GBShip(u.getNextGlobalId(),0, r.uid, GBLocation(s, SystemBoundary, 2f))
+        sh.initializeShip()
         consistency(sh)
 
         sh = GBShip(u.getNextGlobalId(),1, r.uid, GBLocation(p, PlanetaryOrbit, 2f))
+        sh.initializeShip()
         consistency(sh)
 
         sh = GBShip(u.getNextGlobalId(),1, r.uid, GBLocation(p, 1, 1))
+        sh.initializeShip()
         consistency(sh)
 
         uniqueLocations()
@@ -242,6 +246,7 @@ class GBShipTest {
         locations.add(GBLocation(500f, 500f))
 
         val sh0 = GBShip(u.getNextGlobalId(),2, r0.uid, locations.first())
+        sh0.initializeShip()
 
         for (loc1 in locations) {
             sh0.changeShipLocation(loc1)
@@ -268,6 +273,8 @@ class GBShipTest {
         val loc02 = GBLocation(p1, 1, 2);
 
         val sh = GBShip(u.getNextGlobalId(),1, r0.uid, loc01)
+        sh.initializeShip()
+
 
         sh.dest = loc02
 
@@ -306,6 +313,8 @@ class GBShipTest {
         val loc02 = GBLocation(p1, 1, 2);
 
         val sh = GBShip(u.getNextGlobalId(),1, r0.uid, loc01)
+        sh.initializeShip()
+
 
         sh.dest = loc02
 
