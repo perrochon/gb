@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         val version = findViewById<TextView>(R.id.version)
         version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
 
-
         // Set up the MessageBox View to listen to news
         val messageBox: TextView = findViewById<TextView>(R.id.messageBox)!!
         messageBox.setText("Welcome to Andromeda Rising!\n")
@@ -62,8 +61,28 @@ class MainActivity : AppCompatActivity() {
             GlobalStuff.makeUniverse(it)
         })
 
+        val loadButton: Button = findViewById(R.id.LoadButton)
+        loadButton.setOnClickListener(View.OnClickListener {
+            GlobalStuff.loadUniverse(it,0)
+        })
+
+        val loadButton1: Button = findViewById(R.id.LoadButton1)
+        loadButton1.setOnClickListener(View.OnClickListener {
+            GlobalStuff.loadUniverse(it,1)
+        })
+
+        val loadButton2: Button = findViewById(R.id.LoadButton2)
+        loadButton2.setOnClickListener(View.OnClickListener {
+            GlobalStuff.loadUniverse(it,2)
+        })
+
+        val loadButton3: Button = findViewById(R.id.LoadButton3)
+        loadButton3.setOnClickListener(View.OnClickListener {
+            GlobalStuff.loadUniverse(it,3)
+        })
+
         // Kick that off last, we want the app up and running asap
-        GlobalStuff.makeUniverse(applicationContext)
+        //GlobalStuff.makeUniverse(applicationContext)
 
     }
 

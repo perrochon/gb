@@ -35,6 +35,7 @@ class GlobalStuff {
             }).start()
         }
 
+        // FIXME We have two makeUniverse...
         fun makeUniverse(view: View) {
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
@@ -46,6 +47,33 @@ class GlobalStuff {
 
             makeUniverse(view.context.applicationContext)
         }
+
+        fun loadUniverse(view: View, number: Int) {
+            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
+
+            var message = "Loading Universe ${number}"
+            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
+            val json = when (number) {
+                0 -> File(GBController.currentFilePath, "CurrentGame.json").readText()
+                1 -> view.context.resources.openRawResource(R.raw.level1).reader().readText()
+                2 -> view.context.resources.openRawResource(R.raw.level2).reader().readText()
+                else -> view.context.resources.openRawResource(R.raw.level3).reader().readText()
+            }
+
+            if (json == "") {
+                message = "Universe Not Found"
+                Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+            }
+            Thread(Runnable {
+                GBController.loadUniverse(json)  // SERVER Talk to not-remote server
+                processGameInfo(json)
+            }).start()
+        }
+
 
         // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
         fun processGameInfo(json: String) {

@@ -62,7 +62,6 @@ class GBController {
             return json ?: throw AssertionError("Json with saved game is null")
 
             // FIXME Need to build a unit test that makes sure the json we send out here is consistent, and enough.
-
         }
 
         fun makeSmallUniverse(): String {
@@ -181,6 +180,23 @@ class GBController {
             return json ?: throw AssertionError("Json with saved game is null")
 
             // FIXME Need to build a unit test that makes sure the json we send out here is consistent, and enough.
+
+        }
+
+        fun loadUniverse(json: String) {
+
+            val newUniverse: GBUniverse = jsonAdapter.lenient().fromJson(json)!!
+
+            lock.lock(); // lock for the game turn
+            try {
+                elapsedTimeLastUpdate = measureNanoTime {
+                    _u = newUniverse// get rid of old Universe
+                }
+            } finally {
+                lock.unlock()
+            }
+            // SERVER Add Fog of War filters here before we return the data (if we worry about cheaters)
+            GBLog.d("Universe loaded with ${u.numberOfStars} stars")
 
         }
 

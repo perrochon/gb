@@ -60,7 +60,7 @@ class GBSavedGameTest {
         val gameInfo1 = GBSavedGame(info, u)
         val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
         val json = jsonAdapter1.toJson(gameInfo1)
-        //File("testoutput/GBSavedGameTestAgedUniverse$turns.json").writeText(json)
+        File("testoutput/GBSavedGameTestAgedUniverse$turns.json").writeText(json)
         val gameInfo2 = jsonAdapter1.lenient().fromJson(json)
 
         //File("testoutput/GBSavedGameTestAgedUniverse$turns.in.txt").writeText(gameInfo1.toString())
@@ -80,6 +80,15 @@ class GBSavedGameTest {
             GBController.loadUniverse()
         }
     }
+
+    @Test
+    fun loadUniverseFromJson() {
+        GBController.makeUniverse()
+        val json = File("testoutput/GBSavedGameTestAgedUniverse25.json").readText()
+        GBController.loadUniverse(json)
+        GBController.doUniverse()
+    }
+
 
     @Test
     fun InitialBigUniverse() {
