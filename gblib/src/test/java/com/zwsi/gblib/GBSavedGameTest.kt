@@ -11,7 +11,9 @@ import java.io.File
 
 class GBSavedGameTest {
 
-    // TODO TEST PERF reduce number of moshi's and adapters built...
+    fun compareUniverses(before: GBUniverse, after: GBUniverse) {
+    }
+
 
     @Test
     fun InitialUniverse() {
@@ -28,14 +30,27 @@ class GBSavedGameTest {
     }
 
     @Test
+    fun InitialUniverseSaveAndLoad() {
+        GBController.makeUniverse()
+        val before = GBController.u
+        GBController.saveUniverse()
+        GBController.loadUniverse()
+        val after = GBController.u
+        compareUniverses(before, after)
+
+    }
+
+
+    @Test
     fun AgedUniverse() {
         GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
         val turns = 25
 
-        AutoPlayer.playBeetle()
-        AutoPlayer.playImpi()
-        AutoPlayer.playTortoise()
+        // FIXME DELETE This is no longer needed.
+//        AutoPlayer.playBeetle()
+//        AutoPlayer.playImpi()
+//        AutoPlayer.playTortoise()
 
         for (i in 1..turns) {
             GBController.doUniverse()
@@ -52,6 +67,18 @@ class GBSavedGameTest {
         //File("testoutput/GBSavedGameTestAgedUniverse$turns.out.txt").writeText(gameInfo2.toString())
 
         assert(gameInfo1 == gameInfo2)
+    }
+
+    @Test
+    fun AgedUniverseSaveAndLoad() {
+        val turns = 25
+        GBController.makeUniverse()
+
+        for (i in 1..turns) {
+            GBController.doUniverse()
+            GBController.saveUniverse()
+            GBController.loadUniverse()
+        }
     }
 
     @Test

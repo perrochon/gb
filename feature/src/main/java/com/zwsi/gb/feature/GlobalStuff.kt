@@ -29,8 +29,9 @@ class GlobalStuff {
         // We need the application context to write to a file
         fun makeUniverse(context: Context) {
             Thread(Runnable {
+                GBController.currentFilePath = context.filesDir
                 val json = GBController.makeUniverse()  // SERVER Talk to not-remote server
-                processGameInfo(context, json)
+                processGameInfo(json)
             }).start()
         }
 
@@ -47,14 +48,14 @@ class GlobalStuff {
         }
 
         // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
-        fun processGameInfo(context: Context, json: String) {
+        fun processGameInfo(json: String) {
 
             // FIXME PERSISTENCE: We save in controller, because only controller finds a writable directory...
 
             // FYI only. This writes (on my setup) to  /data/data/com.zwsi.gb.app/files/CurrentGame.json
-            val writeFileTime = measureNanoTime {
-                File(context.filesDir, "CurrentGame.json").writeText(json)
-            }
+//            val writeFileTime = measureNanoTime {
+//                File(context.filesDir, "CurrentGame.json").writeText(json)
+//            }
 
             // We create gameinfo in the worker thread, not the UI thread
             var gameInfo: GBSavedGame? = null
@@ -62,8 +63,9 @@ class GlobalStuff {
                 gameInfo = jsonAdapter.lenient().fromJson(json)!!
             }
 
+            // FIXME PERSISTENCE TIMING TRACKING
             Handler(Looper.getMainLooper()).post({
-                GBViewModel.update(gameInfo!!, GBController.elapsedTimeLastUpdate, writeFileTime, fromJsonTime)
+                GBViewModel.update(gameInfo!!, GBController.elapsedTimeLastUpdate, 12345, fromJsonTime)
             })
         }
 
@@ -83,7 +85,7 @@ class GlobalStuff {
 
             Thread(Runnable {
                 val json = GBController.doUniverse() // SERVER Talk to not-remote server
-                processGameInfo(view.context.applicationContext, json)
+                processGameInfo(json)
             }).start()
 
         }
@@ -107,7 +109,7 @@ class GlobalStuff {
                 Thread(Runnable {
                     while (autoDo) {
                         val json = GBController.doUniverse() // SERVER Talk to not-remote server
-                        processGameInfo(view.context.applicationContext, json)
+                        processGameInfo(json)
                         Thread.sleep(333) // let everything else catch up before we do another turn
                     }
                 }).start()

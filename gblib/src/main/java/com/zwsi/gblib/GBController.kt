@@ -17,6 +17,9 @@ class GBController {
         // TODO QUALITY Review all the locking
         val lock = ReentrantLock()
 
+        // Where to store the snapshot after every turn
+        var currentFilePath: File? = null
+
         val numberOfStars = 24
         val numberOfRaces = 4   // <= what we have in GBData. >= 4 or tests will fail
 
@@ -48,7 +51,7 @@ class GBController {
                     _u = GBUniverse(stars, races)
                     _u!!.makeStarsAndPlanets()
                     _u!!.makeRaces()
-                    json = save() // FIXME Take this out of lock. So need to move lock into try block
+                    json = saveUniverse() // FIXME Take this out of lock. So need to move lock into try block
                     // PERF without reload single digit ms update time, with reload low 100's ms update time.
                 }
             } finally {
@@ -69,31 +72,6 @@ class GBController {
         fun makeBigUniverse(): String {
             return makeUniverse(numberOfStarsBig, numberOfRaces)
         }
-
-        fun loadUniverse(): String {
-
-            val gameInfo = load()
-
-            var json: String? = null;
-            lock.lock(); // lock for the game turn
-            try {
-                elapsedTimeLastUpdate = measureNanoTime {
-                    _u = null // get rid of old Universe
-
-                    json = save()
-                    // PERF without reload single digit ms update time, with reload low 100's ms update time.
-                }
-            } finally {
-                lock.unlock()
-            }
-            // SERVER Add Fog of War filters here before we return the data (if we worry about cheaters)
-            GBLog.d("Universe loaded with ${u.numberOfStars} stars")
-            return json ?: throw AssertionError("Json with saved game is null")
-
-            // FIXME Need to build a unit test that makes sure the json we send out here is consistent, and enough.
-
-        }
-
 
         // Accessors to various lists.
         // TODO Limit visibility here to what each race can see
@@ -152,7 +130,8 @@ class GBController {
             try {
                 elapsedTimeLastUpdate = measureNanoTime {
                     _u!!.doUniverse()
-                    json = save()
+                    json = saveUniverse()
+                    json = loadUniverse()
                     // PERF without reload single digit ms update time, with reload low 100's ms update time.
                 }
             } finally {
@@ -162,28 +141,49 @@ class GBController {
             return json ?: throw AssertionError("Json with saved game is null")
         }
 
-        fun save(): String {
-            val moshi = Moshi.Builder().build()
+        val moshi = Moshi.Builder().build()
+        val jsonAdapter: JsonAdapter<GBUniverse> = moshi.adapter(GBUniverse::class.java).indent("  ")
+
+        fun saveUniverse(): String {
             val gameInfo = GBSavedGame("Current Game", u)
-            val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
-            val json = jsonAdapter.toJson(gameInfo)
+            val json = jsonAdapter.toJson(_u)
             // SERVER Want to save in the controller, but Controller has no Android access so can't find the directory
             // For now we just save from an app module
             // The below only works in unit tests
-            //File("CurrentGame.json").writeText(json)
+            // FIXME PERSISTENCE set currentFilePath to a good default so no longer need the below.
+            if (currentFilePath == null) {
+                File("CurrentGame.json").writeText(json)
+            } else {
+                File(currentFilePath, "CurrentGame.json").writeText(json)
+            }
             return json
         }
 
-        fun load(): GBSavedGame {
+        fun loadUniverse(): String {
+            val json: String
+            if (currentFilePath == null) {
+                json = File("CurrentGame.json").readText()
+            } else {
+                json = File(currentFilePath, "CurrentGame.json").readText()
+            }
+            val newUniverse: GBUniverse = jsonAdapter.lenient().fromJson(json)!!
 
-            val moshi = Moshi.Builder().build() // FIXME PERSISTENCE Only have one moshi builder
-            val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
-            val json = File("CurrentGame.json").readText()
-            val gameInfo: GBSavedGame = jsonAdapter.lenient().fromJson(json)!!
+            lock.lock(); // lock for the game turn
+            try {
+                elapsedTimeLastUpdate = measureNanoTime {
+                    _u = newUniverse// get rid of old Universe
+                }
+            } finally {
+                lock.unlock()
+            }
+            // SERVER Add Fog of War filters here before we return the data (if we worry about cheaters)
+            GBLog.d("Universe loaded with ${u.numberOfStars} stars")
+            return json ?: throw AssertionError("Json with saved game is null")
 
-            return gameInfo
+            // FIXME Need to build a unit test that makes sure the json we send out here is consistent, and enough.
 
         }
+
 
         // FIXME PERSISTENCE Put locks inside these calls
 
