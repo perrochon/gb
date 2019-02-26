@@ -19,17 +19,17 @@
 
     <TextView
             android:id="@+id/title"
-            android:layout_width="411dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_orange_light"
             android:text="Andromeda Rising"
             android:textSize="36sp"
             android:textAlignment="center"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/messageBox"
@@ -44,15 +44,15 @@
             android:textColor="@android:color/holo_orange_light"
             android:background="@drawable/border_message"
             android:text="A Game of Galactic Domination"
+            android:layout_height="0dp"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/mainmenu"
-            android:layout_height="0dp"
             />
     <TextView
             android:id="@+id/mainmenu"
@@ -64,12 +64,10 @@
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/messageBox"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/Play"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
             />
 
     <LinearLayout
@@ -118,12 +116,11 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/DoArea"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/Play"
-            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/Play"
             >
         <Button
                 android:text="Mission 1"
@@ -233,16 +230,14 @@
     </LinearLayout>
 
     <TextView
-            android:layout_width="26dp"
-            android:layout_height="11dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/version"
             android:text="Version"
             android:textColor="@android:color/holo_green_light"
             android:textSize="8sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/DoArea"
+            app:layout_constraintEnd_toEndOf="parent"
             />
 
 </android.support.constraint.ConstraintLayout>
