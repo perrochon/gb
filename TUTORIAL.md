@@ -16,6 +16,12 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 
 ## Tutorial
 
+# Main Menu
+* New Game - Creates a new random map.
+* Continue Game - recovers your last game if the app was killed by Android (or by the user).
+* Play - Play the game. Greyed out until you load a mission or a game
+* Mission 1/2/3 - Three missions to play (see below for details)
+
 # UX Navigation
 
 * Double click on stars, planets and ships panzooms to the target. Double click on empty space zooms out.

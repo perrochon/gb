@@ -126,21 +126,21 @@
             android:layout_marginEnd="8dp"
             >
         <Button
-                android:text="Level 1"
+                android:text="Mission 1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/LoadButton1"
                 android:background="@drawable/border_message"
                 />
         <Button
-                android:text="Level 2"
+                android:text="Mission 2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/LoadButton2"
                 android:background="@drawable/border_message"
                 />
         <Button
-                android:text="Level 3"
+                android:text="Mission 3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/LoadButton3"
