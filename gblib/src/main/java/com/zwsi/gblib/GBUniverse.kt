@@ -10,7 +10,7 @@ import kotlin.math.PI
 @JsonClass(generateAdapter = true)
 data class GBUniverse(
     // Constant Fields
-    val description: String = "Unitialized Universe",
+    var description: String = "Unitialized Universe",
     val universeMaxX: Int = -1,
     val universeMaxY: Int = -1,
     val starMaxOrbit: Float = -1f,

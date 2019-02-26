@@ -22,6 +22,9 @@ class GBMakeMissions {
         for (i in 1..turns) {
             json = GBController.doUniverse()
         }
+        u.turn = 1
+        u.description = "Mission 1"
+        json = GBController.saveUniverse()
         File("levels/mission1.json").writeText(json)
     }
 
@@ -35,6 +38,9 @@ class GBMakeMissions {
         for (i in 1..turns) {
             json = GBController.doUniverse()
         }
+        u.turn = 1
+        u.description = "Mission 2"
+        json = GBController.saveUniverse()
         File("levels/mission2.json").writeText(json)
     }
 
@@ -49,6 +55,9 @@ class GBMakeMissions {
         for (i in 1..turns) {
             json = GBController.doUniverse()
         }
+        u.turn = 1
+        u.description = "Mission 3"
+        json = GBController.saveUniverse()
         File("levels/mission3.json").writeText(json)
     }
 
