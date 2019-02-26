@@ -1,6 +1,9 @@
 :tada: GB: A Galactic Bloodshed (and others) inspired 4x game for mobile :tada:
 
+Install the beta from: https://play.google.com/store/apps/details?id=com.zwsi.gb.app
+
 This tutorial is at: https://github.com/perrochon/gb/blob/master/TUTORIAL.md
+
 
 ## Overview
 
