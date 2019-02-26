@@ -5,9 +5,10 @@ Steps for release, because I always forget some. // TODO Automate this
 ### Release
 - Build and test
 - Update release notes below
-- Commit and get commit # (from Github)
+- Commit to github and get commit # (from Github)
 - In build.gradle increase version_code by 1
 - In build.gradle update version_name to one more than commit # from Github
+- Sync Gradle
 - Commit again
 - Create signed AAB (goes to app->release, AS no longer finds the folder :-() )
 - Upload that to Android Play
@@ -21,7 +22,7 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 
 ### Release Notes
 
-.566 
+.578 
 - Mostly internal stability and bugs. Testing changes to release process, too.
 
 .566 First Beta
