@@ -10,16 +10,15 @@ import org.junit.Assert.*
 class GBPlanetTest {
 
     fun consistent(planet: GBPlanet){
-        val universe = GBController.u
         assertTrue(planet.name.length > 0)
 
         assertTrue(planet.star.starUidPlanetSet.contains(planet.uid))
         assertTrue(planet.star.starPlanetsList.contains(planet))
-        assertTrue(universe.planets.containsValue(planet))
-        assertEquals(planet,universe.planets[planet.uid])
+        assertTrue(u.planets.containsValue(planet))
+        assertEquals(planet,u.planets[planet.uid])
 
         var count = 0
-        for ((_, star) in universe.stars) {
+        for ((_, star) in u.stars) {
             for (pl in star.starPlanetsList) {
                 if (pl.uid == planet.uid)
                     count++
@@ -41,7 +40,6 @@ class GBPlanetTest {
     @Test
     fun sizes() {
         GBController.makeUniverse()
-
 
         for ((_, planet) in u.planets) {
             val width = planet.width

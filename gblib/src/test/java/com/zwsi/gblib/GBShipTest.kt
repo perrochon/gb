@@ -22,34 +22,32 @@ class GBShipTest {
 
     fun consistency(ship: GBShip) {
 
-        val universe = GBController.u
-
         GBLog.d("Looking at ship " + ship.uid + " with name " + ship.name)
 
         assertTrue(ship.name.length > 0)
 
-        assertEquals(universe, universe)
+        assertEquals(u, u)
 
-        assertTrue(universe.ships.containsValue(ship))
-        assertEquals(ship, universe.ships[ship.uid])
+        assertTrue(u.ships.containsValue(ship))
+        assertEquals(ship, u.ships[ship.uid])
 
-        assertTrue(universe.race(ship.uidRace).raceShipsUIDList.contains(ship.uid))
-        assertTrue(universe.race(ship.uidRace).raceShipsList.contains(ship)) // This fails because list is cached
+        assertTrue(u.race(ship.uidRace).raceShipsUIDList.contains(ship.uid))
+        assertTrue(u.race(ship.uidRace).raceShipsList.contains(ship)) // This fails because list is cached
 
         if (ship.health>0) {
 
             when (ship.loc.level) {
                 LANDED -> {
-                    assertTrue(universe.planet(ship.loc.uidRef).landedShips.contains(ship))
+                    assertTrue(u.planet(ship.loc.uidRef).landedShips.contains(ship))
                 }
                 ORBIT -> {
-                    assertTrue(universe.planet(ship.loc.uidRef).orbitShips.contains(ship))
+                    assertTrue(u.planet(ship.loc.uidRef).orbitShips.contains(ship))
                 }
                 SYSTEM -> {
-                    assertTrue(universe.star(ship.loc.uidRef).starUidShipSet.contains(ship.uid))
+                    assertTrue(u.star(ship.loc.uidRef).starUidShipSet.contains(ship.uid))
                 }
                 DEEPSPACE -> {
-                    assertTrue(universe.deepSpaceUidShips.contains(ship.uid))
+                    assertTrue(u.deepSpaceUidShips.contains(ship.uid))
                 }
                 else -> {
                     assert(false)
@@ -63,13 +61,13 @@ class GBShipTest {
         GBLog.d("Looking all over for ship: " + ship.uid)
 
 
-        for (uid in universe.deepSpaceUidShips) {  // TODO use "contains"
+        for (uid in u.deepSpaceUidShips) {  // TODO use "contains"
             if (uid == ship.uid) {
                 found++
                 GBLog.d("Found in deep space: ship: " + uid)
             }
         }
-        for ((_, star) in universe.stars) {
+        for ((_, star) in u.stars) {
             for (sh in star.starShipList) {
                 if (sh.uid == ship.uid) {
                     found++
@@ -77,7 +75,7 @@ class GBShipTest {
                 }
             }
         }
-        for ((_, pl) in universe.planets) {
+        for ((_, pl) in u.planets) {
             for (sh in pl.orbitShips) {
                 if (sh.uid == ship.uid) {
                     found++
@@ -101,7 +99,7 @@ class GBShipTest {
 
         // Make sure ship is only in one race
         found = 0
-        for ((_, race) in universe.races) {
+        for ((_, race) in u.races) {
             for (uid in race.getRaceShipsUIDList()) {
                 if (uid == ship.uid)
                     found++
@@ -113,32 +111,32 @@ class GBShipTest {
 
     // TODO use @After, but need to figure out access to Universe
     fun uniqueLocations() {
-        val un = GBController.u
-        for ((_, ship) in un.ships) {
+
+        for ((_, ship) in u.ships) {
             var found = 0
-            for (uid in un.deepSpaceUidShips) {
+            for (uid in u.deepSpaceUidShips) {
                 if (uid == ship.uid)
                     found++
             }
-            for ((_, st) in un.stars) {
+            for ((_, st) in u.stars) {
                 for (sh in st.starShipList) {
                     if (sh.uid == ship.uid)
                         found++
                 }
             }
-            for ((_, pl) in un.planets) {
+            for ((_, pl) in u.planets) {
                 for (sh in pl.orbitShips) {
                     if (sh.uid == ship.uid)
                         found++
                 }
             }
-            for ((_, pl) in un.planets) {
+            for ((_, pl) in u.planets) {
                 for (sh in pl.landedShips) {
                     if (sh.uid == ship.uid)
                         found++
                 }
             }
-            for ((_, sh) in un.deadShips) {
+            for ((_, sh) in u.deadShips) {
                 if (sh.uid == ship.uid)
                     found++
             }
@@ -148,6 +146,7 @@ class GBShipTest {
 
     @Test
     fun basic() {
+
         GBController.makeUniverse()
 
         GBLog.d("Testing " + u.ships.size + " ships")
