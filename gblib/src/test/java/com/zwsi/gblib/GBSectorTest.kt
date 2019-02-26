@@ -33,7 +33,7 @@ class GBSectorTest {
         assertEquals(-1, s.type)
         assertEquals("?", s.typeSymbol)
         assertEquals(0, s.population)
-        assertEquals(-1, s.uidSectorOwner) // FIXME This failing tests until universe constructor is fixed.
+        assertEquals(-1, s.uidSectorOwner)
 
         for (i in 0..7) {
             for (j in 1..10) { // Try a few times, as sector type is random

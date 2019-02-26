@@ -35,8 +35,6 @@ class MainActivity : AppCompatActivity() {
         val messageBox: TextView = findViewById<TextView>(R.id.messageBox)!!
         messageBox.setText("Welcome to Andromeda Rising!\nA game of galactic domination.\n\n")
 
-        // FIXME. Need to disable all (most) buttons until we do have a Universe!!!!
-
         val playButton: Button = findViewById(R.id.PlayButton)
         playButton.setEnabled(false)
         playButton.setOnClickListener(View.OnClickListener {
@@ -44,10 +42,10 @@ class MainActivity : AppCompatActivity() {
         })
 
         val turnObserver = Observer<Int> { newTurn ->
-            // This is a bit overkill, as it enables on every new turn
+            // TODO This is a bit overkill, as it enables on every new turn
             playButton.setEnabled(true)
             messageBox.append("\nTurn: ${newTurn.toString()}\n")
-            for (article in vm.news!!) {
+            for (article in vm.news) {
                 messageBox.append(article)
             }
             messageBox.invalidate()

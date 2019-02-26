@@ -5,7 +5,6 @@
 
 package com.zwsi.gblib
 
-import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBController.Companion.u
 import org.junit.Assert.assertEquals
@@ -37,7 +36,7 @@ class GBStarTest {
     fun JSON() {
         GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
-        val inObject = GBStar(u.getNextGlobalId(),12, 5, 100, 200)
+        val inObject = GBStar(12, 5,GBLocation(100f, 200f))
         val jsonAdapter1 = moshi.adapter<GBStar>(GBStar::class.java)
         val json1 = jsonAdapter1.toJson(inObject)
         val outObject = jsonAdapter1.fromJson(json1)

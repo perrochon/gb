@@ -10,14 +10,15 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLocation) {
-    // FIXME DELETE sid can probably be removed.
+    // TODO DELETE sid can probably be removed.
     // sid is the "Star ID" (aka orbit), where in the order of planets of the parent star is this 0..n
 
     var name = GBData.planetNameFromIdx(GBData.selectPlanetNameIdx())
     var idxtype = GBData.selectPlanetTypeIdx() // idxtype of this planet
     var type = GBData.planetTypeFromIdx(idxtype)
-    var height = GBData.selectPlanetHeight(idxtype)  // FIXME NICE one call returning a Pair(height, width)
-    var width = GBData.selectPlanetWidth(height)
+    val hxw = GBData.selectPlanetSize(idxtype) // Transient, so can be val
+    var height = hxw.first
+    var width = hxw.second
 
     var uidPlanetOwner = -1
     val planetOwner: GBRace
@@ -230,7 +231,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
 
         sector.population += difference
         this.planetPopulation += difference
-        // FIXME Bug/Regression Owner Population not being updated right now.
+        // TODO Bug/Regression Owner Population not being updated right now.
         // With only uidRace in Sector, we don't have access to u.race() during u construction.
         // Need to refactor that first, or move all this code into GBController.
         //sector.sectorOwner.population += difference

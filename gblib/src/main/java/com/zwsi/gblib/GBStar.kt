@@ -9,17 +9,13 @@ import com.zwsi.gblib.GBController.Companion.u
 import kotlin.collections.HashSet
 
 @JsonClass(generateAdapter = true)
-data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: Int, val y: Int) {
-    // FIXME DELETE id can probably be removed
-    // id is a unique object ID. Not currently used anywhere
+data class GBStar(val uid: Int, val numberOfPlanets: Int, val loc: GBLocation) {
 
     var name: String
-    var loc: GBLocation  // FIXME NICE pass in a GBLocation instead of (x,y)
 
     init {
         name = GBData.starNameFromIdx(GBData.selectStarNameIdx())
-        loc = GBLocation(x.toFloat(), y.toFloat())
-        GBLog.d("Made System $name at location ($x,$y)")
+        GBLog.d("Made System $name at location (${loc.x},${loc.y})")
     }
 
     // Planets

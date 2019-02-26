@@ -81,13 +81,6 @@ class GlobalStuff {
         // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
         fun processGameInfo(json: String) {
 
-            // FIXME PERSISTENCE: We save in controller, because only controller finds a writable directory...
-
-            // FYI only. This writes (on my setup) to  /data/data/com.zwsi.gb.app/files/CurrentGame.json
-//            val writeFileTime = measureNanoTime {
-//                File(context.filesDir, currentGameFileName).writeText(json)
-//            }
-
             // We create gameinfo in the worker thread, not the UI thread
             var gameInfo: GBUniverse? = null
             val fromJsonTime = measureNanoTime {

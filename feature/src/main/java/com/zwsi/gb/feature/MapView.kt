@@ -653,8 +653,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             return
         }
 
-        //FIXME PERSISTENCE Fix Trails and turn them back on after restore.
-
         val trail = viewShipTrails.get(sh.uid) // FIXME
 
         if (trail != null) {

@@ -23,13 +23,14 @@ data class GBUniverse(
     // TODO DELETE: With Locks, we should not need synchronized collections anymore. We used to have
     // e.g. Collections.synchronizedMap(hashMapOf<Int, GBStar>())
     // FIXME PERSISTENCE SavedGameTest reassign these lists, instead of creating a new Universe. Once fixed, can use val
+    // Will val persist them in JSON, though?
     var stars: MutableMap<Int, GBStar> = hashMapOf<Int, GBStar>(),
     var planets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>(),
     var races: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>(),
     var ships: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>(),
     // deepSpace rebuilt on load
     // dead ships not needed
-    val shots: MutableList<GBVector> = arrayListOf<GBVector>()  ,
+    val shots: MutableList<GBVector> = arrayListOf<GBVector>(),
     val news: MutableList<String> = arrayListOf<String>()
     // orders not needed while we only save/restore at beginning of turn
 ) {
@@ -109,13 +110,17 @@ data class GBUniverse(
                 GBData.rand.nextInt(GBData.MaxNumberOfPlanets - GBData.MinNumberOfPlanets) + GBData.MinNumberOfPlanets
             val coordinates = getStarCoordinates()
             stars[uidStar] =
-                GBStar(getNextGlobalId(), uidStar, numberOfPlanets, coordinates.first, coordinates.second)
+                GBStar(uidStar, numberOfPlanets, GBLocation(coordinates.first.toFloat(), coordinates.second.toFloat()))
 
             val orbitDist: Float = GBData.MaxSystemOrbit.toFloat() / numberOfPlanets.toFloat()
 
             for (sidPlanet in 0 until numberOfPlanets) {
                 val loc =
-                    GBLocation(stars[uidStar]!!, (sidPlanet + 1f) * orbitDist, GBData.rand.nextFloat() * 2f * PI.toFloat())
+                    GBLocation(
+                        stars[uidStar]!!,
+                        (sidPlanet + 1f) * orbitDist,
+                        GBData.rand.nextFloat() * 2f * PI.toFloat()
+                    )
 
                 planets[uidPlanet] = GBPlanet(uidPlanet, sidPlanet, uidStar, loc)
                 star(uidStar).starUidPlanets.add(uidPlanet)
@@ -180,18 +185,18 @@ data class GBUniverse(
         // And the code below will need to change anyway.
 
         // The single player
-        val r0 = GBRace(getNextGlobalId(), 0, 0, stars[0]!!.starPlanetsList[0].uid)
+        val r0 = GBRace(0, 0, stars[0]!!.starPlanetsList[0].uid)
         races[0] = r0
         stars[0]!!.starPlanetsList[0].landPopulationOnEmptySector(r0, 100)
 
 
         // We only need one race for the early mission, but we create and land the others for God Mode...
         // Eventually, they will be dynamically landed (from tests, or from app)
-        val r1 = GBRace(getNextGlobalId(), 1, 1, stars[1]!!.starPlanetsList[0].uid)
+        val r1 = GBRace(1, 1, stars[1]!!.starPlanetsList[0].uid)
         races[1] = r1
-        val r2 = GBRace(getNextGlobalId(), 2, 2, stars[2]!!.starPlanetsList[0].uid)
+        val r2 = GBRace(2, 2, stars[2]!!.starPlanetsList[0].uid)
         races[2] = r2
-        val r3 = GBRace(getNextGlobalId(), 3, 3, stars[3]!!.starPlanetsList[0].uid)
+        val r3 = GBRace(3, 3, stars[3]!!.starPlanetsList[0].uid)
         races[3] = r3
 
         stars[1]!!.starPlanetsList[0].landPopulationOnEmptySector(r1, 100)
@@ -204,8 +209,7 @@ data class GBUniverse(
 
         news.clear()
 
-        // FEATURE only do this if other races are playing
-        // FIXME PERSISTENCE persist which races are playing
+        // FEATURE only do this if other races are playing. Need to persist which races are playing
         AutoPlayer.playBeetle()
         AutoPlayer.playImpi()
         AutoPlayer.playTortoise()

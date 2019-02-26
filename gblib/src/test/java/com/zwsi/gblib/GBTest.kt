@@ -11,11 +11,12 @@ import com.zwsi.gblib.AutoPlayer.Companion.playBeetle
 import com.zwsi.gblib.AutoPlayer.Companion.playImpi
 import com.zwsi.gblib.AutoPlayer.Companion.playTortoise
 import com.zwsi.gblib.GBController.Companion.u
+import org.junit.Test
 import kotlin.system.measureNanoTime
 
 class GBTest {
 
-    // FIXME BUILD exclude using categories.
+    // TODO BUILD exclude using categories.
     //@Test
     fun runUniverse() {
 

@@ -63,14 +63,11 @@ class GBData {
             return planetTypesNames[n]
         }
 
-        internal fun selectPlanetHeight(typeIdx: Int): Int {
+        internal fun selectPlanetSize(typeIdx: Int): Pair<Int, Int> {
             val low = planetTypesSize[typeIdx][0]
             val hi = planetTypesSize[typeIdx][1]
-            return GBData.rand.nextInt(hi - low) + low
-        }
-
-        internal fun selectPlanetWidth(height: Int): Int {
-            return height * 2
+            val height = GBData.rand.nextInt(hi - low) + low
+            return Pair(height, height * 2)
         }
 
         // Types from: Galactic Bloodshed
@@ -95,17 +92,17 @@ class GBData {
         // Source had 7 types, added 8th type "rock" because I had a bitmap, and because asteroids and mountains are different
         //private val sectorTypesNames = arrayOf("Water", "Land", "Gas", "Desert", "Mountain", "Forest", "Ice", "Rock")
 
-        private val sectorTypesConsole= arrayOf("~", ".", "@", "-", "^", "*", "#", "x")
+        private val sectorTypesConsole = arrayOf("~", ".", "@", "-", "^", "*", "#", "x")
         fun sectorTypeConsoleFromIdx(n: Int): String {
             return sectorTypesConsole[n]
         }
 
-        private val sectorTypesMoney= arrayOf(1, 2, 1, 1, 2, 1, 0, 2)
+        private val sectorTypesMoney = arrayOf(1, 2, 1, 1, 2, 1, 0, 2)
         fun sectorMoneyFromIdx(n: Int): Int {
             return sectorTypesMoney[n]
         }
 
-        private val sectorTypesMaxPopulation= arrayOf(1000, 2000, 200, 500, 800, 5000, 100, 200)
+        private val sectorTypesMaxPopulation = arrayOf(1000, 2000, 200, 500, 800, 5000, 100, 200)
         fun sectorMaxPopulationFromIdx(n: Int): Int {
             return sectorTypesMaxPopulation[n]
         }

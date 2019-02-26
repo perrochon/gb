@@ -74,7 +74,6 @@ class RaceFragment : Fragment() {
         background.append("\n")
 
         background.append("\n")
-        background.append("id: " + r.id +" | ")
         background.append("refUID: " + r.uid  +" | ")
         background.append("idxname: " + r.idx +"")
 

@@ -17,6 +17,8 @@ class GBPlanetTest {
         assertTrue(u.planets.containsValue(planet))
         assertEquals(planet,u.planets[planet.uid])
 
+        assertEquals(planet.width, planet.height * 2)
+
         var count = 0
         for ((_, star) in u.stars) {
             for (pl in star.starPlanetsList) {
