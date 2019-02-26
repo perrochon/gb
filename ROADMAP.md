@@ -20,6 +20,7 @@
 * Unit Test Mission 1 (or at least the lib part...)
 * Review all unit tests, and add whats missing (GBLocation? GBxy? Destroyed ships)
 * Review all TODO and warnings
+* Cleanup directory structure (remove deprecated files, move documentation, etc.)
 * Refactor to use resources for strings for Missions
 
 ### Not Gating
