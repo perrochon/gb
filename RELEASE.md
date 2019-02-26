@@ -6,7 +6,7 @@ Steps for release, because I always forget some. // TODO Automate this
 - Build and test
 - Update release notes below
 - Commit to github and get commit # (from Github)
-- In build.gradle increase version_code by 1
+- In build.gradle increase version_code by 1 (1 higher than in Play Console for current release)
 - In build.gradle update version_name to one more than commit # from Github
 - Sync Gradle
 - Commit again
