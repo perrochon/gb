@@ -12,7 +12,6 @@ import java.io.File
 
 class GBMakeMissions {
 
-
     @Test
     fun makeMission1() {
         GBController.makeSmallUniverse()
@@ -20,7 +19,7 @@ class GBMakeMissions {
         var json: String = ""
 
         for (i in 1..turns) {
-            json = GBController.doUniverse()
+            u.doUniverse()
         }
         u.turn = 1
         u.description = "Mission 1"
@@ -28,8 +27,8 @@ class GBMakeMissions {
         File("levels/mission1.json").writeText(json)
 
         // Quick check we can load it again
-        GBController.loadUniverse(json)
-        GBController.doUniverse()
+        GBController.loadUniverseFromJSON(json)
+        u.doUniverse()
 
     }
 
@@ -41,7 +40,7 @@ class GBMakeMissions {
         var json: String = ""
 
         for (i in 1..turns) {
-            json = GBController.doUniverse()
+            u.doUniverse()
         }
         u.turn = 1
         u.description = "Mission 2"
@@ -49,8 +48,8 @@ class GBMakeMissions {
         File("levels/mission2.json").writeText(json)
 
         // Quick check we can load it again
-        GBController.loadUniverse(json)
-        GBController.doUniverse()
+        GBController.loadUniverseFromJSON(json)
+        u.doUniverse()
     }
 
     @Test
@@ -62,7 +61,7 @@ class GBMakeMissions {
         var json: String = ""
 
         for (i in 1..turns) {
-            json = GBController.doUniverse()
+            u.doUniverse()
         }
         u.turn = 1
         u.description = "Mission 3"
@@ -70,8 +69,8 @@ class GBMakeMissions {
         File("levels/mission3.json").writeText(json)
 
         // Quick check we can load it again
-        GBController.loadUniverse(json)
-        GBController.doUniverse()
+        GBController.loadUniverseFromJSON(json)
+        u.doUniverse()
     }
 
 }

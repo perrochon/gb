@@ -30,7 +30,7 @@ class GBTest {
         for (i in 1..11000) {
 
             elapsed = measureNanoTime {
-                GBController.doUniverse()
+                u.doUniverse()
             }
 
             println("Turn: $i ${elapsed / 1000}ms Ships: ${u.ships.size}")

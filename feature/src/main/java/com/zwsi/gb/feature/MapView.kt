@@ -9,10 +9,10 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
@@ -95,7 +95,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     var times = mutableMapOf<String, Long>()
     var startTimeNanos = 0L
     var drawUntilStats = 0L
-    var last20 = arrayListOf<Long>(60)
+    var lastN = arrayListOf<Long>(120) // TODO: Suspicious that this is computing a running average. Chagnes too fast
     var numberOfDraws = 0L
     var screenWidthDp = 0
     var screenHeightDp = 0
@@ -245,7 +245,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         times["dsho"] = measureNanoTime { drawShots(canvas) }
 
         drawUntilStats = System.nanoTime() - startTimeNanos
-        last20[(numberOfDraws % last20.size).toInt()] = drawUntilStats
+        lastN[(numberOfDraws % lastN.size).toInt()] = drawUntilStats
 
         if (BuildConfig.SHOWSTATS) {
             drawStats(canvas)
@@ -317,11 +317,19 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //            )
             // Performance Stats
             canvas.drawText(
-                "Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}ms" +
-                        "|FW:${(GBViewModel.timeFileWrite / 1000000L).f(2)}ms" +
-                        "|FJ:${(GBViewModel.timeFromJson / 1000000L).f(2)}ms" +
-                        "|MU:${(GBViewModel.timeModelUpdate / 1000000L).f(2)}ms" +
-                        "|Draw:${(last20.average() / 1000000).toInt().f(2)}ms",
+                "Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}" +
+                        "|TJ:${(GBViewModel.timeLastToJSON / 1000000L).f(3)}" +
+                        "|FW:${(GBViewModel.timeFileWrite / 1000000L).f(2)}" +
+                        "|LL:${(GBViewModel.timeLastLoad / 1000000L).f(2)}" + // Rare event. We don't care so much
+                        "|FJ:${(GBViewModel.timeFromJson / 1000000L).f(2)}" +
+                        "|MU:${(GBViewModel.timeModelUpdate / 1000000L).f(2)}",
+                8f,
+                l++ * h,
+                paint
+            )
+
+            canvas.drawText(
+                "Draw:${(lastN.average() / 1000000).toInt().f(2)}ms",
                 8f,
                 l++ * h,
                 paint
@@ -501,7 +509,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             paint.alpha = 128
                             sP1.set(p.loc.getLoc().x * uToSf, p.loc.getLoc().y * uToSf)
                             sourceToViewCoord(sP1, vP1)
-                            var o = (PlanetOrbit * 0.4f) * uToS * scale
+                            val o = (PlanetOrbit * 0.4f) * uToS * scale
                             canvas.drawText(p.name, vP1.x, vP1.y - o * 1.1f, paint)
                             clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y - o * 1.1f), p))
                         }

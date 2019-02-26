@@ -18,7 +18,7 @@ class GBTestJSON {
         GBController.makeUniverse()
         val moshi = Moshi.Builder().build()
 
-        val inObject = GBPlanet(u.getNextGlobalId(),0, 0, 0, GBLocation(1,0))
+        val inObject = GBPlanet(0, 0, 0, GBLocation(1,0))
         val jsonAdapter1 = moshi.adapter<GBPlanet>(GBPlanet::class.java).indent("    ")
         val json1 = jsonAdapter1.toJson(inObject)
         val outObject = jsonAdapter1.fromJson(json1)

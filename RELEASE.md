@@ -19,9 +19,10 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 
 ### Release Notes
 
-.566
+.566 First Beta
 - Persistence! If the app gets killed by Android one can continue the game after restarting the app
 - 3 predefined missions are now selectable from main menu (a benefit of having persistence)
+- .566 became the first beta, thanks to persistence!
 
 .551
 - Awesome new buttons and detail windows. Colored rounded frames and all.

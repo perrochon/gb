@@ -98,8 +98,10 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     // This is a pod, they populate, then destroy.  We set health to 0, and clean up elsewhere
                     loc.getPlanet()!!.landedUidShips.add(this.uid)
                     this.health = 0
-                    GBController.landPopulation(this.loc.getPlanet()!!.uid, uidRace, 1)
-                    u.news.add("${u.race(uidRace).name} landed on ${this.loc.getPlanet()!!.name}")
+
+                    this.loc.getPlanet()!!.landPopulationOnEmptySector(race, 10)
+
+                    u.news.add("${race.name} landed on ${this.loc.getPlanet()!!.name}")
                 } else {
                     loc.getPlanet()!!.landedUidShips.add(this.uid)
                 }

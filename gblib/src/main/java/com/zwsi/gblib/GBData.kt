@@ -20,13 +20,14 @@ class GBData {
 
     companion object {
 
-        // FIXME NICE these public methods be could internal if the whole lib is Kotlin? Nobody outside the lib should call GBData
-        // Need to go through GB Controller and GBUniverse for everything.
+        // TODO Doesn't belong here but don't have a better place for filename of current game
+        const val currentGameFileName = "currentgame.json"
+
         internal val rand = Random(1) // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
         internal const val UniverseMaxX = 1000 // Width of the Universe
         internal const val UniverseMaxY = 1000 // Height of the Universe
-        // FIXME difference between these two
+        // TODO difference between these two
         internal const val starMaxOrbit = 40f // Radius of star systems
         const val MaxSystemOrbit = 36f // Radius of the orbit of the outermost Planet
         const val PlanetOrbit = 2f // Radius of planetary Orbit
@@ -35,40 +36,40 @@ class GBData {
         internal const val MaxNumberOfPlanets = 8
 
 
-        fun selectStarNameIdx(): Int {
+        internal fun selectStarNameIdx(): Int {
             // TODO Science no dupes in System Names - not a high priority, real world may have duplicates...
             return rand.nextInt(starNames.size)
         }
 
-        fun starNameFromIdx(n: Int): String {
+        internal fun starNameFromIdx(n: Int): String {
             return starNames[n]
         }
 
-        fun selectPlanetNameIdx(): Int {
+        internal fun selectPlanetNameIdx(): Int {
             // TODO Science no dupes in Planet Names - not a high priority, real world may have duplicates...
             return rand.nextInt(planetNames.size)
         }
 
-        fun planetNameFromIdx(n: Int): String {
+        internal fun planetNameFromIdx(n: Int): String {
             return planetNames[n]
         }
 
-        fun selectPlanetTypeIdx(): Int {
+        internal fun selectPlanetTypeIdx(): Int {
             // TODO Science specified distribution based on star type, instead of random
             return rand.nextInt(planetTypesNames.size)
         }
 
-        fun planetTypeFromIdx(n: Int): String {
+        internal fun planetTypeFromIdx(n: Int): String {
             return planetTypesNames[n]
         }
 
-        fun selectPlanetHeight(typeIdx: Int): Int {
+        internal fun selectPlanetHeight(typeIdx: Int): Int {
             val low = planetTypesSize[typeIdx][0]
             val hi = planetTypesSize[typeIdx][1]
             return GBData.rand.nextInt(hi - low) + low
         }
 
-        fun selectPlanetWidth(height: Int): Int {
+        internal fun selectPlanetWidth(height: Int): Int {
             return height * 2
         }
 
@@ -76,7 +77,7 @@ class GBData {
         private val planetTypesNames =
             arrayOf("M Class", "Jovian", "Water", "Desert", "Forest", "Iceball", "Airless", "Asteroid")
 
-        val planetTypesSize = arrayOf(
+        internal val planetTypesSize = arrayOf(
             // min height, max height. Width will be within 2x height range
             intArrayOf(4, 6), // M Class
             intArrayOf(6, 8), // Jovian
@@ -109,7 +110,7 @@ class GBData {
             return sectorTypesMaxPopulation[n]
         }
 
-        val sectorTypesChance = arrayOf(
+        internal val sectorTypesChance = arrayOf(
             intArrayOf(0, 0, 0, 0, 1, 1, 1, 1, 5, 6), // M Class
             intArrayOf(2, 2, 2, 2, 2, 2, 2, 2, 2, 2), // Jovian
             intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 4), // Water
@@ -121,7 +122,7 @@ class GBData {
         )
 
         // Races
-        data class RaceData(
+        internal data class RaceData(
             val name: String,
             val birthrate: Int, // 00...100 (originally 0..1?)
             val explore: Int, // adventurism 00..100 (originally percent)
@@ -160,27 +161,27 @@ class GBData {
             )
         )
 
-        fun getRaceName(idx: Int): String {
+        internal fun getRaceName(idx: Int): String {
             return races.get(idx)!!.name
         }
 
-        fun getRaceBirthrate(idx: Int): Int {
+        internal fun getRaceBirthrate(idx: Int): Int {
             return races.get(idx)!!.birthrate
         }
 
-        fun getRaceExplore(idx: Int): Int {
+        internal fun getRaceExplore(idx: Int): Int {
             return races.get(idx)!!.explore
         }
 
-        fun getRaceAbsorption(idx: Int): Int {
+        internal fun getRaceAbsorption(idx: Int): Int {
             return races.get(idx)!!.absorption
         }
 
-        fun getRaceDescription(idx: Int): String {
+        internal fun getRaceDescription(idx: Int): String {
             return races.get(idx)!!.description
         }
 
-        fun getRaceColor(idx: Int): String {
+        internal fun getRaceColor(idx: Int): String {
             return races.get(idx)!!.color
         }
 
@@ -189,7 +190,7 @@ class GBData {
         const val CRUISER = 2
 
 
-        data class ShipData(
+        internal data class ShipData(
             val type: String,
             val speed: Int,
             val health: Int
@@ -201,15 +202,15 @@ class GBData {
             CRUISER to ShipData("Cruiser", 3, 100)
         )
 
-        fun getShipType(idx: Int): String {
+        internal fun getShipType(idx: Int): String {
             return ships.get(idx)!!.type
         }
 
-        fun getShipSpeed(idx: Int): Int {
+        internal fun getShipSpeed(idx: Int): Int {
             return ships.get(idx)!!.speed
         }
 
-        fun getShipHealth(idx: Int): Int {
+        internal fun getShipHealth(idx: Int): Int {
             return ships.get(idx)!!.health
         }
 

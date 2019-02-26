@@ -2,7 +2,6 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.MutableLiveData
 import com.zwsi.gblib.*
-import com.zwsi.gblib.GBController.Companion.lock
 import kotlin.system.measureNanoTime
 
 
@@ -49,60 +48,57 @@ class GBViewModel {
 
         lateinit var viewShots: MutableList<GBVector>
 
-        var timeModelUpdate = 0L
         var timeLastTurn = 0L
+        var timeLastToJSON = 0L
         var timeFileWrite = 0L
+        var timeLastLoad = 0L
         var timeFromJson = 0L
+        var timeModelUpdate = 0L
 
         lateinit var vm: GBUniverse
 
         var times = mutableMapOf<String, Long>()
 
-        fun update(gameinfo: GBUniverse, _elapsedTimeLastUpdate: Long, _writeFileTime: Long, _fromJsonTime: Long) {
+        fun update(gameinfo: GBUniverse, update: Long, json: Long, write: Long, load: Long, fromJSON: Long) {
 
             // This is (currently) called from the worker thread. So need to call postValue on the LiveData
             timeModelUpdate = measureNanoTime {
 
                 vm = gameinfo
 
-                timeLastTurn = _elapsedTimeLastUpdate
-                timeFileWrite = _writeFileTime
-                timeFromJson = _fromJsonTime
+                timeLastTurn = update
+                timeLastToJSON = json
+                timeFileWrite = write
+                timeLastLoad = load
+                timeFromJson = fromJSON
 
+                // Not updating stars and planets as those lists don't change
+                // FIXME PERSISTENCE We do!  If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
+                // If we save/reload stars each time, we need to get the new versions.
 
-                lock.lock();  // lock for copying over data into view
-                try {
-                    // Not updating stars and planets as those lists don't change
-                    // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
-                    // If we save/reload stars each time, we need to get the new versions.
+                // FIXME: The below constructs should really be able to go away as vm has all that is needed
+                // Using vm is safe as it is not accessed from the other thread after initial construction.
 
-                    // FIXME: The below constructs should really be able to go away as vm has all that is needed
-                    // Using vm is safe as it is not accessed from the other thread after initial construction.
-                    // FIXME: Lock no longer needed here, really.
+                // Ships
+                times["mAS"] = measureNanoTime { viewStars = vm.stars }
 
-                    // Ships
-                    times["mAS"] = measureNanoTime { viewStars = vm.stars }
+                times["mAP"] = measureNanoTime { viewPlanets = vm.planets }
 
-                    times["mAP"] = measureNanoTime { viewPlanets = vm.planets }
+                times["mAR"] = measureNanoTime { viewRaces = vm.races }
 
-                    times["mAR"] = measureNanoTime { viewRaces = vm.races }
+                times["mAs"] = measureNanoTime { viewShips = vm.ships }
 
-                    times["mAs"] = measureNanoTime { viewShips = vm.ships }
+                times["mDs"] = measureNanoTime { getDeepSpaceShipsList() }
 
-                    times["mDs"] = measureNanoTime { getDeepSpaceShipsList() }
+                times["mPs"] = measureNanoTime { fillViewStarPlanetsAndShips() }
 
-                    times["mPs"] = measureNanoTime { fillViewStarPlanetsAndShips() }
+                times["mLO"] = measureNanoTime { fillViewLandedAndOrbitShips() }
 
-                    times["mLO"] = measureNanoTime { fillViewLandedAndOrbitShips() }
+                times["mRs"] = measureNanoTime { fillViewRaceShips() }
 
-                    times["mRs"] = measureNanoTime { fillViewRaceShips() }
+                times["mst"] = measureNanoTime { fillViewShipTrails() }
 
-                    times["mst"] = measureNanoTime { fillViewShipTrails() }
-
-                    times["msh"] = measureNanoTime { viewShots = vm.shots }
-                } finally {
-                    lock.unlock()
-                }
+                times["msh"] = measureNanoTime { viewShots = vm.shots }
             }
 
             /*

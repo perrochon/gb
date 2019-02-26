@@ -20,7 +20,7 @@ data class GBUniverse(
     var nextGlobalID: Int = -1,
     var turn: Int = -1,
     // Collections
-    // TODO: With Locks, we should not need synchronized collections anymore. We used to have
+    // TODO DELETE: With Locks, we should not need synchronized collections anymore. We used to have
     // e.g. Collections.synchronizedMap(hashMapOf<Int, GBStar>())
     // FIXME PERSISTENCE SavedGameTest reassign these lists, instead of creating a new Universe. Once fixed, can use val
     var stars: MutableMap<Int, GBStar> = hashMapOf<Int, GBStar>(),
@@ -117,7 +117,7 @@ data class GBUniverse(
                 val loc =
                     GBLocation(stars[uidStar]!!, (sidPlanet + 1f) * orbitDist, GBData.rand.nextFloat() * 2f * PI.toFloat())
 
-                planets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, uidStar, loc)
+                planets[uidPlanet] = GBPlanet(uidPlanet, sidPlanet, uidStar, loc)
                 star(uidStar).starUidPlanets.add(uidPlanet)
                 uidPlanet++;
             }
@@ -200,7 +200,7 @@ data class GBUniverse(
     }
 
     internal fun doUniverse() {
-        GBLog.d("Doing Universe: " + orders.toString())
+        GBLog.i("Runing Game Turn ${turn}")
 
         news.clear()
 

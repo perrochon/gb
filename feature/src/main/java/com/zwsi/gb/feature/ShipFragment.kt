@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
-import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBData
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
+import com.zwsi.gblib.*
+import com.zwsi.gblib.GBController.Companion.flyShipLanded
+import com.zwsi.gblib.GBController.Companion.flyShipOrbit
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
-import com.zwsi.gblib.distance
+import kotlin.math.PI
 
 
 class ShipFragment : Fragment() {
@@ -191,18 +193,14 @@ class ShipFragment : Fragment() {
                         }
 
                         val uidPlanet = destinationUids[destination]
-
                         val planet = GBViewModel.viewPlanets[uidPlanet]!!
 
-                        GBController.lock.lock(); // FIXME move locks into GBController
-                        try {
-                            if (sh.idxtype == GBData.POD) {
-                                GBController.flyShipLanded(sh.uid, planet.uid)
-                            } else {
-                                GBController.flyShipOrbit(sh.uid, planet.uid)
-                            }
-                        } finally {
-                            GBController.lock.unlock()
+                        if (sh.idxtype == GBData.POD) {
+                            flyShipLanded(sh.uid, planet.uid) // update server side
+                            sh.dest = GBLocation(planet, 0, 0) // update vm
+                        } else {
+                            flyShipOrbit(sh.uid, planet.uid)// update server side
+                            sh.dest = GBLocation(planet, GBData.PlanetOrbit, 0f)
                         }
 
                         Toast.makeText(

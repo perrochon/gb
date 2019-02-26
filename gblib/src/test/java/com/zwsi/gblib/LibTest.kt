@@ -46,7 +46,7 @@ class LibTest {
         consistent()
 
 
-        GBController.doUniverse()
+        u.doUniverse()
         consistent()
     }
 
@@ -66,7 +66,7 @@ class LibTest {
         assertEquals(shipsMade, u.ships.size)
         consistent()
 
-        GBController.doUniverse()
+        u.doUniverse()
         consistent()
 
         // mini-stress test

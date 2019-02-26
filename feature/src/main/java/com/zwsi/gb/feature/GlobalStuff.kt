@@ -12,7 +12,8 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBController.Companion.lock
+import com.zwsi.gblib.GBData
+import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import com.zwsi.gblib.GBUniverse
 import java.io.File
 import kotlin.system.measureNanoTime
@@ -30,7 +31,7 @@ class GlobalStuff {
         fun makeUniverse(context: Context) {
             Thread(Runnable {
                 GBController.currentFilePath = context.filesDir // FIXME PERSISTENCE This is duplicated.
-                val json = GBController.makeUniverse()  // SERVER Talk to not-remote server
+                val json = GBController.makeAndSaveUniverse()
                 processGameInfo(json)
             }).start()
         }
@@ -59,7 +60,7 @@ class GlobalStuff {
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
             val json = when (number) {
-                0 -> File(view.context.filesDir, "CurrentGame.json").readText()
+                0 -> File(view.context.filesDir, currentGameFileName).readText()
                 1 -> view.context.resources.openRawResource(R.raw.mission1).reader().readText()
                 2 -> view.context.resources.openRawResource(R.raw.mission2).reader().readText()
                 else -> view.context.resources.openRawResource(R.raw.mission3).reader().readText()
@@ -71,7 +72,7 @@ class GlobalStuff {
             }
             Thread(Runnable {
                 GBController.currentFilePath = view.context.filesDir
-                GBController.loadUniverse(json)  // SERVER Talk to not-remote server
+                GBController.loadUniverseFromJSON(json)  // SERVER Talk to not-remote server
                 processGameInfo(json)
             }).start()
         }
@@ -84,7 +85,7 @@ class GlobalStuff {
 
             // FYI only. This writes (on my setup) to  /data/data/com.zwsi.gb.app/files/CurrentGame.json
 //            val writeFileTime = measureNanoTime {
-//                File(context.filesDir, "CurrentGame.json").writeText(json)
+//                File(context.filesDir, currentGameFileName).writeText(json)
 //            }
 
             // We create gameinfo in the worker thread, not the UI thread
@@ -95,7 +96,14 @@ class GlobalStuff {
 
             // FIXME PERSISTENCE TIMING TRACKING
             Handler(Looper.getMainLooper()).post({
-                GBViewModel.update(gameInfo!!, GBController.elapsedTimeLastUpdate, 12345, fromJsonTime)
+                GBViewModel.update(
+                    gameInfo!!,
+                    GBController.elapsedTimeLastUpdate,
+                    GBController.elapsedTimeLastJSON,
+                    GBController.elapsedTimeLastWrite,
+                    GBController.elapsedTimeLastLoad,
+                    fromJsonTime
+                )
             })
         }
 
@@ -115,7 +123,7 @@ class GlobalStuff {
 
             Thread(Runnable {
                 GBController.currentFilePath = view.context.filesDir
-                val json = GBController.doUniverse() // SERVER Talk to not-remote server
+                val json = GBController.doAndSaveUniverse() // SERVER Talk to not-remote server
                 processGameInfo(json)
             }).start()
 
@@ -139,9 +147,9 @@ class GlobalStuff {
 
                 Thread(Runnable {
                     while (autoDo) {
-                        val json = GBController.doUniverse() // SERVER Talk to not-remote server
+                        val json = GBController.doAndSaveUniverse() // SERVER Talk to not-remote server
                         processGameInfo(json)
-                        Thread.sleep(333) // let everything else catch up before we do another turn
+                        Thread.sleep(500) // let everything else catch up before we do another turn
                     }
                 }).start()
             }
@@ -271,12 +279,7 @@ class GlobalStuff {
                 val message = "Ordered Pod in Factory " + factory.name
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-                lock.lock(); // makePod
-                try {
-                    GBController.makePod(factory.uid)
-                } finally {
-                    lock.unlock()
-                }
+                GBController.makePod(factory.uid)
             }
         }
 
@@ -290,53 +293,12 @@ class GlobalStuff {
 
             val factory = GBViewModel.viewShips[view.tag]
             if (factory != null) {
-
-
                 val message = "Ordered Cruiser in Factory " + factory.name
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-                lock.lock(); // makeCruiser
-                try {
-                    GBController.makeCruiser(factory.uid)
-                } finally {
-                    lock.unlock()
-                }
+                GBController.makeCruiser(factory.uid)
             }
         }
-
-//        /** Called when the user taps the fly  To button */
-//        fun flyTo(view: View) {
-//
-//            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-//                return;
-//            }
-//            lastClickTime = SystemClock.elapsedRealtime();
-//
-//            // Stars don't go away, so the below !! should be safe
-//            val ship = GBViewModel.viewShips[view.getTag(R.id.TAG_FLYTO_SHIP)]!!
-//
-//            //val ship = view.getTag(R.id.TAG_FLYTO_SHIP) as GBShip // FIXME  Hardcoded keys, what can go wrong
-//
-//            val spinner = view.getTag(R.id.TAG_FLYTO_SPINNER) as Spinner
-//            val destination = spinner.selectedItem.toString()
-//
-//            val destinationUids = view.getTag(R.id.TAG_FLYTO_UIDS) as HashMap<String, Int>
-//            val uidPlanet = destinationUids[destination]
-//
-//            val planet = viewPlanets[uidPlanet]!!
-//
-//            lock.lock(); // FlyTo
-//            try {
-//                if (ship.idxtype == GBData.POD) {
-//                    GBController.flyShipLanded(ship, planet)
-//                } else {
-//                    GBController.flyShipOrbit(ship, planet)
-//                }
-//            } finally {
-//                lock.unlock()
-//            }
-//        }
-
 
     }
 }

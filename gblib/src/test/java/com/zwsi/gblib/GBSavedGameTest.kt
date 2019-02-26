@@ -2,10 +2,8 @@
 
 package com.zwsi.gblib
 
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
+import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import org.junit.Test
 import java.io.File
 
@@ -34,7 +32,8 @@ class GBSavedGameTest {
         GBController.makeUniverse()
         val before = GBController.u
         GBController.saveUniverse()
-        GBController.loadUniverse()
+        val json = File(currentGameFileName).readText()
+        GBController.loadUniverseFromJSON(json)
         val after = GBController.u
         compareUniverses(before, after)
     }
@@ -69,9 +68,9 @@ class GBSavedGameTest {
         GBController.makeUniverse()
 
         for (i in 1..turns) {
-            GBController.doUniverse()
-            GBController.saveUniverse()
-            GBController.loadUniverse()
+            GBController.doAndSaveUniverse()
+            val json = File(currentGameFileName).readText()
+            GBController.loadUniverseFromJSON(json)
         }
     }
 
@@ -79,37 +78,37 @@ class GBSavedGameTest {
     fun loadInitialFromJsonAfterMakeUniverse() {
         GBController.makeUniverse() // Here we make a Universe. Wasteful, should not be needed
         val json = File("testoutput/GBSavedGameTestInitialUniverse.json").readText()
-        GBController.loadUniverse(json)
-        GBController.doUniverse()
+        GBController.loadUniverseFromJSON(json)
+        u.doUniverse()
     }
 
     @Test
     fun loadInitialFromJason() {
         val json = File("testoutput/GBSavedGameTestInitialUniverse.json").readText()
-        GBController.loadUniverse(json)
-        GBController.doUniverse()
+        GBController.loadUniverseFromJSON(json)
+        u.doUniverse()
     }
 
     @Test
     fun loadAged25FromJsonAfterMakeUniverse() {
         GBController.makeUniverse() // Here we make a Universe. Wasteful, should not be needed
         val json = File("testoutput/GBSavedGameTestAgedUniverse25.json").readText()
-        GBController.loadUniverse(json)
-        GBController.doUniverse()
+        GBController.loadUniverseFromJSON(json)
+        u.doUniverse()
     }
 
     @Test
     fun loadAged25FromJason() {
         val json = File("testoutput/GBSavedGameTestAgedUniverse25.json").readText()
-        GBController.loadUniverse(json)
-        GBController.doUniverse()
+        GBController.loadUniverseFromJSON(json)
+        u.doUniverse()
     }
 
     @Test
     fun loadCurrentFromJason() {
-        val json = File("CurrentGame.json").readText()
-        GBController.loadUniverse(json)
-        GBController.doUniverse()
+        val json = File(currentGameFileName).readText()
+        GBController.loadUniverseFromJSON(json)
+        u.doUniverse()
     }
 
 

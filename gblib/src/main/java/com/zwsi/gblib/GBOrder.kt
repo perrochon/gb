@@ -22,7 +22,14 @@ class GBOrder {
     lateinit var loc: GBLocation
 
     // Type Factory
-    fun makeFactory(loc: GBLocation, race: GBRace) {
+    fun makeFactory(_uidPlanet: Int, _uidRace: Int) {
+
+        val planet = u.planet(_uidPlanet)
+        val race = u.race(_uidRace)
+        // TODO Have caller give us a better location (or find one ourselves) for factory ?
+        val loc =
+            GBLocation(planet, GBData.rand.nextInt(planet.width), GBData.rand.nextInt(planet.height))
+
         gbAssert { type == -1 }
         type = FACTORY
         uidRace = race.uid
@@ -33,7 +40,9 @@ class GBOrder {
     // TODO check for nulls and correct types, but this can wait until we made ships a hierarchy and repalced orders with schedule
 
     // Type Pod
-    fun makePod(factory: GBShip) {
+    fun makePod(uidFactory: Int) {
+
+        val factory = u.ship(uidFactory)
 
         if (factory.health > 0) {
             gbAssert { type == -1 }
@@ -49,7 +58,10 @@ class GBOrder {
     }
 
     // Type Cruiser
-    fun makeCruiser(factory: GBShip) {
+    fun makeCruiser(uidFactory: Int) {
+
+        val factory = u.ship(uidFactory)
+
         if (factory.health > 0) {
             gbAssert { type == -1 }
             type = CRUISER

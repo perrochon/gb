@@ -1,13 +1,12 @@
 # Roadmap
 
 ## Short Term
-* Missions don't properly center on planet
-* Spinner issues (update breaks spinner, see below)
 * Better looking spinner - may need to copy more XML
 * Load Universe (requires saving a few more things)
 * UIDs in GBController (not GBObjects) (related to above...)
 * Review Locking. Lock all writes in GBController. Lock all list access.
 * Population on planets (per race, and do correctly). Fix "Make Factory"
+* Destination of star system for ships far away, instead of first planet.
 
 ## Gating for 0.0.1 Alpha
 * Survive app kill (recover from beginning of turn is ok, so only need auto-save and load game)
