@@ -7,14 +7,12 @@ import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.lock
-import com.zwsi.gblib.GBSavedGame
 import com.zwsi.gblib.GBUniverse
 import java.io.File
 import kotlin.system.measureNanoTime
