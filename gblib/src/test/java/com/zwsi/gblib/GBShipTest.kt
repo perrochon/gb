@@ -355,29 +355,29 @@ class GBShipTest {
         assert(inObject == outObject)
     }
 
-    @Test
-    fun JSONMap() {
-        GBController.makeSmallUniverse()
-        val moshi = Moshi.Builder().build()
-
-        // Need to make ships
-        AutoPlayer.playBeetle()
-
-        for (i in 1..2) {
-            GBController.doUniverse()
-        }
-
-        val gameInfo1 = GBSavedGame("Shiplist Only", ships = u.ships)
-        //File("testoutput/GBSShipTestJSONMap.in.txt").writeText(gameInfo1.toString())
-
-        val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
-        val json = jsonAdapter1.toJson(gameInfo1)
-        val gameInfo2 = jsonAdapter1.lenient().fromJson(json)
-
-        //File("testoutput/GBSShipTestJSONMap.map.txt").writeText(u.ships.toString())
-        //File("testoutput/GBSShipTestJSONMap.json").writeText(json)
-        //File("testoutput/GBSShipTestJSONMap.out.txt").writeText(gameInfo2.toString())
-
-        assert(gameInfo1 == gameInfo2)
-    }
+//    @Test
+//    fun JSONMap() {
+//        GBController.makeSmallUniverse()
+//        val moshi = Moshi.Builder().build()
+//
+//        // Need to make ships
+//        AutoPlayer.playBeetle()
+//
+//        for (i in 1..2) {
+//            GBController.doUniverse()
+//        }
+//
+//        val gameInfo1 = GBSavedGame("Shiplist Only", ships = u.ships)
+//        //File("testoutput/GBSShipTestJSONMap.in.txt").writeText(gameInfo1.toString())
+//
+//        val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
+//        val json = jsonAdapter1.toJson(gameInfo1)
+//        val gameInfo2 = jsonAdapter1.lenient().fromJson(json)
+//
+//        //File("testoutput/GBSShipTestJSONMap.map.txt").writeText(u.ships.toString())
+//        //File("testoutput/GBSShipTestJSONMap.json").writeText(json)
+//        //File("testoutput/GBSShipTestJSONMap.out.txt").writeText(gameInfo2.toString())
+//
+//        assert(gameInfo1 == gameInfo2)
+//    }
 }

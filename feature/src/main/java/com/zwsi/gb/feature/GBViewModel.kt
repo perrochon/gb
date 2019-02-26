@@ -54,11 +54,11 @@ class GBViewModel {
         var timeFileWrite = 0L
         var timeFromJson = 0L
 
-        lateinit var gi: GBSavedGame
+        lateinit var gi: GBUniverse
 
         var times = mutableMapOf<String, Long>()
 
-        fun update(gameinfo: GBSavedGame, _elapsedTimeLastUpdate: Long, _writeFileTime: Long, _fromJsonTime: Long) {
+        fun update(gameinfo: GBUniverse, _elapsedTimeLastUpdate: Long, _writeFileTime: Long, _fromJsonTime: Long) {
 
             // This is (currently) called from the worker thread. So need to call postValue on the LiveData
             timeModelUpdate = measureNanoTime {

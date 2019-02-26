@@ -56,22 +56,22 @@ class GBRaceTest {
         assert(race1 == race2)
     }
 
-    @Test
-    fun JSONMap() {
-        GBController.makeUniverse()
-
-        val moshi = Moshi.Builder().build()
-
-        val gameInfo1 = GBSavedGame("Racelist only", races = u.races)
-        //File("testoutput/GBRaceTestJSONMap.in.txt").writeText(gameInfo1.toString())
-
-        val jsonAdapter2: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
-        val json = jsonAdapter2.toJson(gameInfo1)
-        val gameInfo2 = jsonAdapter2.lenient().fromJson(json)
-
-        //File("testoutput/GBRaceTestJSONMap.json").writeText(json)
-        //File("testoutput/GBRaceTestJSONMap.out.txt").writeText(gameInfo2.toString())
-
-        assert(gameInfo1 == gameInfo2)
-    }
+//    @Test
+//    fun JSONMap() {
+//        GBController.makeUniverse()
+//
+//        val moshi = Moshi.Builder().build()
+//
+//        val gameInfo1 = GBSavedGame("Racelist only", races = u.races)
+//        //File("testoutput/GBRaceTestJSONMap.in.txt").writeText(gameInfo1.toString())
+//
+//        val jsonAdapter2: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
+//        val json = jsonAdapter2.toJson(gameInfo1)
+//        val gameInfo2 = jsonAdapter2.lenient().fromJson(json)
+//
+//        //File("testoutput/GBRaceTestJSONMap.json").writeText(json)
+//        //File("testoutput/GBRaceTestJSONMap.out.txt").writeText(gameInfo2.toString())
+//
+//        assert(gameInfo1 == gameInfo2)
+//    }
 }

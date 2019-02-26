@@ -144,7 +144,6 @@ class GBController {
         val jsonAdapter: JsonAdapter<GBUniverse> = moshi.adapter(GBUniverse::class.java).indent("  ")
 
         fun saveUniverse(): String {
-            val gameInfo = GBSavedGame("Current Game", u)
             val json = jsonAdapter.toJson(_u)
             // SERVER Want to save in the controller, but Controller has no Android access so can't find the directory
             // For now we just save from an app module

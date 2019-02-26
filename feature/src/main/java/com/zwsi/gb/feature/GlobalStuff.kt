@@ -15,6 +15,7 @@ import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBController.Companion.lock
 import com.zwsi.gblib.GBSavedGame
+import com.zwsi.gblib.GBUniverse
 import java.io.File
 import kotlin.system.measureNanoTime
 
@@ -24,7 +25,7 @@ class GlobalStuff {
     companion object {
 
         val moshi = Moshi.Builder().build()
-        val jsonAdapter: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
+        val jsonAdapter: JsonAdapter<GBUniverse> = moshi.adapter(GBUniverse::class.java).indent("  ")
         var autoDo = false
 
         // We need the application context to write to a file
@@ -94,7 +95,7 @@ class GlobalStuff {
 //            }
 
             // We create gameinfo in the worker thread, not the UI thread
-            var gameInfo: GBSavedGame? = null
+            var gameInfo: GBUniverse? = null
             val fromJsonTime = measureNanoTime {
                 gameInfo = jsonAdapter.lenient().fromJson(json)!!
             }
