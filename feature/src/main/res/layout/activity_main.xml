@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_orange_light"
             android:text="Andromeda Rising"
-            android:textSize="40sp"
+            android:textSize="36sp"
             android:textAlignment="center"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
@@ -36,7 +36,7 @@
             />
     <TextView
             android:id="@+id/messageBox"
-            android:layout_width="395dp"
+            android:layout_width="0dp"
             android:padding="8dp"
             android:maxLines="999"
             android:gravity="bottom"

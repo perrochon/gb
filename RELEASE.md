@@ -22,8 +22,8 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 ### Release Notes
 
 .next
-- Persistence. Now if the game gets killed by Android you still continue your game after restarting the app!
-- Maps for Missions are now selectable from main menu (a benefit of persistence)
+- Persistence! If the game gets killed by Android one can continue the game after restarting the app
+- 3 predefined missions are now selectable from main menu (a benefit of having persistence)
 
 .551
 - Awesome new buttons and detail windows. Colored rounded frames and all.
