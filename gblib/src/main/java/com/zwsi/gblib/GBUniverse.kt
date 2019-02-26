@@ -45,7 +45,7 @@ data class GBUniverse(
         _numberOfStars,
         _numberOfRaces,
         1000,
-        0
+        1
     ) {
     }
 
@@ -116,7 +116,7 @@ data class GBUniverse(
 
             for (sidPlanet in 0 until numberOfPlanets) {
                 val loc =
-                    GBLocation(stars[uidStar]!!, (sidPlanet + 1f) * orbitDist, rand.nextFloat() * 2f * PI.toFloat())
+                    GBLocation(stars[uidStar]!!, (sidPlanet + 1f) * orbitDist, GBData.rand.nextFloat() * 2f * PI.toFloat())
 
                 planets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, uidStar, loc)
                 star(uidStar).starUidPlanetSet.add(uidPlanet)

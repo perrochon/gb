@@ -42,8 +42,8 @@ class GBOrder {
             uidRace = factory.uidRace
             this.loc = GBLocation(
                 factory.loc.getPlanet()!!,
-                rand.nextInt(factory.loc.getPlanet()!!.width),
-                rand.nextInt(factory.loc.getPlanet()!!.height)
+                GBData.rand.nextInt(factory.loc.getPlanet()!!.width),
+                GBData.rand.nextInt(factory.loc.getPlanet()!!.height)
             )
         }
     }
@@ -57,8 +57,8 @@ class GBOrder {
             uidRace = factory.uidRace
             this.loc = GBLocation(
                 factory.loc.getPlanet()!!,
-                rand.nextInt(factory.loc.getPlanet()!!.width),
-                rand.nextInt(factory.loc.getPlanet()!!.height)
+                GBData.rand.nextInt(factory.loc.getPlanet()!!.width),
+                GBData.rand.nextInt(factory.loc.getPlanet()!!.height)
             )
         }
     }

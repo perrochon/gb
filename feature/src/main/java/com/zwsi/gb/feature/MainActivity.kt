@@ -33,18 +33,26 @@ class MainActivity : AppCompatActivity() {
 
         // Set up the MessageBox View to listen to news
         val messageBox: TextView = findViewById<TextView>(R.id.messageBox)!!
-        messageBox.setText("Welcome to Andromeda Rising!\n")
+        messageBox.setText("Welcome to Andromeda Rising!\n A Game of galactic domination.\n\n")
+
+        // FIXME. Need to disable all (most) buttons until we do have a Universe!!!!
+
+        val playButton: Button = findViewById(R.id.PlayButton)
+        playButton.setEnabled(false)
+        playButton.setOnClickListener(View.OnClickListener {
+            mapView(it)
+        })
 
         val turnObserver = Observer<Int> { newTurn ->
-            messageBox.append("Turn: ${newTurn.toString()}\n")
+            // This is a bit overkill, as it enables on every new turn
+            playButton.setEnabled(true)
+            messageBox.append("\nTurn: ${newTurn.toString()}\n")
             for (article in gi.news!!) {
                 messageBox.append(article)
             }
             messageBox.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
-
-        // FIXME. Need to disable all (most) buttons until we do have a Universe!!!!
 
         val doButton: Button = findViewById(R.id.DoButton)
         doButton.setOnClickListener(View.OnClickListener {
@@ -59,26 +67,31 @@ class MainActivity : AppCompatActivity() {
         val newButton: Button = findViewById(R.id.NewButton)
         newButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeUniverse(it)
+            messageBox.append("\nCreated New Universe.\n")
         })
 
         val loadButton: Button = findViewById(R.id.LoadButton)
         loadButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.loadUniverse(it,0)
+            messageBox.append("\nContinuing Current Game.\n")
         })
 
         val loadButton1: Button = findViewById(R.id.LoadButton1)
         loadButton1.setOnClickListener(View.OnClickListener {
             GlobalStuff.loadUniverse(it,1)
+            messageBox.append("\nLoaded Mission 1.\n")
         })
 
         val loadButton2: Button = findViewById(R.id.LoadButton2)
         loadButton2.setOnClickListener(View.OnClickListener {
             GlobalStuff.loadUniverse(it,2)
+            messageBox.append("\nLoaded Mission 2.\n")
         })
 
         val loadButton3: Button = findViewById(R.id.LoadButton3)
         loadButton3.setOnClickListener(View.OnClickListener {
             GlobalStuff.loadUniverse(it,3)
+            messageBox.append("\nLoaded Mission 3.\n")
         })
 
         // Kick that off last, we want the app up and running asap

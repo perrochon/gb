@@ -18,24 +18,58 @@
     <!--app:layout_constraintEnd_toEndOf="@+id/messageBox" app:layout_constraintStart_toStartOf="@+id/messageBox"/>-->
 
     <TextView
+            android:id="@+id/title"
+            android:layout_width="411dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_orange_light"
+            android:text="Andromeda Rising"
+            android:textSize="40sp"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/messageBox"
+            />
+    <TextView
             android:id="@+id/messageBox"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="395dp"
             android:padding="8dp"
             android:maxLines="999"
             android:gravity="bottom"
             android:scrollbars="vertical"
             android:textColor="@android:color/holo_orange_light"
             android:background="@drawable/border_message"
-            tools:text="Hello great commander, what is going on today"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="A Game of Galactic Domination"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/mainmenu"
+            android:layout_height="0dp"
+            />
+    <TextView
+            android:id="@+id/mainmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_orange_light"
+            android:text=" Main Menu "
+            android:textSize="24sp"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/messageBox"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/Play"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             />
 
     <LinearLayout
@@ -50,6 +84,8 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/Levels"
             android:gravity="center"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/mainmenu"
             >
         <Button
                 android:text=" New Game "
@@ -69,7 +105,7 @@
                 android:text=" Play "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/StarmapButton2"
+                android:id="@+id/PlayButton"
                 android:onClick="mapView"
                 android:background="@drawable/border_message"
                 />
@@ -79,14 +115,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/Levels"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.589"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/DoArea"
-            android:layout_marginEnd="8dp"
             android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/Play"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
             >
         <Button
                 android:text="Level 1"
@@ -154,6 +191,8 @@
             tools:padding="0dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Levels"
+            android:layout_marginTop="8dp"
             >
         <Button
                 android:text="Make"
@@ -200,8 +239,10 @@
             android:text="Version"
             android:textColor="@android:color/holo_green_light"
             android:textSize="8sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/DoArea"
             />
 
 </android.support.constraint.ConstraintLayout>

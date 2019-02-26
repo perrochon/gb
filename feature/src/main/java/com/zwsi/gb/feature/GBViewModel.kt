@@ -18,14 +18,11 @@ class GBViewModel {
 
     companion object {
 
-
         // FIXME PERSISTENCE this initialization
         // Also we don't really need Mutable lists, but we don't want another copy...
 
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
         val currentTurn by lazy { MutableLiveData<Int>() }
-
-
 
         lateinit var viewStars: MutableMap<Int, GBStar>
         lateinit var viewPlanets: MutableMap<Int, GBPlanet>

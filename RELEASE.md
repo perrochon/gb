@@ -21,6 +21,10 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 
 ### Release Notes
 
+.next
+- Persistence. Now if the game gets killed by Android you still continue your game after restarting the app!
+- Maps for Missions are now selectable from main menu (a benefit of persistence)
+
 .551
 - Awesome new buttons and detail windows. Colored rounded frames and all.
 - System size doubled. Larger system makes better use of screen real estate. It's not like the game is "to scale" anyway. This creates some interesting overlapping binary stars.
