@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         // Set up the MessageBox View to listen to news
         val messageBox: TextView = findViewById<TextView>(R.id.messageBox)!!
-        messageBox.setText("Welcome to Andromeda Rising!\n A Game of galactic domination.\n\n")
+        messageBox.setText("Welcome to Andromeda Rising!\nA Game of galactic domination.\n\n")
 
         // FIXME. Need to disable all (most) buttons until we do have a Universe!!!!
 
