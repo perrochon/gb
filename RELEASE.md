@@ -4,16 +4,18 @@ Steps for release, because I always forget some. // TODO Automate this
 
 ### Release
 - Build and test
+- Update release notes below
 - Commit and get commit # (from Github)
 - In build.gradle increase version_code by 1
-- update versionName, versionnumber, version_number everywhere
+- In build.gradle update version_name to one more than commit # from Github
 - Commit again
 - Create signed AAB (goes to app->release, AS no longer finds the folder :-() )
 - Upload that to Android Play
-- Update release name in Android Play (take versionName)
+- Check release name in Android Play (it takes versionName by default, but check)
 - Paste release notes into Play. 500 character limit.
+- review and publish
 - Write release notes in e-mail. 
-- Release and send e-mail
+- Send e-mail
 
 https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variable-in-gradle-usable-in-java
 
