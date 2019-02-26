@@ -54,7 +54,7 @@ class GBViewModel {
         var timeFileWrite = 0L
         var timeFromJson = 0L
 
-        lateinit var gi: GBUniverse
+        lateinit var vm: GBUniverse
 
         var times = mutableMapOf<String, Long>()
 
@@ -63,7 +63,7 @@ class GBViewModel {
             // This is (currently) called from the worker thread. So need to call postValue on the LiveData
             timeModelUpdate = measureNanoTime {
 
-                gi = gameinfo
+                vm = gameinfo
 
                 timeLastTurn = _elapsedTimeLastUpdate
                 timeFileWrite = _writeFileTime
@@ -76,18 +76,18 @@ class GBViewModel {
                     // If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
                     // If we save/reload stars each time, we need to get the new versions.
 
-                    // FIXME: The below constructs should really be able to go away as gi has all that is needed
-                    // Using gi is safe as it is not accessed from the other thread after initial construction.
+                    // FIXME: The below constructs should really be able to go away as vm has all that is needed
+                    // Using vm is safe as it is not accessed from the other thread after initial construction.
                     // FIXME: Lock no longer needed here, really.
 
                     // Ships
-                    times["mAS"] = measureNanoTime { viewStars = gi.stars!! }
+                    times["mAS"] = measureNanoTime { viewStars = vm.stars }
 
-                    times["mAP"] = measureNanoTime { viewPlanets = gi.planets!! }
+                    times["mAP"] = measureNanoTime { viewPlanets = vm.planets }
 
-                    times["mAR"] = measureNanoTime { viewRaces = gi.races!! }
+                    times["mAR"] = measureNanoTime { viewRaces = vm.races }
 
-                    times["mAs"] = measureNanoTime { viewShips = gi.ships!! }
+                    times["mAs"] = measureNanoTime { viewShips = vm.ships }
 
                     times["mDs"] = measureNanoTime { getDeepSpaceShipsList() }
 
@@ -99,7 +99,7 @@ class GBViewModel {
 
                     times["mst"] = measureNanoTime { fillViewShipTrails() }
 
-                    times["msh"] = measureNanoTime { viewShots = gi.shots!! }
+                    times["msh"] = measureNanoTime { viewShots = vm.shots }
                 } finally {
                     lock.unlock()
                 }

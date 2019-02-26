@@ -44,9 +44,6 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-//            val messageBox: TextView = view.findViewById<TextView>(R.id.messageBox)!!
-//            messageBox.setText("")
-
             val message = "Creating a new Universe"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
@@ -59,8 +56,6 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-//            val messageBox: TextView = view.findViewById<TextView>(R.id.messageBox)!!
-//            messageBox.setText("")
 
             var message = "Loading Universe ${number}"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()

@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.zwsi.gb.feature.GBViewModel.Companion.gi
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 
 
 var lastClickTime = 0L
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             // This is a bit overkill, as it enables on every new turn
             playButton.setEnabled(true)
             messageBox.append("\nTurn: ${newTurn.toString()}\n")
-            for (article in gi.news!!) {
+            for (article in vm.news!!) {
                 messageBox.append(article)
             }
             messageBox.invalidate()

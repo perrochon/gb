@@ -7,9 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import com.zwsi.gb.feature.GBViewModel.Companion.gi
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
-import com.zwsi.gblib.GBController
 
 class StarsActivity : AppCompatActivity() {
 
@@ -30,7 +29,7 @@ class StarsActivity : AppCompatActivity() {
 
         val bs = BitmapFactory.decodeResource(getResources(), R.drawable.star)
 
-        val merged = Bitmap.createBitmap(gi.universeMaxX, gi.universeMaxY, bs.config);
+        val merged = Bitmap.createBitmap(vm.universeMaxX, vm.universeMaxY, bs.config);
         val canvas = Canvas(merged);
 
         val stars = viewStars

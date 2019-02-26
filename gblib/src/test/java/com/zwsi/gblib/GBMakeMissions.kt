@@ -13,7 +13,7 @@ import java.io.File
 class GBMakeMissions {
 
 
-    //@Test
+    @Test
     fun makeMission1() {
         GBController.makeSmallUniverse()
         val turns = 100
@@ -26,9 +26,14 @@ class GBMakeMissions {
         u.description = "Mission 1"
         json = GBController.saveUniverse()
         File("levels/mission1.json").writeText(json)
+
+        // Quick check we can load it again
+        GBController.loadUniverse(json)
+        GBController.doUniverse()
+
     }
 
-    //@Test
+    @Test
     fun makeMission2() {
         GBData.rand.nextInt()
         GBController.makeSmallUniverse()
@@ -42,9 +47,13 @@ class GBMakeMissions {
         u.description = "Mission 2"
         json = GBController.saveUniverse()
         File("levels/mission2.json").writeText(json)
+
+        // Quick check we can load it again
+        GBController.loadUniverse(json)
+        GBController.doUniverse()
     }
 
-    //@Test
+    @Test
     fun makeMission3() {
         GBData.rand.nextInt()
         GBData.rand.nextInt()
@@ -59,6 +68,10 @@ class GBMakeMissions {
         u.description = "Mission 3"
         json = GBController.saveUniverse()
         File("levels/mission3.json").writeText(json)
+
+        // Quick check we can load it again
+        GBController.loadUniverse(json)
+        GBController.doUniverse()
     }
 
 }

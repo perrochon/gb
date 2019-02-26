@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Short Term
+* Missions don't properly center on planet
 * Spinner issues (update breaks spinner, see below)
 * Better looking spinner - may need to copy more XML
 * Load Universe (requires saving a few more things)

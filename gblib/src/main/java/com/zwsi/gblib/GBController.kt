@@ -122,6 +122,7 @@ class GBController {
             //playTortoise()
         }
 
+        // Creating JSON every single time really hurts us
         fun doUniverse(): String {
             GBLog.i("Runing Game Turn ${_u!!.turn}")
             var json: String? = null;
@@ -130,7 +131,6 @@ class GBController {
                 elapsedTimeLastUpdate = measureNanoTime {
                     _u!!.doUniverse()
                     json = saveUniverse()
-                    json = loadUniverse()
                     // PERF without reload single digit ms update time, with reload low 100's ms update time.
                 }
             } finally {
@@ -200,7 +200,7 @@ class GBController {
         }
 
 
-        // FIXME PERSISTENCE Put locks inside these calls
+        // FIXME PERSISTENCE Put locks inside these calls. They use u.xx() to look up objects and update server side
 
         fun makeFactory(uidPlanet: Int, uidRace: Int) {
 
