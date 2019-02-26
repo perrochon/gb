@@ -21,6 +21,9 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 
 ### Release Notes
 
+.566 
+- Mostly internal stability and bugs. Testing changes to release process, too.
+
 .566 First Beta
 - Persistence! If the app gets killed by Android one can continue the game after restarting the app
 - 3 predefined missions are now selectable from main menu (a benefit of having persistence)
