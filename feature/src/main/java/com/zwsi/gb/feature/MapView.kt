@@ -17,7 +17,7 @@ import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
 import com.zwsi.gblib.GBData.Companion.POD
-import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
+import com.zwsi.gblib.GBData.Companion.PlanetOrbit
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBVector
@@ -121,7 +121,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         screenHeightDp = resources.displayMetrics.heightPixels
         focusSize = min(screenHeightDp / 2, screenWidthDp)
 
-        zoomLevelPlanet = focusSize / PlanetaryOrbit / 40f
+        zoomLevelPlanet = focusSize / PlanetOrbit / 40f
         zoomLevelStar = focusSize / MaxSystemOrbit / 40f
 
 
@@ -436,7 +436,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                             for (j in 0 until p.sectors.size) {
 
-                                val o = (PlanetaryOrbit * 0.4f) * uToS * scale
+                                val o = (PlanetOrbit * 0.4f) * uToS * scale
                                 val size = 4 * o / p.width
                                 //canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
                                 canvas.drawBitmap(
@@ -501,7 +501,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             paint.alpha = 128
                             sP1.set(p.loc.getLoc().x * uToSf, p.loc.getLoc().y * uToSf)
                             sourceToViewCoord(sP1, vP1)
-                            var o = (PlanetaryOrbit * 0.4f) * uToS * scale
+                            var o = (PlanetOrbit * 0.4f) * uToS * scale
                             canvas.drawText(p.name, vP1.x, vP1.y - o * 1.1f, paint)
                             clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y - o * 1.1f), p))
                         }
@@ -515,7 +515,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             val radius = gi.planetOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
                             canvas.drawCircle(vP1.x, vP1.y, radius, paint)
 
-                            val o = (PlanetaryOrbit * 0.4f) * uToS * scale
+                            val o = (PlanetOrbit * 0.4f) * uToS * scale
                             canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
 
                         }

@@ -3,7 +3,6 @@ package com.zwsi.gblib
 import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.CRUISER
-import com.zwsi.gblib.GBData.Companion.rand
 import java.util.*
 import kotlin.math.PI
 
@@ -40,8 +39,8 @@ data class GBUniverse(
         "A Universe",
         GBData.UniverseMaxX,
         GBData.UniverseMaxY,
-        GBData.SystemBoundary,
-        GBData.PlanetaryOrbit,
+        GBData.starMaxOrbit,
+        GBData.PlanetOrbit,
         _numberOfStars,
         _numberOfRaces,
         1000,
@@ -119,7 +118,7 @@ data class GBUniverse(
                     GBLocation(stars[uidStar]!!, (sidPlanet + 1f) * orbitDist, GBData.rand.nextFloat() * 2f * PI.toFloat())
 
                 planets[uidPlanet] = GBPlanet(getNextGlobalId(), uidPlanet, sidPlanet, uidStar, loc)
-                star(uidStar).starUidPlanetSet.add(uidPlanet)
+                star(uidStar).starUidPlanets.add(uidPlanet)
                 uidPlanet++;
             }
         }
@@ -243,9 +242,9 @@ data class GBUniverse(
         // PERF Create one list of all insystem ships, then find shots
         // System Ships shoot at System only
         for ((_, star) in stars) {
-            for (sh1 in star.starShipList.shuffled()) {
+            for (sh1 in star.starShips.shuffled()) {
                 if (sh1.idxtype == CRUISER && (sh1.health > 0)) {
-                    for (sh2 in star.starShipList) {
+                    for (sh2 in star.starShips) {
                         if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
@@ -260,7 +259,7 @@ data class GBUniverse(
         for ((_, p) in planets) {
             for (sh1 in p.orbitShips.shuffled()) {
                 if ((sh1.idxtype == CRUISER && (sh1.health > 0))) {
-                    for (sh2 in u.star(p.uidStar).starShipList.union(p.orbitShips).union(p.landedShips)) {
+                    for (sh2 in u.star(p.uidStar).starShips.union(p.orbitShips).union(p.landedShips)) {
                         if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)

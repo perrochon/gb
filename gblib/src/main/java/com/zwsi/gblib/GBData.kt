@@ -26,9 +26,10 @@ class GBData {
 
         internal const val UniverseMaxX = 1000 // Width of the Universe
         internal const val UniverseMaxY = 1000 // Height of the Universe
-        internal const val SystemBoundary = 40f // Radius of star systems
+        // FIXME difference between these two
+        internal const val starMaxOrbit = 40f // Radius of star systems
         const val MaxSystemOrbit = 36f // Radius of the orbit of the outermost Planet
-        const val PlanetaryOrbit = 2f // Radius of planetary Orbit
+        const val PlanetOrbit = 2f // Radius of planetary Orbit
 
         internal const val MinNumberOfPlanets = 2
         internal const val MaxNumberOfPlanets = 8

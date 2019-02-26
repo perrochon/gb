@@ -97,11 +97,11 @@ class GBController {
         }
 
         fun getStarPlanetsList(uidStar: Int): List<GBPlanet> {
-            return _u!!.star(uidStar).starUidPlanetSet.map { u.planet(it) }
+            return _u!!.star(uidStar).starUidPlanets.map { u.planet(it) }
         }
 
         fun getStarShipList(uidStar: Int): List<GBShip> {
-            return _u!!.star(uidStar).starUidShipSet.map { u.ship(it) }
+            return _u!!.star(uidStar).starUidShips.map { u.ship(it) }
         }
 
         fun getPlanetLandedShipsList(uidPlanet: Int): List<GBShip> {
@@ -113,7 +113,7 @@ class GBController {
         }
 
         fun getRaceShipsList(uidRace: Int): List<GBShip> {
-            return _u!!.race(uidRace).raceShipsUIDList.map { u.ship(it) }
+            return _u!!.race(uidRace).raceUidShips.map { u.ship(it) }
         }
 
         fun makeStuff() {
@@ -280,7 +280,7 @@ class GBController {
             GBLog.d("Setting Destination of " + ship.name + " to " + planet.name)
 
             // TODO Have caller give us a better location?
-            val loc = GBLocation(planet, GBData.PlanetaryOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
+            val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
             ship.dest = loc
         }
 

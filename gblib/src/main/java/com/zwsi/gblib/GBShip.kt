@@ -7,7 +7,7 @@ package com.zwsi.gblib
 import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.POD
-import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
+import com.zwsi.gblib.GBData.Companion.PlanetOrbit
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -43,7 +43,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     // This needs to be called when creating new ships. It's not needed when ships are created by restoring from JSON
     fun initializeShip() {
         u.ships[uid] = this
-        u.race(uidRace).raceShipsUIDList.add(this.uid)
+        u.race(uidRace).raceUidShips.add(this.uid)
         when (loc.level) {
             LANDED -> {
                 loc.getPlanet()!!.landedUidShips.add(this.uid)
@@ -52,7 +52,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 loc.getPlanet()!!.orbitUidShips.add(this.uid)
             }
             SYSTEM -> {
-                loc.getStar()!!.starUidShipSet.add(this.uid)
+                loc.getStar()!!.starUidShips.add(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceUidShips.add(this.uid)
@@ -82,7 +82,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 this.loc.getPlanet()!!.orbitUidShips.remove(this.uid)
             }
             SYSTEM -> {
-                this.loc.getStar()!!.starUidShipSet.remove(this.uid)
+                this.loc.getStar()!!.starUidShips.remove(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceUidShips.remove(this.uid)
@@ -108,7 +108,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 loc.getPlanet()!!.orbitUidShips.add(this.uid)
             }
             SYSTEM -> {
-                loc.getStar()!!.starUidShipSet.add(this.uid)
+                loc.getStar()!!.starUidShips.add(this.uid)
             }
             DEEPSPACE -> {
                 u.deepSpaceUidShips.add(this.uid)
@@ -148,7 +148,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     this.loc.getPlanet()!!.orbitUidShips.remove(this.uid)
                 }
                 SYSTEM -> {
-                    this.loc.getStar()!!.starUidShipSet.remove(this.uid)
+                    this.loc.getStar()!!.starUidShips.remove(this.uid)
                 }
                 DEEPSPACE -> {
                     u.deepSpaceUidShips.remove(this.uid)
@@ -157,7 +157,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     gbAssert("Bad Parameters for ship removement $loc", { false })
                 }
             }
-            u.race(uidRace).raceShipsUIDList.remove(this.uid)
+            u.race(uidRace).raceUidShips.remove(this.uid)
             u.ships.remove(this.uid)
             // u.deadShips[this.uid] = this // TODO Cleanup deadship code.
         }
@@ -191,7 +191,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 //What direction are we heading
                 val t = atan2(dxy.y - sxy.y, dxy.x - sxy.x)
 
-                val next = GBLocation(loc.getPlanet()!!, PlanetaryOrbit, t)
+                val next = GBLocation(loc.getPlanet()!!, PlanetOrbit, t)
                 changeShipLocation(next)
                 u.news.add("$name launched from ${loc.getPlanet()!!.name}.\n")
 
@@ -232,12 +232,12 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
             val distance = sxy.distance(dxy)
 
-            if ((distance) < speed + PlanetaryOrbit) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
+            if ((distance) < speed + PlanetOrbit) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
                 //What direction are we coming from
                 val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
 
-                val next = GBLocation(dest.getPlanet()!!, PlanetaryOrbit, t)
+                val next = GBLocation(dest.getPlanet()!!, PlanetOrbit, t)
                 changeShipLocation(next)
                 u.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 
@@ -259,7 +259,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 val distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
 
 
-                if (distanceToStar < GBData.SystemBoundary) { // we arrived at destination System
+                if (distanceToStar < GBData.starMaxOrbit) { // we arrived at destination System
 
                     // TODO check if destination is the system, in which case we would just stop here.
                     // We can't fly to a system yet, so not a bug just yet.
@@ -289,7 +289,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
                 val distanceToStar = sxy.distance(loc.getStar()!!.loc.getLoc())
 
-                if (distanceToStar > GBData.SystemBoundary) {  // we left the system
+                if (distanceToStar > GBData.starMaxOrbit) {  // we left the system
 
                     val next = GBLocation(nxy.x, nxy.y)
                     changeShipLocation(next)

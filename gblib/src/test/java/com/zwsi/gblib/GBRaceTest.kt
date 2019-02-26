@@ -25,7 +25,7 @@ class GBRaceTest {
 
         for ((_,race) in u.races) {
             consistent(race)
-            assertEquals(race.raceShipsList.size,0 )
+            assertEquals(race.raceShips.size,0 )
         }
 
         // TODO TEST add ships to race and check again

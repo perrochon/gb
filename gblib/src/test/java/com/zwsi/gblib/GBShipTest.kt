@@ -8,8 +8,8 @@ package com.zwsi.gblib
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
-import com.zwsi.gblib.GBData.Companion.SystemBoundary
+import com.zwsi.gblib.GBData.Companion.PlanetOrbit
+import com.zwsi.gblib.GBData.Companion.starMaxOrbit
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -31,8 +31,8 @@ class GBShipTest {
         assertTrue(u.ships.containsValue(ship))
         assertEquals(ship, u.ships[ship.uid])
 
-        assertTrue(u.race(ship.uidRace).raceShipsUIDList.contains(ship.uid))
-        assertTrue(u.race(ship.uidRace).raceShipsList.contains(ship)) // This fails because list is cached
+        assertTrue(u.race(ship.uidRace).raceUidShips.contains(ship.uid))
+        assertTrue(u.race(ship.uidRace).raceShips.contains(ship)) // This fails because list is cached
 
         if (ship.health>0) {
 
@@ -44,7 +44,7 @@ class GBShipTest {
                     assertTrue(u.planet(ship.loc.uidRef).orbitShips.contains(ship))
                 }
                 SYSTEM -> {
-                    assertTrue(u.star(ship.loc.uidRef).starUidShipSet.contains(ship.uid))
+                    assertTrue(u.star(ship.loc.uidRef).starUidShips.contains(ship.uid))
                 }
                 DEEPSPACE -> {
                     assertTrue(u.deepSpaceUidShips.contains(ship.uid))
@@ -68,7 +68,7 @@ class GBShipTest {
             }
         }
         for ((_, star) in u.stars) {
-            for (sh in star.starShipList) {
+            for (sh in star.starShips) {
                 if (sh.uid == ship.uid) {
                     found++
                     GBLog.d("Found in star: ship: " + sh.uid + " in star: " + star.uid)
@@ -119,7 +119,7 @@ class GBShipTest {
                     found++
             }
             for ((_, st) in u.stars) {
-                for (sh in st.starShipList) {
+                for (sh in st.starShips) {
                     if (sh.uid == ship.uid)
                         found++
                 }
@@ -165,11 +165,11 @@ class GBShipTest {
         sh.initializeShip()
         consistency(sh)
 
-        sh = GBShip(u.getNextGlobalId(),0, r.uid, GBLocation(s, SystemBoundary, 2f))
+        sh = GBShip(u.getNextGlobalId(),0, r.uid, GBLocation(s, starMaxOrbit, 2f))
         sh.initializeShip()
         consistency(sh)
 
-        sh = GBShip(u.getNextGlobalId(),1, r.uid, GBLocation(p, PlanetaryOrbit, 2f))
+        sh = GBShip(u.getNextGlobalId(),1, r.uid, GBLocation(p, PlanetOrbit, 2f))
         sh.initializeShip()
         consistency(sh)
 
@@ -191,11 +191,11 @@ class GBShipTest {
         val s1 = u.star(1)
         val r0= u.race(0)
 
-        val sh0 = GBShip(u.getNextGlobalId(),0, r0.uid, GBLocation(s0, 30f, PlanetaryOrbit))
+        val sh0 = GBShip(u.getNextGlobalId(),0, r0.uid, GBLocation(s0, 30f, PlanetOrbit))
 
         consistency(sh0)
 
-        s1.starUidShipSet.add(sh0.uid)
+        s1.starUidShips.add(sh0.uid)
         consistency(sh0)
         uniqueLocations()
 
@@ -212,7 +212,7 @@ class GBShipTest {
         val sh0 = GBShip(u.getNextGlobalId(),1, r0.uid, GBLocation(s0, 30f, 1f))
         consistency(sh0)
 
-        r1.raceShipsUIDList.add(sh0.uid)
+        r1.raceUidShips.add(sh0.uid)
 
         consistency(sh0)
         uniqueLocations()

@@ -29,12 +29,12 @@ data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
     // Properties that DO change after construction
     var population = 0 // (planetary) planetPopulation. Ships don't have planetPopulation
 
-    var raceShipsUIDList: MutableSet<Int> =
+    var raceUidShips: MutableSet<Int> =
         HashSet<Int>() // Ships of this race
 
-    internal val raceShipsList: List<GBShip>
+    internal val raceShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
-        get() = raceShipsUIDList.map { u.ship(it) }
+        get() = raceUidShips.map { u.ship(it) }
 
 
     init {
@@ -52,7 +52,7 @@ data class GBRace(val id: Int, val idx: Int, val uid: Int, val uidHome: Int) {
     }
 
     fun getRaceShipsUIDList(): List<Int> {
-        return raceShipsUIDList.toList()
+        return raceUidShips.toList()
     }
 
     fun consoleDraw() {

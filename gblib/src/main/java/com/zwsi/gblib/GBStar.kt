@@ -24,24 +24,24 @@ data class GBStar(val id: Int, val uid: Int, val numberOfPlanets: Int, val x: In
 
     // Planets
     // PERF ?? Don't save, compute on load. save happens every turn, re-loads are rare. Smaller file. Likely not worth it.
-    var starUidPlanetSet: MutableSet<Int> = HashSet<Int>() // UID of planets. Persistent
+    var starUidPlanets: MutableSet<Int> = HashSet<Int>() // UID of planets. Persistent
 
     internal val starPlanetsList: List<GBPlanet>
         // PERF ?? Cache the list and only recompute if the hashcode changes. Which is rare
-        get() = starUidPlanetSet.map { u.planet(it) }
+        get() = starUidPlanets.map { u.planet(it) }
 
     // Ships
-    var starUidShipSet: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
+    var starUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
 
-    internal val starShipList: List<GBShip>
+    internal val starShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes.
-        get() = starUidShipSet.map { u.ship(it) }
+        get() = starUidShips.map { u.ship(it) }
 
     fun consoleDraw() {
         println("\n  " + "====================")
         println("  $name System")
         println("  " + "====================")
-        println("  The $name system contains ${starUidPlanetSet.size} planet(s) and ${starUidShipSet.size} ship(s).")
+        println("  The $name system contains ${starUidPlanets.size} planet(s) and ${starUidShips.size} ship(s).")
 
         for (i in starPlanetsList) {
             i.consoleDraw()

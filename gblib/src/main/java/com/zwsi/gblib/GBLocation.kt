@@ -7,8 +7,8 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
-import com.zwsi.gblib.GBData.Companion.SystemBoundary
+import com.zwsi.gblib.GBData.Companion.PlanetOrbit
+import com.zwsi.gblib.GBData.Companion.starMaxOrbit
 import com.zwsi.gblib.GBLog.gbAssert
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -90,7 +90,7 @@ data class GBLocation(
         y = r * sin(t)
     ) {
         // These asserts may also catch mistaken use of Float (x,y).
-        gbAssert("Distance to planet too big", r <= 1.2f * PlanetaryOrbit)
+        gbAssert("Distance to planet too big", r <= 1.2f * PlanetOrbit)
     }
 
     /** Make a SYSTEM location from Float (r,t) radius from center and theta */
@@ -103,7 +103,7 @@ data class GBLocation(
         y = r * sin(t)
     ) {
         // These asserts may also catch mistaken use of Float (x,y).
-        gbAssert("Distance to star too big: $r > 1.2 * $SystemBoundary", r <= 1.2f * SystemBoundary)
+        gbAssert("Distance to star too big: $r > 1.2 * $starMaxOrbit", r <= 1.2f * starMaxOrbit)
     }
 
     // TODO  figure out how to not need boolean to set flag in constructor
@@ -135,10 +135,10 @@ data class GBLocation(
         if (level == LANDED) {
             // TODO This calculation is probably a rendering issue and belongs into MapView.
             // The constants have to be the same as the ones used to draw planet surfaces on the map
-            val size = PlanetaryOrbit * 1.6f / this.getPlanet()!!.width
+            val size = PlanetOrbit * 1.6f / this.getPlanet()!!.width
             return GBxy(
-                u.planet(uidRef).loc.getLoc().x - PlanetaryOrbit * .80f + sx.toFloat() * size + size / 2,
-                u.planet(uidRef).loc.getLoc().y - PlanetaryOrbit * .4f + sy.toFloat() * size + size / 2
+                u.planet(uidRef).loc.getLoc().x - PlanetOrbit * .80f + sx.toFloat() * size + size / 2,
+                u.planet(uidRef).loc.getLoc().y - PlanetOrbit * .4f + sy.toFloat() * size + size / 2
             )
         }
         if (level == ORBIT) {

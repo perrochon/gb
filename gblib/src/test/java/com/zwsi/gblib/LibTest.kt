@@ -6,8 +6,8 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBData.Companion.PlanetaryOrbit
-import com.zwsi.gblib.GBData.Companion.SystemBoundary
+import com.zwsi.gblib.GBData.Companion.PlanetOrbit
+import com.zwsi.gblib.GBData.Companion.starMaxOrbit
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -106,26 +106,26 @@ class LibTest {
         shipsMade +=3
 
         if (numberOfStars > 3) {
-            GBShip(u.getNextGlobalId(),0, r3.uid, GBLocation(allStars[3]!!.starPlanetsList[0],PlanetaryOrbit,1f)).initializeShip()
+            GBShip(u.getNextGlobalId(),0, r3.uid, GBLocation(allStars[3]!!.starPlanetsList[0],PlanetOrbit,1f)).initializeShip()
             shipsMade +=1
         }
 
         // Give each race a pod
-        GBShip(u.getNextGlobalId(),1, r0.uid, GBLocation(allStars[0]!!.starPlanetsList[0],PlanetaryOrbit,1f)).initializeShip()
-        GBShip(u.getNextGlobalId(),1, r1.uid, GBLocation(allStars[1]!!.starPlanetsList[0],PlanetaryOrbit,1f)).initializeShip()
-        GBShip(u.getNextGlobalId(),1, r2.uid, GBLocation(allStars[2]!!.starPlanetsList[0],PlanetaryOrbit,1f)).initializeShip()
+        GBShip(u.getNextGlobalId(),1, r0.uid, GBLocation(allStars[0]!!.starPlanetsList[0],PlanetOrbit,1f)).initializeShip()
+        GBShip(u.getNextGlobalId(),1, r1.uid, GBLocation(allStars[1]!!.starPlanetsList[0],PlanetOrbit,1f)).initializeShip()
+        GBShip(u.getNextGlobalId(),1, r2.uid, GBLocation(allStars[2]!!.starPlanetsList[0],PlanetOrbit,1f)).initializeShip()
         shipsMade +=3
 
         if (numberOfStars > 3) {
-            GBShip(u.getNextGlobalId(),1, r3.uid, GBLocation(allStars[3]!!.starPlanetsList[0],PlanetaryOrbit,1f)).initializeShip()
+            GBShip(u.getNextGlobalId(),1, r3.uid, GBLocation(allStars[3]!!.starPlanetsList[0],PlanetOrbit,1f)).initializeShip()
             shipsMade +=1
         }
 
         // Give each race a destroyer in system 3
-        GBShip(u.getNextGlobalId(),2, r0.uid, GBLocation(allStars[2]!!,SystemBoundary,1f)).initializeShip()
-        GBShip(u.getNextGlobalId(),2, r1.uid, GBLocation(allStars[2]!!,SystemBoundary,2f)).initializeShip()
-        GBShip(u.getNextGlobalId(),2, r2.uid, GBLocation(allStars[2]!!,SystemBoundary,3f)).initializeShip()
-        GBShip(u.getNextGlobalId(),2, r3.uid, GBLocation(allStars[2]!!,SystemBoundary,.5f)).initializeShip()
+        GBShip(u.getNextGlobalId(),2, r0.uid, GBLocation(allStars[2]!!,starMaxOrbit,1f)).initializeShip()
+        GBShip(u.getNextGlobalId(),2, r1.uid, GBLocation(allStars[2]!!,starMaxOrbit,2f)).initializeShip()
+        GBShip(u.getNextGlobalId(),2, r2.uid, GBLocation(allStars[2]!!,starMaxOrbit,3f)).initializeShip()
+        GBShip(u.getNextGlobalId(),2, r3.uid, GBLocation(allStars[2]!!,starMaxOrbit,.5f)).initializeShip()
         shipsMade +=4
 
         // Give each race a destroyer in deep space

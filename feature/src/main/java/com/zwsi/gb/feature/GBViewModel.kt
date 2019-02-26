@@ -123,8 +123,8 @@ class GBViewModel {
         fun fillViewStarPlanetsAndShips() {
             viewStarPlanets.clear()
             for ((_, s) in viewStars) {
-                viewStarPlanets.put(s.uid, s.starUidPlanetSet.map { viewPlanets[it]!! })
-                viewStarShips.put(s.uid, s.starUidShipSet.map { viewShips[it]!! })
+                viewStarPlanets.put(s.uid, s.starUidPlanets.map { viewPlanets[it]!! })
+                viewStarShips.put(s.uid, s.starUidShips.map { viewShips[it]!! })
             }
         }
 
@@ -139,7 +139,7 @@ class GBViewModel {
         fun fillViewRaceShips() {
             viewRaceShips.clear()
             for ((_, race) in viewRaces) {
-                viewRaceShips.put(race.uid, race.raceShipsUIDList.map { viewShips[it]!! })
+                viewRaceShips.put(race.uid, race.raceUidShips.map { viewShips[it]!! })
             }
         }
 

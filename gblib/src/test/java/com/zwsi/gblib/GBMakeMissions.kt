@@ -13,7 +13,7 @@ import java.io.File
 class GBMakeMissions {
 
 
-    @Test
+    //@Test
     fun makeMission1() {
         GBController.makeSmallUniverse()
         val turns = 100
@@ -28,7 +28,7 @@ class GBMakeMissions {
         File("levels/mission1.json").writeText(json)
     }
 
-    @Test
+    //@Test
     fun makeMission2() {
         GBData.rand.nextInt()
         GBController.makeSmallUniverse()
@@ -44,7 +44,7 @@ class GBMakeMissions {
         File("levels/mission2.json").writeText(json)
     }
 
-    @Test
+    //@Test
     fun makeMission3() {
         GBData.rand.nextInt()
         GBData.rand.nextInt()

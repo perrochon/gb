@@ -12,7 +12,7 @@ class GBPlanetTest {
     fun consistent(planet: GBPlanet){
         assertTrue(planet.name.length > 0)
 
-        assertTrue(planet.star.starUidPlanetSet.contains(planet.uid))
+        assertTrue(planet.star.starUidPlanets.contains(planet.uid))
         assertTrue(planet.star.starPlanetsList.contains(planet))
         assertTrue(u.planets.containsValue(planet))
         assertEquals(planet,u.planets[planet.uid])
