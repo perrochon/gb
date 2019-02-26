@@ -3,12 +3,10 @@
 Steps for release, because I always forget some. // TODO Automate this
 
 ### Release
-- Turn off stats display (should be automatic now)
-- Turn off click circles (should be automatic now)
 - Build and test
-- Commit and get commit #
-- Increase versionCode and versionName number in 1 gradle files two places last commit # +1
-- Increase version number in GBMainActivity to last commit # +1 (should be automatic now)
+- Commit and get commit # (from Github)
+- In build.gradle increase version_code by 1
+- update versionName, versionnumber, version_number everywhere
 - Commit again
 - Create signed AAB (goes to app->release, AS no longer finds the folder :-() )
 - Upload that to Android Play

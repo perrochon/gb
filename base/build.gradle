@@ -7,7 +7,7 @@ android {
         minSdkVersion 24 // scheduledActions.removeIf in GBScheduler requires 24.
         targetSdkVersion 28
         versionCode version_code
-        versionName ".477"
+        versionName ".566"
     }
     buildTypes {
         release {
