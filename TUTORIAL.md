@@ -19,8 +19,8 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 ## Tutorial
 
 # Main Menu
+* Help - Loads this page
 * New Game - Creates a new random map.
-* Continue Game - recovers your last game if the app was killed by Android (or by the user).
 * Play - Play the game. Greyed out until you load a mission or a game
 * Mission 1/2/3 - Three missions to play (see below for details)
 
@@ -46,7 +46,7 @@ you see everything, build unlimited ships, etc. Eventually, your expansion will 
 * Make 5 pods and 1 cruiser and "Do"
 * Click on each ship in turn and set the pods destination to the other planets in your system. You need to select a 
   destination in the dropdown.
-* Mission Success: Population on all planets. Armed ships (i.e. cruiser) around all planets
+* Mission Success: Population on all planets. Armed ships (i.e. cruiser) around all planets.
 
 # Mission 2 - Explore another system
 * Zoom out all the way. By now, you should see other ships from other races. They are not friendly. 
@@ -63,7 +63,7 @@ exploring. Beware of the beetles.
 
 #FAQ
 
-* What about feature X? Check out the roadmap at: https://github.com/perrochon/gb/blob/master/ROADMAP.md
+* What about feature X? Check out the road map at: https://github.com/perrochon/gb/blob/master/ROADMAP.md
 
 * Why don't my ships shoot at enemy ships passing through a star system? It may look like they fly through the system, 
 but they are way above or below in the galactic planet. One way to tell

@@ -30,6 +30,10 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     val race: GBRace
         get() = u.race(uidRace)
 
+    // How many shots can be fired per turn
+    @Transient
+    var shots : Int = 0
+
     // TODO These are a cool but nice to have feature. They are also an app feature more than a lib feature
     // They are irrelevant for text based UI. But persistence in the client is problematic if an update is missed
     var trails: MutableList<GBxy> = arrayListOf<GBxy>()

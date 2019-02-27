@@ -6,20 +6,15 @@ game play, or prevent game play are second priority. Here are a few examples
 * Fog of war: Players will not be able to see other fractions unless they are in range. For now everything 
 is visible.
 * Limits on money: Players will be resource constraint. For now, enjoy unlimited resources.
+* Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 
 ## Short Term
 * Better looking spinner - may need to copy more XML
-* Load Universe (requires saving a few more things)
-* UIDs in GBController (not GBObjects) (related to above...)
-* Review Locking. Lock all writes in GBController. Lock all list access.
-* Population on planets (per race, and do correctly). Fix "Make Factory"
 * Destination of star system for ships far away, instead of first planet.
-
-## Gating for 0.0.1 Alpha
-* Survive app kill (recover from beginning of turn is ok, so only need auto-save and load game)
+* re-creating missions on compile and copying them into res directory.
+* Population on planets (per race, and do correctly). Fix "Make Factory"
 * Player mode (not just god mode).
     * Passing race around on commands, to make sure actions are access controlled :-)
-* Create link and open instructions in Web View...
 
 ## Regression
 

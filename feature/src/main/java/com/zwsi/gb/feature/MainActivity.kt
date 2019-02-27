@@ -3,6 +3,7 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
@@ -73,27 +74,31 @@ class MainActivity : AppCompatActivity() {
             messageBox.append("\nCreated New Universe.\n")
         })
 
-        val loadButton: Button = findViewById(R.id.LoadButton)
-        loadButton.setOnClickListener(View.OnClickListener {
-            GlobalStuff.loadUniverse(it,0)
-            messageBox.append("\nContinuing Current Game.\n")
+        val helpButton: Button = findViewById(R.id.HelpButton)
+        helpButton.setOnClickListener(View.OnClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://github.com/perrochon/gb/blob/master/TUTORIAL.md")
+                )
+            )
         })
 
         val loadButton1: Button = findViewById(R.id.LoadButton1)
         loadButton1.setOnClickListener(View.OnClickListener {
-            GlobalStuff.loadUniverse(it,1)
+            GlobalStuff.loadUniverse(it, 1)
             messageBox.append("\nLoaded Mission 1.\n")
         })
 
         val loadButton2: Button = findViewById(R.id.LoadButton2)
         loadButton2.setOnClickListener(View.OnClickListener {
-            GlobalStuff.loadUniverse(it,2)
+            GlobalStuff.loadUniverse(it, 2)
             messageBox.append("\nLoaded Mission 2.\n")
         })
 
         val loadButton3: Button = findViewById(R.id.LoadButton3)
         loadButton3.setOnClickListener(View.OnClickListener {
-            GlobalStuff.loadUniverse(it,3)
+            GlobalStuff.loadUniverse(it, 3)
             messageBox.append("\nLoaded Mission 3.\n")
         })
 
@@ -119,7 +124,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Map button */
-    fun mapView( @Suppress("UNUSED_PARAMETER")view: View) {
+    fun mapView(@Suppress("UNUSED_PARAMETER") view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }

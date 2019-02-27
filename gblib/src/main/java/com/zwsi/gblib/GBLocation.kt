@@ -94,8 +94,8 @@ data class GBLocation(
     constructor(star: GBStar, r: Float, t: Float) : this(
         SYSTEM,
         star.uid,
-        r = t.rem(2f * PI.toFloat()),
-        t = t,
+        t = t.rem(2f * PI.toFloat()),
+        r = r,
         x = r * cos(t),
         y = r * sin(t)
     ) {

@@ -265,11 +265,15 @@ data class GBUniverse(
         // System Ships shoot at System only
         for ((_, star) in stars) {
             for (sh1 in star.starShips.shuffled()) {
-                if (sh1.idxtype == CRUISER && (sh1.health > 0)) {
-                    for (sh2 in star.starShips) {
+
+                sh1.shots = 1
+
+                if (sh1.shots > 0 && sh1.idxtype == CRUISER && sh1.health > 0) {
+                    for (sh2 in star.starShips.shuffled()) {
                         if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
+                                sh1.shots--;
                             }
                         }
                     }
@@ -280,15 +284,18 @@ data class GBUniverse(
         // Orbit Ships shoot at System, Orbit, or landed ships
         for ((_, p) in planets) {
             for (sh1 in p.orbitShips.shuffled()) {
-                if ((sh1.idxtype == CRUISER && (sh1.health > 0))) {
-                    for (sh2 in u.star(p.uidStar).starShips.union(p.orbitShips).union(p.landedShips)) {
+
+                sh1.shots = 1
+
+                if (sh1.shots > 0 && sh1.idxtype == CRUISER && sh1.health > 0) {
+                    for (sh2 in u.star(p.uidStar).starShips.union(p.orbitShips).union(p.landedShips).shuffled()) {
                         if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
+                                sh1.shots--;
                             }
                         }
                     }
-
                 }
             }
         }
@@ -300,6 +307,4 @@ data class GBUniverse(
         sh2.health -= 40 // Cruiser Shot makes 40 damage
         u.news.add("${sh1.name} fired at ${sh2.name}.\n")
     }
-
-
 }
