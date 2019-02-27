@@ -27,15 +27,6 @@ class GlobalStuff {
         val jsonAdapter: JsonAdapter<GBUniverse> = moshi.adapter(GBUniverse::class.java).indent("  ")
         var autoDo = false
 
-        // We need the application context to write to a file
-        fun makeUniverse(context: Context) {
-            Thread(Runnable {
-                GBController.currentFilePath = context.filesDir // FIXME PERSISTENCE This is duplicated.
-                val json = GBController.makeAndSaveUniverse()
-                processGameInfo(json)
-            }).start()
-        }
-
         // FIXME We have two makeUniverse...
         fun makeUniverse(view: View) {
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
@@ -43,10 +34,13 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            val message = "Creating a new Universe"
-            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+//            val message = "Creating a new Universe"
+//            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-            makeUniverse(view.context.applicationContext)
+            Thread(Runnable {
+                val json = GBController.makeAndSaveUniverse()
+                processGameInfo(json)
+            }).start()
         }
 
         fun loadUniverse(view: View, number: Int) {
@@ -56,8 +50,8 @@ class GlobalStuff {
             lastClickTime = SystemClock.elapsedRealtime();
 
 
-            var message = "Loading Universe ${number}"
-            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+//            var message = "Loading Universe ${number}"
+//            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
             val json = when (number) {
 //                0 -> File(view.context.filesDir, currentGameFileName).readText()
@@ -66,13 +60,8 @@ class GlobalStuff {
                 else -> view.context.resources.openRawResource(R.raw.mission3).reader().readText()
             }
 
-            if (json == "") {
-                message = "Universe Not Found"
-                Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-            }
             Thread(Runnable {
-                GBController.currentFilePath = view.context.filesDir
-                GBController.loadUniverseFromJSON(json)  // SERVER Talk to not-remote server
+//                GBController.loadUniverseFromJSON(json)  // SERVER Talk to not-remote server
                 processGameInfo(json)
             }).start()
         }
