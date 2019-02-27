@@ -61,7 +61,7 @@ class GlobalStuff {
             }
 
             Thread(Runnable {
-//                GBController.loadUniverseFromJSON(json)  // SERVER Talk to not-remote server
+                GBController.loadUniverseFromJSON(json)  // SERVER Talk to not-remote server
                 processGameInfo(json)
             }).start()
         }
