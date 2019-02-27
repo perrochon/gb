@@ -15,7 +15,8 @@ import kotlin.math.*
 data class GBxy(val x: Float, val y: Float) {}
 data class GBrt(val r: Float, val t: Float) {}
 data class GBsxy(val sx: Int, val sy: Int) {}
-data class GBVector(val from: GBxy, val to: GBxy) {}
+data class GBVector(val from: GBxy, val to: GBxy, val uidRace: Int = -1) { // TODO Do Shots need a different class?
+}
 
 fun GBxy.distance(to: GBxy): Float {
     return sqrt((to.x - x) * (to.x - x) + (to.y - y) * (to.y - y))

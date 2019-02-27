@@ -302,7 +302,7 @@ data class GBUniverse(
     }
 
     fun fireOneShot(sh1: GBShip, sh2: GBShip) {
-        shots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc()))
+        shots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc(), sh1.race.uid))
         GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
         sh2.health -= 40 // Cruiser Shot makes 40 damage
         u.news.add("${sh1.name} fired at ${sh2.name}.\n")

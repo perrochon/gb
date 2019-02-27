@@ -375,7 +375,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
             if (true) {
                 for (shot: GBVector in GBViewModel.viewShots) {
-                    paint.color = shotColor
+                    paint.color = Color.parseColor(vm.race(shot.uidRace).color) // TODO PERFORMANCE add color when making shots as an int
+                    paint.alpha = 50
                     paint.strokeWidth = strokeWidth.toFloat() / 4
                     if (pointVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||
                         pointVisible(shot.to.x * uToSf, shot.to.y * uToSf)
