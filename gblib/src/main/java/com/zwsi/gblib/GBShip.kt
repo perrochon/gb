@@ -216,7 +216,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
             if (dest.level == ORBIT) { // We arrived in Orbit
                 this.dest = null
 
-                return
+                return // TODO We arrived, shouldn't we be inserting at the right spot?
 
             } else {
                 //dest.level == LANDED

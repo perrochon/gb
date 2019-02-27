@@ -229,6 +229,24 @@ data class GBUniverse(
             sh.killShip()
         }
 
+        // Review all ships in orbit and see if we can spread them out a bit
+        for ((_, p) in planets) {
+            if (p.orbitShips.size > 1) {
+                val targetR = 2 * PI / p.orbitShips.size
+                var previous: GBShip? = null
+                for (ship in p.orbitShips.sortedBy { it.loc.t }) {
+                    if (previous != null) {
+                        if (ship.loc.t - previous.loc.t < targetR) {
+                            // regular orbit speed is 0.2. This moves an extra 50%.
+                            ship.loc =
+                                GBLocation(ship.loc.getPlanet()!!, ship.loc.getOLocP().r, ship.loc.getOLocP().t + 0.1f)
+                        }
+                    }
+                    previous = ship
+                }
+            }
+        }
+
         for ((_, sh) in ships.filter { (_, ship) -> ship.health > 0 }) {
             sh.doShip()
         }

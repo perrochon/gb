@@ -10,10 +10,7 @@ import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
 import com.zwsi.gblib.GBData.Companion.starMaxOrbit
 import com.zwsi.gblib.GBLog.gbAssert
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import kotlin.math.*
 
 data class GBxy(val x: Float, val y: Float) {}
 data class GBrt(val r: Float, val t: Float) {}
@@ -84,7 +81,7 @@ data class GBLocation(
     constructor(planet: GBPlanet, r: Float, t: Float) : this(
         ORBIT,
         planet.uid,
-        t = t,
+        t = t.rem(2f * PI.toFloat()),
         r = r,
         x = r * cos(t),
         y = r * sin(t)
@@ -97,7 +94,7 @@ data class GBLocation(
     constructor(star: GBStar, r: Float, t: Float) : this(
         SYSTEM,
         star.uid,
-        r = r,
+        r = t.rem(2f * PI.toFloat()),
         t = t,
         x = r * cos(t),
         y = r * sin(t)
