@@ -98,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/LoadButton"
                 android:background="@drawable/border_message"
+                android:visibility="gone"
                 />
         <Button
                 android:text=" Play "

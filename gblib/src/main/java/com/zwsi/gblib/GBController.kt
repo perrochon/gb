@@ -128,6 +128,10 @@ class GBController {
 
         fun loadUniverseFromJSON(json: String) {
 
+            // TODO Gracefully handle old versions of saved games...
+            // Now we might crash on loading the game, with no way for the user to delete the offending game other than
+            // uninstall and re-install.
+
             var newUniverse: GBUniverse? = null
             elapsedTimeLastLoad = measureNanoTime {
                 newUniverse = jsonAdapter.lenient().fromJson(json)!!

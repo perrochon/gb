@@ -11,6 +11,9 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
+import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBData
+import java.io.File
 
 
 var lastClickTime = 0L
@@ -26,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        GBController.currentFilePath = filesDir // Tell the controller where to save games
 
         // Set up the Version View
         val version = findViewById<TextView>(R.id.version)
@@ -93,8 +98,24 @@ class MainActivity : AppCompatActivity() {
         })
 
         // Kick that off last, we want the app up and running asap
-        //GlobalStuff.makeUniverse(applicationContext)
-
+        if (filesDir.isDirectory) {
+            val current = File(filesDir, GBData.currentGameFileName)
+            if (current.exists()) {
+                messageBox.append("Found current game")
+                val json = current.readText()
+                if (json != "") {
+                    messageBox.append(" and attempting to load it.\n\n")
+                    Thread(Runnable {
+                        GBController.loadUniverseFromJSON(json)
+                        GlobalStuff.processGameInfo(json)
+                    }).start()
+                } else {
+                    messageBox.append(", but file is empty")
+                }
+            } else {
+                messageBox.append("Couldn't find any current game. Please creat a new Universe, or start a mission.")
+            }
+        }
     }
 
     /** Called when the user taps the Map button */
