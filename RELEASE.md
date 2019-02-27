@@ -24,7 +24,7 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 
 .next
 - Automatically load current game (if there is one) upon (re)start
-- Minor: Distribute ships in orbit evenly over time, ships get limited shots per turn (for now 1)
+- Minor: Distribute ships in orbit evenly over time, ships get limited shots per turn (for now 1), help button (linking to Github)
 
 .578 
 - Mostly internal stability and bugs. Testing changes to release process, too.
