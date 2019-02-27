@@ -60,7 +60,7 @@ class GlobalStuff {
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
             val json = when (number) {
-                0 -> File(view.context.filesDir, currentGameFileName).readText()
+//                0 -> File(view.context.filesDir, currentGameFileName).readText()
                 1 -> view.context.resources.openRawResource(R.raw.mission1).reader().readText()
                 2 -> view.context.resources.openRawResource(R.raw.mission2).reader().readText()
                 else -> view.context.resources.openRawResource(R.raw.mission3).reader().readText()

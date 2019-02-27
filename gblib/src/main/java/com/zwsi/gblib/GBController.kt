@@ -134,17 +134,26 @@ class GBController {
 
             var newUniverse: GBUniverse? = null
             elapsedTimeLastLoad = measureNanoTime {
-                newUniverse = jsonAdapter.lenient().fromJson(json)!!
+
+                try {
+                    newUniverse = jsonAdapter.lenient().fromJson(json)!!
+                } catch (e: Exception) {
+                    newUniverse = null
+                    GBLog.e("Exception trying to load universe\n${e.toString()}\n$json")
+                }
             }
 
-            lock.lock(); // lock while we switch out u...
-            try {
-                _u = newUniverse // get rid of old Universe
-            } finally {
-                lock.unlock()
+            if (newUniverse != null) {
+                lock.lock(); // lock while we switch out u...
+                try {
+                    _u = newUniverse // get rid of old Universe
+                } finally {
+                    lock.unlock()
+                }
+                GBLog.d("Universe loaded with ${u.numberOfStars} stars")
+            } else {
+                GBLog.e("Couldn't load Universe.")
             }
-            GBLog.d("Universe loaded with ${u.numberOfStars} stars")
-
         }
 
         // Methods for in-turn orders to the backend. This code only updates the backend (u), not the frontend (vm).
