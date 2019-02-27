@@ -22,6 +22,9 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 
 ### Release Notes
 
+.next
+- Automatically load current game (if there is one) upon (re)start
+
 .578 
 - Mostly internal stability and bugs. Testing changes to release process, too.
 

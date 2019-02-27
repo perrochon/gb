@@ -4,7 +4,6 @@ Install the beta from: https://play.google.com/store/apps/details?id=com.zwsi.gb
 
 This tutorial is at: https://github.com/perrochon/gb/blob/master/TUTORIAL.md
 
-
 ## Overview
 
 Andromeda Rising, aka Galactic Bloodshed, is a turn-based strategy game. As the leader of your
@@ -63,6 +62,8 @@ exploring. Beware of the beetles.
 * Send cruisers to some of the other systems, or wait for the beetles to arrive. 
 
 #FAQ
+
+* What about feature X? Check out the roadmap at: https://github.com/perrochon/gb/blob/master/ROADMAP.md
 
 * Why don't my ships shoot at enemy ships passing through a star system? It may look like they fly through the system, 
 but they are way above or below in the galactic planet. One way to tell

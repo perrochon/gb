@@ -1,5 +1,12 @@
 # Roadmap
 
+## Guiding Principles
+Right now, the focus is on enabling game play, i.e. add features that allow more game play. Features that don't enhance
+game play, or prevent game play are second priority. Here are a few examples
+* Fog of war: Players will not be able to see other fractions unless they are in range. For now everything 
+is visible.
+* Limits on money: Players will be resource constraint. For now, enjoy unlimited resources.
+
 ## Short Term
 * Better looking spinner - may need to copy more XML
 * Load Universe (requires saving a few more things)
