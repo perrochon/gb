@@ -9,6 +9,7 @@ is visible.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 
 ## Short Term
+* Bug: No Cont. Load Mission 3, Click Play, see no DS Ships, click Do, they pop up.
 * Bug: Planetary ships bounce around on continues updates and drag
 * Bug: Clicks register to targets when too far away for high zoom level.
 * Feature: Destination star system. Needs new location type (gating fog of war)

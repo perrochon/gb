@@ -19,6 +19,7 @@ import com.zwsi.gblib.GBData.Companion.PlanetOrbit
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBVector
+import java.lang.System.currentTimeMillis
 import kotlin.math.min
 import kotlin.math.sqrt
 import kotlin.system.measureNanoTime
@@ -589,22 +590,35 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         return intersects(rect, vr)
     }
 
+    val shipPaint = Paint()
+    val trailPaint = Paint()
+    val maxTrailAlpha: Int
+
+    init {
+        shipPaint.style = Style.STROKE
+        shipPaint.strokeWidth = strokeWidth.toFloat()
+
+        trailPaint.strokeWidth = strokeWidth.toFloat() / 2
+        trailPaint.strokeJoin = Paint.Join.ROUND
+        trailPaint.strokeCap = Cap.BUTT
+        trailPaint.color = trailColor
+        maxTrailAlpha = trailPaint.alpha
+    }
+
     fun drawShip(canvas: Canvas, sh: GBShip) {
 
-        paint.style = Style.STROKE
         val radius = scale * 2f
 
-        paint.strokeWidth = strokeWidth.toFloat()
-
-        var alpha = numberOfDraws.rem(256).toInt()
-        if (alpha > 128) alpha = 256 - alpha
-        paint.alpha = alpha + 128
-
         if (sh.health <= 0) {
-            paint.color = deadColor
+            // FIXME: Pods turn white when entering orbit. I think they turn dead, and we currently draw all ships, instead
+            // of orbit ships, so we get the death flash of the white ones. Maybe this is a feature...
+            shipPaint.color = deadColor
+        } else {
+            shipPaint.color = Color.parseColor(sh.race.color)
         }
-        // FIXME: Pods turn white when entering orbit. I think they turn dead, and we currently draw all ships, instead
-        // of orbit ships, so we get the death flash of the white ones. Maybe this is a feature...
+        var alpha: Int = (currentTimeMillis().rem(1000) / 4).toInt() // 0..255
+        if (alpha > 128) alpha = 256 - alpha // 00..128
+        shipPaint.alpha = alpha + 128 // 128..256
 
         sP1.set(sh.loc.getLoc().x * uToS, sh.loc.getLoc().y * uToS)
         sourceToViewCoord(sP1, vP1)
@@ -614,7 +628,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             // But GBShips don't know anything about bitmaps, so the logic needs to live elsewhere.
 
             POD -> {
-                canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+                canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
                 if (1 > normScale) {
                     if (sh.race.uid == 2) {
                         canvas.drawBitmap(
@@ -634,7 +648,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 }
             }
             CRUISER -> {
-                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
+                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                 if (1 > normScale) {
                     canvas.drawBitmap(
                         bitmaps[R.drawable.cruisert]!!,
@@ -645,7 +659,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 }
             }
             FACTORY -> {
-                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, paint)
+                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                 if (1 > normScale) {
                     canvas.drawBitmap(
                         bitmaps[R.drawable.factory]!!,
@@ -656,7 +670,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 }
             }
             else -> {
-                canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+                canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
             }
         }
 
@@ -672,13 +686,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         val trail = sh.trailList
 
         if (trail.size > 1) {
-            paint.strokeWidth = strokeWidth.toFloat() / 2
-            paint.strokeJoin = Paint.Join.ROUND
-            paint.strokeCap = Cap.BUTT
-            paint.color = trailColor
-            val alphaFade = paint.alpha / (trail.size + 1)
-            paint.alpha = 0
-
+            val alphaFade = maxTrailAlpha / (trail.size + 1)
+            trailPaint.alpha = 0
 
             val iterate = trail.iterator()
 
@@ -692,10 +701,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 sP2.set(to.x * uToS, to.y * uToS)
                 sourceToViewCoord(sP2, vP2)
 
-                canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
+                canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, trailPaint)
 
                 vP1.set(vP2)
-                paint.alpha += alphaFade
+                trailPaint.alpha += alphaFade
             }
         }
     }
