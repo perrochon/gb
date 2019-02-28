@@ -1,6 +1,6 @@
 // Copyright 2018-2019 Louis Perrochon. All rights reserved
 
-// LibTest is running through a big Universe and a longer scenario
+// GBLibTest is running through a big Universe and a longer scenario
 //
 
 package com.zwsi.gblib
@@ -11,7 +11,7 @@ import com.zwsi.gblib.GBData.Companion.starMaxOrbit
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class LibTest {
+class GBLibTest {
 
     var shipsMade: Int = 0
 

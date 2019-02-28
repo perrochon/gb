@@ -1,6 +1,6 @@
 // Copyright 2018-2019 Louis Perrochon. All rights reserved
 
-// LibTest is running through a big Universe and a longer scenario
+// GBLibTest is running through a big Universe and a longer scenario
 //
 
 package com.zwsi.gblib
@@ -361,7 +361,7 @@ class GBShipTest {
 //        val moshi = Moshi.Builder().build()
 //
 //        // Need to make ships
-//        AutoPlayer.playBeetle()
+//        GBAutoPlayer.playBeetle()
 //
 //        for (i in 1..2) {
 //            GBController.doUniverse()

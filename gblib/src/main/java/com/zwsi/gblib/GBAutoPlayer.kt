@@ -7,7 +7,7 @@ package com.zwsi.gblib
 import com.zwsi.gblib.GBController.Companion.u
 import kotlin.math.PI
 
-class AutoPlayer() {
+class GBAutoPlayer() {
 
     companion object {
 

@@ -209,9 +209,9 @@ data class GBUniverse(
         news.clear()
 
         // FEATURE only do this if other races are playing. Need to persist which races are playing
-        AutoPlayer.playBeetle()
-        AutoPlayer.playImpi()
-        AutoPlayer.playTortoise()
+        GBAutoPlayer.playBeetle()
+        GBAutoPlayer.playImpi()
+        GBAutoPlayer.playTortoise()
 
         for (o in orders) {
             o.execute()

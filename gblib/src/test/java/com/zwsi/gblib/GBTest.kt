@@ -7,11 +7,10 @@
 
 package com.zwsi.gblib
 
-import com.zwsi.gblib.AutoPlayer.Companion.playBeetle
-import com.zwsi.gblib.AutoPlayer.Companion.playImpi
-import com.zwsi.gblib.AutoPlayer.Companion.playTortoise
+import com.zwsi.gblib.GBAutoPlayer.Companion.playBeetle
+import com.zwsi.gblib.GBAutoPlayer.Companion.playImpi
+import com.zwsi.gblib.GBAutoPlayer.Companion.playTortoise
 import com.zwsi.gblib.GBController.Companion.u
-import org.junit.Test
 import kotlin.system.measureNanoTime
 
 class GBTest {
