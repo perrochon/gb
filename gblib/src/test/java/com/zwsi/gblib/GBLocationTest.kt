@@ -83,7 +83,8 @@ class GBLocationTest {
         val p = u.planet(1)
         val loc = GBLocation(p, 1f, 25f)
         assertEquals(1f, loc.r)
-        assertEquals(25f, loc.t)
+        assertNotEquals(25f, loc.t)
+        assertEquals(25f.rem(2f * PI.toFloat()), loc.t)
         consistent(loc)
     }
 
