@@ -646,7 +646,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
                 if (1 > normScale) {
-                    val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
+                    val theta: Float = currentTimeMillis().rem(sh.uid.rem(12)).toFloat() * 2f * PI.toFloat() / 1000
+                    // sh.uid.toFloat().rem(10f) * 0.6f
                     canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
                     canvas.drawBitmap(
                         bitmaps[R.drawable.cruisert]!!,
