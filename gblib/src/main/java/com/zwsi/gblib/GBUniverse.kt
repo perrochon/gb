@@ -268,12 +268,12 @@ data class GBUniverse(
 
                 sh1.shots = 1
 
-                if (sh1.shots > 0 && sh1.idxtype == CRUISER && sh1.health > 0) {
+                if (sh1.idxtype == CRUISER && sh1.health > 0) {
                     for (sh2 in star.starShips.shuffled()) {
-                        if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
+                        if (sh1.shots > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
-                                sh1.shots--;
+                                sh1.shots-- // should break when shots = 0
                             }
                         }
                     }
@@ -287,12 +287,12 @@ data class GBUniverse(
 
                 sh1.shots = 1
 
-                if (sh1.shots > 0 && sh1.idxtype == CRUISER && sh1.health > 0) {
+                if (sh1.idxtype == CRUISER && sh1.health > 0) {
                     for (sh2 in u.star(p.uidStar).starShips.union(p.orbitShips).union(p.landedShips).shuffled()) {
-                        if ((sh2.health > 0) && (sh1.uidRace != sh2.uidRace)) {
+                        if (sh1.shots > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
-                                sh1.shots--;
+                                sh1.shots-- // should break when shots = 0
                             }
                         }
                     }
