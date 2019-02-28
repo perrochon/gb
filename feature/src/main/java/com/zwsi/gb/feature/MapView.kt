@@ -249,10 +249,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         if (BuildConfig.SHOWSTATS) {
             drawStats(canvas)
+            drawClickTargets(canvas)
         }
 
-        drawClickTargets(canvas)
-
+        postInvalidateDelayed(40)
 
     } // onDraw
 
@@ -583,6 +583,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         val radius = scale * 2f
 
         paint.strokeWidth = strokeWidth.toFloat()
+
+        var alpha = numberOfDraws.rem(128).toInt()
+        if (alpha > 128) alpha = 256-alpha
+        paint.alpha = alpha+128
 
         if (sh.health <= 0) {
             paint.color = deadColor
