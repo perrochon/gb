@@ -149,6 +149,30 @@ data class GBLocation(
         }
     }
 
+    // FIXME Fundamental problem with re-using code for model and viewmodel and using a single static universe.
+    // Get VMLoc takes a parameter stating which Universe to look up things in...
+
+    fun getVMLoc(vm: GBUniverse): GBxy {
+
+        if (level == LANDED) {
+            // TODO This calculation is probably a rendering issue and belongs into MapView.
+            // The constants have to be the same as the ones used to draw planet surfaces on the map
+            val size = PlanetOrbit * 1.6f / this.getPlanet()!!.width
+            return GBxy(
+                vm.planet(uidRef).loc.getLoc().x - PlanetOrbit * .80f + sx.toFloat() * size + size / 2,
+                vm.planet(uidRef).loc.getLoc().y - PlanetOrbit * .4f + sy.toFloat() * size + size / 2
+            )
+        }
+        if (level == ORBIT) {
+            return GBxy(vm.planet(uidRef).loc.getLoc().x + x, vm.planet(uidRef).loc.getLoc().y + y)
+        }
+        if (level == SYSTEM) {
+            return GBxy(vm.star(uidRef).loc.getLoc().x + x, vm.star(uidRef).loc.getLoc().y + y)
+        } else {
+            return GBxy(x, y)
+        }
+    }
+
 
     /** Get LANDED location */
     fun getLLoc(): GBsxy {

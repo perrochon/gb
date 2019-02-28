@@ -426,8 +426,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         sh.loc.getLoc().y * uToSf
                     )
                 ) {
-                    paint.color = Color.parseColor(sh.race.color)
-                    paint.alpha = 128
                     drawShip(canvas, sh)
                 }
             }
@@ -541,8 +539,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     // Draw orbit ships
                     for (uidS in p.orbitUidShips) {
                         val sh = vm.ship(uidS)
-                        paint.alpha = 128
-                        paint.color = Color.parseColor(sh.race.color)
                         drawShip(canvas, sh)
                     }
 
@@ -550,8 +546,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                     for (uidS in p.landedUidShips) {
                         val sh = vm.ship(uidS)
-                        paint.alpha = 128
-                        paint.color = Color.parseColor(sh.race.color)
                         drawShip(canvas, sh)
                     }
 
@@ -560,8 +554,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 // Draw In System Ship
                 for (uidS in s.starUidShips) {
                     val sh = vm.ship(uidS)
-                    paint.alpha = 255
-                    paint.color = Color.parseColor(sh.race.color)
                     drawShip(canvas, sh)
                 } // ships loop
 
@@ -619,7 +611,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //        if (alpha > 128) alpha = 256 - alpha // 00..128
 //        shipPaint.alpha = alpha + 128 // 128..256
 
-        sP1.set(sh.loc.getLoc().x * uToS, sh.loc.getLoc().y * uToS)
+        sP1.set(sh.loc.getVMLoc(vm).x * uToS, sh.loc.getVMLoc(vm).y * uToS)
         sourceToViewCoord(sP1, vP1)
         when (sh.idxtype) {
 
@@ -629,10 +621,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             POD -> {
                 canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
-                val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
-                canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
-
                 if (1 > normScale) {
+                    val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
+                    canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
                     if (sh.race.uid == 2) {
                         canvas.drawBitmap(
                             bitmaps[R.drawable.beetlepod]!!,
@@ -653,11 +644,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             CRUISER -> {
 //                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                 canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
-                val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
-                canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
-
 
                 if (1 > normScale) {
+                    val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
+                    canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
                     canvas.drawBitmap(
                         bitmaps[R.drawable.cruisert]!!,
                         vP1.x - bitmaps[R.drawable.cruisert]!!.width / 2,
@@ -669,6 +659,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             FACTORY -> {
                 canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                 if (1 > normScale) {
+                    val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
+                    canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
+
                     canvas.drawBitmap(
                         bitmaps[R.drawable.factory]!!,
                         vP1.x - bitmaps[R.drawable.factory]!!.width / 2,
