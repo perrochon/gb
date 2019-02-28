@@ -13,8 +13,7 @@ is visible.
 * Bug: Clicks register to targets when too far away for high zoom level.
 * Feature: Destination star system. Needs new location type (gating fog of war)
 * Better looking spinner - may need to copy more XML
-* Destination of star system for ships far away, instead of first planet.
-* re-creating missions on compile and copying them into res directory.
+* Re-creating missions on each build and copy them into res directory.
 * Population on planets (per race, and do correctly). Fix "Make Factory"
 * Player mode (not just god mode).
     * Passing race around on commands, to make sure actions are access controlled :-)
@@ -23,14 +22,12 @@ is visible.
 
 ## Code Quality
 * Unit Test Mission 1 (or at least the lib part...)
-* Review all unit tests, and add whats missing (GBLocation? GBxy? Destroyed ships)
+* Review all unit tests, and add whats missing (GBLocation? GBxy? )
 * Review all TODO and warnings
-* Cleanup directory structure (remove deprecated files, move documentation, etc.)
 * Refactor to use resources for strings for Missions
 
 ### Not Gating
 * Refactor firing solution and move logic for firing and taking damage into each ship's class (depends on ship refactor)
-* Remove TileView library and code?
 * Get Rid of Feature Module? Having one feature module is kind of pointless, it seems
 * Refactor and apply naming conventions for UI elements (btn_do etc.) and other things
 * Access and visibility in gblib
@@ -55,7 +52,7 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 
 #### Frontend
 * Mark "active" object (the one with the detail screen open). Maybe a colored click circle?
-* Run Tests on phone (text based)
+* Run Tests on phone (text based?)
 
 ### General
 * Only handle one race (at a time?)
@@ -77,7 +74,6 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 
 #### Universe
 * Statistics on population, etc.
-* Show zoomable, clickable maps  :tata:
 
 ####Races
 * Give races home planets in GBData

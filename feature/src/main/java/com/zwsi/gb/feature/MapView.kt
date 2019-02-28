@@ -599,7 +599,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         paint.strokeWidth = strokeWidth.toFloat()
 
-        var alpha = numberOfDraws.rem(128).toInt()
+        var alpha = numberOfDraws.rem(256).toInt()
         if (alpha > 128) alpha = 256 - alpha
         paint.alpha = alpha + 128
 
