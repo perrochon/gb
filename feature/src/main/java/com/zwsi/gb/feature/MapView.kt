@@ -11,7 +11,6 @@ import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
-import com.zwsi.gb.feature.GBViewModel.Companion.vmLock
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
@@ -229,40 +228,35 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         // times["GG"] = measureNanoTime { drawGrids(canvas) }
 
-        vmLock.lock(); // lock for the game turn
-        try {
+        times["dS&C"] = measureNanoTime { drawStarsAndCircles(canvas) }
 
+        times["dPSF"] = measureNanoTime { drawPlanetSurface(canvas) }
 
-            times["dS&C"] = measureNanoTime { drawStarsAndCircles(canvas) }
+        times["dP&s"] = measureNanoTime { drawPlanetsAndShips(canvas) }
 
-            times["dPSF"] = measureNanoTime { drawPlanetSurface(canvas) }
+        times["dDSs"] = measureNanoTime { drawDeepSpaceShips(canvas) }
 
-            times["dP&s"] = measureNanoTime { drawPlanetsAndShips(canvas) }
+        times["dSNa"] = measureNanoTime { drawStarNames(canvas) }
 
-            times["dDSs"] = measureNanoTime { drawDeepSpaceShips(canvas) }
+        times["dRac"] = measureNanoTime { drawRaces(canvas) }
 
-            times["dSNa"] = measureNanoTime { drawStarNames(canvas) }
+        times["dsho"] = measureNanoTime { drawShots(canvas) }
 
-            times["dRac"] = measureNanoTime { drawRaces(canvas) }
+        drawUntilStats = System.nanoTime() - startTimeNanos
+        lastN[(numberOfDraws % lastN.size).toInt()] = drawUntilStats
 
-            times["dsho"] = measureNanoTime { drawShots(canvas) }
-
-            drawUntilStats = System.nanoTime() - startTimeNanos
-            lastN[(numberOfDraws % lastN.size).toInt()] = drawUntilStats
-
-            if (BuildConfig.SHOWSTATS) {
-                drawStats(canvas)
-                drawClickTargets(canvas)
-            }
-        } finally {
-            vmLock.unlock()
+        if (BuildConfig.SHOWSTATS) {
+            drawStats(canvas)
+            drawClickTargets(canvas)
         }
-        postInvalidateDelayed(40)
+
+        postInvalidateDelayed(40) // 40 -> ~24 fps
 
     } // onDraw
 
     val statsNamesPaint = TextPaint()
-    init{
+
+    init {
         statsNamesPaint.textSize = 30f
         statsNamesPaint.setTypeface(Typeface.MONOSPACE);
         statsNamesPaint.setTextAlign(Paint.Align.LEFT);
@@ -332,13 +326,15 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         "|MU:${(GBViewModel.timeModelUpdate / 1000000L).f(2)}",
                 8f,
                 l++ * h,
-                statsNamesPaint            )
+                statsNamesPaint
+            )
 
             canvas.drawText(
                 "Draw:${(lastN.average() / 1000000).toInt().f(2)}ms",
                 8f,
                 l++ * h,
-                statsNamesPaint            )
+                statsNamesPaint
+            )
 
 //            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint) }
 
@@ -400,7 +396,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
     val starNamesPaint = TextPaint()
-    init{
+
+    init {
         starNamesPaint.textSize = 50f
         starNamesPaint.setTextAlign(Paint.Align.CENTER);
         starNamesPaint.style = Style.FILL

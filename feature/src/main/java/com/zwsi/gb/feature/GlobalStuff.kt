@@ -76,7 +76,6 @@ class GlobalStuff {
                 gameInfo = jsonAdapter.lenient().fromJson(json)!!
             }
 
-            // FIXME PERSISTENCE TIMING TRACKING
             Handler(Looper.getMainLooper()).post({
                 GBViewModel.update(
                     gameInfo!!,
