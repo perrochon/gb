@@ -20,8 +20,7 @@ import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBVector
 import java.lang.System.currentTimeMillis
-import kotlin.math.min
-import kotlin.math.sqrt
+import kotlin.math.*
 import kotlin.system.measureNanoTime
 
 //TODO where should these extensions to basic types live?
@@ -616,9 +615,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         } else {
             shipPaint.color = Color.parseColor(sh.race.color)
         }
-        var alpha: Int = (currentTimeMillis().rem(1000) / 4).toInt() // 0..255
-        if (alpha > 128) alpha = 256 - alpha // 00..128
-        shipPaint.alpha = alpha + 128 // 128..256
+//        var alpha: Int = (currentTimeMillis().rem(1000) / 4).toInt() // 0..255
+//        if (alpha > 128) alpha = 256 - alpha // 00..128
+//        shipPaint.alpha = alpha + 128 // 128..256
 
         sP1.set(sh.loc.getLoc().x * uToS, sh.loc.getLoc().y * uToS)
         sourceToViewCoord(sP1, vP1)
@@ -629,6 +628,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
             POD -> {
                 canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+
+                val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
+                canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
+
                 if (1 > normScale) {
                     if (sh.race.uid == 2) {
                         canvas.drawBitmap(
@@ -648,7 +651,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 }
             }
             CRUISER -> {
-                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
+//                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
+                canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+                val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
+                canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
+
+
                 if (1 > normScale) {
                     canvas.drawBitmap(
                         bitmaps[R.drawable.cruisert]!!,
