@@ -10,6 +10,7 @@ is visible.
 
 ## Short Term
 * Bug: Planetary ships bounce around on continues updates and drag
+* Bug: Clicks register to targets when too far away for high zoom level.
 * Clean up deprecated files... Too much work maintaining them on refactoring :-(
 * Better looking spinner - may need to copy more XML
 * Destination of star system for ships far away, instead of first planet.

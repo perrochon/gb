@@ -31,7 +31,7 @@ fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
 fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
 fun Long.f(digits: Int) = java.lang.String.format("%${digits}d", this)
 
-class GBClickTarget(var center: PointF, var any: Any) {}
+class GBClickTarget(var center: PointF, var any: Any) {} // FIXME PERSISTENCE: Should pass in uid. And a type...
 
 class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
     SubsamplingScaleImageView(context, attr) {
