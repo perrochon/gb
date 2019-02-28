@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.lock
 import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
 import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
@@ -230,28 +231,34 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         // times["GG"] = measureNanoTime { drawGrids(canvas) }
 
-        times["dS&C"] = measureNanoTime { drawStarsAndCircles(canvas) }
+        lock.lock(); // lock for the game turn
+        try {
 
-        times["dPSF"] = measureNanoTime { drawPlanetSurface(canvas) }
 
-        times["dP&s"] = measureNanoTime { drawPlanetsAndShips(canvas) }
+            times["dS&C"] = measureNanoTime { drawStarsAndCircles(canvas) }
 
-        times["dDSs"] = measureNanoTime { drawDeepSpaceShips(canvas) }
+            times["dPSF"] = measureNanoTime { drawPlanetSurface(canvas) }
 
-        times["dSNa"] = measureNanoTime { drawStarNames(canvas) }
+            times["dP&s"] = measureNanoTime { drawPlanetsAndShips(canvas) }
 
-        times["dRac"] = measureNanoTime { drawRaces(canvas) }
+            times["dDSs"] = measureNanoTime { drawDeepSpaceShips(canvas) }
 
-        times["dsho"] = measureNanoTime { drawShots(canvas) }
+            times["dSNa"] = measureNanoTime { drawStarNames(canvas) }
 
-        drawUntilStats = System.nanoTime() - startTimeNanos
-        lastN[(numberOfDraws % lastN.size).toInt()] = drawUntilStats
+            times["dRac"] = measureNanoTime { drawRaces(canvas) }
 
-        if (BuildConfig.SHOWSTATS) {
-            drawStats(canvas)
-            drawClickTargets(canvas)
+            times["dsho"] = measureNanoTime { drawShots(canvas) }
+
+            drawUntilStats = System.nanoTime() - startTimeNanos
+            lastN[(numberOfDraws % lastN.size).toInt()] = drawUntilStats
+
+            if (BuildConfig.SHOWSTATS) {
+                drawStats(canvas)
+                drawClickTargets(canvas)
+            }
+        } finally {
+            lock.unlock()
         }
-
         postInvalidateDelayed(40)
 
     } // onDraw
@@ -375,7 +382,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
             if (true) {
                 for (shot: GBVector in GBViewModel.viewShots) {
-                    paint.color = Color.parseColor(vm.race(shot.uidRace).color) // TODO PERFORMANCE add color when making shots as an int
+                    paint.color =
+                        Color.parseColor(vm.race(shot.uidRace).color) // TODO PERFORMANCE add color when making shots as an int
                     paint.strokeWidth = strokeWidth.toFloat() / 4
                     if (pointVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||
                         pointVisible(shot.to.x * uToSf, shot.to.y * uToSf)
@@ -585,8 +593,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.strokeWidth = strokeWidth.toFloat()
 
         var alpha = numberOfDraws.rem(128).toInt()
-        if (alpha > 128) alpha = 256-alpha
-        paint.alpha = alpha+128
+        if (alpha > 128) alpha = 256 - alpha
+        paint.alpha = alpha + 128
 
         if (sh.health <= 0) {
             paint.color = deadColor

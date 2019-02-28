@@ -2,6 +2,7 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.MutableLiveData
 import com.zwsi.gblib.*
+import java.util.concurrent.locks.ReentrantLock
 import kotlin.system.measureNanoTime
 
 
@@ -19,6 +20,8 @@ class GBViewModel {
 
         // FIXME PERSISTENCE this initialization
         // Also we don't really need Mutable lists, but we don't want another copy...
+
+        internal val lock = ReentrantLock()
 
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
         val currentTurn by lazy { MutableLiveData<Int>() }
@@ -64,41 +67,48 @@ class GBViewModel {
             // This is (currently) called from the worker thread. So need to call postValue on the LiveData
             timeModelUpdate = measureNanoTime {
 
-                vm = gameinfo
+                lock.lock(); // lock for the game turn
+                try {
 
-                timeLastTurn = update
-                timeLastToJSON = json
-                timeFileWrite = write
-                timeLastLoad = load
-                timeFromJson = fromJSON
+                    vm = gameinfo
 
-                // Not updating stars and planets as those lists don't change
-                // FIXME PERSISTENCE We do!  If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
-                // If we save/reload stars each time, we need to get the new versions.
+                    timeLastTurn = update
+                    timeLastToJSON = json
+                    timeFileWrite = write
+                    timeLastLoad = load
+                    timeFromJson = fromJSON
 
-                // FIXME: The below constructs should really be able to go away as vm has all that is needed
-                // Using vm is safe as it is not accessed from the other thread after initial construction.
+                    // Not updating stars and planets as those lists don't change
+                    // FIXME PERSISTENCE We do!  If we made a deep copy of stars and planets we would need to copy changed data, e.g. location
+                    // If we save/reload stars each time, we need to get the new versions.
 
-                // Ships
-                times["mAS"] = measureNanoTime { viewStars = vm.stars }
+                    // FIXME: The below constructs should really be able to go away as vm has all that is needed
+                    // Using vm is safe as it is not accessed from the other thread after initial construction.
 
-                times["mAP"] = measureNanoTime { viewPlanets = vm.planets }
+                    // Ships
+                    times["mAS"] = measureNanoTime { viewStars = vm.stars }
 
-                times["mAR"] = measureNanoTime { viewRaces = vm.races }
+                    times["mAP"] = measureNanoTime { viewPlanets = vm.planets }
 
-                times["mAs"] = measureNanoTime { viewShips = vm.ships }
+                    times["mAR"] = measureNanoTime { viewRaces = vm.races }
 
-                times["mDs"] = measureNanoTime { getDeepSpaceShipsList() }
+                    times["mAs"] = measureNanoTime { viewShips = vm.ships }
 
-                times["mPs"] = measureNanoTime { fillViewStarPlanetsAndShips() }
+                    times["mDs"] = measureNanoTime { getDeepSpaceShipsList() }
 
-                times["mLO"] = measureNanoTime { fillViewLandedAndOrbitShips() }
+                    times["mPs"] = measureNanoTime { fillViewStarPlanetsAndShips() }
 
-                times["mRs"] = measureNanoTime { fillViewRaceShips() }
+                    times["mLO"] = measureNanoTime { fillViewLandedAndOrbitShips() }
 
-                times["mst"] = measureNanoTime { fillViewShipTrails() }
+                    times["mRs"] = measureNanoTime { fillViewRaceShips() }
 
-                times["msh"] = measureNanoTime { viewShots = vm.shots }
+                    times["mst"] = measureNanoTime { fillViewShipTrails() }
+
+                    times["msh"] = measureNanoTime { viewShots = vm.shots }
+
+                } finally {
+                    lock.unlock()
+                }
             }
 
             /*
@@ -107,7 +117,8 @@ class GBViewModel {
             to update the LiveData object.
              */
             // FIXME why is this not setValue
-            currentTurn.postValue(gameinfo.turn)
+            currentTurn.setValue(gameinfo.turn)
+
 
         }
 
