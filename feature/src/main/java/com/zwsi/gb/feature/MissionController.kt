@@ -6,9 +6,7 @@
 package com.zwsi.gb.feature
 
 import android.content.Context
-import com.zwsi.gb.feature.GBViewModel.Companion.viewShips
-import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
-import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
@@ -44,7 +42,7 @@ object MissionController {
             return
         }
         if (missionStatus == 1) {
-            for ((_, s) in viewShips) {
+            for ((_, s) in vm.ships) {
                 if (s.idxtype == FACTORY) {
                     missionStatus++
                     return
@@ -52,7 +50,7 @@ object MissionController {
             }
         }
         if (missionStatus == 2) {
-            for ((_, s) in viewShips) {
+            for ((_, s) in vm.ships) {
                 if (s.idxtype == POD) {
                     missionStatus++
                     return
@@ -60,7 +58,7 @@ object MissionController {
             }
         }
         if (missionStatus == 3) {
-            for ((_, s) in viewShips) {
+            for ((_, s) in vm.ships) {
                 if (s.loc.level == ORBIT) {
                     missionStatus++
                     return
@@ -68,7 +66,7 @@ object MissionController {
             }
         }
         if (missionStatus == 4) {
-            for ((_, s) in viewShips) {
+            for ((_, s) in vm.ships) {
                 if ((s.loc.level == LANDED) && (s.loc.getPlanet()!!.uid > 0)) {
                     missionStatus++
                     return
@@ -77,7 +75,8 @@ object MissionController {
         }
         if (missionStatus == 5) {
             var success = true
-            for (p in viewStarPlanets[0]!!) {
+            for (uidP in  vm.star(0).starUidPlanets) {
+                val p = vm.planet(uidP)
                 if (p.planetPopulation == 0) {
                     success = false
                 }

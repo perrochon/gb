@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 
 class RaceFragment : Fragment() {
 
@@ -40,20 +41,20 @@ class RaceFragment : Fragment() {
 
 
         // What is this fragment about, and make sure the fragment remembers
-        val raceID = arguments!!.getString("UID")!!.toInt()
-        val r = GBViewModel.viewRaces.values.filter { it.uid == raceID }.first()
-        view!!.tag = r
+        val uidRace = arguments!!.getString("UID")!!.toInt()
+        val r = vm.race(uidRace)
+        view!!.tag = r // FIXME PERSISTENCE Don't pass race, pass race UID
 
 
         val imageView = view.findViewById<ImageView>(R.id.RaceView)
 
-        if (raceID == 0)
+        if (uidRace == 0)
             imageView.setImageResource(R.drawable.xenost)
-        if (raceID == 1)
+        if (uidRace == 1)
             imageView.setImageResource(R.drawable.impit)
-        if (raceID == 2)
+        if (uidRace == 2)
             imageView.setImageResource(R.drawable.beetle)
-        if (raceID == 3)
+        if (uidRace == 3)
             imageView.setImageResource(R.drawable.tortoise)
 
 
@@ -83,24 +84,13 @@ class RaceFragment : Fragment() {
 
         shipsTextView.setMovementMethod(ScrollingMovementMethod())
 
-        val ships = GBViewModel.viewRaceShips[r.uid]
-        if ((ships != null) && (ships.isNotEmpty())) {
+        val ships = r.raceUidShips.map { vm.race(it) }
+        if (ships.isNotEmpty()) {
             shipsTextView.text = ("Ships (${ships.size.toString()}): ")
             for (sh in ships) {
                 shipsTextView.append(sh.name + " ")
             }
         }
-
-
-
-
-
-
-
-
-
-
-
         return view
     }
 }

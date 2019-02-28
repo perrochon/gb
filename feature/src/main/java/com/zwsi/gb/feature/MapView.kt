@@ -5,15 +5,13 @@ import android.graphics.*
 import android.graphics.Paint.Cap
 import android.graphics.Paint.Style
 import android.graphics.Rect.intersects
+import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.zwsi.gb.feature.GBViewModel.Companion.lock
-import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
-import com.zwsi.gb.feature.GBViewModel.Companion.viewShipTrails
-import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
+import com.zwsi.gb.feature.GBViewModel.Companion.vmLock
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
@@ -194,8 +192,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         setScaleAndCenter(
             zoomLevelPlanet,
             PointF(
-                com.zwsi.gb.feature.GBViewModel.viewRaces.toList().component1().second.getHome().loc.getLoc().x * uToS,
-                com.zwsi.gb.feature.GBViewModel.viewRaces.toList().component1().second.getHome().loc.getLoc().y * uToS
+                vm.races.toList().component1().second.getHome().loc.getLoc().x * uToS,
+                vm.races.toList().component1().second.getHome().loc.getLoc().y * uToS
             )
         )
 
@@ -231,7 +229,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         // times["GG"] = measureNanoTime { drawGrids(canvas) }
 
-        lock.lock(); // lock for the game turn
+        vmLock.lock(); // lock for the game turn
         try {
 
 
@@ -257,60 +255,62 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 drawClickTargets(canvas)
             }
         } finally {
-            lock.unlock()
+            vmLock.unlock()
         }
         postInvalidateDelayed(40)
 
     } // onDraw
 
+    val statsNamesPaint = TextPaint()
+    init{
+        statsNamesPaint.textSize = 30f
+        statsNamesPaint.setTypeface(Typeface.MONOSPACE);
+        statsNamesPaint.setTextAlign(Paint.Align.LEFT);
+        statsNamesPaint.style = Style.FILL
+        statsNamesPaint.color = debugTextColor
+        statsNamesPaint.alpha = 255
+    }
+
     private fun drawStats(canvas: Canvas) {
         if (gbDebug) {
-
-            paint.textSize = 40f
-            paint.setTypeface(Typeface.MONOSPACE);
-            paint.setTextAlign(Paint.Align.LEFT);
-            paint.style = Style.FILL
-            paint.color = Color.parseColor("#80ffbb33") // FIXME get color holo orange with alpha
-            paint.color = debugTextColor
-            paint.alpha = 255
 
             var l = 1f
             val h = 50
 
             canvas.drawText(
                 "MS:${maxScale.toInt()}|mS:${minScale.f(3)}|DY:${density.toInt()}" +
-                        "|NS:${normScale.f(2)}|SC:${scale.f(2)}", 8f, l++ * h, paint
+                        "|NS:${normScale.f(2)}|SC:${scale.f(2)}", 8f, l++ * h, statsNamesPaint
             )
 //            canvas.drawText(
 //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
-//                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, paint
+//                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, statsNamesPaint
 //            )
 //            canvas.drawText(
 //                "Uvisible: ${(vr.right - vr.left) / uToS}x${(vr.bottom - vr.top) / uToS}",
 //                8f,
 //                l++ * h,
-//                paint
+//                statsNamesPaint
 //            )
 //            canvas.drawText(
 //                "Svisible: ${(vr.right - vr.left)}x${(vr.bottom - vr.top)}" + " at " + vr,
 //                8f,
 //                l++ * h,
-//                paint
+//                statsNamesPaint
 //            )
-//            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, paint)
-//            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, paint)
+//            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, statsNamesPaint)
+//            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, statsNamesPaint)
 //            canvas.drawText(
-//                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, paint
+//                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, statsNamesPaint
 //            )
             // Turn Stats
             canvas.drawText(
                 "TU:${turn!!.f(4)}" +
-                        "|As:${GBViewModel.viewShips.size.f(4)}" +
-                        "|Ds:${GBViewModel.viewDeepSpaceShips.size.f(4)}" +
-                        "|sh:${vm.shots!!.size.f(3)}",
+                        "|As:${vm.ships.size.f(4)}" +
+                        "|Ds:${vm.deepSpaceUidShips.size.f(4)}" +
+                        "|sh:${vm.shots.size.f(3)}",
                 8f,
                 l++ * h,
-                paint
+                statsNamesPaint
             )
 //            // Memory Stats
 //            canvas.drawText(
@@ -320,7 +320,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //                        "|FM:${(Runtime.getRuntime().freeMemory() / 1048576).f(3)}",
 //                8f,
 //                l++ * h,
-//                paint
+//                statsNamesPaint
 //            )
             // Performance Stats
             canvas.drawText(
@@ -332,19 +332,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         "|MU:${(GBViewModel.timeModelUpdate / 1000000L).f(2)}",
                 8f,
                 l++ * h,
-                paint
-            )
+                statsNamesPaint            )
 
             canvas.drawText(
                 "Draw:${(lastN.average() / 1000000).toInt().f(2)}ms",
                 8f,
                 l++ * h,
-                paint
-            )
+                statsNamesPaint            )
 
-//            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
+//            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint) }
 
-            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, paint) }
+            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint) }
 
         }
     }
@@ -354,7 +352,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         // Timing Info:  no race 200μs, 1 race 400μs, more ?μs
         if (normScale > 50) {
 
-            for ((_, r) in GBViewModel.viewRaces) {
+            for ((_, r) in vm.races) {
                 if (pointVisible(r.getHome().star.loc.getLoc().x * uToSf, r.getHome().star.loc.getLoc().y * uToSf)) {
                     sP1.set(r.getHome().star.loc.getLoc().x * uToSf + 50, r.getHome().star.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)
@@ -381,7 +379,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (40 > normScale) {
 
             if (true) {
-                for (shot: GBVector in GBViewModel.viewShots) {
+                for (shot: GBVector in vm.shots) {
                     paint.color =
                         Color.parseColor(vm.race(shot.uidRace).color) // TODO PERFORMANCE add color when making shots as an int
                     paint.strokeWidth = strokeWidth.toFloat() / 4
@@ -401,18 +399,23 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
     }
 
+    val starNamesPaint = TextPaint()
+    init{
+        starNamesPaint.textSize = 50f
+        starNamesPaint.setTextAlign(Paint.Align.CENTER);
+        starNamesPaint.style = Style.FILL
+        starNamesPaint.color = labelColor
+        starNamesPaint.alpha = 128
+    }
+
     private fun drawStarNames(canvas: Canvas) {
-        // Timing Info:  no star 500μs, 1 star 600μs, 15 stars 900μs
-        paint.textSize = 50f
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.style = Style.FILL
-        paint.color = labelColor
-        paint.alpha = 128
-        for ((_, s) in GBViewModel.viewStars) {
-            if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
+        // TODO PERFORMANCE drawText() is slow: no star 20μs, 1 star 50μs, 2 stars 50μs 15 stars 300μs
+        for ((_, s) in vm.stars) {
+            val loc = s.loc.getLoc()
+            if (pointVisible(loc.x * uToSf, loc.y * uToSf)) {
+                sP1.set(loc.x * uToSf, loc.y * uToSf)
                 sourceToViewCoord(sP1, vP1)
-                canvas.drawText(s.name, vP1.x, vP1.y - 45, paint)
+                canvas.drawText(s.name, vP1.x, vP1.y - 45, starNamesPaint)
             }
         }
     }
@@ -420,8 +423,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private fun drawDeepSpaceShips(canvas: Canvas) {
         // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
         if (101 >= normScale) {
-            //for (sh in GBViewModel.viewDeepSpaceShips) {
-            for (sh in GBViewModel.viewDeepSpaceShips) {
+            for (sh in vm.deepSpaceUidShips.map { vm.ship(it) }) {
                 if (pointVisible(
                         sh.loc.getLoc().x * uToSf,
                         sh.loc.getLoc().y * uToSf
@@ -438,9 +440,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private fun drawPlanetSurface(canvas: Canvas) {
 
         if (2 > normScale) {
-            for ((_, s) in GBViewModel.viewStars) {
+            for ((_, s) in vm.stars) {
                 if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                    for (p in GBViewModel.viewStarPlanets[s.uid]!!) { // PERF only draw one...
+                    for (uidP in s.starUidPlanets) { // PERF only draw one...
+                        val p = vm.planet(uidP)
                         if (planetVisible(
                                 p.loc.getLoc().x * uToSf,
                                 p.loc.getLoc().y * uToSf
@@ -489,10 +492,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
 
     private fun drawPlanetsAndShips(canvas: Canvas) {
-        for ((_, s) in GBViewModel.viewStars) {
+        for ((_, s) in vm.stars) {
             if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
 
-                for (p in viewStarPlanets[s.uid]!!) {
+                for (uidP in s.starUidPlanets) {
+                    val p = vm.planet(uidP)
 
                     if (30 > normScale) {
 
@@ -538,7 +542,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     } // if scale
 
                     // Draw orbit ships
-                    for (sh in GBViewModel.viewOrbitShips[p.uid]!!) {
+                    for (uidS in p.orbitUidShips) {
+                        val sh = vm.ship(uidS)
                         paint.alpha = 128
                         paint.color = Color.parseColor(sh.race.color)
                         drawShip(canvas, sh)
@@ -546,7 +551,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                     // Draw landed ships
 
-                    for (sh in GBViewModel.viewLandedShips[p.uid]!!) {
+                    for (uidS in p.landedUidShips) {
+                        val sh = vm.ship(uidS)
                         paint.alpha = 128
                         paint.color = Color.parseColor(sh.race.color)
                         drawShip(canvas, sh)
@@ -555,7 +561,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 } // planet loop
 
                 // Draw In System Ship
-                for (sh in GBViewModel.viewStarShips[s.uid]!!) {
+                for (uidS in s.starUidShips) {
+                    val sh = vm.ship(uidS)
                     paint.alpha = 255
                     paint.color = Color.parseColor(sh.race.color)
                     drawShip(canvas, sh)
@@ -612,7 +619,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             POD -> {
                 canvas.drawCircle(vP1.x, vP1.y, radius, paint)
                 if (1 > normScale) {
-                    if (sh.race == GBViewModel.viewRaces[2]) {
+                    if (sh.race.uid == 2) {
                         canvas.drawBitmap(
                             bitmaps[R.drawable.beetlepod]!!,
                             vP1.x - bitmaps[R.drawable.beetlepod]!!.width / 2,
@@ -665,9 +672,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             return
         }
 
-        val trail = viewShipTrails.get(sh.uid) // FIXME
+        val trail = sh.trailList
 
-        if (trail != null) {
+        if (trail.size > 1) {
             paint.strokeWidth = strokeWidth.toFloat() / 2
             paint.strokeJoin = Paint.Join.ROUND
             paint.strokeCap = Cap.BUTT
@@ -734,8 +741,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     fun pinPlanet(uidP: Int) {
         pinnedUidPlanet = uidP
-        pinnedPlanetX = viewPlanets[uidP]!!.loc.getLoc().x
-        pinnedPlanetY = viewPlanets[uidP]!!.loc.getLoc().y
+        pinnedPlanetX = vm.planets[uidP]!!.loc.getLoc().x
+        pinnedPlanetY = vm.planets[uidP]!!.loc.getLoc().y
     }
 
     fun unpinPlanet() {
@@ -744,7 +751,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     fun shiftToPinnedPlanet() {
         if (pinnedUidPlanet != null) {
-            val p = viewPlanets[pinnedUidPlanet!!]!!
+            val p = vm.planets[pinnedUidPlanet!!]!!
             val dx = (p.loc.getLoc().x - pinnedPlanetX) * uToS
             val dy = (p.loc.getLoc().y - pinnedPlanetY) * uToS
             setScaleAndCenter(
@@ -763,7 +770,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     fun drawStarsAndCircles(canvas: Canvas) {
         // Always draw stars
         paint.style = Style.STROKE
-        for ((_, s) in GBViewModel.viewStars) {
+        for ((_, s) in vm.stars) {
             if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
@@ -781,7 +788,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.strokeWidth = strokeWidth.toFloat()
         val radius = sSystemSize.toFloat() * scale
 
-        for ((_, s) in GBViewModel.viewStars) {
+        for ((_, s) in vm.stars) {
             if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
@@ -826,7 +833,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if ((closest != null)) {
             val distance =
                 sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
-            if (distance < 80f) {
+            if (distance < 80f) { // FIXME Need to do this in screen coordinates...
                 return closest.any
             } else {
                 val closestPlanet = clickTargets.filter { it.any is GBPlanet }

@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.*
 import com.zwsi.gblib.GBController.Companion.flyShipLanded
@@ -22,7 +21,7 @@ class ShipFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(message: String): ShipFragment {
+        fun newInstance(@Suppress("UNUSED_PARAMETER") message: String): ShipFragment {
             return ShipFragment()
         }
     }
@@ -33,7 +32,7 @@ class ShipFragment : Fragment() {
 
         setDetails(view)
 
-        val sh = GBViewModel.viewShips[tag!!.toInt()]!!
+        val sh = vm.ship(tag!!.toInt())
 
         val turnObserver = Observer<Int> { _ ->
             setDetails(view)
@@ -66,7 +65,7 @@ class ShipFragment : Fragment() {
 
     private fun setDetails(view: View) {
 
-        val sh = GBViewModel.viewShips[tag!!.toInt()]
+        val sh = vm.ships[tag!!.toInt()] // Don't use ship(), as we need to handle null here.
 
         val stats = view.findViewById<TextView>(R.id.ShipStats)
         val paint = stats.paint
@@ -118,7 +117,7 @@ class ShipFragment : Fragment() {
 
         // FIXME Setting Destination after update/DO doesn't work
 
-        val sh = GBViewModel.viewShips[tag!!.toInt()]
+        val sh = vm.ships[tag!!.toInt()] // Don't use ship() as we need to handle null (do nothing)
 
         if (sh == null) {
             return
@@ -147,8 +146,9 @@ class ShipFragment : Fragment() {
                     destinationStrings.add(key)
                 }
 
-                if (sh.getStar() != null) {
-                    for (p in GBViewModel.viewStarPlanets[sh.getStar()!!.uid]!!) {
+                val star = sh.getStar()
+                if (star != null) {
+                    for (p in star.starUidPlanets.map { vm.planet(it) }) {
                         if (p.uid != currentUidDestination) {
                             val key = "${p.name} (insystem)"
                             destinationStrings.add(key)
@@ -157,14 +157,14 @@ class ShipFragment : Fragment() {
                     }
                 }
                 val sortedStars =
-                    viewStars.toList().sortedBy { (_, s) ->
+                    vm.stars.toList().sortedBy { (_, s) ->
                         s.loc.getLoc().distance(sh.loc.getLoc())
                     }.take(6).drop(1)  // FIXME Don't drop the first if in DEEP SPACE, otherwise can't go back.
 
                 for ((_, s) in sortedStars) {
                     val key = "${s.name} system"
                     destinationStrings.add(key)
-                    destinationUids[key] = GBViewModel.viewStarPlanets[s.uid]!![0].uid
+                    destinationUids[key] = s.starUidPlanets.first()
                 }
 
                 // Create an ArrayAdapter
@@ -192,8 +192,8 @@ class ShipFragment : Fragment() {
                             return
                         }
 
-                        val uidPlanet = destinationUids[destination]
-                        val planet = GBViewModel.viewPlanets[uidPlanet]!!
+                        val uidPlanet = destinationUids[destination]!!
+                        val planet = vm.planet(uidPlanet)
 
                         if (sh.idxtype == GBData.POD) {
                             flyShipLanded(sh.uid, planet.uid) // update server side

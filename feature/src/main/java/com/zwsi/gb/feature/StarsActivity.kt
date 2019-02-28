@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
-import com.zwsi.gb.feature.GBViewModel.Companion.viewStars
 
 class StarsActivity : AppCompatActivity() {
 
@@ -32,8 +31,7 @@ class StarsActivity : AppCompatActivity() {
         val merged = Bitmap.createBitmap(vm.universeMaxX, vm.universeMaxY, bs.config);
         val canvas = Canvas(merged);
 
-        val stars = viewStars
-        for ((_, s) in stars) {
+        for ((_, s) in vm.stars) {
             canvas.drawBitmap(bs, s.loc.getLoc().x, s.loc.getLoc().y, null)
             canvas.drawText(s.name,s.loc.getLoc().x + 30, s.loc.getLoc().y + 10, paint)
         }

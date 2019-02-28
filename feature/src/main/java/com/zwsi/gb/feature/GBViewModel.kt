@@ -1,7 +1,9 @@
 package com.zwsi.gb.feature
 
 import android.arch.lifecycle.MutableLiveData
-import com.zwsi.gblib.*
+import com.zwsi.gblib.GBLocation
+import com.zwsi.gblib.GBShip
+import com.zwsi.gblib.GBUniverse
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.system.measureNanoTime
 
@@ -21,17 +23,17 @@ class GBViewModel {
         // FIXME PERSISTENCE this initialization
         // Also we don't really need Mutable lists, but we don't want another copy...
 
-        internal val lock = ReentrantLock()
+        internal val vmLock = ReentrantLock()
 
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
         val currentTurn by lazy { MutableLiveData<Int>() }
 
-        lateinit var viewStars: MutableMap<Int, GBStar>
-        lateinit var viewPlanets: MutableMap<Int, GBPlanet>
-        lateinit var viewRaces: MutableMap<Int, GBRace>
-        lateinit var viewShips: MutableMap<Int, GBShip> // FIXME ? Getter returning a fake ship instead of null
+//        lateinit var viewStars: MutableMap<Int, GBStar>
+//        lateinit var viewPlanets: MutableMap<Int, GBPlanet>
+//        lateinit var viewRaces: MutableMap<Int, GBRace>
+//        lateinit var viewShips: MutableMap<Int, GBShip> // FIXME ? Getter returning a fake ship instead of null
 
-        lateinit var viewDeepSpaceShips: List<GBShip>
+//        lateinit var viewDeepSpaceShips: List<GBShip>
 
 
         // FIXME  THINK THIS THROUGH: If we "restore" on update (JSONify copy) we have copies of all stars, planets, etc.
@@ -42,14 +44,14 @@ class GBViewModel {
 
         // PERF Likely, we want GBObjects below. They may take more memory, but operations should be faster on draw
         // FIXME We don't have a view of starPlanetLists...
-        var viewStarPlanets: HashMap<Int, List<GBPlanet>> = HashMap()
-        var viewStarShips: HashMap<Int, List<GBShip>> = HashMap()
-        var viewOrbitShips: HashMap<Int, List<GBShip>> = HashMap()
-        var viewLandedShips: HashMap<Int, List<GBShip>> = HashMap()
-        var viewRaceShips: HashMap<Int, List<GBShip>> = HashMap()
-        var viewShipTrails: HashMap<Int, List<GBxy>> = HashMap()
+//        var viewStarPlanets: HashMap<Int, List<GBPlanet>> = HashMap()
+//        var viewStarShips: HashMap<Int, List<GBShip>> = HashMap()
+//        var viewOrbitShips: HashMap<Int, List<GBShip>> = HashMap()
+//        var viewLandedShips: HashMap<Int, List<GBShip>> = HashMap()
+//        var viewRaceShips: HashMap<Int, List<GBShip>> = HashMap()
+//        var viewShipTrails: HashMap<Int, List<GBxy>> = HashMap()
 
-        lateinit var viewShots: MutableList<GBVector>
+//        lateinit var viewShots: MutableList<GBVector>
 
         var timeLastTurn = 0L
         var timeLastToJSON = 0L
@@ -67,7 +69,7 @@ class GBViewModel {
             // This is (currently) called from the worker thread. So need to call postValue on the LiveData
             timeModelUpdate = measureNanoTime {
 
-                lock.lock(); // lock for the game turn
+                vmLock.lock(); // lock for the game turn
                 try {
 
                     vm = gameinfo
@@ -86,28 +88,28 @@ class GBViewModel {
                     // Using vm is safe as it is not accessed from the other thread after initial construction.
 
                     // Ships
-                    times["mAS"] = measureNanoTime { viewStars = vm.stars }
-
-                    times["mAP"] = measureNanoTime { viewPlanets = vm.planets }
-
-                    times["mAR"] = measureNanoTime { viewRaces = vm.races }
-
-                    times["mAs"] = measureNanoTime { viewShips = vm.ships }
-
-                    times["mDs"] = measureNanoTime { getDeepSpaceShipsList() }
-
-                    times["mPs"] = measureNanoTime { fillViewStarPlanetsAndShips() }
-
-                    times["mLO"] = measureNanoTime { fillViewLandedAndOrbitShips() }
-
-                    times["mRs"] = measureNanoTime { fillViewRaceShips() }
-
-                    times["mst"] = measureNanoTime { fillViewShipTrails() }
-
-                    times["msh"] = measureNanoTime { viewShots = vm.shots }
+//                    times["mAS"] = measureNanoTime { viewStars = vm.stars }
+//
+//                    times["mAP"] = measureNanoTime { viewPlanets = vm.planets }
+//
+//                    times["mAR"] = measureNanoTime { viewRaces = vm.races }
+//
+//                    times["mAs"] = measureNanoTime { viewShips = vm.ships }
+//
+//                    times["mDs"] = measureNanoTime { getDeepSpaceShipsList() }
+//
+//                    times["mPs"] = measureNanoTime { fillViewStarPlanetsAndShips() }
+//
+//                    times["mLO"] = measureNanoTime { fillViewLandedAndOrbitShips() }
+//
+//                    times["mRs"] = measureNanoTime { fillViewRaceShips() }
+//
+//                    times["mst"] = measureNanoTime { fillViewShipTrails() }
+//
+//                    times["msh"] = measureNanoTime { viewShots = vm.shots }
 
                 } finally {
-                    lock.unlock()
+                    vmLock.unlock()
                 }
             }
 
@@ -122,41 +124,41 @@ class GBViewModel {
 
         }
 
-        fun getDeepSpaceShipsList() {
-            // PERF ?? If this were a set, I think it would be one list copy less... This is a big list in demo mode
-            viewDeepSpaceShips = viewShips.filter { it.value.loc.level == GBLocation.DEEPSPACE }.values.toList()
-        }
+//        fun getDeepSpaceShipsList() {
+//            // PERF ?? If this were a set, I think it would be one list copy less... This is a big list in demo mode
+//            viewDeepSpaceShips = vm.ships.filter { it.value.loc.level == GBLocation.DEEPSPACE }.values.toList()
+//        }
 
-        fun fillViewStarPlanetsAndShips() {
-            viewStarPlanets.clear()
-            for ((_, s) in viewStars) {
-                viewStarPlanets.put(s.uid, s.starUidPlanets.map { viewPlanets[it]!! })
-                viewStarShips.put(s.uid, s.starUidShips.map { viewShips[it]!! })
-            }
-        }
-
-        fun fillViewLandedAndOrbitShips() {  // PERF combine with the next and iterate only once
-            viewOrbitShips.clear()
-            for ((_, p) in viewPlanets) {
-                viewLandedShips.put(p.uid, p.landedUidShips.map { viewShips[it]!! })
-                viewOrbitShips.put(p.uid, p.orbitUidShips.map { viewShips[it]!! })
-            }
-        }
-
-        fun fillViewRaceShips() {
-            viewRaceShips.clear()
-            for ((_, race) in viewRaces) {
-                viewRaceShips.put(race.uid, race.raceUidShips.map { viewShips[it]!! })
-            }
-        }
-
-        fun fillViewShipTrails() {
-            viewShipTrails.clear()
-            for ((_, s) in viewShips.filterValues { it.health > 0 }) {
-                viewShipTrails.put(s.uid, s.trailList)
-            }
-        }
-
+//        fun fillViewStarPlanetsAndShips() {
+//            viewStarPlanets.clear()
+//            for ((_, s) in viewStars) {
+//                viewStarPlanets.put(s.uid, s.starUidPlanets.map { viewPlanets[it]!! })
+//                viewStarShips.put(s.uid, s.starUidShips.map { viewShips[it]!! })
+//            }
+//        }
+//
+//        fun fillViewLandedAndOrbitShips() {  // PERF combine with the next and iterate only once
+//            viewOrbitShips.clear()
+//            for ((_, p) in viewPlanets) {
+//                viewLandedShips.put(p.uid, p.landedUidShips.map { viewShips[it]!! })
+//                viewOrbitShips.put(p.uid, p.orbitUidShips.map { viewShips[it]!! })
+//            }
+//        }
+//
+//        fun fillViewRaceShips() {
+//            viewRaceShips.clear()
+//            for ((_, race) in viewRaces) {
+//                viewRaceShips.put(race.uid, race.raceUidShips.map { viewShips[it]!! })
+//            }
+//        }
+//
+//        fun fillViewShipTrails() {
+//            viewShipTrails.clear()
+//            for ((_, s) in viewShips.filterValues { it.health > 0 }) {
+//                viewShipTrails.put(s.uid, s.trailList)
+//            }
+//        }
+//
     }
 
 }

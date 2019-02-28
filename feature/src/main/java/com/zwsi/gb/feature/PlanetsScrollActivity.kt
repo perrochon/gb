@@ -12,7 +12,7 @@ import android.support.constraint.ConstraintLayout
 import android.widget.TextView
 import android.support.constraint.ConstraintSet
 import android.support.v4.view.ViewCompat
-import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 
 
 class PlanetsScrollActivity : AppCompatActivity() {
@@ -60,8 +60,9 @@ class PlanetsScrollActivity : AppCompatActivity() {
         // For now we show all planets, but eventually each race only sees what they can see
         val planetList = findViewById(R.id.planetsLinearLayout) as LinearLayout
 
-        for ((_, s) in GBViewModel.viewStars) {
-            for (p in viewStarPlanets[s.uid]!!) {
+        for ((_, s) in vm.stars) {
+            for (uidP in s.starUidPlanets) {
+                val p = vm.planet(uidP)
 
                 val constraintLayout = ConstraintLayout(this)
                 planetList.addView(constraintLayout)

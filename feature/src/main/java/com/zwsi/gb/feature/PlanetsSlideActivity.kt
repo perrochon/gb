@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 
 class PlanetsSlideActivity : AppCompatActivity() {
 
@@ -41,7 +42,7 @@ class PlanetsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("planets")
         } else {
             displayList = ArrayList<Int>()
-            for ((_, planet) in GBViewModel.viewPlanets) {
+            for ((_, planet) in vm.planets) {
                 displayList.add(planet.uid)
             }
         }

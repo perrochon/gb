@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 
 class StarsSlideActivity : AppCompatActivity() {
 
@@ -41,7 +42,7 @@ class StarsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("stars")
         } else {
             displayList = ArrayList<Int>()
-            for ((_, star) in GBViewModel.viewStars) {
+            for ((_, star) in vm.stars) {
                 displayList.add(star.uid)
             }
         }

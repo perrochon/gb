@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.zwsi.gb.feature.GBViewModel.Companion.viewStarPlanets
-import com.zwsi.gb.feature.GBViewModel.Companion.viewStarShips
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 
 class StarFragment : Fragment() {
 
@@ -46,7 +45,7 @@ class StarFragment : Fragment() {
     private fun setDetails(view: View) {
 
         // Stars don't go away, so the below !! should be safe
-        val star = GBViewModel.viewStars[tag!!.toInt()]!!
+        val star = vm.star(tag!!.toInt())
 
         val stats = view.findViewById<TextView>(R.id.StarStats)
         val paint = stats.paint
@@ -54,7 +53,7 @@ class StarFragment : Fragment() {
 
         stats.setText("${star.name} at (" + (star.loc.getLoc().x.toInt()) + ", " + star.loc.getLoc().y.toInt() + ")\n")
 
-        val planets = viewStarPlanets[star.uid]!!
+        val planets = star.starUidPlanets.map { vm.planet(it) }
         if (planets.isNotEmpty()) {
             stats.append("Planets (${planets.size}): ")
             for (p in planets) {
@@ -63,7 +62,7 @@ class StarFragment : Fragment() {
             stats.append("\n")
         }
 
-        val ships = viewStarShips[star.uid]!!
+        val ships = star.starUidShips.map { vm.ship(it) }
         if (ships.isNotEmpty()) {
             stats.append("Ships (${ships.size.toString()}): ")
             for (s in ships) {

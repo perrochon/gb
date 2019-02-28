@@ -5,7 +5,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
-import com.zwsi.gb.feature.GBViewModel.Companion.viewShips
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 
 class ShipsSlideActivity : AppCompatActivity() {
 
@@ -24,7 +24,7 @@ class ShipsSlideActivity : AppCompatActivity() {
         setupViewPager()
         viewpager.setCurrentItem(startItem)
 
-        if (GBViewModel.viewShips.size == 0) {
+        if (vm.ships.size == 0) {
             val hintText = this.findViewById<TextView>(R.id.hintTextView)
             hintText.visibility = (TextView.VISIBLE)
             hintText.setText("There are no ships here.\n\n ")
@@ -47,7 +47,7 @@ class ShipsSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("ships")
         } else {
             displayList = ArrayList<Int>()
-            for ((uid, _) in viewShips.filterValues { it.health > 0 }) {
+            for ((uid, _) in vm.ships.filterValues { it.health > 0 }) {
                 displayList.add(uid)
             }
         }

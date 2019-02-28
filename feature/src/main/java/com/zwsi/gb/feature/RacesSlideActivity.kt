@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBRace
 
 class RacesSlideActivity : AppCompatActivity() {
@@ -48,7 +49,7 @@ class RacesSlideActivity : AppCompatActivity() {
             displayList = intent.getIntegerArrayListExtra("races")
         } else {
             displayList = ArrayList<Int>()
-            for ((_, race) in GBViewModel.viewRaces) {
+            for ((_, race) in vm.races) {
                 displayList.add(race.uid)
             }
         }

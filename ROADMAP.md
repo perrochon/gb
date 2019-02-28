@@ -9,6 +9,8 @@ is visible.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 
 ## Short Term
+* Bug: Planetary ships bounce around on continues updates and drag
+* Clean up deprecated files... Too much work maintaining them on refactoring :-(
 * Better looking spinner - may need to copy more XML
 * Destination of star system for ships far away, instead of first planet.
 * re-creating missions on compile and copying them into res directory.

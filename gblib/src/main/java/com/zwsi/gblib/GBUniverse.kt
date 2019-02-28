@@ -28,8 +28,6 @@ data class GBUniverse(
     var planets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>(),
     var races: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>(),
     var ships: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>(),
-    // deepSpace rebuilt on load
-    // dead ships not needed
     val shots: MutableList<GBVector> = arrayListOf<GBVector>(),
     val news: MutableList<String> = arrayListOf<String>()
     // orders not needed while we only save/restore at beginning of turn
@@ -49,10 +47,10 @@ data class GBUniverse(
     ) {
     }
 
-    @Transient
     var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships.
 
     // FIXME PERSISTENCE dead ships in the Universe. Keep here so they don't get garbage collected too early. Keep one turn
+    // dead ships not needed in save, etc.
     @Transient
     var deadShips: MutableMap<Int, GBShip> = hashMapOf()
 
@@ -63,7 +61,8 @@ data class GBUniverse(
         return nextGlobalID++
     }
 
-    // Helper functions with null check for map access. Use e.g. stars(uid) instead of stars[uid]!!
+    // Helper functions with null check for map access. Use e.g. stars(uid) instead of stars[uid]!! when null is an error
+    // Don't use these when null is a possible value, e.g. in a view that has a uidShip but ship may be dead by now.
     fun star(uid: Int): GBStar {
         return stars[uid]!!
     }

@@ -12,9 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.zwsi.gb.feature.GBViewModel.Companion.viewLandedShips
-import com.zwsi.gb.feature.GBViewModel.Companion.viewOrbitShips
-import com.zwsi.gb.feature.GBViewModel.Companion.viewPlanets
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBPlanet
 
 class PlanetFragment : Fragment() {
@@ -45,7 +43,7 @@ class PlanetFragment : Fragment() {
         })
 
         val starButton: Button = view.findViewById(R.id.panzoomToSystemStar)
-        starButton.tag = GBViewModel.viewPlanets[tag!!.toInt()]!!.star.uid
+        starButton.tag = vm.planet(tag!!.toInt()).star.uid
         starButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.panzoomToStar(it)
         })
@@ -62,7 +60,7 @@ class PlanetFragment : Fragment() {
     private fun setDetails(view: View) {
 
         // Planets don't go away, so the below !! should be safe
-        val p = GBViewModel.viewPlanets[tag!!.toInt()]!!
+        val p = vm.planet(tag!!.toInt())
 
         if (p.planetPopulation == 0) {
             val button = view.findViewById<Button>(R.id.makefactory)
@@ -78,20 +76,20 @@ class PlanetFragment : Fragment() {
         planetStats.setText("${p.name} in ${p.star.name} system\n")
         planetStats.append("Size: ${p.size} | Population: ${p.planetPopulation.f(6)} \n")
 
-        var ships = viewLandedShips[p.uid]!!
+        var ships = vm.planet(p.uid).landedUidShips
         if (ships.isNotEmpty()) {
             planetStats.append("Ships landed (${ships.size.toString()}): ")
-            for (sh in ships) {
-                planetStats.append(sh.name + " ")
+            for (uidS in ships) {
+                planetStats.append(vm.ship(uidS).name + " ")
             }
             planetStats.append("\n")
         }
 
-        ships = viewOrbitShips[p.uid]!!
+        ships = vm.planet(p.uid).orbitUidShips
         if (ships.isNotEmpty()) {
             planetStats.append("Ships in orbit (${ships.size.toString()}): ")
-            for (sh in ships) {
-                planetStats.append(sh.name + " ")
+            for (uidS in ships) {
+                planetStats.append(vm.ship(uidS).name + " ")
             }
             planetStats.append("\n")
         }

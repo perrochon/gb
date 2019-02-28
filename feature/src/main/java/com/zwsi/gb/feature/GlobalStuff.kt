@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.currentGameFileName
@@ -27,8 +28,7 @@ class GlobalStuff {
         val jsonAdapter: JsonAdapter<GBUniverse> = moshi.adapter(GBUniverse::class.java).indent("  ")
         var autoDo = false
 
-        // FIXME We have two makeUniverse...
-        fun makeUniverse(view: View) {
+        fun makeUniverse(@Suppress("UNUSED_PARAMETER") view: View) {
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
             }
@@ -149,10 +149,10 @@ class GlobalStuff {
             lastClickTime = SystemClock.elapsedRealtime();
 
             // Planets don't go away, so the below !! should be safe
-            val planet = GBViewModel.viewPlanets[view.tag]!!
+            val planet = vm.planet(view.tag as Int)
 
             // TODO Simplify (use .first) ? Or better, find Population and use planetOwner...
-            GBController.makeFactory(planet.uid, GBViewModel.viewRaces.toList().component1().second.uid)
+            GBController.makeFactory(planet.uid, 0)
 
             val message = "Ordered Factory on " + planet.name
 
@@ -172,7 +172,7 @@ class GlobalStuff {
             val activity = view.context as Activity
 
             // Stars don't go away, so the below !! should be safe
-            val star = GBViewModel.viewStars[view.tag]!!  // FIXME direct way?
+            val star = vm.star(view.tag as Int)  // FIXME direct way?
 
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!
 
@@ -200,7 +200,7 @@ class GlobalStuff {
             val activity = view.context as Activity
 
             // Planets don't go away, so the below !! should be safe
-            val planet = GBViewModel.viewPlanets[view.tag]!!
+            val planet = vm.planet(view.tag as Int)
 
             val imageView = activity.findViewById<MapView>(R.id.mapView)!!  // FIXME direct way?
 
@@ -228,7 +228,7 @@ class GlobalStuff {
 
             val activity = view.context as Activity
 
-            val ship = GBViewModel.viewShips[view.tag]
+            val ship = vm.ships[view.tag as Int] // Don't use ship(), as we need to handle null (do nothing)
             if (ship != null) {
 
                 val imageView = activity.findViewById<MapView>(R.id.mapView)!!
@@ -255,7 +255,7 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            val factory = GBViewModel.viewShips[view.tag]
+            val factory = vm.ships[view.tag as Int] // Don't use ship() as we need to handle null (do nothing)
             if (factory != null) {
 
                 val message = "Ordered Pod in Factory " + factory.name
@@ -273,7 +273,7 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            val factory = GBViewModel.viewShips[view.tag]
+            val factory = vm.ships[view.tag as Int] // Don't use ship() as we need to handle null (do nothing)
             if (factory != null) {
                 val message = "Ordered Cruiser in Factory " + factory.name
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
