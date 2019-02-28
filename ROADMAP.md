@@ -9,8 +9,6 @@ is visible.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 
 ## Short Term
-* Bug: No Cont. Load Mission 3, Click Play, see no DS Ships, click Do, they pop up.
-* Bug: Planetary ships bounce around on continues updates and drag
 * Bug: Clicks register to targets when too far away for high zoom level.
 * Feature: Destination star system. Needs new location type (gating fog of war)
 * Better looking spinner - may need to copy more XML
@@ -28,6 +26,7 @@ is visible.
 * Refactor to use resources for strings for Missions
 
 ### Not Gating
+* Big Problem with GBLib relying on u.() when it should use vm.x() for view model. Workaround for ship location in place.
 * Refactor firing solution and move logic for firing and taking damage into each ship's class (depends on ship refactor)
 * Get Rid of Feature Module? Having one feature module is kind of pointless, it seems
 * Refactor and apply naming conventions for UI elements (btn_do etc.) and other things
