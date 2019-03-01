@@ -587,6 +587,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     init {
         shipPaint.style = Style.STROKE
+        shipPaint.isAntiAlias = false
+        shipPaint.strokeJoin = Paint.Join.ROUND
+        shipPaint.strokeCap = Cap.BUTT
         shipPaint.strokeWidth = strokeWidth.toFloat()
 
         trailPaint.strokeWidth = strokeWidth.toFloat() / 2
@@ -645,7 +648,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
                 if (1 > normScale) {
-                    val theta: Float = currentTimeMillis().rem(sh.uid.rem(12)).toFloat() * 2f * PI.toFloat() / 1000
+                    val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
                     canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
                     canvas.drawBitmap(
                         bitmaps[R.drawable.cruisert]!!,
