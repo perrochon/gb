@@ -24,6 +24,9 @@ import com.zwsi.gblib.GBVector
 import java.lang.System.currentTimeMillis
 import kotlin.math.*
 import kotlin.system.measureNanoTime
+import android.graphics.DashPathEffect
+import com.zwsi.gblib.distance
+
 
 //TODO where should these extensions to basic types live?
 fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
@@ -373,24 +376,38 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
     }
 
+    var shotPaint = Paint()
+    init{
+        shotPaint.strokeWidth = strokeWidth.toFloat() / 4
+    }
+
     private fun drawShots(canvas: Canvas) {
         if (40 > normScale) {
 
             if (true) {
                 for (shot: GBVector in vm.shots) {
-                    paint.color =
-                        Color.parseColor(vm.race(shot.uidRace).color) // TODO PERFORMANCE add color when making shots as an int
-                    paint.strokeWidth = strokeWidth.toFloat() / 4
                     if (pointVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||
                         pointVisible(shot.to.x * uToSf, shot.to.y * uToSf)
                     ) {
+                        shotPaint.color =
+                            Color.parseColor(vm.race(shot.uidRace).color) // TODO PERFORMANCE add color when making shots as an int
+                        val shotduration = 500
+                        val distance = shot.from.distance(shot.to) * uToS * scale
+                        val milis = currentTimeMillis().rem(shotduration).toFloat()
+                        val shotFront =  milis * distance / shotduration
+                        if (milis < 50f) {
+                            shotPaint.setPathEffect(DashPathEffect(floatArrayOf(shotFront, Float.MAX_VALUE), 0f))
+                        } else {
+                            val shotend = (milis - 50f) * distance / shotduration
+                            val shotlength = 50f * distance / shotduration
+                            shotPaint.setPathEffect(DashPathEffect(floatArrayOf(0f, shotend, shotlength, Float.MAX_VALUE), 0f))
 
+                        }
                         sP1.set(shot.from.x * uToS, shot.from.y * uToS)
                         sourceToViewCoord(sP1, vP1)
                         sP2.set(shot.to.x * uToS, shot.to.y * uToS)
                         sourceToViewCoord(sP2, vP2)
-
-                        canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, paint)
+                        canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, shotPaint)
                     }
                 }
             }
@@ -609,6 +626,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             shipPaint.color = deadColor
         } else {
             shipPaint.color = Color.parseColor(sh.race.color)
+        }
+        if (sh.loc.level == DEEPSPACE) {
+            shipPaint.alpha = 128
         }
 
         sP1.set(sh.loc.getVMLoc(vm).x * uToS, sh.loc.getVMLoc(vm).y * uToS)

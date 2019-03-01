@@ -22,6 +22,9 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 
 ### Release Notes
 
+.next
+- Minor: animated shots
+
 .609
 - Automatically load current game (if there is one) upon (re)start
 - Minor: Distribute ships in orbit evenly over time, ships get limited shots per turn (for now 1), 
