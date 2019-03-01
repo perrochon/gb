@@ -10,6 +10,7 @@ is visible.
 
 ## Short Term
 * Bug: Clicks register to targets when too far away for high zoom level.
+8 Bug: funky dot patterns on ships on zoom out.
 * Feature: Destination star system. Needs new location type (gating fog of war)
 * Better looking spinner - may need to copy more XML
 * Re-creating missions on each build and copy them into res directory.

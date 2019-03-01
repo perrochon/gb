@@ -16,6 +16,8 @@ import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
+import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
+import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBVector
@@ -163,8 +165,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         val drawables = listOf<Int>(R.drawable.podt, R.drawable.cruisert, R.drawable.factory, R.drawable.beetlepod)
         for (i in drawables) {
             val bm = BitmapFactory.decodeResource(getResources(), i)!!
-            w = density / 420f * bm.getWidth() / 60
-            h = density / 420f * bm.getHeight() / 60
+            w = density / 420f * bm.getWidth() / 6
+            h = density / 420f * bm.getHeight() / 6
             bitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
         }
 
@@ -587,9 +589,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     init {
         shipPaint.style = Style.STROKE
-        shipPaint.isAntiAlias = false
-        shipPaint.strokeJoin = Paint.Join.ROUND
-        shipPaint.strokeCap = Cap.BUTT
+        shipPaint.isAntiAlias = true
         shipPaint.strokeWidth = strokeWidth.toFloat()
 
         trailPaint.strokeWidth = strokeWidth.toFloat() / 2
@@ -601,7 +601,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     fun drawShip(canvas: Canvas, sh: GBShip) {
 
-        val radius = scale * 2f
+        val radius = scale * 1.6f
 
         if (sh.health <= 0) {
             // FIXME: Pods turn white when entering orbit. I think they turn dead, and we currently draw all ships, instead
@@ -613,6 +613,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         sP1.set(sh.loc.getVMLoc(vm).x * uToS, sh.loc.getVMLoc(vm).y * uToS)
         sourceToViewCoord(sP1, vP1)
+
+        if (sh.health > 0) {
+            val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
+            canvas.drawCircle(
+                vP1.x + cos(theta) * radius,
+                vP1.y + sin(theta) * radius,
+                radius / 10,
+                shipPaint
+            )
+        }
+
         when (sh.idxtype) {
 
             // TODO: Ships should tell give me the ID of their bitmap and this when statement would go away
@@ -622,21 +633,32 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
                 if (1 > normScale) {
-                    val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
-                    canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
+
 
                     if (sh.race.uid == 2) {
+                        val o = bitmaps[R.drawable.beetlepod]!!.width / 2.6f / 100 * scale
                         canvas.drawBitmap(
                             bitmaps[R.drawable.beetlepod]!!,
-                            vP1.x - bitmaps[R.drawable.beetlepod]!!.width / 2,
-                            vP1.y - bitmaps[R.drawable.beetlepod]!!.height / 2,
+                            null,
+                            RectF(
+                                vP1.x - o,
+                                vP1.y - o,
+                                vP1.x + o,
+                                vP1.y + o
+                            ),
                             null
                         )
                     } else {
+                        val o = bitmaps[R.drawable.podt]!!.width / 2.6f / 100 * scale
                         canvas.drawBitmap(
                             bitmaps[R.drawable.podt]!!,
-                            vP1.x - bitmaps[R.drawable.podt]!!.width / 2,
-                            vP1.y - bitmaps[R.drawable.podt]!!.height / 2,
+                            null,
+                            RectF(
+                                vP1.x - o,
+                                vP1.y - o,
+                                vP1.x + o,
+                                vP1.y + o
+                            ),
                             null
                         )
                     }
@@ -648,12 +670,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
                 if (1 > normScale) {
-                    val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
-                    canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
+                    val o = bitmaps[R.drawable.cruisert]!!.width / 2.4f / 100 * scale
                     canvas.drawBitmap(
                         bitmaps[R.drawable.cruisert]!!,
-                        vP1.x - bitmaps[R.drawable.cruisert]!!.width / 2,
-                        vP1.y - bitmaps[R.drawable.cruisert]!!.height / 2,
+                        null,
+                        RectF(
+                            vP1.x - o,
+                            vP1.y - o,
+                            vP1.x + o,
+                            vP1.y + o
+                        ),
                         null
                     )
                 }
@@ -662,13 +688,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             FACTORY -> {
                 canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                 if (1 > normScale) {
-                    val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
-                    canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
+                    val o = bitmaps[R.drawable.factory]!!.width / 2.4f / 100 * scale
 
                     canvas.drawBitmap(
                         bitmaps[R.drawable.factory]!!,
-                        vP1.x - bitmaps[R.drawable.factory]!!.width / 2,
-                        vP1.y - bitmaps[R.drawable.factory]!!.height / 2,
+                        null,
+                        RectF(
+                            vP1.x - o,
+                            vP1.y - o,
+                            vP1.x + o,
+                            vP1.y + o
+                        ),
                         null
                     )
                 }
@@ -687,28 +717,31 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             return
         }
 
-        val trail = sh.trailList
+        if (sh.loc.level == DEEPSPACE || sh.loc.level == SYSTEM) {
 
-        if (trail.size > 1) {
-            val alphaFade = maxTrailAlpha / (trail.size + 1)
-            trailPaint.alpha = 0
+            val trail = sh.trailList
 
-            val iterate = trail.iterator()
+            if (trail.size > 1) {
+                val alphaFade = maxTrailAlpha / (trail.size + 1)
+                trailPaint.alpha = 0
 
-            val from = iterate.next()
-            sP1.set(from.x * uToS, from.y * uToS)
-            sourceToViewCoord(sP1, vP1)
+                val iterate = trail.iterator()
 
-            while (iterate.hasNext()) {
+                val from = iterate.next()
+                sP1.set(from.x * uToS, from.y * uToS)
+                sourceToViewCoord(sP1, vP1)
 
-                val to = iterate.next()
-                sP2.set(to.x * uToS, to.y * uToS)
-                sourceToViewCoord(sP2, vP2)
+                while (iterate.hasNext()) {
 
-                canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, trailPaint)
+                    val to = iterate.next()
+                    sP2.set(to.x * uToS, to.y * uToS)
+                    sourceToViewCoord(sP2, vP2)
 
-                vP1.set(vP2)
-                trailPaint.alpha += alphaFade
+                    canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, trailPaint)
+
+                    vP1.set(vP2)
+                    trailPaint.alpha += alphaFade
+                }
             }
         }
     }
