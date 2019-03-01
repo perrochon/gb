@@ -23,7 +23,7 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 ### Release Notes
 
 .next
-- Minor: animated shots
+- Minor: animated shots, larger and scaling ship bitmaps
 
 .609
 - Automatically load current game (if there is one) upon (re)start

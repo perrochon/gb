@@ -391,8 +391,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     ) {
                         shotPaint.color =
                             Color.parseColor(vm.race(shot.uidRace).color) // TODO PERFORMANCE add color when making shots as an int
-                        val shotduration = 500
-                        val distance = shot.from.distance(shot.to) * uToS * scale
+                        val shotduration = 333
+                        val distance = shot.from.distance(shot.to) * uToS * scale * 2f
                         val milis = currentTimeMillis().rem(shotduration).toFloat()
                         val shotFront =  milis * distance / shotduration
                         if (milis < 50f) {
