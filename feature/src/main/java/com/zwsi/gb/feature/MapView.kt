@@ -607,9 +607,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         } else {
             shipPaint.color = Color.parseColor(sh.race.color)
         }
-//        var alpha: Int = (currentTimeMillis().rem(1000) / 4).toInt() // 0..255
-//        if (alpha > 128) alpha = 256 - alpha // 00..128
-//        shipPaint.alpha = alpha + 128 // 128..256
 
         sP1.set(sh.loc.getVMLoc(vm).x * uToS, sh.loc.getVMLoc(vm).y * uToS)
         sourceToViewCoord(sP1, vP1)
@@ -624,6 +621,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 if (1 > normScale) {
                     val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
                     canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
+
                     if (sh.race.uid == 2) {
                         canvas.drawBitmap(
                             bitmaps[R.drawable.beetlepod]!!,
@@ -641,13 +639,13 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     }
                 }
             }
+
             CRUISER -> {
-//                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
+                //canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                 canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
                 if (1 > normScale) {
                     val theta: Float = currentTimeMillis().rem(sh.uid.rem(12)).toFloat() * 2f * PI.toFloat() / 1000
-                    // sh.uid.toFloat().rem(10f) * 0.6f
                     canvas.drawCircle(vP1.x + cos(theta) * radius, vP1.y + sin(theta) * radius, radius / 10, shipPaint)
                     canvas.drawBitmap(
                         bitmaps[R.drawable.cruisert]!!,
@@ -657,6 +655,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     )
                 }
             }
+
             FACTORY -> {
                 canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                 if (1 > normScale) {
