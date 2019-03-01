@@ -14,7 +14,7 @@ Steps for release, because I always forget some. // TODO Automate this
 - Upload that to Android Play
 - Check release name in Android Play (it takes versionName by default, but check)
 - Paste release notes into Play. 500 character limit.
-- review and publish
+- review and publish. Optinal: Release previous or new to Beta
 - Write release notes in e-mail. 
 - Send e-mail
 
@@ -22,7 +22,7 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 
 ### Release Notes
 
-.next
+.614
 - Minor: animated shots, larger and scaling ship bitmaps
 
 .609
