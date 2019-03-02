@@ -3,9 +3,11 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
@@ -15,12 +17,17 @@ import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
 import java.io.File
+import android.webkit.WebView
+
+
 
 
 var lastClickTime = 0L
 val clickDelay = 300L
 
 class MainActivity : AppCompatActivity() {
+
+    var helpText : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -74,14 +81,24 @@ class MainActivity : AppCompatActivity() {
             messageBox.append("\nCreated New Universe.\n")
         })
 
+        // Pre-load HTML to make later clicks on Help faster
+        // TODO: Not sure this is needed. It didn't speed up on the emulator, and no big difference on Pixel 3
+        Thread(Runnable {
+            helpText = getString(R.string.tutorial)
+        }).start()
+
         val helpButton: Button = findViewById(R.id.HelpButton)
         helpButton.setOnClickListener(View.OnClickListener {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("http://htmlpreview.github.io/?https://github.com/perrochon/gb/blob/master/Tutorial.html")
-                )
-            )
+            val helpView = WebView(this)
+            helpView.setBackgroundColor(Color.BLACK)
+            val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
+
+            if (helpText != null) {
+                helpView.loadData(helpText, "text/html", "utf-8")
+                builder.setView(helpView)
+                    .setNeutralButton("OK", null)
+                    .show()
+            }
         })
 
         val loadButton1: Button = findViewById(R.id.LoadButton1)
@@ -142,9 +159,6 @@ class MainActivity : AppCompatActivity() {
 
         val message = "God Mode: Not doing anything right now"
         Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-//        Thread(Runnable {
-//
-//        }).start()
 
     }
 
