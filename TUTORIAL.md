@@ -5,4 +5,6 @@ Install the beta from: https://play.google.com/store/apps/details?id=com.zwsi.gb
 
 
 This mark down version of the Tutorial is deprecated. 
-The HTML tutorial is now at: http://htmlpreview.github.io/?https://github.com/perrochon/gb/blob/master/Tutorial.html
+
+The HTML tutorial is now at: 
+http://htmlpreview.github.io/?https://github.com/perrochon/gb/blob/master/feature/src/main/res/values/tutorial.xml
