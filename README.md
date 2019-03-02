@@ -1,9 +1,8 @@
-:tada: GB: A Galactic Bloodshed (and others) inspired 4x game for mobile :tada:
+:tada: Andromeda Rising: A 4x game for mobile inspired by Galactic BLoodshed and others:tada:
 
 Kotlin on Android based implementation of a game that is inspired by Galactic Bloodshed and others, e.g. Great Big 
 Wargame. It's a turn based 4x game. For now, it's single player on device only, but the current long term plan is to 
 make it multi-player Internet based.
-
 
 ### Directories
 
