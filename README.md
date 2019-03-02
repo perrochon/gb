@@ -20,3 +20,6 @@ from accessibility to responsiveness to localization.
 But the initial focus is on learning Android, Kotlin, and adding basic game functionality, so we keep working on all 
 fronts.
 
+### Major Dependencies
+* Dave Morrisey's awesome Subsampling Scale Image View https://github.com/davemorrissey/subsampling-scale-image-view
+* Square's Moshi https://github.com/square/moshi
