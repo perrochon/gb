@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://github.com/perrochon/gb/blob/master/TUTORIAL.md")
+                    Uri.parse("http://htmlpreview.github.io/?https://github.com/perrochon/gb/blob/master/Tutorial.html")
                 )
             )
         })
