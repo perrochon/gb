@@ -555,7 +555,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             paint.style = Style.STROKE
                             paint.color = circleColor
                             paint.strokeWidth = strokeWidth.toFloat()
-                            val radius = vm.planetOrbit * uToS * scale // TODO Constant PLANETARY_ORBIT
+                            val radius = vm.planetOrbit * uToS * scale
                             canvas.drawCircle(vP1.x, vP1.y, radius, paint)
 
                             val o = (PlanetOrbit * 0.4f) * uToS * scale
@@ -874,7 +874,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     fun drawClickTargets(canvas: Canvas) {
 
         paint.style = Style.STROKE
-        paint.color = Color.parseColor("#1055bb33")
+        paint.color = Color.parseColor("#ff55bb33")  //
         paint.strokeWidth = strokeWidth.toFloat()
         val radius = 80f
 
@@ -907,7 +907,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if ((closest != null)) {
             val distance =
                 sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
-            if (distance < 80f) {
+            if (distance < 80f) { //FIXME Make  Clicktarget size a constant. vClickTargetRadius
                 return closest.any
             } else {
                 val closestPlanet = clickTargets.filter { it.any is GBPlanet }
@@ -918,7 +918,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             (closestPlanet.center.x - x) * (closestPlanet.center.x - x)
                                     + (closestPlanet.center.y - y) * (closestPlanet.center.y - y)
                         )
-                    if (distance2 < vm.planetOrbit * uToSf) {
+                    if (distance2 < (vm.planetOrbit * uToSf * scale)) {
                         return closestPlanet.any
                     }
                 }
