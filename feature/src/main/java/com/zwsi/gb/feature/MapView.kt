@@ -874,7 +874,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     fun drawClickTargets(canvas: Canvas) {
 
         paint.style = Style.STROKE
-        paint.color = Color.parseColor("#ff55bb33")  //
+        paint.color = Color.parseColor("#8055bb33")  //
         paint.strokeWidth = strokeWidth.toFloat()
         val radius = 80f
 
