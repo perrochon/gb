@@ -251,7 +251,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         if (BuildConfig.SHOWSTATS) {
             drawStats(canvas)
-            drawClickTargets(canvas)
+            //drawClickTargets(canvas)
         }
 
         postInvalidateDelayed(40) // 40 -> ~24 fps
