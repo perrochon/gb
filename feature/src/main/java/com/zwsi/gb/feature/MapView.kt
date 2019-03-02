@@ -21,11 +21,10 @@ import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBVector
+import com.zwsi.gblib.distance
 import java.lang.System.currentTimeMillis
 import kotlin.math.*
 import kotlin.system.measureNanoTime
-import android.graphics.DashPathEffect
-import com.zwsi.gblib.distance
 
 
 //TODO where should these extensions to basic types live?
@@ -377,7 +376,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
     var shotPaint = Paint()
-    init{
+
+    init {
         shotPaint.strokeWidth = strokeWidth.toFloat() / 4
     }
 
@@ -394,13 +394,22 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         val shotduration = 333
                         val distance = shot.from.distance(shot.to) * uToS * scale * 2f
                         val milis = currentTimeMillis().rem(shotduration).toFloat()
-                        val shotFront =  milis * distance / shotduration
+                        val shotFront = milis * distance / shotduration
                         if (milis < 50f) {
                             shotPaint.setPathEffect(DashPathEffect(floatArrayOf(shotFront, Float.MAX_VALUE), 0f))
                         } else {
                             val shotend = (milis - 50f) * distance / shotduration
                             val shotlength = 50f * distance / shotduration
-                            shotPaint.setPathEffect(DashPathEffect(floatArrayOf(0f, shotend, shotlength, Float.MAX_VALUE), 0f))
+                            shotPaint.setPathEffect(
+                                DashPathEffect(
+                                    floatArrayOf(
+                                        0f,
+                                        shotend,
+                                        shotlength,
+                                        Float.MAX_VALUE
+                                    ), 0f
+                                )
+                            )
 
                         }
                         sP1.set(shot.from.x * uToS, shot.from.y * uToS)
@@ -874,12 +883,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     }
 
+
+    // FIXME onTouchEvent override doesn't seem to do much other than invalidate. Do we need it?
     override fun onTouchEvent(event: MotionEvent): Boolean {
         xClick = event.x
         yClick = event.y
 
         if (isReady) {
-            sClick = viewToSourceCoord(xClick, yClick)!!
+            sClick = viewToSourceCoord(xClick, yClick)!! // FIXME what does this do?
             invalidate()
 
         }
@@ -896,16 +907,19 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if ((closest != null)) {
             val distance =
                 sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
-            if (distance < 80f) { // FIXME Need to do this in screen coordinates...
+            if (distance < 80f) {
                 return closest.any
             } else {
                 val closestPlanet = clickTargets.filter { it.any is GBPlanet }
                     .minBy { (it.center.x - x) * (it.center.x - x) + (it.center.y - y) * (it.center.y - y) }
                 if (closestPlanet != null) {
                     val distance2 =
-                        sqrt((closest.center.x - x) * (closest.center.x - x) + (closest.center.y - y) * (closest.center.y - y))
-                    if (distance2 < vm.planetOrbit * uToSf * scale) {
-                        return closest.any
+                        sqrt(
+                            (closestPlanet.center.x - x) * (closestPlanet.center.x - x)
+                                    + (closestPlanet.center.y - y) * (closestPlanet.center.y - y)
+                        )
+                    if (distance2 < vm.planetOrbit * uToSf) {
+                        return closestPlanet.any
                     }
                 }
             }
