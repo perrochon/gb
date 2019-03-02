@@ -23,7 +23,7 @@ https://stackoverflow.com/questions/17197636/is-it-possible-to-declare-a-variabl
 ### Release Notes
 
 .next
-- Minor: Tutorial to HTML
+- Minor: Tutorial to HTML and in-app.
 
 .614
 - Minor: animated shots, larger and scaling ship bitmaps

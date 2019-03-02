@@ -10,7 +10,6 @@ is visible.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 
 ## Short Term Small Items
-* Bundle help with app https://alvinalexander.com/android/how-to-store-static-text-in-android-file-res-values
 * Bug: Handle Device Orientation Changes better (same location)
 * Feature: Destination star system. Needs new location type (gating fog of war)
 * Bug: Clicks register to targets when too far away for high zoom level.
