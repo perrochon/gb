@@ -1,5 +1,6 @@
 # Roadmap
 
+
 ## Guiding Principles
 Right now, the focus is on enabling game play, i.e. add features that allow more game play. Features that don't enhance
 game play, or prevent game play are second priority. Here are a few examples
@@ -8,13 +9,15 @@ is visible.
 * Limits on money: Players will be resource constraint. For now, enjoy unlimited resources.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 
-## Short Term
-* Bug: Clicks register to targets when too far away for high zoom level.
-8 Bug: funky dot patterns on ships on zoom out.
+## Short Term Small Items
+* Bug: Handle Device Orientation Changes better (same location)
 * Feature: Destination star system. Needs new location type (gating fog of war)
+* Bug: Clicks register to targets when too far away for high zoom level.
 * Better looking spinner - may need to copy more XML
 * Re-creating missions on each build and copy them into res directory.
-* Population on planets (per race, and do correctly). Fix "Make Factory"
+
+## Short Term Larger Items
+* Population on planets (per race, and do correctly). Fix "Make Factory" etc.
 * Player mode (not just god mode).
     * Passing race around on commands, to make sure actions are access controlled :-)
 
@@ -27,6 +30,7 @@ is visible.
 * Refactor to use resources for strings for Missions
 
 ### Not Gating
+* Different layouts for landscape/tablet
 * Big Problem with GBLib relying on u.() when it should use vm.x() for view model. Workaround for ship location in place.
 * Refactor firing solution and move logic for firing and taking damage into each ship's class (depends on ship refactor)
 * Get Rid of Feature Module? Having one feature module is kind of pointless, it seems
