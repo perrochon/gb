@@ -4,12 +4,28 @@
     <string name="tutorial">
         <![CDATA[
         <HTML>
-<BODY bgcolor="#ffffff">
-<font color="#ffbb33">
-<H1>Andromeda Rising</H1>
+<head>
+<style>
+body {
+  background-color: black;
+  color: #ffbb33;
+}
+h1 {
+font-weight: normal;
+}
+h2 {
+font-weight: normal;
+}
+a {
+color: #DDAA22;
+}
+</style>
+</head>
+<BODY>
+<H1> Andromeda Rising</H1>
 
-<p>Andromeda Rising is a turn-based strategy game. As the leader of your
-    race you manage your planet, build ships, eXplore your star system, eXpand to nearby systems, eXploit
+<p>Andromeda Rising is a turn-based strategy game. As the leader of your race you manage your planet, build ships,
+   eXplore your star system, eXpand to nearby systems, eXploit
     any resources you find, and eXterminate anyone in your way (4X).</p>
 
 <p>This game is in internal release only and has limited game play at this point.
@@ -43,7 +59,7 @@
     </li>
 </ul>
 
-<H2>Mission 1 - Secure your Star System</H2>
+<H2>Mission 1 - Secure Your Star System</H2>
 
 <ul>
     <li>Click on Map - the map will show you your home planet</li>
@@ -72,7 +88,7 @@
     <li>Mission Success: Population on all planets. Armed ships (i.e. cruiser) around all planets.</li>
 </ul>
 
-<H2>Mission 2 - Explore another system</H2>
+<H2>Mission 2 - Explore Next System</H2>
 <ul>
     <li>Zoom out all the way. By now, you should see other ships from other races. They are not friendly.</li>
 
@@ -99,10 +115,12 @@
 
 <H2>FAQ</H2>
 <ul>
-    <li>What about feature X? Check out the <A href="https://github.com/perrochon/gb/blob/master/ROADMAP.md">road map</a>
+    <li>What about feature X? <br>
+        Check out the <A href="https://github.com/perrochon/gb/blob/master/ROADMAP.md">road map</a>
     </li>
 
-    <li>Why don't my ships shoot at enemy ships passing through a star system? It may look like they fly through the
+    <li>Why don't my ships shoot at enemy ships passing through a star system? <br>
+        It may look like they fly through the
         system,
         but they are way above or below in the galactic planet. One way to tell
         if a Pod is in-system is to watch it's trail. If it's straight, it may be heading elsewhere. If it curves toward
@@ -111,11 +129,11 @@
         than in-system.
     </li>
 
-    <li>What are the circles around some ships? An experimental feature shows click targets. If it has a circle, you
+    <li>What are the circles around some ships? <br>
+        An experimental feature shows click targets. If it has a circle, you
         can click it.
     </li>
 </ul>
-</font>
 </BODY>
 </HTML>
         ]]>
