@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="tutorial">
+    <string name="mainhelp">
         <![CDATA[
         <HTML>
 <head>
@@ -40,23 +40,6 @@ color: #DDAA22;
     <li>Play - Play the game. Greyed out until you load a mission or a game</li>
 
     <li>Mission 1/2/3 - Three missions to play (see below for details)</li>
-</ul>
-
-<H2>UX Navigation</H2>
-
-<ul>
-    <li>Double click on stars, planets and ships panzooms to the target. Double click on empty space zooms out.</li>
-
-    <li>Single click on stars, planets, and ships brings up the details window. Single click on empty space closes it.
-    </li>
-
-    <li>Drag, pinch-zoom, and double-click-drag pans, zooms, and panzooms the map.</li>
-
-    <li>(+) in a detail window panzooms to what is described in the window. Click on (*) to panzoom to its star.</li>
-
-    <li>Double click on a planet pins the planet in a "geo-centric" view. Everything will now move around the plannet.
-        Double click on a star, or zoom out to go back to regular heliocentric mode.
-    </li>
 </ul>
 
 <H2>Mission 1 - Secure Your Star System</H2>

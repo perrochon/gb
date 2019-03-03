@@ -1,12 +1,16 @@
 package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
+import android.graphics.Color
 import android.graphics.PointF
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.webkit.WebView
+import android.widget.Button
 import android.widget.TextView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
@@ -16,6 +20,9 @@ import com.zwsi.gblib.GBStar
 
 class MapActivity : AppCompatActivity() {
 
+    var helpText : String? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -24,6 +31,27 @@ class MapActivity : AppCompatActivity() {
         // Set up the Version View
         val version = findViewById<TextView>(R.id.version)
         version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+
+        val helpButton: Button = findViewById(R.id.HelpButtonMap)
+        helpButton.setOnClickListener(View.OnClickListener {
+            val helpView = WebView(this)
+            helpView.setBackgroundColor(Color.BLACK)
+            val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
+
+            Thread(Runnable {
+                helpText = getString(R.string.maphelp)
+            }).start()
+
+
+            if (helpText != null) {
+                helpView.loadData(helpText, "text/html", "utf-8")
+                builder.setView(helpView)
+                    .setNeutralButton("OK", null)
+                    .show()
+            }
+        })
+
+
 
         val imageView: MapView = findViewById<MapView>(R.id.mapView)!!
 

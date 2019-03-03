@@ -4,7 +4,6 @@ package com.zwsi.gb.feature
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.v7.app.AlertDialog
@@ -84,10 +83,10 @@ class MainActivity : AppCompatActivity() {
         // Pre-load HTML to make later clicks on Help faster
         // TODO: Not sure this is needed. It didn't speed up on the emulator, and no big difference on Pixel 3
         Thread(Runnable {
-            helpText = getString(R.string.tutorial)
+            helpText = getString(R.string.mainhelp)
         }).start()
 
-        val helpButton: Button = findViewById(R.id.HelpButton)
+        val helpButton: Button = findViewById(R.id.HelpButtonMain)
         helpButton.setOnClickListener(View.OnClickListener {
             val helpView = WebView(this)
             helpView.setBackgroundColor(Color.BLACK)
