@@ -11,6 +11,7 @@ is visible.
 
 ## Short Term Small Items
 * Bug: Handle Device Orientation Changes better (same location)
+* Bug: ? Help text loads extremely slowly. Why?
 * Feature: Destination star system. Needs new location type (gating fog of war)
 * Bug: Clicks register to targets when too far away for high zoom level.
 * Better looking spinner - may need to copy more XML
