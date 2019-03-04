@@ -19,6 +19,9 @@ import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
 import java.io.File
+import android.text.method.ScrollingMovementMethod
+
+
 
 
 var lastClickTime = 0L
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         // Set up the MessageBox View to listen to news
         val messageBox: TextView = findViewById<TextView>(R.id.messageBox)!!
+        messageBox.movementMethod = ScrollingMovementMethod();
         messageBox.setText("Welcome to Andromeda Rising!\nA game of galactic domination.\n\n")
 
         val playButton: Button = findViewById(R.id.PlayButton)

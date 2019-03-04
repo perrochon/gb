@@ -32,28 +32,35 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/messageBox"
+            app:layout_constraintBottom_toTopOf="@+id/scroller"
             />
-    <TextView
-            android:id="@+id/messageBox"
+    <ScrollView
+            android:id="@+id/scroller"
             android:layout_width="0dp"
-            android:padding="8dp"
-            android:maxLines="999"
-            android:gravity="bottom"
-            android:scrollbars="vertical"
-            android:textColor="@android:color/holo_orange_light"
-            android:background="@drawable/border_message"
-            android:text="A Game of Galactic Domination"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:scrollbars="vertical"
+            android:background="@drawable/border_message"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/mainmenu"
-            />
+            >
+        <TextView
+                android:id="@+id/messageBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:maxLines="999"
+                android:gravity="bottom"
+                android:scrollbars="vertical"
+                android:textColor="@android:color/holo_orange_light"
+                android:text="A Game of Galactic Domination"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                />
+    </ScrollView>
     <TextView
             android:id="@+id/mainmenu"
             android:layout_width="wrap_content"
@@ -67,7 +74,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/messageBox"
+            app:layout_constraintTop_toBottomOf="@+id/scroller"
             />
 
     <LinearLayout
