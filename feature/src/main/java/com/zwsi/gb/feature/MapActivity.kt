@@ -56,7 +56,7 @@ class MapActivity : AppCompatActivity() {
         var imageViewState: ImageViewState? = null
         if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_STATE)) {
             imageViewState = savedInstanceState.getSerializable(BUNDLE_STATE) as ImageViewState
-            imageView.setScaleAndCenter(imageViewState!!.scale, imageViewState.center)
+            imageView.setScaleAndCenter(imageViewState.scale, imageViewState.center)
         }
 
 
