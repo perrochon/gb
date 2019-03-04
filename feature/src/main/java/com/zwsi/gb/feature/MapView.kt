@@ -663,6 +663,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 }
             }
 
+            drawTrails(canvas, sh)
+
         }
 
         // Draw bitmap
@@ -745,7 +747,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), sh))
         }
 
-        drawTrails(canvas, sh)
     }
 
     private val trailPaint = Paint()
@@ -762,9 +763,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     fun drawTrails(canvas: Canvas, sh: GBShip) {
 
         // Don't draw trails zoomed out
-        if (normScale > 10) {
-            return
-        }
         val trail = sh.trails
 
         if (sh.trails.size > 1) {
