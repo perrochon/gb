@@ -611,8 +611,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
     private val shipPaint = Paint()
+
     init {
         shipPaint.style = Style.STROKE
+        shipPaint.strokeCap = Cap.ROUND
         shipPaint.isAntiAlias = true
         shipPaint.strokeWidth = strokeWidth.toFloat()
     }
@@ -622,8 +624,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         val radius = scale * 1.6f
 
         if (sh.health <= 0) {
-            // FIXME: Pods turn white when entering orbit. I think they turn dead, and we currently draw all ships, instead
-            // of orbit ships, so we get the death flash of the white ones. Maybe this is a feature...
             shipPaint.color = deadColor
         } else {
             shipPaint.color = Color.parseColor(sh.race.color)
@@ -635,27 +635,43 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         sP1.set(sh.loc.getVMLoc(vm).x * uToS, sh.loc.getVMLoc(vm).y * uToS)
         sourceToViewCoord(sP1, vP1)
 
-        if (sh.health > 0) {
-            val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
-            canvas.drawCircle(
-                vP1.x + cos(theta) * radius,
-                vP1.y + sin(theta) * radius,
-                radius / 10,
-                shipPaint
-            )
+        if (normScale >= 10) {
+            canvas.drawPoint(vP1.x, vP1.y, shipPaint)
         }
 
-        when (sh.idxtype) {
+        if (10 > normScale) {
+            // Draw animation
+            if (sh.health > 0) {
+                val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
+                canvas.drawCircle(
+                    vP1.x + cos(theta) * radius,
+                    vP1.y + sin(theta) * radius,
+                    radius / 10,
+                    shipPaint
+                )
+            }
+            // Draw circle / square
+            when (sh.idxtype){
+                POD -> {
+                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+                }
+                CRUISER -> {
+                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+                }
+                FACTORY -> {
+                    canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
+                }
+            }
 
-            // TODO: Ships should tell give me the ID of their bitmap and this when statement would go away
-            // But GBShips don't know anything about bitmaps, so the logic needs to live elsewhere.
+        }
 
-            POD -> {
-                canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
-
-                if (1 > normScale) {
-
-
+        // Draw bitmap
+        if (1 > normScale) {
+            when (sh.idxtype) {
+                // TODO: Ships should tell give me the ID of their bitmap and this when statement would go away
+                // But GBShips don't know anything about bitmaps, so the logic needs to live elsewhere.
+                POD -> {
+                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
                     if (sh.race.uid == 2) {
                         val o = bitmaps[R.drawable.beetlepod]!!.width / 2.6f / 100 * scale
                         canvas.drawBitmap(
@@ -684,13 +700,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         )
                     }
                 }
-            }
 
-            CRUISER -> {
-                //canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
-                canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+                CRUISER -> {
+                    //canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
+                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
-                if (1 > normScale) {
                     val o = bitmaps[R.drawable.cruisert]!!.width / 2.4f / 100 * scale
                     canvas.drawBitmap(
                         bitmaps[R.drawable.cruisert]!!,
@@ -704,11 +718,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         null
                     )
                 }
-            }
 
-            FACTORY -> {
-                canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
-                if (1 > normScale) {
+                FACTORY -> {
+                    canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                     val o = bitmaps[R.drawable.factory]!!.width / 2.4f / 100 * scale
 
                     canvas.drawBitmap(
@@ -723,9 +735,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         null
                     )
                 }
-            }
-            else -> {
-                canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+                else -> {
+                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+                }
             }
         }
 
@@ -738,6 +750,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private val trailPaint = Paint()
     private val maxTrailAlpha: Int
+
     init {
         trailPaint.strokeWidth = strokeWidth.toFloat() / 2
         trailPaint.strokeJoin = Paint.Join.ROUND
