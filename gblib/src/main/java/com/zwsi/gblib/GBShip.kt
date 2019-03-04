@@ -36,11 +36,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
     // TODO These are a cool but nice to have feature. They are also an app feature more than a lib feature
     // They are irrelevant for text based UI. But persistence in the client is problematic if an update is missed
-    var trails: MutableList<GBxy> = arrayListOf<GBxy>()
-
-    val trailList: List<GBxy>
-        get() = trails.toList()
-
+    var trails: MutableList<GBxy> = arrayListOf()
 
     // TODO For stars, planets, races, the caller ads to the u list. For ships, the ship ads. Problematic Inconsistency?
     // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in ships. Dangerous?
@@ -132,6 +128,10 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
         if (health > 0) { // for now don't update dead ships...
             moveShip()
             moveOrbitShip()
+
+            if (loc.level == LANDED || loc.level == ORBIT) {
+                trails.clear()
+            }
             trails.add(loc.getLoc())
             while (trails.size > 5) {
                 trails.removeAt(0)

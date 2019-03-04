@@ -17,7 +17,6 @@ import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
-import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBVector
@@ -611,20 +610,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         return intersects(rect, vr)
     }
 
-    val shipPaint = Paint()
-    val trailPaint = Paint()
-    val maxTrailAlpha: Int
-
+    private val shipPaint = Paint()
     init {
         shipPaint.style = Style.STROKE
         shipPaint.isAntiAlias = true
         shipPaint.strokeWidth = strokeWidth.toFloat()
-
-        trailPaint.strokeWidth = strokeWidth.toFloat() / 2
-        trailPaint.strokeJoin = Paint.Join.ROUND
-        trailPaint.strokeCap = Cap.BUTT
-        trailPaint.color = trailColor
-        maxTrailAlpha = trailPaint.alpha
     }
 
     fun drawShip(canvas: Canvas, sh: GBShip) {
@@ -743,36 +733,47 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), sh))
         }
 
+        drawTrails(canvas, sh)
+    }
+
+    private val trailPaint = Paint()
+    private val maxTrailAlpha: Int
+    init {
+        trailPaint.strokeWidth = strokeWidth.toFloat() / 2
+        trailPaint.strokeJoin = Paint.Join.ROUND
+        trailPaint.strokeCap = Cap.BUTT
+        trailPaint.color = trailColor
+        maxTrailAlpha = trailPaint.alpha
+    }
+
+    fun drawTrails(canvas: Canvas, sh: GBShip) {
+
         // Don't draw trails zoomed out
         if (normScale > 10) {
             return
         }
+        val trail = sh.trails
 
-        if (sh.loc.level == DEEPSPACE || sh.loc.level == SYSTEM) {
+        if (sh.trails.size > 1) {
+            val alphaFade = maxTrailAlpha / (sh.trails.size - 1)
+            trailPaint.alpha = alphaFade
 
-            val trail = sh.trailList
+            val iterate = sh.trails.iterator()
 
-            if (trail.size > 1) {
-                val alphaFade = maxTrailAlpha / (trail.size + 1)
-                trailPaint.alpha = 0
+            val from = iterate.next()
+            sP1.set(from.x * uToS, from.y * uToS)
+            sourceToViewCoord(sP1, vP1)
 
-                val iterate = trail.iterator()
+            while (iterate.hasNext()) {
 
-                val from = iterate.next()
-                sP1.set(from.x * uToS, from.y * uToS)
-                sourceToViewCoord(sP1, vP1)
+                val to = iterate.next()
+                sP2.set(to.x * uToS, to.y * uToS)
+                sourceToViewCoord(sP2, vP2)
 
-                while (iterate.hasNext()) {
+                canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, trailPaint)
 
-                    val to = iterate.next()
-                    sP2.set(to.x * uToS, to.y * uToS)
-                    sourceToViewCoord(sP2, vP2)
-
-                    canvas.drawLine(vP1.x, vP1.y, vP2.x, vP2.y, trailPaint)
-
-                    vP1.set(vP2)
-                    trailPaint.alpha += alphaFade
-                }
+                vP1.set(vP2)
+                trailPaint.alpha += alphaFade
             }
         }
     }

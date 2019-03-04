@@ -10,10 +10,9 @@ is visible.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 
 ## Short Term Small Items
-* Bug: Handle Device Orientation Changes better (same location)
-* Bug: ? Help text loads extremely slowly. Why?
+* Looks like trails only show 3 segments, but we keep 5. Also, we probably no longer need to make copies. 
+* We don't display trails for planet ships, so maybe we can clear them out
 * Feature: Destination star system. Needs new location type (gating fog of war)
-* Bug: Clicks register to targets when too far away for high zoom level.
 * Better looking spinner - may need to copy more XML
 * Re-creating missions on each build and copy them into res directory.
 
