@@ -1,31 +1,28 @@
 package com.zwsi.gb.feature
 
-import android.R.id
 import android.arch.lifecycle.Observer
-import android.graphics.Color
 import android.graphics.PointF
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v4.text.HtmlCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.text.method.LinkMovementMethod
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-import android.webkit.WebView
 import android.widget.Button
+import android.widget.ScrollView
 import android.widget.TextView
+import com.davemorrissey.labs.subscaleview.ImageViewState
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBStar
-import com.davemorrissey.labs.subscaleview.ImageViewState
-
-
 
 
 class MapActivity : AppCompatActivity() {
-
-    var helpText: String? = null
 
     private val BUNDLE_STATE = "ImageViewState"
 
@@ -40,23 +37,20 @@ class MapActivity : AppCompatActivity() {
 
         val helpButton: Button = findViewById(R.id.HelpButtonMap)
         helpButton.setOnClickListener(View.OnClickListener {
-            val helpView = WebView(this)
-            helpView.setBackgroundColor(Color.BLACK)
+            val helpText = HtmlCompat.fromHtml(getString(R.string.maphelp), HtmlCompat.FROM_HTML_MODE_LEGACY)
+            val helpView = TextView(this)
+            helpView.setText(helpText)
+            helpView.setMovementMethod(LinkMovementMethod.getInstance());
+            helpView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_light))
+            val scroller = ScrollView(this)
+            scroller.setPadding(10,10,10,10)
+            scroller.addView(helpView)
+
             val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
-
-            Thread(Runnable {
-                helpText = getString(R.string.maphelp)
-            }).start()
-
-
-            if (helpText != null) {
-                helpView.loadData(helpText, "text/html", "utf-8")
-                builder.setView(helpView)
-                    .setNeutralButton("OK", null)
-                    .show()
-            }
+            builder.setView(scroller)
+                .setNeutralButton("OK", null)
+                .show()
         })
-
         val imageView: MapView = findViewById<MapView>(R.id.mapView)!!
 
         var imageViewState: ImageViewState? = null

@@ -5,26 +5,9 @@
         <![CDATA[
         <HTML>
 <head>
-<style>
-body {
-  background-color: black;
-  color: #ffbb33;
-}
-h1 {
-font-weight: normal;
-}
-h2 {
-font-weight: normal;
-}
-a {
-color: #DDAA22;
-}
-</style>
 </head>
 <BODY>
-<H1> Andromeda Rising</H1>
-
-<H2>UX Navigation</H2>
+<big>Navigating the Map</big>
 
 <ul>
     <li>Double click on stars, planets and ships panzooms to the target. Double click on empty space zooms out.</li>

@@ -5,24 +5,9 @@
         <![CDATA[
         <HTML>
 <head>
-<style>
-body {
-  background-color: black;
-  color: #ffbb33;
-}
-h1 {
-font-weight: normal;
-}
-h2 {
-font-weight: normal;
-}
-a {
-color: #DDAA22;
-}
-</style>
 </head>
 <BODY>
-<H1> Andromeda Rising</H1>
+<big> Andromeda Rising</big>
 
 <p>Andromeda Rising is a turn-based strategy game. As the leader of your race you manage your planet, build ships,
    eXplore your star system, eXpand to nearby systems, eXploit
@@ -31,7 +16,7 @@ color: #DDAA22;
 <p>This game is in internal release only and has limited game play at this point.
     Please do not install if you do not want to be an early tester.</p>
 
-<H2>Main Menu</H2>
+<big>Main Menu</big>
 <ul>
     <li>Help - Loads this page</li>
 
@@ -42,7 +27,7 @@ color: #DDAA22;
     <li>Mission 1/2/3 - Three missions to play (see below for details)</li>
 </ul>
 
-<H2>Mission 1 - Secure Your Star System</H2>
+<big>Mission 1 - Secure Your Star System</big>
 
 <ul>
     <li>Click on Map - the map will show you your home planet</li>
@@ -71,7 +56,7 @@ color: #DDAA22;
     <li>Mission Success: Population on all planets. Armed ships (i.e. cruiser) around all planets.</li>
 </ul>
 
-<H2>Mission 2 - Explore Next System</H2>
+<big>Mission 2 - Explore Next System</big>
 <ul>
     <li>Zoom out all the way. By now, you should see other ships from other races. They are not friendly.</li>
 
@@ -86,7 +71,7 @@ color: #DDAA22;
     </li>
 </ul>
 
-<H2>God Mode Fun Stuff</H2>
+<big>God Mode Fun Stuff</big>
 <ul>
     <li>Click on "Cont(inue)". This will start automated turns until you hit "Cont" again. It's like fast-forward.
         You can leave it on and see your planets orbit your star. Zoom all the way out to see other races' ships
@@ -96,7 +81,7 @@ color: #DDAA22;
     <li>Send cruisers to some of the other systems, or wait for the beetles to arrive.</li>
 </ul>
 
-<H2>FAQ</H2>
+<big>FAQ</big>
 <ul>
     <li>What about feature X? <br>
         Check out the <A href="https://github.com/perrochon/gb/blob/master/ROADMAP.md">road map</a>

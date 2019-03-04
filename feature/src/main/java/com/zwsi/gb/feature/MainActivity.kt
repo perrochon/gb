@@ -3,30 +3,28 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.SystemClock
+import android.support.v4.content.ContextCompat
+import android.support.v4.text.HtmlCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Button
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
 import java.io.File
-import android.webkit.WebView
-
-
 
 
 var lastClickTime = 0L
 val clickDelay = 300L
 
 class MainActivity : AppCompatActivity() {
-
-    var helpText : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -80,24 +78,21 @@ class MainActivity : AppCompatActivity() {
             messageBox.append("\nCreated New Universe.\n")
         })
 
-        // Pre-load HTML to make later clicks on Help faster
-        // TODO: Not sure this is needed. It didn't speed up on the emulator, and no big difference on Pixel 3
-        Thread(Runnable {
-            helpText = getString(R.string.mainhelp)
-        }).start()
-
         val helpButton: Button = findViewById(R.id.HelpButtonMain)
         helpButton.setOnClickListener(View.OnClickListener {
-            val helpView = WebView(this)
-            helpView.setBackgroundColor(Color.BLACK)
-            val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
+            val helpText = HtmlCompat.fromHtml(getString(R.string.mainhelp), HtmlCompat.FROM_HTML_MODE_LEGACY)
+            val helpView = TextView(this)
+            helpView.text = helpText
+            helpView.setMovementMethod(LinkMovementMethod.getInstance());
+            helpView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_light))
+            val scroller = ScrollView(this)
+            scroller.setPadding(10,10,10,10)
+            scroller.addView(helpView)
 
-            if (helpText != null) {
-                helpView.loadData(helpText, "text/html", "utf-8")
-                builder.setView(helpView)
-                    .setNeutralButton("OK", null)
-                    .show()
-            }
+            val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
+            builder.setView(scroller)
+                .setNeutralButton("OK", null)
+                .show()
         })
 
         val loadButton1: Button = findViewById(R.id.LoadButton1)
