@@ -1,5 +1,6 @@
 package com.zwsi.gb.feature
 
+import android.R.id
 import android.arch.lifecycle.Observer
 import android.graphics.Color
 import android.graphics.PointF
@@ -17,11 +18,16 @@ import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBStar
+import com.davemorrissey.labs.subscaleview.ImageViewState
+
+
+
 
 class MapActivity : AppCompatActivity() {
 
-    var helpText : String? = null
+    var helpText: String? = null
 
+    private val BUNDLE_STATE = "ImageViewState"
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -51,9 +57,14 @@ class MapActivity : AppCompatActivity() {
             }
         })
 
-
-
         val imageView: MapView = findViewById<MapView>(R.id.mapView)!!
+
+        var imageViewState: ImageViewState? = null
+        if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_STATE)) {
+            imageViewState = savedInstanceState.getSerializable(BUNDLE_STATE) as ImageViewState
+            imageView.setScaleAndCenter(imageViewState!!.scale, imageViewState.center)
+        }
+
 
         val turnObserver = Observer<Int> { newTurn ->
             imageView.turn = newTurn;
@@ -86,7 +97,7 @@ class MapActivity : AppCompatActivity() {
                         imageView.animateScaleAndCenter(
                             imageView.zoomLevelStar, PointF( // FIXME replace this with a constant from the view
                                 any.loc.getLoc().x * imageView.uToS,
-                                (any.loc.getLoc().y - 17f ) * imageView.uToS
+                                (any.loc.getLoc().y - 17f) * imageView.uToS
                             )
                         )!!
                             .withDuration(1000)
@@ -157,6 +168,16 @@ class MapActivity : AppCompatActivity() {
             gestureDetector.onTouchEvent(motionEvent)
         }
 
+    }
+
+    public override fun onSaveInstanceState(outState: Bundle) {
+
+        val imageView = findViewById<MapView>(R.id.mapView)!!
+        val state = imageView.state
+        if (state != null) {
+            outState.putSerializable(BUNDLE_STATE, imageView.state)
+        }
+        super.onSaveInstanceState(outState)
     }
 
     /** Called when the user taps the Do button */

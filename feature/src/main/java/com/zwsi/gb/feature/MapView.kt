@@ -127,6 +127,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         zoomLevelStar = focusSize / MaxSystemOrbit / 40f
 
 
+
         paint.isAntiAlias = true
         paint.strokeCap = Cap.ROUND
         paint.strokeWidth = strokeWidth.toFloat()
@@ -219,6 +220,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         startTimeNanos = System.nanoTime()
         numberOfDraws++
+
 
         normScale = ((1 / scale) - (1 / maxScale)) / (1 / minScale - 1 / maxScale) * 100
 
