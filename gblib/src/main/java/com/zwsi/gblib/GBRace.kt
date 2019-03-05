@@ -9,7 +9,7 @@ import com.zwsi.gblib.GBController.Companion.u
 import java.util.*
 
 @JsonClass(generateAdapter = true)
-data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
+data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int) {
     // idx is the number to go look up static race information in GBData.
     //      Not needed with dynamic race design or load from json
 
@@ -34,6 +34,7 @@ data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
         // PERF ?? Cache the list and only recompute if the hashcode changes.
         get() = raceUidShips.map { u.ship(it) }
 
+    var raceVisibleStars: MutableSet<Int> = HashSet()
 
     init {
         name = GBData.getRaceName(idx)
@@ -46,7 +47,7 @@ data class GBRace(val idx: Int, val uid: Int, val uidHome: Int) {
     }
 
     fun getHome(): GBPlanet {
-        return u.planet(uidHome)
+        return u.planet(uidHomePlanet)
     }
 
     fun getRaceShipsUIDList(): List<Int> {

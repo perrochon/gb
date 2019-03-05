@@ -21,7 +21,8 @@ Steps for release, because I always forget some. // TODO Automate this
 ### Release Notes
 
 next
--
+- Fog of War
+- Settings. The Fog of War setting is called Super Sensors. Turn them on to get previous behavior.
 
 .652
 - Minor: Tutorial to HTML and in-app. Fixed click target detection at high zoom. 

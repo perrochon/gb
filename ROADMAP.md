@@ -52,6 +52,9 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 ## Test Efficiency
 * Fast and Slow Tests
 
+## Design
+* Make "DO" a FloatingActionButton? It's the "primary activity" in the game...
+
 ## Features
 
 ### Future missions

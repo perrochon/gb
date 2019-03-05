@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.zwsi.gb.feature">
+          package="com.zwsi.gb.feature"
+        >
 
     <application>
+        <activity
+                android:name=".Preferences"
+                android:label="@string/title_activity_preferences"
+                android:theme="@style/AppTheme.Launcher.NoActionBar"
+                ></activity>
+        <activity
+                android:name=".SettingsActivity"
+                android:label="@string/title_activity_settings"
+                />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".PlanetsScrollActivity">
-        </activity>
-        <activity android:name=".StarsActivity">
-        </activity>
-        <activity android:name=".MapActivity">
-        </activity>
-        <activity android:name=".RacesSlideActivity">
-        </activity>
-        <activity android:name=".PlanetsSlideActivity">
-        </activity>
-        <activity android:name=".ShipsSlideActivity">
-        </activity>
-        <activity android:name=".StarsSlideActivity">
-        </activity>
+        <activity android:name=".PlanetsScrollActivity"/>
+        <activity android:name=".StarsActivity"/>
+        <activity android:name=".MapActivity"/>
+        <activity android:name=".RacesSlideActivity"/>
+        <activity android:name=".PlanetsSlideActivity"/>
+        <activity android:name=".ShipsSlideActivity"/>
+        <activity android:name=".StarsSlideActivity"/>
     </application>
 
 </manifest>

@@ -22,10 +22,10 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
 
     var uidPlanetOwner = -1
     val planetOwner: GBRace
-        get() = u.race(uidPlanetOwner)
+        get() = u.race(uidPlanetOwner) // FIXME PERSISTENCE These return universe objects, not vm objects.... only return UID
 
     val star: GBStar
-        get() = u.star(uidStar)
+        get() = u.star(uidStar) // FIXME PERSISTENCE These return universe objects, not vm objects...  only return UID
 
     val size: Int
         get() = width * height

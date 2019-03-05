@@ -136,6 +136,10 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
             while (trails.size > 5) {
                 trails.removeAt(0)
             }
+
+            if (loc.level != DEEPSPACE) {
+                race.raceVisibleStars.add(loc.getStar()!!.uid)
+            }
         }
     }
 

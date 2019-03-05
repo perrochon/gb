@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 
 class StarFragment : Fragment() {
@@ -53,22 +54,23 @@ class StarFragment : Fragment() {
 
         stats.setText("${star.name} at (" + (star.loc.getLoc().x.toInt()) + ", " + star.loc.getLoc().y.toInt() + ")\n")
 
-        val planets = star.starUidPlanets.map { vm.planet(it) }
-        if (planets.isNotEmpty()) {
-            stats.append("Planets (${planets.size}): ")
-            for (p in planets) {
-                stats.append("  " + p.name + " ")
+        if (superSensors || vm.race(0).raceVisibleStars.contains(star.uid)) {
+            val planets = star.starUidPlanets.map { vm.planet(it) }
+            if (planets.isNotEmpty()) {
+                stats.append("Planets (${planets.size}): ")
+                for (p in planets) {
+                    stats.append("  " + p.name + " ")
+                }
+                stats.append("\n")
             }
-            stats.append("\n")
-        }
 
-        val ships = star.starUidShips.map { vm.ship(it) }
-        if (ships.isNotEmpty()) {
-            stats.append("Ships (${ships.size.toString()}): ")
-            for (s in ships) {
-                stats.append(s.name + " ")
+            val ships = star.starUidShips.map { vm.ship(it) }
+            if (ships.isNotEmpty()) {
+                stats.append("Ships (${ships.size.toString()}): ")
+                for (s in ships) {
+                    stats.append(s.name + " ")
+                }
             }
         }
-
     }
 }

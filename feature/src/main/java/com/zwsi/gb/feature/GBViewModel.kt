@@ -1,8 +1,9 @@
 package com.zwsi.gb.feature
 
 import android.arch.lifecycle.MutableLiveData
+import android.content.Context
+import android.content.SharedPreferences
 import com.zwsi.gblib.GBUniverse
-import java.util.concurrent.locks.ReentrantLock
 import kotlin.system.measureNanoTime
 
 
@@ -26,10 +27,18 @@ class GBViewModel {
         var timeLastLoad = 0L
         var timeFromJson = 0L
         var timeModelUpdate = 0L
+        val raceCanSeeStar = HashMap<Pair<Int, Int>, Boolean>()
 
         lateinit var vm: GBUniverse
 
-        var times = mutableMapOf<String, Long>()
+        var context: Context? = null
+        var sharedPref: SharedPreferences? = null
+        var showStats = false
+        var showClickTargets = false
+        var superSensors = false
+
+
+//        var times = mutableMapOf<String, Long>() // FIXME Cleanup the long list of ints below
 
         fun update(gameinfo: GBUniverse, update: Long, json: Long, write: Long, load: Long, fromJSON: Long) {
 
@@ -42,6 +51,13 @@ class GBViewModel {
                 timeFileWrite = write
                 timeLastLoad = load
                 timeFromJson = fromJSON
+
+                if (context != null) {
+                    sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
+                    showStats = sharedPref!!.getBoolean("showStats", false)
+                    showClickTargets = sharedPref!!.getBoolean("showClickTargets", false)
+                    superSensors = sharedPref!!.getBoolean("superSensors", false)
+                }
             }
 
             /*

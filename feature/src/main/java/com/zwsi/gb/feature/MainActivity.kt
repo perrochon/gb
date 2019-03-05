@@ -14,15 +14,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.Toast
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
 import java.io.File
 import android.text.method.ScrollingMovementMethod
-
-
-
 
 var lastClickTime = 0L
 val clickDelay = 300L
@@ -38,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        GBViewModel.context = applicationContext
+
         GBController.currentFilePath = filesDir // Tell the controller where to save games
 
         // Set up the Version View
@@ -50,14 +48,19 @@ class MainActivity : AppCompatActivity() {
         messageBox.setText("Welcome to Andromeda Rising!\nA game of galactic domination.\n\n")
 
         val playButton: Button = findViewById(R.id.PlayButton)
-        playButton.setEnabled(false)
+        playButton.isEnabled = false
         playButton.setOnClickListener(View.OnClickListener {
-            mapView(it)
+            gotoMap(it)
+        })
+
+        val optionsButton: Button = findViewById(R.id.OptionsButton)
+        optionsButton.setOnClickListener(View.OnClickListener {
+            gotoOptions(it)
         })
 
         val turnObserver = Observer<Int> { newTurn ->
             // TODO This is a bit overkill, as it enables on every new turn
-            playButton.setEnabled(true)
+            playButton.isEnabled = true
             messageBox.append("\nTurn: ${newTurn.toString()}\n")
             for (article in vm.news) {
                 messageBox.append(article)
@@ -139,7 +142,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Called when the user taps the Map button */
-    fun mapView(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun gotoMap(@Suppress("UNUSED_PARAMETER") view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
@@ -148,84 +151,14 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    // TODO DELETE unless we need it again
-    fun makeStuff(view: View) {
+    /** Called when the user taps the Map button */
+    fun gotoOptions(@Suppress("UNUSED_PARAMETER") view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
-
-        val message = "God Mode: Not doing anything right now"
-        Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-
+        val intent = Intent(this, Preferences::class.java)
+        startActivity(intent)
     }
-
-
-    // TODO DELETE The stuff below is all deprecated
-
-//    /** Called when the user taps the Stars button */
-//    fun starmap1( @Suppress("UNUSED_PARAMETER")view: View) {
-//        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-//            return;
-//        }
-//        lastClickTime = SystemClock.elapsedRealtime();
-//        val intent = Intent(this, StarsActivity::class.java)
-//        startActivity(intent)
-//    }
-//
-//
-//    /** Called when the user taps the Stars button */
-//    fun stars( @Suppress("UNUSED_PARAMETER")view: View) {
-//        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-//            return;
-//        }
-//        lastClickTime = SystemClock.elapsedRealtime();
-//        val intent = Intent(this, StarsSlideActivity::class.java)
-//        startActivity(intent)
-//    }
-//
-//    /** Called when the user taps the Planets button */
-//    fun planets1( @Suppress("UNUSED_PARAMETER")view: View) {
-//        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-//            return;
-//        }
-//        lastClickTime = SystemClock.elapsedRealtime();
-//        val intent = Intent(this, PlanetsScrollActivity::class.java)
-//        startActivity(intent)
-//    }
-//
-//    /** Called when the user taps the Planets button */
-//    fun planets2( @Suppress("UNUSED_PARAMETER")view: View) {
-//        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-//            return;
-//        }
-//        lastClickTime = SystemClock.elapsedRealtime();
-//        val intent = Intent(this, PlanetsSlideActivity::class.java)
-//        startActivity(intent)
-//    }
-//
-//    /** Called when the user taps the Races button */
-//    fun races( @Suppress("UNUSED_PARAMETER")view: View) {
-//        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-//            return;
-//        }
-//        lastClickTime = SystemClock.elapsedRealtime();
-//        val intent = Intent(this, RacesSlideActivity::class.java)
-//
-//        intent.putExtra("title", "All Races")
-//        intent.putExtra("UID", 0)
-//
-//        startActivity(intent)
-//    }
-//
-//    /** Called when the user taps the Ships button */
-//    fun ships( @Suppress("UNUSED_PARAMETER")view: View) {
-//        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-//            return;
-//        }
-//        lastClickTime = SystemClock.elapsedRealtime();
-//        val intent = Intent(this, ShipsSlideActivity::class.java)
-//        startActivity(intent)
-//    }
 
 }

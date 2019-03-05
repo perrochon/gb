@@ -188,6 +188,7 @@ data class GBUniverse(
         val r0 = GBRace(0, 0, stars[0]!!.starPlanetsList[0].uid)
         races[0] = r0
         stars[0]!!.starPlanetsList[0].landPopulationOnEmptySector(r0, 100)
+        race(0).raceVisibleStars.add(0)
 
 
         // We only need one race for the early mission, but we create and land the others for God Mode...
@@ -218,6 +219,11 @@ data class GBUniverse(
             o.execute()
         }
         orders.clear()
+
+        for ((_, race) in races) {
+            race.raceVisibleStars.clear()
+            race.raceVisibleStars.add(race.getHome().star.uid)
+        }
 
         for ((_, star) in stars) {
             for (p in star.starPlanetsList) {

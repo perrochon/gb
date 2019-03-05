@@ -10,6 +10,9 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
+import com.zwsi.gb.feature.GBViewModel.Companion.showStats
+import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
@@ -220,7 +223,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         startTimeNanos = System.nanoTime()
         numberOfDraws++
 
-
         normScale = ((1 / scale) - (1 / maxScale)) / (1 / minScale - 1 / maxScale) * 100
 
         if (normScale > zoomLevelStar) {
@@ -250,9 +252,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         drawUntilStats = System.nanoTime() - startTimeNanos
         lastN[(numberOfDraws % lastN.size).toInt()] = drawUntilStats
 
-        if (BuildConfig.SHOWSTATS) {
+
+        //if (BuildConfig.SHOWSTATS) {
+        if (showStats) {
             drawStats(canvas)
-            //drawClickTargets(canvas)
+        }
+
+        if (showClickTargets) {
+            drawClickTargets(canvas)
         }
 
         postInvalidateDelayed(40) // 40 -> ~24 fps
@@ -354,21 +361,29 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (normScale > 50) {
 
             for ((_, r) in vm.races) {
-                if (pointVisible(r.getHome().star.loc.getLoc().x * uToSf, r.getHome().star.loc.getLoc().y * uToSf)) {
-                    sP1.set(r.getHome().star.loc.getLoc().x * uToSf + 50, r.getHome().star.loc.getLoc().y * uToSf)
-                    sourceToViewCoord(sP1, vP1)
-                    when (r.idx) {
-                        0 -> {
-                            canvas.drawBitmap(bmRaceXenos!!, vP1.x, vP1.y, null)
-                        }
-                        1 -> {
-                            canvas.drawBitmap(bmRaceImpi!!, vP1.x, vP1.y, null)
-                        }
-                        2 -> {
-                            canvas.drawBitmap(bmRaceBeetle!!, vP1.x, vP1.y, null)
-                        }
-                        3 -> {
-                            canvas.drawBitmap(bmRaceTortoise!!, vP1.x, vP1.y, null)
+
+                if (superSensors || vm.race(0).raceVisibleStars.contains(r.getHome().star.uid)) {
+
+                    if (pointVisible(
+                            r.getHome().star.loc.getLoc().x * uToSf,
+                            r.getHome().star.loc.getLoc().y * uToSf
+                        )
+                    ) {
+                        sP1.set(r.getHome().star.loc.getLoc().x * uToSf + 50, r.getHome().star.loc.getLoc().y * uToSf)
+                        sourceToViewCoord(sP1, vP1)
+                        when (r.idx) {
+                            0 -> {
+                                canvas.drawBitmap(bmRaceXenos!!, vP1.x, vP1.y, null)
+                            }
+                            1 -> {
+                                canvas.drawBitmap(bmRaceImpi!!, vP1.x, vP1.y, null)
+                            }
+                            2 -> {
+                                canvas.drawBitmap(bmRaceBeetle!!, vP1.x, vP1.y, null)
+                            }
+                            3 -> {
+                                canvas.drawBitmap(bmRaceTortoise!!, vP1.x, vP1.y, null)
+                            }
                         }
                     }
                 }
@@ -448,14 +463,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private fun drawDeepSpaceShips(canvas: Canvas) {
         // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
+
         if (101 >= normScale) {
             for (sh in vm.deepSpaceUidShips.map { vm.ship(it) }) {
-                if (pointVisible(
-                        sh.loc.getLoc().x * uToSf,
-                        sh.loc.getLoc().y * uToSf
-                    )
-                ) {
-                    drawShip(canvas, sh)
+                if (superSensors || sh.race.uid == 0) { // Fog of War
+                    if (pointVisible(
+                            sh.loc.getLoc().x * uToSf,
+                            sh.loc.getLoc().y * uToSf
+                        )
+                    ) {
+                        drawShip(canvas, sh)
+                    }
                 }
             }
         }
@@ -465,46 +483,51 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         if (2 > normScale) {
             for ((_, s) in vm.stars) {
-                if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                    for (uidP in s.starUidPlanets) { // PERF only draw one...
-                        val p = vm.planet(uidP)
-                        if (planetVisible(
-                                p.loc.getLoc().x * uToSf,
-                                p.loc.getLoc().y * uToSf
-                            )
-                        ) { // FIXME do this in Float
 
-                            sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
-                            sourceToViewCoord(sP1, vP1)
+                if (superSensors || vm.race(0).raceVisibleStars.contains(s.uid)) {
 
-                            for (j in 0 until p.sectors.size) {
-
-                                val o = (PlanetOrbit * 0.4f) * uToS * scale
-                                val size = 4 * o / p.width
-                                //canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
-                                canvas.drawBitmap(
-                                    bmASurface[p.sectors[j].type]!!,
-                                    null,
-                                    RectF(
-                                        vP1.x - 2 * o + p.sectorX(j) * size,
-                                        vP1.y - o + p.sectorY(j) * size,
-                                        vP1.x - 2 * o + p.sectorX(j) * size + size,
-                                        vP1.y - o + p.sectorY(j) * size + size
-                                    ),
-                                    null
+                    if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
+                        for (uidP in s.starUidPlanets) { // PERF only draw one...
+                            val p = vm.planet(uidP)
+                            if (planetVisible(
+                                    p.loc.getLoc().x * uToSf,
+                                    p.loc.getLoc().y * uToSf
                                 )
+                            ) { // FIXME do this in Float
 
-                                if (p.sectors[j].population > 0) {
-                                    val fill = p.sectors[j].population.toFloat() / p.sectors[j].maxPopulation.toFloat()
-                                    paint.style = Style.STROKE
-                                    paint.color = Color.parseColor(p.sectors[j].sectorOwner.color)
-                                    paint.strokeWidth = strokeWidth.toFloat()
-                                    canvas.drawLine(
-                                        vP1.x - 2 * o + p.sectorX(j) * size + size / 10f,
-                                        vP1.y - o + p.sectorY(j) * size + size * 0.9f,
-                                        vP1.x - 2 * o + p.sectorX(j) * size + size / 10f + fill * size * 0.8f,
-                                        vP1.y - o + p.sectorY(j) * size + size * 0.9f, paint
+                                sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
+                                sourceToViewCoord(sP1, vP1)
+
+                                for (j in 0 until p.sectors.size) {
+
+                                    val o = (PlanetOrbit * 0.4f) * uToS * scale
+                                    val size = 4 * o / p.width
+                                    //canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
+                                    canvas.drawBitmap(
+                                        bmASurface[p.sectors[j].type]!!,
+                                        null,
+                                        RectF(
+                                            vP1.x - 2 * o + p.sectorX(j) * size,
+                                            vP1.y - o + p.sectorY(j) * size,
+                                            vP1.x - 2 * o + p.sectorX(j) * size + size,
+                                            vP1.y - o + p.sectorY(j) * size + size
+                                        ),
+                                        null
                                     )
+
+                                    if (p.sectors[j].population > 0) {
+                                        val fill =
+                                            p.sectors[j].population.toFloat() / p.sectors[j].maxPopulation.toFloat()
+                                        paint.style = Style.STROKE
+                                        paint.color = Color.parseColor(p.sectors[j].sectorOwner.color)
+                                        paint.strokeWidth = strokeWidth.toFloat()
+                                        canvas.drawLine(
+                                            vP1.x - 2 * o + p.sectorX(j) * size + size / 10f,
+                                            vP1.y - o + p.sectorY(j) * size + size * 0.9f,
+                                            vP1.x - 2 * o + p.sectorX(j) * size + size / 10f + fill * size * 0.8f,
+                                            vP1.y - o + p.sectorY(j) * size + size * 0.9f, paint
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -517,76 +540,80 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private fun drawPlanetsAndShips(canvas: Canvas) {
         for ((_, s) in vm.stars) {
-            if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
 
-                for (uidP in s.starUidPlanets) {
-                    val p = vm.planet(uidP)
+            if (superSensors || vm.race(0).raceVisibleStars.contains(s.uid)) {
 
-                    if (30 > normScale) {
+                if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
 
-                        sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
-                        sourceToViewCoord(sP1, vP1)
-                        if (normScale > 1) {
-                            canvas.drawBitmap(
-                                bmPlanet!!,
-                                vP1.x - bmPlanet!!.width / 2,
-                                vP1.y - bmPlanet!!.height / 2,
-                                null
-                            )
-                        }
-                        clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), p))
+                    for (uidP in s.starUidPlanets) {
+                        val p = vm.planet(uidP)
 
-                        // planet names
-                        if (4 > normScale) {
-                            paint.textSize = 50f
-                            paint.setTextAlign(Paint.Align.CENTER);
-                            paint.style = Style.FILL
-                            paint.color = labelColor
-                            paint.alpha = 128
-                            sP1.set(p.loc.getLoc().x * uToSf, p.loc.getLoc().y * uToSf)
+                        if (30 > normScale) {
+
+                            sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                             sourceToViewCoord(sP1, vP1)
-                            val o = (PlanetOrbit * 0.4f) * uToS * scale
-                            canvas.drawText(p.name, vP1.x, vP1.y - o * 1.1f, paint)
-                            clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y - o * 1.1f), p))
+                            if (normScale > 1) {
+                                canvas.drawBitmap(
+                                    bmPlanet!!,
+                                    vP1.x - bmPlanet!!.width / 2,
+                                    vP1.y - bmPlanet!!.height / 2,
+                                    null
+                                )
+                            }
+                            clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), p))
+
+                            // planet names
+                            if (4 > normScale) {
+                                paint.textSize = 50f
+                                paint.setTextAlign(Paint.Align.CENTER);
+                                paint.style = Style.FILL
+                                paint.color = labelColor
+                                paint.alpha = 128
+                                sP1.set(p.loc.getLoc().x * uToSf, p.loc.getLoc().y * uToSf)
+                                sourceToViewCoord(sP1, vP1)
+                                val o = (PlanetOrbit * 0.4f) * uToS * scale
+                                canvas.drawText(p.name, vP1.x, vP1.y - o * 1.1f, paint)
+                                clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y - o * 1.1f), p))
+                            }
+
+
+                            // planet orbit circles and surface rectangles
+                            if (3 > normScale) {
+                                paint.style = Style.STROKE
+                                paint.color = circleColor
+                                paint.strokeWidth = strokeWidth.toFloat()
+                                val radius = vm.planetOrbit * uToS * scale
+                                canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+
+                                val o = (PlanetOrbit * 0.4f) * uToS * scale
+                                canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
+
+                            }
+                        } // if scale
+
+                        // Draw orbit ships
+                        for (uidS in p.orbitUidShips) {
+                            val sh = vm.ship(uidS)
+                            drawShip(canvas, sh)
                         }
 
+                        // Draw landed ships
 
-                        // planet orbit circles and surface rectangles
-                        if (3 > normScale) {
-                            paint.style = Style.STROKE
-                            paint.color = circleColor
-                            paint.strokeWidth = strokeWidth.toFloat()
-                            val radius = vm.planetOrbit * uToS * scale
-                            canvas.drawCircle(vP1.x, vP1.y, radius, paint)
-
-                            val o = (PlanetOrbit * 0.4f) * uToS * scale
-                            canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
-
+                        for (uidS in p.landedUidShips) {
+                            val sh = vm.ship(uidS)
+                            drawShip(canvas, sh)
                         }
-                    } // if scale
 
-                    // Draw orbit ships
-                    for (uidS in p.orbitUidShips) {
+                    } // planet loop
+
+                    // Draw In System Ship
+                    for (uidS in s.starUidShips) {
                         val sh = vm.ship(uidS)
                         drawShip(canvas, sh)
-                    }
+                    } // ships loop
 
-                    // Draw landed ships
-
-                    for (uidS in p.landedUidShips) {
-                        val sh = vm.ship(uidS)
-                        drawShip(canvas, sh)
-                    }
-
-                } // planet loop
-
-                // Draw In System Ship
-                for (uidS in s.starUidShips) {
-                    val sh = vm.ship(uidS)
-                    drawShip(canvas, sh)
-                } // ships loop
-
-            }// if star pointVisible?
+                }// if star pointVisible?
+            }
         }// star loop
     }
 
@@ -651,7 +678,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 )
             }
             // Draw circle / square
-            when (sh.idxtype){
+            when (sh.idxtype) {
                 POD -> {
                     canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
                 }

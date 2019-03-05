@@ -1,11 +1,9 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@drawable/app_background</item>
-    </style>
-
+    <!-- Base application theme. --><style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="android:windowBackground">@drawable/app_background</item>
+</style>
 
     <style name="AppTheme.Launcher">
 
@@ -14,5 +12,13 @@
         <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
     </style>
 
+    <style name="AppTheme.Launcher.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Launcher.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.Launcher.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 </resources>
