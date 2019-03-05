@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.ToggleButton
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
@@ -16,6 +17,11 @@ class Preferences : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preferences)
+
+        // Set up the Version View
+        val version = findViewById<TextView>(R.id.version)
+        version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+
 
         val sharedPref = this.getSharedPreferences("options", Context.MODE_PRIVATE)
 
