@@ -10,36 +10,35 @@ is visible.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 
 ## Short Term Small Items
-* Looks like trails only show 3 segments, but we keep 5. Also, we probably no longer need to make copies. 
-* We don't display trails for planet ships, so maybe we can clear them out
 * Feature: Destination star system. Needs new location type (gating fog of war)
 * Better looking spinner - may need to copy more XML
 * Re-creating missions on each build and copy them into res directory.
 
 ## Short Term Larger Items
 * Population on planets (per race, and do correctly). Fix "Make Factory" etc.
-* Money
+* Money as primary resource
 * Settings! stats, click targets, fog of war/advanced sensing. AI support (off, low (build factories), full (like Impi))
 * Different speeds on auto, or until contact/battle
-* Player mode (not just god mode).
+* Fog of war (gating for player mode)
     * Passing race around on commands, to make sure actions are access controlled :-)
+* Player mode (not just god mode).
 * Manual Shooting?
 
 ## Regression
 
 ## Code Quality
-* Unit Test Mission 1 (or at least the lib part...)
-* Review all unit tests, and add whats missing (GBLocation? GBxy? )
 * Review all TODO and warnings
+* Unit Test Missions (or at least the lib part...)
+* Review all unit tests, and add whats missing (GBLocation? GBxy? )
 * Refactor to use resources for strings for Missions
-* Clean up loggin. Get rid of GBDebug?
 * Strings to resources. What to do about library strings?
+* Clean up logging. Get rid of GBDebug?
+* Get Rid of Feature Module? Or move image into app feature? Then we may not need to upload/download the image each time?
 
 ### Not Gating
 * Different layouts for landscape/tablet
 * Big: Problem with GBLib relying on u.() when it should use vm.x() for view model. Workaround for ship location in place.
 * Refactor firing solution and move logic for firing and taking damage into each ship's class (depends on ship refactor)
-* Get Rid of Feature Module? Having one feature module is kind of pointless, it seems
 * Refactor and apply naming conventions for UI elements (btn_do etc.) and other things
 * Access and visibility in gblib
 * Use Application for global state in Android: https://developer.android.com/reference/android/app/Application
@@ -55,7 +54,6 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 ## Features
 
 ### Future missions
-* Load Missions as GBSavedData would be nice. Each Mission load a new Universe.
 * Invade enemy system and eradicate everything.
 * Build infrastructure: planetary effects
 * Play different races: Mission n could be getting another race up and running.
@@ -66,14 +64,11 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 * Run Tests on phone (text based?)
 
 ### General
-* Only handle one race (at a time?)
 * Visibility
 * God Mode Toggle
 * Get a picture of the Andromeda Galaxy https://www.spacetelescope.org/images/heic1502a/ Problem is the 40k picture is not high enough, and the fullsize is 69536 x 22230 px (4.3GB, psb file). That could give me a 22,000 square picture, or 484k pixel (right now I have 18k (325k pixel). This is a 50% increase in pixels - and image size from 40MB to say 60M (compressed). Original resolution of the Hubble image (a third of the total) would be ~2GB. Not sure how to compress that.
 
 ### Star Map
-* Ship icons
-* Better fade out on zoom
 
 #### Planet
 * Resources: Money, other. Probably money first, as a summary for all else
@@ -104,7 +99,5 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 * ship battle. Animated, serialized?
 
 ## Android 
-* Dealing with killed applications, and destroyed activities... Need persistence first.
-https://stackoverflow.com/questions/29701660/can-i-detect-if-android-has-killed-the-application-task-process-from-a-notific
 * Download background image separately (so it doesn't have to be downloaded each time)
 
