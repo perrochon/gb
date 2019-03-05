@@ -240,24 +240,22 @@
                 android:layout_height="1dp"
                 android:layout_weight="1"
                 />
-        <Button
-                android:text="Make"
+        <Button android:text="Make"
                 android:minWidth="10dp"
                 android:minHeight="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:id="@+id/MakeButton"
                 android:onClick="makeStuff"
                 android:visibility="visible"
                 tools:visibility="visible"
                 android:alpha="0.5"
                 />
-        <Button
-                android:text="Cont"
+        <Button android:text="Cont"
                 android:minWidth="10dp"
                 android:minHeight="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:id="@+id/ContinuousButton"
                 android:visibility="visible"
                 tools:visibility="visible"
