@@ -8,9 +8,9 @@ game play, or prevent game play are second priority. Here are a few examples
 is visible.
 * Limits on money: Players will be resource constraint. For now, enjoy unlimited resources.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
+* Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
 ## Short Term Small Items
-* Bug. Message box no longer scrolls to bottom on post...
 * Feature: Destination star system. Needs new location type (gating fog of war)
 * Better looking spinner - may need to copy more XML
 * Re-creating missions on each build and copy them into res directory.
