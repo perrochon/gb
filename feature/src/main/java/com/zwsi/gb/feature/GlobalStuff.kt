@@ -1,7 +1,6 @@
 package com.zwsi.gb.feature
 
 import android.app.Activity
-import android.content.Context
 import android.graphics.PointF
 import android.os.Handler
 import android.os.Looper
@@ -13,10 +12,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBData
-import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import com.zwsi.gblib.GBUniverse
-import java.io.File
 import kotlin.system.measureNanoTime
 
 // TODO rename this, once we know what all it does :-)
@@ -72,20 +68,29 @@ class GlobalStuff {
 
             // We create gameinfo in the worker thread, not the UI thread
             var gameInfo: GBUniverse? = null
-            val fromJsonTime = measureNanoTime {
-                gameInfo = jsonAdapter.lenient().fromJson(json)!!
+
+            try {
+
+                val fromJsonTime = measureNanoTime {
+                    gameInfo = jsonAdapter.lenient().fromJson(json)!!
+
+
+                }
+                Handler(Looper.getMainLooper()).post({
+                    GBViewModel.update(
+                        gameInfo!!,
+                        GBController.elapsedTimeLastUpdate,
+                        GBController.elapsedTimeLastJSON,
+                        GBController.elapsedTimeLastWrite,
+                        GBController.elapsedTimeLastLoad,
+                        fromJsonTime
+                    )
+                })
+
+            } catch (e: Exception) {
+                // TODO We must have read a bad file, but not clear how to tell the user
             }
 
-            Handler(Looper.getMainLooper()).post({
-                GBViewModel.update(
-                    gameInfo!!,
-                    GBController.elapsedTimeLastUpdate,
-                    GBController.elapsedTimeLastJSON,
-                    GBController.elapsedTimeLastWrite,
-                    GBController.elapsedTimeLastLoad,
-                    fromJsonTime
-                )
-            })
         }
 
         fun doUniverse(view: View) {

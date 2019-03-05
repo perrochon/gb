@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         GBViewModel.context = applicationContext
+        GBViewModel.updatePrefs()
 
         GBController.currentFilePath = filesDir // Tell the controller where to save games
 

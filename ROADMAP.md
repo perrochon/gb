@@ -4,14 +4,15 @@
 ## Guiding Principles
 Right now, the focus is on enabling game play, i.e. add features that allow more game play. Features that don't enhance
 game play, or prevent game play are second priority. Here are a few examples
-* Fog of war: Players will not be able to see other fractions unless they are in range. For now everything 
-is visible.
 * Limits on money: Players will be resource constraint. For now, enjoy unlimited resources.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 * Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
 ## Short Term Small Items
-* Feature: Destination star system. Needs new location type (gating fog of war)
+* Don't crash on bad JSON.... This is gating Next Release as the JSON of the saved game changed... 
+* Settings: Clean code smell
+* Fog of War: per race, 3 states (unknown, seen, visible). Once you saw a system, you remember planets...
+* Feature: Destination star system. Needs new location type (leaks planets through Fog of War)
 * Better looking spinner - may need to copy more XML
 * Re-creating missions on each build and copy them into res directory.
 

@@ -52,12 +52,6 @@ class GBViewModel {
                 timeLastLoad = load
                 timeFromJson = fromJSON
 
-                if (context != null) {
-                    sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
-                    showStats = sharedPref!!.getBoolean("showStats", false)
-                    showClickTargets = sharedPref!!.getBoolean("showClickTargets", false)
-                    superSensors = sharedPref!!.getBoolean("superSensors", false)
-                }
             }
 
             /*
@@ -67,6 +61,16 @@ class GBViewModel {
              */
             // update() should run in the UI thread, so use setValue()
             currentTurn.setValue(gameinfo.turn)
+
+        }
+
+        fun updatePrefs() {
+            if (context != null) {
+                sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
+                showStats = sharedPref!!.getBoolean("showStats", false)
+                showClickTargets = sharedPref!!.getBoolean("showClickTargets", false)
+                superSensors = sharedPref!!.getBoolean("superSensors", false)
+            }
 
         }
 

@@ -789,9 +789,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     fun drawTrails(canvas: Canvas, sh: GBShip) {
 
-        // Don't draw trails zoomed out
-        val trail = sh.trails
-
         if (sh.trails.size > 1) {
             val alphaFade = maxTrailAlpha / (sh.trails.size - 1)
             trailPaint.alpha = alphaFade

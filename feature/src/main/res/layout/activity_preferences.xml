@@ -12,46 +12,15 @@
                   android:layout_height="match_parent"
             >
         <TextView android:id="@+id/options"
-                  android:layout_width="wrap_content"
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:textColor="@android:color/holo_orange_light"
                   android:text=" Options "
                   android:textSize="24sp"
                   android:textAlignment="center"
                 />
-        <TextView android:id="@+id/races"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textColor="@android:color/holo_orange_light"
-                  android:text=" Options "
-                  android:textSize="18sp"
-                  android:textAlignment="center"
-                />
-        <Button android:text=" Xenos "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Xenos"
-                android:background="@drawable/border_message"
-                />
-        <Button android:text=" Impi "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Impi"
-                android:background="@drawable/border_message"
-                />
-        <Button android:text=" Rainbow Beetles "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Rainbow"
-                android:background="@drawable/border_message"
-                />
-        <Button android:text=" Warhide Tortois "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Warhide"
-                android:background="@drawable/border_message"
-                />
-        <TextView android:id="@+id/app"
+
+        <TextView android:id="@+id/settings"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textColor="@android:color/holo_orange_light"
@@ -59,35 +28,78 @@
                   android:textSize="18sp"
                   android:textAlignment="center"
                 />
-        <ToggleButton android:textOn=" Regular Sensors "
-                      android:textOff=" Super Sensors "
-                      android:layout_width="wrap_content"
+        <LinearLayout android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                >
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+            <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:id="@+id/SuperSensors"
-                      android:background="@drawable/border_message"
-                />
-        <TextView android:id="@+id/app"
-                  android:layout_width="wrap_content"
+                      android:textColor="@android:color/holo_orange_light"
+                      android:text=" Super Sensors "
+                      android:textSize="18sp"
+                    />
+            <Switch android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SuperSensors"
+                    android:background="@drawable/border_message"
+                    />
+        </LinearLayout>
+        <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textColor="@android:color/holo_orange_light"
                   android:text=" Test Settings "
                   android:textSize="18sp"
                   android:textAlignment="center"
                 />
-        <ToggleButton android:textOn=" Hide Stats "
-                      android:textOff=" Show Stats "
+        <LinearLayout android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                >
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@android:color/holo_orange_light"
+                      android:text=" Show Perf Stats "
+                      android:textSize="18sp"
+                    />
+            <Switch android:textOn=" Hide Stats "
+                          android:textOff=" Show Stats "
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/ShowStats"
+                          android:background="@drawable/border_message"
+                    />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                >
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+            <TextView android:id="@+id/superSensorText"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:id="@+id/ShowStats"
-                      android:background="@drawable/border_message"
-                />
-        <ToggleButton android:textOn=" Hide Click Targets "
-                      android:textOff=" Show Click Targets "
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/ShowClickTargets"
-                      android:background="@drawable/border_message"
-                />
+                      android:textColor="@android:color/holo_orange_light"
+                      android:text=" Show Click Targets "
+                      android:textSize="18sp"
+                    />
+            <Switch android:textOn=" Hide Click Targets "
+                          android:textOff=" Show Click Targets "
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/ShowClickTargets"
+                          android:background="@drawable/border_message"
+                    />
+        </LinearLayout>
 
     </LinearLayout>
 
