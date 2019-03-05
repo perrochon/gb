@@ -10,6 +10,7 @@ is visible.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 
 ## Short Term Small Items
+* Bug. Message box no longer scrolls to bottom on post...
 * Feature: Destination star system. Needs new location type (gating fog of war)
 * Better looking spinner - may need to copy more XML
 * Re-creating missions on each build and copy them into res directory.
