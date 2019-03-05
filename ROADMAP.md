@@ -9,7 +9,7 @@ game play, or prevent game play are second priority. Here are a few examples
 * Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
 ## Short Term Small Items
-* Don't crash on bad JSON.... This is gating Next Release as the JSON of the saved game changed... 
+* Do button no longer fits on P3.
 * Settings: Clean code smell
 * Fog of War: per race, 3 states (unknown, seen, visible). Once you saw a system, you remember planets...
 * Feature: Destination star system. Needs new location type (leaks planets through Fog of War)
