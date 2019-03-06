@@ -85,7 +85,16 @@ class MainActivity : AppCompatActivity() {
             // TODO This is a bit overkill, as it enables on every new turn
             play1Button.isEnabled = true
             play2Button.isEnabled = true
+
+            if (GBViewModel.freshUniverse) {
+                messageBox.text = ""
+                messageBox.append("Universe: ")
+                messageBox.append(vm.description)
+                messageBox.append("\n")
+            }
+
             messageBox.append("\nTurn: ${newTurn.toString()}\n")
+
             if (superSensors || !vm.secondPlayer) {
                 for (article in vm.news) {
                     messageBox.append(article)
@@ -143,7 +152,7 @@ class MainActivity : AppCompatActivity() {
                     messageBox.append(" and attempting to load it.\n\n")
                     Thread(Runnable {
                         GBController.loadUniverseFromJSON(json)
-                        GlobalStuff.processGameInfo(json)
+                        GlobalStuff.processGameInfo(json, true)
                     }).start()
                 } else {
                     messageBox.append(", but file is empty")

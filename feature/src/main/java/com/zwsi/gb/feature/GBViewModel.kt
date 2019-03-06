@@ -43,10 +43,12 @@ class GBViewModel {
         var uidActivePlayer = 0;
         val actionsTaken by lazy { MutableLiveData<Int>() }
 
+        var freshUniverse = false
+
 
 //        var times = mutableMapOf<String, Long>() // FIXME Cleanup the long list of ints below
 
-        fun update(gameinfo: GBUniverse, update: Long, json: Long, write: Long, load: Long, fromJSON: Long) {
+        fun update(gameinfo: GBUniverse, update: Long, json: Long, write: Long, load: Long, fromJSON: Long, fresh: Boolean) {
 
             timeModelUpdate = measureNanoTime {
 
@@ -58,7 +60,11 @@ class GBViewModel {
                 timeLastLoad = load
                 timeFromJson = fromJSON
 
+                freshUniverse = fresh
+
                 ready = true
+
+
 
             }
 

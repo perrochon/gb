@@ -38,7 +38,7 @@ class GlobalStuff {
 
             Thread(Runnable {
                 val json = GBController.makeAndSaveUniverse(secondPlayer)
-                processGameInfo(json)
+                processGameInfo(json, true)
             }).start()
         }
 
@@ -62,7 +62,7 @@ class GlobalStuff {
 
             Thread(Runnable {
                 GBController.loadUniverseFromJSON(json)  // SERVER Talk to not-remote server
-                processGameInfo(json)
+                processGameInfo(json, true)
                 // todo refresh main activity, because number of players may have changed
                 // But Not needed as long as we set secondPlayer from the LoadActivity
             }).start()
@@ -70,7 +70,7 @@ class GlobalStuff {
 
 
         // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
-        fun processGameInfo(json: String) {
+        fun processGameInfo(json: String, fresh: Boolean) {
 
             // We create gameinfo in the worker thread, not the UI thread
             var gameInfo: GBUniverse? = null
@@ -89,7 +89,8 @@ class GlobalStuff {
                         GBController.elapsedTimeLastJSON,
                         GBController.elapsedTimeLastWrite,
                         GBController.elapsedTimeLastLoad,
-                        fromJsonTime
+                        fromJsonTime,
+                        fresh
                     )
                 })
 
@@ -121,7 +122,7 @@ class GlobalStuff {
             Thread(Runnable {
                 GBController.currentFilePath = view.context.filesDir
                 val json = GBController.doAndSaveUniverse() // SERVER Talk to not-remote server
-                processGameInfo(json)
+                processGameInfo(json, false)
             }).start()
 
         }
@@ -145,7 +146,7 @@ class GlobalStuff {
                 Thread(Runnable {
                     while (autoDo) {
                         val json = GBController.doAndSaveUniverse() // SERVER Talk to not-remote server
-                        processGameInfo(json)
+                        processGameInfo(json, false)
                         Thread.sleep(500) // let everything else catch up before we do another turn
                     }
                 }).start()
