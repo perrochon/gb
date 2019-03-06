@@ -258,18 +258,20 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 return
             }
 
-            val nxy = sxy.towards(dxy, speed.toFloat())
-
-
-            GBLog.d("Flying from (${sxy.x}, ${sxy.y}) direction (${dxy.x}, ${dxy.y}) until (${nxy.x}, ${nxy.y}) at speed $speed\n")
-
+            var nxy = sxy.towards(dxy, speed.toFloat())
 
             if (loc.level == DEEPSPACE) {
 
+                var hyperspeed = speed.toFloat()
+
+                if (idxtype != POD) { // TODO All but pods have hyperdrive
+                    hyperspeed = hyperspeed * 2
+                    nxy = sxy.towards(dxy, hyperspeed)
+                }
+
                 val distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
 
-
-                if (distanceToStar < GBData.starMaxOrbit) { // we arrived at destination System
+                if (distanceToStar < hyperspeed + GBData.starMaxOrbit) { // we arrived at destination System
 
                     // TODO check if destination is the system, in which case we would just stop here.
                     // We can't fly to a system yet, so not a bug just yet.
