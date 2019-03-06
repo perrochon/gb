@@ -16,16 +16,6 @@
                                  app:layout_constraintEnd_toEndOf="parent"
                                  app:layout_constraintBottom_toBottomOf="parent"
             />
-    <FrameLayout android:id="@+id/details"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 app:layout_constraintEnd_toEndOf="parent"
-                 app:layout_constraintStart_toStartOf="@+id/mapView"
-                 android:layout_marginEnd="32dp"
-                 android:layout_marginTop="32dp"
-                 app:layout_constraintTop_toTopOf="parent"
-                 android:layout_marginStart="32dp"
-            />
     <LinearLayout android:orientation="horizontal"
                   android:layout_width="0dp"
                   android:layout_height="wrap_content"
@@ -124,6 +114,17 @@
                   android:background="@drawable/border_impi"
                 />
     </LinearLayout>
+
+    <FrameLayout android:id="@+id/details"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="@+id/mapView"
+                 android:layout_marginEnd="32dp"
+                 android:layout_marginTop="40dp"
+                 app:layout_constraintTop_toTopOf="parent"
+                 android:layout_marginStart="32dp"
+            />
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"

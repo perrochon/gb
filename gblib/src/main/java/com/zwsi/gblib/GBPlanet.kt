@@ -20,10 +20,6 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
     var height = hxw.first
     var width = hxw.second
 
-    var uidPlanetOwner = -1
-    val planetOwner: GBRace
-        get() = u.race(uidPlanetOwner) // FIXME PERSISTENCE These return universe objects, not vm objects.... only return UID
-
     val star: GBStar
         get() = u.star(uidStar) // FIXME PERSISTENCE These return universe objects, not vm objects...  only return UID
 
@@ -31,24 +27,24 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
         get() = width * height
 
     var planetPopulation = 0;
+    var planetUidRaces: MutableSet<Int> = HashSet()
 
     // Planets are rectangles with wrap arounds on the sides. Think Mercator.
     // Sector are stored in a straight array, which makes some things easier (other's not so)
     var sectors: Array<GBSector>
 
     // Landed Ships
-    var landedUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
+    var landedUidShips: MutableSet<Int> = HashSet() // UID of ships. Persistent
 
     internal val landedShips: List<GBShip>
-        // PERF ?? Cache the list and only recompute if the hashcode changes.
+        // PERF ?? Cache the list and only recompute if the hashcode changes. How often is this used...
         get() = landedUidShips.map { u.ship(it) }
 
     // Orbit Ships
-    var orbitUidShips: MutableSet<Int> =
-        HashSet<Int>() // UID of ships. Persistent
+    var orbitUidShips: MutableSet<Int> = HashSet() // UID of ships. Persistent
 
     internal val orbitShips: List<GBShip>
-        // PERF ?? Cache the list and only recompute if the hashcode changes.
+        // PERF ?? Cache the list and only recompute if the hashcode changes. How often is this used....
         get() = orbitUidShips.map { u.ship(it) }
 
     init {
@@ -168,6 +164,8 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
 
     // planetPopulation
     // TODO BUG fix planetPopulation. Right now it goes in mysterious ways
+    // TODO Instead of keeping track of planet population, just re-count on do?
+    // TODO Test population and owner management
     // Three ways populations can change:
     // 1. Adjusting: Changing planetPopulation in just one sector (setup, landing, killing)
     // 2. Moving: Moving from one sector to another.
@@ -180,6 +178,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
         val target = sectors.toList().shuffled().firstOrNull({ it.population == 0 })
         if (target != null) {
             adjustPopulation(target, r, number) // If no empty sector, no planetPopulation is landed
+            planetUidRaces.add(r.uid)
         }
     }
 
@@ -241,7 +240,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
         }
 
         if (this.planetPopulation == 0) {
-            this.uidPlanetOwner = 0
+            // TODO Need to remove races from the list somewhere (else)
         }
 
     }
@@ -251,7 +250,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
         assert(sector.population + number <= sector.maxPopulation)
         assert(sector.population + number >= 0)
         // TODO this assertion should hold but doesn't
-        assert((sector.uidSectorOwner == -1) || (sector.uidSectorOwner == r.uid), { "$planetOwner, $r" })
+        assert((sector.uidSectorOwner == -1) || (sector.uidSectorOwner == r.uid), { "FIXME" }) // FIXME DELETE ?
 
         sector.uidSectorOwner = r.uid
         changePopulation(sector, number)

@@ -67,6 +67,8 @@ class ShipFragment : Fragment() {
             GlobalStuff.panzoomToShip(it)
         })
 
+        setSpinner(view, this)
+
         return view
     }
 
@@ -119,9 +121,6 @@ class ShipFragment : Fragment() {
                 shipView.setImageResource(R.drawable.yellow)
             }
 
-            if (sh.uidRace == uidActivePlayer) {
-                setSpinner(view, this)
-            }
         }
 
     }
@@ -135,9 +134,8 @@ class ShipFragment : Fragment() {
         if (sh == null) {
             return
         } else {
-            if (sh.speed == 0) {
-                view.findViewById<Spinner>(R.id.spinner).setVisibility(View.GONE)
-//                view.findViewById<Button>(R.id.flyTo).setVisibility(View.GONE)
+            if (sh.uidRace != uidActivePlayer || sh.speed == 0) {
+                view.findViewById<Spinner>(R.id.spinner).setVisibility(View.INVISIBLE)
             } else {
                 // TODO: better selection of possible targets once we have visibility.
                 // Right now it's all insystem and first planet of each system outside.

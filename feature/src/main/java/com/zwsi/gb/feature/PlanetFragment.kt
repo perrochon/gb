@@ -38,7 +38,8 @@ class PlanetFragment : Fragment() {
         factoryButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeFactory(it)
         })
-        if (uidActivePlayer == p.planetOwner.uid) {
+
+        if (p.planetUidRaces.contains(uidActivePlayer)) {
             factoryButton.visibility = View.VISIBLE
         } else {
             factoryButton.visibility = View.INVISIBLE
@@ -77,19 +78,25 @@ class PlanetFragment : Fragment() {
         planetStats.setText("${p.name} in ${p.star.name} system\n")
         planetStats.append("Size: ${p.size} | Population: ${p.planetPopulation.f(6)} \n")
 
-        var ships = vm.planet(p.uid).landedUidShips
-        if (ships.isNotEmpty()) {
-            planetStats.append("Ships landed (${ships.size.toString()}): ")
-            for (uidS in ships) {
+        if (p.planetUidRaces.isNotEmpty()) {
+            planetStats.append("Races present: ")
+            for (uidR in p.planetUidRaces) {
+                planetStats.append(vm.race(uidR).name + " ")
+            }
+            planetStats.append("\n")
+        }
+
+        if (p.landedUidShips.isNotEmpty()) {
+            planetStats.append("Ships landed (${p.landedUidShips.size.toString()}): ")
+            for (uidS in p.landedUidShips) {
                 planetStats.append(vm.ship(uidS).name + " ")
             }
             planetStats.append("\n")
         }
 
-        ships = vm.planet(p.uid).orbitUidShips
-        if (ships.isNotEmpty()) {
-            planetStats.append("Ships in orbit (${ships.size.toString()}): ")
-            for (uidS in ships) {
+        if (p.orbitUidShips.isNotEmpty()) {
+            planetStats.append("Ships in orbit (${p.orbitUidShips.size.toString()}): ")
+            for (uidS in p.orbitUidShips) {
                 planetStats.append(vm.ship(uidS).name + " ")
             }
             planetStats.append("\n")
