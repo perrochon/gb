@@ -4,10 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
-import android.widget.Switch
-import android.widget.TextView
-import android.widget.Toast
-import android.widget.ToggleButton
+import android.view.View
+import android.widget.*
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
@@ -53,6 +51,12 @@ class Preferences : AppCompatActivity() {
             }
             GBViewModel.updatePrefs()
         }
+
+        val doneButton: Button = findViewById(R.id.DoneButton)
+        doneButton.setOnClickListener(View.OnClickListener {
+            finish()
+        })
+
 
     }
 

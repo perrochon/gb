@@ -3,7 +3,6 @@ package com.zwsi.gb.feature
 import android.arch.lifecycle.Observer
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -12,14 +11,14 @@ import android.view.ViewGroup
 import android.widget.*
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
-import com.zwsi.gblib.*
 import com.zwsi.gblib.GBController.Companion.flyShipLanded
 import com.zwsi.gblib.GBController.Companion.flyShipOrbit
+import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
-import kotlinx.android.synthetic.main.activity_map.*
-import kotlin.math.PI
+import com.zwsi.gblib.GBLocation
+import com.zwsi.gblib.distance
 
 
 class ShipFragment : Fragment() {
@@ -49,12 +48,11 @@ class ShipFragment : Fragment() {
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
-        val actionObserver = Observer<Int> { _->
+        val actionObserver = Observer<Int> { _ ->
             setDetails(view)
             view.invalidate()
         }
-        GBViewModel.actionsTaken.observe(this,actionObserver)
-
+        GBViewModel.actionsTaken.observe(this, actionObserver)
 
         val makePodButton: Button = view.findViewById(R.id.makePod)
         makePodButton.tag = sh.uid
@@ -115,6 +113,13 @@ class ShipFragment : Fragment() {
                 if (sh.uidRace == uidActivePlayer) {
                     view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
                     view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
+                    if (vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
+                        view.findViewById<Button>(R.id.makePod).isEnabled = false
+                        view.findViewById<Button>(R.id.makeCruiser).isEnabled = false
+                    } else {
+                        view.findViewById<Button>(R.id.makePod).isEnabled = true
+                        view.findViewById<Button>(R.id.makeCruiser).isEnabled = true
+                    }
                 }
             } else if (sh.idxtype == POD) {
                 if (sh.race.idx == 2) {

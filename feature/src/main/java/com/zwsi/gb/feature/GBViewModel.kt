@@ -18,6 +18,9 @@ class GBViewModel {
 
     companion object {
 
+        const val MIN_ACTIONS = -10
+        const val MAX_ACTIONS = 20
+
         // maybe live data will come from GBController or so, and pass it all over, and this will go away?
         val currentTurn by lazy { MutableLiveData<Int>() }
 

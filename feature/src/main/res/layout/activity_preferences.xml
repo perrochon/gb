@@ -13,6 +13,9 @@
                   android:background="@drawable/border_message"
                   android:layout_margin="8dp"
                   android:padding="16dp"
+                  android:id="@+id/linearLayout2"
+                  tools:layout_editor_absoluteY="8dp"
+                  tools:layout_editor_absoluteX="8dp"
             >
         <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -102,6 +105,19 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DoneButton"
+            android:text="Done"
+            android:background="@drawable/border_message"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            />
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"

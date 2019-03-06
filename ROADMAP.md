@@ -9,7 +9,6 @@ game play, or prevent game play are second priority. Here are a few examples
 * Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
 ## Short Term Small Items
-* Do button no longer fits on P3.
 * Settings: Clean code smell
 * Fog of War: per race, 3 states (unknown, seen, visible). Once you saw a system, you remember planets...
 * Feature: Destination star system. Needs new location type (leaks planets through Fog of War)
@@ -29,6 +28,7 @@ game play, or prevent game play are second priority. Here are a few examples
 ## Regression
 
 ## Code Quality
+* Turn colors to proper resource strings. Then parse them once.
 * Review all TODO and warnings
 * Unit Test Missions (or at least the lib part...)
 * Review all unit tests, and add whats missing (GBLocation? GBxy? )

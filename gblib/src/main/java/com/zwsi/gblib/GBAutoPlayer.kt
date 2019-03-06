@@ -11,6 +11,33 @@ class GBAutoPlayer() {
 
     companion object {
 
+        fun playXenos() {
+            val r = u.race(0)
+            GBLog.d("Playing Xenos in turn $u.turn")
+
+        }
+
+        fun playImpi() {
+
+            val r = u.race(1)
+            GBLog.d("Playing Impi in turn $u.turn")
+
+            // Launch landed cruisers with no destination to orbit. They do little on planet...
+            for (cruiser in r.raceShips.filter {
+                (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED) && it.dest == null
+            }) {
+                val loc = GBLocation(
+                    cruiser.loc.getPlanet()!!,
+                    GBData.PlanetOrbit,
+                    GBData.rand.nextFloat() * 2 * PI.toFloat()
+                )
+                GBLog.d("Setting Destination of " + cruiser.name + " to " + cruiser.loc.getPlanet()!!.name)
+                cruiser.dest = loc
+
+            }
+            GBLog.d("Directed Cruisers")
+        }
+
         fun playBeetle() {
 
             GBLog.d("Playing Beetles in turn $u.turn")
@@ -45,47 +72,6 @@ class GBAutoPlayer() {
             GBLog.d("Directed Pods")
         }
 
-        fun playXenos() {
-
-            val r = u.race(3)
-            GBLog.d("Playing Xenos in turn $u.turn")
-
-            // Launch landed cruisers with no destination to orbit. They do little on planet...
-            for (cruiser in r.raceShips.filter {
-                (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED) && it.dest == null
-            }) {
-                val loc = GBLocation(
-                    cruiser.loc.getPlanet()!!,
-                    GBData.PlanetOrbit,
-                    GBData.rand.nextFloat() * 2 * PI.toFloat()
-                )
-                GBLog.d("Setting Destination of " + cruiser.name + " to " + cruiser.loc.getPlanet()!!.name)
-                cruiser.dest = loc
-
-            }
-            GBLog.d("Directed Cruisers")
-        }
-
-        fun playImpi() {
-
-            val r = u.race(3)
-            GBLog.d("Playing Impi in turn $u.turn")
-
-            // Launch landed cruisers with no destination to orbit. They do little on planet...
-            for (cruiser in r.raceShips.filter {
-                (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED) && it.dest == null
-            }) {
-                val loc = GBLocation(
-                    cruiser.loc.getPlanet()!!,
-                    GBData.PlanetOrbit,
-                    GBData.rand.nextFloat() * 2 * PI.toFloat()
-                )
-                GBLog.d("Setting Destination of " + cruiser.name + " to " + cruiser.loc.getPlanet()!!.name)
-                cruiser.dest = loc
-
-            }
-            GBLog.d("Directed Cruisers")
-        }
 
         fun playTortoise() {
 
@@ -110,7 +96,9 @@ class GBAutoPlayer() {
 
             // Send any cruiser that's landed (likely freshly made) to some random planet, but not the beetle home
             val homeBeetle = u.race(2).getHome()
-            for (cruiser in r.raceShips.filter { (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.LANDED) }) {
+            for (cruiser in r.raceShips.filter {
+                (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.ORBIT) && it.loc.uidRef == r.uidHomePlanet
+            }.drop(5)) {
                 val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
                 if (planet != homeBeetle) {
                     val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())

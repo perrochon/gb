@@ -59,6 +59,11 @@ class LoadActivity : AppCompatActivity() {
             GlobalStuff.loadUniverse(it, 23)
         })
 
+        val doneButton: Button = findViewById(R.id.DoneButton)
+        doneButton.setOnClickListener(View.OnClickListener {
+            finish()
+        })
+
 
     }
 

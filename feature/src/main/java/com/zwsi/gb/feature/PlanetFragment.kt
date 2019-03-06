@@ -23,7 +23,6 @@ class PlanetFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view: View = inflater.inflate(R.layout.fragment_planet, container, false)!!
-        val p = vm.planet(tag!!.toInt())
 
         setDetails(view)
 
@@ -33,17 +32,17 @@ class PlanetFragment : Fragment() {
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
+        val actionObserver = Observer<Int> { _ ->
+            setDetails(view)
+            view.invalidate()
+        }
+        GBViewModel.actionsTaken.observe(this, actionObserver)
+
         val factoryButton: Button = view.findViewById(R.id.makefactory)
         factoryButton.tag = tag!!.toInt()
         factoryButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeFactory(it)
         })
-
-        if (p.planetUidRaces.contains(uidActivePlayer)) {
-            factoryButton.visibility = View.VISIBLE
-        } else {
-            factoryButton.visibility = View.INVISIBLE
-        }
 
         val starButton: Button = view.findViewById(R.id.panzoomToSystemStar)
         starButton.tag = vm.planet(tag!!.toInt()).star.uid
@@ -63,6 +62,20 @@ class PlanetFragment : Fragment() {
     private fun setDetails(view: View) {
 
         val p = vm.planet(tag!!.toInt())
+
+        val factoryButton: Button = view.findViewById(R.id.makefactory)
+        if (p.planetUidRaces.contains(uidActivePlayer)) {
+            factoryButton.visibility = View.VISIBLE
+            if (vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
+                factoryButton.isEnabled = false
+            } else {
+                factoryButton.isEnabled = true
+            }
+
+        } else {
+            factoryButton.visibility = View.INVISIBLE
+        }
+
 
         if (p.planetPopulation == 0) {
             val button = view.findViewById<Button>(R.id.makefactory)
