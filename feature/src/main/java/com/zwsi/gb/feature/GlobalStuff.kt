@@ -116,6 +116,8 @@ class GlobalStuff {
             playerTurns[0]++
             playerTurns[1]++
 
+            actionsTaken.value = playerTurns[0] + playerTurns [1]
+
             val message = "Executing Orders"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 

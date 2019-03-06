@@ -23,6 +23,7 @@ import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBStar
+import kotlinx.android.synthetic.main.activity_map.*
 
 
 class MapActivity : AppCompatActivity() {
@@ -40,9 +41,9 @@ class MapActivity : AppCompatActivity() {
 
         val doButton: Button = findViewById(R.id.DoButton)
         if (secondPlayer) {
-            doButton.visibility = View.GONE
+            doButton.isEnabled = false
         } else {
-            doButton.visibility = View.VISIBLE
+            doButton.isEnabled = true
         }
         doButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.doUniverse(it)
@@ -92,7 +93,7 @@ class MapActivity : AppCompatActivity() {
             imageView.invalidate()
             if (secondPlayer) {
                 action.visibility = View.VISIBLE
-                action.text = "${playerTurns[0].f(3)} Player 1 <-Actions-> Player 2:${playerTurns[1].f(3)}"
+                action.text = "${playerTurns[0].f(3)} Player 1-Actions-Player 2:${playerTurns[1].f(3)}"
             } else {
                 action.visibility = View.GONE
             }
@@ -101,7 +102,14 @@ class MapActivity : AppCompatActivity() {
         GBViewModel.currentTurn.observe(this, turnObserver)
 
         val actionObserver = Observer<Int> { newAction ->
-            action.text = "${playerTurns[0].f(3)} Player 1 <-Actions-> Player 2:${playerTurns[1].f(3)}"
+            action.text = "${playerTurns[0].f(3)} Player 1-Actions-Player 2:${playerTurns[1].f(3)}"
+
+            if (playerTurns[1- uidActivePlayer] < 0) {
+                DoButton.isEnabled = true
+            } else {
+                DoButton.isEnabled = false
+            }
+
         }
         GBViewModel.actionsTaken.observe(this,actionObserver)
 

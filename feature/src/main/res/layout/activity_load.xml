@@ -12,7 +12,7 @@
                   android:layout_height="match_parent"
                   android:background="@drawable/border_message"
                   android:layout_margin="8dp"
-                  android:padding="16dp"
+                  android:padding="8dp"
             >
         <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -33,13 +33,15 @@
                 />
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
-                      android:layout_height="80dp"
+                      android:layout_height="wrap_content"
+                      android:padding="16dp"
+
                 >
             <Space android:layout_width="0dp"
                    android:layout_height="1dp"
                    android:layout_weight="1"
                     />
-            <Button android:text="New Game"
+            <Button android:text="New Random Mission"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/New1Button"
@@ -51,6 +53,18 @@
                    android:layout_height="1dp"
                    android:layout_weight="1"
                     />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="16dp"
+
+                >
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+
             <Button android:text="Mission 1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -100,13 +114,15 @@
                 />
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
-                      android:layout_height="80dp"
+                      android:layout_height="wrap_content"
+                      android:padding="16dp"
+
                 >
             <Space android:layout_width="0dp"
                    android:layout_height="1dp"
                    android:layout_weight="1"
                     />
-            <Button android:text="New Game"
+            <Button android:text="New Random Map"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/New2Button"
@@ -114,6 +130,17 @@
                     android:textSize="12sp"
                     android:minWidth="80dp"
                     />
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="16dp"
+
+                >
             <Space android:layout_width="0dp"
                    android:layout_height="1dp"
                    android:layout_weight="1"

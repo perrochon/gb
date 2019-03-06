@@ -203,6 +203,8 @@ class ShipFragment : Fragment() {
                             sh.dest = GBLocation(planet, GBData.PlanetOrbit, 0f)
                         }
 
+                        GlobalStuff.checkDo(view)
+
                         Toast.makeText(
                             view.context,
                             "Ordered " + sh.name + " to fly to " + planet.name,
