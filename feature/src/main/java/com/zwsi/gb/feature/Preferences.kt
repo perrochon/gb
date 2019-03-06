@@ -36,7 +36,7 @@ class Preferences : AppCompatActivity() {
 
         val showStatsButton: Switch = findViewById(R.id.ShowStats)
         showStatsButton.isChecked = showStats
-        showStatsButton.setOnCheckedChangeListener { it, isChecked ->
+        showStatsButton.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("showStats", isChecked)
                 commit()
@@ -46,7 +46,7 @@ class Preferences : AppCompatActivity() {
 
         val showClickTargetsButton: Switch = findViewById(R.id.ShowClickTargets)
         showClickTargetsButton.isChecked = showClickTargets
-        showClickTargetsButton.setOnCheckedChangeListener { it, isChecked ->
+        showClickTargetsButton.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("showClickTargets", isChecked)
                 commit()

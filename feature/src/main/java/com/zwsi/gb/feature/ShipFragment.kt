@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.*
 import com.zwsi.gblib.GBController.Companion.flyShipLanded
@@ -14,6 +15,7 @@ import com.zwsi.gblib.GBController.Companion.flyShipOrbit
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
+import kotlinx.android.synthetic.main.activity_map.*
 import kotlin.math.PI
 
 
@@ -40,6 +42,13 @@ class ShipFragment : Fragment() {
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
+        val actionObserver = Observer<Int> { _->
+            setDetails(view)
+            view.invalidate()
+        }
+        GBViewModel.actionsTaken.observe(this,actionObserver)
+
+
         val makePodButton: Button = view.findViewById(R.id.makePod)
         makePodButton.tag = sh.uid
         makePodButton.setOnClickListener(View.OnClickListener {
@@ -57,8 +66,6 @@ class ShipFragment : Fragment() {
         zoomButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.panzoomToShip(it)
         })
-
-        setSpinner(view, this)
 
         return view
     }
@@ -96,8 +103,10 @@ class ShipFragment : Fragment() {
 
             if (sh.idxtype == FACTORY) {
                 shipView.setImageResource(R.drawable.factory)
-                view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
-                view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
+                if (sh.uidRace == uidActivePlayer) {
+                    view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
+                    view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
+                }
             } else if (sh.idxtype == POD) {
                 if (sh.race.idx == 2) {
                     shipView.setImageResource(R.drawable.beetlepod)
@@ -108,6 +117,10 @@ class ShipFragment : Fragment() {
                 shipView.setImageResource(R.drawable.cruisert)
             } else {
                 shipView.setImageResource(R.drawable.yellow)
+            }
+
+            if (sh.uidRace == uidActivePlayer) {
+                setSpinner(view, this)
             }
         }
 

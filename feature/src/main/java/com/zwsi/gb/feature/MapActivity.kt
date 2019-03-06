@@ -12,12 +12,11 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import com.davemorrissey.labs.subscaleview.ImageViewState
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.zwsi.gb.feature.GBViewModel.Companion.playerTurns
-import com.zwsi.gb.feature.GBViewModel.Companion.secondPlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBPlanet
@@ -40,7 +39,7 @@ class MapActivity : AppCompatActivity() {
         version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
 
         val doButton: Button = findViewById(R.id.DoButton)
-        if (secondPlayer) {
+        if (vm.secondPlayer) {
             doButton.isEnabled = false
         } else {
             doButton.isEnabled = true
@@ -50,7 +49,7 @@ class MapActivity : AppCompatActivity() {
         })
 
         val contButton: Button = findViewById(R.id.ContinuousButton)
-        if (secondPlayer) {
+        if (vm.secondPlayer) {
             contButton.visibility = View.GONE
         } else {
             doButton.visibility = View.VISIBLE
@@ -78,7 +77,9 @@ class MapActivity : AppCompatActivity() {
         })
 
         // Set up the Version View
-        val action = findViewById<TextView>(R.id.actions)
+        val actionBar = findViewById<LinearLayout>(R.id.actionBar)
+        val action1 = findViewById<TextView>(R.id.action1)
+        val action2 = findViewById<TextView>(R.id.action2)
 
         val imageView: MapView = findViewById<MapView>(R.id.mapView)!!
 
@@ -91,20 +92,22 @@ class MapActivity : AppCompatActivity() {
             imageView.turn = newTurn;
             imageView.shiftToPinnedPlanet()
             imageView.invalidate()
-            if (secondPlayer) {
-                action.visibility = View.VISIBLE
-                action.text = "${playerTurns[0].f(3)} Player 1-Actions-Player 2:${playerTurns[1].f(3)}"
+            if (vm.secondPlayer) {
+                actionBar.visibility = View.VISIBLE
+                action1.text = "${vm.playerTurns[0]}"
+                action2.text = "${vm.playerTurns[1]}"
             } else {
-                action.visibility = View.GONE
+                actionBar.visibility = View.GONE
             }
-            action.invalidate()
+            actionBar.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
-        val actionObserver = Observer<Int> { newAction ->
-            action.text = "${playerTurns[0].f(3)} Player 1-Actions-Player 2:${playerTurns[1].f(3)}"
+        val actionObserver = Observer<Int> { _->
+            action1.text = "${vm.playerTurns[0]}"
+            action2.text = "${vm.playerTurns[1]}"
 
-            if (playerTurns[1- uidActivePlayer] < 0) {
+            if (vm.playerTurns[1- uidActivePlayer] < 0) {
                 DoButton.isEnabled = true
             } else {
                 DoButton.isEnabled = false

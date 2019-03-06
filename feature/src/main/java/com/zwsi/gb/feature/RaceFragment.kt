@@ -37,13 +37,18 @@ class RaceFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view: View? = inflater.inflate(R.layout.fragment_race, container, false);
+        val view: View = inflater.inflate(R.layout.fragment_race, container, false)!!
 
+        setDetails(view)
 
+        return view
+    }
+
+    private fun setDetails(view: View) {
         // What is this fragment about, and make sure the fragment remembers
         val uidRace = arguments!!.getString("UID")!!.toInt()
         val r = vm.race(uidRace)
-        view!!.tag = r // FIXME PERSISTENCE Don't pass race, pass race UID
+        view.tag = r // FIXME PERSISTENCE Don't pass race, pass race UID
 
 
         val imageView = view.findViewById<ImageView>(R.id.RaceView)
@@ -75,8 +80,8 @@ class RaceFragment : Fragment() {
         background.append("\n")
 
         background.append("\n")
-        background.append("refUID: " + r.uid  +" | ")
-        background.append("idxname: " + r.idx +"")
+        background.append("refUID: " + r.uid + " | ")
+        background.append("idxname: " + r.idx + "")
 
         val shipsTextView = view.findViewById<TextView>(R.id.Ships)
         paint = shipsTextView.paint
@@ -91,6 +96,6 @@ class RaceFragment : Fragment() {
                 shipsTextView.append(sh.name + " ")
             }
         }
-        return view
+
     }
 }

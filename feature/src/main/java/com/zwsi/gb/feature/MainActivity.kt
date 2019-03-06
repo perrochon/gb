@@ -21,8 +21,8 @@ import com.zwsi.gblib.GBData
 import java.io.File
 import android.text.method.ScrollingMovementMethod
 import android.widget.Space
+import com.zwsi.gb.feature.GBViewModel.Companion.ready
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
-import com.zwsi.gb.feature.GBViewModel.Companion.secondPlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 
 var lastClickTime = 0L
@@ -86,14 +86,14 @@ class MainActivity : AppCompatActivity() {
             play1Button.isEnabled = true
             play2Button.isEnabled = true
             messageBox.append("\nTurn: ${newTurn.toString()}\n")
-            if (superSensors || !secondPlayer) {
+            if (superSensors || !vm.secondPlayer) {
                 for (article in vm.news) {
                     messageBox.append(article)
                 }
                 messageBox.invalidate()
             }
 
-            if (secondPlayer) {
+            if (vm.secondPlayer) {
                 play2Button.visibility = View.VISIBLE
                 play2Space.visibility = View.VISIBLE
                 play1Button.text = "Player 1"
@@ -160,7 +160,8 @@ class MainActivity : AppCompatActivity() {
         val play1Button: Button = findViewById(R.id.Play1Button)
         val play2Button: Button = findViewById(R.id.Play2Button)
         val play2Space: Space = findViewById(R.id.Play2Space)
-        if (secondPlayer) {
+
+        if (ready && vm.secondPlayer) {
             play2Button.visibility = View.VISIBLE
             play2Space.visibility = View.VISIBLE
             play1Button.text = "Player 1"
@@ -196,6 +197,9 @@ class MainActivity : AppCompatActivity() {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
+
+        GlobalStuff.autoDo = false
+
         val intent = Intent(this, LoadActivity::class.java)
         startActivity(intent)
     }

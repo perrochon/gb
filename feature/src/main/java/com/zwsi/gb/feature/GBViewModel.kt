@@ -28,6 +28,7 @@ class GBViewModel {
         var timeFromJson = 0L
         var timeModelUpdate = 0L
 
+        var ready = false
         lateinit var vm: GBUniverse
 
         var context: Context? = null
@@ -36,10 +37,8 @@ class GBViewModel {
         var showClickTargets = false
         var superSensors = false
 
-        var secondPlayer = false
         var uidActivePlayer = 0;
-        val playerTurns : IntArray = intArrayOf(5,5) // uidActive Players currently is 0 or 1, so can use uid
-        val actionsTaken by lazy {MutableLiveData<Int>()}
+        val actionsTaken by lazy { MutableLiveData<Int>() }
 
 
 //        var times = mutableMapOf<String, Long>() // FIXME Cleanup the long list of ints below
@@ -56,7 +55,7 @@ class GBViewModel {
                 timeLastLoad = load
                 timeFromJson = fromJSON
 
-                secondPlayer = vm.secondPlayer
+                ready = true
 
             }
 

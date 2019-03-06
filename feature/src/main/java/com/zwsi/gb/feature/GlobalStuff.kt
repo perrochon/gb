@@ -11,8 +11,6 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.zwsi.gb.feature.GBViewModel.Companion.actionsTaken
-import com.zwsi.gb.feature.GBViewModel.Companion.playerTurns
-import com.zwsi.gb.feature.GBViewModel.Companion.secondPlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
@@ -113,10 +111,10 @@ class GlobalStuff {
                 return
             }
 
-            playerTurns[0]++
-            playerTurns[1]++
+            vm.playerTurns[0]++
+            vm.playerTurns[1]++
 
-            actionsTaken.value = playerTurns[0] + playerTurns [1]
+            actionsTaken.value = vm.playerTurns[0] + vm.playerTurns [1]
 
             val message = "Executing Orders"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
@@ -305,11 +303,11 @@ class GlobalStuff {
         }
 
         fun checkDo(view: View) {
-            if (secondPlayer) {
-                playerTurns[uidActivePlayer]--
-                actionsTaken.value = playerTurns[0] + playerTurns [1]
+            if (vm.secondPlayer) {
+                vm.playerTurns[uidActivePlayer]--
+                actionsTaken.value = vm.playerTurns[0] + vm.playerTurns [1]
 
-                if (playerTurns[1- uidActivePlayer] < 0 && playerTurns[uidActivePlayer] < 5) {
+                if (vm.playerTurns[1- uidActivePlayer] < 0 && vm.playerTurns[uidActivePlayer] < 5) {
                     doUniverse(view, true)
                 }
 

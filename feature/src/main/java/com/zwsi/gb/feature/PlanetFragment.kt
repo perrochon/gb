@@ -1,25 +1,21 @@
 package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
-import com.zwsi.gblib.GBPlanet
 
 class PlanetFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(@Suppress("UNUSED_PARAMETER")message: String): PlanetFragment {
+        fun newInstance(@Suppress("UNUSED_PARAMETER") message: String): PlanetFragment {
             return PlanetFragment()
         }
     }
@@ -27,10 +23,11 @@ class PlanetFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view: View = inflater.inflate(R.layout.fragment_planet, container, false)!!
+        val p = vm.planet(tag!!.toInt())
 
         setDetails(view)
 
-        val turnObserver = Observer<Int> { _->
+        val turnObserver = Observer<Int> { _ ->
             setDetails(view)
             view.invalidate()
         }  // TODO why is newTurn nullable?
@@ -41,6 +38,11 @@ class PlanetFragment : Fragment() {
         factoryButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeFactory(it)
         })
+        if (uidActivePlayer == p.planetOwner.uid) {
+            factoryButton.visibility = View.VISIBLE
+        } else {
+            factoryButton.visibility = View.INVISIBLE
+        }
 
         val starButton: Button = view.findViewById(R.id.panzoomToSystemStar)
         starButton.tag = vm.planet(tag!!.toInt()).star.uid
@@ -59,7 +61,6 @@ class PlanetFragment : Fragment() {
 
     private fun setDetails(view: View) {
 
-        // Planets don't go away, so the below !! should be safe
         val p = vm.planet(tag!!.toInt())
 
         if (p.planetPopulation == 0) {

@@ -86,6 +86,9 @@ class GBController {
             lock.lock(); // lock for the game turn
             try {
                 elapsedTimeLastUpdate = measureNanoTime {
+                    u.playerTurns[0]++ // FIXME Move to universe
+                    u.playerTurns[1]++
+
                     _u!!.doUniverse()
                     // PERF without reload single digit ms update time, with reload low 100's ms update time.
                 }
@@ -168,6 +171,8 @@ class GBController {
                 val order = GBOrder()
                 order.makeFactory(uidPlanet, uidRace)
 
+                u.playerTurns[uidRace]--
+
                 //GBLog.d("universe: Making factory for ${race.name} on ${planet.name}.")
                 u.orders.add(order)
 
@@ -181,6 +186,8 @@ class GBController {
             try {
                 val order = GBOrder()
                 order.makePod(uidFactory)
+
+                u.playerTurns[u.ship(uidFactory).uidRace]--
 
                 //GBLog.d("universe: Making Cruiser for ${factory.race.name} in Factory ${factory.name}.")
                 u.orders.add(order)
@@ -196,6 +203,8 @@ class GBController {
             try {
                 val order = GBOrder()
                 order.makeCruiser(uidFactory)
+
+                u.playerTurns[u.ship(uidFactory).uidRace]--
 
                 //GBLog.d("universe: Making Cruiser for ${factory.race.name} in Factory ${factory.name}.")
                 u.orders.add(order)
@@ -213,6 +222,8 @@ class GBController {
                 val planet = u.planet(uidPlanet)
                 val loc = GBLocation(planet, 0, 0) // determine exact location at arrival
 
+                u.playerTurns[u.ship(uidShip).uidRace]--
+
                 GBLog.d("Setting Destination of " + ship.name + " to " + planet.name)
                 ship.dest = loc
 
@@ -228,6 +239,8 @@ class GBController {
                 val ship = u.ship(uidShip)
                 val planet = u.planet(uidPlanet)
                 val loc = GBLocation(planet, GBData.PlanetOrbit, 0f) // determine exact location at arrival
+
+                u.playerTurns[u.ship(uidShip).uidRace]--
 
                 GBLog.d("Setting Destination of " + ship.name + " to " + planet.name)
                 ship.dest = loc
