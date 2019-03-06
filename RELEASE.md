@@ -21,10 +21,9 @@ Steps for release, because I always forget some. // TODO Automate this
 ### Release Notes
 
 next
-- Fog of War
-- Settings. The Fog of War setting is called Super Sensors. Turn them on to get previous behavior.
-- Two Players
-- Rule change. 1 action per turn, then the Do comes automatically. Choose wisely.
+- Rules change. 1 action per turn. Choose wisely.
+- Two Players Pass and Play. With Fog of War!
+- Settings. Turn on Hyper Sensors to see through Fog of War.
 
 .652
 - Minor: Tutorial to HTML and in-app. Fixed click target detection at high zoom. 
