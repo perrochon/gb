@@ -22,18 +22,7 @@ class Preferences : AppCompatActivity() {
         val version = findViewById<TextView>(R.id.version)
         version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
 
-
         val sharedPref = this.getSharedPreferences("options", Context.MODE_PRIVATE)
-
-        val secondPlayerButton: Switch = findViewById(R.id.SecondPlayer)
-        secondPlayerButton.isChecked = showStats
-        secondPlayerButton.setOnCheckedChangeListener { it, isChecked ->
-            with(sharedPref.edit()) {
-                putBoolean("secondPlayer", isChecked)
-                commit()
-            }
-            GBViewModel.updatePrefs()
-        }
 
         val superSensorsButton: Switch = findViewById(R.id.SuperSensors)
         superSensorsButton.isChecked = superSensors

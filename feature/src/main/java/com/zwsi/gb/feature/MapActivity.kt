@@ -16,7 +16,9 @@ import android.widget.ScrollView
 import android.widget.TextView
 import com.davemorrissey.labs.subscaleview.ImageViewState
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.playerTurns
 import com.zwsi.gb.feature.GBViewModel.Companion.secondPlayer
+import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
@@ -73,6 +75,10 @@ class MapActivity : AppCompatActivity() {
                 .setNeutralButton("OK", null)
                 .show()
         })
+
+        // Set up the Version View
+        val action = findViewById<TextView>(R.id.actions)
+
         val imageView: MapView = findViewById<MapView>(R.id.mapView)!!
 
         if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_STATE)) {
@@ -84,8 +90,20 @@ class MapActivity : AppCompatActivity() {
             imageView.turn = newTurn;
             imageView.shiftToPinnedPlanet()
             imageView.invalidate()
+            if (secondPlayer) {
+                action.visibility = View.VISIBLE
+                action.text = "${playerTurns[0].f(3)} Player 1 <-Actions-> Player 2:${playerTurns[1].f(3)}"
+            } else {
+                action.visibility = View.GONE
+            }
+            action.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
+
+        val actionObserver = Observer<Int> { newAction ->
+            action.text = "${playerTurns[0].f(3)} Player 1 <-Actions-> Player 2:${playerTurns[1].f(3)}"
+        }
+        GBViewModel.actionsTaken.observe(this,actionObserver)
 
         // Gestures
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {

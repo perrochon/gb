@@ -55,20 +55,17 @@ class MainActivity : AppCompatActivity() {
 
         val play1Button: Button = findViewById(R.id.Play1Button)
         play1Button.isEnabled = false
+        play1Button.text = "Play"
         play1Button.setOnClickListener(View.OnClickListener {
             uidActivePlayer = 0
             gotoMap(it)
         })
 
         val play2Button: Button = findViewById(R.id.Play2Button)
+        play2Button.isEnabled = false
         val play2Space: Space = findViewById(R.id.Play2Space)
-        if (secondPlayer) {
-            play2Button.visibility = View.VISIBLE
-            play2Space.visibility = View.VISIBLE
-        } else {
-            play2Button.visibility = View.GONE
-            play2Space.visibility = View.GONE
-        }
+        play2Button.visibility = View.GONE
+        play2Space.visibility = View.GONE
         play2Button.setOnClickListener(View.OnClickListener {
             uidActivePlayer = 1
             gotoMap(it)
@@ -95,6 +92,17 @@ class MainActivity : AppCompatActivity() {
                 }
                 messageBox.invalidate()
             }
+
+            if (secondPlayer) {
+                play2Button.visibility = View.VISIBLE
+                play2Space.visibility = View.VISIBLE
+                play1Button.text = "Player 1"
+            } else {
+                play2Button.visibility = View.GONE
+                play2Space.visibility = View.GONE
+                play1Button.text = "Play"
+            }
+
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
@@ -149,15 +157,17 @@ class MainActivity : AppCompatActivity() {
     public override fun onResume() {  // After a pause OR at startup
         super.onResume()
 
-        // FIXME We may not need the version of this in onDraw
+        val play1Button: Button = findViewById(R.id.Play1Button)
         val play2Button: Button = findViewById(R.id.Play2Button)
         val play2Space: Space = findViewById(R.id.Play2Space)
         if (secondPlayer) {
             play2Button.visibility = View.VISIBLE
             play2Space.visibility = View.VISIBLE
+            play1Button.text = "Player 1"
         } else {
             play2Button.visibility = View.GONE
             play2Space.visibility = View.GONE
+            play1Button.text = "Play"
         }
     }
 

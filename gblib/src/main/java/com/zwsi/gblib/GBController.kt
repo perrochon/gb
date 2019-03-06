@@ -5,7 +5,6 @@ import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import java.io.File
 import java.util.concurrent.locks.ReentrantLock
-import kotlin.math.PI
 import kotlin.system.measureNanoTime
 
 // GBController may be called from the UI and the background thread, so we need to lock.
@@ -41,12 +40,13 @@ class GBController {
                 return _u ?: throw AssertionError("We have no Universe")
             }
 
-        fun makeAndSaveUniverse(): String {
+        fun makeAndSaveUniverse(secondPlayer: Boolean): String {
 
             val json: String
             lock.lock(); // lock for the game turn
             try {
                 makeUniverse()
+                u.secondPlayer = secondPlayer
                 json = saveUniverse()
             } finally {
                 lock.unlock()

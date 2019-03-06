@@ -10,10 +10,15 @@ import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zwsi.gb.feature.GBViewModel.Companion.actionsTaken
+import com.zwsi.gb.feature.GBViewModel.Companion.playerTurns
+import com.zwsi.gb.feature.GBViewModel.Companion.secondPlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import com.zwsi.gblib.GBUniverse
+import java.io.File
 import kotlin.system.measureNanoTime
 
 // TODO rename this, once we know what all it does :-)
@@ -25,7 +30,7 @@ class GlobalStuff {
         val jsonAdapter: JsonAdapter<GBUniverse> = moshi.adapter(GBUniverse::class.java).indent("  ")
         var autoDo = false
 
-        fun makeUniverse(@Suppress("UNUSED_PARAMETER") view: View) {
+        fun makeUniverse(@Suppress("UNUSED_PARAMETER") view: View, secondPlayer: Boolean) {
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
             }
@@ -35,7 +40,7 @@ class GlobalStuff {
 //            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
             Thread(Runnable {
-                val json = GBController.makeAndSaveUniverse()
+                val json = GBController.makeAndSaveUniverse(secondPlayer)
                 processGameInfo(json)
             }).start()
         }
@@ -49,15 +54,20 @@ class GlobalStuff {
             Toast.makeText(view.context, "Loading Universe ${number}", Toast.LENGTH_SHORT).show()
 
             val json = when (number) {
-//                0 -> File(view.context.filesDir, currentGameFileName).readText()
-                1 -> view.context.resources.openRawResource(R.raw.mission1).reader().readText()
-                2 -> view.context.resources.openRawResource(R.raw.mission2).reader().readText()
-                else -> view.context.resources.openRawResource(R.raw.mission3).reader().readText()
+                11 -> view.context.resources.openRawResource(R.raw.mission1).reader().readText()
+                12 -> view.context.resources.openRawResource(R.raw.mission2).reader().readText()
+                13 -> view.context.resources.openRawResource(R.raw.mission3).reader().readText()
+                21 -> view.context.resources.openRawResource(R.raw.map1).reader().readText()
+                22 -> view.context.resources.openRawResource(R.raw.map2).reader().readText()
+                23 -> view.context.resources.openRawResource(R.raw.map3).reader().readText()
+                else -> File(view.context.filesDir, currentGameFileName).readText()
             }
 
             Thread(Runnable {
                 GBController.loadUniverseFromJSON(json)  // SERVER Talk to not-remote server
                 processGameInfo(json)
+                // todo refresh main activity, because number of players may have changed
+                // But Not needed as long as we set secondPlayer from the LoadActivity
             }).start()
         }
 
@@ -92,9 +102,9 @@ class GlobalStuff {
 
         }
 
-        fun doUniverse(view: View) {
+        fun doUniverse(view: View, force: Boolean = false) {
 
-            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+            if (!force && SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
             }
             lastClickTime = SystemClock.elapsedRealtime();
@@ -102,6 +112,9 @@ class GlobalStuff {
             if (autoDo) { // If we are running on auto, ignore manual Do
                 return
             }
+
+            playerTurns[0]++
+            playerTurns[1]++
 
             val message = "Executing Orders"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
@@ -157,8 +170,9 @@ class GlobalStuff {
             // TODO Simplify (use .first) ? Or better, find Population and use planetOwner...
             GBController.makeFactory(planet.uid, uidActivePlayer)
 
-            val message = "Ordered Factory on " + planet.name
+            checkDo(view)
 
+            val message = "Ordered Factory on " + planet.name
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
         }
@@ -260,11 +274,12 @@ class GlobalStuff {
 
             val factory = vm.ships[view.tag as Int] // Don't use ship() as we need to handle null (do nothing)
             if (factory != null) {
+                GBController.makePod(factory.uid)
+                checkDo(view)
 
                 val message = "Ordered Pod in Factory " + factory.name
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-                GBController.makePod(factory.uid)
             }
         }
 
@@ -278,11 +293,28 @@ class GlobalStuff {
 
             val factory = vm.ships[view.tag as Int] // Don't use ship() as we need to handle null (do nothing)
             if (factory != null) {
+                GBController.makeCruiser(factory.uid)
+                checkDo(view)
+
                 val message = "Ordered Cruiser in Factory " + factory.name
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
-                GBController.makeCruiser(factory.uid)
             }
+        }
+
+        fun checkDo(view: View) {
+            if (secondPlayer) {
+                playerTurns[uidActivePlayer]--
+                actionsTaken.value = playerTurns[0] + playerTurns [1]
+
+                if (playerTurns[1- uidActivePlayer] < 0 && playerTurns[uidActivePlayer] < 5) {
+                    doUniverse(view, true)
+                }
+
+            } else {
+                doUniverse(view,true)
+            }
+
         }
 
     }

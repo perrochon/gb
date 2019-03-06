@@ -19,10 +19,8 @@ data class GBUniverse(
     val numberOfRaces: Int = -1,
     // Variable Fields
     var nextGlobalID: Int = -1,
+    var secondPlayer: Boolean = false,
     var turn: Int = -1,
-    // Collections
-    // TODO DELETE: With Locks, we should not need synchronized collections anymore. We used to have
-    // e.g. Collections.synchronizedMap(hashMapOf<Int, GBStar>())
     // FIXME PERSISTENCE SavedGameTest reassign these lists, instead of creating a new Universe. Once fixed, can use val
     // Will val persist them in JSON, though?
     var stars: MutableMap<Int, GBStar> = hashMapOf<Int, GBStar>(),
@@ -44,6 +42,7 @@ data class GBUniverse(
         _numberOfStars,
         _numberOfRaces,
         1000,
+        false,
         1
     ) {
     }
