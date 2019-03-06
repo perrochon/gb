@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
 
         val play2Button: Button = findViewById(R.id.Play2Button)
         val play2Space: Space = findViewById(R.id.Play2Space)
-        play2Button.isEnabled = false
         if (secondPlayer) {
             play2Button.visibility = View.VISIBLE
             play2Space.visibility = View.VISIBLE
@@ -78,6 +77,11 @@ class MainActivity : AppCompatActivity() {
         val optionsButton: Button = findViewById(R.id.OptionsButton)
         optionsButton.setOnClickListener(View.OnClickListener {
             gotoOptions(it)
+        })
+
+        val loadButton: Button = findViewById(R.id.LoadButton)
+        loadButton.setOnClickListener(View.OnClickListener {
+            gotoLoad(it)
         })
 
         val turnObserver = Observer<Int> { newTurn ->
@@ -104,12 +108,6 @@ class MainActivity : AppCompatActivity() {
             GlobalStuff.toggleContinuous(it)
         })
 
-        val newButton: Button = findViewById(R.id.NewButton)
-        newButton.setOnClickListener(View.OnClickListener {
-            GlobalStuff.makeUniverse(it)
-            messageBox.append("\nCreated New Universe.\n")
-        })
-
         val helpButton: Button = findViewById(R.id.HelpButtonMain)
         helpButton.setOnClickListener(View.OnClickListener {
             val helpText = HtmlCompat.fromHtml(getString(R.string.mainhelp), HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -125,24 +123,6 @@ class MainActivity : AppCompatActivity() {
             builder.setView(scroller)
                 .setNeutralButton("OK", null)
                 .show()
-        })
-
-        val loadButton1: Button = findViewById(R.id.LoadButton1)
-        loadButton1.setOnClickListener(View.OnClickListener {
-            GlobalStuff.loadUniverse(it, 1)
-            messageBox.append("\nLoaded Mission 1.\n")
-        })
-
-        val loadButton2: Button = findViewById(R.id.LoadButton2)
-        loadButton2.setOnClickListener(View.OnClickListener {
-            GlobalStuff.loadUniverse(it, 2)
-            messageBox.append("\nLoaded Mission 2.\n")
-        })
-
-        val loadButton3: Button = findViewById(R.id.LoadButton3)
-        loadButton3.setOnClickListener(View.OnClickListener {
-            GlobalStuff.loadUniverse(it, 3)
-            messageBox.append("\nLoaded Mission 3.\n")
         })
 
         // Kick that off last, we want the app up and running asap
@@ -166,6 +146,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    public override fun onResume() {  // After a pause OR at startup
+        super.onResume()
+
+        // FIXME We may not need the version of this in onDraw
+        val play2Button: Button = findViewById(R.id.Play2Button)
+        val play2Space: Space = findViewById(R.id.Play2Space)
+        if (secondPlayer) {
+            play2Button.visibility = View.VISIBLE
+            play2Space.visibility = View.VISIBLE
+        } else {
+            play2Button.visibility = View.GONE
+            play2Space.visibility = View.GONE
+        }
+    }
+
     /** Called when the user taps the Map button */
     fun gotoMap(@Suppress("UNUSED_PARAMETER") view: View) {
         if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
@@ -183,6 +178,15 @@ class MainActivity : AppCompatActivity() {
         }
         lastClickTime = SystemClock.elapsedRealtime();
         val intent = Intent(this, Preferences::class.java)
+        startActivity(intent)
+    }
+
+    fun gotoLoad(@Suppress("UNUSED_PARAMETER") view: View) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+            return;
+        }
+        lastClickTime = SystemClock.elapsedRealtime();
+        val intent = Intent(this, LoadActivity::class.java)
         startActivity(intent)
     }
 

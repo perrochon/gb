@@ -363,7 +363,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
             for ((_, r) in vm.races) {
 
-                if (superSensors || vm.race(uidActivePlayer).raceVisibleStars.contains(r.getHome().star.uid)) {
+                if (superSensors || vm.race(uidActivePlayer).raceVisibleStars.contains(vm.planet(r.uidHomePlanet).uidStar)) {
 
                     if (pointVisible(
                             r.getHome().star.loc.getLoc().x * uToSf,

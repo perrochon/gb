@@ -9,7 +9,7 @@ import com.zwsi.gblib.GBController.Companion.u
 import kotlin.collections.HashSet
 
 @JsonClass(generateAdapter = true)
-data class GBStar(val uid: Int, val numberOfPlanets: Int, val loc: GBLocation) {
+data class GBStar(val uid: Int, val numberOfPlanets: Int, var loc: GBLocation) {
 
     var name: String
 

@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBUniverse
@@ -45,9 +46,7 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-
-//            var message = "Loading Universe ${number}"
-//            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Loading Universe ${number}", Toast.LENGTH_SHORT).show()
 
             val json = when (number) {
 //                0 -> File(view.context.filesDir, currentGameFileName).readText()
@@ -156,7 +155,7 @@ class GlobalStuff {
             val planet = vm.planet(view.tag as Int)
 
             // TODO Simplify (use .first) ? Or better, find Population and use planetOwner...
-            GBController.makeFactory(planet.uid, 0)
+            GBController.makeFactory(planet.uid, uidActivePlayer)
 
             val message = "Ordered Factory on " + planet.name
 

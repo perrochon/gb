@@ -15,7 +15,12 @@ class GBMakeMissions {
     @Test
     fun makeMission1() {
         GBController.makeSmallUniverse()
-        val turns = 100
+        u.star(0).loc = GBLocation(410f,410f)
+        u.star(1).loc = GBLocation(590f,590f)
+        u.star(2).loc = GBLocation(350f,650f)
+        u.star(3).loc = GBLocation(580f,420f)
+        u.star(4).loc = GBLocation(500f,500f)
+        val turns = 10
         var json: String = ""
 
         for (i in 1..turns) {

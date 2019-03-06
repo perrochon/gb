@@ -120,50 +120,13 @@
                   android:layout_marginEnd="8dp"
                   app:layout_constraintTop_toBottomOf="@+id/Play"
             >
-        <Space android:layout_width="0dp"
-               android:layout_height="1dp"
-               android:layout_weight="1"
-                />
-        <Button android:text="New Game"
+        <Button android:text="Load Game"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/NewButton"
+                android:id="@+id/LoadButton"
                 android:background="@drawable/border_message"
                 />
-        <Space android:layout_width="0dp"
-               android:layout_height="1dp"
-               android:layout_weight="1"
-                />
-        <Button android:text="Mission 1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/LoadButton1"
-                android:background="@drawable/border_message"
-                />
-        <Space android:layout_width="0dp"
-               android:layout_height="1dp"
-               android:layout_weight="1"
-                />
-        <Button android:text="Mission 2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/LoadButton2"
-                android:background="@drawable/border_message"
-                />
-        <Space android:layout_width="0dp"
-               android:layout_height="1dp"
-               android:layout_weight="1"
-                />
-        <Button android:text="Mission 3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/LoadButton3"
-                android:background="@drawable/border_message"
-                />
-        <Space android:layout_width="0dp"
-               android:layout_height="1dp"
-               android:layout_weight="1"
-                />
+
     </LinearLayout>
     <LinearLayout android:orientation="horizontal"
                   android:layout_width="0dp"

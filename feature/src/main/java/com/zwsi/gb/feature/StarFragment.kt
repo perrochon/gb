@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
+import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 
 class StarFragment : Fragment() {
@@ -54,7 +55,7 @@ class StarFragment : Fragment() {
 
         stats.setText("${star.name} at (" + (star.loc.getLoc().x.toInt()) + ", " + star.loc.getLoc().y.toInt() + ")\n")
 
-        if (superSensors || vm.race(0).raceVisibleStars.contains(star.uid)) {
+        if (superSensors || vm.race(uidActivePlayer).raceVisibleStars.contains(star.uid)) {
             val planets = star.starUidPlanets.map { vm.planet(it) }
             if (planets.isNotEmpty()) {
                 stats.append("Planets (${planets.size}): ")

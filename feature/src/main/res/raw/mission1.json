@@ -6,7 +6,7 @@
   "planetOrbit": 2.0,
   "numberOfStars": 5,
   "numberOfRaces": 4,
-  "nextGlobalID": 1131,
+  "nextGlobalID": 1020,
   "turn": 1,
   "stars": {
     "0": {
@@ -15,8 +15,8 @@
       "loc": {
         "level": 4,
         "uidRef": -1,
-        "x": 718.0,
-        "y": 385.0,
+        "x": 410.0,
+        "y": 410.0,
         "t": -1.0,
         "r": -1.0,
         "sx": -1,
@@ -38,8 +38,8 @@
       "loc": {
         "level": 4,
         "uidRef": -1,
-        "x": 90.0,
-        "y": 964.0,
+        "x": 590.0,
+        "y": 590.0,
         "t": -1.0,
         "r": -1.0,
         "sx": -1,
@@ -60,8 +60,8 @@
       "loc": {
         "level": 4,
         "uidRef": -1,
-        "x": 711.0,
-        "y": 100.0,
+        "x": 350.0,
+        "y": 650.0,
         "t": -1.0,
         "r": -1.0,
         "sx": -1,
@@ -73,43 +73,12 @@
         10
       ],
       "starUidShips": [
-        1091,
-        1094,
-        1095,
-        1096,
-        1097,
-        1098,
-        1099,
-        1100,
-        1101,
-        1102,
-        1103,
-        1104,
-        1105,
-        1106,
-        1107,
-        1108,
-        1109,
-        1110,
-        1111,
-        1112,
-        1113,
-        1114,
-        1115,
-        1116,
-        1117,
-        1118,
-        1119,
-        1120,
-        1121,
-        1122,
-        1123,
-        1124,
-        1125,
-        1126,
-        1127,
-        1128,
-        1087
+        1008,
+        1010,
+        1012,
+        1002,
+        1004,
+        1006
       ]
     },
     "3": {
@@ -118,8 +87,8 @@
       "loc": {
         "level": 4,
         "uidRef": -1,
-        "x": 129.0,
-        "y": 247.0,
+        "x": 580.0,
+        "y": 420.0,
         "t": -1.0,
         "r": -1.0,
         "sx": -1,
@@ -134,7 +103,13 @@
         14,
         15
       ],
-      "starUidShips": []
+      "starUidShips": [
+        1011,
+        1013,
+        1015,
+        1003,
+        1005
+      ]
     },
     "4": {
       "uid": 4,
@@ -142,8 +117,8 @@
       "loc": {
         "level": 4,
         "uidRef": -1,
-        "x": 775.0,
-        "y": 833.0,
+        "x": 500.0,
+        "y": 500.0,
         "t": -1.0,
         "r": -1.0,
         "sx": -1,
@@ -169,9 +144,9 @@
       "loc": {
         "level": 3,
         "uidRef": 0,
-        "x": -1.4554327,
-        "y": 7.0513625,
-        "t": -4.508843,
+        "x": 5.3953266,
+        "y": 4.767646,
+        "t": 0.72371495,
         "r": 7.2,
         "sx": -1,
         "sy": -1
@@ -181,174 +156,192 @@
       "landedUidShips": [],
       "name": "Logan",
       "orbitUidShips": [],
-      "planetPopulation": 48747,
+      "planetPopulation": 1645,
       "sectors": [
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 800,
-          "population": 799,
+          "population": 0,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 998,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 800,
-          "population": 799,
+          "population": 0,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 800,
-          "population": 798,
+          "population": 0,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 800,
-          "population": 799,
+          "population": 0,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 1000,
+          "population": 14,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -357,97 +350,88 @@
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
-        },
-        {
-          "uidPlanet": 0,
-          "maxPopulation": 1000,
-          "population": 999,
-          "revenue": 1,
-          "type": 0,
-          "typeSymbol": "~",
-          "uidSectorOwner": 0
-        },
-        {
-          "uidPlanet": 0,
-          "maxPopulation": 1000,
-          "population": 999,
-          "revenue": 1,
-          "type": 0,
-          "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 800,
-          "population": 799,
+          "population": 0,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 1000,
+          "population": 298,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -456,7 +440,7 @@
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 27,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -465,7 +449,7 @@
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 1,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -474,7 +458,52 @@
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 1000,
+          "population": 1,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -483,7 +512,7 @@
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 43,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -492,7 +521,7 @@
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 849,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -501,7 +530,7 @@
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 209,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -510,7 +539,7 @@
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 1,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -519,106 +548,52 @@
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 0,
           "maxPopulation": 1000,
-          "population": 999,
-          "revenue": 1,
-          "type": 0,
-          "typeSymbol": "~",
-          "uidSectorOwner": 0
-        },
-        {
-          "uidPlanet": 0,
-          "maxPopulation": 1000,
-          "population": 999,
-          "revenue": 1,
-          "type": 0,
-          "typeSymbol": "~",
-          "uidSectorOwner": 0
-        },
-        {
-          "uidPlanet": 0,
-          "maxPopulation": 1000,
-          "population": 999,
-          "revenue": 1,
-          "type": 0,
-          "typeSymbol": "~",
-          "uidSectorOwner": 0
-        },
-        {
-          "uidPlanet": 0,
-          "maxPopulation": 1000,
-          "population": 999,
-          "revenue": 1,
-          "type": 0,
-          "typeSymbol": "~",
-          "uidSectorOwner": 0
-        },
-        {
-          "uidPlanet": 0,
-          "maxPopulation": 1000,
-          "population": 999,
-          "revenue": 1,
-          "type": 0,
-          "typeSymbol": "~",
-          "uidSectorOwner": 0
-        },
-        {
-          "uidPlanet": 0,
-          "maxPopulation": 1000,
-          "population": 998,
-          "revenue": 1,
-          "type": 0,
-          "typeSymbol": "~",
-          "uidSectorOwner": 0
-        },
-        {
-          "uidPlanet": 0,
-          "maxPopulation": 1000,
-          "population": 999,
+          "population": 11,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -627,7 +602,7 @@
         {
           "uidPlanet": 0,
           "maxPopulation": 800,
-          "population": 799,
+          "population": 191,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
@@ -645,9 +620,9 @@
       "loc": {
         "level": 3,
         "uidRef": 0,
-        "x": -13.619546,
-        "y": -4.676317,
-        "t": -2.8108513,
+        "x": 9.200768,
+        "y": 11.077267,
+        "t": 0.8776738,
         "r": 14.4,
         "sx": -1,
         "sy": -1
@@ -833,9 +808,9 @@
       "loc": {
         "level": 3,
         "uidRef": 0,
-        "x": 19.447998,
-        "y": -9.398685,
-        "t": -0.45017642,
+        "x": -15.897376,
+        "y": 14.623043,
+        "t": 2.3979237,
         "r": 21.599998,
         "sx": -1,
         "sy": -1
@@ -1741,9 +1716,9 @@
       "loc": {
         "level": 3,
         "uidRef": 0,
-        "x": -6.550965,
-        "y": -28.04505,
-        "t": -1.800269,
+        "x": 25.002956,
+        "y": 14.29308,
+        "t": 0.51931727,
         "r": 28.8,
         "sx": -1,
         "sy": -1
@@ -2055,9 +2030,9 @@
       "loc": {
         "level": 3,
         "uidRef": 0,
-        "x": 31.842705,
-        "y": 16.794111,
-        "t": 0.4853332,
+        "x": -27.540445,
+        "y": 23.184563,
+        "t": 2.4418569,
         "r": 36.0,
         "sx": -1,
         "sy": -1
@@ -2531,9 +2506,9 @@
       "loc": {
         "level": 3,
         "uidRef": 1,
-        "x": 4.7489476,
-        "y": -7.645096,
-        "t": -1.0149518,
+        "x": -7.5266876,
+        "y": -4.934468,
+        "t": 3.7218919,
         "r": 9.0,
         "sx": -1,
         "sy": -1
@@ -2543,169 +2518,169 @@
       "landedUidShips": [],
       "name": "Devadatta",
       "orbitUidShips": [],
-      "planetPopulation": 2081,
+      "planetPopulation": 177,
       "sectors": [
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 9,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 1,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 0,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 2,
           "revenue": 2,
           "type": 7,
           "typeSymbol": "x",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 21,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 68,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 24,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 5,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 0,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 0,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 7,
           "revenue": 2,
           "type": 7,
           "typeSymbol": "x",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 38,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 2,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 0,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 0,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 2,
           "type": 7,
           "typeSymbol": "x",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 99,
+          "population": 0,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 5,
           "maxPopulation": 100,
-          "population": 98,
+          "population": 0,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         }
       ],
       "type": "Iceball",
@@ -2719,9 +2694,9 @@
       "loc": {
         "level": 3,
         "uidRef": 1,
-        "x": -11.515716,
-        "y": 13.834316,
-        "t": 2.2649848,
+        "x": 12.490068,
+        "y": -12.961411,
+        "t": 5.47927,
         "r": 18.0,
         "sx": -1,
         "sy": -1
@@ -3393,9 +3368,9 @@
       "loc": {
         "level": 3,
         "uidRef": 1,
-        "x": 11.518735,
-        "y": -24.419638,
-        "t": -1.1300442,
+        "x": 7.160332,
+        "y": 26.033241,
+        "t": 1.3023876,
         "r": 27.0,
         "sx": -1,
         "sy": -1
@@ -3491,9 +3466,9 @@
       "loc": {
         "level": 3,
         "uidRef": 1,
-        "x": 29.282747,
-        "y": 20.940887,
-        "t": 0.62080646,
+        "x": -30.419409,
+        "y": 19.252522,
+        "t": 2.5773308,
         "r": 36.0,
         "sx": -1,
         "sy": -1
@@ -3679,9 +3654,9 @@
       "loc": {
         "level": 3,
         "uidRef": 2,
-        "x": 7.696626,
-        "y": -16.271507,
-        "t": -1.1289709,
+        "x": -8.858074,
+        "y": 15.669541,
+        "t": 2.0853143,
         "r": 18.0,
         "sx": -1,
         "sy": -1
@@ -3690,463 +3665,464 @@
       "idxtype": 2,
       "landedUidShips": [
         1000,
-        1130
+        1018
       ],
       "name": "Vishtaspa",
       "orbitUidShips": [
-        1129
+        1014,
+        1016
       ],
-      "planetPopulation": 49145,
+      "planetPopulation": 216,
       "sectors": [
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 800,
-          "population": 799,
+          "population": 0,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 800,
-          "population": 799,
+          "population": 0,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 7,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 2
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 800,
-          "population": 799,
+          "population": 0,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 998,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 1,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 2
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 202,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 2
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 3,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 2
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 998,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 998,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 800,
-          "population": 799,
+          "population": 3,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 2
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 998,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 998,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 9,
           "maxPopulation": 1000,
-          "population": 999,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         }
       ],
       "type": "Water",
@@ -4160,9 +4136,9 @@
       "loc": {
         "level": 3,
         "uidRef": 2,
-        "x": 29.308332,
-        "y": 20.905064,
-        "t": 0.6195836,
+        "x": -30.395844,
+        "y": 19.289705,
+        "t": 2.576108,
         "r": 36.0,
         "sx": -1,
         "sy": -1
@@ -4172,7 +4148,7 @@
       "landedUidShips": [],
       "name": "Aegea",
       "orbitUidShips": [],
-      "planetPopulation": 40,
+      "planetPopulation": 0,
       "sectors": [
         {
           "uidPlanet": 10,
@@ -4195,42 +4171,6 @@
         {
           "uidPlanet": 10,
           "maxPopulation": 100,
-          "population": 10,
-          "revenue": 0,
-          "type": 6,
-          "typeSymbol": "#",
-          "uidSectorOwner": 2
-        },
-        {
-          "uidPlanet": 10,
-          "maxPopulation": 200,
-          "population": 0,
-          "revenue": 2,
-          "type": 7,
-          "typeSymbol": "x",
-          "uidSectorOwner": -1
-        },
-        {
-          "uidPlanet": 10,
-          "maxPopulation": 200,
-          "population": 10,
-          "revenue": 2,
-          "type": 7,
-          "typeSymbol": "x",
-          "uidSectorOwner": 2
-        },
-        {
-          "uidPlanet": 10,
-          "maxPopulation": 100,
-          "population": 0,
-          "revenue": 0,
-          "type": 6,
-          "typeSymbol": "#",
-          "uidSectorOwner": -1
-        },
-        {
-          "uidPlanet": 10,
-          "maxPopulation": 100,
           "population": 0,
           "revenue": 0,
           "type": 6,
@@ -4244,15 +4184,6 @@
           "revenue": 2,
           "type": 7,
           "typeSymbol": "x",
-          "uidSectorOwner": -1
-        },
-        {
-          "uidPlanet": 10,
-          "maxPopulation": 100,
-          "population": 0,
-          "revenue": 0,
-          "type": 6,
-          "typeSymbol": "#",
           "uidSectorOwner": -1
         },
         {
@@ -4284,21 +4215,66 @@
         },
         {
           "uidPlanet": 10,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 10,
           "maxPopulation": 100,
-          "population": 10,
+          "population": 0,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 2
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 10,
           "maxPopulation": 200,
-          "population": 10,
+          "population": 0,
           "revenue": 2,
           "type": 7,
           "typeSymbol": "x",
-          "uidSectorOwner": 2
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 10,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 10,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 10,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 10,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 10,
@@ -4348,9 +4324,9 @@
       "loc": {
         "level": 3,
         "uidRef": 3,
-        "x": 4.8505764,
-        "y": 3.531559,
-        "t": -5.6538677,
+        "x": 5.9975004,
+        "y": -0.1731837,
+        "t": -0.02886796,
         "r": 6.0,
         "sx": -1,
         "sy": -1
@@ -4359,9 +4335,7 @@
       "idxtype": 7,
       "landedUidShips": [],
       "name": "Haroeris",
-      "orbitUidShips": [
-        1025
-      ],
+      "orbitUidShips": [],
       "planetPopulation": 0,
       "sectors": [
         {
@@ -4448,9 +4422,9 @@
       "loc": {
         "level": 3,
         "uidRef": 3,
-        "x": -0.26218957,
-        "y": -11.997135,
-        "t": -1.5926472,
+        "x": -9.601216,
+        "y": 7.198378,
+        "t": 2.4982605,
         "r": 12.0,
         "sx": -1,
         "sy": -1
@@ -4459,11 +4433,7 @@
       "idxtype": 6,
       "landedUidShips": [],
       "name": "Electra",
-      "orbitUidShips": [
-        1009,
-        1029,
-        1015
-      ],
+      "orbitUidShips": [],
       "planetPopulation": 0,
       "sectors": [
         {
@@ -4766,9 +4736,9 @@
       "loc": {
         "level": 3,
         "uidRef": 3,
-        "x": -12.332439,
-        "y": 13.111481,
-        "t": 2.325586,
+        "x": 13.252131,
+        "y": -12.181174,
+        "t": 5.5398707,
         "r": 18.0,
         "sx": -1,
         "sy": -1
@@ -4777,9 +4747,7 @@
       "idxtype": 0,
       "landedUidShips": [],
       "name": "Xrka",
-      "orbitUidShips": [
-        1033
-      ],
+      "orbitUidShips": [],
       "planetPopulation": 0,
       "sectors": [
         {
@@ -5082,9 +5050,9 @@
       "loc": {
         "level": 3,
         "uidRef": 3,
-        "x": -20.413883,
-        "y": 12.6203575,
-        "t": 2.5878806,
+        "x": 11.978257,
+        "y": -20.797148,
+        "t": 5.234942,
         "r": 24.0,
         "sx": -1,
         "sy": -1
@@ -5093,9 +5061,7 @@
       "idxtype": 0,
       "landedUidShips": [],
       "name": "Varnak",
-      "orbitUidShips": [
-        1021
-      ],
+      "orbitUidShips": [],
       "planetPopulation": 0,
       "sectors": [
         {
@@ -5398,9 +5364,9 @@
       "loc": {
         "level": 3,
         "uidRef": 3,
-        "x": -12.053226,
-        "y": -27.472162,
-        "t": -1.9842498,
+        "x": 28.946882,
+        "y": 7.8789597,
+        "t": 0.26574892,
         "r": 30.0,
         "sx": -1,
         "sy": -1
@@ -5409,9 +5375,7 @@
       "idxtype": 3,
       "landedUidShips": [],
       "name": "Haroeris",
-      "orbitUidShips": [
-        1059
-      ],
+      "orbitUidShips": [],
       "planetPopulation": 0,
       "sectors": [
         {
@@ -5876,9 +5840,9 @@
       "loc": {
         "level": 3,
         "uidRef": 3,
-        "x": -8.30724,
-        "y": 35.02841,
-        "t": 1.8036516,
+        "x": -29.329096,
+        "y": -20.875925,
+        "t": 3.7601824,
         "r": 36.0,
         "sx": -1,
         "sy": -1
@@ -5886,661 +5850,663 @@
       "height": 6,
       "idxtype": 1,
       "landedUidShips": [
-        1001
+        1001,
+        1019
       ],
       "name": "Nirvana",
       "orbitUidShips": [
-        1031
+        1009,
+        1017
       ],
-      "planetPopulation": 14320,
+      "planetPopulation": 120,
       "sectors": [
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 198,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 198,
+          "population": 4,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 3
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 198,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 198,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 198,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 17,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 3
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 79,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 3
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 8,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 3
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 198,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 198,
+          "population": 12,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": 3
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 199,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         },
         {
           "uidPlanet": 16,
           "maxPopulation": 200,
-          "population": 198,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 0
+          "uidSectorOwner": -1
         }
       ],
       "type": "Jovian",
@@ -6554,9 +6520,9 @@
       "loc": {
         "level": 3,
         "uidRef": 4,
-        "x": -5.9177976,
-        "y": -0.9897843,
-        "t": -2.975871,
+        "x": -5.287024,
+        "y": 2.8367896,
+        "t": 2.649129,
         "r": 6.0,
         "sx": -1,
         "sy": -1
@@ -6652,9 +6618,9 @@
       "loc": {
         "level": 3,
         "uidRef": 4,
-        "x": -11.538062,
-        "y": -3.297441,
-        "t": -2.8632247,
+        "x": 4.0370474,
+        "y": 11.300542,
+        "t": 1.227683,
         "r": 12.0,
         "sx": -1,
         "sy": -1
@@ -6840,9 +6806,9 @@
       "loc": {
         "level": 3,
         "uidRef": 4,
-        "x": 4.35617,
-        "y": -17.46493,
-        "t": -1.32636,
+        "x": -5.613113,
+        "y": 17.102425,
+        "t": 1.8879249,
         "r": 18.0,
         "sx": -1,
         "sy": -1
@@ -6938,9 +6904,9 @@
       "loc": {
         "level": 3,
         "uidRef": 4,
-        "x": 23.744713,
-        "y": 3.4912152,
-        "t": 0.14598528,
+        "x": -22.556885,
+        "y": 8.196768,
+        "t": 2.7930462,
         "r": 24.0,
         "sx": -1,
         "sy": -1
@@ -7036,9 +7002,9 @@
       "loc": {
         "level": 3,
         "uidRef": 4,
-        "x": -29.728432,
-        "y": 4.027444,
-        "t": 3.006938,
+        "x": 15.541191,
+        "y": -25.660698,
+        "t": 5.2569466,
         "r": 30.0,
         "sx": -1,
         "sy": -1
@@ -7350,9 +7316,9 @@
       "loc": {
         "level": 3,
         "uidRef": 4,
-        "x": -28.980284,
-        "y": -21.35751,
-        "t": 3.7767003,
+        "x": 30.691412,
+        "y": -18.815876,
+        "t": 5.7332134,
         "r": 36.0,
         "sx": -1,
         "sy": -1
@@ -7865,102 +7831,16 @@
       "name": "Rainbow Beetles",
       "population": 0,
       "raceUidShips": [
-        1024,
-        1026,
-        1028,
-        1030,
-        1032,
-        1034,
-        1036,
-        1038,
-        1040,
-        1042,
-        1044,
-        1046,
-        1048,
-        1050,
-        1052,
-        1054,
-        1056,
-        1058,
-        1060,
-        1062,
-        1063,
-        1064,
-        1065,
-        1066,
-        1067,
-        1068,
-        1069,
-        1070,
-        1071,
-        1073,
-        1074,
-        1075,
-        1076,
-        1077,
-        1078,
-        1079,
-        1081,
-        1082,
-        1083,
-        1084,
-        1085,
-        1086,
-        1087,
-        1089,
-        1090,
-        1091,
-        1092,
-        1093,
-        1094,
-        1095,
-        1096,
-        1097,
-        1098,
-        1099,
-        1100,
-        1101,
-        1102,
-        1103,
-        1104,
-        1105,
-        1106,
-        1107,
-        1108,
-        1109,
-        1110,
-        1111,
-        1112,
-        1113,
-        1114,
-        1115,
-        1116,
-        1117,
-        1118,
-        1119,
-        1120,
-        1121,
-        1122,
-        1123,
-        1124,
-        1125,
-        1126,
-        1127,
-        1000,
-        1128,
-        1129,
-        1002,
-        1130,
-        1004,
-        1006,
+        1008,
         1010,
         1012,
         1014,
+        1000,
         1016,
+        1002,
         1018,
-        1020,
-        1022
+        1004,
+        1006
       ],
       "raceVisibleStars": [
         2
@@ -7978,37 +7858,16 @@
       "name": "Warhide Tortois",
       "population": 0,
       "raceUidShips": [
-        1025,
-        1027,
-        1029,
-        1031,
-        1033,
-        1035,
-        1037,
-        1039,
-        1041,
-        1043,
-        1045,
-        1047,
-        1049,
-        1051,
-        1053,
-        1055,
-        1057,
-        1059,
-        1061,
-        1001,
-        1003,
-        1005,
-        1007,
         1009,
         1011,
         1013,
         1015,
+        1001,
         1017,
+        1003,
         1019,
-        1021,
-        1023
+        1005,
+        1007
       ],
       "raceVisibleStars": [
         3
@@ -8016,5114 +7875,6 @@
     }
   },
   "ships": {
-    "1024": {
-      "uid": 1024,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 619.284,
-        "y": 136.57906,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 12,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1024",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 623.2069,
-          "y": 135.79749
-        },
-        {
-          "x": 622.22626,
-          "y": 135.99329
-        },
-        {
-          "x": 621.24554,
-          "y": 136.18878
-        },
-        {
-          "x": 620.2648,
-          "y": 136.38402
-        },
-        {
-          "x": 619.284,
-          "y": 136.57906
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1025": {
-      "uid": 1025,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 2,
-        "uidRef": 11,
-        "x": 1.9697715,
-        "y": -0.34641024,
-        "t": 6.1091022,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1025",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 135.82034,
-          "y": 250.18515
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1026": {
-      "uid": 1026,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 708.68634,
-        "y": 204.11922,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 0,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1026",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 708.562,
-          "y": 200.12117
-        },
-        {
-          "x": 708.58997,
-          "y": 201.12077
-        },
-        {
-          "x": 708.62,
-          "y": 202.12032
-        },
-        {
-          "x": 708.6521,
-          "y": 203.1198
-        },
-        {
-          "x": 708.68634,
-          "y": 204.11922
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1027": {
-      "uid": 1027,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 287.66852,
-        "y": 402.61444,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 20,
-        "x": 1.8827518,
-        "y": 0.674719,
-        "t": 0.34411055,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1027",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 278.5229,
-          "y": 394.84546
-        },
-        {
-          "x": 280.80664,
-          "y": 396.79083
-        },
-        {
-          "x": 283.0922,
-          "y": 398.7341
-        },
-        {
-          "x": 285.3795,
-          "y": 400.6753
-        },
-        {
-          "x": 287.66852,
-          "y": 402.61444
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1028": {
-      "uid": 1028,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 714.75183,
-        "y": 202.95105,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 18,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1028",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 714.44806,
-          "y": 198.9626
-        },
-        {
-          "x": 714.52454,
-          "y": 199.95967
-        },
-        {
-          "x": 714.60065,
-          "y": 200.95677
-        },
-        {
-          "x": 714.6764,
-          "y": 201.9539
-        },
-        {
-          "x": 714.75183,
-          "y": 202.95105
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1029": {
-      "uid": 1029,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 2,
-        "uidRef": 12,
-        "x": 1.9682425,
-        "y": -0.3549946,
-        "t": 6.1047425,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1029",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 130.70605,
-          "y": 234.64787
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1030": {
-      "uid": 1030,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 709.4331,
-        "y": 202.47116,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 0,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1030",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 709.3256,
-          "y": 198.47263
-        },
-        {
-          "x": 709.34937,
-          "y": 199.47234
-        },
-        {
-          "x": 709.3752,
-          "y": 200.472
-        },
-        {
-          "x": 709.4031,
-          "y": 201.47162
-        },
-        {
-          "x": 709.4331,
-          "y": 202.47116
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1031": {
-      "uid": 1031,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 2,
-        "uidRef": 16,
-        "x": -1.8915294,
-        "y": -0.6497049,
-        "t": 3.4724483,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1031",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 118.80123,
-          "y": 281.3787
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1032": {
-      "uid": 1032,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 714.0933,
-        "y": 201.31577,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 2,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1032",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 713.58685,
-          "y": 197.34796
-        },
-        {
-          "x": 713.71497,
-          "y": 198.33972
-        },
-        {
-          "x": 713.84216,
-          "y": 199.3316
-        },
-        {
-          "x": 713.9683,
-          "y": 200.32361
-        },
-        {
-          "x": 714.0933,
-          "y": 201.31577
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1033": {
-      "uid": 1033,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 2,
-        "uidRef": 13,
-        "x": -0.015765004,
-        "y": -1.9999379,
-        "t": 4.7045064,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1033",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 116.651794,
-          "y": 258.11154
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1034": {
-      "uid": 1034,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 627.21765,
-        "y": 136.0151,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 12,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1034",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 631.1421,
-          "y": 135.24123
-        },
-        {
-          "x": 630.1611,
-          "y": 135.43509
-        },
-        {
-          "x": 629.18,
-          "y": 135.62866
-        },
-        {
-          "x": 628.19885,
-          "y": 135.82199
-        },
-        {
-          "x": 627.21765,
-          "y": 136.0151
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1035": {
-      "uid": 1035,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 95.45866,
-        "y": 477.8343,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 8,
-        "x": -1.075947,
-        "y": 1.6859235,
-        "t": 2.1388276,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1035",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 94.940056,
-          "y": 465.84552
-        },
-        {
-          "x": 95.06531,
-          "y": 468.8429
-        },
-        {
-          "x": 95.19353,
-          "y": 471.84015
-        },
-        {
-          "x": 95.32466,
-          "y": 474.83728
-        },
-        {
-          "x": 95.45866,
-          "y": 477.8343
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1036": {
-      "uid": 1036,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 714.4677,
-        "y": 199.65556,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 21,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1036",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 714.2836,
-          "y": 195.65979
-        },
-        {
-          "x": 714.3296,
-          "y": 196.65874
-        },
-        {
-          "x": 714.37555,
-          "y": 197.65768
-        },
-        {
-          "x": 714.4216,
-          "y": 198.65663
-        },
-        {
-          "x": 714.4677,
-          "y": 199.65556
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1037": {
-      "uid": 1037,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 330.5181,
-        "y": 291.5268,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 0,
-        "x": 0.5157099,
-        "y": 1.9323673,
-        "t": 1.3099949,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1037",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 318.91858,
-          "y": 288.45248
-        },
-        {
-          "x": 321.8185,
-          "y": 289.22083
-        },
-        {
-          "x": 324.71838,
-          "y": 289.98944
-        },
-        {
-          "x": 327.61823,
-          "y": 290.75815
-        },
-        {
-          "x": 330.5181,
-          "y": 291.5268
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1038": {
-      "uid": 1038,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 714.10596,
-        "y": 198.62498,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 4,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1038",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 713.45197,
-          "y": 194.67882
-        },
-        {
-          "x": 713.61194,
-          "y": 195.66594
-        },
-        {
-          "x": 713.7743,
-          "y": 196.65268
-        },
-        {
-          "x": 713.93896,
-          "y": 197.63902
-        },
-        {
-          "x": 714.10596,
-          "y": 198.62498
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1039": {
-      "uid": 1039,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 94.81492,
-        "y": 473.36893,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 5,
-        "x": 1.1623485,
-        "y": 1.6275582,
-        "t": 0.9506254,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1039",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 94.77361,
-          "y": 461.369
-        },
-        {
-          "x": 94.78737,
-          "y": 464.36896
-        },
-        {
-          "x": 94.79891,
-          "y": 467.36893
-        },
-        {
-          "x": 94.80813,
-          "y": 470.36893
-        },
-        {
-          "x": 94.81492,
-          "y": 473.36893
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1040": {
-      "uid": 1040,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 632.03723,
-        "y": 135.44823,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 12,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1040",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 635.96216,
-          "y": 134.67723
-        },
-        {
-          "x": 634.981,
-          "y": 134.87038
-        },
-        {
-          "x": 633.9998,
-          "y": 135.06323
-        },
-        {
-          "x": 633.01855,
-          "y": 135.25583
-        },
-        {
-          "x": 632.03723,
-          "y": 135.44823
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1041": {
-      "uid": 1041,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 321.7963,
-        "y": 300.26263,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 4,
-        "x": -0.4832825,
-        "y": 1.9407313,
-        "t": 1.8148532,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1041",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 310.1402,
-          "y": 297.4104
-        },
-        {
-          "x": 313.05243,
-          "y": 298.1308
-        },
-        {
-          "x": 315.96585,
-          "y": 298.84634
-        },
-        {
-          "x": 318.88046,
-          "y": 299.55698
-        },
-        {
-          "x": 321.7963,
-          "y": 300.26263
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1042": {
-      "uid": 1042,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 633.8914,
-        "y": 136.18643,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 16,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1042",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 637.74243,
-          "y": 135.10478
-        },
-        {
-          "x": 636.77936,
-          "y": 135.3741
-        },
-        {
-          "x": 635.8165,
-          "y": 135.64417
-        },
-        {
-          "x": 634.8539,
-          "y": 135.91495
-        },
-        {
-          "x": 633.8914,
-          "y": 136.18643
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1043": {
-      "uid": 1043,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 321.448,
-        "y": 289.65442,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 0,
-        "x": -1.0957319,
-        "y": -1.6731323,
-        "t": 4.132578,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1043",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 309.82178,
-          "y": 286.68265
-        },
-        {
-          "x": 312.7284,
-          "y": 287.42532
-        },
-        {
-          "x": 315.63495,
-          "y": 288.1683
-        },
-        {
-          "x": 318.54147,
-          "y": 288.91138
-        },
-        {
-          "x": 321.448,
-          "y": 289.65442
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1044": {
-      "uid": 1044,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 718.3101,
-        "y": 195.68642,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 17,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1044",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 717.99817,
-          "y": 191.6986
-        },
-        {
-          "x": 718.0765,
-          "y": 192.69553
-        },
-        {
-          "x": 718.15454,
-          "y": 193.69247
-        },
-        {
-          "x": 718.2324,
-          "y": 194.68944
-        },
-        {
-          "x": 718.3101,
-          "y": 195.68642
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1045": {
-      "uid": 1045,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 270.87607,
-        "y": 384.21698,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 22,
-        "x": 1.9978281,
-        "y": -0.09318185,
-        "t": 6.2365775,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1045",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 261.92255,
-          "y": 376.22736
-        },
-        {
-          "x": 264.16455,
-          "y": 378.2207
-        },
-        {
-          "x": 266.40414,
-          "y": 380.21677
-        },
-        {
-          "x": 268.64133,
-          "y": 382.2155
-        },
-        {
-          "x": 270.87607,
-          "y": 384.21698
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1046": {
-      "uid": 1046,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 717.69293,
-        "y": 194.6499,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 3,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1046",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 717.8554,
-          "y": 190.65324
-        },
-        {
-          "x": 717.8214,
-          "y": 191.65266
-        },
-        {
-          "x": 717.783,
-          "y": 192.65193
-        },
-        {
-          "x": 717.7402,
-          "y": 193.65102
-        },
-        {
-          "x": 717.69293,
-          "y": 194.6499
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1047": {
-      "uid": 1047,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 315.27078,
-        "y": 289.3377,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 0,
-        "x": 1.9813728,
-        "y": -0.2723263,
-        "t": 6.146598,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1047",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 303.6401,
-          "y": 286.38348
-        },
-        {
-          "x": 306.54785,
-          "y": 287.12177
-        },
-        {
-          "x": 309.4555,
-          "y": 287.86035
-        },
-        {
-          "x": 312.36313,
-          "y": 288.59906
-        },
-        {
-          "x": 315.27078,
-          "y": 289.3377
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1048": {
-      "uid": 1048,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 719.42377,
-        "y": 193.61613,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 18,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1048",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 719.1537,
-          "y": 189.62526
-        },
-        {
-          "x": 719.22174,
-          "y": 190.62294
-        },
-        {
-          "x": 719.2894,
-          "y": 191.62065
-        },
-        {
-          "x": 719.35675,
-          "y": 192.61838
-        },
-        {
-          "x": 719.42377,
-          "y": 193.61613
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1049": {
-      "uid": 1049,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 93.429306,
-        "y": 462.1038,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 5,
-        "x": -1.2979625,
-        "y": 1.5216088,
-        "t": 2.277041,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1049",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 93.414925,
-          "y": 450.1038
-        },
-        {
-          "x": 93.42188,
-          "y": 453.1038
-        },
-        {
-          "x": 93.42667,
-          "y": 456.1038
-        },
-        {
-          "x": 93.42918,
-          "y": 459.1038
-        },
-        {
-          "x": 93.429306,
-          "y": 462.1038
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1050": {
-      "uid": 1050,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 668.00464,
-        "y": 177.62544,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 6,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1050",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 670.3854,
-          "y": 174.41106
-        },
-        {
-          "x": 669.7894,
-          "y": 175.21408
-        },
-        {
-          "x": 669.194,
-          "y": 176.01749
-        },
-        {
-          "x": 668.59906,
-          "y": 176.82127
-        },
-        {
-          "x": 668.00464,
-          "y": 177.62544
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1051": {
-      "uid": 1051,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 263.234,
-        "y": 380.88565,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 22,
-        "x": -1.8612247,
-        "y": 0.73201287,
-        "t": 2.7668786,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1051",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 254.28769,
-          "y": 372.88794
-        },
-        {
-          "x": 256.52786,
-          "y": 374.88336
-        },
-        {
-          "x": 258.76566,
-          "y": 376.88144
-        },
-        {
-          "x": 261.00104,
-          "y": 378.8822
-        },
-        {
-          "x": 263.234,
-          "y": 380.88565
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1052": {
-      "uid": 1052,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 720.7182,
-        "y": 191.4345,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 20,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1052",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 720.2467,
-          "y": 187.46237
-        },
-        {
-          "x": 720.3641,
-          "y": 188.45546
-        },
-        {
-          "x": 720.4818,
-          "y": 189.4485
-        },
-        {
-          "x": 720.59985,
-          "y": 190.44151
-        },
-        {
-          "x": 720.7182,
-          "y": 191.4345
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1053": {
-      "uid": 1053,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 302.9761,
-        "y": 289.2503,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 0,
-        "x": -1.863556,
-        "y": 0.7260571,
-        "t": 2.7700765,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1053",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 291.3383,
-          "y": 286.32434
-        },
-        {
-          "x": 294.2478,
-          "y": 287.05557
-        },
-        {
-          "x": 297.15726,
-          "y": 287.78708
-        },
-        {
-          "x": 300.06668,
-          "y": 288.5187
-        },
-        {
-          "x": 302.9761,
-          "y": 289.2503
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1054": {
-      "uid": 1054,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 721.2207,
-        "y": 190.32632,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 20,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1054",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 720.7531,
-          "y": 186.35376
-        },
-        {
-          "x": 720.8695,
-          "y": 187.34695
-        },
-        {
-          "x": 720.98627,
-          "y": 188.34012
-        },
-        {
-          "x": 721.10333,
-          "y": 189.33324
-        },
-        {
-          "x": 721.2207,
-          "y": 190.32632
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1055": {
-      "uid": 1055,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 94.056366,
-        "y": 455.39853,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 5,
-        "x": 1.6197824,
-        "y": 1.1731602,
-        "t": 0.6268297,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1055",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 93.987465,
-          "y": 443.3987
-        },
-        {
-          "x": 94.007996,
-          "y": 446.39865
-        },
-        {
-          "x": 94.02639,
-          "y": 449.3986
-        },
-        {
-          "x": 94.04255,
-          "y": 452.39856
-        },
-        {
-          "x": 94.056366,
-          "y": 455.39853
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1056": {
-      "uid": 1056,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 719.4254,
-        "y": 189.27725,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 3,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1056",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 719.624,
-          "y": 185.28223
-        },
-        {
-          "x": 719.58075,
-          "y": 186.2813
-        },
-        {
-          "x": 719.5332,
-          "y": 187.28017
-        },
-        {
-          "x": 719.48145,
-          "y": 188.27882
-        },
-        {
-          "x": 719.4254,
-          "y": 189.27725
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1057": {
-      "uid": 1057,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 300.78867,
-        "y": 285.47537,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 1,
-        "x": 1.9964395,
-        "y": -0.11928687,
-        "t": 6.2235065,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1057",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 289.09753,
-          "y": 282.77036
-        },
-        {
-          "x": 292.0217,
-          "y": 283.4406
-        },
-        {
-          "x": 294.94495,
-          "y": 284.11484
-        },
-        {
-          "x": 297.86728,
-          "y": 284.79306
-        },
-        {
-          "x": 300.78867,
-          "y": 285.47537
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1058": {
-      "uid": 1058,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 719.90704,
-        "y": 188.18398,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 2,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1058",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 719.55743,
-          "y": 184.19928
-        },
-        {
-          "x": 719.6464,
-          "y": 185.19531
-        },
-        {
-          "x": 719.73444,
-          "y": 186.19144
-        },
-        {
-          "x": 719.82135,
-          "y": 187.18765
-        },
-        {
-          "x": 719.90704,
-          "y": 188.18398
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1059": {
-      "uid": 1059,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 2,
-        "uidRef": 15,
-        "x": 1.9989232,
-        "y": -0.06561974,
-        "t": 6.2503695,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1059",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 118.9457,
-          "y": 219.46222
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1060": {
-      "uid": 1060,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 648.0897,
-        "y": 132.26547,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 11,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1060",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 651.9885,
-          "y": 131.37132
-        },
-        {
-          "x": 651.014,
-          "y": 131.59544
-        },
-        {
-          "x": 650.0393,
-          "y": 131.8192
-        },
-        {
-          "x": 649.0646,
-          "y": 132.04256
-        },
-        {
-          "x": 648.0897,
-          "y": 132.26547
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1061": {
-      "uid": 1061,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 294.11365,
-        "y": 288.4183,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 0,
-        "x": -1.9077276,
-        "y": -0.6004793,
-        "t": 3.4465365,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1061",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 282.45825,
-          "y": 285.56314
-        },
-        {
-          "x": 285.37216,
-          "y": 286.27664
-        },
-        {
-          "x": 288.286,
-          "y": 286.99045
-        },
-        {
-          "x": 291.19983,
-          "y": 287.70438
-        },
-        {
-          "x": 294.11365,
-          "y": 288.4183
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1062": {
-      "uid": 1062,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 649.3945,
-        "y": 130.4664,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 14,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1062",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 653.28827,
-          "y": 129.55067
-        },
-        {
-          "x": 652.3144,
-          "y": 129.77783
-        },
-        {
-          "x": 651.3408,
-          "y": 130.00618
-        },
-        {
-          "x": 650.3675,
-          "y": 130.2357
-        },
-        {
-          "x": 649.3945,
-          "y": 130.4664
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1063": {
-      "uid": 1063,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 723.6872,
-        "y": 184.44876,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 20,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1063",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 723.2386,
-          "y": 180.474
-        },
-        {
-          "x": 723.3503,
-          "y": 181.46774
-        },
-        {
-          "x": 723.4623,
-          "y": 182.46146
-        },
-        {
-          "x": 723.5746,
-          "y": 183.45512
-        },
-        {
-          "x": 723.6872,
-          "y": 184.44876
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1064": {
-      "uid": 1064,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 724.16406,
-        "y": 183.2076,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 20,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1064",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 723.7192,
-          "y": 179.23242
-        },
-        {
-          "x": 723.8299,
-          "y": 180.22627
-        },
-        {
-          "x": 723.941,
-          "y": 181.22008
-        },
-        {
-          "x": 724.05237,
-          "y": 182.21385
-        },
-        {
-          "x": 724.16406,
-          "y": 183.2076
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1065": {
-      "uid": 1065,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 680.72534,
-        "y": 170.0989,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 8,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1065",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 682.9997,
-          "y": 166.80841
-        },
-        {
-          "x": 682.431,
-          "y": 167.631
-        },
-        {
-          "x": 681.8624,
-          "y": 168.45361
-        },
-        {
-          "x": 681.2939,
-          "y": 169.27626
-        },
-        {
-          "x": 680.72534,
-          "y": 170.0989
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1066": {
-      "uid": 1066,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 655.93286,
-        "y": 129.92484,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 12,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1066",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 659.8567,
-          "y": 129.1479
-        },
-        {
-          "x": 658.8758,
-          "y": 129.34251
-        },
-        {
-          "x": 657.89484,
-          "y": 129.53685
-        },
-        {
-          "x": 656.9139,
-          "y": 129.73094
-        },
-        {
-          "x": 655.93286,
-          "y": 129.92484
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1067": {
-      "uid": 1067,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 722.87823,
-        "y": 179.53828,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 21,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1067",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 722.751,
-          "y": 175.5403
-        },
-        {
-          "x": 722.7827,
-          "y": 176.5398
-        },
-        {
-          "x": 722.81445,
-          "y": 177.53929
-        },
-        {
-          "x": 722.8463,
-          "y": 178.53879
-        },
-        {
-          "x": 722.87823,
-          "y": 179.53828
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1068": {
-      "uid": 1068,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 658.5239,
-        "y": 126.489174,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 15,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1068",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 662.4675,
-          "y": 125.819916
-        },
-        {
-          "x": 661.48157,
-          "y": 125.98683
-        },
-        {
-          "x": 660.49567,
-          "y": 126.15399
-        },
-        {
-          "x": 659.50977,
-          "y": 126.32143
-        },
-        {
-          "x": 658.5239,
-          "y": 126.489174
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1069": {
-      "uid": 1069,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 726.82495,
-        "y": 176.66058,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 19,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1069",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 726.49884,
-          "y": 172.67392
-        },
-        {
-          "x": 726.5817,
-          "y": 173.67047
-        },
-        {
-          "x": 726.66376,
-          "y": 174.6671
-        },
-        {
-          "x": 726.7448,
-          "y": 175.6638
-        },
-        {
-          "x": 726.82495,
-          "y": 176.66058
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1070": {
-      "uid": 1070,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 723.7825,
-        "y": 175.46037,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 4,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1070",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 723.3604,
-          "y": 171.4827
-        },
-        {
-          "x": 723.46295,
-          "y": 172.47743
-        },
-        {
-          "x": 723.5675,
-          "y": 173.47195
-        },
-        {
-          "x": 723.674,
-          "y": 174.46626
-        },
-        {
-          "x": 723.7825,
-          "y": 175.46037
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1071": {
-      "uid": 1071,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 686.8474,
-        "y": 162.7277,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 7,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1071",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 689.2549,
-          "y": 159.53334
-        },
-        {
-          "x": 688.6539,
-          "y": 160.3326
-        },
-        {
-          "x": 688.0523,
-          "y": 161.13141
-        },
-        {
-          "x": 687.45013,
-          "y": 161.92978
-        },
-        {
-          "x": 686.8474,
-          "y": 162.7277
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1073": {
-      "uid": 1073,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 666.01086,
-        "y": 123.69707,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 15,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1073",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 669.95264,
-          "y": 123.0172
-        },
-        {
-          "x": 668.9671,
-          "y": 123.186775
-        },
-        {
-          "x": 667.9816,
-          "y": 123.35659
-        },
-        {
-          "x": 666.9962,
-          "y": 123.52668
-        },
-        {
-          "x": 666.01086,
-          "y": 123.69707
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1074": {
-      "uid": 1074,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 667.4652,
-        "y": 123.08912,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 15,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1074",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 671.4066,
-          "y": 122.40676
-        },
-        {
-          "x": 670.4212,
-          "y": 122.576965
-        },
-        {
-          "x": 669.43585,
-          "y": 122.747406
-        },
-        {
-          "x": 668.4505,
-          "y": 122.91811
-        },
-        {
-          "x": 667.4652,
-          "y": 123.08912
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1075": {
-      "uid": 1075,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 689.95105,
-        "y": 156.91104,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 6,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1075",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 692.3484,
-          "y": 153.70905
-        },
-        {
-          "x": 691.7483,
-          "y": 154.50899
-        },
-        {
-          "x": 691.1487,
-          "y": 155.3093
-        },
-        {
-          "x": 690.5496,
-          "y": 156.10999
-        },
-        {
-          "x": 689.95105,
-          "y": 156.91104
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1076": {
-      "uid": 1076,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 727.3914,
-        "y": 166.89133,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 22,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1076",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 727.28015,
-          "y": 162.89288
-        },
-        {
-          "x": 727.30914,
-          "y": 163.89246
-        },
-        {
-          "x": 727.33734,
-          "y": 164.89206
-        },
-        {
-          "x": 727.36475,
-          "y": 165.89168
-        },
-        {
-          "x": 727.3914,
-          "y": 166.89133
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1077": {
-      "uid": 1077,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 725.2328,
-        "y": 165.43568,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 3,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1077",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 725.5278,
-          "y": 161.44662
-        },
-        {
-          "x": 725.4596,
-          "y": 162.44429
-        },
-        {
-          "x": 725.3877,
-          "y": 163.4417
-        },
-        {
-          "x": 725.3121,
-          "y": 164.43883
-        },
-        {
-          "x": 725.2328,
-          "y": 165.43568
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1078": {
-      "uid": 1078,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 727.0941,
-        "y": 163.95145,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 2,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1078",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 726.9192,
-          "y": 159.95526
-        },
-        {
-          "x": 726.96454,
-          "y": 160.95424
-        },
-        {
-          "x": 727.0089,
-          "y": 161.95326
-        },
-        {
-          "x": 727.0521,
-          "y": 162.95233
-        },
-        {
-          "x": 727.0941,
-          "y": 163.95145
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1079": {
-      "uid": 1079,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 729.15643,
-        "y": 162.35362,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 17,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1079",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 728.9244,
-          "y": 158.36035
-        },
-        {
-          "x": 728.98267,
-          "y": 159.35866
-        },
-        {
-          "x": 729.0408,
-          "y": 160.35696
-        },
-        {
-          "x": 729.0987,
-          "y": 161.35529
-        },
-        {
-          "x": 729.15643,
-          "y": 162.35362
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1081": {
-      "uid": 1081,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 728.04913,
-        "y": 157.8099,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 2,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1081",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 727.89655,
-          "y": 153.8128
-        },
-        {
-          "x": 727.9363,
-          "y": 154.81201
-        },
-        {
-          "x": 727.97504,
-          "y": 155.81126
-        },
-        {
-          "x": 728.0127,
-          "y": 156.81056
-        },
-        {
-          "x": 728.04913,
-          "y": 157.8099
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1082": {
-      "uid": 1082,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 726.44586,
-        "y": 157.80484,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 3,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1082",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 726.7538,
-          "y": 153.81674
-        },
-        {
-          "x": 726.6821,
-          "y": 154.81418
-        },
-        {
-          "x": 726.60693,
-          "y": 155.81134
-        },
-        {
-          "x": 726.52814,
-          "y": 156.80823
-        },
-        {
-          "x": 726.44586,
-          "y": 157.80484
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1083": {
-      "uid": 1083,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 726.65466,
-        "y": 156.2411,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 3,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1083",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 726.96436,
-          "y": 152.25314
-        },
-        {
-          "x": 726.8922,
-          "y": 153.25053
-        },
-        {
-          "x": 726.8165,
-          "y": 154.24767
-        },
-        {
-          "x": 726.73737,
-          "y": 155.24452
-        },
-        {
-          "x": 726.65466,
-          "y": 156.2411
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1084": {
-      "uid": 1084,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 728.6777,
-        "y": 154.68253,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 2,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1084",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 728.53864,
-          "y": 150.68494
-        },
-        {
-          "x": 728.575,
-          "y": 151.68428
-        },
-        {
-          "x": 728.61035,
-          "y": 152.68365
-        },
-        {
-          "x": 728.6446,
-          "y": 153.68307
-        },
-        {
-          "x": 728.6777,
-          "y": 154.68253
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1085": {
-      "uid": 1085,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 730.3085,
-        "y": 153.0353,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 18,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1085",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 730.11865,
-          "y": 149.03978
-        },
-        {
-          "x": 730.16656,
-          "y": 150.03864
-        },
-        {
-          "x": 730.2142,
-          "y": 151.0375
-        },
-        {
-          "x": 730.2615,
-          "y": 152.03639
-        },
-        {
-          "x": 730.3085,
-          "y": 153.0353
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1086": {
-      "uid": 1086,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 725.1259,
-        "y": 151.44708,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 0,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1086",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 725.303,
-          "y": 147.45102
-        },
-        {
-          "x": 725.2562,
-          "y": 148.44992
-        },
-        {
-          "x": 725.2111,
-          "y": 149.4489
-        },
-        {
-          "x": 725.16766,
-          "y": 150.44795
-        },
-        {
-          "x": 725.1259,
-          "y": 151.44708
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1087": {
-      "uid": 1087,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -25.941345,
-        "y": 15.50956,
-        "t": 0.16704148,
-        "r": 694.72864,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 14,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1087",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 688.9423,
-          "y": 114.55209
-        },
-        {
-          "x": 687.971,
-          "y": 114.7898
-        },
-        {
-          "x": 686.99994,
-          "y": 115.02862
-        },
-        {
-          "x": 686.0292,
-          "y": 115.26854
-        },
-        {
-          "x": 685.05865,
-          "y": 115.50956
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1089": {
-      "uid": 1089,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 729.458,
-        "y": 146.68057,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 21,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1089",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 729.375,
-          "y": 142.68143
-        },
-        {
-          "x": 729.3956,
-          "y": 143.68121
-        },
-        {
-          "x": 729.4163,
-          "y": 144.681
-        },
-        {
-          "x": 729.43713,
-          "y": 145.68079
-        },
-        {
-          "x": 729.458,
-          "y": 146.68057
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1090": {
-      "uid": 1090,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 731.0464,
-        "y": 144.99387,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 17,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1090",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 730.8311,
-          "y": 140.99966
-        },
-        {
-          "x": 730.8852,
-          "y": 141.9982
-        },
-        {
-          "x": 730.9391,
-          "y": 142.99675
-        },
-        {
-          "x": 730.9928,
-          "y": 143.9953
-        },
-        {
-          "x": 731.0464,
-          "y": 144.99387
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1091": {
-      "uid": 1091,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -21.267822,
-        "y": 12.598228,
-        "t": 0.16182175,
-        "r": 698.86255,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 13,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1091",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 693.6089,
-          "y": 111.6126
-        },
-        {
-          "x": 692.63934,
-          "y": 111.857635
-        },
-        {
-          "x": 691.67004,
-          "y": 112.10359
-        },
-        {
-          "x": 690.701,
-          "y": 112.350464
-        },
-        {
-          "x": 689.7322,
-          "y": 112.59823
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1092": {
-      "uid": 1092,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 731.9149,
-        "y": 141.68298,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 19,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1092",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 731.6356,
-          "y": 137.69275
-        },
-        {
-          "x": 731.7068,
-          "y": 138.69022
-        },
-        {
-          "x": 731.77704,
-          "y": 139.68774
-        },
-        {
-          "x": 731.84644,
-          "y": 140.68533
-        },
-        {
-          "x": 731.9149,
-          "y": 141.68298
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1093": {
-      "uid": 1093,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 727.9278,
-        "y": 140.14157,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 3,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1093",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 728.2379,
-          "y": 136.15364
-        },
-        {
-          "x": 728.1653,
-          "y": 137.151
-        },
-        {
-          "x": 728.08936,
-          "y": 138.14812
-        },
-        {
-          "x": 728.0102,
-          "y": 139.14497
-        },
-        {
-          "x": 727.9278,
-          "y": 140.14157
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1094": {
-      "uid": 1094,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -18.095276,
-        "y": 9.940094,
-        "t": 0.15735383,
-        "r": 701.5724,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 14,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1094",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 696.7828,
-          "y": 108.95998
-        },
-        {
-          "x": 695.81287,
-          "y": 109.20337
-        },
-        {
-          "x": 694.8432,
-          "y": 109.44786
-        },
-        {
-          "x": 693.87384,
-          "y": 109.693436
-        },
-        {
-          "x": 692.9047,
-          "y": 109.940094
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1095": {
-      "uid": 1095,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -2.5946045,
-        "y": 30.434967,
-        "t": 0.18208535,
-        "r": 720.3135,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 8,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1095",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 710.6804,
-          "y": 127.14493
-        },
-        {
-          "x": 710.11163,
-          "y": 127.9674
-        },
-        {
-          "x": 709.54285,
-          "y": 128.7899
-        },
-        {
-          "x": 708.9741,
-          "y": 129.61243
-        },
-        {
-          "x": 708.4054,
-          "y": 130.43497
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1096": {
-      "uid": 1096,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 19.272095,
-        "y": 35.225037,
-        "t": 0.18309687,
-        "r": 742.6864,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 22,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1096",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 730.183,
-          "y": 131.22604
-        },
-        {
-          "x": 730.20636,
-          "y": 132.22577
-        },
-        {
-          "x": 730.229,
-          "y": 133.22551
-        },
-        {
-          "x": 730.2509,
-          "y": 134.22527
-        },
-        {
-          "x": 730.2721,
-          "y": 135.22504
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1097": {
-      "uid": 1097,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 15.557983,
-        "y": 33.51439,
-        "t": 0.18173532,
-        "r": 738.72363,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 1,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1097",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 726.93414,
-          "y": 129.53214
-        },
-        {
-          "x": 726.8412,
-          "y": 130.5278
-        },
-        {
-          "x": 726.74744,
-          "y": 131.52339
-        },
-        {
-          "x": 726.653,
-          "y": 132.51892
-        },
-        {
-          "x": 726.558,
-          "y": 133.51439
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1098": {
-      "uid": 1098,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 19.73639,
-        "y": 31.91687,
-        "t": 0.17860232,
-        "r": 742.54816,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 18,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1098",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 730.55475,
-          "y": 127.92098
-        },
-        {
-          "x": 730.60065,
-          "y": 128.91994
-        },
-        {
-          "x": 730.6462,
-          "y": 129.9189
-        },
-        {
-          "x": 730.6914,
-          "y": 130.91788
-        },
-        {
-          "x": 730.7364,
-          "y": 131.91687
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1099": {
-      "uid": 1099,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -13.185242,
-        "y": 5.8230667,
-        "t": 0.15050249,
-        "r": 705.79315,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 14,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1099",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 701.6883,
-          "y": 104.82525
-        },
-        {
-          "x": 700.7195,
-          "y": 105.07308
-        },
-        {
-          "x": 699.751,
-          "y": 105.322
-        },
-        {
-          "x": 698.7827,
-          "y": 105.572
-        },
-        {
-          "x": 697.81476,
-          "y": 105.82307
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1100": {
-      "uid": 1100,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 0.20098877,
-        "y": 23.170174,
-        "t": 0.17148519,
-        "r": 721.7879,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 8,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1100",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 713.4703,
-          "y": 119.876175
-        },
-        {
-          "x": 712.9029,
-          "y": 120.69964
-        },
-        {
-          "x": 712.3356,
-          "y": 121.52313
-        },
-        {
-          "x": 711.76825,
-          "y": 122.34665
-        },
-        {
-          "x": 711.201,
-          "y": 123.17017
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1101": {
-      "uid": 1101,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 18.98346,
-        "y": 27.019783,
-        "t": 0.17227876,
-        "r": 740.952,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 4,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1101",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 729.72455,
-          "y": 123.02818
-        },
-        {
-          "x": 729.7869,
-          "y": 124.02624
-        },
-        {
-          "x": 729.8509,
-          "y": 125.024185
-        },
-        {
-          "x": 729.91644,
-          "y": 126.02203
-        },
-        {
-          "x": 729.98346,
-          "y": 127.01978
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1102": {
-      "uid": 1102,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 19.159424,
-        "y": 25.376678,
-        "t": 0.17005299,
-        "r": 740.8455,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 18,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1102",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 729.9762,
-          "y": 121.380875
-        },
-        {
-          "x": 730.02246,
-          "y": 122.37981
-        },
-        {
-          "x": 730.0684,
-          "y": 123.37875
-        },
-        {
-          "x": 730.1141,
-          "y": 124.37771
-        },
-        {
-          "x": 730.1594,
-          "y": 125.37668
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1103": {
-      "uid": 1103,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -9.599121,
-        "y": 2.8322678,
-        "t": 0.14557275,
-        "r": 708.8989,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 11,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1103",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 705.2726,
-          "y": 101.82728
-        },
-        {
-          "x": 704.3048,
-          "y": 102.079025
-        },
-        {
-          "x": 703.3369,
-          "y": 102.33046
-        },
-        {
-          "x": 702.36896,
-          "y": 102.58155
-        },
-        {
-          "x": 701.4009,
-          "y": 102.83227
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1104": {
-      "uid": 1104,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 17.937012,
-        "y": 22.160461,
-        "t": 0.16604413,
-        "r": 739.1024,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 21,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1104",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 728.85394,
-          "y": 118.16132
-        },
-        {
-          "x": 728.87463,
-          "y": 119.16111
-        },
-        {
-          "x": 728.8953,
-          "y": 120.1609
-        },
-        {
-          "x": 728.91614,
-          "y": 121.16068
-        },
-        {
-          "x": 728.937,
-          "y": 122.16046
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1105": {
-      "uid": 1105,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 18.35315,
-        "y": 20.52098,
-        "t": 0.1637638,
-        "r": 739.2437,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 4,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1105",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 729.09125,
-          "y": 116.52957
-        },
-        {
-          "x": 729.1544,
-          "y": 117.52757
-        },
-        {
-          "x": 729.2192,
-          "y": 118.525475
-        },
-        {
-          "x": 729.2854,
-          "y": 119.52328
-        },
-        {
-          "x": 729.35315,
-          "y": 120.52098
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1106": {
-      "uid": 1106,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 17.767456,
-        "y": 18.928543,
-        "t": 0.1617654,
-        "r": 738.4078,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 2,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1106",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 728.6492,
-          "y": 114.9303
-        },
-        {
-          "x": 728.6802,
-          "y": 115.92982
-        },
-        {
-          "x": 728.71027,
-          "y": 116.92937
-        },
-        {
-          "x": 728.7394,
-          "y": 117.92894
-        },
-        {
-          "x": 728.76746,
-          "y": 118.92854
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1107": {
-      "uid": 1107,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -6.538452,
-        "y": -0.7537155,
-        "t": 0.13996135,
-        "r": 711.4182,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 14,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1107",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 708.32733,
-          "y": 98.21899
-        },
-        {
-          "x": 707.3605,
-          "y": 98.47421
-        },
-        {
-          "x": 706.39386,
-          "y": 98.73051
-        },
-        {
-          "x": 705.42755,
-          "y": 98.98787
-        },
-        {
-          "x": 704.46155,
-          "y": 99.246284
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1108": {
-      "uid": 1108,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -6.054016,
-        "y": -2.618309,
-        "t": 0.13727187,
-        "r": 711.6404,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 15,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1108",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 708.8639,
-          "y": 96.57543
-        },
-        {
-          "x": 707.88434,
-          "y": 96.776695
-        },
-        {
-          "x": 706.90485,
-          "y": 96.97814
-        },
-        {
-          "x": 705.9254,
-          "y": 97.179794
-        },
-        {
-          "x": 704.946,
-          "y": 97.38169
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1109": {
-      "uid": 1109,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 21.805359,
-        "y": 12.974266,
-        "t": 0.15296255,
-        "r": 741.46265,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 10,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1109",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 730.5595,
-          "y": 109.67604
-        },
-        {
-          "x": 731.0458,
-          "y": 110.549835
-        },
-        {
-          "x": 731.57965,
-          "y": 111.39541
-        },
-        {
-          "x": 732.16486,
-          "y": 112.20631
-        },
-        {
-          "x": 732.80536,
-          "y": 112.974266
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1110": {
-      "uid": 1110,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -4.176819,
-        "y": -2.3010101,
-        "t": 0.13735236,
-        "r": 713.54333,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 16,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1110",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 710.6422,
-          "y": 96.509514
-        },
-        {
-          "x": 709.68713,
-          "y": 96.8059
-        },
-        {
-          "x": 708.7323,
-          "y": 97.10295
-        },
-        {
-          "x": 707.77765,
-          "y": 97.40066
-        },
-        {
-          "x": 706.8232,
-          "y": 97.69899
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1111": {
-      "uid": 1111,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -3.750122,
-        "y": -3.9336853,
-        "t": 0.13500457,
-        "r": 713.74445,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 14,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1111",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 711.11176,
-          "y": 95.024376
-        },
-        {
-          "x": 710.1459,
-          "y": 95.28327
-        },
-        {
-          "x": 709.18024,
-          "y": 95.54323
-        },
-        {
-          "x": 708.2149,
-          "y": 95.804245
-        },
-        {
-          "x": 707.2499,
-          "y": 96.066315
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1112": {
-      "uid": 1112,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 4.112488,
-        "y": 5.852127,
-        "t": 0.14695457,
-        "r": 722.90424,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 5,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1112",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 717.47186,
-          "y": 102.621994
-        },
-        {
-          "x": 716.88257,
-          "y": 103.429924
-        },
-        {
-          "x": 716.2929,
-          "y": 104.23759
-        },
-        {
-          "x": 715.7029,
-          "y": 105.04499
-        },
-        {
-          "x": 715.1125,
-          "y": 105.85213
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1113": {
-      "uid": 1113,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 4.3311157,
-        "y": 4.4895554,
-        "t": 0.14504579,
-        "r": 722.9223,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 7,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1113",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 717.7005,
-          "y": 101.26683
-        },
-        {
-          "x": 717.109,
-          "y": 102.07313
-        },
-        {
-          "x": 716.51697,
-          "y": 102.87901
-        },
-        {
-          "x": 715.9243,
-          "y": 103.68449
-        },
-        {
-          "x": 715.3311,
-          "y": 104.489555
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1114": {
-      "uid": 1114,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": -1.8453369,
-        "y": -6.116226,
-        "t": 0.13162288,
-        "r": 715.3422,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 11,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1114",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 713.0148,
-          "y": 92.835365
-        },
-        {
-          "x": 712.04987,
-          "y": 93.097946
-        },
-        {
-          "x": 711.0849,
-          "y": 93.36023
-        },
-        {
-          "x": 710.1198,
-          "y": 93.622185
-        },
-        {
-          "x": 709.15466,
-          "y": 93.88377
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1115": {
-      "uid": 1115,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 13.062988,
-        "y": 4.8589554,
-        "t": 0.14382033,
-        "r": 731.61646,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 1,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1115",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 724.364,
-          "y": 100.8703
-        },
-        {
-          "x": 724.2898,
-          "y": 101.86754
-        },
-        {
-          "x": 724.21484,
-          "y": 102.86472
-        },
-        {
-          "x": 724.1392,
-          "y": 103.86186
-        },
-        {
-          "x": 724.063,
-          "y": 104.858955
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1116": {
-      "uid": 1116,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 14.552429,
-        "y": 3.3777542,
-        "t": 0.14152884,
-        "r": 732.8801,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 18,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1116",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 725.34937,
-          "y": 99.38291
-        },
-        {
-          "x": 725.4006,
-          "y": 100.3816
-        },
-        {
-          "x": 725.4515,
-          "y": 101.3803
-        },
-        {
-          "x": 725.5021,
-          "y": 102.37902
-        },
-        {
-          "x": 725.5524,
-          "y": 103.377754
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1117": {
-      "uid": 1117,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 17.747375,
-        "y": 1.1314926,
-        "t": 0.13789372,
-        "r": 735.73114,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 10,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1117",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 727.0275,
-          "y": 97.5224
-        },
-        {
-          "x": 727.41925,
-          "y": 98.442474
-        },
-        {
-          "x": 727.8357,
-          "y": 99.35163
-        },
-        {
-          "x": 728.278,
-          "y": 100.2485
-        },
-        {
-          "x": 728.7474,
-          "y": 101.13149
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1118": {
-      "uid": 1118,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 0.36999512,
-        "y": -9.088287,
-        "t": 0.12710907,
-        "r": 717.15564,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 11,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1118",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 715.22614,
-          "y": 89.84862
-        },
-        {
-          "x": 714.2622,
-          "y": 90.11487
-        },
-        {
-          "x": 713.2982,
-          "y": 90.38082
-        },
-        {
-          "x": 712.33417,
-          "y": 90.64645
-        },
-        {
-          "x": 711.37,
-          "y": 90.91171
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1119": {
-      "uid": 1119,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 0.8661499,
-        "y": -9.848511,
-        "t": 0.12597048,
-        "r": 717.5519,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 14,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1119",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 715.72046,
-          "y": 89.08186
-        },
-        {
-          "x": 714.7565,
-          "y": 89.347694
-        },
-        {
-          "x": 713.7927,
-          "y": 89.61458
-        },
-        {
-          "x": 712.8293,
-          "y": 89.882515
-        },
-        {
-          "x": 711.86615,
-          "y": 90.15149
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1120": {
-      "uid": 1120,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 12.840576,
-        "y": -2.4771042,
-        "t": 0.13392335,
-        "r": 730.3806,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 19,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1120",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 723.5337,
-          "y": 93.53469
-        },
-        {
-          "x": 723.61163,
-          "y": 94.53165
-        },
-        {
-          "x": 723.6888,
-          "y": 95.52866
-        },
-        {
-          "x": 723.7651,
-          "y": 96.52575
-        },
-        {
-          "x": 723.8406,
-          "y": 97.522896
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1121": {
-      "uid": 1121,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 11.769165,
-        "y": -3.8655853,
-        "t": 0.13223232,
-        "r": 729.1345,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 21,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1121",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 722.6557,
-          "y": 92.136024
-        },
-        {
-          "x": 722.68396,
-          "y": 93.13563
-        },
-        {
-          "x": 722.7123,
-          "y": 94.13522
-        },
-        {
-          "x": 722.74066,
-          "y": 95.13482
-        },
-        {
-          "x": 722.76917,
-          "y": 96.134415
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1122": {
-      "uid": 1122,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 2.2521362,
-        "y": -12.069122,
-        "t": 0.12266269,
-        "r": 718.65186,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 12,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1122",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 717.1324,
-          "y": 86.95935
-        },
-        {
-          "x": 716.1624,
-          "y": 87.20263
-        },
-        {
-          "x": 715.1924,
-          "y": 87.44562
-        },
-        {
-          "x": 714.2223,
-          "y": 87.688354
-        },
-        {
-          "x": 713.25214,
-          "y": 87.93088
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1123": {
-      "uid": 1123,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 2.6501465,
-        "y": -12.93158,
-        "t": 0.12140435,
-        "r": 718.9419,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 15,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1123",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 717.5567,
-          "y": 86.208755
-        },
-        {
-          "x": 716.58,
-          "y": 86.4234
-        },
-        {
-          "x": 715.60333,
-          "y": 86.63821
-        },
-        {
-          "x": 714.6267,
-          "y": 86.8532
-        },
-        {
-          "x": 713.65015,
-          "y": 87.06842
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1124": {
-      "uid": 1124,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 3.098816,
-        "y": -13.503723,
-        "t": 0.12053927,
-        "r": 719.31824,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 15,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1124",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 718.00464,
-          "y": 85.63366
-        },
-        {
-          "x": 717.02814,
-          "y": 85.849045
-        },
-        {
-          "x": 716.05164,
-          "y": 86.06459
-        },
-        {
-          "x": 715.0752,
-          "y": 86.28033
-        },
-        {
-          "x": 714.0988,
-          "y": 86.49628
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1125": {
-      "uid": 1125,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 3.6870728,
-        "y": -13.498299,
-        "t": 0.12044849,
-        "r": 719.9029,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 16,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1125",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 719.0322,
-          "y": 85.60667
-        },
-        {
-          "x": 717.5389,
-          "y": 85.570564
-        },
-        {
-          "x": 716.5881,
-          "y": 85.8803
-        },
-        {
-          "x": 715.63745,
-          "y": 86.19069
-        },
-        {
-          "x": 714.6871,
-          "y": 86.5017
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1126": {
-      "uid": 1126,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 4.026184,
-        "y": -14.322807,
-        "t": 0.119255275,
-        "r": 720.141,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 11,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1126",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 718.4672,
-          "y": 85.18648
-        },
-        {
-          "x": 716.9508,
-          "y": 85.13332
-        },
-        {
-          "x": 715.9885,
-          "y": 85.40543
-        },
-        {
-          "x": 715.0262,
-          "y": 85.67719
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1127": {
-      "uid": 1127,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 5.9431763,
-        "y": -12.73465,
-        "t": 0.12112282,
-        "r": 722.23456,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 5,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1127",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 718.67474,
-          "y": 85.945984
-        },
-        {
-          "x": 717.52637,
-          "y": 86.453
-        },
-        {
-          "x": 716.9432,
-          "y": 87.26535
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1128": {
-      "uid": 1128,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 3,
-        "uidRef": 2,
-        "x": 4.846985,
-        "y": -15.33374,
-        "t": 0.117727324,
-        "r": 720.8365,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 16,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1128",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 717.37274,
-          "y": 84.63835
-        },
-        {
-          "x": 715.847,
-          "y": 84.66626
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1129": {
-      "uid": 1129,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 2,
-        "uidRef": 9,
-        "x": -1.9231955,
-        "y": 0.54892564,
-        "t": 2.8635616,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 11,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1129",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 716.77344,
-          "y": 84.27742
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1130": {
-      "uid": 1130,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 1,
-        "uidRef": 9,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 4
-      },
-      "health": 10,
-      "name": "RS1130",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 717.25665,
-          "y": 84.36849
-        }
-      ],
-      "type": "Spore Pod"
-    },
     "1000": {
       "uid": 1000,
       "idxtype": 0,
@@ -13143,8 +7894,8 @@
       "speed": 0,
       "trails": [
         {
-          "x": 718.2167,
-          "y": 83.72849
+          "x": 340.66193,
+          "y": 665.66956
         }
       ],
       "type": "Factory"
@@ -13168,8 +7919,8 @@
       "speed": 0,
       "trails": [
         {
-          "x": 122.15943,
-          "y": 282.6951
+          "x": 552.13763,
+          "y": 399.79077
         }
       ],
       "type": "Factory"
@@ -13179,18 +7930,18 @@
       "idxtype": 1,
       "uidRace": 2,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 709.16504,
-        "y": 211.87762,
-        "t": -1.0,
-        "r": -1.0,
+        "level": 3,
+        "uidRef": 2,
+        "x": -5.6062927,
+        "y": 7.0811157,
+        "t": 1.0880343,
+        "r": 741.8643,
         "sx": -1,
         "sy": -1
       },
       "dest": {
         "level": 1,
-        "uidRef": 20,
+        "uidRef": 13,
         "x": -1.0,
         "y": -1.0,
         "t": -1.0,
@@ -13203,24 +7954,24 @@
       "speed": 1,
       "trails": [
         {
-          "x": 708.6064,
-          "y": 207.91682
+          "x": 341.57126,
+          "y": 659.91547
         },
         {
-          "x": 708.7455,
-          "y": 208.9071
+          "x": 342.27878,
+          "y": 659.2088
         },
         {
-          "x": 708.885,
-          "y": 209.89732
+          "x": 342.98505,
+          "y": 658.50085
         },
         {
-          "x": 709.02484,
-          "y": 210.8875
+          "x": 343.69003,
+          "y": 657.7916
         },
         {
-          "x": 709.16504,
-          "y": 211.87762
+          "x": 344.3937,
+          "y": 657.0811
         }
       ],
       "type": "Spore Pod"
@@ -13230,21 +7981,21 @@
       "idxtype": 2,
       "uidRace": 3,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 104.93878,
-        "y": 513.0211,
-        "t": -1.0,
-        "r": -1.0,
+        "level": 3,
+        "uidRef": 3,
+        "x": -39.65039,
+        "y": -5.7399597,
+        "t": 0.6540734,
+        "r": 680.8738,
         "sx": -1,
         "sy": -1
       },
       "dest": {
         "level": 2,
-        "uidRef": 7,
-        "x": -0.53091455,
-        "y": -1.9282453,
-        "t": 4.443711,
+        "uidRef": 20,
+        "x": -0.033338886,
+        "y": -1.9997221,
+        "t": 4.695719,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13254,24 +8005,24 @@
       "speed": 3,
       "trails": [
         {
-          "x": 105.023125,
-          "y": 501.02145
+          "x": 547.2002,
+          "y": 404.40784
         },
         {
-          "x": 105.00876,
-          "y": 504.02142
+          "x": 545.47015,
+          "y": 406.85873
         },
         {
-          "x": 104.98998,
-          "y": 507.02136
+          "x": 543.75134,
+          "y": 409.31757
         },
         {
-          "x": 104.96669,
-          "y": 510.02127
+          "x": 542.0443,
+          "y": 411.78458
         },
         {
-          "x": 104.93878,
-          "y": 513.0211
+          "x": 540.3496,
+          "y": 414.26004
         }
       ],
       "type": "Cruiser"
@@ -13281,18 +8032,18 @@
       "idxtype": 1,
       "uidRace": 2,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 709.9487,
-        "y": 210.73557,
-        "t": -1.0,
-        "r": -1.0,
+        "level": 3,
+        "uidRef": 2,
+        "x": -9.044861,
+        "y": 6.2332153,
+        "t": 1.0916203,
+        "r": 739.5218,
         "sx": -1,
         "sy": -1
       },
       "dest": {
         "level": 1,
-        "uidRef": 17,
+        "uidRef": 1,
         "x": -1.0,
         "y": -1.0,
         "t": -1.0,
@@ -13305,24 +8056,24 @@
       "speed": 1,
       "trails": [
         {
-          "x": 709.576,
-          "y": 206.75296
+          "x": 339.72195,
+          "y": 660.0384
         },
         {
-          "x": 709.6695,
-          "y": 207.74858
+          "x": 340.02823,
+          "y": 659.0864
         },
         {
-          "x": 709.76276,
-          "y": 208.74422
+          "x": 340.3359,
+          "y": 658.13495
         },
         {
-          "x": 709.85583,
-          "y": 209.73988
+          "x": 340.6449,
+          "y": 657.1839
         },
         {
-          "x": 709.9487,
-          "y": 210.73557
+          "x": 340.95514,
+          "y": 656.2332
         }
       ],
       "type": "Spore Pod"
@@ -13332,21 +8083,21 @@
       "idxtype": 2,
       "uidRace": 3,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 316.7633,
-        "y": 418.0552,
-        "t": -1.0,
-        "r": -1.0,
+        "level": 3,
+        "uidRef": 3,
+        "x": -21.514465,
+        "y": -4.6708374,
+        "t": 0.63943785,
+        "r": 695.9917,
         "sx": -1,
         "sy": -1
       },
       "dest": {
         "level": 2,
-        "uidRef": 17,
-        "x": -0.22338563,
-        "y": 1.9874855,
-        "t": 1.6827227,
+        "uidRef": 6,
+        "x": 0.84789425,
+        "y": 1.8113738,
+        "t": 1.1329973,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13356,24 +8107,24 @@
       "speed": 3,
       "trails": [
         {
-          "x": 307.92584,
-          "y": 409.93738
+          "x": 555.2811,
+          "y": 403.76495
         },
         {
-          "x": 310.13684,
-          "y": 411.96506
+          "x": 556.0893,
+          "y": 406.65405
         },
         {
-          "x": 312.34674,
-          "y": 413.99393
+          "x": 556.89307,
+          "y": 409.54437
         },
         {
-          "x": 314.55554,
-          "y": 416.024
+          "x": 557.69196,
+          "y": 412.43604
         },
         {
-          "x": 316.7633,
-          "y": 418.0552
+          "x": 558.48553,
+          "y": 415.32916
         }
       ],
       "type": "Cruiser"
@@ -13383,18 +8134,18 @@
       "idxtype": 1,
       "uidRace": 2,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 604.99646,
-        "y": 133.62192,
-        "t": -1.0,
-        "r": -1.0,
+        "level": 3,
+        "uidRef": 2,
+        "x": -6.0274353,
+        "y": 9.32074,
+        "t": 1.0899339,
+        "r": 743.6538,
         "sx": -1,
         "sy": -1
       },
       "dest": {
         "level": 1,
-        "uidRef": 15,
+        "uidRef": 11,
         "x": -1.0,
         "y": -1.0,
         "t": -1.0,
@@ -13407,24 +8158,24 @@
       "speed": 1,
       "trails": [
         {
-          "x": 608.9375,
-          "y": 132.93735
+          "x": 341.13553,
+          "y": 662.1405
         },
         {
-          "x": 607.95215,
-          "y": 133.10805
+          "x": 341.84555,
+          "y": 661.43634
         },
         {
-          "x": 606.96686,
-          "y": 133.27902
+          "x": 342.55508,
+          "y": 660.7317
         },
         {
-          "x": 605.9816,
-          "y": 133.4503
+          "x": 343.2641,
+          "y": 660.0265
         },
         {
-          "x": 604.99646,
-          "y": 133.62192
+          "x": 343.97256,
+          "y": 659.32074
         }
       ],
       "type": "Spore Pod"
@@ -13436,8 +8187,8 @@
       "loc": {
         "level": 4,
         "uidRef": -1,
-        "x": 375.86334,
-        "y": 308.01526,
+        "x": 535.7864,
+        "y": 399.1999,
         "t": -1.0,
         "r": -1.0,
         "sx": -1,
@@ -13445,10 +8196,10 @@
       },
       "dest": {
         "level": 2,
-        "uidRef": 4,
-        "x": -1.8299633,
-        "y": 0.8069909,
-        "t": 2.7262588,
+        "uidRef": 0,
+        "x": 0.57347,
+        "y": 1.9160199,
+        "t": 1.2799793,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13458,27 +8209,78 @@
       "speed": 3,
       "trails": [
         {
-          "x": 364.2418,
-          "y": 305.0254
+          "x": 547.65546,
+          "y": 397.4324
         },
         {
-          "x": 367.14502,
-          "y": 305.78128
+          "x": 544.6894,
+          "y": 397.88235
         },
         {
-          "x": 370.04968,
-          "y": 306.5316
+          "x": 541.7226,
+          "y": 398.32733
         },
         {
-          "x": 372.95578,
-          "y": 307.27628
+          "x": 538.75494,
+          "y": 398.76672
         },
         {
-          "x": 375.86334,
-          "y": 308.01526
+          "x": 535.7864,
+          "y": 399.1999
         }
       ],
       "type": "Cruiser"
+    },
+    "1008": {
+      "uid": 1008,
+      "idxtype": 1,
+      "uidRace": 2,
+      "loc": {
+        "level": 3,
+        "uidRef": 2,
+        "x": -9.465485,
+        "y": 8.719421,
+        "t": 1.0936694,
+        "r": 741.5356,
+        "sx": -1,
+        "sy": -1
+      },
+      "dest": {
+        "level": 1,
+        "uidRef": 4,
+        "x": -1.0,
+        "y": -1.0,
+        "t": -1.0,
+        "r": -1.0,
+        "sx": 0,
+        "sy": 0
+      },
+      "health": 10,
+      "name": "RS1008",
+      "speed": 1,
+      "trails": [
+        {
+          "x": 339.32883,
+          "y": 662.2758
+        },
+        {
+          "x": 340.01343,
+          "y": 661.6738
+        },
+        {
+          "x": 340.18463,
+          "y": 660.6886
+        },
+        {
+          "x": 340.3583,
+          "y": 659.7038
+        },
+        {
+          "x": 340.53452,
+          "y": 658.7194
+        }
+      ],
+      "type": "Spore Pod"
     },
     "1009": {
       "uid": 1009,
@@ -13486,10 +8288,10 @@
       "uidRace": 3,
       "loc": {
         "level": 2,
-        "uidRef": 12,
-        "x": -1.407765,
-        "y": -1.4206327,
-        "t": 3.9315403,
+        "uidRef": 16,
+        "x": 1.496321,
+        "y": -1.3270357,
+        "t": -0.72551095,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13499,8 +8301,8 @@
       "speed": 3,
       "trails": [
         {
-          "x": 127.33004,
-          "y": 233.58223
+          "x": 552.16724,
+          "y": 397.79706
         }
       ],
       "type": "Cruiser"
@@ -13510,18 +8312,18 @@
       "idxtype": 1,
       "uidRace": 2,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 711.12726,
-        "y": 209.41959,
-        "t": -1.0,
-        "r": -1.0,
+        "level": 3,
+        "uidRef": 2,
+        "x": -6.870331,
+        "y": 11.061401,
+        "t": 1.0920182,
+        "r": 744.8088,
         "sx": -1,
         "sy": -1
       },
       "dest": {
         "level": 1,
-        "uidRef": 22,
+        "uidRef": 16,
         "x": -1.0,
         "y": -1.0,
         "t": -1.0,
@@ -13534,24 +8336,20 @@
       "speed": 1,
       "trails": [
         {
-          "x": 710.9001,
-          "y": 205.42604
+          "x": 340.74866,
+          "y": 663.05664
         },
         {
-          "x": 710.9582,
-          "y": 206.42435
+          "x": 341.89505,
+          "y": 662.6348
         },
         {
-          "x": 711.0154,
-          "y": 207.42271
+          "x": 342.51233,
+          "y": 661.8481
         },
         {
-          "x": 711.0717,
-          "y": 208.42113
-        },
-        {
-          "x": 711.12726,
-          "y": 209.41959
+          "x": 343.12967,
+          "y": 661.0614
         }
       ],
       "type": "Spore Pod"
@@ -13561,21 +8359,21 @@
       "idxtype": 2,
       "uidRace": 3,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 104.39538,
-        "y": 505.83008,
-        "t": -1.0,
-        "r": -1.0,
+        "level": 3,
+        "uidRef": 3,
+        "x": -25.461731,
+        "y": -11.539124,
+        "t": 0.63485575,
+        "r": 688.73285,
         "sx": -1,
         "sy": -1
       },
       "dest": {
         "level": 2,
-        "uidRef": 7,
-        "x": 0.06896752,
-        "y": -1.9988105,
-        "t": 4.7468796,
+        "uidRef": 6,
+        "x": 1.7395655,
+        "y": -0.9868697,
+        "t": 5.767151,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13585,24 +8383,20 @@
       "speed": 3,
       "trails": [
         {
-          "x": 104.446594,
-          "y": 493.8302
+          "x": 552.6477,
+          "y": 399.17877
         },
         {
-          "x": 104.4404,
-          "y": 496.8302
+          "x": 552.82764,
+          "y": 402.7099
         },
         {
-          "x": 104.42986,
-          "y": 499.83017
+          "x": 553.6854,
+          "y": 405.58466
         },
         {
-          "x": 104.41489,
-          "y": 502.83014
-        },
-        {
-          "x": 104.39538,
-          "y": 505.83008
+          "x": 554.53827,
+          "y": 408.46088
         }
       ],
       "type": "Cruiser"
@@ -13612,18 +8406,18 @@
       "idxtype": 1,
       "uidRace": 2,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 647.7595,
-        "y": 192.38998,
-        "t": -1.0,
-        "r": -1.0,
+        "level": 3,
+        "uidRef": 2,
+        "x": -6.5203857,
+        "y": 12.579407,
+        "t": 1.0925392,
+        "r": 746.31744,
         "sx": -1,
         "sy": -1
       },
       "dest": {
         "level": 1,
-        "uidRef": 8,
+        "uidRef": 18,
         "x": -1.0,
         "y": -1.0,
         "t": -1.0,
@@ -13636,24 +8430,16 @@
       "speed": 1,
       "trails": [
         {
-          "x": 649.9838,
-          "y": 189.06543
+          "x": 341.49097,
+          "y": 663.6144
         },
         {
-          "x": 649.4277,
-          "y": 189.89651
+          "x": 342.75586,
+          "y": 663.2695
         },
         {
-          "x": 648.8716,
-          "y": 190.72765
-        },
-        {
-          "x": 648.31555,
-          "y": 191.5588
-        },
-        {
-          "x": 647.7595,
-          "y": 192.38998
+          "x": 343.4796,
+          "y": 662.5794
         }
       ],
       "type": "Spore Pod"
@@ -13663,21 +8449,21 @@
       "idxtype": 2,
       "uidRace": 3,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 97.600044,
-        "y": 503.35104,
-        "t": -1.0,
-        "r": -1.0,
+        "level": 3,
+        "uidRef": 3,
+        "x": -24.19812,
+        "y": -15.026367,
+        "t": 0.6296831,
+        "r": 687.69135,
         "sx": -1,
         "sy": -1
       },
       "dest": {
         "level": 2,
-        "uidRef": 8,
-        "x": -0.3493936,
-        "y": 1.9692446,
-        "t": 1.7463942,
+        "uidRef": 12,
+        "x": 1.2163076,
+        "y": -1.5876385,
+        "t": 5.366122,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13687,24 +8473,16 @@
       "speed": 3,
       "trails": [
         {
-          "x": 97.089424,
-          "y": 491.36194
+          "x": 552.79205,
+          "y": 399.4794
         },
         {
-          "x": 97.212456,
-          "y": 494.3594
+          "x": 553.9772,
+          "y": 402.59235
         },
         {
-          "x": 97.33861,
-          "y": 497.35675
-        },
-        {
-          "x": 97.46782,
-          "y": 500.35397
-        },
-        {
-          "x": 97.600044,
-          "y": 503.35104
+          "x": 555.8019,
+          "y": 404.97363
         }
       ],
       "type": "Cruiser"
@@ -13714,12 +8492,86 @@
       "idxtype": 1,
       "uidRace": 2,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 709.84265,
-        "y": 208.3232,
+        "level": 2,
+        "uidRef": 9,
+        "x": 1.4127513,
+        "y": -1.4156743,
+        "t": -0.7864316,
+        "r": 2.0,
+        "sx": -1,
+        "sy": -1
+      },
+      "dest": {
+        "level": 1,
+        "uidRef": 11,
+        "x": -1.0,
+        "y": -1.0,
         "t": -1.0,
         "r": -1.0,
+        "sx": 0,
+        "sy": 0
+      },
+      "health": 10,
+      "name": "RS1014",
+      "speed": 1,
+      "trails": [
+        {
+          "x": 342.5547,
+          "y": 664.2539
+        }
+      ],
+      "type": "Spore Pod"
+    },
+    "1015": {
+      "uid": 1015,
+      "idxtype": 2,
+      "uidRace": 3,
+      "loc": {
+        "level": 3,
+        "uidRef": 3,
+        "x": -32.596863,
+        "y": -17.091522,
+        "t": 0.63450414,
+        "r": 679.6951,
+        "sx": -1,
+        "sy": -1
+      },
+      "dest": {
+        "level": 2,
+        "uidRef": 10,
+        "x": 0.26779094,
+        "y": -1.9819909,
+        "t": 4.846688,
+        "r": 2.0,
+        "sx": -1,
+        "sy": -1
+      },
+      "health": 100,
+      "name": "WC1015",
+      "speed": 3,
+      "trails": [
+        {
+          "x": 549.82074,
+          "y": 400.00192
+        },
+        {
+          "x": 547.40314,
+          "y": 402.90848
+        }
+      ],
+      "type": "Cruiser"
+    },
+    "1016": {
+      "uid": 1016,
+      "idxtype": 1,
+      "uidRace": 2,
+      "loc": {
+        "level": 2,
+        "uidRef": 9,
+        "x": 1.3408332,
+        "y": -1.4839698,
+        "t": -0.8360262,
+        "r": 2.0,
         "sx": -1,
         "sy": -1
       },
@@ -13734,104 +8586,12 @@
         "sy": 0
       },
       "health": 10,
-      "name": "RS1014",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 709.62665,
-          "y": 204.32904
-        },
-        {
-          "x": 709.6806,
-          "y": 205.32759
-        },
-        {
-          "x": 709.73456,
-          "y": 206.32613
-        },
-        {
-          "x": 709.7886,
-          "y": 207.32466
-        },
-        {
-          "x": 709.84265,
-          "y": 208.3232
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1015": {
-      "uid": 1015,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 2,
-        "uidRef": 12,
-        "x": -0.43559217,
-        "y": 1.9519886,
-        "t": 1.7903521,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1015",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 128.30222,
-          "y": 236.95486
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1016": {
-      "uid": 1016,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 713.1217,
-        "y": 207.37921,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 19,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
       "name": "RS1016",
       "speed": 1,
       "trails": [
         {
-          "x": 712.69037,
-          "y": 203.40254
-        },
-        {
-          "x": 712.7996,
-          "y": 204.39656
-        },
-        {
-          "x": 712.90796,
-          "y": 205.39067
-        },
-        {
-          "x": 713.0153,
-          "y": 206.38489
-        },
-        {
-          "x": 713.1217,
-          "y": 207.37921
+          "x": 342.48276,
+          "y": 664.1856
         }
       ],
       "type": "Spore Pod"
@@ -13841,21 +8601,21 @@
       "idxtype": 2,
       "uidRace": 3,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 305.476,
-        "y": 404.0292,
-        "t": -1.0,
-        "r": -1.0,
+        "level": 2,
+        "uidRef": 16,
+        "x": 1.0349077,
+        "y": 1.7114222,
+        "t": 1.0269235,
+        "r": 2.0,
         "sx": -1,
         "sy": -1
       },
       "dest": {
         "level": 2,
-        "uidRef": 22,
-        "x": -0.50667286,
-        "y": 1.9347565,
-        "t": 1.826924,
+        "uidRef": 12,
+        "x": -0.7125128,
+        "y": 1.8687764,
+        "t": 1.9350547,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13865,24 +8625,8 @@
       "speed": 3,
       "trails": [
         {
-          "x": 296.67612,
-          "y": 395.87067
-        },
-        {
-          "x": 298.88,
-          "y": 397.90607
-        },
-        {
-          "x": 301.0813,
-          "y": 399.94427
-        },
-        {
-          "x": 303.27997,
-          "y": 401.98532
-        },
-        {
-          "x": 305.476,
-          "y": 404.0292
+          "x": 551.7058,
+          "y": 400.8355
         }
       ],
       "type": "Cruiser"
@@ -13892,48 +8636,22 @@
       "idxtype": 1,
       "uidRace": 2,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 711.264,
-        "y": 206.7775,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
         "level": 1,
-        "uidRef": 2,
+        "uidRef": 9,
         "x": -1.0,
         "y": -1.0,
         "t": -1.0,
         "r": -1.0,
-        "sx": 0,
-        "sy": 0
+        "sx": 5,
+        "sy": 1
       },
       "health": 10,
       "name": "RS1018",
       "speed": 1,
       "trails": [
         {
-          "x": 710.6764,
-          "y": 202.82089
-        },
-        {
-          "x": 710.8247,
-          "y": 203.80983
-        },
-        {
-          "x": 710.97217,
-          "y": 204.7989
-        },
-        {
-          "x": 711.11865,
-          "y": 205.78812
-        },
-        {
-          "x": 711.264,
-          "y": 206.7775
+          "x": 341.30194,
+          "y": 665.34955
         }
       ],
       "type": "Spore Pod"
@@ -13943,226 +8661,22 @@
       "idxtype": 2,
       "uidRace": 3,
       "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 356.4851,
-        "y": 304.4277,
+        "level": 1,
+        "uidRef": 16,
+        "x": -1.0,
+        "y": -1.0,
         "t": -1.0,
         "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 4,
-        "x": -1.9994309,
-        "y": -0.047710836,
-        "t": 3.1654503,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
+        "sx": 2,
+        "sy": 5
       },
       "health": 100,
       "name": "WC1019",
       "speed": 3,
       "trails": [
         {
-          "x": 344.84787,
-          "y": 301.49954
-        },
-        {
-          "x": 347.75516,
-          "y": 302.2396
-        },
-        {
-          "x": 350.6638,
-          "y": 302.97433
-        },
-        {
-          "x": 353.57376,
-          "y": 303.70374
-        },
-        {
-          "x": 356.4851,
-          "y": 304.4277
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1020": {
-      "uid": 1020,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 713.95917,
-        "y": 205.9548,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 19,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1020",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 713.5342,
-          "y": 201.97745
-        },
-        {
-          "x": 713.64185,
-          "y": 202.97163
-        },
-        {
-          "x": 713.7486,
-          "y": 203.96593
-        },
-        {
-          "x": 713.8544,
-          "y": 204.96031
-        },
-        {
-          "x": 713.95917,
-          "y": 205.9548
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1021": {
-      "uid": 1021,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 2,
-        "uidRef": 14,
-        "x": 1.8794268,
-        "y": -0.683926,
-        "t": 5.9341803,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1021",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 110.465546,
-          "y": 258.93643
-        }
-      ],
-      "type": "Cruiser"
-    },
-    "1022": {
-      "uid": 1022,
-      "idxtype": 1,
-      "uidRace": 2,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 710.38544,
-        "y": 205.33672,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 1,
-        "uidRef": 4,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 0,
-        "sy": 0
-      },
-      "health": 10,
-      "name": "RS1022",
-      "speed": 1,
-      "trails": [
-        {
-          "x": 709.6378,
-          "y": 201.40723
-        },
-        {
-          "x": 709.821,
-          "y": 202.3903
-        },
-        {
-          "x": 710.00665,
-          "y": 203.37291
-        },
-        {
-          "x": 710.1948,
-          "y": 204.35504
-        },
-        {
-          "x": 710.38544,
-          "y": 205.33672
-        }
-      ],
-      "type": "Spore Pod"
-    },
-    "1023": {
-      "uid": 1023,
-      "idxtype": 2,
-      "uidRace": 3,
-      "loc": {
-        "level": 4,
-        "uidRef": -1,
-        "x": 96.34959,
-        "y": 491.72913,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "dest": {
-        "level": 2,
-        "uidRef": 5,
-        "x": 1.009886,
-        "y": -1.7263054,
-        "t": 5.241705,
-        "r": 2.0,
-        "sx": -1,
-        "sy": -1
-      },
-      "health": 100,
-      "name": "WC1023",
-      "speed": 3,
-      "trails": [
-        {
-          "x": 96.35006,
-          "y": 479.72913
-        },
-        {
-          "x": 96.35354,
-          "y": 482.72913
-        },
-        {
-          "x": 96.3547,
-          "y": 485.72913
-        },
-        {
-          "x": 96.35342,
-          "y": 488.72913
-        },
-        {
-          "x": 96.34959,
-          "y": 491.72913
+          "x": 549.7376,
+          "y": 399.79077
         }
       ],
       "type": "Cruiser"
@@ -14170,87 +8684,13 @@
   },
   "shots": [],
   "news": [
-    "RS1130 built on Vishtaspa.\n",
-    "RS1129 launched from Vishtaspa.\n"
+    "RS1018 built on Vishtaspa.\n",
+    "WC1019 built on Nirvana.\n",
+    "RS1014 launched from Vishtaspa.\n",
+    "RS1016 launched from Vishtaspa.\n",
+    "WC1017 launched from Nirvana.\n"
   ],
   "deepSpaceUidShips": [
-    1024,
-    1026,
-    1027,
-    1028,
-    1030,
-    1032,
-    1034,
-    1035,
-    1036,
-    1037,
-    1038,
-    1039,
-    1040,
-    1041,
-    1042,
-    1043,
-    1044,
-    1045,
-    1046,
-    1047,
-    1048,
-    1049,
-    1050,
-    1051,
-    1052,
-    1053,
-    1054,
-    1055,
-    1056,
-    1057,
-    1058,
-    1060,
-    1061,
-    1062,
-    1063,
-    1064,
-    1065,
-    1066,
-    1067,
-    1068,
-    1069,
-    1070,
-    1071,
-    1073,
-    1074,
-    1075,
-    1076,
-    1077,
-    1078,
-    1079,
-    1081,
-    1082,
-    1083,
-    1084,
-    1085,
-    1086,
-    1089,
-    1090,
-    1092,
-    1093,
-    1002,
-    1003,
-    1004,
-    1005,
-    1006,
-    1007,
-    1010,
-    1011,
-    1012,
-    1013,
-    1014,
-    1016,
-    1017,
-    1018,
-    1019,
-    1020,
-    1022,
-    1023
+    1007
   ]
 }
