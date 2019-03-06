@@ -34,8 +34,7 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-//            val message = "Creating a new Universe"
-//            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(view.context, "Creating a new Universe", Toast.LENGTH_SHORT).show()
 
             Thread(Runnable {
                 val json = GBController.makeAndSaveUniverse(secondPlayer)
@@ -114,7 +113,7 @@ class GlobalStuff {
             vm.playerTurns[0]++
             vm.playerTurns[1]++
 
-            actionsTaken.value = vm.playerTurns[0] + vm.playerTurns [1]
+            actionsTaken.value = vm.playerTurns[0] + vm.playerTurns[1]
 
             val message = "Executing Orders"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
@@ -305,14 +304,14 @@ class GlobalStuff {
         fun checkDo(view: View) {
             if (vm.secondPlayer) {
                 vm.playerTurns[uidActivePlayer]--
-                actionsTaken.value = vm.playerTurns[0] + vm.playerTurns [1]
+                actionsTaken.value = vm.playerTurns[0] + vm.playerTurns[1]
 
-                if (vm.playerTurns[1- uidActivePlayer] < 0 && vm.playerTurns[uidActivePlayer] < 5) {
+                if (vm.playerTurns[1 - uidActivePlayer] < 0 && vm.playerTurns[uidActivePlayer] < 5) {
                     doUniverse(view, true)
                 }
 
             } else {
-                doUniverse(view,true)
+                doUniverse(view, true)
             }
 
         }

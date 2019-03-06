@@ -11,6 +11,7 @@ import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLog.gbAssert
+import kotlin.math.PI
 
 
 class GBOrder {
@@ -69,8 +70,8 @@ class GBOrder {
             uidRace = factory.uidRace
             this.loc = GBLocation(
                 factory.loc.getPlanet()!!,
-                GBData.rand.nextInt(factory.loc.getPlanet()!!.width),
-                GBData.rand.nextInt(factory.loc.getPlanet()!!.height)
+                GBData.PlanetOrbit,
+                GBData.rand.nextFloat() * 2 * PI.toFloat()
             )
         }
     }

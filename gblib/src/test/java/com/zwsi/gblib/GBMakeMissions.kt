@@ -86,6 +86,9 @@ class GBMakeMissions {
         val turns = 10
         var json: String = ""
 
+        GBController.makeFactory(u.race(0).uidHomePlanet, 0)
+        GBController.makeFactory(u.race(1).uidHomePlanet, 1)
+
         for (i in 1..turns) {
             u.doUniverse()
         }

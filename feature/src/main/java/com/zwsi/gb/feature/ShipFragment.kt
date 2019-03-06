@@ -1,6 +1,9 @@
 package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -35,6 +38,10 @@ class ShipFragment : Fragment() {
         setDetails(view)
 
         val sh = vm.ship(tag!!.toInt())
+
+        val background = view.background as GradientDrawable
+        background.mutate()
+        background.setStroke(2, Color.parseColor(vm.race(sh.uidRace).color))
 
         val turnObserver = Observer<Int> { _ ->
             setDetails(view)

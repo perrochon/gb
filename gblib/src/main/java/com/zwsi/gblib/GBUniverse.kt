@@ -217,7 +217,9 @@ data class GBUniverse(
         news.clear()
 
         // FEATURE only do this if other races are playing. Need to persist which races are playing
-        // For now, always play Beetle and Tortoise, never play Xeno and Impi.
+        // For now, always play Beetle and Tortoise
+//        GBAutoPlayer.playXenos()
+//        GBAutoPlayer.playImpi()
         GBAutoPlayer.playBeetle()
         GBAutoPlayer.playTortoise()
 

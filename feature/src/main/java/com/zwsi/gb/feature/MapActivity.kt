@@ -107,7 +107,7 @@ class MapActivity : AppCompatActivity() {
             action1.text = "${vm.playerTurns[0]}"
             action2.text = "${vm.playerTurns[1]}"
 
-            if (vm.playerTurns[1- uidActivePlayer] < 0) {
+            if (!vm.secondPlayer || vm.playerTurns[1- uidActivePlayer] < 0) {
                 DoButton.isEnabled = true
             } else {
                 DoButton.isEnabled = false
