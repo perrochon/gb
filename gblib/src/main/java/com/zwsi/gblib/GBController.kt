@@ -86,9 +86,11 @@ class GBController {
             lock.lock(); // lock for the game turn
             try {
                 elapsedTimeLastUpdate = measureNanoTime {
-                    u.playerTurns[0]++ // FIXME Move to universe
-                    u.playerTurns[1]++
 
+                    if (u.playerTurns[0] < 20 && u.playerTurns[1] < 20) { // FIXME use same constant as VM.
+                        u.playerTurns[0]++ // FIXME Move to universe
+                        u.playerTurns[1]++
+                    }
                     _u!!.doUniverse()
                     // PERF without reload single digit ms update time, with reload low 100's ms update time.
                 }

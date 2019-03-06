@@ -110,9 +110,10 @@ class GlobalStuff {
             if (autoDo) { // If we are running on auto, ignore manual Do
                 return
             }
-
-            vm.playerTurns[0]++
-            vm.playerTurns[1]++
+            if (GBController.u.playerTurns[0] < 20 && GBController.u.playerTurns[1] < 20) { // FIXME use same constant as VM.
+                vm.playerTurns[0]++
+                vm.playerTurns[1]++
+            }
 
             actionsTaken.value = vm.playerTurns[0] + vm.playerTurns[1]
 
