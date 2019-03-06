@@ -74,7 +74,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/DoButton"
                 android:text="@string/button_Do"
-                android:onClick="doUniverse"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:background="@drawable/border_message"

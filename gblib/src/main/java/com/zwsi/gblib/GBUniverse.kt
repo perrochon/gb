@@ -184,25 +184,29 @@ data class GBUniverse(
         // PERF ?? Each starPlanetsList call below re-creates the List. But this all happens only once.
         // And the code below will need to change anyway.
 
-        // The single player
+        // The first player
         val r0 = GBRace(0, 0, stars[0]!!.starPlanetsList[0].uid)
         races[0] = r0
         stars[0]!!.starPlanetsList[0].landPopulationOnEmptySector(r0, 100)
-        race(0).raceVisibleStars.add(0)
+        r0.raceVisibleStars.add(0)
 
-
-        // We only need one race for the early mission, but we create and land the others for God Mode...
-        // Eventually, they will be dynamically landed (from tests, or from app)
+        // The second player
         val r1 = GBRace(1, 1, stars[1]!!.starPlanetsList[0].uid)
         races[1] = r1
+        stars[1]!!.starPlanetsList[0].landPopulationOnEmptySector(r0, 100)
+        r1.raceVisibleStars.add(1)
+
+        // The Beetles (autoplayer)
         val r2 = GBRace(2, 2, stars[2]!!.starPlanetsList[0].uid)
         races[2] = r2
+        stars[2]!!.starPlanetsList[0].landPopulationOnEmptySector(r0, 100)
+        r2.raceVisibleStars.add(2)
+
+        // The Tortoises (autoplayer)
         val r3 = GBRace(3, 3, stars[3]!!.starPlanetsList[0].uid)
         races[3] = r3
-
-        stars[1]!!.starPlanetsList[0].landPopulationOnEmptySector(r1, 100)
-        stars[2]!!.starPlanetsList[0].landPopulationOnEmptySector(r2, 100)
-        stars[3]!!.starPlanetsList[0].landPopulationOnEmptySector(r3, 100)
+        stars[3]!!.starPlanetsList[0].landPopulationOnEmptySector(r0, 100)
+        r3.raceVisibleStars.add(3)
     }
 
     internal fun doUniverse() {
@@ -211,8 +215,8 @@ data class GBUniverse(
         news.clear()
 
         // FEATURE only do this if other races are playing. Need to persist which races are playing
+        // For now, always play Beetle and Tortoise, never play Xeno and Impi.
         GBAutoPlayer.playBeetle()
-        GBAutoPlayer.playImpi()
         GBAutoPlayer.playTortoise()
 
         for (o in orders) {

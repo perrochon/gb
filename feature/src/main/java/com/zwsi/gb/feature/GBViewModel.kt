@@ -36,6 +36,8 @@ class GBViewModel {
         var showStats = false
         var showClickTargets = false
         var superSensors = false
+        var secondPlayer = false
+        var uidActivePlayer = 0;
 
 
 //        var times = mutableMapOf<String, Long>() // FIXME Cleanup the long list of ints below
@@ -67,6 +69,7 @@ class GBViewModel {
         fun updatePrefs() {
             if (context != null) {
                 sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
+                secondPlayer = sharedPref!!.getBoolean("secondPlayer", false)
                 showStats = sharedPref!!.getBoolean("showStats", false)
                 showClickTargets = sharedPref!!.getBoolean("showClickTargets", false)
                 superSensors = sharedPref!!.getBoolean("superSensors", false)

@@ -25,6 +25,16 @@ class Preferences : AppCompatActivity() {
 
         val sharedPref = this.getSharedPreferences("options", Context.MODE_PRIVATE)
 
+        val secondPlayerButton: Switch = findViewById(R.id.SecondPlayer)
+        secondPlayerButton.isChecked = showStats
+        secondPlayerButton.setOnCheckedChangeListener { it, isChecked ->
+            with(sharedPref.edit()) {
+                putBoolean("secondPlayer", isChecked)
+                commit()
+            }
+            GBViewModel.updatePrefs()
+        }
+
         val superSensorsButton: Switch = findViewById(R.id.SuperSensors)
         superSensorsButton.isChecked = superSensors
         superSensorsButton.setOnCheckedChangeListener { it, isChecked ->
@@ -33,8 +43,6 @@ class Preferences : AppCompatActivity() {
                 commit()
             }
             GBViewModel.updatePrefs()
-            Toast.makeText(it.context, "Super Sensors is $isChecked", Toast.LENGTH_SHORT).show()
-
         }
 
         val showStatsButton: Switch = findViewById(R.id.ShowStats)
@@ -45,8 +53,6 @@ class Preferences : AppCompatActivity() {
                 commit()
             }
             GBViewModel.updatePrefs()
-            Toast.makeText(it.context, "Show Stats is $isChecked", Toast.LENGTH_SHORT).show()
-
         }
 
         val showClickTargetsButton: Switch = findViewById(R.id.ShowClickTargets)
@@ -57,8 +63,6 @@ class Preferences : AppCompatActivity() {
                 commit()
             }
             GBViewModel.updatePrefs()
-            Toast.makeText(it.context, "Show Click Targets is $isChecked", Toast.LENGTH_SHORT).show()
-
         }
 
     }

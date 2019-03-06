@@ -14,8 +14,7 @@
                   android:layout_margin="40dp"
                   android:padding="10dp"
             >
-        <TextView android:id="@+id/options"
-                  android:layout_width="match_parent"
+        <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:textColor="@android:color/holo_orange_light"
                   android:text=" Options "
@@ -23,11 +22,10 @@
                   android:textAlignment="center"
                 />
 
-        <TextView android:id="@+id/settings"
-                  android:layout_width="wrap_content"
+        <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textColor="@android:color/holo_orange_light"
-                  android:text=" Settings "
+                  android:text=" Players "
                   android:textSize="18sp"
                   android:textAlignment="center"
                 />
@@ -42,7 +40,36 @@
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:textColor="@android:color/holo_orange_light"
-                      android:text=" Super Sensors "
+                      android:text="Second Player"
+                      android:textSize="18sp"
+                    />
+            <Switch android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SecondPlayer"
+                    android:background="@drawable/border_message"
+                    />
+        </LinearLayout>
+
+        <TextView android:id="@+id/settings"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="@android:color/holo_orange_light"
+                  android:text="Settings"
+                  android:textSize="18sp"
+                  android:textAlignment="center"
+                />
+        <LinearLayout android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                >
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@android:color/holo_orange_light"
+                      android:text="Hyper Sensors"
                       android:textSize="18sp"
                     />
             <Switch android:layout_width="wrap_content"
@@ -54,7 +81,7 @@
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textColor="@android:color/holo_orange_light"
-                  android:text=" Test Settings "
+                  android:text="Test Settings"
                   android:textSize="18sp"
                   android:textAlignment="center"
                 />
@@ -69,15 +96,13 @@
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:textColor="@android:color/holo_orange_light"
-                      android:text=" Show Perf Stats "
+                      android:text="Show Perf Stats"
                       android:textSize="18sp"
                     />
-            <Switch android:textOn=" Hide Stats "
-                          android:textOff=" Show Stats "
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:id="@+id/ShowStats"
-                          android:background="@drawable/border_message"
+            <Switch android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ShowStats"
+                    android:background="@drawable/border_message"
                     />
         </LinearLayout>
         <LinearLayout android:orientation="horizontal"
@@ -88,19 +113,16 @@
                    android:layout_height="1dp"
                    android:layout_weight="1"
                     />
-            <TextView android:id="@+id/superSensorText"
-                      android:layout_width="wrap_content"
+            <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:textColor="@android:color/holo_orange_light"
-                      android:text=" Show Click Targets "
+                      android:text="Show Click Targets"
                       android:textSize="18sp"
                     />
-            <Switch android:textOn=" Hide Click Targets "
-                          android:textOff=" Show Click Targets "
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:id="@+id/ShowClickTargets"
-                          android:background="@drawable/border_message"
+            <Switch android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ShowClickTargets"
+                    android:background="@drawable/border_message"
                     />
         </LinearLayout>
 

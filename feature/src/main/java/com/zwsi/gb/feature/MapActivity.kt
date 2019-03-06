@@ -16,6 +16,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import com.davemorrissey.labs.subscaleview.ImageViewState
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.secondPlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
@@ -35,6 +36,27 @@ class MapActivity : AppCompatActivity() {
         val version = findViewById<TextView>(R.id.version)
         version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
 
+        val doButton: Button = findViewById(R.id.DoButton)
+        if (secondPlayer) {
+            doButton.visibility = View.GONE
+        } else {
+            doButton.visibility = View.VISIBLE
+        }
+        doButton.setOnClickListener(View.OnClickListener {
+            GlobalStuff.doUniverse(it)
+        })
+
+        val contButton: Button = findViewById(R.id.ContinuousButton)
+        if (secondPlayer) {
+            contButton.visibility = View.GONE
+        } else {
+            doButton.visibility = View.VISIBLE
+        }
+        contButton.setOnClickListener(View.OnClickListener {
+            GlobalStuff.toggleContinuous(it)
+        })
+
+
         val helpButton: Button = findViewById(R.id.HelpButtonMap)
         helpButton.setOnClickListener(View.OnClickListener {
             val helpText = HtmlCompat.fromHtml(getString(R.string.maphelp), HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -43,7 +65,7 @@ class MapActivity : AppCompatActivity() {
             helpView.setMovementMethod(LinkMovementMethod.getInstance());
             helpView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_light))
             val scroller = ScrollView(this)
-            scroller.setPadding(10,10,10,10)
+            scroller.setPadding(10, 10, 10, 10)
             scroller.addView(helpView)
 
             val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
@@ -57,7 +79,6 @@ class MapActivity : AppCompatActivity() {
             val imageViewState = savedInstanceState.getSerializable(BUNDLE_STATE) as ImageViewState
             imageView.setScaleAndCenter(imageViewState.scale, imageViewState.center)
         }
-
 
         val turnObserver = Observer<Int> { newTurn ->
             imageView.turn = newTurn;
@@ -173,16 +194,16 @@ class MapActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    /** Called when the user taps the Do button */
-    fun doUniverse(view: View) {
-        GlobalStuff.doUniverse(view)
-    }
-
-    fun continuousDo(view: View) {
-        GlobalStuff.toggleContinuous(view)
-    }
-
-//    fun makeFactory(view: View) {
+//    /** Called when the user taps the Do button */
+//    fun doUniverse(view: View) {
+//        GlobalStuff.doUniverse(view)
+//    }
+//
+//    fun continuousDo(view: View) {
+//        GlobalStuff.toggleContinuous(view)
+//    }
+//
+////    fun makeFactory(view: View) {
 //        GlobalStuff.makeFactory(view)
 //    }
 //

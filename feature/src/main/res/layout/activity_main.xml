@@ -85,20 +85,21 @@
                android:layout_height="1dp"
                android:layout_weight="1"
                 />
-        <Button android:text=" New Game "
+        <Button android:text=" Player 1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/NewButton"
+                android:id="@+id/Play1Button"
                 android:background="@drawable/border_message"
                 />
-        <Space android:layout_width="0dp"
+        <Space android:id="@+id/Play2Space"
+               android:layout_width="0dp"
                android:layout_height="1dp"
                android:layout_weight="1"
                 />
-        <Button android:text=" Map "
+        <Button android:text=" Player 2 "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/PlayButton"
+                android:id="@+id/Play2Button"
                 android:background="@drawable/border_message"
                 />
         <Space android:layout_width="0dp"
@@ -119,6 +120,16 @@
                   android:layout_marginEnd="8dp"
                   app:layout_constraintTop_toBottomOf="@+id/Play"
             >
+        <Space android:layout_width="0dp"
+               android:layout_height="1dp"
+               android:layout_weight="1"
+                />
+        <Button android:text="New Game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/NewButton"
+                android:background="@drawable/border_message"
+                />
         <Space android:layout_width="0dp"
                android:layout_height="1dp"
                android:layout_weight="1"
@@ -168,7 +179,7 @@
                   app:layout_constraintStart_toStartOf="parent"
                   android:layout_marginStart="8dp"
             >
-        <Button android:text=" Help "
+        <Button android:text="Help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/HelpButtonMain"
@@ -178,7 +189,7 @@
                android:layout_height="1dp"
                android:layout_weight="1"
                 />
-        <Button android:text=" Options "
+        <Button android:text="Options"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/OptionsButton"

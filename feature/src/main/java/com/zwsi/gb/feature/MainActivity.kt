@@ -3,6 +3,7 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
+import android.graphics.PointF
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.v4.content.ContextCompat
@@ -19,6 +20,10 @@ import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
 import java.io.File
 import android.text.method.ScrollingMovementMethod
+import android.widget.Space
+import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
+import com.zwsi.gb.feature.GBViewModel.Companion.secondPlayer
+import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 
 var lastClickTime = 0L
 val clickDelay = 300L
@@ -48,9 +53,25 @@ class MainActivity : AppCompatActivity() {
         messageBox.movementMethod = ScrollingMovementMethod();
         messageBox.setText("Welcome to Andromeda Rising!\nA game of galactic domination.\n\n")
 
-        val playButton: Button = findViewById(R.id.PlayButton)
-        playButton.isEnabled = false
-        playButton.setOnClickListener(View.OnClickListener {
+        val play1Button: Button = findViewById(R.id.Play1Button)
+        play1Button.isEnabled = false
+        play1Button.setOnClickListener(View.OnClickListener {
+            uidActivePlayer = 0
+            gotoMap(it)
+        })
+
+        val play2Button: Button = findViewById(R.id.Play2Button)
+        val play2Space: Space = findViewById(R.id.Play2Space)
+        play2Button.isEnabled = false
+        if (secondPlayer) {
+            play2Button.visibility = View.VISIBLE
+            play2Space.visibility = View.VISIBLE
+        } else {
+            play2Button.visibility = View.GONE
+            play2Space.visibility = View.GONE
+        }
+        play2Button.setOnClickListener(View.OnClickListener {
+            uidActivePlayer = 1
             gotoMap(it)
         })
 
@@ -61,12 +82,15 @@ class MainActivity : AppCompatActivity() {
 
         val turnObserver = Observer<Int> { newTurn ->
             // TODO This is a bit overkill, as it enables on every new turn
-            playButton.isEnabled = true
+            play1Button.isEnabled = true
+            play2Button.isEnabled = true
             messageBox.append("\nTurn: ${newTurn.toString()}\n")
-            for (article in vm.news) {
-                messageBox.append(article)
+            if (superSensors || !secondPlayer) {
+                for (article in vm.news) {
+                    messageBox.append(article)
+                }
+                messageBox.invalidate()
             }
-            messageBox.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 

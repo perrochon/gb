@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
@@ -198,8 +199,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         setScaleAndCenter(
             zoomLevelPlanet,
             PointF(
-                vm.races.toList().component1().second.getHome().loc.getLoc().x * uToS,
-                vm.races.toList().component1().second.getHome().loc.getLoc().y * uToS
+                vm.race(uidActivePlayer).getHome().loc.getLoc().x * uToS,
+                vm.race(uidActivePlayer).getHome().loc.getLoc().y * uToS
             )
         )
 
@@ -362,7 +363,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
             for ((_, r) in vm.races) {
 
-                if (superSensors || vm.race(0).raceVisibleStars.contains(r.getHome().star.uid)) {
+                if (superSensors || vm.race(uidActivePlayer).raceVisibleStars.contains(r.getHome().star.uid)) {
 
                     if (pointVisible(
                             r.getHome().star.loc.getLoc().x * uToSf,
@@ -484,7 +485,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (2 > normScale) {
             for ((_, s) in vm.stars) {
 
-                if (superSensors || vm.race(0).raceVisibleStars.contains(s.uid)) {
+                if (superSensors || vm.race(uidActivePlayer).raceVisibleStars.contains(s.uid)) {
 
                     if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                         for (uidP in s.starUidPlanets) { // PERF only draw one...
@@ -541,7 +542,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private fun drawPlanetsAndShips(canvas: Canvas) {
         for ((_, s) in vm.stars) {
 
-            if (superSensors || vm.race(0).raceVisibleStars.contains(s.uid)) {
+            if (superSensors || vm.race(uidActivePlayer).raceVisibleStars.contains(s.uid)) {
 
                 if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
 
