@@ -21,6 +21,7 @@ Steps for release, because I always forget some. // TODO Automate this
 ### Release Notes
 
 next
+- Fixed: Destination Spinner not disabled when out of actions
 
 .677/.678
 - Rules change: 1 action per turn. Choose wisely.
