@@ -113,7 +113,7 @@ class ShipFragment : Fragment() {
                 if (sh.uidRace == uidActivePlayer) {
                     view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
                     view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
-                    if (vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
+                    if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
                         view.findViewById<Button>(R.id.makePod).isEnabled = false
                         view.findViewById<Button>(R.id.makeCruiser).isEnabled = false
                     } else {

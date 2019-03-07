@@ -66,7 +66,7 @@ class PlanetFragment : Fragment() {
         val factoryButton: Button = view.findViewById(R.id.makefactory)
         if (p.planetUidRaces.contains(uidActivePlayer)) {
             factoryButton.visibility = View.VISIBLE
-            if (vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
+            if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
                 factoryButton.isEnabled = false
             } else {
                 factoryButton.isEnabled = true
