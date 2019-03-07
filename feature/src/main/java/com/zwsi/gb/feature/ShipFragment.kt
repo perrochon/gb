@@ -153,7 +153,7 @@ class ShipFragment : Fragment() {
                 // Right now it's all insystem and first planet of each system outside.
                 // TODO: If we have fly to a star system update the lists here
                 val destinationStrings = arrayListOf<String>()
-                val destinationUids = HashMap<String, Int>()
+                val destinationUids = HashMap<String, Int>() // FIXME Use getItemAtPosition(position) and get it out of item.
 
                 var currentUidDestination: Int? = null
 
@@ -191,9 +191,7 @@ class ShipFragment : Fragment() {
                 }
 
                 // Create an ArrayAdapter
-                val adapter =
-                //ArrayAdapter<String>(this.activity!!, android.R.layout.simple_spinner_item, destinationStrings)
-                    ArrayAdapter<String>(this.activity!!, R.layout.spinner_item, destinationStrings)
+                val adapter = ArrayAdapter<String>(this.activity!!, R.layout.spinner_item, destinationStrings)
 
                 // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -201,6 +199,7 @@ class ShipFragment : Fragment() {
                 // Apply the adapter to the spinner
                 val spinner = view.findViewById<Spinner>(R.id.spinner)
                 spinner.adapter = adapter
+                spinner.setSelection(1,false) // Hack ? To prevent being called twice
 
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
@@ -209,34 +208,36 @@ class ShipFragment : Fragment() {
 
                     override fun onItemSelected(parent: AdapterView<*>?, spinnerView: View?, position: Int, id: Long) {
 
-                        val destination = parent!!.getItemAtPosition(position).toString()
+                        // Hack: onItemSelected is called twice. But the first time, spinnerView seems to be null
+                        if (spinnerView != null) {
+                            val destination = parent!!.getItemAtPosition(position).toString()
 
-                        if (destination.equals("Set Destination")) { // FIXME make this a constant
-                            return
-                        }
+                            if (destination == "Set Destination") { // FIXME make this a constant
+                                return
+                            }
 
-                        val uidPlanet = destinationUids[destination]!!
-                        val planet = vm.planet(uidPlanet)
+                            val uidPlanet = destinationUids[destination]!!
+                            val planet = vm.planet(uidPlanet)
 
-                        if (sh.idxtype == GBData.POD) {
-                            flyShipLanded(sh.uid, planet.uid) // update server side
-                            sh.dest = GBLocation(planet, 0, 0) // update vm
-                        } else {
-                            flyShipOrbit(sh.uid, planet.uid)// update server side
-                            sh.dest = GBLocation(planet, GBData.PlanetOrbit, 0f)
-                        }
+                            if (sh.idxtype == GBData.POD) {
+                                flyShipLanded(sh.uid, planet.uid) // update server side
+                                sh.dest = GBLocation(planet, 0, 0) // update vm
+                            } else {
+                                flyShipOrbit(sh.uid, planet.uid)// update server side
+                                sh.dest = GBLocation(planet, GBData.PlanetOrbit, 0f)
+                            }
 
-                        GlobalStuff.checkDo(view)
+                            GlobalStuff.checkDo(view)
 
-                        Toast.makeText(
-                            view.context,
-                            "Ordered " + sh.name + " to fly to " + planet.name,
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                            Toast.makeText(
+                                view.context,
+                                "Ordered " + sh.name + " to fly to " + planet.name,
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
 
-                        fragment.setDetails(view)
-                    }
+                            fragment.setDetails(view)
+                        }                    }
 
                 }
 

@@ -99,13 +99,16 @@
                android:layout_height="1dp"
                android:layout_weight="1"
                 />
-        <Spinner android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/spinner"
-                 android:spinnerMode="dialog"
-                 android:background="@drawable/border_message"
-                >
-        </Spinner>
     </LinearLayout>
+    <Spinner android:layout_width="200dp"
+             android:layout_height="50dp"
+             android:id="@+id/spinner"
+             android:spinnerMode="dialog"
+             android:background="@drawable/border_message"
+             android:layout_marginEnd="8dp"
+             app:layout_constraintEnd_toEndOf="parent"
+             android:layout_marginTop="8dp"
+             app:layout_constraintTop_toTopOf="parent"
+            ></Spinner>
 
 </android.support.constraint.ConstraintLayout>
