@@ -34,6 +34,8 @@ class ShipFragment : Fragment() {
 
         val view: View = inflater.inflate(R.layout.fragment_ship, container, false)!!
 
+        setSpinner(view, this)
+
         setDetails(view)
 
         val sh = vm.ship(tag!!.toInt())
@@ -51,6 +53,8 @@ class ShipFragment : Fragment() {
         val actionObserver = Observer<Int> { _ ->
             setDetails(view)
             view.invalidate()
+            val spinner = view.findViewById<Spinner>(R.id.spinner)
+
         }
         GBViewModel.actionsTaken.observe(this, actionObserver)
 
@@ -72,7 +76,6 @@ class ShipFragment : Fragment() {
             GlobalStuff.panzoomToShip(it)
         })
 
-        setSpinner(view, this)
 
         return view
     }
@@ -133,6 +136,19 @@ class ShipFragment : Fragment() {
                 shipView.setImageResource(R.drawable.yellow)
             }
 
+            val spinner = view.findViewById<Spinner>(R.id.spinner)
+            if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
+                spinner.isEnabled = false
+
+                // Hack to make spinner look disabled. getSelectedView.isEnabled=false didn't work
+                // We may replace this with a custom spinner, at which point there may be better options
+                spinner.alpha = 0.5f
+            } else {
+                spinner.isEnabled = true
+                spinner.alpha = 1f // See Hack above.
+            }
+
+
         }
 
     }
@@ -153,7 +169,8 @@ class ShipFragment : Fragment() {
                 // Right now it's all insystem and first planet of each system outside.
                 // TODO: If we have fly to a star system update the lists here
                 val destinationStrings = arrayListOf<String>()
-                val destinationUids = HashMap<String, Int>() // FIXME Use getItemAtPosition(position) and get it out of item.
+                val destinationUids =
+                    HashMap<String, Int>() // FIXME Use getItemAtPosition(position) and get it out of item.
 
                 var currentUidDestination: Int? = null
 
@@ -194,12 +211,13 @@ class ShipFragment : Fragment() {
                 val adapter = ArrayAdapter<String>(this.activity!!, R.layout.spinner_item, destinationStrings)
 
                 // Specify the layout to use when the list of choices appears
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
 
                 // Apply the adapter to the spinner
                 val spinner = view.findViewById<Spinner>(R.id.spinner)
                 spinner.adapter = adapter
-                spinner.setSelection(1,false) // Hack ? To prevent being called twice
+                spinner.setSelection(1, false) // Hack ? To prevent being called twice
 
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
@@ -237,7 +255,8 @@ class ShipFragment : Fragment() {
                                 .show()
 
                             fragment.setDetails(view)
-                        }                    }
+                        }
+                    }
 
                 }
 
