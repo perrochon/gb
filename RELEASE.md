@@ -20,9 +20,9 @@ Steps for release, because I always forget some. // TODO Automate this
 
 ### Release Notes
 
-.next
+next
 
-.677
+.677/.678
 - Rules change: 1 action per turn. Choose wisely.
 - Two Players Pass and Play. With Fog of War!
 - Settings. Turn on Hyper Sensors to see through Fog of War.
