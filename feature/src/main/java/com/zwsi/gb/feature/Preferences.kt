@@ -24,7 +24,7 @@ class Preferences : AppCompatActivity() {
 
         val superSensorsButton: Switch = findViewById(R.id.SuperSensors)
         superSensorsButton.isChecked = superSensors
-        superSensorsButton.setOnCheckedChangeListener { it, isChecked ->
+        superSensorsButton.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("superSensors", isChecked)
                 commit()
