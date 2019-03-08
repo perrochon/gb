@@ -65,6 +65,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private val bitmaps = HashMap<Int, Bitmap>()
 
+    private var wheelBitmap : Bitmap? = null
+
 
     val sourceSize = 18000  // FIXME Would be nice not to hard code here and below
     val universeSize = vm.universeMaxX
@@ -186,6 +188,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             bitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
         }
 
+        wheelBitmap = bitmaps[R.drawable.wheel]
+
         bmASurface[3] = BitmapFactory.decodeResource(getResources(), R.drawable.desert)!!
         bmASurface[5] = BitmapFactory.decodeResource(getResources(), R.drawable.forest)!!
         bmASurface[2] = BitmapFactory.decodeResource(getResources(), R.drawable.gas)!!
@@ -244,6 +248,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         visibleFileRect(vr)
 
         clickTargets.clear()
+
+        val angle = currentTimeMillis().rem(7200).div(20).toInt()
+        // PERF Instead of rotating on draw, maybe pre-rotate to say 12 angles and use those?
+
+        wheelBitmap = bitmaps[R.drawable.wheel]!!.rotate(angle.toFloat())
+
 
         // times["GG"] = measureNanoTime { drawGrids(canvas) }
 
@@ -745,15 +755,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 CRUISER -> {
                     canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
-                    val angle = currentTimeMillis().rem(7200).div(20).toInt()
-                    // PERF Instead of rotating on draw, maybe pre-rotate to say 12 angles and use those?
-                    val bitmap = bitmaps[R.drawable.wheel]!!.rotate(angle.toFloat())
-
                     // TODO: Don't draw rotating dot with Wheel
 
-                    val o = bitmap.width / 2.4f / 100 * scale
+                    val o = wheelBitmap!!.width / 2.4f / 100 * scale
                     canvas.drawBitmap(
-                        bitmap,
+                        wheelBitmap,
                         null,
                         RectF(
                             vP1.x - o,
