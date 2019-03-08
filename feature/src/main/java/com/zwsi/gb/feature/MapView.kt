@@ -64,7 +64,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var bmASurface = HashMap<Int, Bitmap>()
 
     private val bitmaps = HashMap<Int, Bitmap>()
-    val numberOfFrames = 16
+    val numberOfFrames = 200 // 10s rotation, 30fps -> up to 300 different angles/bitmaps! 600 @60fps
     private var wheelBitmap = arrayOfNulls<Bitmap>(numberOfFrames)
 
 
@@ -280,7 +280,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             drawClickTargets(canvas)
         }
 
-        postInvalidateDelayed(40) // 40 -> ~24 fps
+        postInvalidateDelayed(18) // 40 -> ~24 fps, 20 -> 50fps
 
     } // onDraw
 
@@ -751,7 +751,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 CRUISER -> {
                     canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
-                    val i = (currentTimeMillis().rem(7200).div((7200 / numberOfFrames)).toInt()
+                    val i = (currentTimeMillis().rem(10000).div((10000 / numberOfFrames)).toInt()
                             + sh.uid).rem(numberOfFrames)
 
                     val o = wheelBitmap[i]!!.width / 2.4f / 100 * scale
