@@ -729,7 +729,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     } else {
                         val o = bitmaps[R.drawable.shuttle]!!.width / 2.6f / 100 * scale
                         canvas.drawBitmap(
-                            bitmaps[R.drawable.podt]!!,
+                            bitmaps[R.drawable.shuttle]!!,
                             null,
                             RectF(
                                 vP1.x - o,
