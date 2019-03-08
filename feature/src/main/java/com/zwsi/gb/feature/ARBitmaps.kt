@@ -61,7 +61,7 @@ class ARBitmaps {
                     val bm = BitmapFactory.decodeResource(context.getResources(), i)!!
                     w = density / 420f * bm.getWidth() / 30
                     h = density / 420f * bm.getHeight() / 30
-                    otherBitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
+                    raceBitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
                 }
             }
 
