@@ -142,6 +142,13 @@ class MainActivity : AppCompatActivity() {
                 .show()
         })
 
+        // Get a head start on bitmap loading
+        if (!ARBitmaps.ready) {
+            Thread(Runnable {
+                ARBitmaps.loadBitmaps(this)
+            }).start()
+        }
+
         // Kick that off last, we want the app up and running asap
         if (filesDir.isDirectory) {
             val current = File(filesDir, GBData.currentGameFileName)

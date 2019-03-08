@@ -46,7 +46,7 @@ class GBViewModel {
         var freshUniverse = false
 
 
-//        var times = mutableMapOf<String, Long>() // FIXME Cleanup the long list of ints below
+//        var drawTimes = mutableMapOf<String, Long>() // FIXME Cleanup the long list of ints below
 
         fun update(gameinfo: GBUniverse, update: Long, json: Long, write: Long, load: Long, fromJSON: Long, fresh: Boolean) {
 

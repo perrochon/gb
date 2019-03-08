@@ -10,6 +10,11 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.ARBitmaps.Companion.bmASurface
+import com.zwsi.gb.feature.ARBitmaps.Companion.numberOfFrames
+import com.zwsi.gb.feature.ARBitmaps.Companion.otherBitmaps
+import com.zwsi.gb.feature.ARBitmaps.Companion.shipBitmaps
+import com.zwsi.gb.feature.ARBitmaps.Companion.wheelBitmaps
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
@@ -54,20 +59,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var normScale: Float = 1f // used to make decisions on what to draw at what level
     private val gbDebug = true // show debugbox
 
-    private var bmStar: Bitmap? = null
-    private var bmPlanet: Bitmap? = null
-    private var bmRaceXenos: Bitmap? = null
-    private var bmRaceImpi: Bitmap? = null
-    private var bmRaceBeetle: Bitmap? = null
-    private var bmRaceTortoise: Bitmap? = null
-
-    private var bmASurface = HashMap<Int, Bitmap>()
-
-    private val bitmaps = HashMap<Int, Bitmap>()
-    val numberOfFrames = 200 // 10s rotation, 30fps -> up to 300 different angles/bitmaps! 600 @60fps
-    private var wheelBitmap = arrayOfNulls<Bitmap>(numberOfFrames)
-
-
     val sourceSize = 18000  // FIXME Would be nice not to hard code here and below
     val universeSize = vm.universeMaxX
     val uToS = sourceSize / universeSize
@@ -104,10 +95,19 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var clickTargets = arrayListOf<GBClickTarget>()
 
 
-    var times = mutableMapOf<String, Long>()
-    var startTimeNanos = 0L
+    var drawTimes = mutableMapOf<String, Long>()
+    var drawStartTimeNanos = 0L
+    var drawStartTimeSec = -1
+    var lastSec = -1
+    var framesThisSec = 0
+    var framesLastSec = 0
+    var framesMissedThisSec = 0
+    var framesMissedLastSec = 0
     var drawUntilStats = 0L
     var lastN = arrayListOf<Long>(120) // TODO: Suspicious that this is computing a running average. Chagnes too fast
+
+    var initTime = 0L
+
     var numberOfDraws = 0L
     var screenWidthDp = 0
     var screenHeightDp = 0
@@ -121,7 +121,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     var turn: Int? = 0  // TODO why nullable
 
     init {
-        initialise()
+        initTime = measureNanoTime { initialise() } / 1000000
     }
 
     private fun initialise() {
@@ -137,70 +137,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         zoomLevelStar = focusSize / MaxSystemOrbit / 40f
 
 
-
         paint.isAntiAlias = true
         paint.strokeCap = Cap.ROUND
         paint.strokeWidth = strokeWidth.toFloat()
 
-
-        // Get bitmaps we'll use later.
-        bmStar = BitmapFactory.decodeResource(getResources(), R.drawable.star)!!
-        var w = density / 420f * bmStar!!.getWidth()
-        var h = density / 420f * bmStar!!.getHeight()
-        bmStar = Bitmap.createScaledBitmap(bmStar!!, w.toInt(), h.toInt(), true)!!
-
-        bmPlanet = BitmapFactory.decodeResource(getResources(), R.drawable.planet)!!
-        w = density / 420f * bmPlanet!!.getWidth() / 2
-        h = density / 420f * bmPlanet!!.getHeight() / 2
-        bmPlanet = Bitmap.createScaledBitmap(bmPlanet!!, w.toInt(), h.toInt(), true)!!
-
-        bmRaceXenos = BitmapFactory.decodeResource(getResources(), R.drawable.xenost)!!
-        w = density / 420f * bmRaceXenos!!.getWidth() / 30
-        h = density / 420f * bmRaceXenos!!.getHeight() / 30
-        bmRaceXenos = Bitmap.createScaledBitmap(bmRaceXenos!!, w.toInt(), h.toInt(), true)!!
-
-        bmRaceImpi = BitmapFactory.decodeResource(getResources(), R.drawable.impit)!!
-        w = density / 420f * bmRaceImpi!!.getWidth() / 30
-        h = density / 420f * bmRaceImpi!!.getHeight() / 30
-        bmRaceImpi = Bitmap.createScaledBitmap(bmRaceImpi!!, w.toInt(), h.toInt(), true)!!
-
-        bmRaceBeetle = BitmapFactory.decodeResource(getResources(), R.drawable.beetle)!!
-        w = density / 420f * bmRaceBeetle!!.getWidth() / 30
-        h = density / 420f * bmRaceBeetle!!.getHeight() / 30
-        bmRaceBeetle = Bitmap.createScaledBitmap(bmRaceBeetle!!, w.toInt(), h.toInt(), true)!!
-
-        bmRaceTortoise = BitmapFactory.decodeResource(getResources(), R.drawable.tortoise)!!
-        w = density / 420f * bmRaceTortoise!!.getWidth() / 30
-        h = density / 420f * bmRaceTortoise!!.getHeight() / 30
-        bmRaceTortoise = Bitmap.createScaledBitmap(bmRaceTortoise!!, w.toInt(), h.toInt(), true)!!
-
-        // Do a better way. If it works, we replace above... Neet do figure out planet/star, where we divide by 2/1
-        // TODO use a Map from id to bitmap
-        val drawables = listOf<Int>(
-            R.drawable.podt, R.drawable.cruisert, R.drawable.factory,
-            R.drawable.beetlepod, R.drawable.shuttle, R.drawable.research, R.drawable.hq, R.drawable.battlestar,
-            R.drawable.wheel
-        )
-        for (i in drawables) {
-            val bm = BitmapFactory.decodeResource(getResources(), i)!!
-            w = density / 420f * bm.getWidth() / 6
-            h = density / 420f * bm.getHeight() / 6
-            bitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
-        }
-
-        for (i in 0 until numberOfFrames) {
-            wheelBitmap[i] = bitmaps[R.drawable.wheel]!!.rotate((360.toFloat() / numberOfFrames * i))
-        }
-
-        bmASurface[3] = BitmapFactory.decodeResource(getResources(), R.drawable.desert)!!
-        bmASurface[5] = BitmapFactory.decodeResource(getResources(), R.drawable.forest)!!
-        bmASurface[2] = BitmapFactory.decodeResource(getResources(), R.drawable.gas)!!
-        bmASurface[2] = BitmapFactory.decodeResource(getResources(), R.drawable.gas)!!
-        bmASurface[6] = BitmapFactory.decodeResource(getResources(), R.drawable.ice)!!
-        bmASurface[1] = BitmapFactory.decodeResource(getResources(), R.drawable.land)!!
-        bmASurface[4] = BitmapFactory.decodeResource(getResources(), R.drawable.mountain)!!
-        bmASurface[7] = BitmapFactory.decodeResource(getResources(), R.drawable.rock)!!
-        bmASurface[0] = BitmapFactory.decodeResource(getResources(), R.drawable.water)!!
 
         // set behavior of parent
         setDebug(false)
@@ -228,7 +168,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     override fun onDraw(canvas: Canvas) {
 
-        // PERF MapView Drawing Performance: We do star visibility check 4 times on the whole list.
+        // PERF MapView Drawing Performance: We do star visibility check 4 drawTimes on the whole list.
         //  Saves ~100mus when none are pointVisible. Less when we actually draw
 
         super.onDraw(canvas)
@@ -238,7 +178,21 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             return
         }
 
-        startTimeNanos = System.nanoTime()
+        val now = System.nanoTime()
+        if ((now - drawStartTimeNanos) / 1000000L > 17L) {
+            framesMissedThisSec++
+        }
+        drawStartTimeNanos = now
+        drawStartTimeSec = (drawStartTimeNanos / 1000000000L).rem(60).toInt()
+        if (drawStartTimeSec != lastSec) {
+            lastSec = drawStartTimeSec
+            framesLastSec = framesThisSec
+            framesThisSec = 0
+            framesMissedLastSec = framesMissedThisSec
+            framesMissedThisSec = 0
+        }
+        framesThisSec++
+
         numberOfDraws++
 
         normScale = ((1 / scale) - (1 / maxScale)) / (1 / minScale - 1 / maxScale) * 100
@@ -251,23 +205,23 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         clickTargets.clear()
 
-        // times["GG"] = measureNanoTime { drawGrids(canvas) }
+        // drawTimes["GG"] = measureNanoTime { drawGrids(canvas) }
 
-        times["dS&C"] = measureNanoTime { drawStarsAndCircles(canvas) }
+        drawTimes["dS&C"] = measureNanoTime { drawStarsAndCircles(canvas) }
 
-        times["dPSF"] = measureNanoTime { drawPlanetSurface(canvas) }
+        drawTimes["dPSF"] = measureNanoTime { drawPlanetSurface(canvas) }
 
-        times["dP&s"] = measureNanoTime { drawPlanetsAndShips(canvas) }
+        drawTimes["dP&s"] = measureNanoTime { drawPlanetsAndShips(canvas) }
 
-        times["dDSs"] = measureNanoTime { drawDeepSpaceShips(canvas) }
+        drawTimes["dDSs"] = measureNanoTime { drawDeepSpaceShips(canvas) }
 
-        times["dSNa"] = measureNanoTime { drawStarNames(canvas) }
+        drawTimes["dSNa"] = measureNanoTime { drawStarNames(canvas) }
 
-        times["dRac"] = measureNanoTime { drawRaces(canvas) }
+        drawTimes["dRac"] = measureNanoTime { drawRaces(canvas) }
 
-        times["dsho"] = measureNanoTime { drawShots(canvas) }
+        drawTimes["dsho"] = measureNanoTime { drawShots(canvas) }
 
-        drawUntilStats = System.nanoTime() - startTimeNanos
+        drawUntilStats = System.nanoTime() - drawStartTimeNanos
         lastN[(numberOfDraws % lastN.size).toInt()] = drawUntilStats
 
 
@@ -280,7 +234,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             drawClickTargets(canvas)
         }
 
-        postInvalidateDelayed(18) // 40 -> ~24 fps, 20 -> 50fps
+        postInvalidateOnAnimation()
+//        postInvalidateDelayed(18) // 40 -> ~24 fps, 20 -> 50fps
 
     } // onDraw
 
@@ -360,15 +315,24 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             )
 
             canvas.drawText(
-                "Draw:${(lastN.average() / 1000000).toInt().f(2)}ms",
+                "Draw:${(lastN.average() / 1000000).toInt().f(2)}ms" +
+                        "|fps:${framesLastSec.f(3)}" +
+                        "|fms:${framesMissedLastSec.f(3)}" +
+                        "|init:${initTime.f(5)}ms",
                 8f,
                 l++ * h,
                 statsNamesPaint
             )
 
-//            GBViewModel.times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint) }
+//            GBViewModel.drawTimes.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint) }
 
-            times.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint) }
+            drawTimes.forEach { t, u ->
+                canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint)
+            }
+
+            ARBitmaps.initTimes.forEach { t, u ->
+                canvas.drawText("$t:${(u / 1000L).f(5)}μs", 8f, l++ * h, statsNamesPaint)
+            }
 
         }
     }
@@ -376,7 +340,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private fun drawRaces(canvas: Canvas) {
         // Timing Info:  no race 200μs, 1 race 400μs, more ?μs
-        if (normScale > 50) {
+        if (normScale > 50 && ARBitmaps.ready) {
 
             for ((_, r) in vm.races) {
 
@@ -391,16 +355,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         sourceToViewCoord(sP1, vP1)
                         when (r.idx) {
                             0 -> {
-                                canvas.drawBitmap(bmRaceXenos!!, vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmaps[R.drawable.xenost]!!, vP1.x, vP1.y, null)
                             }
                             1 -> {
-                                canvas.drawBitmap(bmRaceImpi!!, vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmaps[R.drawable.impit]!!, vP1.x, vP1.y, null)
                             }
                             2 -> {
-                                canvas.drawBitmap(bmRaceBeetle!!, vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmaps[R.drawable.beetle]!!, vP1.x, vP1.y, null)
                             }
                             3 -> {
-                                canvas.drawBitmap(bmRaceTortoise!!, vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmaps[R.drawable.tortoise]!!, vP1.x, vP1.y, null)
                             }
                         }
                     }
@@ -520,7 +484,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                                     val o = (PlanetOrbit * 0.4f) * uToS * scale
                                     val size = 4 * o / p.width
-                                    //canvas.drawBitmap(bitmaps[p.sectors[j].type],p.sectorX(j) * 50f,p.sectorY(j) *50f,null)
                                     canvas.drawBitmap(
                                         bmASurface[p.sectors[j].type]!!,
                                         null,
@@ -570,11 +533,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                             sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                             sourceToViewCoord(sP1, vP1)
-                            if (normScale > 1) {
+                            if (normScale > 1 && ARBitmaps.ready) {
                                 canvas.drawBitmap(
-                                    bmPlanet!!,
-                                    vP1.x - bmPlanet!!.width / 2,
-                                    vP1.y - bmPlanet!!.height / 2,
+                                    otherBitmaps[R.drawable.planet]!!,
+                                    vP1.x - otherBitmaps[R.drawable.planet]!!.width / 2,
+                                    vP1.y - otherBitmaps[R.drawable.planet]!!.height / 2,
                                     null
                                 )
                             }
@@ -713,16 +676,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
         // Draw bitmap
-        if (1 > normScale) {
+        if (1 > normScale && ARBitmaps.ready) {
             when (sh.idxtype) {
                 // TODO: Ships should tell give me the ID of their bitmap and this when statement would go away
-                // But GBShips don't know anything about bitmaps, so the logic needs to live elsewhere.
+                // But GBShips don't know anything about shipBitmaps, so the logic needs to live elsewhere.
                 POD -> {
                     canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
                     if (sh.race.uid == 2) {
-                        val o = bitmaps[R.drawable.beetlepod]!!.width / 2.6f / 100 * scale
+                        val o = shipBitmaps[R.drawable.beetlepod]!!.width / 2.6f / 100 * scale
                         canvas.drawBitmap(
-                            bitmaps[R.drawable.beetlepod]!!,
+                            shipBitmaps[R.drawable.beetlepod]!!,
                             null,
                             RectF(
                                 vP1.x - o,
@@ -733,9 +696,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             null
                         )
                     } else {
-                        val o = bitmaps[R.drawable.shuttle]!!.width / 2.6f / 100 * scale
+                        val o = shipBitmaps[R.drawable.shuttle]!!.width / 2.6f / 100 * scale
                         canvas.drawBitmap(
-                            bitmaps[R.drawable.shuttle]!!,
+                            shipBitmaps[R.drawable.shuttle]!!,
                             null,
                             RectF(
                                 vP1.x - o,
@@ -754,9 +717,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     val i = (currentTimeMillis().rem(10000).div((10000 / numberOfFrames)).toInt()
                             + sh.uid).rem(numberOfFrames)
 
-                    val o = wheelBitmap[i]!!.width / 2.4f / 100 * scale
+                    val o = wheelBitmaps[i]!!.width / 2.4f / 100 * scale
                     canvas.drawBitmap(
-                        wheelBitmap[i]!!,
+                        wheelBitmaps[i]!!,
                         null,
                         RectF(
                             vP1.x - o,
@@ -775,9 +738,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     //canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                     canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
-                    val o = bitmaps[R.drawable.cruisert]!!.width / 2.4f / 100 * scale
+                    val o = shipBitmaps[R.drawable.cruisert]!!.width / 2.4f / 100 * scale
                     canvas.drawBitmap(
-                        bitmaps[R.drawable.cruisert]!!,
+                        shipBitmaps[R.drawable.cruisert]!!,
                         null,
                         RectF(
                             vP1.x - o,
@@ -791,10 +754,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                 FACTORY -> {
                     canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
-                    val o = bitmaps[R.drawable.factory]!!.width / 2.4f / 100 * scale
+                    val o = shipBitmaps[R.drawable.factory]!!.width / 2.4f / 100 * scale
 
                     canvas.drawBitmap(
-                        bitmaps[R.drawable.hq]!!,
+                        shipBitmaps[R.drawable.hq]!!,
                         null,
                         RectF(
                             vP1.x - o,
@@ -920,15 +883,23 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     fun drawStarsAndCircles(canvas: Canvas) {
         // Always draw stars
-        paint.style = Style.STROKE
-        for ((_, s) in vm.stars) {
-            if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
-                sourceToViewCoord(sP1, vP1)
-                canvas.drawBitmap(bmStar!!, vP1.x - bmStar!!.getWidth() / 2, vP1.y - bmStar!!.getWidth() / 2, null)
 
-                clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), s))
+        if (ARBitmaps.ready) {
+            paint.style = Style.STROKE
+            for ((_, s) in vm.stars) {
+                if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
+                    sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
+                    sourceToViewCoord(sP1, vP1)
+                    canvas.drawBitmap(
+                        otherBitmaps[R.drawable.star]!!,
+                        vP1.x - otherBitmaps[R.drawable.star]!!.getWidth() / 2,
+                        vP1.y - otherBitmaps[R.drawable.star]!!.getWidth() / 2,
+                        null
+                    )
 
+                    clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), s))
+
+                }
             }
         }
 
@@ -946,7 +917,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 canvas.drawCircle(vP1.x, vP1.y, radius, paint)
             }
         }
-
 
     }
 
