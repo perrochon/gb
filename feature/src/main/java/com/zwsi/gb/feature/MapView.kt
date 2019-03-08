@@ -10,10 +10,10 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
+import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
@@ -29,6 +29,11 @@ import java.lang.System.currentTimeMillis
 import kotlin.math.*
 import kotlin.system.measureNanoTime
 
+
+fun Bitmap.rotate(degrees: Float): Bitmap {
+    val matrix = Matrix().apply { postRotate(degrees) }
+    return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+}
 
 //TODO where should these extensions to basic types live?
 fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
@@ -168,7 +173,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         bmRaceTortoise = Bitmap.createScaledBitmap(bmRaceTortoise!!, w.toInt(), h.toInt(), true)!!
 
         // Do a better way. If it works, we replace above... Neet do figure out planet/star, where we divide by 2/1
-        val drawables = listOf<Int>(R.drawable.podt, R.drawable.cruisert, R.drawable.factory, R.drawable.beetlepod)
+        // TODO use a Map from id to bitmap
+        val drawables = listOf<Int>(
+            R.drawable.podt, R.drawable.cruisert, R.drawable.factory,
+            R.drawable.beetlepod, R.drawable.shuttle, R.drawable.research, R.drawable.hq, R.drawable.battlestar,
+            R.drawable.wheel
+        )
         for (i in drawables) {
             val bm = BitmapFactory.decodeResource(getResources(), i)!!
             w = density / 420f * bm.getWidth() / 6
@@ -178,6 +188,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         bmASurface[3] = BitmapFactory.decodeResource(getResources(), R.drawable.desert)!!
         bmASurface[5] = BitmapFactory.decodeResource(getResources(), R.drawable.forest)!!
+        bmASurface[2] = BitmapFactory.decodeResource(getResources(), R.drawable.gas)!!
         bmASurface[2] = BitmapFactory.decodeResource(getResources(), R.drawable.gas)!!
         bmASurface[6] = BitmapFactory.decodeResource(getResources(), R.drawable.ice)!!
         bmASurface[1] = BitmapFactory.decodeResource(getResources(), R.drawable.land)!!
@@ -716,7 +727,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             null
                         )
                     } else {
-                        val o = bitmaps[R.drawable.podt]!!.width / 2.6f / 100 * scale
+                        val o = bitmaps[R.drawable.shuttle]!!.width / 2.6f / 100 * scale
                         canvas.drawBitmap(
                             bitmaps[R.drawable.podt]!!,
                             null,
@@ -732,6 +743,29 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 }
 
                 CRUISER -> {
+                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+
+                    val angle = currentTimeMillis().rem(7200).div(20).toInt()
+                    // PERF Instead of rotating on draw, maybe pre-rotate to say 12 angles and use those?
+                    val bitmap = bitmaps[R.drawable.wheel]!!.rotate(angle.toFloat())
+
+                    // TODO: Don't draw rotating dot with Wheel
+
+                    val o = bitmap.width / 2.4f / 100 * scale
+                    canvas.drawBitmap(
+                        bitmap,
+                        null,
+                        RectF(
+                            vP1.x - o,
+                            vP1.y - o,
+                            vP1.x + o,
+                            vP1.y + o
+                        ),
+                        null
+                    )
+                }
+
+                CRUISER + 5 -> {
                     //canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                     canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
@@ -754,7 +788,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     val o = bitmaps[R.drawable.factory]!!.width / 2.4f / 100 * scale
 
                     canvas.drawBitmap(
-                        bitmaps[R.drawable.factory]!!,
+                        bitmaps[R.drawable.hq]!!,
                         null,
                         RectF(
                             vP1.x - o,

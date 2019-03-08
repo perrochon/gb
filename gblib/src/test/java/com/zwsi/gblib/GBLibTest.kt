@@ -17,8 +17,8 @@ class GBLibTest {
 
     fun consistent() {
         GBController.u
-        assertEquals(u.star(0).starPlanetsList[0], u.planet(0))
-        assertEquals(u.star(0).starPlanetsList[1], u.planet(1))
+        assertEquals(u.star(0).starPlanets[0], u.planet(0))
+        assertEquals(u.star(0).starPlanets[1], u.planet(1))
     }
 
     @Test
@@ -35,10 +35,10 @@ class GBLibTest {
         GBController.makeSmallUniverse()
         consistent()
 
-        assertEquals(100, u.star(0).starPlanetsList[0].planetPopulation)
-        assertEquals(100, u.star(1).starPlanetsList[0].planetPopulation)
-        assertEquals(100, u.star(2).starPlanetsList[0].planetPopulation)
-        assertEquals(100, u.star(3).starPlanetsList[0].planetPopulation)
+        assertEquals(100, u.star(0).starPlanets[0].planetPopulation)
+        assertEquals(100, u.star(1).starPlanets[0].planetPopulation)
+        assertEquals(100, u.star(2).starPlanets[0].planetPopulation)
+        assertEquals(100, u.star(3).starPlanets[0].planetPopulation)
 
 
         populate()
@@ -56,10 +56,10 @@ class GBLibTest {
         GBController.makeBigUniverse()
         consistent()
 
-        assertEquals(100, u.star(0).starPlanetsList[0].planetPopulation)
-        assertEquals(100, u.star(1).starPlanetsList[0].planetPopulation)
-        assertEquals(100, u.star(2).starPlanetsList[0].planetPopulation)
-        assertEquals(100, u.star(3).starPlanetsList[0].planetPopulation)
+        assertEquals(100, u.star(0).starPlanets[0].planetPopulation)
+        assertEquals(100, u.star(1).starPlanets[0].planetPopulation)
+        assertEquals(100, u.star(2).starPlanets[0].planetPopulation)
+        assertEquals(100, u.star(3).starPlanets[0].planetPopulation)
 
 
         populate()
@@ -80,7 +80,7 @@ class GBLibTest {
         GBController.makeUniverse()
         consistent()
         GBController.landPopulation(1, 0, 55)
-        assertEquals(55, u.star(0).starPlanetsList[1].planetPopulation)
+        assertEquals(55, u.star(0).starPlanets[1].planetPopulation)
     }
 
     fun populate() {
@@ -100,24 +100,24 @@ class GBLibTest {
         val r3 = allRaces.toList().component4().second
 
         // Give each race a factory
-        GBShip(u.getNextGlobalId(),0, r0.uid, GBLocation(allStars[0]!!.starPlanetsList[0],5,1)).initializeShip()
-        GBShip(u.getNextGlobalId(),0, r1.uid, GBLocation(allStars[1]!!.starPlanetsList[0],5,1)).initializeShip()
-        GBShip(u.getNextGlobalId(),0, r2.uid, GBLocation(allStars[2]!!.starPlanetsList[0],4,1)).initializeShip()
+        GBShip(u.getNextGlobalId(),0, r0.uid, GBLocation(allStars[0]!!.starPlanets[0],5,1)).initializeShip()
+        GBShip(u.getNextGlobalId(),0, r1.uid, GBLocation(allStars[1]!!.starPlanets[0],5,1)).initializeShip()
+        GBShip(u.getNextGlobalId(),0, r2.uid, GBLocation(allStars[2]!!.starPlanets[0],4,1)).initializeShip()
         shipsMade +=3
 
         if (numberOfStars > 3) {
-            GBShip(u.getNextGlobalId(),0, r3.uid, GBLocation(allStars[3]!!.starPlanetsList[0],PlanetOrbit,1f)).initializeShip()
+            GBShip(u.getNextGlobalId(),0, r3.uid, GBLocation(allStars[3]!!.starPlanets[0],PlanetOrbit,1f)).initializeShip()
             shipsMade +=1
         }
 
         // Give each race a pod
-        GBShip(u.getNextGlobalId(),1, r0.uid, GBLocation(allStars[0]!!.starPlanetsList[0],PlanetOrbit,1f)).initializeShip()
-        GBShip(u.getNextGlobalId(),1, r1.uid, GBLocation(allStars[1]!!.starPlanetsList[0],PlanetOrbit,1f)).initializeShip()
-        GBShip(u.getNextGlobalId(),1, r2.uid, GBLocation(allStars[2]!!.starPlanetsList[0],PlanetOrbit,1f)).initializeShip()
+        GBShip(u.getNextGlobalId(),1, r0.uid, GBLocation(allStars[0]!!.starPlanets[0],PlanetOrbit,1f)).initializeShip()
+        GBShip(u.getNextGlobalId(),1, r1.uid, GBLocation(allStars[1]!!.starPlanets[0],PlanetOrbit,1f)).initializeShip()
+        GBShip(u.getNextGlobalId(),1, r2.uid, GBLocation(allStars[2]!!.starPlanets[0],PlanetOrbit,1f)).initializeShip()
         shipsMade +=3
 
         if (numberOfStars > 3) {
-            GBShip(u.getNextGlobalId(),1, r3.uid, GBLocation(allStars[3]!!.starPlanetsList[0],PlanetOrbit,1f)).initializeShip()
+            GBShip(u.getNextGlobalId(),1, r3.uid, GBLocation(allStars[3]!!.starPlanets[0],PlanetOrbit,1f)).initializeShip()
             shipsMade +=1
         }
 

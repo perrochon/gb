@@ -13,7 +13,7 @@ class GBPlanetTest {
         assertTrue(planet.name.length > 0)
 
         assertTrue(planet.star.starUidPlanets.contains(planet.uid))
-        assertTrue(planet.star.starPlanetsList.contains(planet))
+        assertTrue(planet.star.starPlanets.contains(planet))
         assertTrue(u.planets.containsValue(planet))
         assertEquals(planet,u.planets[planet.uid])
 
@@ -21,7 +21,7 @@ class GBPlanetTest {
 
         var count = 0
         for ((_, star) in u.stars) {
-            for (pl in star.starPlanetsList) {
+            for (pl in star.starPlanets) {
                 if (pl.uid == planet.uid)
                     count++
             }

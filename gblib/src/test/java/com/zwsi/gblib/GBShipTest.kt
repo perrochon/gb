@@ -5,7 +5,6 @@
 
 package com.zwsi.gblib
 
-import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
@@ -158,7 +157,7 @@ class GBShipTest {
 
         // Just in case there aren't any, make a few more
         val s = u.star(0)
-        val p: GBPlanet = s.starPlanetsList.first()
+        val p: GBPlanet = s.starPlanets.first()
         val r: GBRace = u.races.toList().component1().second
 
         var sh = GBShip(u.getNextGlobalId(),1, r.uid, GBLocation(500f, 500f))
@@ -223,9 +222,9 @@ class GBShipTest {
         GBController.makeUniverse()
 
         val s0 = u.star(0)
-        val p0 = s0.starPlanetsList[0]
+        val p0 = s0.starPlanets[0]
         val s1 = u.star(1)
-        val p1 = s1.starPlanetsList[1]
+        val p1 = s1.starPlanets[1]
         val r0 = GBController.u.races.toList().component1().second
 
         val locations = arrayListOf<GBLocation>()
@@ -264,8 +263,8 @@ class GBShipTest {
         GBController.makeUniverse()
 
         val s0 = u.star(0)
-        val p0 = s0.starPlanetsList[0]
-        val p1 = s0.starPlanetsList[1]
+        val p0 = s0.starPlanets[0]
+        val p1 = s0.starPlanets[1]
         val r0 = u.races.toList().component1().second
 
         val loc01 = GBLocation(p0, 1, 1);
@@ -304,8 +303,8 @@ class GBShipTest {
 
         val s0 = u.star(0)
         val s1 = u.star(1)
-        val p0 = s0.starPlanetsList[0]
-        val p1 = s1.starPlanetsList[1]
+        val p0 = s0.starPlanets[0]
+        val p1 = s1.starPlanets[1]
         val r0 = u.races.toList().component1().second
 
         val loc01 = GBLocation(p0, 1, 1);

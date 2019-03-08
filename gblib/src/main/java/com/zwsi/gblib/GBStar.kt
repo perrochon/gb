@@ -19,18 +19,20 @@ data class GBStar(val uid: Int, val numberOfPlanets: Int, var loc: GBLocation) {
     }
 
     // Planets
-    // PERF ?? Don't save, compute on load. save happens every turn, re-loads are rare. Smaller file. Likely not worth it.
+    // PERF ?? Don't keep materialized view, but compute on load and cache. Save happens every turn, but re-loads are rare.
+    // Smaller file. Likely not worth it.
     var starUidPlanets: MutableSet<Int> = HashSet<Int>() // UID of planets. Persistent
 
-    internal val starPlanetsList: List<GBPlanet>
-        // PERF ?? Cache the list and only recompute if the hashcode changes. Which is rare
+    internal val starPlanets: List<GBPlanet>
+        // PERF ?? Likely bad candidate. Cache the list and only recompute if the hashcode changes. Which requires Death Stars
         get() = starUidPlanets.map { u.planet(it) }
 
     // Ships
     var starUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
 
     internal val starShips: List<GBShip>
-        // PERF ?? Cache the list and only recompute if the hashcode changes.
+        // PERF ?? Likely good candidate. Cache the list and only recompute if the hashcode changes.
+        // This list changes frequently on update and is read frequently when drawing ( 30 times/second ) (no updates)
         get() = starUidShips.map { u.ship(it) }
 
     fun consoleDraw() {
@@ -39,7 +41,7 @@ data class GBStar(val uid: Int, val numberOfPlanets: Int, var loc: GBLocation) {
         println("  " + "====================")
         println("  The $name system contains ${starUidPlanets.size} planet(s) and ${starUidShips.size} ship(s).")
 
-        for (i in starPlanetsList) {
+        for (i in starPlanets) {
             i.consoleDraw()
         }
     }

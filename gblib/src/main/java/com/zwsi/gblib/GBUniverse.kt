@@ -143,7 +143,7 @@ data class GBUniverse(
     // (Say 4 areas each with 5 sub-areas, then place stars into sub area) then place one race in each area.
     // Of course for 17 races, this would lead to three levels with 64 sub-sub-areas. Quadratic may be better.
 
-    fun getStarCoordinates(): Pair<Int, Int> {
+    private fun getStarCoordinates(): Pair<Int, Int> {
 
         val nos = numberOfStars.toDouble() // TODO we don't have u yet....
         val dim = java.lang.Math.ceil(java.lang.Math.sqrt(nos)).toInt()
@@ -176,39 +176,18 @@ data class GBUniverse(
         return Pair(coordinates[0], coordinates[1])
     }
 
-
-    fun makeRaces() {
+    internal fun makeRaces() {
         GBLog.i("Making and landing Races")
+        for (i in 0 until numberOfRaces)
+            makeRace(i, i)
+    }
 
-        // TODO: Replace with full configuration driven solution instead of hard code.
-        // We only need one race for the early mission, but we land the others for God Mode...
-
-        // PERF ?? Each starPlanetsList call below re-creates the List. But this all happens only once.
-        // And the code below will need to change anyway.
-
-        // The first player
-        val r0 = GBRace(0, 0, stars[0]!!.starPlanetsList[0].uid)
-        races[0] = r0
-        stars[0]!!.starPlanetsList[0].landPopulationOnEmptySector(r0, 100)
-        r0.raceVisibleStars.add(0)
-
-        // The second player
-        val r1 = GBRace(1, 1, stars[1]!!.starPlanetsList[0].uid)
-        races[1] = r1
-        stars[1]!!.starPlanetsList[0].landPopulationOnEmptySector(r1, 100)
-        r1.raceVisibleStars.add(1)
-
-        // The Beetles (autoplayer)
-        val r2 = GBRace(2, 2, stars[2]!!.starPlanetsList[0].uid)
-        races[2] = r2
-        stars[2]!!.starPlanetsList[0].landPopulationOnEmptySector(r2, 100)
-        r2.raceVisibleStars.add(2)
-
-        // The Tortoises (autoplayer)
-        val r3 = GBRace(3, 3, stars[3]!!.starPlanetsList[0].uid)
-        races[3] = r3
-        stars[3]!!.starPlanetsList[0].landPopulationOnEmptySector(r3, 100)
-        r3.raceVisibleStars.add(3)
+    private fun makeRace(idxRace: Int, uidStar: Int) {
+        val homePlanet = star(uidStar).starPlanets.first()
+        val race = GBRace(idxRace, idxRace, homePlanet.uid)
+        races[idxRace] = race
+        race.raceVisibleStars.add(homePlanet.uidStar)
+        homePlanet.landPopulationOnEmptySector(race, 100)
     }
 
     internal fun doUniverse() {
@@ -234,7 +213,7 @@ data class GBUniverse(
         }
 
         for ((_, star) in stars) {
-            for (p in star.starPlanetsList) {
+            for (p in star.starPlanets) {
                 p.doPlanet()
             }
         }

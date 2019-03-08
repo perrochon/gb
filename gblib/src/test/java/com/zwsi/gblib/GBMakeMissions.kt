@@ -16,15 +16,14 @@ class GBMakeMissions {
 
     @Test
     fun makeMission1() {
-        GBController.makeSmallUniverse()
+        GBController.makeUniverse(1,1)
+        u.star(0).loc = GBLocation(410f,710f)
+
         val turns = 10
         var json: String = ""
 
-        for (i in 1..turns) {
-            u.doUniverse()
-        }
         u.turn = 1
-        u.description = "Mission 1"
+        u.description = "Mission 1. Expand through your solar system"
         json = GBController.saveUniverse()
         File("levels/mission1.json").writeText(json)
 
