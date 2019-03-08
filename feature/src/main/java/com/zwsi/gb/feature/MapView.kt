@@ -64,8 +64,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var bmASurface = HashMap<Int, Bitmap>()
 
     private val bitmaps = HashMap<Int, Bitmap>()
-
-    private var wheelBitmap : Bitmap? = null
+    val numberOfFrames = 16
+    private var wheelBitmap = arrayOfNulls<Bitmap>(numberOfFrames)
 
 
     val sourceSize = 18000  // FIXME Would be nice not to hard code here and below
@@ -188,7 +188,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             bitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
         }
 
-        wheelBitmap = bitmaps[R.drawable.wheel]
+        for (i in 0 until numberOfFrames) {
+            wheelBitmap[i] = bitmaps[R.drawable.wheel]!!.rotate((360.toFloat() / numberOfFrames * i))
+        }
 
         bmASurface[3] = BitmapFactory.decodeResource(getResources(), R.drawable.desert)!!
         bmASurface[5] = BitmapFactory.decodeResource(getResources(), R.drawable.forest)!!
@@ -248,12 +250,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         visibleFileRect(vr)
 
         clickTargets.clear()
-
-        val angle = currentTimeMillis().rem(7200).div(20).toInt()
-        // PERF Instead of rotating on draw, maybe pre-rotate to say 12 angles and use those?
-
-        wheelBitmap = bitmaps[R.drawable.wheel]!!.rotate(angle.toFloat())
-
 
         // times["GG"] = measureNanoTime { drawGrids(canvas) }
 
@@ -690,7 +686,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         if (10 > normScale) {
             // Draw animation
-            if (sh.health > 0) {
+            if (sh.health > 0 && sh.idxtype != CRUISER) {
                 val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
                 canvas.drawCircle(
                     vP1.x + cos(theta) * radius,
@@ -755,11 +751,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 CRUISER -> {
                     canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
-                    // TODO: Don't draw rotating dot with Wheel
+                    val i = (currentTimeMillis().rem(7200).div((7200 / numberOfFrames)).toInt()
+                            + sh.uid).rem(numberOfFrames)
 
-                    val o = wheelBitmap!!.width / 2.4f / 100 * scale
+                    val o = wheelBitmap[i]!!.width / 2.4f / 100 * scale
                     canvas.drawBitmap(
-                        wheelBitmap,
+                        wheelBitmap[i]!!,
                         null,
                         RectF(
                             vP1.x - o,
@@ -772,6 +769,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 }
 
                 CRUISER + 5 -> {
+                    // TODO: Fixe rotating dot if statements above
+
+
                     //canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                     canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 
