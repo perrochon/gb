@@ -18,9 +18,9 @@
 //    val stars: MutableMap<Int, GBStar>? = null,
 //    val planets: MutableMap<Int, GBPlanet>? = null,
 //    val races: MutableMap<Int, GBRace>? = null,
-//    val ships: MutableMap<Int, GBShip>? = null,
+//    val shipsData: MutableMap<Int, GBShip>? = null,
 //    // deepSpace rebuilt on load
-//    // dead ships not needed
+//    // dead shipsData not needed
 //    val shots: MutableList<GBVector>? = null,
 //    val news: MutableList<String>? = null
 //
@@ -39,7 +39,7 @@
 //        u.stars,
 //        u.planets,
 //        u.races,
-//        u.ships,
+//        u.shipsData,
 //        u.shots,
 //        u.news
 //    ) {

@@ -18,7 +18,7 @@ class GBSavedGameTest {
 //        GBController.makeUniverse()
 //        val moshi = Moshi.Builder().build()
 //
-//        val info = "Initial Universe: Number of Ships: ${u.ships.size}"
+//        val info = "Initial Universe: Number of Ships: ${u.shipsData.size}"
 //        val gameInfo1 = GBSavedGame(info, u)
 //        val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
 //        val json = jsonAdapter1.toJson(gameInfo1)
@@ -49,7 +49,7 @@ class GBSavedGameTest {
 //            GBController.doUniverse()
 //        }
 //
-//        val info = "Universe After $turns turns: Number of Ships: ${u.ships.size}"
+//        val info = "Universe After $turns turns: Number of Ships: ${u.shipsData.size}"
 //        val gameInfo1 = GBSavedGame(info, u)
 //        val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
 //        val json = jsonAdapter1.toJson(gameInfo1)
@@ -188,12 +188,12 @@ class GBSavedGameTest {
 //        u.stars = gameInfo2.stars!!
 //        u.planets = gameInfo2.planets!!
 //        u.races = gameInfo2.races!!
-//        u.ships = gameInfo2.ships!!
+//        u.shipsData = gameInfo2.shipsData!!
 //        u.deepSpaceUidShips.clear()
-//        u.ships.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
+//        u.shipsData.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
 //
 //        //Second Turn
-//        val factory = u.ships.filter { it.value.idxtype == GBData.FACTORY }.values.firstOrNull()!!
+//        val factory = u.shipsData.filter { it.value.idxtype == GBData.FACTORY }.values.firstOrNull()!!
 //        GBController.makeCruiser(factory.uid)
 //
 //        GBController.doUniverse()
@@ -209,12 +209,12 @@ class GBSavedGameTest {
 //        u.stars = gameInfo2.stars!!
 //        u.planets = gameInfo2.planets!!
 //        u.races = gameInfo2.races!!
-//        u.ships = gameInfo2.ships!!
+//        u.shipsData = gameInfo2.shipsData!!
 //        u.deepSpaceUidShips.clear()
-//        u.ships.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
+//        u.shipsData.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
 //
 //        // Third Turn
-//        val cruiser = u.ships.filter { it.value.idxtype == GBData.CRUISER }.values.firstOrNull()!!
+//        val cruiser = u.shipsData.filter { it.value.idxtype == GBData.CRUISER }.values.firstOrNull()!!
 //        cruiser.dest = GBLocation(u.planet(1), 0f, 0f)
 //        GBController.doUniverse()
 //
@@ -229,9 +229,9 @@ class GBSavedGameTest {
 //        u.stars = gameInfo2.stars!!
 //        u.planets = gameInfo2.planets!!
 //        u.races = gameInfo2.races!!
-//        u.ships = gameInfo2.ships!!
+//        u.shipsData = gameInfo2.shipsData!!
 //        u.deepSpaceUidShips.clear()
-//        u.ships.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
+//        u.shipsData.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
 //
 //    }
 
@@ -246,7 +246,7 @@ class GBSavedGameTest {
 //            GBController.doUniverse()
 //
 //            val info = "Universe After $i turns"
-//            val gameInfo1 = GBSavedGame(info, ships = u.ships)
+//            val gameInfo1 = GBSavedGame(info, shipsData = u.shipsData)
 //
 //            val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java).indent("  ")
 //            val json = jsonAdapter1.toJson(gameInfo1)
@@ -254,14 +254,14 @@ class GBSavedGameTest {
 //
 //            assert(gameInfo1 == gameInfo2)
 //
-//            u.ships = gameInfo2.ships!!
+//            u.shipsData = gameInfo2.shipsData!!
 //
 //            u.deepSpaceUidShips.clear()
 //
-//            u.ships.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
+//            u.shipsData.filterValues { it.loc.level == DEEPSPACE }.keys.forEach { u.deepSpaceUidShips.add(it) }
 //
 //            u.deadShips.clear()
-//            // Not restoring any dead ships that we may have saved...
+//            // Not restoring any dead shipsData that we may have saved...
 //
 //        }
 //

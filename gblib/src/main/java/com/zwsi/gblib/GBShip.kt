@@ -8,6 +8,7 @@ import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
+import com.zwsi.gblib.GBData.Companion.shipsData
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -38,9 +39,9 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     // They are irrelevant for text based UI. But persistence in the client is problematic if an update is missed
     var trails: MutableList<GBxy> = arrayListOf()
 
-    // TODO For stars, planets, races, the caller ads to the u list. For ships, the ship ads. Problematic Inconsistency?
-    // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in ships. Dangerous?
-    // This needs to be called when creating new ships. It's not needed when ships are created by restoring from JSON
+    // TODO For stars, planets, races, the caller ads to the u list. For shipsData, the ship ads. Problematic Inconsistency?
+    // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in shipsData. Dangerous?
+    // This needs to be called when creating new shipsData. It's not needed when shipsData are created by restoring from JSON
     fun initializeShip() {
         u.ships[uid] = this
         u.race(uidRace).raceUidShips.add(this.uid)
@@ -61,11 +62,11 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 gbAssert("Bad Parameters for ship placement $loc", { false })
             }
         }
-        type = GBData.getShipType(idxtype)
+        type = GBData.shipsData[idxtype]!!.type
         name =
             u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
-        speed = GBData.getShipSpeed(idxtype)
-        health = GBData.getShipHealth(idxtype)
+        speed = GBData.shipsData[idxtype]!!.speed
+        health = GBData.shipsData[idxtype]!!.health
 
     }
 
@@ -125,7 +126,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
     fun doShip() {
 
-        if (health > 0) { // for now don't update dead ships...
+        if (health > 0) { // for now don't update dead shipsData...
             moveShip()
             moveOrbitShip()
 

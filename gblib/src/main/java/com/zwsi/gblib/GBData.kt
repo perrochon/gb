@@ -185,7 +185,11 @@ class GBData {
         const val FACTORY = 0
         const val POD = 1
         const val CRUISER = 2
-
+        const val HEADQUARTER = 3
+        const val RESEARCH = 4
+        const val SHUTTLE = 5
+        const val BATTLESTAR = 6
+        const val STATION = 7
 
         internal data class ShipData(
             val type: String,
@@ -193,23 +197,16 @@ class GBData {
             val health: Int
         )
 
-        private val ships = hashMapOf(
+        internal val shipsData = hashMapOf(
             FACTORY to ShipData("Factory", 0, 500),
             POD to ShipData("Spore Pod", 1, 10),
-            CRUISER to ShipData("Cruiser", 3, 100)
+            CRUISER to ShipData("Cruiser", 3, 100),
+            HEADQUARTER to ShipData("Headquarters", 0, 1000),
+            RESEARCH to ShipData("Research", 0, 100),
+            SHUTTLE to ShipData("Shuttle", 3, 50),
+            BATTLESTAR to ShipData("Battle Star", 1, 1000),
+            STATION to ShipData("Orbital Station", 0, 100)
         )
-
-        internal fun getShipType(idx: Int): String {
-            return ships.get(idx)!!.type
-        }
-
-        internal fun getShipSpeed(idx: Int): Int {
-            return ships.get(idx)!!.speed
-        }
-
-        internal fun getShipHealth(idx: Int): Int {
-            return ships.get(idx)!!.health
-        }
 
         // Stars
         // Stars from: https://github.com/kaladron/galactic-bloodshed/blob/master/data/star.list

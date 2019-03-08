@@ -148,9 +148,9 @@ class GBShipTest {
 
         GBController.makeUniverse()
 
-        GBLog.d("Testing " + u.ships.size + " ships")
+        GBLog.d("Testing " + u.ships.size + " shipsData")
 
-        // Test all ships there are
+        // Test all shipsData there are
         for ((_, ship) in u.ships) {
             consistency(ship)
         }
@@ -359,21 +359,21 @@ class GBShipTest {
 //        GBController.makeSmallUniverse()
 //        val moshi = Moshi.Builder().build()
 //
-//        // Need to make ships
+//        // Need to make shipsData
 //        GBAutoPlayer.playBeetle()
 //
 //        for (i in 1..2) {
 //            GBController.doUniverse()
 //        }
 //
-//        val gameInfo1 = GBSavedGame("Shiplist Only", ships = u.ships)
+//        val gameInfo1 = GBSavedGame("Shiplist Only", shipsData = u.shipsData)
 //        //File("testoutput/GBSShipTestJSONMap.in.txt").writeText(gameInfo1.toString())
 //
 //        val jsonAdapter1: JsonAdapter<GBSavedGame> = moshi.adapter(GBSavedGame::class.java)
 //        val json = jsonAdapter1.toJson(gameInfo1)
 //        val gameInfo2 = jsonAdapter1.lenient().fromJson(json)
 //
-//        //File("testoutput/GBSShipTestJSONMap.map.txt").writeText(u.ships.toString())
+//        //File("testoutput/GBSShipTestJSONMap.map.txt").writeText(u.shipsData.toString())
 //        //File("testoutput/GBSShipTestJSONMap.json").writeText(json)
 //        //File("testoutput/GBSShipTestJSONMap.out.txt").writeText(gameInfo2.toString())
 //

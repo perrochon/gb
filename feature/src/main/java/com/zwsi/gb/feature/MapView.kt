@@ -444,7 +444,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
     private fun drawDeepSpaceShips(canvas: Canvas) {
-        // Timing Info:  no ships 300μs, 50 ships  2000μs, 500 ships 900μs (at beginning)
+        // Timing Info:  no shipsData 300μs, 50 shipsData  2000μs, 500 shipsData 900μs (at beginning)
 
         if (101 >= normScale) {
             for (sh in vm.deepSpaceUidShips.map { vm.ship(it) }) {
@@ -572,13 +572,13 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             }
                         } // if scale
 
-                        // Draw orbit ships
+                        // Draw orbit shipsData
                         for (uidS in p.orbitUidShips) {
                             val sh = vm.ship(uidS)
                             drawShip(canvas, sh)
                         }
 
-                        // Draw landed ships
+                        // Draw landed shipsData
 
                         for (uidS in p.landedUidShips) {
                             val sh = vm.ship(uidS)
@@ -591,7 +591,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     for (uidS in s.starUidShips) {
                         val sh = vm.ship(uidS)
                         drawShip(canvas, sh)
-                    } // ships loop
+                    } // shipsData loop
 
                 }// if star pointVisible?
             }

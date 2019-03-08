@@ -28,7 +28,7 @@ data class GBStar(val uid: Int, val numberOfPlanets: Int, var loc: GBLocation) {
         get() = starUidPlanets.map { u.planet(it) }
 
     // Ships
-    var starUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships. Persistent
+    var starUidShips: MutableSet<Int> = HashSet<Int>() // UID of shipsData. Persistent
 
     internal val starShips: List<GBShip>
         // PERF ?? Likely good candidate. Cache the list and only recompute if the hashcode changes.

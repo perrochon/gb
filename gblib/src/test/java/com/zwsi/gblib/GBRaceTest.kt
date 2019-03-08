@@ -28,7 +28,7 @@ class GBRaceTest {
             assertEquals(race.raceShips.size,0 )
         }
 
-        // TODO TEST add ships to race and check again
+        // TODO TEST add shipsData to race and check again
 
         assert(u.race(0) == u.race(0))
         assert(u.race(0) != u.race(1))

@@ -38,7 +38,7 @@ class GBOrder {
         this.loc = loc
     }
 
-    // TODO check for nulls and correct types, but this can wait until we made ships a hierarchy and repalced orders with schedule
+    // TODO check for nulls and correct types, but this can wait until we made shipsData a hierarchy and repalced orders with schedule
 
     // Type Pod
     fun makePod(uidFactory: Int) {

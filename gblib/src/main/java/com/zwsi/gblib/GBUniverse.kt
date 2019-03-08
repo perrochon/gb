@@ -50,10 +50,10 @@ data class GBUniverse(
     ) {
     }
 
-    var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of ships.
+    var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of shipsData.
 
-    // FIXME PERSISTENCE dead ships in the Universe. Keep here so they don't get garbage collected too early. Keep one turn
-    // dead ships not needed in save, etc.
+    // FIXME PERSISTENCE dead shipsData in the Universe. Keep here so they don't get garbage collected too early. Keep one turn
+    // dead shipsData not needed in save, etc.
     @Transient
     var deadShips: MutableMap<Int, GBShip> = hashMapOf()
 
@@ -222,7 +222,7 @@ data class GBUniverse(
             sh.killShip()
         }
 
-        // Review all ships in orbit and see if we can spread them out a bit
+        // Review all shipsData in orbit and see if we can spread them out a bit
         for ((_, p) in planets) {
             if (p.orbitShips.size > 1) {
                 val targetR = 2 * PI / p.orbitShips.size
@@ -254,7 +254,7 @@ data class GBUniverse(
     fun fireShots() {
         shots.clear()
 
-        // PERF Create one list of all insystem ships, then find shots
+        // PERF Create one list of all insystem shipsData, then find shots
         // System Ships shoot at System only
         for ((_, star) in stars) {
             for (sh1 in star.starShips.shuffled()) {
@@ -274,7 +274,7 @@ data class GBUniverse(
                 }
             }
         }
-        // Orbit Ships shoot at System, Orbit, or landed ships
+        // Orbit Ships shoot at System, Orbit, or landed shipsData
         for ((_, p) in planets) {
             for (sh1 in p.orbitShips.shuffled()) {
 

@@ -34,14 +34,14 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
     var sectors: Array<GBSector>
 
     // Landed Ships
-    var landedUidShips: MutableSet<Int> = HashSet() // UID of ships. Persistent
+    var landedUidShips: MutableSet<Int> = HashSet() // UID of shipsData. Persistent
 
     internal val landedShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes. How often is this used...
         get() = landedUidShips.map { u.ship(it) }
 
     // Orbit Ships
-    var orbitUidShips: MutableSet<Int> = HashSet() // UID of ships. Persistent
+    var orbitUidShips: MutableSet<Int> = HashSet() // UID of shipsData. Persistent
 
     internal val orbitShips: List<GBShip>
         // PERF ?? Cache the list and only recompute if the hashcode changes. How often is this used....
@@ -109,7 +109,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
         // Speed of pods is 1, so angular speed cannot be faster than 1/r
 
         val rt = loc.getSLocP()
-        val speed = 1 / (rt.r + 10)  // was 10 for a long time. Changing to 20 with orbiting ships
+        val speed = 1 / (rt.r + 10)  // was 10 for a long time. Changing to 20 with orbiting shipsData
         loc = GBLocation(u.star(uidStar), rt.r, rt.t - speed) // y points down, anti-clockwise is negative angles...
     }
 

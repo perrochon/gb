@@ -43,13 +43,13 @@ fun GBxy.towards(to: GBxy, distance: Float): GBxy {
  *      Theoretically, it could be derived from x,y and/or refUID, but we don't do that. We keep track manually.
  *      We may introduce hyperspace which overlaps with both Deepspace and System so (x,y) alone may not be sufficient.
  *  LANDED: On planet (sx,sy) gives you the coordinates of the sector. (0,0) is top left, sx->right, sy->down,
- *      Used by ships
+ *      Used by shipsData
  *  ORBIT: In orbit, (t,t) gives you the relative polar coordinates to the center. (x,y) is center(x,y) + relative(x,y)
- *      Used by ships
+ *      Used by shipsData
  *  SYSTEM: In system, (x,y) are universal coordinates -- How to do planets?
- *      Used by ships and planets. Constructor requires polar coordinates!
+ *      Used by shipsData and planets. Constructor requires polar coordinates!
  *  DEEPSPACE: (x,y) are universal coordiantes
- *      Used by ships and stars
+ *      Used by shipsData and stars
  */
 @JsonClass(generateAdapter = true)
 data class GBLocation(
@@ -107,7 +107,7 @@ data class GBLocation(
     // TODO  figure out how to not need boolean to set flag in constructor
     // Stupid: pass a boolean to use cartesian coordinates in constructor? Could use GBxy and GBrt to distinguish,
     // or subclasses instead of when
-    // This takes universal coordinates... Used when moving ships in.
+    // This takes universal coordinates... Used when moving shipsData in.
     // TODO Why do we set x and r in this one? Seems to be the only constructor that does both...
     constructor(star: GBStar, x: Float, y: Float, @Suppress("UNUSED_PARAMETER") dummy: Boolean) : this(
         SYSTEM,
