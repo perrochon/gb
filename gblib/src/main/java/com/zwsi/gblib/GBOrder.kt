@@ -6,32 +6,26 @@ package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.FACTORY
-import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLog.gbAssert
 import kotlin.math.PI
 
 
 class GBOrder {
-
     var type = -1
     var uidShip = -1
     var uidRace = -1
-    lateinit var loc: GBLocation
+    var loc: GBLocation? = null
 
     // Type Factory (ships made without factory)
-    fun makeFactory(_uidPlanet: Int, _uidRace: Int) {
+    fun makeStructure(_uidPlanet: Int, _uidRace: Int) {
 
         val planet = u.planet(_uidPlanet)
         val race = u.race(_uidRace)
-        // TODO Have caller give us a better location (or find one ourselves) for factory ?
-        val loc =
-            GBLocation(planet, GBData.rand.nextInt(planet.width), GBData.rand.nextInt(planet.height))
-
         gbAssert { type == -1 }
         type = FACTORY
         uidRace = race.uid
-        gbAssert { loc.level == LANDED }
-        this.loc = loc
+        // TODO Have caller give us a better location (or find one ourselves) for factory ?
+        this.loc = GBLocation(planet, GBData.rand.nextInt(planet.width), GBData.rand.nextInt(planet.height))
     }
 
     // Ships that are made by a factory
@@ -57,14 +51,21 @@ class GBOrder {
                     GBData.rand.nextFloat() * 2 * PI.toFloat()
                 )
             }
+        } else {
+            // Factory died since order was created
+            // Leave type as is, at -1
         }
     }
 
     fun execute() {
         // Everything is a ship order at this time, no when() needed
-        val ship = GBShip(u.getNextGlobalId(), type, uidRace, loc)
-        ship.initializeShip()
-        u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
+        if (type != -1) {
+            val ship = GBShip(u.getNextGlobalId(), type, uidRace, loc!!)
+            ship.initializeShip()
+            u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
+        } else {
+            // Order bad, maybe because factory died since we ordered something.
+        }
     }
 
 }

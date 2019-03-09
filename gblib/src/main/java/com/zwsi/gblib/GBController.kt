@@ -2,7 +2,6 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import java.io.File
 import java.util.concurrent.locks.ReentrantLock
@@ -172,12 +171,10 @@ class GBController {
             GBController.lock.lock();
             try {
                 val order = GBOrder()
-                order.makeFactory(uidPlanet, uidRace)
+                order.makeStructure(uidPlanet, uidRace)
+                u.orders.add(order)
 
                 u.playerTurns[uidRace]--
-
-                //GBLog.d("universe: Making factory for ${race.name} on ${planet.name}.")
-                u.orders.add(order)
 
             } finally {
                 GBController.lock.unlock()
@@ -189,8 +186,8 @@ class GBController {
             try {
                 val order = GBOrder()
                 order.makeShip(uidFactory, type)
-                u.playerTurns[u.ship(uidFactory).uidRace]--
                 u.orders.add(order)
+                u.playerTurns[u.ship(uidFactory).uidRace]--
             } finally {
                 GBController.lock.unlock()
             }

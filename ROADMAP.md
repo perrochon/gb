@@ -9,6 +9,7 @@ game play, or prevent game play are second priority. Here are a few examples
 * Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
 ## Short Term Small Items
+* DO skips frames (on emulator) - make sure we minimize work on UI thread
 * Settings: Clean code smell
 * Fog of War: per race, 3 states (unknown, seen, visible). Once you saw a system, you remember planets...
 * Feature: Destination star system. Needs new location type (leaks planets through Fog of War)
