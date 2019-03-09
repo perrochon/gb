@@ -8,7 +8,6 @@ import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
-import com.zwsi.gblib.GBData.Companion.shipsData
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -23,6 +22,8 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     var name: String = "noname"// name, first letters of race and type, then id
     var type: String = "notype"// type in printable form
     var speed: Int = -1  // speed of ship // TODO Feature: insystem and hyperspeed.
+    var damage: Int = -1
+    var guns: Int = 0
 
     // properties that change over lifetime of ship
     var health: Int = -1  // health of ship. Goes down when shot at. Not going up (as of now)
@@ -32,8 +33,6 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
         get() = u.race(uidRace)
 
     // How many shots can be fired per turn
-    @Transient
-    var shots : Int = 0
 
     // TODO These are a cool but nice to have feature. They are also an app feature more than a lib feature
     // They are irrelevant for text based UI. But persistence in the client is problematic if an update is missed
@@ -67,6 +66,8 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
             u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
         speed = GBData.shipsData[idxtype]!!.speed
         health = GBData.shipsData[idxtype]!!.health
+        damage = GBData.shipsData[idxtype]!!.damage
+        guns = GBData.shipsData[idxtype]!!.shots
 
     }
 
@@ -141,6 +142,8 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
             if (loc.level != DEEPSPACE) {
                 race.raceVisibleStars.add(loc.getStar()!!.uid)
             }
+
+            guns = GBData.shipsData[idxtype]!!.shots // reload guns
         }
     }
 

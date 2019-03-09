@@ -10,21 +10,41 @@ class ARBitmaps {
 
         var ready = false;
 
-        val bmASurface = HashMap<Int, Bitmap>()
-        val otherBitmaps = HashMap<Int, Bitmap>()
-        val raceBitmaps = HashMap<Int, Bitmap>()
-        val shipBitmaps = HashMap<Int, Bitmap>()
+        private val surfaceBitmaps = HashMap<Int, Bitmap>()
+        private val otherBitmaps = HashMap<Int, Bitmap>()
+        private val raceBitmaps = HashMap<Int, Bitmap>()
+        private val shipBitmaps = HashMap<Int, Bitmap>()
 
         val numberOfFrames = 150 // 10s rotation, 30fps -> up to 300 different angles/shipBitmaps! 600 @60fps
         var wheelBitmaps = arrayOfNulls<Bitmap>(numberOfFrames)
 
         var initTimes = mutableMapOf<String, Long>()
 
+        fun surfaceBitmap(id: Int): Bitmap {
+            return surfaceBitmaps[id]!!
+        }
+
+        fun otherBitmap(id: Int): Bitmap {
+            return otherBitmaps[id]!!
+        }
+
+        fun raceBitmap(id: Int): Bitmap {
+            return raceBitmaps[id]!!
+        }
+
+        fun shipBitmap(id: Int): Bitmap {
+            return shipBitmaps[id]!!
+        }
+
+        fun wheelBitmap(id: Int): Bitmap {
+            return wheelBitmaps[id]!!
+        }
+
         fun loadBitmaps(context: Context) {
             // Do a better way. If it works, we replace above... Neet do figure out planet/star, where we divide by 2/1
 
-            var h = 0f
-            var w = 0f
+            var h: Float
+            var w: Float
 
             val density = context.resources.displayMetrics.densityDpi.toFloat()
 
@@ -34,22 +54,22 @@ class ARBitmaps {
             h = density / 420f * bmStar.getHeight()
             otherBitmaps[R.drawable.star] = Bitmap.createScaledBitmap(bmStar, w.toInt(), h.toInt(), true)!!
 
-            val bmPlanet= BitmapFactory.decodeResource(context.getResources(), R.drawable.planet)!!
+            val bmPlanet = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet)!!
             w = density / 420f * bmPlanet.getWidth() / 2
             h = density / 420f * bmPlanet.getHeight() / 2
             otherBitmaps[R.drawable.planet] = Bitmap.createScaledBitmap(bmPlanet, w.toInt(), h.toInt(), true)!!
 
 
             initTimes["iPS"] = measureNanoTime {
-                bmASurface[3] = BitmapFactory.decodeResource(context.getResources(), R.drawable.desert)!!
-                bmASurface[5] = BitmapFactory.decodeResource(context.getResources(), R.drawable.forest)!!
-                bmASurface[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.gas)!!
-                bmASurface[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.gas)!!
-                bmASurface[6] = BitmapFactory.decodeResource(context.getResources(), R.drawable.ice)!!
-                bmASurface[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.land)!!
-                bmASurface[4] = BitmapFactory.decodeResource(context.getResources(), R.drawable.mountain)!!
-                bmASurface[7] = BitmapFactory.decodeResource(context.getResources(), R.drawable.rock)!!
-                bmASurface[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.water)!!
+                surfaceBitmaps[3] = BitmapFactory.decodeResource(context.getResources(), R.drawable.desert)!!
+                surfaceBitmaps[5] = BitmapFactory.decodeResource(context.getResources(), R.drawable.forest)!!
+                surfaceBitmaps[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.gas)!!
+                surfaceBitmaps[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.gas)!!
+                surfaceBitmaps[6] = BitmapFactory.decodeResource(context.getResources(), R.drawable.ice)!!
+                surfaceBitmaps[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.land)!!
+                surfaceBitmaps[4] = BitmapFactory.decodeResource(context.getResources(), R.drawable.mountain)!!
+                surfaceBitmaps[7] = BitmapFactory.decodeResource(context.getResources(), R.drawable.rock)!!
+                surfaceBitmaps[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.water)!!
             }
 
             // get Races

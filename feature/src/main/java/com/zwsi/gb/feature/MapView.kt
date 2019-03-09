@@ -10,21 +10,26 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.zwsi.gb.feature.ARBitmaps.Companion.bmASurface
 import com.zwsi.gb.feature.ARBitmaps.Companion.numberOfFrames
-import com.zwsi.gb.feature.ARBitmaps.Companion.otherBitmaps
-import com.zwsi.gb.feature.ARBitmaps.Companion.shipBitmaps
-import com.zwsi.gb.feature.ARBitmaps.Companion.wheelBitmaps
+import com.zwsi.gb.feature.ARBitmaps.Companion.otherBitmap
+import com.zwsi.gb.feature.ARBitmaps.Companion.shipBitmap
+import com.zwsi.gb.feature.ARBitmaps.Companion.surfaceBitmap
+import com.zwsi.gb.feature.ARBitmaps.Companion.wheelBitmap
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
+import com.zwsi.gblib.GBData.Companion.BATTLESTAR
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
+import com.zwsi.gblib.GBData.Companion.HEADQUARTER
 import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
+import com.zwsi.gblib.GBData.Companion.RESEARCH
+import com.zwsi.gblib.GBData.Companion.SHUTTLE
+import com.zwsi.gblib.GBData.Companion.STATION
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
@@ -355,16 +360,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         sourceToViewCoord(sP1, vP1)
                         when (r.idx) {
                             0 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmaps[R.drawable.xenost]!!, vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.xenost), vP1.x, vP1.y, null)
                             }
                             1 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmaps[R.drawable.impit]!!, vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.impit), vP1.x, vP1.y, null)
                             }
                             2 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmaps[R.drawable.beetle]!!, vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.beetle), vP1.x, vP1.y, null)
                             }
                             3 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmaps[R.drawable.tortoise]!!, vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.tortoise), vP1.x, vP1.y, null)
                             }
                         }
                     }
@@ -485,7 +490,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                                     val o = (PlanetOrbit * 0.4f) * uToS * scale
                                     val size = 4 * o / p.width
                                     canvas.drawBitmap(
-                                        bmASurface[p.sectors[j].type]!!,
+                                        surfaceBitmap(p.sectors[j].type),
                                         null,
                                         RectF(
                                             vP1.x - 2 * o + p.sectorX(j) * size,
@@ -535,9 +540,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             sourceToViewCoord(sP1, vP1)
                             if (normScale > 1 && ARBitmaps.ready) {
                                 canvas.drawBitmap(
-                                    otherBitmaps[R.drawable.planet]!!,
-                                    vP1.x - otherBitmaps[R.drawable.planet]!!.width / 2,
-                                    vP1.y - otherBitmaps[R.drawable.planet]!!.height / 2,
+                                    otherBitmap(R.drawable.planet),
+                                    vP1.x - otherBitmap(R.drawable.planet).width / 2,
+                                    vP1.y - otherBitmap(R.drawable.planet).height / 2,
                                     null
                                 )
                             }
@@ -660,13 +665,13 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
             // Draw circle / square
             when (sh.idxtype) {
-                POD -> {
+                POD, CRUISER, SHUTTLE, STATION -> {
                     canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
                 }
-                CRUISER -> {
-                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+                BATTLESTAR-> {
+                    canvas.drawCircle(vP1.x, vP1.y, radius*1.5f, shipPaint)
                 }
-                FACTORY -> {
+                FACTORY, RESEARCH, HEADQUARTER -> {
                     canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                 }
             }
@@ -680,96 +685,38 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             when (sh.idxtype) {
                 // TODO: Ships should tell give me the ID of their bitmap and this when statement would go away
                 // But GBShips don't know anything about shipBitmaps, so the logic needs to live elsewhere.
+                FACTORY -> {
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.cruisert), false, radius)
+                }
                 POD -> {
-                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
                     if (sh.race.uid == 2) {
-                        val o = shipBitmaps[R.drawable.beetlepod]!!.width / 2.6f / 100 * scale
-                        canvas.drawBitmap(
-                            shipBitmaps[R.drawable.beetlepod]!!,
-                            null,
-                            RectF(
-                                vP1.x - o,
-                                vP1.y - o,
-                                vP1.x + o,
-                                vP1.y + o
-                            ),
-                            null
-                        )
+                        drawShipBitmap(canvas, shipBitmap(R.drawable.beetlepod), true, radius)
                     } else {
-                        val o = shipBitmaps[R.drawable.shuttle]!!.width / 2.6f / 100 * scale
-                        canvas.drawBitmap(
-                            shipBitmaps[R.drawable.shuttle]!!,
-                            null,
-                            RectF(
-                                vP1.x - o,
-                                vP1.y - o,
-                                vP1.x + o,
-                                vP1.y + o
-                            ),
-                            null
-                        )
+                        drawShipBitmap(canvas, shipBitmap(R.drawable.podt), true, radius)
                     }
                 }
-
                 CRUISER -> {
-                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
-
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.cruisert), true, radius)
+                }
+                HEADQUARTER -> {
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.hq), false, radius)
+                }
+                RESEARCH -> {
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.research), false, radius)
+                }
+                SHUTTLE -> {
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.shuttle), true, radius)
+                }
+                BATTLESTAR -> {
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.battlestar), true, radius * 1.5f)
+                }
+                STATION -> {
                     val i = (currentTimeMillis().rem(10000).div((10000 / numberOfFrames)).toInt()
                             + sh.uid).rem(numberOfFrames)
-
-                    val o = wheelBitmaps[i]!!.width / 2.4f / 100 * scale
-                    canvas.drawBitmap(
-                        wheelBitmaps[i]!!,
-                        null,
-                        RectF(
-                            vP1.x - o,
-                            vP1.y - o,
-                            vP1.x + o,
-                            vP1.y + o
-                        ),
-                        null
-                    )
-                }
-
-                CRUISER + 5 -> {
-                    // TODO: Fixe rotating dot if statements above
-
-
-                    //canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
-                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
-
-                    val o = shipBitmaps[R.drawable.cruisert]!!.width / 2.4f / 100 * scale
-                    canvas.drawBitmap(
-                        shipBitmaps[R.drawable.cruisert]!!,
-                        null,
-                        RectF(
-                            vP1.x - o,
-                            vP1.y - o,
-                            vP1.x + o,
-                            vP1.y + o
-                        ),
-                        null
-                    )
-                }
-
-                FACTORY -> {
-                    canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
-                    val o = shipBitmaps[R.drawable.factory]!!.width / 2.4f / 100 * scale
-
-                    canvas.drawBitmap(
-                        shipBitmaps[R.drawable.hq]!!,
-                        null,
-                        RectF(
-                            vP1.x - o,
-                            vP1.y - o,
-                            vP1.x + o,
-                            vP1.y + o
-                        ),
-                        null
-                    )
+                    drawShipBitmap(canvas, wheelBitmap(i), false, radius)
                 }
                 else -> {
-                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.podt), false, radius)
                 }
             }
         }
@@ -777,6 +724,21 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (5 > normScale) {
             clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), sh))
         }
+
+    }
+
+    private fun drawShipBitmap(canvas: Canvas, bitmap: Bitmap, circle: Boolean, radius: Float) {
+
+        if (circle) {
+            canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+        } else {
+            canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
+        }
+        val o = bitmap.width / 2.4f / 100 * scale // TODO PERF not look this up each time?
+        canvas.drawBitmap(
+            bitmap, null,
+            RectF(vP1.x - o, vP1.y - o, vP1.x + o, vP1.y + o), null
+        )
 
     }
 
@@ -891,9 +853,9 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                     sourceToViewCoord(sP1, vP1)
                     canvas.drawBitmap(
-                        otherBitmaps[R.drawable.star]!!,
-                        vP1.x - otherBitmaps[R.drawable.star]!!.getWidth() / 2,
-                        vP1.y - otherBitmaps[R.drawable.star]!!.getWidth() / 2,
+                        otherBitmap(R.drawable.star),
+                        vP1.x - otherBitmap(R.drawable.star).getWidth() / 2,
+                        vP1.y - otherBitmap(R.drawable.star).getWidth() / 2,
                         null
                     )
 

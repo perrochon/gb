@@ -5,24 +5,20 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
-import com.zwsi.gblib.GBData.Companion.POD
-import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLog.gbAssert
 import kotlin.math.PI
 
 
 class GBOrder {
-    // TODO Lambdas? Or use the scheduler instead?
 
     var type = -1
     var uidShip = -1
     var uidRace = -1
     lateinit var loc: GBLocation
 
-    // Type Factory
+    // Type Factory (ships made without factory)
     fun makeFactory(_uidPlanet: Int, _uidRace: Int) {
 
         val planet = u.planet(_uidPlanet)
@@ -38,65 +34,37 @@ class GBOrder {
         this.loc = loc
     }
 
-    // TODO check for nulls and correct types, but this can wait until we made shipsData a hierarchy and repalced orders with schedule
-
-    // Type Pod
-    fun makePod(uidFactory: Int) {
+    // Ships that are made by a factory
+    fun makeShip(uidFactory: Int, _type: Int) {
 
         val factory = u.ship(uidFactory)
 
         if (factory.health > 0) {
             gbAssert { type == -1 }
-            type = POD
+            type = _type
             uidShip = factory.uid
             uidRace = factory.uidRace
-            this.loc = GBLocation(
-                factory.loc.getPlanet()!!,
-                GBData.rand.nextInt(factory.loc.getPlanet()!!.width),
-                GBData.rand.nextInt(factory.loc.getPlanet()!!.height)
-            )
-        }
-    }
-
-    // Type Cruiser
-    fun makeCruiser(uidFactory: Int) {
-
-        val factory = u.ship(uidFactory)
-
-        if (factory.health > 0) {
-            gbAssert { type == -1 }
-            type = CRUISER
-            uidShip = factory.uid
-            uidRace = factory.uidRace
-            this.loc = GBLocation(
-                factory.loc.getPlanet()!!,
-                GBData.PlanetOrbit,
-                GBData.rand.nextFloat() * 2 * PI.toFloat()
-            )
+            if (GBData.shipsData[_type]!!.surface) {
+                this.loc = GBLocation(
+                    factory.loc.getPlanet()!!,
+                    GBData.rand.nextInt(factory.loc.getPlanet()!!.width),
+                    GBData.rand.nextInt(factory.loc.getPlanet()!!.height)
+                )
+            } else {
+                this.loc = GBLocation(
+                    factory.loc.getPlanet()!!,
+                    GBData.PlanetOrbit,
+                    GBData.rand.nextFloat() * 2 * PI.toFloat()
+                )
+            }
         }
     }
 
     fun execute() {
-        when (type) {
-            FACTORY -> {
-                val ship = GBShip(u.getNextGlobalId(), FACTORY, uidRace, loc)
-                ship.initializeShip()
-                u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
-            }
-            POD -> {
-                val ship = GBShip(u.getNextGlobalId(), POD, uidRace, loc)
-                ship.initializeShip()
-                u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
-            }
-            CRUISER -> {
-                val ship = GBShip(u.getNextGlobalId(), CRUISER, uidRace, loc)
-                ship.initializeShip()
-                u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
-            }
-            else ->
-                gbAssert("unknown order", { true })
-        }
-
+        // Everything is a ship order at this time, no when() needed
+        val ship = GBShip(u.getNextGlobalId(), type, uidRace, loc)
+        ship.initializeShip()
+        u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
     }
 
 }

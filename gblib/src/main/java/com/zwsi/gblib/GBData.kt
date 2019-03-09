@@ -194,18 +194,21 @@ class GBData {
         internal data class ShipData(
             val type: String,
             val speed: Int,
-            val health: Int
+            val shots: Int,
+            val damage: Int,
+            val health: Int,
+            val surface: Boolean
         )
 
         internal val shipsData = hashMapOf(
-            FACTORY to ShipData("Factory", 0, 500),
-            POD to ShipData("Spore Pod", 1, 10),
-            CRUISER to ShipData("Cruiser", 3, 100),
-            HEADQUARTER to ShipData("Headquarters", 0, 1000),
-            RESEARCH to ShipData("Research", 0, 100),
-            SHUTTLE to ShipData("Shuttle", 3, 50),
-            BATTLESTAR to ShipData("Battle Star", 1, 1000),
-            STATION to ShipData("Orbital Station", 0, 100)
+            FACTORY to ShipData("Factory", 0,0, 0, 500, true),
+            POD to ShipData("Spore Pod", 1,0, 0, 10, true),
+            CRUISER to ShipData("Cruiser", 3,1, 40, 100, false),
+            HEADQUARTER to ShipData("Headquarters", 0,0, 0,1000, true),
+            RESEARCH to ShipData("Research", 0, 0,0, 100, true),
+            SHUTTLE to ShipData("Shuttle", 3, 1,0, 50, false),
+            BATTLESTAR to ShipData("Battle Star", 1, 4,60,1000, false),
+            STATION to ShipData("Orbital Station", 0, 6,50, 100, false)
         )
 
         // Stars

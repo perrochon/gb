@@ -5,6 +5,12 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
+import com.zwsi.gblib.GBData.Companion.BATTLESTAR
+import com.zwsi.gblib.GBData.Companion.CRUISER
+import com.zwsi.gblib.GBData.Companion.FACTORY
+import com.zwsi.gblib.GBData.Companion.POD
+import com.zwsi.gblib.GBData.Companion.SHUTTLE
+import com.zwsi.gblib.GBData.Companion.STATION
 import kotlin.math.PI
 
 class GBAutoPlayer() {
@@ -65,7 +71,7 @@ class GBAutoPlayer() {
                 GBLog.d("Ordered Factory")
             } else {
                 val order = GBOrder()
-                order.makePod(factory.uid)
+                order.makeShip(factory.uid, POD)
                 u.orders.add(order)
                 GBLog.d("Ordered Pod")
             }
@@ -93,29 +99,38 @@ class GBAutoPlayer() {
             }
 
 
-
             // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
             GBLog.d("Playing Tortoise in  turn  $u.turn")
             val r = u.race(3)
 
-            val factory = r.raceShips.filter { it.idxtype == GBData.FACTORY }.firstOrNull()
+            val factory = r.raceShips.filter { it.idxtype == FACTORY }.firstOrNull()
             if (factory == null) {
                 val order = GBOrder()
                 order.makeFactory(r.getHome().uid, r.uid)
                 u.orders.add(order)
-                GBLog.d("Ordered Factory")
             } else {
-                if (r.raceShips.size < 31) {
+                if (r.raceShips.filter { it.idxtype == CRUISER }.size < 31) {
                     val order = GBOrder()
-                    order.makeCruiser(factory.uid)
+                    order.makeShip(factory.uid, CRUISER)
                     u.orders.add(order)
-                    GBLog.d("Ordered Cruiser")
+                } else if (r.raceShips.filter { it.idxtype == STATION }.size < 5) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, STATION)
+                    u.orders.add(order)
+                } else if (r.raceShips.filter { it.idxtype == SHUTTLE }.size < 5) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, SHUTTLE)
+                    u.orders.add(order)
+                } else if (r.raceShips.filter { it.idxtype == BATTLESTAR }.size < 5) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, BATTLESTAR)
+                    u.orders.add(order)
                 }
             }
-
             // Send any cruiser that's landed (likely freshly made) to some random planet, but not the beetle home
             val homeBeetle = u.race(2).getHome()
-            for (cruiser in r.raceShips.filter {
+            for (cruiser in r.raceShips.filter
+            {
                 (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.ORBIT) && it.loc.uidRef == r.uidHomePlanet
             }.drop(5)) {
                 val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
@@ -126,7 +141,6 @@ class GBAutoPlayer() {
 
                 } // else just try again next time this code runs...
             }
-            GBLog.d("Directed Cruisers")
 
         }
     }

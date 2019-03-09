@@ -14,6 +14,8 @@ import com.zwsi.gb.feature.GBViewModel.Companion.actionsTaken
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBData.Companion.CRUISER
+import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import com.zwsi.gblib.GBUniverse
 import java.io.File
@@ -265,8 +267,8 @@ class GlobalStuff {
             }
         }
 
-        /** Called when the user taps the make Pod button */
-        fun makePod(view: View) {
+        /** Called when the user taps a make Ship button */
+        fun makeShip(view: View, type: Int) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
@@ -275,29 +277,10 @@ class GlobalStuff {
 
             val factory = vm.ships[view.tag as Int] // Don't use ship() as we need to handle null (do nothing)
             if (factory != null) {
-                GBController.makePod(factory.uid)
+                GBController.makeShip(factory.uid, type)
                 checkDo(view)
 
-                val message = "Ordered Pod in Factory " + factory.name
-                Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-
-            }
-        }
-
-        /** Called when the user taps the make Cruiser button */
-        fun makeCruiser(view: View) {
-
-            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
-            }
-            lastClickTime = SystemClock.elapsedRealtime();
-
-            val factory = vm.ships[view.tag as Int] // Don't use ship() as we need to handle null (do nothing)
-            if (factory != null) {
-                GBController.makeCruiser(factory.uid)
-                checkDo(view)
-
-                val message = "Ordered Cruiser in Factory " + factory.name
+                val message = "Ordered ship in Factory ${factory.name}."
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 
             }

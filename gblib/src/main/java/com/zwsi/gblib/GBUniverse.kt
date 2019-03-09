@@ -2,7 +2,6 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBData.Companion.CRUISER
 import java.util.*
 import kotlin.math.PI
 import kotlin.math.max
@@ -257,16 +256,14 @@ data class GBUniverse(
         // PERF Create one list of all insystem shipsData, then find shots
         // System Ships shoot at System only
         for ((_, star) in stars) {
-            for (sh1 in star.starShips.shuffled()) {
+            for (sh1 in star.starShips.filter { it.guns > 0 }.shuffled()) {
 
-                sh1.shots = 1
-
-                if (sh1.idxtype == CRUISER && sh1.health > 0) {
+                if (sh1.health > 0) {
                     for (sh2 in star.starShips.shuffled()) {
-                        if (sh1.shots > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
+                        if (sh1.guns > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
-                                sh1.shots-- // should break when shots = 0
+                                sh1.guns-- // should break when shots = 0
                             }
                         }
                     }
@@ -276,16 +273,14 @@ data class GBUniverse(
         }
         // Orbit Ships shoot at System, Orbit, or landed shipsData
         for ((_, p) in planets) {
-            for (sh1 in p.orbitShips.shuffled()) {
+            for (sh1 in p.orbitShips.filter { it.guns > 0 }.shuffled()) {
 
-                sh1.shots = 1
-
-                if (sh1.idxtype == CRUISER && sh1.health > 0) {
+                if (sh1.health > 0) {
                     for (sh2 in u.star(p.uidStar).starShips.union(p.orbitShips).union(p.landedShips).shuffled()) {
-                        if (sh1.shots > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
+                        if (sh1.guns > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
-                                sh1.shots-- // should break when shots = 0
+                                sh1.guns-- // should break when shots = 0
                             }
                         }
                     }
@@ -297,7 +292,7 @@ data class GBUniverse(
     fun fireOneShot(sh1: GBShip, sh2: GBShip) {
         shots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc(), sh1.race.uid))
         GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
-        sh2.health = max(0, sh2.health - 40) // Cruiser Shot makes 40 damage
+        sh2.health = max(0, sh2.health - sh1.damage)
         u.news.add("${sh1.name} fired at ${sh2.name}.\n")
     }
 }
