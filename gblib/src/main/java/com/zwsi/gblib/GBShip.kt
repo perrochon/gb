@@ -321,7 +321,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     val next: GBLocation
 
                     if (dest.level == ORBIT || dest.level == LANDED) {
-
+                        // Fly to where planet will  be, not where it is. TODO same thing when in deepspace.
                         val n = (distanceToDestination / speed).toInt()
                         val target = dest.getPlanet()!!.computePlanetPositions(n)
                         nxy = sxy.towards(target.getLoc(), speed.toFloat())
