@@ -108,10 +108,15 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
         // Need to make sure that no planet goes faster than pods, or pods never catch up...
         // Speed of pods is 1, so angular speed cannot be faster than 1/r
 
+        loc = computePlanetPositions(1)
+    }
+
+    fun computePlanetPositions(turns: Int) : GBLocation {
         val rt = loc.getSLocP()
         val speed = 1 / (rt.r + 10)  // was 10 for a long time. Changing to 20 with orbiting shipsData
-        loc = GBLocation(u.star(uidStar), rt.r, rt.t - speed) // y points down, anti-clockwise is negative angles...
+        return GBLocation(u.star(uidStar), rt.r, rt.t - speed * turns) // y points down, anti-clockwise is negative angles...
     }
+
 
     fun doPlanet() {
 

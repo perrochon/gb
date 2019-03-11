@@ -244,9 +244,9 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
         } else {
             // we are not LANDED, so either in ORBIT, in SYTEM, or in DEEPSPACE
 
-            val distance = sxy.distance(dxy)
+            val distanceToDestination = sxy.distance(dxy)
 
-            if ((distance) < speed + PlanetOrbit) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
+            if ((distanceToDestination) < speed + PlanetOrbit) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
                 //What direction are we coming from
                 val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
@@ -316,7 +316,22 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     return
                 } else {
 
-                    val next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
+                    // Flying insystem
+
+                    val next: GBLocation
+
+                    if (dest.level == ORBIT || dest.level == LANDED) {
+
+                        val n = (distanceToDestination / speed).toInt()
+                        val target = dest.getPlanet()!!.computePlanetPositions(n)
+                        nxy = sxy.towards(target.getLoc(), speed.toFloat())
+                        next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
+
+                    } else {
+                        // Not sure this is ever executed right now
+                         next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
+                    }
+
                     changeShipLocation(next)
 
                     GBLog.d("Flying insystem ")

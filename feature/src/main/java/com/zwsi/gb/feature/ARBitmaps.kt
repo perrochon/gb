@@ -64,7 +64,6 @@ class ARBitmaps {
                 surfaceBitmaps[3] = BitmapFactory.decodeResource(context.getResources(), R.drawable.desert)!!
                 surfaceBitmaps[5] = BitmapFactory.decodeResource(context.getResources(), R.drawable.forest)!!
                 surfaceBitmaps[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.gas)!!
-                surfaceBitmaps[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.gas)!!
                 surfaceBitmaps[6] = BitmapFactory.decodeResource(context.getResources(), R.drawable.ice)!!
                 surfaceBitmaps[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.land)!!
                 surfaceBitmaps[4] = BitmapFactory.decodeResource(context.getResources(), R.drawable.mountain)!!
@@ -87,9 +86,8 @@ class ARBitmaps {
 
             initTimes["iSB"] = measureNanoTime {
                 val drawables = listOf<Int>(
-                    R.drawable.podt, R.drawable.cruisert, R.drawable.factory,
-                    R.drawable.beetlepod, R.drawable.shuttle, R.drawable.research, R.drawable.hq, R.drawable.battlestar,
-                    R.drawable.wheel
+                    R.drawable.podt, R.drawable.cruisert, R.drawable.factory, R.drawable.beetlepod,
+                    R.drawable.shuttle, R.drawable.research, R.drawable.hq, R.drawable.battlestar, R.drawable.wheel
                 )
                 for (i in drawables) {
                     val bm = BitmapFactory.decodeResource(context.getResources(), i)!!
