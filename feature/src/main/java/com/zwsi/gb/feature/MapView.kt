@@ -655,26 +655,30 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (10 > normScale) {
             // Draw animation
             if (sh.health > 0 && sh.idxtype != STATION) {
+                var r = radius
+                if (sh.idxtype = BATTLESTAR) {
+                    r = r * 1.5f
+                }
                 val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
                 canvas.drawCircle(
-                    vP1.x + cos(theta) * radius,
-                    vP1.y + sin(theta) * radius,
-                    radius / 10,
+                    vP1.x + cos(theta) * r,
+                    vP1.y + sin(theta) * r,
+                    r / 10,
                     shipPaint
                 )
             }
-//            // Draw circle / square
-//            when (sh.idxtype) {
-//                POD, CRUISER, SHUTTLE, STATION -> {
-//                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
-//                }
-//                BATTLESTAR-> {
-//                    canvas.drawCircle(vP1.x, vP1.y, radius*1.5f, shipPaint)
-//                }
-//                FACTORY, RESEARCH, HEADQUARTER -> {
-//                    canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
-//                }
-//            }
+            // Draw circle / square
+            when (sh.idxtype) {
+                POD, CRUISER, SHUTTLE, STATION -> {
+                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+                }
+                BATTLESTAR -> {
+                    canvas.drawCircle(vP1.x, vP1.y, radius * 1.5f, shipPaint)
+                }
+                FACTORY, RESEARCH, HEADQUARTER -> {
+                    canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
+                }
+            }
 
             drawTrails(canvas, sh)
 
@@ -729,11 +733,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private fun drawShipBitmap(canvas: Canvas, bitmap: Bitmap, circle: Boolean, radius: Float) {
 
-        if (circle) {
-            canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
-        } else {
-            canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
-        }
+//        if (circle) {
+//            canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+//        } else {
+//            canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
+//        }
         val o = bitmap.width / 2.4f / 100 * scale // TODO PERF not look this up each time?
         canvas.drawBitmap(
             bitmap, null,
