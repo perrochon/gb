@@ -37,7 +37,7 @@ data class GBPatrolPoint(val uid: Int, val sid: Int, val uidStar: Int, var loc: 
 
     fun computePatrolPointPositions(turns: Int): GBLocation {
         val rt = loc.getSLocP()
-        val speed = 1 / (rt.r + 10) / 4
+        val speed = 1.5f / (rt.r + 10)
         return GBLocation(
             u.star(uidStar),
             rt.r,

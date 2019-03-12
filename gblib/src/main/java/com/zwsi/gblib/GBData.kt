@@ -23,7 +23,7 @@ class GBData {
         // TODO Doesn't belong here but don't have a better place for filename of current game
         const val currentGameFileName = "currentgame.json"
 
-        internal val rand = Random(1) // Our RNG. We could seed it for testing. Make it var, and assign in init block?
+        val rand = Random(1) // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
         internal const val UniverseMaxX = 1000 // Width of the Universe
         internal const val UniverseMaxY = 1000 // Height of the Universe

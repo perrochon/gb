@@ -23,8 +23,13 @@ import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.RESEARCH
 import com.zwsi.gblib.GBData.Companion.SHUTTLE
 import com.zwsi.gblib.GBData.Companion.STATION
+import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLocation
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
+import com.zwsi.gblib.GBLocation.Companion.LANDED
+import com.zwsi.gblib.GBLocation.Companion.ORBIT
+import com.zwsi.gblib.GBLocation.Companion.PATROL
+import com.zwsi.gblib.GBPatrolPoint
 import com.zwsi.gblib.distance
 
 
@@ -215,27 +220,30 @@ class ShipFragment : Fragment() {
                 val destinationUids =
                     HashMap<String, Int>() // FIXME Use getItemAtPosition(position) and get it out of item.
 
-                var currentUidDestination: Int? = null
+
+                var currentUidDestination = 1000
 
                 // Put current destination first, and avoid listing it again.
                 if (sh.dest != null) {
-                    // TODO Needs to change for locations other than planets
-                    val key = sh.dest!!.getLocDesc()
 
-//                    val key = when (sh.dest.level) {
-//                        ORBIT, LANDED -> {
-//                            "${sh.dest!!.getPlanet()!!.name} (current)"
-//                        }
-//                        PATROL -> {
-//                            "${sh.dest!!.getPlanet()!!.name} (current)"
-//                        }
-//                        else -> {
-//                            "unknown"
-//                        }
+                    val key: String
 
-                    destinationStrings.add(key)
-                    currentUidDestination = sh.dest!!.getPlanet()!!.uid // FIXME current destination in spinner...
-                    destinationUids[key] = currentUidDestination
+                    when (sh.dest!!.level) {
+                        ORBIT, LANDED -> {
+                            key = "${sh.dest!!.getPlanet()!!.name} (current)"
+                            currentUidDestination = sh.dest!!.getPlanet()!!.uid
+                            destinationStrings.add(key)
+                            destinationUids[key] = currentUidDestination
+                        }
+                        PATROL -> {
+                            key = "${sh.dest!!.getPatrolPoint()!!.star.name} (current)"
+                            currentUidDestination = -sh.dest!!.getPatrolPoint()!!.star.uid
+                            destinationStrings.add(key)
+                            destinationUids[key] = currentUidDestination
+                        }
+                        else -> {
+                        }
+                    }
                 } else {
                     val key = "Set Destination"
                     destinationStrings.add(key)
@@ -254,12 +262,14 @@ class ShipFragment : Fragment() {
                 val sortedStars =
                     vm.stars.toList().sortedBy { (_, s) ->
                         s.loc.getLoc().distance(sh.loc.getLoc())
-                    }.take(6).drop(1)  // FIXME Don't drop the first if in DEEP SPACE, otherwise can't go back.
+                    }.take(6)
 
-                for ((_, s) in sortedStars) {
-                    val key = "${s.name} system"
-                    destinationStrings.add(key)
-                    destinationUids[key] = -s.uid
+                for ((_, star) in sortedStars) {
+                    if (star.uid != -currentUidDestination) {
+                        val key = "${star.name} system"
+                        destinationStrings.add(key)
+                        destinationUids[key] = -star.uid
+                    }
                 }
 
                 // Create an ArrayAdapter
@@ -304,7 +314,12 @@ class ShipFragment : Fragment() {
                             } else { // Star
                                 uid = -uid
                                 val star = vm.star(uid)
-                                val patrolPoint = vm.patrolPoint(star.starUidPatrolPoints.first())
+                                val patrolPoint: GBPatrolPoint
+                                if (GBData.rand.nextBoolean()) {
+                                    patrolPoint = vm.patrolPoint(star.starUidPatrolPoints.first())
+                                } else {
+                                    patrolPoint = vm.patrolPoint(star.starUidPatrolPoints.drop(1).first())
+                                }
                                 flyShipStarPatrol(sh.uid, patrolPoint.uid)// update server side
                                 sh.dest = GBLocation(patrolPoint, 0f, 0f) // update vm // FIXME select patrol point
                             }

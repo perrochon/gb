@@ -261,6 +261,21 @@ data class GBUniverse(
                 }
             }
         }
+        for ((_, pp) in patrolPoints) {
+            if (pp.orbitShips.size > 1) {
+                val targetR = 2 * PI / pp.orbitShips.size
+                var previous: GBShip? = null
+                for (ship in pp.orbitShips.sortedBy { it.loc.t }) {
+                    if (previous != null) {
+                        if (ship.loc.t - previous.loc.t < targetR) {
+                            ship.loc =
+                                GBLocation(ship.loc.getPlanet()!!, ship.loc.getOLocP().r, ship.loc.getOLocP().t + 0.1f)
+                        }
+                    }
+                    previous = ship
+                }
+            }
+        }
 
         for ((_, sh) in ships.filter { (_, ship) -> ship.health > 0 }) {
             sh.doShip()
