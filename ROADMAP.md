@@ -10,6 +10,7 @@ game play, or prevent game play are second priority. Here are a few examples
 
 ## Short Term Small Items
 * DO skips frames (on emulator) - make sure we minimize work on UI thread
+* Moving Dot animation on squares follow the square, instead of a circle. Drive by a parameter of the ship (extension)
 * Settings: Clean code smell
 * Fog of War: per race, 3 states (unknown, seen, visible). Once you saw a system, you remember planets...
 * Feature: Destination star system. Needs new location type (leaks planets through Fog of War)

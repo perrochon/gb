@@ -654,7 +654,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         if (10 > normScale) {
             // Draw animation
-            if (sh.health > 0 && sh.idxtype != CRUISER) {
+            if (sh.health > 0 && sh.idxtype != STATION) {
                 val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
                 canvas.drawCircle(
                     vP1.x + cos(theta) * radius,
@@ -663,18 +663,18 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     shipPaint
                 )
             }
-            // Draw circle / square
-            when (sh.idxtype) {
-                POD, CRUISER, SHUTTLE, STATION -> {
-                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
-                }
-                BATTLESTAR-> {
-                    canvas.drawCircle(vP1.x, vP1.y, radius*1.5f, shipPaint)
-                }
-                FACTORY, RESEARCH, HEADQUARTER -> {
-                    canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
-                }
-            }
+//            // Draw circle / square
+//            when (sh.idxtype) {
+//                POD, CRUISER, SHUTTLE, STATION -> {
+//                    canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
+//                }
+//                BATTLESTAR-> {
+//                    canvas.drawCircle(vP1.x, vP1.y, radius*1.5f, shipPaint)
+//                }
+//                FACTORY, RESEARCH, HEADQUARTER -> {
+//                    canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
+//                }
+//            }
 
             drawTrails(canvas, sh)
 
@@ -713,7 +713,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 STATION -> {
                     val i = (currentTimeMillis().rem(10000).div((10000 / numberOfFrames)).toInt()
                             + sh.uid).rem(numberOfFrames)
-                    drawShipBitmap(canvas, wheelBitmap(i), false, radius)
+                    drawShipBitmap(canvas, wheelBitmap(i), true, radius)
                 }
                 else -> {
                     drawShipBitmap(canvas, shipBitmap(R.drawable.podt), false, radius)
