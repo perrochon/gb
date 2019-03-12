@@ -12,7 +12,8 @@ import android.widget.*
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController.Companion.flyShipLanded
-import com.zwsi.gblib.GBController.Companion.flyShipOrbit
+import com.zwsi.gblib.GBController.Companion.flyShipPlanetOrbit
+import com.zwsi.gblib.GBController.Companion.flyShipStarPatrol
 import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.BATTLESTAR
 import com.zwsi.gblib.GBData.Companion.CRUISER
@@ -23,6 +24,7 @@ import com.zwsi.gblib.GBData.Companion.RESEARCH
 import com.zwsi.gblib.GBData.Companion.SHUTTLE
 import com.zwsi.gblib.GBData.Companion.STATION
 import com.zwsi.gblib.GBLocation
+import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.distance
 
 
@@ -191,10 +193,7 @@ class ShipFragment : Fragment() {
                 spinner.isEnabled = true
                 spinner.alpha = 1f // See Hack above.
             }
-
-
         }
-
     }
 
     private fun setSpinner(view: View, fragment: ShipFragment) {
@@ -203,7 +202,7 @@ class ShipFragment : Fragment() {
 
         val sh = vm.ships[tag!!.toInt()] // Don't use ship() as we need to handle null (do nothing)
 
-        if (sh == null) {
+        if (sh == null || sh.loc.level == DEEPSPACE) {
             return
         } else {
             if (sh.uidRace != uidActivePlayer || sh.speed == 0) {
@@ -221,9 +220,21 @@ class ShipFragment : Fragment() {
                 // Put current destination first, and avoid listing it again.
                 if (sh.dest != null) {
                     // TODO Needs to change for locations other than planets
-                    val key = "${sh.dest!!.getPlanet()!!.name} (current)"
+                    val key = sh.dest!!.getLocDesc()
+
+//                    val key = when (sh.dest.level) {
+//                        ORBIT, LANDED -> {
+//                            "${sh.dest!!.getPlanet()!!.name} (current)"
+//                        }
+//                        PATROL -> {
+//                            "${sh.dest!!.getPlanet()!!.name} (current)"
+//                        }
+//                        else -> {
+//                            "unknown"
+//                        }
+
                     destinationStrings.add(key)
-                    currentUidDestination = sh.dest!!.getPlanet()!!.uid
+                    currentUidDestination = sh.dest!!.getPlanet()!!.uid // FIXME current destination in spinner...
                     destinationUids[key] = currentUidDestination
                 } else {
                     val key = "Set Destination"
@@ -248,7 +259,7 @@ class ShipFragment : Fragment() {
                 for ((_, s) in sortedStars) {
                     val key = "${s.name} system"
                     destinationStrings.add(key)
-                    destinationUids[key] = s.starUidPlanets.first()
+                    destinationUids[key] = -s.uid
                 }
 
                 // Create an ArrayAdapter
@@ -278,22 +289,30 @@ class ShipFragment : Fragment() {
                                 return
                             }
 
-                            val uidPlanet = destinationUids[destination]!!
-                            val planet = vm.planet(uidPlanet)
+                            var uid = destinationUids[destination]!!
 
-                            if (sh.idxtype == GBData.POD) {
-                                flyShipLanded(sh.uid, planet.uid) // update server side
-                                sh.dest = GBLocation(planet, 0, 0) // update vm
-                            } else {
-                                flyShipOrbit(sh.uid, planet.uid)// update server side
-                                sh.dest = GBLocation(planet, GBData.PlanetOrbit, 0f)
+                            if (uid > 0) { // Planet
+                                val planet = vm.planet(uid)
+
+                                if (sh.idxtype == GBData.POD) {
+                                    flyShipLanded(sh.uid, planet.uid) // update server side
+                                    sh.dest = GBLocation(planet, 0, 0) // update vm
+                                } else {
+                                    flyShipPlanetOrbit(sh.uid, planet.uid)// update server side
+                                    sh.dest = GBLocation(planet, GBData.PlanetOrbit, 0f) // update vm
+                                }
+                            } else { // Star
+                                uid = -uid
+                                val star = vm.star(uid)
+                                val patrolPoint = vm.patrolPoint(star.starUidPatrolPoints.first())
+                                flyShipStarPatrol(sh.uid, patrolPoint.uid)// update server side
+                                sh.dest = GBLocation(patrolPoint, 0f, 0f) // update vm // FIXME select patrol point
                             }
-
                             GlobalStuff.checkDo(view)
 
                             Toast.makeText(
                                 view.context,
-                                "Ordered " + sh.name + " to fly to " + planet.name,
+                                "Ordered " + sh.name + " to fly to " + sh.dest,
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -301,11 +320,9 @@ class ShipFragment : Fragment() {
                             fragment.setDetails(view)
                         }
                     }
-
                 }
-
             }
         }
-
     }
 }
+

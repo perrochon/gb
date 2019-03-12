@@ -8,11 +8,14 @@ import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
+import com.zwsi.gblib.GBData.Companion.starMaxOrbit
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
+import com.zwsi.gblib.GBLocation.Companion.PATROL
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBLog.gbAssert
+import kotlin.math.asin
 import kotlin.math.atan2
 
 @JsonClass(generateAdapter = true)
@@ -83,6 +86,9 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
             ORBIT -> {
                 this.loc.getPlanet()!!.orbitUidShips.remove(this.uid)
             }
+            PATROL -> {
+                this.loc.getPatrolPoint()!!.orbitUidShips.remove(this.uid)
+            }
             SYSTEM -> {
                 this.loc.getStar()!!.starUidShips.remove(this.uid)
             }
@@ -110,6 +116,9 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
             }
             ORBIT -> {
                 loc.getPlanet()!!.orbitUidShips.add(this.uid)
+            }
+            PATROL -> {
+                loc.getPatrolPoint()!!.orbitUidShips.add(this.uid)
             }
             SYSTEM -> {
                 loc.getStar()!!.starUidShips.add(this.uid)
@@ -181,6 +190,14 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
         if ((this.dest == null) && (this.loc.level == ORBIT)) {
             this.loc = GBLocation(this.loc.getPlanet()!!, this.loc.getOLocP().r, this.loc.getOLocP().t + 0.2f)
         }
+        if ((this.dest == null) && (this.loc.level == PATROL)) {
+            this.loc = GBLocation(
+                this.loc.getPatrolPoint()!!,
+                this.loc.getOLocP().r,
+                this.loc.getOLocP().t + asin(speed / this.loc.getOLocP().r)
+            )
+        }
+
     }
 
 
@@ -246,7 +263,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
             val distanceToDestination = sxy.distance(dxy)
 
-            if ((distanceToDestination) < speed + PlanetOrbit) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
+            if ((dest.level == ORBIT || dest.level == LANDED) && (distanceToDestination) < speed + PlanetOrbit) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
                 //What direction are we coming from
                 val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
@@ -260,6 +277,20 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
                 }
                 return
+            }
+
+            if (dest.level == PATROL && distanceToDestination < speed + u.starMaxOrbit * 0.5f) {
+                //What direction are we coming from
+                val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
+
+                val next = GBLocation(dest.getPatrolPoint()!!, starMaxOrbit * 0.5F, t)
+                changeShipLocation(next)
+                u.news.add("$name arrived in ${loc.getLocDesc()}.\n")
+
+                this.dest = null
+
+                return
+
             }
 
             var nxy = sxy.towards(dxy, speed.toFloat())
@@ -329,7 +360,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
                     } else {
                         // Not sure this is ever executed right now
-                         next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
+                        next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
                     }
 
                     changeShipLocation(next)

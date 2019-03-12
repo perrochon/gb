@@ -212,7 +212,7 @@ class GBController {
             }
         }
 
-        fun flyShipOrbit(uidShip: Int, uidPlanet: Int) {
+        fun flyShipPlanetOrbit(uidShip: Int, uidPlanet: Int) {
 
             GBController.lock.lock();
             try {
@@ -223,6 +223,24 @@ class GBController {
                 u.playerTurns[u.ship(uidShip).uidRace]--
 
                 GBLog.d("Setting Destination of " + ship.name + " to " + planet.name)
+                ship.dest = loc
+
+            } finally {
+                GBController.lock.unlock()
+            }
+        }
+
+        fun flyShipStarPatrol(uidShip: Int, uidPatrolPoint: Int) {
+
+            GBController.lock.lock();
+            try {
+                val ship = u.ship(uidShip)
+                val patrolPoint = u.patrolPoint(uidPatrolPoint)
+                val loc = GBLocation(patrolPoint,0f, 0f) // determine exact location at arrival // FIXME select patrol point
+
+                u.playerTurns[u.ship(uidShip).uidRace]--
+
+                GBLog.d("Setting Destination of " + ship.name + " to " + patrolPoint.star.name)
                 ship.dest = loc
 
             } finally {

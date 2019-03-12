@@ -43,13 +43,15 @@ fun GBxy.towards(to: GBxy, distance: Float): GBxy {
  *      Theoretically, it could be derived from x,y and/or refUID, but we don't do that. We keep track manually.
  *      We may introduce hyperspace which overlaps with both Deepspace and System so (x,y) alone may not be sufficient.
  *  LANDED: On planet (sx,sy) gives you the coordinates of the sector. (0,0) is top left, sx->right, sy->down,
- *      Used by shipsData
+ *      Used by ships
  *  ORBIT: In orbit, (t,t) gives you the relative polar coordinates to the center. (x,y) is center(x,y) + relative(x,y)
- *      Used by shipsData
+ *      Used by ships
  *  SYSTEM: In system, (x,y) are universal coordinates -- How to do planets?
- *      Used by shipsData and planets. Constructor requires polar coordinates!
+ *      Used by ships and planets. Constructor requires polar coordinates!
  *  DEEPSPACE: (x,y) are universal coordiantes
- *      Used by shipsData and stars
+ *      Used by ships and stars
+ *  PATROL: Patrol in a system (internally in Orbit around a Patrol Point)
+ *      Used by ships
  */
 @JsonClass(generateAdapter = true)
 data class GBLocation(
@@ -70,6 +72,7 @@ data class GBLocation(
         const val ORBIT = 2
         const val SYSTEM = 3
         const val DEEPSPACE = 4
+        const val PATROL = 5
     }
 
     // make a LANDED location by giving Surface Int x and y
@@ -90,6 +93,22 @@ data class GBLocation(
         // These asserts may also catch mistaken use of Float (x,y).
         gbAssert("Distance to planet too big", r <= 1.2f * PlanetOrbit)
     }
+
+    /** Make a PATROL location by giving Float angle theta [t] and distance [r] to center.
+     *  Note y is facing down, so 0<t<PI is below the center
+     *  */
+    constructor(patrolPoint: GBPatrolPoint, r: Float, t: Float) : this(
+        PATROL,
+        patrolPoint.uid,
+        t = t.rem(2f * PI.toFloat()),
+        r = r,
+        x = r * cos(t),
+        y = r * sin(t)
+    ) {
+        // These asserts may also catch mistaken use of Float (x,y).
+        gbAssert("Distance to patrol point too big", r <= 0.6 * starMaxOrbit)
+    }
+
 
     /** Make a SYSTEM location from Float (r,t) radius from center and theta */
     constructor(star: GBStar, r: Float, t: Float) : this(
@@ -142,6 +161,9 @@ data class GBLocation(
         if (level == ORBIT) {
             return GBxy(u.planet(uidRef).loc.getLoc().x + x, u.planet(uidRef).loc.getLoc().y + y)
         }
+        if (level == PATROL) {
+            return GBxy(u.patrolPoint(uidRef).loc.getLoc().x + x, u.patrolPoint(uidRef).loc.getLoc().y + y)
+        }
         if (level == SYSTEM) {
             return GBxy(u.star(uidRef).loc.getLoc().x + x, u.star(uidRef).loc.getLoc().y + y)
         } else {
@@ -166,6 +188,9 @@ data class GBLocation(
         if (level == ORBIT) {
             return GBxy(vm.planet(uidRef).loc.getLoc().x + x, vm.planet(uidRef).loc.getLoc().y + y)
         }
+        if (level == PATROL) {
+            return GBxy(vm.patrolPoint(uidRef).loc.getLoc().x + x, vm.patrolPoint(uidRef).loc.getLoc().y + y)
+        }
         if (level == SYSTEM) {
             return GBxy(vm.star(uidRef).loc.getLoc().x + x, vm.star(uidRef).loc.getLoc().y + y)
         } else {
@@ -182,13 +207,13 @@ data class GBLocation(
 
     /** Get (Planet) Orbit location in Polar - relative to planet*/
     fun getOLocP(): GBrt {
-        gbAssert("This is not an orbit location.", level == ORBIT)
+        gbAssert("This is not an orbit location.", level == ORBIT || level == PATROL)
         return GBrt(r, t)
     }
 
     /** Get (Planet) Orbit location in Cartesian - relative to planet*/
     fun getOLocC(): GBxy {
-        gbAssert("This is not an orbit location", level == ORBIT)
+        gbAssert("This is not an orbit location", level == ORBIT || level == PATROL)
         return GBxy(x, y)
     }
 
@@ -227,6 +252,9 @@ data class GBLocation(
             DEEPSPACE -> {
                 return "Deep Space"
             }
+            PATROL -> {
+                return "Patrol around " + getStar()!!.name
+            }
             else -> {
                 gbAssert("Limbo", false)
                 return "Limbo"
@@ -242,11 +270,19 @@ data class GBLocation(
         }
     }
 
+    fun getPatrolPoint(): GBPatrolPoint? {
+        when (level) {
+            PATROL -> return u.patrolPoint(uidRef)
+            else -> return null
+        }
+    }
+
     fun getStar(): GBStar? {
         when (level) {
             LANDED -> return u.planet(uidRef).star
             ORBIT -> return u.planet(uidRef).star
             SYSTEM -> return u.star(uidRef)
+            PATROL -> return u.patrolPoint(uidRef).star
             else -> return null
         }
     }
