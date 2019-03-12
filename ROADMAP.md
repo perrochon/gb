@@ -10,6 +10,7 @@ game play, or prevent game play are second priority. Here are a few examples
 
 ## Short Term Small Items
 * DO skips frames (on emulator) - make sure we minimize work on UI thread
+* Add patrol ships to firing and fired at lists...
 * Moving Dot animation on squares follow the square, instead of a circle. Drive by a parameter of the ship (extension)
 * same ssytem patrol flies to inside of circle, instead of outside...
 * Settings: Clean code smell

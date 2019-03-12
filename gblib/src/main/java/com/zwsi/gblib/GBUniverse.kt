@@ -244,7 +244,7 @@ data class GBUniverse(
             sh.killShip()
         }
 
-        // Review all shipsData in orbit and see if we can spread them out a bit
+        // Review all ships in orbit and see if we can spread them out a bit
         for ((_, p) in planets) {
             if (p.orbitShips.size > 1) {
                 val targetR = 2 * PI / p.orbitShips.size
@@ -261,6 +261,7 @@ data class GBUniverse(
                 }
             }
         }
+        // Review all ships in patrol point orbits and see if we can spread them out a bit
         for ((_, pp) in patrolPoints) {
             if (pp.orbitShips.size > 1) {
                 val targetR = 2 * PI / pp.orbitShips.size
@@ -288,16 +289,23 @@ data class GBUniverse(
 
     }
 
-    fun fireShots() {
+    private fun fireShots() {
         shots.clear()
 
-        // PERF Create one list of all insystem shipsData, then find shots
-        // System Ships shoot at System only
+        // PERF Create one list of all insystem ships, then find shots
         for ((_, star) in stars) {
-            for (sh1 in star.starShips.filter { it.guns > 0 }.shuffled()) {
+
+            // System and Patrol Ships shoot at System and Patrol Ships
+            val ships = star.starShips
+                .union(star.starPatrolPoints.first().orbitShips)
+                .union(star.starPatrolPoints.drop(1).first().orbitShips)
+                .filter { it.guns > 0 }
+                .shuffled()
+
+            for (sh1 in ships) {
 
                 if (sh1.health > 0) {
-                    for (sh2 in star.starShips.shuffled()) {
+                    for (sh2 in ships) {
                         if (sh1.guns > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
                                 fireOneShot(sh1, sh2)
@@ -308,17 +316,16 @@ data class GBUniverse(
 
                 }
             }
-        }
-        // Orbit Ships shoot at System, Orbit, or landed shipsData
-        for ((_, p) in planets) {
-            for (sh1 in p.orbitShips.filter { it.guns > 0 }.shuffled()) {
 
-                if (sh1.health > 0) {
-                    for (sh2 in u.star(p.uidStar).starShips.union(p.orbitShips).union(p.landedShips).shuffled()) {
-                        if (sh1.guns > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
-                            if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
-                                fireOneShot(sh1, sh2)
-                                sh1.guns-- // should break when shots = 0
+            for (p in star.starPlanets) {
+                for (sh1 in p.orbitShips.filter { it.guns > 0 }.shuffled()) {
+                    if (sh1.health > 0) {
+                        for (sh2 in ships.union(p.orbitShips).union(p.landedShips).shuffled()) {
+                            if (sh1.guns > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
+                                if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
+                                    fireOneShot(sh1, sh2)
+                                    sh1.guns-- // should break when shots = 0
+                                }
                             }
                         }
                     }
@@ -327,7 +334,7 @@ data class GBUniverse(
         }
     }
 
-    fun fireOneShot(sh1: GBShip, sh2: GBShip) {
+    private fun fireOneShot(sh1: GBShip, sh2: GBShip) {
         shots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc(), sh1.race.uid))
         GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
         sh2.health = max(0, sh2.health - sh1.damage)
