@@ -269,7 +269,7 @@ data class GBUniverse(
                     if (previous != null) {
                         if (ship.loc.t - previous.loc.t < targetR) {
                             ship.loc =
-                                GBLocation(ship.loc.getPlanet()!!, ship.loc.getOLocP().r, ship.loc.getOLocP().t + 0.1f)
+                                GBLocation(ship.loc.getPatrolPoint()!!, ship.loc.getOLocP().r, ship.loc.getOLocP().t + 0.1f)
                         }
                     }
                     previous = ship
