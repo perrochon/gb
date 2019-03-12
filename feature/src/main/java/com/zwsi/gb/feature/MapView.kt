@@ -656,7 +656,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             // Draw animation
             if (sh.health > 0 && sh.idxtype != STATION) {
                 var r = radius
-                if (sh.idxtype = BATTLESTAR) {
+                if (sh.idxtype == BATTLESTAR) {
                     r = r * 1.5f
                 }
                 val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
