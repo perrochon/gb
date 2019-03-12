@@ -686,7 +686,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 // TODO: Ships should tell give me the ID of their bitmap and this when statement would go away
                 // But GBShips don't know anything about shipBitmaps, so the logic needs to live elsewhere.
                 FACTORY -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.cruisert), false, radius)
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.factory), false, radius)
                 }
                 POD -> {
                     if (sh.race.uid == 2) {
