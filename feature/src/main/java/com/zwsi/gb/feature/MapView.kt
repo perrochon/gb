@@ -592,6 +592,29 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                     } // planet loop
 
+                    for (uidPp in s.starUidPatrolPoints) {
+                        val pp = vm.patrolPoint(uidPp)
+                        sP1.set(pp.loc.getLoc().x * uToS, pp.loc.getLoc().y * uToS)
+                        sourceToViewCoord(sP1, vP1)
+
+                        // patrol point orbit circles and surface rectangles
+                        if (20 > normScale) {
+                            paint.style = Style.STROKE
+                            paint.color = circleColor
+                            paint.strokeWidth = strokeWidth.toFloat()
+                            val radius = vm.starMaxOrbit * 0.5f * uToS * scale
+                            canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+
+                        }
+
+                        // Draw orbit shipsData
+                        for (uidS in pp.orbitUidShips) {
+                            val sh = vm.ship(uidS)
+                            drawShip(canvas, sh)
+                        }
+                    } // patrol point loop
+
+
                     // Draw In System Ship
                     for (uidS in s.starUidShips) {
                         val sh = vm.ship(uidS)
@@ -733,7 +756,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private fun drawShipBitmap(canvas: Canvas, bitmap: Bitmap, circle: Boolean, radius: Float) {
 
-//        if (circle) {
+//        if (circle) { // FIXME
 //            canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 //        } else {
 //            canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)

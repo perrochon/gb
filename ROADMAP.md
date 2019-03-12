@@ -31,6 +31,7 @@ game play, or prevent game play are second priority. Here are a few examples
 
 ## Code Quality
 * Turn colors to proper resource strings. Then parse them once.
+* Tests for patrol points
 * Review all TODO and warnings
 * Unit Test Missions (or at least the lib part...)
 * Review all unit tests, and add whats missing (GBLocation? GBxy? )

@@ -26,6 +26,7 @@ data class GBUniverse(
     // Will val persist them in JSON, though?
     var stars: MutableMap<Int, GBStar> = hashMapOf<Int, GBStar>(),
     var planets: MutableMap<Int, GBPlanet> = hashMapOf<Int, GBPlanet>(),
+    var patrolPoints: MutableMap<Int, GBPatrolPoint> = hashMapOf<Int, GBPatrolPoint>(),
     var races: MutableMap<Int, GBRace> = hashMapOf<Int, GBRace>(),
     var ships: MutableMap<Int, GBShip> = hashMapOf<Int, GBShip>(),
     val shots: MutableList<GBVector> = arrayListOf<GBVector>(),
@@ -73,6 +74,10 @@ data class GBUniverse(
         return planets[uid]!!
     }
 
+    fun patrolPoint(uid: Int): GBPatrolPoint {
+        return patrolPoints[uid]!!
+    }
+
     fun race(uid: Int): GBRace {
         return races[uid]!!
     }
@@ -106,6 +111,7 @@ data class GBUniverse(
         GBLog.i("Making stars and planets")
         areas.clear()
         var uidPlanet = 0
+        var uidPatrolPoint = 0
         for (uidStar in 0 until numberOfStars) {
             val numberOfPlanets =
                 GBData.rand.nextInt(GBData.MaxNumberOfPlanets - GBData.MinNumberOfPlanets) + GBData.MinNumberOfPlanets
@@ -126,6 +132,20 @@ data class GBUniverse(
                 planets[uidPlanet] = GBPlanet(uidPlanet, sidPlanet, uidStar, loc)
                 star(uidStar).starUidPlanets.add(uidPlanet)
                 uidPlanet++;
+            }
+
+            var t = GBData.rand.nextFloat() * 2f * PI.toFloat()
+            for (sidPatrolPoint in 0..1) { // 2 is hardwired. Need to update increment to t if we go beyond 2
+                val loc =
+                    GBLocation(
+                        stars[uidStar]!!,
+                        starMaxOrbit * 0.4f,
+                        t
+                    )
+                patrolPoints[uidPatrolPoint] = GBPatrolPoint(uidPatrolPoint, sidPatrolPoint, uidStar, loc)
+                star(uidStar).starUidPatrolPoints.add(uidPatrolPoint)
+                uidPatrolPoint++;
+                t = t + PI.toFloat()
             }
         }
     }
@@ -214,6 +234,9 @@ data class GBUniverse(
         for ((_, star) in stars) {
             for (p in star.starPlanets) {
                 p.doPlanet()
+            }
+            for (pp in star.starPatrolPoints) {
+                pp.doPatrolPoint()
             }
         }
 
