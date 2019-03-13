@@ -1,0 +1,1855 @@
+{
+  "description": "Mission 1: Expand through your solar system",
+  "universeMaxX": 1000,
+  "universeMaxY": 1000,
+  "starMaxOrbit": 40.0,
+  "planetOrbit": 2.0,
+  "numberOfStars": 1,
+  "numberOfRaces": 1,
+  "nextGlobalID": 1000,
+  "secondPlayer": false,
+  "playerTurns": [
+    5,
+    5
+  ],
+  "turn": 1,
+  "stars": {
+    "0": {
+      "uid": 0,
+      "numberOfPlanets": 5,
+      "loc": {
+        "level": 4,
+        "uidRef": -1,
+        "x": 410.0,
+        "y": 710.0,
+        "t": -1.0,
+        "r": -1.0,
+        "sx": -1,
+        "sy": -1
+      },
+      "name": "Lyra",
+      "starUidPatrolPoints": [
+        0,
+        1
+      ],
+      "starUidPlanets": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "starUidShips": []
+    }
+  },
+  "planets": {
+    "0": {
+      "uid": 0,
+      "sid": 0,
+      "uidStar": 0,
+      "loc": {
+        "level": 3,
+        "uidRef": 0,
+        "x": -5.8991547,
+        "y": -4.12795,
+        "t": 3.7521527,
+        "r": 7.2,
+        "sx": -1,
+        "sy": -1
+      },
+      "height": 3,
+      "idxtype": 6,
+      "landedUidShips": [],
+      "name": "Phrixus",
+      "orbitUidShips": [],
+      "planetPopulation": 100,
+      "planetUidRaces": [
+        0
+      ],
+      "sectors": [
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 800,
+          "population": 0,
+          "revenue": 2,
+          "type": 4,
+          "typeSymbol": "^",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 200,
+          "population": 100,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": 0
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 800,
+          "population": 0,
+          "revenue": 2,
+          "type": 4,
+          "typeSymbol": "^",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 800,
+          "population": 0,
+          "revenue": 2,
+          "type": 4,
+          "typeSymbol": "^",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 800,
+          "population": 0,
+          "revenue": 2,
+          "type": 4,
+          "typeSymbol": "^",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 0,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        }
+      ],
+      "type": "Airless",
+      "width": 6
+    },
+    "1": {
+      "uid": 1,
+      "sid": 1,
+      "uidStar": 0,
+      "loc": {
+        "level": 3,
+        "uidRef": 0,
+        "x": 6.6084995,
+        "y": -12.79405,
+        "t": 5.1891723,
+        "r": 14.4,
+        "sx": -1,
+        "sy": -1
+      },
+      "height": 6,
+      "idxtype": 1,
+      "landedUidShips": [],
+      "name": "Enlil",
+      "orbitUidShips": [],
+      "planetPopulation": 0,
+      "planetUidRaces": [],
+      "sectors": [
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 1,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 1,
+          "type": 2,
+          "typeSymbol": "@",
+          "uidSectorOwner": -1
+        }
+      ],
+      "type": "Jovian",
+      "width": 12
+    },
+    "2": {
+      "uid": 2,
+      "sid": 2,
+      "uidStar": 0,
+      "loc": {
+        "level": 3,
+        "uidRef": 0,
+        "x": -20.968246,
+        "y": -5.185811,
+        "t": 3.384045,
+        "r": 21.599998,
+        "sx": -1,
+        "sy": -1
+      },
+      "height": 2,
+      "idxtype": 7,
+      "landedUidShips": [],
+      "name": "Tare",
+      "orbitUidShips": [],
+      "planetPopulation": 0,
+      "planetUidRaces": [],
+      "sectors": [
+        {
+          "uidPlanet": 2,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 2,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 2,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 2,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 2,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 2,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 2,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 2,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        }
+      ],
+      "type": "Asteroid",
+      "width": 4
+    },
+    "3": {
+      "uid": 3,
+      "sid": 3,
+      "uidStar": 0,
+      "loc": {
+        "level": 3,
+        "uidRef": 0,
+        "x": 25.126682,
+        "y": -14.074437,
+        "t": 5.772591,
+        "r": 28.8,
+        "sx": -1,
+        "sy": -1
+      },
+      "height": 5,
+      "idxtype": 3,
+      "landedUidShips": [],
+      "name": "Camelot",
+      "orbitUidShips": [],
+      "planetPopulation": 0,
+      "planetUidRaces": [],
+      "sectors": [
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 200,
+          "population": 0,
+          "revenue": 2,
+          "type": 7,
+          "typeSymbol": "x",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 3,
+          "maxPopulation": 500,
+          "population": 0,
+          "revenue": 1,
+          "type": 3,
+          "typeSymbol": "-",
+          "uidSectorOwner": -1
+        }
+      ],
+      "type": "Desert",
+      "width": 10
+    },
+    "4": {
+      "uid": 4,
+      "sid": 4,
+      "uidStar": 0,
+      "loc": {
+        "level": 3,
+        "uidRef": 0,
+        "x": 16.592949,
+        "y": 31.947989,
+        "t": 1.09177,
+        "r": 36.0,
+        "sx": -1,
+        "sy": -1
+      },
+      "height": 4,
+      "idxtype": 0,
+      "landedUidShips": [],
+      "name": "Tjinimin",
+      "orbitUidShips": [],
+      "planetPopulation": 0,
+      "planetUidRaces": [],
+      "sectors": [
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 100,
+          "population": 0,
+          "revenue": 0,
+          "type": 6,
+          "typeSymbol": "#",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 5000,
+          "population": 0,
+          "revenue": 1,
+          "type": 5,
+          "typeSymbol": "*",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 1000,
+          "population": 0,
+          "revenue": 1,
+          "type": 0,
+          "typeSymbol": "~",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 5000,
+          "population": 0,
+          "revenue": 1,
+          "type": 5,
+          "typeSymbol": "*",
+          "uidSectorOwner": -1
+        },
+        {
+          "uidPlanet": 4,
+          "maxPopulation": 2000,
+          "population": 0,
+          "revenue": 2,
+          "type": 1,
+          "typeSymbol": ".",
+          "uidSectorOwner": -1
+        }
+      ],
+      "type": "M Class",
+      "width": 8
+    }
+  },
+  "patrolPoints": {
+    "0": {
+      "uid": 0,
+      "sid": 0,
+      "uidStar": 0,
+      "loc": {
+        "level": 3,
+        "uidRef": 0,
+        "x": 9.680745,
+        "y": 12.739041,
+        "t": 0.920972,
+        "r": 16.0,
+        "sx": -1,
+        "sy": -1
+      },
+      "orbitUidShips": []
+    },
+    "1": {
+      "uid": 1,
+      "sid": 1,
+      "uidStar": 0,
+      "loc": {
+        "level": 3,
+        "uidRef": 0,
+        "x": -9.680742,
+        "y": -12.739043,
+        "t": 4.062565,
+        "r": 16.0,
+        "sx": -1,
+        "sy": -1
+      },
+      "orbitUidShips": []
+    }
+  },
+  "races": {
+    "0": {
+      "idx": 0,
+      "uid": 0,
+      "uidHomePlanet": 0,
+      "absorption": 20,
+      "birthrate": 50,
+      "color": "#ffff0000",
+      "description": "You are a Xeno. \n\n Xenos can’t burn, they can’t suffocate, they can glide, they can run at 20 mph, they can find underground materials fast, and they walk at 5mph, they glide at 65mph.",
+      "explore": 20,
+      "name": "Xenos",
+      "population": 0,
+      "raceUidShips": [],
+      "raceVisibleStars": [
+        0
+      ]
+    }
+  },
+  "ships": {},
+  "shots": [],
+  "news": [],
+  "deepSpaceUidShips": []
+}
