@@ -111,7 +111,7 @@ class GBMakeMissions {
         u.description = "Map 2: Southern Cross"
         u.secondPlayer = true
         val json = GBController.saveUniverse()
-        File("levels/map1.json").writeText(json)
+        File("levels/map2.json").writeText(json)
 
         // Quick check we can load it again
         GBController.loadUniverseFromJSON(json)
