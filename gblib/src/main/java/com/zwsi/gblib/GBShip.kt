@@ -211,11 +211,13 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
         }
 
         val moveDest: GBLocation
-        if (dest!!.level == LANDED || dest!!.level == ORBIT) {
-            moveDest = dest!!.getPlanet()!!.computePlanetPositions(1)
-        } else {
-            moveDest = this.dest!!
-        }
+//        if (dest!!.level == LANDED || dest!!.level == ORBIT) {  // TODO. Sometimes arrival in orbit looks funky
+//            moveDest = dest!!.getPlanet()!!.computePlanetPositions(1) // But this fix made pods never arrive...
+//        } else {
+//            moveDest = this.dest!!
+//        }
+
+        moveDest = this.dest!!
 
         val dxy = moveDest.getLoc() // use getLoc to get universal (x,y)
         val sxy = loc.getLoc()
