@@ -20,32 +20,20 @@ import kotlin.math.atan2
 @JsonClass(generateAdapter = true)
 data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocation) {
 
-    // properties that don't change over live time of ship
-//    var name: String = "noname"// name, first letters of race and type, then id
-//    var type: String = "notype"// type in printable form
-//    var speed: Int = -1  // speed of ship
-//    var damage: Int = -1
-//    var range: Int = -1
-//    var guns: Int = 0
-
     var name = "ship" // Change this in initializeShip() when we have a universe
 
     var type = GBData.shipsData[idxtype]!!.type
     var speed = GBData.shipsData[idxtype]!!.speed   // TODO Feature: hyperspeed per type (as opposed to fixed multiplier)
     var damage = GBData.shipsData[idxtype]!!.damage
     var range = GBData.shipsData[idxtype]!!.range
-    var guns = GBData.shipsData[idxtype]!!.shots
-
 
     // properties that change over lifetime of ship
     var health = GBData.shipsData[idxtype]!!.health
-//    var health: Int = -1  // health of ship. Goes down when shot at. Not going up (as of now)
+    var guns = GBData.shipsData[idxtype]!!.shots     // How many shots can be fired this turn
     var dest: GBLocation? = null
 
     val race: GBRace
         get() = u.race(uidRace)
-
-    // How many shots can be fired per turn
 
     // TODO These are a cool but nice to have feature. They are also an app feature more than a lib feature
     // They are irrelevant for text based UI. But persistence in the client is problematic if an update is missed
@@ -57,8 +45,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     fun initializeShip() {
         u.ships[uid] = this
         u.race(uidRace).raceUidShips.add(this.uid)
-        var name =
-            u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
+        name = u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
         when (loc.level) {
             LANDED -> {
                 loc.getPlanet()!!.landedUidShips.add(this.uid)
@@ -217,23 +204,29 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     }
 
 
-    fun moveShip() {
+    private fun moveShip() {
 
         if (dest == null) {
             return
         }
 
-        val dest = this.dest!!
-        val dxy = dest.getLoc()       // use getLoc to get universal (x,y)
-        val sxy = loc.getLoc()        // TODO no longer true  ? : center of planet for landed and orbit
+        val moveDest: GBLocation
+        if (dest!!.level == LANDED || dest!!.level == ORBIT) {
+            moveDest = dest!!.getPlanet()!!.computePlanetPositions(1)
+        } else {
+            moveDest = this.dest!!
+        }
 
-        GBLog.d("Moving $name from ${this.loc.getLocDesc()} to ${dest.getLocDesc()}.")
+        val dxy = moveDest.getLoc() // use getLoc to get universal (x,y)
+        val sxy = loc.getLoc()
+
+        GBLog.d("Moving $name from ${this.loc.getLocDesc()} to ${moveDest.getLocDesc()}.")
 
         if (loc.level == LANDED) { // We are landed
 
             GBLog.d(name + " is landed")
 
-            if ((dest.level != loc.level) || (dest.uidRef != loc.uidRef)) { // landed and we need to get to orbit
+            if ((moveDest.level != loc.level) || (moveDest.uidRef != loc.uidRef)) { // landed and we need to get to orbit
 
                 //What direction are we heading
                 val t = atan2(dxy.y - sxy.y, dxy.x - sxy.x)
@@ -254,11 +247,11 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
             return
 
-        } else if ((loc.level == ORBIT) && (loc.uidRef == dest.uidRef)) {
+        } else if ((loc.level == ORBIT) && (loc.uidRef == moveDest.uidRef)) {
 
             // We arrived at the planet of destination
 
-            if (dest.level == ORBIT) { // We arrived in Orbit
+            if (moveDest.level == ORBIT) { // We arrived in Orbit
                 this.dest = null
 
                 return // TODO We arrived, shouldn't we be inserting at the right spot?
@@ -268,7 +261,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 GBLog.d("$name is in orbit at destination. Landing.")
 
                 // in orbit at destination so we need to land
-                changeShipLocation(dest)
+                changeShipLocation(moveDest)
                 u.news.add("$name ${loc.getLocDesc()}.\n")
 
                 return
@@ -279,27 +272,27 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
             val distanceToDestination = sxy.distance(dxy)
 
-            if ((dest.level == ORBIT || dest.level == LANDED) && (distanceToDestination) < speed + PlanetOrbit) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
+            if ((moveDest.level == ORBIT || moveDest.level == LANDED) && (distanceToDestination) < speed + PlanetOrbit) { // we will arrive at a planet (i.e. in Orbit) this turn. Can only fly to planets (right now)
 
                 //What direction are we coming from
                 val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
 
-                val next = GBLocation(dest.getPlanet()!!, PlanetOrbit, t)
+                val next = GBLocation(moveDest.getPlanet()!!, PlanetOrbit, t)
                 changeShipLocation(next)
                 u.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 
-                if (dest.level == ORBIT) {
+                if (moveDest.level == ORBIT) {
                     this.dest = null
 
                 }
                 return
             }
 
-            if (dest.level == PATROL && distanceToDestination < speed + u.starMaxOrbit * 0.5f) {
+            if (moveDest.level == PATROL && distanceToDestination < speed + u.starMaxOrbit * 0.5f) {
                 //What direction are we coming from
                 val t = atan2(sxy.y - dxy.y, sxy.x - dxy.x)
 
-                val next = GBLocation(dest.getPatrolPoint()!!, starMaxOrbit * 0.5F, t)
+                val next = GBLocation(moveDest.getPatrolPoint()!!, starMaxOrbit * 0.5F, t)
                 changeShipLocation(next)
                 u.news.add("$name arrived in ${loc.getLocDesc()}.\n")
 
@@ -320,14 +313,14 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     nxy = sxy.towards(dxy, hyperspeed)
                 }
 
-                val distanceToStar = sxy.distance(dest.getStar()!!.loc.getLoc())
+                val distanceToStar = sxy.distance(moveDest.getStar()!!.loc.getLoc())
 
                 if (distanceToStar < hyperspeed + GBData.starMaxOrbit) { // we arrived at destination System
 
                     // TODO check if destination is the system, in which case we would just stop here.
                     // We can't fly to a system yet, so not a bug just yet.
 
-                    val next = GBLocation(dest.getStar()!!, nxy.x, nxy.y, true)
+                    val next = GBLocation(moveDest.getStar()!!, nxy.x, nxy.y, true)
 
                     changeShipLocation(next)
 
@@ -367,10 +360,10 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
                     val next: GBLocation
 
-                    if (dest.level == ORBIT || dest.level == LANDED) {
+                    if (moveDest.level == ORBIT || moveDest.level == LANDED) {
                         // Fly to where planet will  be, not where it is. TODO same thing when in deepspace.
                         val n = (distanceToDestination / speed).toInt()
-                        val target = dest.getPlanet()!!.computePlanetPositions(n)
+                        val target = moveDest.getPlanet()!!.computePlanetPositions(n)
                         nxy = sxy.towards(target.getLoc(), speed.toFloat())
                         next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
 

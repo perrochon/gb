@@ -164,28 +164,28 @@ class MapActivity : AppCompatActivity() {
                     if (any is GBPlanet) {
                         val ft = getSupportFragmentManager().beginTransaction()
                         val fragment = PlanetFragment.newInstance(any.uid.toString())
-                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.details, fragment, any.uid.toString())
                         ft.commit()
 
                     } else if (any is GBStar) {
                         val ft = getSupportFragmentManager().beginTransaction()
                         val fragment = StarFragment.newInstance(any.uid.toString())
-                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.details, fragment, any.uid.toString())
                         ft.commit()
 
                     } else if (any is GBShip) {
                         val ft = getSupportFragmentManager().beginTransaction()
                         val fragment = ShipFragment.newInstance(any.uid.toString())
-                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.details, fragment, any.uid.toString())
                         ft.commit()
                     } else {
                         val fragment = getSupportFragmentManager().findFragmentById(R.id.details)
                         if (fragment != null) {
                             val ft = getSupportFragmentManager().beginTransaction()
-                            ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                            //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                             ft.remove(fragment)
                             ft.commit()
                         }

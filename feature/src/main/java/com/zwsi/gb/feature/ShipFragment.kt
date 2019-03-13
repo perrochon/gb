@@ -125,7 +125,8 @@ class ShipFragment : Fragment() {
             }
             stats.append("Health: " + sh.health + "\n")
             stats.append("Location: " + sh.loc.getLocDesc() + "\n")
-            if (sh.dest != null) stats.append("Destination: ${sh.dest?.getLocDesc()}\n")
+
+            if (sh.uidRace == uidActivePlayer && sh.dest != null) stats.append("Destination: ${sh.dest?.getLocDesc()}\n")
 
             val shipRaceView = view.findViewById<ImageView>(R.id.ShipRaceView)
 
@@ -137,10 +138,16 @@ class ShipFragment : Fragment() {
                 3 -> shipRaceView.setImageResource((R.drawable.tortoise))
             }
 
+            val destinationButton = view.findViewById<Button>(R.id.destination)!!
             if (sh.uidRace != uidActivePlayer || sh.speed == 0) {
-                view.findViewById<Button>(R.id.destination).setVisibility(View.GONE)
+                destinationButton.visibility = View.GONE
+            } else if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
+                destinationButton.isEnabled = false
+                destinationButton.alpha = 0.5f
+            } else {
+                destinationButton.isEnabled = true
+                destinationButton.alpha = 1f // See Hack above.
             }
-
 
             val shipView = view.findViewById<ImageView>(R.id.ShipView)
 

@@ -14,8 +14,6 @@ import com.zwsi.gb.feature.GBViewModel.Companion.actionsTaken
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBData.Companion.CRUISER
-import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import com.zwsi.gblib.GBUniverse
 import java.io.File
@@ -173,7 +171,7 @@ class GlobalStuff {
             // TODO Simplify (use .first) ? Or better, find Population and use planetOwner...
             GBController.makeFactory(planet.uid, uidActivePlayer)
 
-            checkDo(view)
+            updateActions(view)
 
             val message = "Ordered Factory on " + planet.name
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
@@ -278,7 +276,7 @@ class GlobalStuff {
             val factory = vm.ships[view.tag as Int] // Don't use ship() as we need to handle null (do nothing)
             if (factory != null) {
                 GBController.makeShip(factory.uid, type)
-                checkDo(view)
+                updateActions(view)
 
                 val message = "Ordered ship in Factory ${factory.name}."
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
@@ -286,12 +284,12 @@ class GlobalStuff {
             }
         }
 
-        fun checkDo(view: View) {
+        fun updateActions(view: View) {
             if (vm.secondPlayer) {
                 vm.playerTurns[uidActivePlayer]--
                 actionsTaken.value = vm.playerTurns[0] + vm.playerTurns[1]
 
-                if (vm.playerTurns[1 - uidActivePlayer] < 0 && vm.playerTurns[uidActivePlayer] < 5) {
+                if (vm.playerTurns[1 - uidActivePlayer] < 0) {
                     doUniverse(view, true)
                 }
 

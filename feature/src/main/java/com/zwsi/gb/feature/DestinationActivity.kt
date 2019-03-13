@@ -22,7 +22,7 @@ class DestinationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destination)
 
-        val uidShip = intent.extras.getInt("uidShip")
+        val uidShip = intent.extras!!.getInt("uidShip")
         val ship = vm.ship(uidShip)
 
         val linearLayout = findViewById<LinearLayout>(R.id.Destinations)
@@ -117,7 +117,7 @@ class DestinationActivity : AppCompatActivity() {
                 GBController.flyShipStarPatrol(ship.uid, patrolPoint.uid)// update server side
                 ship.dest = GBLocation(patrolPoint, 0f, 0f) // update vm // FIXME select patrol point
             }
-            GlobalStuff.checkDo(it)
+            GlobalStuff.updateActions(it)
             finish()
         })
 
@@ -143,13 +143,10 @@ class DestinationActivity : AppCompatActivity() {
     private fun handleClick(
         button: View, destinationsList: List<Button>
     ) {
-
-        var i = 0
         for (b in destinationsList) {
-            b.background.colorFilter = LightingColorFilter(0, 0)
+            b.background.colorFilter = LightingColorFilter(1, 0)
         }
         button.background.colorFilter = LightingColorFilter(0x55555, 0x774400)
-
     }
 
 }
