@@ -37,7 +37,7 @@ class GBMakeMissions {
     fun makeMission2() {
         GBData.rand.nextInt()
         GBController.makeSmallUniverse()
-        val turns = 200
+        val turns = 10
         var json: String = ""
 
         for (i in 1..turns) {

@@ -270,7 +270,11 @@ data class GBUniverse(
                     if (previous != null) {
                         if (ship.loc.t - previous.loc.t < targetR) {
                             ship.loc =
-                                GBLocation(ship.loc.getPatrolPoint()!!, ship.loc.getOLocP().r, ship.loc.getOLocP().t + 0.1f)
+                                GBLocation(
+                                    ship.loc.getPatrolPoint()!!,
+                                    ship.loc.getOLocP().r,
+                                    ship.loc.getOLocP().t + 0.05f
+                                )
                         }
                     }
                     previous = ship
@@ -295,39 +299,43 @@ data class GBUniverse(
         // PERF Create one list of all insystem ships, then find shots
         for ((_, star) in stars) {
 
+
             // System and Patrol Ships shoot at System and Patrol Ships
-            val ships = star.starShips
-                .union(star.starPatrolPoints.first().orbitShips)
-                .union(star.starPatrolPoints.drop(1).first().orbitShips)
-                .filter { it.guns > 0 }
-                .shuffled()
+
+            val ships = (star.starShips +
+                    star.starPatrolPoints[0].orbitShips +
+                    star.starPatrolPoints[1].orbitShips)
+                .filter {it.health > 0}.shuffled()
 
             for (sh1 in ships) {
 
-                if (sh1.health > 0) {
+                if (sh1.guns > 0 && sh1.health > 0) {
                     for (sh2 in ships) {
                         if (sh1.guns > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
-                            if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
+                            if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < sh1.range) {
                                 fireOneShot(sh1, sh2)
                                 sh1.guns-- // should break when shots = 0
                             }
                         }
                     }
-
                 }
             }
 
             for (p in star.starPlanets) {
-                for (sh1 in p.orbitShips.filter { it.guns > 0 }.shuffled()) {
-                    if (sh1.health > 0) {
-                        for (sh2 in ships.union(p.orbitShips).union(p.landedShips).shuffled()) {
+                for (sh1 in p.orbitShips.shuffled()) {
+                    if (sh1.guns > 0 && sh1.health > 0) {
+
+                        for (sh2 in (ships + p.orbitShips + p.landedShips).shuffled()) {
                             if (sh1.guns > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
-                                if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < 5) {
+
+                                if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < sh1.range) {
                                     fireOneShot(sh1, sh2)
                                     sh1.guns-- // should break when shots = 0
                                 }
+
                             }
                         }
+
                     }
                 }
             }

@@ -65,11 +65,14 @@ class StarFragment : Fragment() {
                 stats.append("\n")
             }
 
-            val ships = star.starUidShips.map { vm.ship(it) }
-            if (ships.isNotEmpty()) {
-                stats.append("Ships (${ships.size.toString()}): ")
-                for (s in ships) {
-                    stats.append(s.name + " ")
+            val uidShips = star.starUidShips
+            for (uidPP in star.starUidPatrolPoints) {
+                uidShips += vm.patrolPoint(uidPP).orbitUidShips
+            }
+            if (uidShips.isNotEmpty()) {
+                stats.append("Ships (${uidShips.size.toString()}): ")
+                for (s in uidShips) {
+                    stats.append(vm.ship(s).name + " ")
                 }
             }
         }

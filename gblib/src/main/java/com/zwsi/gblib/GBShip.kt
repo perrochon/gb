@@ -15,21 +15,31 @@ import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.PATROL
 import com.zwsi.gblib.GBLocation.Companion.SYSTEM
 import com.zwsi.gblib.GBLog.gbAssert
-import kotlin.math.asin
 import kotlin.math.atan2
 
 @JsonClass(generateAdapter = true)
 data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBLocation) {
 
     // properties that don't change over live time of ship
-    var name: String = "noname"// name, first letters of race and type, then id
-    var type: String = "notype"// type in printable form
-    var speed: Int = -1  // speed of ship // TODO Feature: insystem and hyperspeed.
-    var damage: Int = -1
-    var guns: Int = 0
+//    var name: String = "noname"// name, first letters of race and type, then id
+//    var type: String = "notype"// type in printable form
+//    var speed: Int = -1  // speed of ship
+//    var damage: Int = -1
+//    var range: Int = -1
+//    var guns: Int = 0
+
+    var name = "ship" // Change this in initializeShip() when we have a universe
+
+    var type = GBData.shipsData[idxtype]!!.type
+    var speed = GBData.shipsData[idxtype]!!.speed   // TODO Feature: hyperspeed per type (as opposed to fixed multiplier)
+    var damage = GBData.shipsData[idxtype]!!.damage
+    var range = GBData.shipsData[idxtype]!!.range
+    var guns = GBData.shipsData[idxtype]!!.shots
+
 
     // properties that change over lifetime of ship
-    var health: Int = -1  // health of ship. Goes down when shot at. Not going up (as of now)
+    var health = GBData.shipsData[idxtype]!!.health
+//    var health: Int = -1  // health of ship. Goes down when shot at. Not going up (as of now)
     var dest: GBLocation? = null
 
     val race: GBRace
@@ -41,18 +51,23 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     // They are irrelevant for text based UI. But persistence in the client is problematic if an update is missed
     var trails: MutableList<GBxy> = arrayListOf()
 
-    // TODO For stars, planets, races, the caller ads to the u list. For shipsData, the ship ads. Problematic Inconsistency?
-    // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in shipsData. Dangerous?
-    // This needs to be called when creating new shipsData. It's not needed when shipsData are created by restoring from JSON
+    // TODO For stars, planets, races, the caller ads to the u list. For ships, the ship ads. Problematic Inconsistency?
+    // TODO Some tests, when restoring from JSON create a new GBShip, and this will replace it in ships. Dangerous?
+    // This needs to be called when creating new ship. It's not needed when ships are created by restoring from JSON
     fun initializeShip() {
         u.ships[uid] = this
         u.race(uidRace).raceUidShips.add(this.uid)
+        var name =
+            u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
         when (loc.level) {
             LANDED -> {
                 loc.getPlanet()!!.landedUidShips.add(this.uid)
             }
             ORBIT -> {
                 loc.getPlanet()!!.orbitUidShips.add(this.uid)
+            }
+            PATROL -> {
+                loc.getPatrolPoint()!!.orbitUidShips.add(this.uid)
             }
             SYSTEM -> {
                 loc.getStar()!!.starUidShips.add(this.uid)
@@ -61,17 +76,9 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 u.deepSpaceUidShips.add(this.uid)
             }
             else -> {
-                gbAssert("Bad Parameters for ship placement $loc", { false })
+                gbAssert("Bad Parameters for ship placement in initializeShip $loc", { false })
             }
         }
-        type = GBData.shipsData[idxtype]!!.type
-        name =
-            u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
-        speed = GBData.shipsData[idxtype]!!.speed
-        health = GBData.shipsData[idxtype]!!.health
-        damage = GBData.shipsData[idxtype]!!.damage
-        guns = GBData.shipsData[idxtype]!!.shots
-
     }
 
     fun changeShipLocation(loc: GBLocation) {
@@ -170,6 +177,9 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 ORBIT -> {
                     this.loc.getPlanet()!!.orbitUidShips.remove(this.uid)
                 }
+                PATROL -> {
+                    this.loc.getPatrolPoint()!!.orbitUidShips.remove(this.uid)
+                }
                 SYSTEM -> {
                     this.loc.getStar()!!.starUidShips.remove(this.uid)
                 }
@@ -177,7 +187,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                     u.deepSpaceUidShips.remove(this.uid)
                 }
                 else -> {
-                    gbAssert("Bad Parameters for ship removement $loc", { false })
+                    gbAssert("Bad Parameters for ship removal $loc", { false })
                 }
             }
             u.race(uidRace).raceUidShips.remove(this.uid)
@@ -187,14 +197,20 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     }
 
     fun moveOrbitShip() {
+
+        // In Orbit all ships have the same speed.
+
         if ((this.dest == null) && (this.loc.level == ORBIT)) {
             this.loc = GBLocation(this.loc.getPlanet()!!, this.loc.getOLocP().r, this.loc.getOLocP().t + 0.2f)
         }
+
+        // In Patrol, all ships also have the same speed... TODO Fix this?
+
         if ((this.dest == null) && (this.loc.level == PATROL)) {
             this.loc = GBLocation(
                 this.loc.getPatrolPoint()!!,
                 this.loc.getOLocP().r,
-                this.loc.getOLocP().t + asin(speed / this.loc.getOLocP().r)
+                this.loc.getOLocP().t + 0.1f // FIXME: Why does asin(speed / this.loc.getOLocP().r) not work?
             )
         }
 

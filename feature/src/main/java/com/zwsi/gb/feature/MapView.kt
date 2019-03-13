@@ -597,15 +597,15 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         sP1.set(pp.loc.getLoc().x * uToS, pp.loc.getLoc().y * uToS)
                         sourceToViewCoord(sP1, vP1)
 
-                        // patrol point orbit circles and surface rectangles
-                        if (20 > normScale) {
-                            paint.style = Style.STROKE
-                            paint.color = circleColor
-                            paint.strokeWidth = strokeWidth.toFloat()
-                            val radius = vm.starMaxOrbit * 0.5f * uToS * scale
-                            canvas.drawCircle(vP1.x, vP1.y, radius, paint)
-
-                        }
+                        // patrol point circles
+//                        if (20 > normScale) {
+//                            paint.style = Style.STROKE
+//                            paint.color = circleColor
+//                            paint.strokeWidth = strokeWidth.toFloat()
+//                            val radius = vm.starMaxOrbit * 0.5f * uToS * scale
+//                            canvas.drawCircle(vP1.x, vP1.y, radius, paint)
+//
+//                        }
 
                         // Draw orbit shipsData
                         for (uidS in pp.orbitUidShips) {

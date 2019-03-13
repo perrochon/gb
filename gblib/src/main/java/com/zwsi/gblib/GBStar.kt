@@ -26,11 +26,11 @@ data class GBStar(val uid: Int, val numberOfPlanets: Int, var loc: GBLocation) {
     var starUidPatrolPoints: MutableSet<Int> = HashSet<Int>() // UID of patrol points. Persistent
 
     internal val starPlanets: List<GBPlanet>
-        // PERF ?? Likely bad candidate. Cache the list and only recompute if the hashcode changes. Which requires Death Stars
+        // PERF ?? Likely ok candidate. Cache the list and only recompute if the hashcode changes. Which requires Death Stars
         get() = starUidPlanets.map { u.planet(it) }
 
     internal val starPatrolPoints: List<GBPatrolPoint>
-        // PERF ?? Likely bad candidate. Cache the list and only recompute if the hashcode changes. Which requires Death Stars
+        // PERF ?? Likely bad candidate. Cache the list and only recompute if the hashcode changes.
         get() = starUidPatrolPoints.map { u.patrolPoint(it) }
 
 
