@@ -1,6 +1,7 @@
 package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -23,7 +24,6 @@ import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.RESEARCH
 import com.zwsi.gblib.GBData.Companion.SHUTTLE
 import com.zwsi.gblib.GBData.Companion.STATION
-import com.zwsi.gblib.GBData.Companion.rand
 import com.zwsi.gblib.GBLocation
 import com.zwsi.gblib.GBLocation.Companion.DEEPSPACE
 import com.zwsi.gblib.GBLocation.Companion.LANDED
@@ -103,7 +103,12 @@ class ShipFragment : Fragment() {
         val zoomButton: Button = view.findViewById(R.id.panzoomToShip)
         zoomButton.tag = sh.uid
         zoomButton.setOnClickListener(View.OnClickListener {
-            GlobalStuff.panzoomToShip(it)
+//            GlobalStuff.panzoomToShip(it)
+
+            val intent = Intent(this.context, DestinationActivity::class.java)
+            intent.putExtra("uidShip", sh.uid)
+            startActivity(intent)
+
         })
 
 
@@ -127,6 +132,7 @@ class ShipFragment : Fragment() {
             stats.append("Health: " + sh.health + "\n")
             stats.append("Weapons: " + sh.guns + "\n")
             stats.append("Damage: " + sh.damage + "\n")
+            stats.append("Range: " + sh.range+ "\n")
             stats.append("Race: " + sh.race.name + "\n")
             stats.append("Location: " + sh.loc.getLocDesc() + "\n")
             if (sh.dest != null) stats.append("Destination: ${sh.dest?.getLocDesc()}\n")

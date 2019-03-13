@@ -17,6 +17,12 @@
                 android:screenOrientation="portrait"
                 ></activity>
         <activity
+                android:name=".DestinationActivity"
+                android:label="Destination"
+                android:theme="@style/AppTheme.Launcher.NoActionBar"
+                android:screenOrientation="portrait"
+                ></activity>
+        <activity
                 android:name=".MainActivity"
                 android:screenOrientation="portrait"
                 >
