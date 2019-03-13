@@ -22,6 +22,7 @@ Steps for release, because I always forget some. // TODO Automate this
 
 next
 - New ship types: shuttles, battle stars, stations, headquarters, research centers.
+- New Destination Selection Activity replaces Spinner
 - Stations are animated
 
 .677/.678
