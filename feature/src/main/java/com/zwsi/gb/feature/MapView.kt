@@ -12,6 +12,7 @@ import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.ARBitmaps.Companion.numberOfFrames
 import com.zwsi.gb.feature.ARBitmaps.Companion.otherBitmap
+import com.zwsi.gb.feature.ARBitmaps.Companion.planetBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.shipBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.surfaceBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.wheelBitmap
@@ -538,11 +539,18 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                             sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                             sourceToViewCoord(sP1, vP1)
-                            if (normScale > 1 && ARBitmaps.ready) {
+                            if (normScale > 2 && ARBitmaps.ready) {
+                                val planetBitmap = planetBitmap(p.idxtype)
+                                val planetSize = 1.6f * uToSf * scale // FIXME - move outside loops...
                                 canvas.drawBitmap(
-                                    otherBitmap(R.drawable.planet),
-                                    vP1.x - otherBitmap(R.drawable.planet).width / 2,
-                                    vP1.y - otherBitmap(R.drawable.planet).height / 2,
+                                    planetBitmap,
+                                    null,
+                                    RectF(
+                                        vP1.x - planetSize,
+                                        vP1.y -  planetSize,
+                                        vP1.x  + planetSize,
+                                        vP1.y + planetSize
+                                    ),
                                     null
                                 )
                             }
@@ -565,12 +573,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                             // planet orbit circles and surface rectangles
                             if (3 > normScale) {
-                                paint.style = Style.STROKE
+                                paint.style = Style.STROKE // FIXME move this outside.
                                 paint.color = circleColor
                                 paint.strokeWidth = strokeWidth.toFloat()
                                 val radius = vm.planetOrbit * uToS * scale
                                 canvas.drawCircle(vP1.x, vP1.y, radius, paint)
-
+                            }
+                            if (2 > normScale) {
+                                paint.style = Style.STROKE
+                                paint.color = circleColor
+                                paint.strokeWidth = strokeWidth.toFloat()
+                                val radius = vm.planetOrbit * uToS * scale
                                 val o = (PlanetOrbit * 0.4f) * uToS * scale
                                 canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
 

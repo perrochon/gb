@@ -10,6 +10,7 @@ class ARBitmaps {
 
         var ready = false;
 
+        private val planetBitmaps = HashMap<Int, Bitmap>()
         private val surfaceBitmaps = HashMap<Int, Bitmap>()
         private val otherBitmaps = HashMap<Int, Bitmap>()
         private val raceBitmaps = HashMap<Int, Bitmap>()
@@ -19,6 +20,12 @@ class ARBitmaps {
         var wheelBitmaps = arrayOfNulls<Bitmap>(numberOfFrames)
 
         var initTimes = mutableMapOf<String, Long>()
+
+        // FIXME in all of these, check for ready, and if not ready, return a default bitmap
+
+        fun planetBitmap(id: Int): Bitmap {
+            return planetBitmaps[id]!!
+        }
 
         fun surfaceBitmap(id: Int): Bitmap {
             return surfaceBitmaps[id]!!
@@ -59,6 +66,18 @@ class ARBitmaps {
             h = density / 420f * bmPlanet.getHeight() / 2
             otherBitmaps[R.drawable.planet] = Bitmap.createScaledBitmap(bmPlanet, w.toInt(), h.toInt(), true)!!
 
+            initTimes["iPB"] = measureNanoTime {
+                var bmOptions = BitmapFactory.Options()
+                bmOptions.inSampleSize = 1
+                planetBitmaps[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_mclass, bmOptions)!!
+                planetBitmaps[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_jovian, bmOptions)!!
+                planetBitmaps[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_water, bmOptions)!!
+                planetBitmaps[3] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_desert, bmOptions)!!
+                planetBitmaps[4] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_forest, bmOptions)!!
+                planetBitmaps[5] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_ice, bmOptions)!!
+                planetBitmaps[6] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_airless, bmOptions)!!
+                planetBitmaps[7] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_asteroid, bmOptions)!!
+            }
 
             initTimes["iPS"] = measureNanoTime {
                 surfaceBitmaps[3] = BitmapFactory.decodeResource(context.getResources(), R.drawable.desert)!!
@@ -70,6 +89,7 @@ class ARBitmaps {
                 surfaceBitmaps[7] = BitmapFactory.decodeResource(context.getResources(), R.drawable.rock)!!
                 surfaceBitmaps[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.water)!!
             }
+
 
             // get Races
             initTimes["iRB"] = measureNanoTime {
