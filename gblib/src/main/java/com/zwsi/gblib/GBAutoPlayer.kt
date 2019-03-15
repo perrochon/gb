@@ -143,5 +143,105 @@ class GBAutoPlayer() {
             }
 
         }
+
+        fun play5() {
+
+            if (!u.races.containsKey(4)) {
+                return
+            }
+
+            val r = u.race(4)
+            GBLog.d("Playing Impi in turn $u.turn")
+
+            val factory = r.raceShips.filter { it.idxtype == FACTORY }.firstOrNull()
+            if (factory == null) {
+                val order = GBOrder()
+                order.makeStructure(r.getHome().uid, r.uid)
+                u.orders.add(order)
+            } else {
+                if (r.raceShips.filter { it.idxtype == CRUISER }.size < 31) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, CRUISER)
+                    u.orders.add(order)
+                } else if (r.raceShips.filter { it.idxtype == STATION }.size < 5) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, STATION)
+                    u.orders.add(order)
+                } else if (r.raceShips.filter { it.idxtype == SHUTTLE }.size < 5) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, SHUTTLE)
+                    u.orders.add(order)
+                } else if (r.raceShips.filter { it.idxtype == BATTLESTAR }.size < 5) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, BATTLESTAR)
+                    u.orders.add(order)
+                }
+            }
+            // Send any cruiser that's landed (likely freshly made) to some random planet, but not the beetle home
+            val homeBeetle = u.race(2).getHome()
+            for (cruiser in r.raceShips.filter
+            {
+                (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.ORBIT) && it.loc.uidRef == r.uidHomePlanet
+            }.drop(5)) {
+                val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
+                if (planet != homeBeetle) {
+                    val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
+                    GBLog.d("Setting Destination of " + cruiser.name + " to " + planet.name)
+                    cruiser.dest = loc
+
+                } // else just try again next time this code runs...
+            }
+        }
+
+
+        fun play6() {
+
+            if (!u.races.containsKey(5)) {
+                return
+            }
+
+            val r = u.race(5)
+            GBLog.d("Playing Impi in turn $u.turn")
+
+            val factory = r.raceShips.filter { it.idxtype == FACTORY }.firstOrNull()
+            if (factory == null) {
+                val order = GBOrder()
+                order.makeStructure(r.getHome().uid, r.uid)
+                u.orders.add(order)
+            } else {
+                if (r.raceShips.filter { it.idxtype == CRUISER }.size < 31) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, CRUISER)
+                    u.orders.add(order)
+                } else if (r.raceShips.filter { it.idxtype == STATION }.size < 5) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, STATION)
+                    u.orders.add(order)
+                } else if (r.raceShips.filter { it.idxtype == SHUTTLE }.size < 5) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, SHUTTLE)
+                    u.orders.add(order)
+                } else if (r.raceShips.filter { it.idxtype == BATTLESTAR }.size < 5) {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, BATTLESTAR)
+                    u.orders.add(order)
+                }
+            }
+            // Send any cruiser that's landed (likely freshly made) to some random planet, but not the beetle home
+            val homeBeetle = u.race(2).getHome()
+            for (cruiser in r.raceShips.filter
+            {
+                (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.ORBIT) && it.loc.uidRef == r.uidHomePlanet
+            }.drop(5)) {
+                val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
+                if (planet != homeBeetle) {
+                    val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
+                    GBLog.d("Setting Destination of " + cruiser.name + " to " + planet.name)
+                    cruiser.dest = loc
+
+                } // else just try again next time this code runs...
+            }
+        }
+
     }
 }

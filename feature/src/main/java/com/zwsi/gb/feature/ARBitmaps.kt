@@ -54,21 +54,19 @@ class ARBitmaps {
             var w: Float
 
             val density = context.resources.displayMetrics.densityDpi.toFloat()
+            var bmOptions = BitmapFactory.Options()
+            bmOptions.inSampleSize = 10
 
             // Get star and planet
-            val bmStar = BitmapFactory.decodeResource(context.getResources(), R.drawable.star)!!
-            w = density / 420f * bmStar.getWidth()
-            h = density / 420f * bmStar.getHeight()
-            otherBitmaps[R.drawable.star] = Bitmap.createScaledBitmap(bmStar, w.toInt(), h.toInt(), true)!!
+            otherBitmaps[R.drawable.star] = BitmapFactory.decodeResource(context.getResources(), R.drawable.star, bmOptions)!!
 
-            val bmPlanet = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet)!!
+            val bmPlanet = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_deprecated)!!
             w = density / 420f * bmPlanet.getWidth() / 2
             h = density / 420f * bmPlanet.getHeight() / 2
-            otherBitmaps[R.drawable.planet] = Bitmap.createScaledBitmap(bmPlanet, w.toInt(), h.toInt(), true)!!
+            otherBitmaps[R.drawable.planet_deprecated] = Bitmap.createScaledBitmap(bmPlanet, w.toInt(), h.toInt(), true)!!
 
+            bmOptions.inSampleSize = 10
             initTimes["iPB"] = measureNanoTime {
-                var bmOptions = BitmapFactory.Options()
-                bmOptions.inSampleSize = 1
                 planetBitmaps[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_mclass, bmOptions)!!
                 planetBitmaps[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_jovian, bmOptions)!!
                 planetBitmaps[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_water, bmOptions)!!
@@ -80,13 +78,13 @@ class ARBitmaps {
             }
 
             initTimes["iPS"] = measureNanoTime {
-                surfaceBitmaps[3] = BitmapFactory.decodeResource(context.getResources(), R.drawable.desert)!!
-                surfaceBitmaps[5] = BitmapFactory.decodeResource(context.getResources(), R.drawable.forest)!!
-                surfaceBitmaps[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.gas)!!
-                surfaceBitmaps[6] = BitmapFactory.decodeResource(context.getResources(), R.drawable.ice)!!
-                surfaceBitmaps[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.land)!!
-                surfaceBitmaps[4] = BitmapFactory.decodeResource(context.getResources(), R.drawable.mountain)!!
-                surfaceBitmaps[7] = BitmapFactory.decodeResource(context.getResources(), R.drawable.rock)!!
+                surfaceBitmaps[3] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_desert)!!
+                surfaceBitmaps[5] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_forest)!!
+                surfaceBitmaps[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_gas)!!
+                surfaceBitmaps[6] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_ice)!!
+                surfaceBitmaps[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_land)!!
+                surfaceBitmaps[4] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_mountain)!!
+                surfaceBitmaps[7] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_rock)!!
                 surfaceBitmaps[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.water)!!
             }
 
@@ -94,7 +92,7 @@ class ARBitmaps {
             // get Races
             initTimes["iRB"] = measureNanoTime {
                 val drawables = listOf<Int>(
-                    R.drawable.xenost, R.drawable.impit, R.drawable.beetle, R.drawable.tortoise
+                    R.drawable.race_xenos, R.drawable.race_impi, R.drawable.race_beetle, R.drawable.race_tortoise, R.drawable.race_5, R.drawable.race_6
                 )
                 for (i in drawables) {
                     val bm = BitmapFactory.decodeResource(context.getResources(), i)!!
@@ -106,8 +104,8 @@ class ARBitmaps {
 
             initTimes["iSB"] = measureNanoTime {
                 val drawables = listOf<Int>(
-                    R.drawable.podt, R.drawable.cruisert, R.drawable.factory, R.drawable.beetlepod,
-                    R.drawable.shuttle, R.drawable.research, R.drawable.hq, R.drawable.battlestar, R.drawable.wheel
+                    R.drawable.podt, R.drawable.ship_cruiser, R.drawable.ship_factory, R.drawable.ship_pod_beetle,
+                    R.drawable.ship_shuttle, R.drawable.research, R.drawable.ship_hq, R.drawable.ship_battlestar, R.drawable.ship_wheel
                 )
                 for (i in drawables) {
                     val bm = BitmapFactory.decodeResource(context.getResources(), i)!!
@@ -119,7 +117,7 @@ class ARBitmaps {
 
             initTimes["iRB"] = measureNanoTime {
                 for (i in 0 until numberOfFrames) {
-                    wheelBitmaps[i] = shipBitmaps[R.drawable.wheel]!!.rotate((360.toFloat() / numberOfFrames * i))
+                    wheelBitmaps[i] = shipBitmaps[R.drawable.ship_wheel]!!.rotate((360.toFloat() / numberOfFrames * i))
                 }
             }
             ready = true

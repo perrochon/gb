@@ -132,10 +132,10 @@ class ShipFragment : Fragment() {
 
             when (sh.race.uid) {
                 // FIXME if Ships only knew their drawable.. Fix here and in MapView.drawShip()
-                0 -> shipRaceView.setImageResource((R.drawable.xenost))
-                1 -> shipRaceView.setImageResource((R.drawable.impit))
-                2 -> shipRaceView.setImageResource((R.drawable.beetle))
-                3 -> shipRaceView.setImageResource((R.drawable.tortoise))
+                0 -> shipRaceView.setImageResource((R.drawable.race_xenos))
+                1 -> shipRaceView.setImageResource((R.drawable.race_impi))
+                2 -> shipRaceView.setImageResource((R.drawable.race_beetle))
+                3 -> shipRaceView.setImageResource((R.drawable.race_tortoise))
             }
 
             val destinationButton = view.findViewById<Button>(R.id.destination)!!
@@ -152,7 +152,7 @@ class ShipFragment : Fragment() {
             val shipView = view.findViewById<ImageView>(R.id.ShipView)
 
             if (sh.idxtype == FACTORY) {
-                shipView.setImageResource(R.drawable.factory)
+                shipView.setImageResource(R.drawable.ship_factory)
                 if (sh.uidRace == uidActivePlayer) {
                     view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
                     view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
@@ -175,22 +175,22 @@ class ShipFragment : Fragment() {
                 }
             } else if (sh.idxtype == POD) {
                 if (sh.race.idx == 2) {
-                    shipView.setImageResource(R.drawable.beetlepod)
+                    shipView.setImageResource(R.drawable.ship_pod_beetle)
                 } else {
                     shipView.setImageResource(R.drawable.podt)
                 }
             } else if (sh.idxtype == CRUISER) {
-                shipView.setImageResource(R.drawable.cruisert)
+                shipView.setImageResource(R.drawable.ship_cruiser)
             } else if (sh.idxtype == HEADQUARTER) {
-                shipView.setImageResource(R.drawable.hq)
+                shipView.setImageResource(R.drawable.ship_hq)
             } else if (sh.idxtype == RESEARCH) {
                 shipView.setImageResource(R.drawable.research)
             } else if (sh.idxtype == SHUTTLE) {
-                shipView.setImageResource(R.drawable.shuttle)
+                shipView.setImageResource(R.drawable.ship_shuttle)
             } else if (sh.idxtype == BATTLESTAR) {
-                shipView.setImageResource(R.drawable.battlestar)
+                shipView.setImageResource(R.drawable.ship_battlestar)
             } else if (sh.idxtype == STATION) {
-                shipView.setImageResource(R.drawable.wheel) // TODO Animate Bitmaps in Ship Fragment.
+                shipView.setImageResource(R.drawable.ship_wheel) // TODO Animate Bitmaps in Ship Fragment.
             } else {
                 shipView.setImageResource(R.drawable.yellow)
             }

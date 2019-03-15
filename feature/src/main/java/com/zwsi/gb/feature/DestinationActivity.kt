@@ -34,11 +34,9 @@ class DestinationActivity : AppCompatActivity() {
 
         val shipStar = ship.getStar() // FIXME This likely returns a server object.... here and elsewhere...
         val shipPlanet = ship.loc.getPlanet()
-        val planetDrawable = getDrawable(R.drawable.planet)!! // FIXME Get this from bitmap factory?
-        val starDrawable = getDrawable(R.drawable.star)!! // FIXME Get this from bitmap factory?
 
         var uidSelectedPlanet = -1
-        var uidSelectedStar  = -1
+        var uidSelectedStar = -1
 
         if (ship.dest != null) {
             if (ship.dest!!.level == ORBIT || ship.dest!!.level == LANDED) {
@@ -48,8 +46,24 @@ class DestinationActivity : AppCompatActivity() {
             }
         }
 
+
         if (shipStar != null) {
             for (p in shipStar.starUidPlanets.map { vm.planet(it) }) {
+
+                val planetDrawable = getDrawable(
+                    when (p.idxtype) {
+                        0 -> R.drawable.planet_mclass
+                        1 -> R.drawable.planet_jovian
+                        2 -> R.drawable.planet_water
+                        3 -> R.drawable.planet_desert
+                        4 -> R.drawable.planet_forest
+                        5 -> R.drawable.planet_ice
+                        6 -> R.drawable.planet_airless
+                        7 -> R.drawable.planet_asteroid
+                        else -> R.drawable.planet_deprecated
+                    }
+                )!!// FIXME Get this from bitmap factory?
+
 
                 val button = getButton(planetDrawable, "Planet ${p.name}")
                 if (uidSelectedPlanet == p.uid) {
@@ -73,6 +87,8 @@ class DestinationActivity : AppCompatActivity() {
             vm.stars.toList().sortedBy { (_, s) ->
                 s.loc.getLoc().distance(ship.loc.getLoc())
             }.take(5)
+
+        val starDrawable = getDrawable(R.drawable.star)
 
         for ((_, star) in sortedStars) {
 

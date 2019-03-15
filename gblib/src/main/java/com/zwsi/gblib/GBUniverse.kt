@@ -220,6 +220,8 @@ data class GBUniverse(
 //        GBAutoPlayer.playImpi()
         GBAutoPlayer.playBeetle()
         GBAutoPlayer.playTortoise()
+        GBAutoPlayer.play5()
+        GBAutoPlayer.play6()
 
         for (o in orders) {
             o.execute()

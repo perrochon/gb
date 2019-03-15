@@ -54,13 +54,13 @@ class RaceFragment : Fragment() {
         val imageView = view.findViewById<ImageView>(R.id.RaceView)
 
         if (uidRace == 0)
-            imageView.setImageResource(R.drawable.xenost)
+            imageView.setImageResource(R.drawable.race_xenos)
         if (uidRace == 1)
-            imageView.setImageResource(R.drawable.impit)
+            imageView.setImageResource(R.drawable.race_impi)
         if (uidRace == 2)
-            imageView.setImageResource(R.drawable.beetle)
+            imageView.setImageResource(R.drawable.race_beetle)
         if (uidRace == 3)
-            imageView.setImageResource(R.drawable.tortoise)
+            imageView.setImageResource(R.drawable.race_tortoise)
 
 
         val stats = view.findViewById<TextView>(R.id.RaceStats)

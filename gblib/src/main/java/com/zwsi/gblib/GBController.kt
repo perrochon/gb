@@ -20,7 +20,7 @@ class GBController {
         var currentFilePath: File? = null
 
         internal val numberOfStars = 24 // TODO Get Rid of these 4 constants here. GBData may keep some
-        internal val numberOfRaces = 4   // <= what we have in GBData. >= 4 or tests will fail
+        internal val numberOfRaces = 6   // <= what we have in GBData. >= 6 or tests will fail
 
         // Small universe has some hard coded rules around how many stars and how many planets per systems
         // Do not change these values...

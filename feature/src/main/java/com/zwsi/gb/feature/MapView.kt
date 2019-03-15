@@ -361,16 +361,22 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         sourceToViewCoord(sP1, vP1)
                         when (r.idx) {
                             0 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.xenost), vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_xenos), vP1.x, vP1.y, null)
                             }
                             1 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.impit), vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_impi), vP1.x, vP1.y, null)
                             }
                             2 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.beetle), vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_beetle), vP1.x, vP1.y, null)
                             }
                             3 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.tortoise), vP1.x, vP1.y, null)
+                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_tortoise), vP1.x, vP1.y, null)
+                            }
+                            4 -> {
+                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_5), vP1.x, vP1.y, null)
+                            }
+                            5 -> {
+                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_6), vP1.x, vP1.y, null)
                             }
                         }
                     }
@@ -726,29 +732,29 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 // TODO: Ships should tell give me the ID of their bitmap and this when statement would go away
                 // But GBShips don't know anything about shipBitmaps, so the logic needs to live elsewhere.
                 FACTORY -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.factory), false, radius)
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_factory), false, radius)
                 }
                 POD -> {
                     if (sh.race.uid == 2) {
-                        drawShipBitmap(canvas, shipBitmap(R.drawable.beetlepod), true, radius)
+                        drawShipBitmap(canvas, shipBitmap(R.drawable.ship_pod_beetle), true, radius)
                     } else {
                         drawShipBitmap(canvas, shipBitmap(R.drawable.podt), true, radius)
                     }
                 }
                 CRUISER -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.cruisert), true, radius)
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_cruiser), true, radius)
                 }
                 HEADQUARTER -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.hq), false, radius)
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_hq), false, radius)
                 }
                 RESEARCH -> {
                     drawShipBitmap(canvas, shipBitmap(R.drawable.research), false, radius)
                 }
                 SHUTTLE -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.shuttle), true, radius)
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_shuttle), true, radius)
                 }
                 BATTLESTAR -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.battlestar), true, radius * 1.5f)
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_battlestar), true, radius * 1.5f)
                 }
                 STATION -> {
                     val i = (currentTimeMillis().rem(10000).div((10000 / numberOfFrames)).toInt()
