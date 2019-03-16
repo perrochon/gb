@@ -85,6 +85,11 @@ class ShipFragment : Fragment() {
         makeCruiserButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, STATION)
         })
+        makeCruiserButton = view.findViewById(R.id.makeResearch)
+        makeCruiserButton.tag = sh.loc.getPlanet()!!.uid
+        makeCruiserButton.setOnClickListener(View.OnClickListener {
+            GlobalStuff.makeStructure(it, RESEARCH)
+        })
 
         val zoomButton: Button = view.findViewById(R.id.panzoomToShip)
         zoomButton.tag = sh.uid
@@ -159,18 +164,21 @@ class ShipFragment : Fragment() {
                     view.findViewById<Button>(R.id.makeShuttle).setVisibility(View.VISIBLE)
                     view.findViewById<Button>(R.id.makeBattlestar).setVisibility(View.VISIBLE)
                     view.findViewById<Button>(R.id.makeStation).setVisibility(View.VISIBLE)
+                    view.findViewById<Button>(R.id.makeResearch).setVisibility(View.VISIBLE)
                     if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
                         view.findViewById<Button>(R.id.makePod).isEnabled = false
                         view.findViewById<Button>(R.id.makeCruiser).isEnabled = false
                         view.findViewById<Button>(R.id.makeShuttle).isEnabled = false
                         view.findViewById<Button>(R.id.makeBattlestar).isEnabled = false
                         view.findViewById<Button>(R.id.makeStation).isEnabled = false
+                        view.findViewById<Button>(R.id.makeResearch).isEnabled = false
                     } else {
                         view.findViewById<Button>(R.id.makePod).isEnabled = true
                         view.findViewById<Button>(R.id.makeCruiser).isEnabled = true
                         view.findViewById<Button>(R.id.makeShuttle).isEnabled = true
                         view.findViewById<Button>(R.id.makeBattlestar).isEnabled = true
                         view.findViewById<Button>(R.id.makeStation).isEnabled = true
+                        view.findViewById<Button>(R.id.makeResearch).isEnabled = true
                     }
                 }
             } else if (sh.idxtype == POD) {
@@ -184,13 +192,17 @@ class ShipFragment : Fragment() {
             } else if (sh.idxtype == HEADQUARTER) {
                 shipView.setImageResource(R.drawable.ship_hq)
             } else if (sh.idxtype == RESEARCH) {
-                shipView.setImageResource(R.drawable.research)
+                shipView.setImageResource(R.drawable.ship_research)
             } else if (sh.idxtype == SHUTTLE) {
                 shipView.setImageResource(R.drawable.ship_shuttle)
             } else if (sh.idxtype == BATTLESTAR) {
                 shipView.setImageResource(R.drawable.ship_battlestar)
             } else if (sh.idxtype == STATION) {
                 shipView.setImageResource(R.drawable.ship_wheel) // TODO Animate Bitmaps in Ship Fragment.
+            } else if (sh.idxtype == RESEARCH) {
+                shipView.setImageResource(R.drawable.ship_research) // TODO Animate Bitmaps in Ship Fragment.
+            } else if (sh.idxtype == HEADQUARTER) {
+                shipView.setImageResource(R.drawable.ship_hq) // TODO Animate Bitmaps in Ship Fragment.
             } else {
                 shipView.setImageResource(R.drawable.yellow)
             }

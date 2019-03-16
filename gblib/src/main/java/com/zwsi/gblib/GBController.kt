@@ -167,11 +167,11 @@ class GBController {
 
         // TODO: DoAndSave can take 200ms. Thus the below calls may wait that long. May need to do Async.
 
-        fun makeFactory(uidPlanet: Int, uidRace: Int) {
+        fun makeStructure(uidPlanet: Int, uidRace: Int, type: Int) {
             GBController.lock.lock();
             try {
                 val order = GBOrder()
-                order.makeStructure(uidPlanet, uidRace)
+                order.makeStructure(uidPlanet, uidRace, type)
                 u.orders.add(order)
 
                 u.playerTurns[uidRace]--

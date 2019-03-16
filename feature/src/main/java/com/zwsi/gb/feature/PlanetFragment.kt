@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
+import com.zwsi.gblib.GBData
+import com.zwsi.gblib.GBData.Companion.FACTORY
 
 class PlanetFragment : Fragment() {
 
@@ -41,7 +43,7 @@ class PlanetFragment : Fragment() {
         val factoryButton: Button = view.findViewById(R.id.makefactory)
         factoryButton.tag = tag!!.toInt()
         factoryButton.setOnClickListener(View.OnClickListener {
-            GlobalStuff.makeFactory(it)
+            GlobalStuff.makeStructure(it, FACTORY)
         })
 
         val starButton: Button = view.findViewById(R.id.panzoomToSystemStar)

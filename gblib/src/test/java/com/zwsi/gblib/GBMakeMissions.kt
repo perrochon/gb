@@ -3,6 +3,7 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
+import com.zwsi.gblib.GBData.Companion.FACTORY
 import org.junit.Test
 import java.io.File
 
@@ -72,8 +73,8 @@ class GBMakeMissions {
         u.star(3).loc = GBLocation(480f,620f)
         u.star(4).loc = GBLocation(350f,750f)
 
-        GBController.makeFactory(u.race(0).uidHomePlanet, 0)
-        GBController.makeFactory(u.race(1).uidHomePlanet, 1)
+        GBController.makeStructure(u.race(0).uidHomePlanet, 0, FACTORY)
+        GBController.makeStructure(u.race(1).uidHomePlanet, 1, FACTORY)
 
         val turns = 10
         for (i in 1..turns) {
@@ -100,8 +101,8 @@ class GBMakeMissions {
         u.star(3).loc = GBLocation(480f,620f)
         u.star(2).loc = GBLocation(400f,700f)
 
-        GBController.makeFactory(u.race(0).uidHomePlanet, 0)
-        GBController.makeFactory(u.race(1).uidHomePlanet, 1)
+        GBController.makeStructure(u.race(0).uidHomePlanet, 0, FACTORY)
+        GBController.makeStructure(u.race(1).uidHomePlanet, 1, FACTORY)
 
         val turns = 30
         for (i in 1..turns) {

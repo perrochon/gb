@@ -748,7 +748,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     drawShipBitmap(canvas, shipBitmap(R.drawable.ship_hq), false, radius)
                 }
                 RESEARCH -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.research), false, radius)
+                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_research), false, radius)
                 }
                 SHUTTLE -> {
                     drawShipBitmap(canvas, shipBitmap(R.drawable.ship_shuttle), true, radius)

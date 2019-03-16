@@ -105,7 +105,7 @@ class ARBitmaps {
             initTimes["iSB"] = measureNanoTime {
                 val drawables = listOf<Int>(
                     R.drawable.podt, R.drawable.ship_cruiser, R.drawable.ship_factory, R.drawable.ship_pod_beetle,
-                    R.drawable.ship_shuttle, R.drawable.research, R.drawable.ship_hq, R.drawable.ship_battlestar, R.drawable.ship_wheel
+                    R.drawable.ship_shuttle, R.drawable.ship_research, R.drawable.ship_hq, R.drawable.ship_battlestar, R.drawable.ship_wheel
                 )
                 for (i in drawables) {
                     val bm = BitmapFactory.decodeResource(context.getResources(), i)!!

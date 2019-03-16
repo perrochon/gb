@@ -66,7 +66,7 @@ class GBAutoPlayer() {
             val factory = r.raceShips.filter { it.idxtype == GBData.FACTORY }.firstOrNull()
             if (factory == null) {
                 val order = GBOrder()
-                order.makeStructure(r.getHome().uid, r.uid)
+                order.makeStructure(r.getHome().uid, r.uid, FACTORY)
                 u.orders.add(order)
                 GBLog.d("Ordered Factory")
             } else {
@@ -106,7 +106,7 @@ class GBAutoPlayer() {
             val factory = r.raceShips.filter { it.idxtype == FACTORY }.firstOrNull()
             if (factory == null) {
                 val order = GBOrder()
-                order.makeStructure(r.getHome().uid, r.uid)
+                order.makeStructure(r.getHome().uid, r.uid, FACTORY)
                 u.orders.add(order)
             } else {
                 if (r.raceShips.filter { it.idxtype == CRUISER }.size < 31) {
@@ -156,7 +156,7 @@ class GBAutoPlayer() {
             val factory = r.raceShips.filter { it.idxtype == FACTORY }.firstOrNull()
             if (factory == null) {
                 val order = GBOrder()
-                order.makeStructure(r.getHome().uid, r.uid)
+                order.makeStructure(r.getHome().uid, r.uid, FACTORY)
                 u.orders.add(order)
             } else {
                 if (r.raceShips.filter { it.idxtype == CRUISER }.size < 31) {
@@ -206,7 +206,7 @@ class GBAutoPlayer() {
             val factory = r.raceShips.filter { it.idxtype == FACTORY }.firstOrNull()
             if (factory == null) {
                 val order = GBOrder()
-                order.makeStructure(r.getHome().uid, r.uid)
+                order.makeStructure(r.getHome().uid, r.uid, FACTORY)
                 u.orders.add(order)
             } else {
                 if (r.raceShips.filter { it.idxtype == CRUISER }.size < 31) {

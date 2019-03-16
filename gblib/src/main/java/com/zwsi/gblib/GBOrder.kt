@@ -17,15 +17,23 @@ class GBOrder {
     var loc: GBLocation? = null
 
     // Type Factory (ships made without factory)
-    fun makeStructure(_uidPlanet: Int, _uidRace: Int) {
+    fun makeStructure(_uidPlanet: Int, _uidRace: Int, _type: Int) {
 
         val planet = u.planet(_uidPlanet)
         val race = u.race(_uidRace)
         gbAssert { type == -1 }
-        type = FACTORY
+        type = _type
         uidRace = race.uid
-        // TODO Have caller give us a better location (or find one ourselves) for factory ?
+        // TODO Have caller give us a better location (or find one ourselves) for structure ?
         this.loc = GBLocation(planet, GBData.rand.nextInt(planet.width), GBData.rand.nextInt(planet.height))
+
+    }
+
+    fun findEmtpySector() : Int {
+
+        //var sectors = planet.sectors.sortedBy { -it.population }
+
+        return 0
     }
 
     // Ships that are made by a factory

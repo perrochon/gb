@@ -14,6 +14,7 @@ import com.zwsi.gb.feature.GBViewModel.Companion.actionsTaken
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
+import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import com.zwsi.gblib.GBUniverse
 import java.io.File
@@ -158,7 +159,7 @@ class GlobalStuff {
 
         // FIXME this is currently duplicated
         /** Called when the user taps the Make Factory button */
-        fun makeFactory(view: View) {
+        fun makeStructure(view: View, type: Int) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
@@ -169,7 +170,7 @@ class GlobalStuff {
             val planet = vm.planet(view.tag as Int)
 
             // TODO Simplify (use .first) ? Or better, find Population and use planetOwner...
-            GBController.makeFactory(planet.uid, uidActivePlayer)
+            GBController.makeStructure(planet.uid, uidActivePlayer, type)
 
             updateActions(view)
 
