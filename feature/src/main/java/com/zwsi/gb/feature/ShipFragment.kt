@@ -86,7 +86,7 @@ class ShipFragment : Fragment() {
             GlobalStuff.makeShip(it, STATION)
         })
         makeCruiserButton = view.findViewById(R.id.makeResearch)
-        makeCruiserButton.tag = sh.loc.getPlanet()!!.uid
+        makeCruiserButton.tag = sh.uid
         makeCruiserButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeStructure(it, RESEARCH)
         })
