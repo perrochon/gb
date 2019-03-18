@@ -301,43 +301,28 @@ data class GBUniverse(
         // PERF Create one list of all insystem ships, then find shots
         for ((_, star) in stars) {
 
-
-            // System and Patrol Ships shoot at System and Patrol Ships
-
-            val ships = (star.starShips +
+            var systemShips = star.starShips +
                     star.starPatrolPoints[0].orbitShips +
-                    star.starPatrolPoints[1].orbitShips)
-                .filter {it.health > 0}.shuffled()
+                    star.starPatrolPoints[1].orbitShips
 
-            for (sh1 in ships) {
+            for (p in star.starPlanets) {
+                systemShips += p.orbitShips
+                systemShips += p.landedShips
 
+            }
+
+            fireShips@ for (sh1 in systemShips.shuffled()) {
                 if (sh1.guns > 0 && sh1.health > 0) {
-                    for (sh2 in ships) {
+                    for (sh2 in systemShips.shuffled()) {
                         if (sh1.guns > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < sh1.range) {
                                 fireOneShot(sh1, sh2)
-                                sh1.guns-- // should break when shots = 0
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (p in star.starPlanets) {
-                for (sh1 in p.orbitShips.shuffled()) {
-                    if (sh1.guns > 0 && sh1.health > 0) {
-
-                        for (sh2 in (ships + p.orbitShips + p.landedShips).shuffled()) {
-                            if (sh1.guns > 0 && sh2.health > 0 && sh1.uidRace != sh2.uidRace) {
-
-                                if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < sh1.range) {
-                                    fireOneShot(sh1, sh2)
-                                    sh1.guns-- // should break when shots = 0
+                                sh1.guns--
+                                if (sh1.guns <=0) {
+                                    continue@fireShips
                                 }
-
                             }
                         }
-
                     }
                 }
             }
