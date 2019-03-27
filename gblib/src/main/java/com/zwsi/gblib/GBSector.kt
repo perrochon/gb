@@ -15,11 +15,20 @@ data class GBSector constructor(val uidPlanet: Int) {
     internal var typeSymbol = "?"
     internal var revenue = 0
     var maxPopulation = 0
+    var x = -1
+    var y = -1
+    var i = -1
 
     var population = 0
     var uidSectorOwner: Int = -1
     val sectorOwner: GBRace
         get() = u.race(uidSectorOwner)
+
+    fun init(_i: Int, _x: Int, _y: Int) {
+        i = _i
+        x = _x
+        y = _y
+    }
 
     // TODO: This should be part of the constructor
     fun chooseType(planetIdxType: Int) {

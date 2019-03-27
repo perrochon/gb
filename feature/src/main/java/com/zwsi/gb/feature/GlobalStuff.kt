@@ -157,28 +157,6 @@ class GlobalStuff {
 
         }
 
-        // FIXME this is currently duplicated
-        /** Called when the user taps the Make Factory button */
-        fun makeStructure(view: View, type: Int) {
-
-            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
-            }
-            lastClickTime = SystemClock.elapsedRealtime();
-
-            // Planets don't go away, so the below !! should be safe
-            val planet = vm.planet(view.tag as Int)
-
-            // TODO Simplify (use .first) ? Or better, find Population and use planetOwner...
-            GBController.makeStructure(planet.uid, uidActivePlayer, type)
-
-            updateActions(view)
-
-            val message = "Ordered Factory on " + planet.name
-            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-
-        }
-
         /** Zoom the mapview to a star (UID should be in View.tag) */
         fun panzoomToStar(view: View) {
 
@@ -284,6 +262,28 @@ class GlobalStuff {
 
             }
         }
+
+        /** Called when the user taps the Make Factory button */
+        fun makeStructure(view: View, type: Int) {
+
+            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
+
+            // Planets don't go away, so the below !! should be safe
+            val planet = vm.planet(view.tag as Int)
+
+            // TODO Simplify (use .first) ? Or better, find Population and use planetOwner...
+            GBController.makeStructure(planet.uid, uidActivePlayer, type)
+
+            updateActions(view)
+
+            val message = "Ordered Factory on " + planet.name
+            Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+
+        }
+
 
         fun updateActions(view: View) {
             if (vm.secondPlayer) {

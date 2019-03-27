@@ -5,7 +5,6 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBLog.gbAssert
 import kotlin.math.PI
 
@@ -24,12 +23,16 @@ class GBOrder {
         gbAssert { type == -1 }
         type = _type
         uidRace = race.uid
-        // TODO Have caller give us a better location (or find one ourselves) for structure ?
-        this.loc = GBLocation(planet, GBData.rand.nextInt(planet.width), GBData.rand.nextInt(planet.height))
 
+        val sector = planet.emptySector()
+        if (sector != null) {
+            this.loc = GBLocation(planet, sector.x, sector.y)
+        } else {
+            this.loc = GBLocation(planet, 1, 1)
+        }
     }
 
-    fun findEmtpySector() : Int {
+    fun findEmtpySector(): Int {
 
         //var sectors = planet.sectors.sortedBy { -it.population }
 
@@ -47,11 +50,13 @@ class GBOrder {
             uidShip = factory.uid
             uidRace = factory.uidRace
             if (GBData.shipsData[_type]!!.surface) {
-                this.loc = GBLocation(
-                    factory.loc.getPlanet()!!,
-                    GBData.rand.nextInt(factory.loc.getPlanet()!!.width),
-                    GBData.rand.nextInt(factory.loc.getPlanet()!!.height)
-                )
+                val sector = factory.loc.getPlanet()!!.emptySector()
+                if (sector != null) {
+                    this.loc = GBLocation(factory.loc.getPlanet()!!, sector.x, sector.y)
+                } else {
+                    // TODO Do not silently fail to build anything
+                    // this.loc = GBLocation(factory.loc.getPlanet()!!, 0, 0)
+                }
             } else {
                 this.loc = GBLocation(
                     factory.loc.getPlanet()!!,
@@ -61,6 +66,7 @@ class GBOrder {
             }
         } else {
             // Factory died since order was created
+            // TODO Do not silently fail to build anything
             // Leave type as is, at -1
         }
     }

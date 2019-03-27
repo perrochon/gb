@@ -53,7 +53,7 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
 
         for (i in 0 until width * height) {
             sectors[i].chooseType(idxtype)
-
+            sectors[i].init(i, sectorX(i), sectorY(i))
         }
 
         GBLog.d("Made Planet $name of idxtype $type. Planet size is ${height}x$width")
@@ -61,10 +61,15 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
         GBLog.d("  Planet $name location is Cartesian( ${loc.x} , ${loc.y} )")
     }
 
-    fun sectorEmpty(x: Int, y: Int): Boolean {
-        return landedShips.filter { (it.loc.sx == x) && (it.loc.sy == y) }.isEmpty()
+    fun sectorEmptyOfShips(sector: GBSector): Boolean {
+        return landedShips.filter { (it.loc.sx == sector.x) && (it.loc.sy == sector.y) }.isEmpty()
     }
 
+    fun emptySector(): GBSector? {
+        return sectors.sortedBy { -it.population }.filter { sectorEmptyOfShips(it) }.firstOrNull()
+    }
+
+    // TODO Inline these in init(), and replace with access to member fields everywhere else
     fun sectorX(i: Int): Int {
         return i % width
     }
@@ -111,10 +116,14 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
         loc = computePlanetPositions(1)
     }
 
-    fun computePlanetPositions(turns: Int) : GBLocation {
+    fun computePlanetPositions(turns: Int): GBLocation {
         val rt = loc.getSLocP()
         val speed = 1 / (rt.r + 10)  // was 10 for a long time. Changing to 20 with orbiting shipsData
-        return GBLocation(u.star(uidStar), rt.r, rt.t - speed * turns) // y points down, anti-clockwise is negative angles...
+        return GBLocation(
+            u.star(uidStar),
+            rt.r,
+            rt.t - speed * turns
+        ) // y points down, anti-clockwise is negative angles...
     }
 
 

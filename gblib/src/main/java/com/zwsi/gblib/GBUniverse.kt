@@ -2,6 +2,7 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
+import com.zwsi.gblib.GBData.Companion.HEADQUARTER
 import java.util.*
 import kotlin.math.PI
 import kotlin.math.max
@@ -206,7 +207,12 @@ data class GBUniverse(
         val race = GBRace(idxRace, idxRace, homePlanet.uid)
         races[idxRace] = race
         race.raceVisibleStars.add(homePlanet.uidStar)
+
         homePlanet.landPopulationOnEmptySector(race, 100)
+        val sector = homePlanet.emptySector()!!
+        val loc = GBLocation(homePlanet, sector.x, sector.y)
+        val ship = GBShip(u.getNextGlobalId(), HEADQUARTER, idxRace, loc)
+        ship.initializeShip()
     }
 
     internal fun doUniverse() {
@@ -305,11 +311,13 @@ data class GBUniverse(
                     star.starPatrolPoints[0].orbitShips +
                     star.starPatrolPoints[1].orbitShips
 
+            // TODO right now we allow in-system to shoot at landed ships. We may want to limit this to orbit ships.
+
             for (p in star.starPlanets) {
                 systemShips += p.orbitShips
                 systemShips += p.landedShips
-
             }
+
 
             fireShips@ for (sh1 in systemShips.shuffled()) {
                 if (sh1.guns > 0 && sh1.health > 0) {

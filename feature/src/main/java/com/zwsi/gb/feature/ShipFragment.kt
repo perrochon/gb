@@ -88,7 +88,7 @@ class ShipFragment : Fragment() {
         makeCruiserButton = view.findViewById(R.id.makeResearch)
         makeCruiserButton.tag = sh.uid
         makeCruiserButton.setOnClickListener(View.OnClickListener {
-            GlobalStuff.makeStructure(it, RESEARCH)
+            GlobalStuff.makeShip(it, RESEARCH)
         })
 
         val zoomButton: Button = view.findViewById(R.id.panzoomToShip)
