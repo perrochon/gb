@@ -19,7 +19,7 @@ class GBAutoPlayer() {
 
         // Whether autoplayers kill each other or not (i.e. fly to each otehrs home planet and attack headquarters)
         // TODO either make a universe setting or remove
-        fun autoKillauto(): Boolean {
+        private fun autoKillauto(): Boolean {
             return true
         }
 
@@ -30,7 +30,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(0)
-            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
                 return
             }
             GBLog.d("(Not) Playing Xenos in turn $u.turn")
@@ -44,7 +44,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(1)
-            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
                 return
             }
             GBLog.d("Playing Impi in turn $u.turn")
@@ -72,11 +72,11 @@ class GBAutoPlayer() {
                 return
             }
 
-            val r = u.race(2) // TODO Look this up
-            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+            val r = u.race(2)
+            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
                 return
             }
-            GBLog.d("Playing Beetles in turn $u.turn")
+            GBLog.d("Playing Beetles in turn ${u.turn} (${u.ship(r.uidHeadquarters).health})")
 
             // Find factory and order a pod. If we don't have a factory order one at home.
             val factory = r.raceShips.filter { it.idxtype == GBData.FACTORY }.firstOrNull()
@@ -115,7 +115,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(3)
-            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
                 return
             }
             GBLog.d("Playing Tortoise in  turn  $u.turn")
@@ -169,7 +169,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(4)
-            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
                 return
             }
             GBLog.d("Playing Impi in turn $u.turn")
@@ -222,7 +222,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(5)
-            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
                 return
             }
             GBLog.d("Playing Impi in turn $u.turn")

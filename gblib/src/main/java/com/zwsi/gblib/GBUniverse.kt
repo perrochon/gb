@@ -211,8 +211,10 @@ data class GBUniverse(
         homePlanet.landPopulationOnEmptySector(race, 100)
         val sector = homePlanet.emptySector()!!
         val loc = GBLocation(homePlanet, sector.x, sector.y)
-        race.headquarters = GBShip(u.getNextGlobalId(), HEADQUARTERS, idxRace, loc)
-        race.headquarters!!.initializeShip()
+        val headquarters = GBShip(u.getNextGlobalId(), HEADQUARTERS, idxRace, loc)
+        headquarters.initializeShip()
+        race.uidHeadquarters = headquarters.uid
+
     }
 
     internal fun doUniverse() {
@@ -237,7 +239,7 @@ data class GBUniverse(
         for ((_, race) in races) {
             race.raceVisibleStars.clear()
             race.raceVisibleStars.add(race.getHome().star.uid)
-            if (race.headquarters!!.health <= 0) {
+            if (race.uidHeadquarters == -1 || ship(race.uidHeadquarters).health <= 0) {
                 // Race got eliminated... Kill all their ships. TODO What to do on race elimination. Deal with winning.
                 for (ship in race.raceShips) {
                     ship.health = 0

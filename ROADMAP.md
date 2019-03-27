@@ -10,14 +10,16 @@ game play, or prevent game play are second priority. Here are a few examples
 
 ## Short Term Small Items
 * Money should come next...really
-* Play Impis in Map
+* Play Impis in Map (generally fix who plays)
+* Fix action counts
+* Track mission wins
 * Deploy remaining ships
 * DO skips frames (on emulator) - make sure we minimize work on UI thread
 * Moving Dot animation on squares follow the square, instead of a circle. Drive by a parameter of the ship (extension)
 * same ssytem patrol flies to inside of circle, instead of outside...
 * Settings: Clean code smell
 * Fog of War: per race, 3 states (unknown, seen, visible). Once you saw a system, you remember planets...
-* Re-creating missions on each build and copy them into res directory.
+* Re-creating missions on each build and copy them into res directory. Or create missions in the app, not tests...
 
 ## Short Term Larger Items
 * Population on planets (per race, and do correctly). Fix "Make Factory" etc.

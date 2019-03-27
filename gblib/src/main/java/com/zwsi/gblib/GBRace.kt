@@ -23,7 +23,7 @@ data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int) {
     var absorption: Int
     var description: String
     var color: String
-    var headquarters: GBShip? = null
+    var uidHeadquarters = -1
 
     // Properties that DO change after construction
     var population = 0 // (planetary) planetPopulation. Ships don't have planetPopulation
@@ -44,7 +44,7 @@ data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int) {
         absorption = GBData.getRaceAbsorption(idx)
         description = GBData.getRaceDescription(idx)
         color = GBData.getRaceColor(idx)
-        GBLog.i("Created Race $name with birthrate $birthrate")
+        GBLog.i("Created Race object for race $name")
     }
 
     fun getHome(): GBPlanet {

@@ -17,7 +17,7 @@ class GBRaceTest {
         assertTrue(r.description.length > 0)
         assertTrue(u.races.containsValue(r))
         assertEquals(r, u.race(r.uid))
-        assertNotNull(r.headquarters)
+        assertNotEquals(-1, r.uidHeadquarters)
     }
 
     @Test

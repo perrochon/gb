@@ -6,6 +6,7 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
+import com.zwsi.gblib.GBData.Companion.HEADQUARTERS
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
 import com.zwsi.gblib.GBData.Companion.starMaxOrbit
@@ -178,6 +179,9 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
                 }
             }
             u.race(uidRace).raceUidShips.remove(this.uid)
+            if (idxtype == HEADQUARTERS) {
+                u.race(uidRace).uidHeadquarters = -1
+            }
             u.ships.remove(this.uid)
             // u.deadShips[this.uid] = this // TODO Cleanup deadship code.
         }
