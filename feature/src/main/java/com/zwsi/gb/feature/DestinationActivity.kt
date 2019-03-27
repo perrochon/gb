@@ -33,7 +33,7 @@ class DestinationActivity : AppCompatActivity() {
         val destinationsList = arrayListOf<Button>()
 
         val shipStar = ship.getStar() // FIXME This likely returns a server object.... here and elsewhere...
-        val shipPlanet = ship.loc.getPlanet()
+        val shipPlanet = ship.loc.getPlanet() // FIXME Not used, but maybe should mark "current" planet
 
         var uidSelectedPlanet = -1
         var uidSelectedStar = -1

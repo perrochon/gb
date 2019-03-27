@@ -3,18 +3,17 @@ package com.zwsi.gb.feature
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.SwitchCompat
 import android.view.View
 import android.widget.*
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 
-class Preferences : AppCompatActivity() {
+class AROptions : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_preferences)
+        setContentView(R.layout.activity_options)
 
         // Set up the Version View
         val version = findViewById<TextView>(R.id.version)

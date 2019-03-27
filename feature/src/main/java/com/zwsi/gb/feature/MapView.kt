@@ -589,7 +589,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                                 paint.style = Style.STROKE
                                 paint.color = circleColor
                                 paint.strokeWidth = strokeWidth.toFloat()
-                                val radius = vm.planetOrbit * uToS * scale
                                 val o = (PlanetOrbit * 0.4f) * uToS * scale
                                 canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
 
@@ -775,7 +774,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private fun drawShipBitmap(canvas: Canvas, bitmap: Bitmap, circle: Boolean, radius: Float) {
 
-//        if (circle) { // FIXME
+//        if (circle) { // FIXME remove code and parameter circle
 //            canvas.drawCircle(vP1.x, vP1.y, radius, shipPaint)
 //        } else {
 //            canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)

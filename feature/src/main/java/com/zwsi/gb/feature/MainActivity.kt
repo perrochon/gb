@@ -3,7 +3,6 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
-import android.graphics.PointF
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.v4.content.ContextCompat
@@ -204,7 +203,7 @@ class MainActivity : AppCompatActivity() {
             return;
         }
         lastClickTime = SystemClock.elapsedRealtime();
-        val intent = Intent(this, Preferences::class.java)
+        val intent = Intent(this, AROptions::class.java)
         startActivity(intent)
     }
 
