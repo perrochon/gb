@@ -21,6 +21,7 @@ Steps for release, because I always forget some. // TODO Automate this
 ### Release Notes
 
 next
+- Races have head quarters, and destroying a headquarter ends the race
 - New ship types: shuttles, battle stars, stations, headquarters, research centers.
 - New Destination Selection Activity replaces Spinner
 - Stations are animated
