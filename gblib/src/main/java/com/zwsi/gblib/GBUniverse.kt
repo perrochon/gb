@@ -2,7 +2,7 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBData.Companion.HEADQUARTER
+import com.zwsi.gblib.GBData.Companion.HEADQUARTERS
 import java.util.*
 import kotlin.math.PI
 import kotlin.math.max
@@ -211,8 +211,8 @@ data class GBUniverse(
         homePlanet.landPopulationOnEmptySector(race, 100)
         val sector = homePlanet.emptySector()!!
         val loc = GBLocation(homePlanet, sector.x, sector.y)
-        val ship = GBShip(u.getNextGlobalId(), HEADQUARTER, idxRace, loc)
-        ship.initializeShip()
+        race.headquarters = GBShip(u.getNextGlobalId(), HEADQUARTERS, idxRace, loc)
+        race.headquarters!!.initializeShip()
     }
 
     internal fun doUniverse() {
@@ -237,6 +237,12 @@ data class GBUniverse(
         for ((_, race) in races) {
             race.raceVisibleStars.clear()
             race.raceVisibleStars.add(race.getHome().star.uid)
+            if (race.headquarters!!.health <= 0) {
+                // Race got eliminated... Kill all their ships. TODO What to do on race elimination. Deal with winning.
+                for (ship in race.raceShips) {
+                    ship.health = 0
+                }
+            }
         }
 
         for ((_, star) in stars) {

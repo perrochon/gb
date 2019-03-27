@@ -17,7 +17,7 @@ import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBData.Companion.BATTLESTAR
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
-import com.zwsi.gblib.GBData.Companion.HEADQUARTER
+import com.zwsi.gblib.GBData.Companion.HEADQUARTERS
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.RESEARCH
 import com.zwsi.gblib.GBData.Companion.SHUTTLE
@@ -189,7 +189,7 @@ class ShipFragment : Fragment() {
                 }
             } else if (sh.idxtype == CRUISER) {
                 shipView.setImageResource(R.drawable.ship_cruiser)
-            } else if (sh.idxtype == HEADQUARTER) {
+            } else if (sh.idxtype == HEADQUARTERS) {
                 shipView.setImageResource(R.drawable.ship_hq)
             } else if (sh.idxtype == RESEARCH) {
                 shipView.setImageResource(R.drawable.ship_research)
@@ -201,7 +201,7 @@ class ShipFragment : Fragment() {
                 shipView.setImageResource(R.drawable.ship_wheel) // TODO Animate Bitmaps in Ship Fragment.
             } else if (sh.idxtype == RESEARCH) {
                 shipView.setImageResource(R.drawable.ship_research) // TODO Animate Bitmaps in Ship Fragment.
-            } else if (sh.idxtype == HEADQUARTER) {
+            } else if (sh.idxtype == HEADQUARTERS) {
                 shipView.setImageResource(R.drawable.ship_hq) // TODO Animate Bitmaps in Ship Fragment.
             } else {
                 shipView.setImageResource(R.drawable.yellow)

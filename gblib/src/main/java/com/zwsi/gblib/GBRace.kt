@@ -23,6 +23,7 @@ data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int) {
     var absorption: Int
     var description: String
     var color: String
+    var headquarters: GBShip? = null
 
     // Properties that DO change after construction
     var population = 0 // (planetary) planetPopulation. Ships don't have planetPopulation

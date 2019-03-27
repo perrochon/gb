@@ -197,7 +197,7 @@ class GBData {
         const val FACTORY = 0
         const val POD = 1
         const val CRUISER = 2
-        const val HEADQUARTER = 3
+        const val HEADQUARTERS = 3
         const val RESEARCH = 4
         const val SHUTTLE = 5
         const val BATTLESTAR = 6
@@ -217,7 +217,7 @@ class GBData {
             FACTORY to ShipData("Factory", 0, 0, 0, 0, 500, true),
             POD to ShipData("Spore Pod", 1, 0, 0, 0, 10, true),
             CRUISER to ShipData("Cruiser", 3, 1, 40, 5, 100, false),
-            HEADQUARTER to ShipData("Headquarters", 0, 0, 0, 0, 1000, true),
+            HEADQUARTERS to ShipData("Headquarters", 0, 0, 0, 0, 1000, true),
             RESEARCH to ShipData("Research", 0, 0, 0, 100, 0, true),
             SHUTTLE to ShipData("Shuttle", 3, 1, 0, 2, 50, false),
             BATTLESTAR to ShipData("Battle Star", 1, 4, 60, 8, 1000, false),

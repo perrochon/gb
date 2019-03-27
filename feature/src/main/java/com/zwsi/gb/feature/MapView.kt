@@ -24,7 +24,7 @@ import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBData.Companion.BATTLESTAR
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
-import com.zwsi.gblib.GBData.Companion.HEADQUARTER
+import com.zwsi.gblib.GBData.Companion.HEADQUARTERS
 import com.zwsi.gblib.GBData.Companion.MaxSystemOrbit
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
@@ -717,7 +717,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 BATTLESTAR -> {
                     canvas.drawCircle(vP1.x, vP1.y, radius * 1.5f, shipPaint)
                 }
-                FACTORY, RESEARCH, HEADQUARTER -> {
+                FACTORY, RESEARCH, HEADQUARTERS -> {
                     canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
                 }
             }
@@ -744,7 +744,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 CRUISER -> {
                     drawShipBitmap(canvas, shipBitmap(R.drawable.ship_cruiser), true, radius)
                 }
-                HEADQUARTER -> {
+                HEADQUARTERS -> {
                     drawShipBitmap(canvas, shipBitmap(R.drawable.ship_hq), false, radius)
                 }
                 RESEARCH -> {

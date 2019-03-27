@@ -17,6 +17,12 @@ class GBAutoPlayer() {
 
     companion object {
 
+        // Whether autoplayers kill each other or not (i.e. fly to each otehrs home planet and attack headquarters)
+        // TODO either make a universe setting or remove
+        fun autoKillauto(): Boolean {
+            return true
+        }
+
         fun playXenos() {
 
             if (!u.races.containsKey(0)) {
@@ -24,7 +30,10 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(0)
-            GBLog.d("Playing Xenos in turn $u.turn")
+            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+                return
+            }
+            GBLog.d("(Not) Playing Xenos in turn $u.turn")
 
         }
 
@@ -35,6 +44,9 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(1)
+            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+                return
+            }
             GBLog.d("Playing Impi in turn $u.turn")
 
             // Launch landed cruisers with no destination to orbit. They do little on planet...
@@ -55,12 +67,16 @@ class GBAutoPlayer() {
 
         fun playBeetle() {
 
+            // TODO: Beetles just make a new queen/headquarter if they lose it...
             if (!u.races.containsKey(2)) {
                 return
             }
 
-            GBLog.d("Playing Beetles in turn $u.turn")
             val r = u.race(2) // TODO Look this up
+            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+                return
+            }
+            GBLog.d("Playing Beetles in turn $u.turn")
 
             // Find factory and order a pod. If we don't have a factory order one at home.
             val factory = r.raceShips.filter { it.idxtype == GBData.FACTORY }.firstOrNull()
@@ -98,11 +114,13 @@ class GBAutoPlayer() {
                 return
             }
 
+            val r = u.race(3)
+            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+                return
+            }
+            GBLog.d("Playing Tortoise in  turn  $u.turn")
 
             // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
-            GBLog.d("Playing Tortoise in  turn  $u.turn")
-            val r = u.race(3)
-
             val factory = r.raceShips.filter { it.idxtype == FACTORY }.firstOrNull()
             if (factory == null) {
                 val order = GBOrder()
@@ -134,7 +152,7 @@ class GBAutoPlayer() {
                 (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.ORBIT) && it.loc.uidRef == r.uidHomePlanet
             }.drop(5)) {
                 val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
-                if (planet != homeBeetle) {
+                if (planet != homeBeetle || autoKillauto()) {
                     val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
                     GBLog.d("Setting Destination of " + cruiser.name + " to " + planet.name)
                     cruiser.dest = loc
@@ -151,6 +169,9 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(4)
+            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+                return
+            }
             GBLog.d("Playing Impi in turn $u.turn")
 
             val factory = r.raceShips.filter { it.idxtype == FACTORY }.firstOrNull()
@@ -184,7 +205,7 @@ class GBAutoPlayer() {
                 (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.ORBIT) && it.loc.uidRef == r.uidHomePlanet
             }.drop(5)) {
                 val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
-                if (planet != homeBeetle) {
+                if (planet != homeBeetle || autoKillauto()) {
                     val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
                     GBLog.d("Setting Destination of " + cruiser.name + " to " + planet.name)
                     cruiser.dest = loc
@@ -201,6 +222,9 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(5)
+            if (r.headquarters == null || r.headquarters!!.health <= 0) {
+                return
+            }
             GBLog.d("Playing Impi in turn $u.turn")
 
             val factory = r.raceShips.filter { it.idxtype == FACTORY }.firstOrNull()
@@ -234,7 +258,7 @@ class GBAutoPlayer() {
                 (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.ORBIT) && it.loc.uidRef == r.uidHomePlanet
             }.drop(5)) {
                 val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
-                if (planet != homeBeetle) {
+                if (planet != homeBeetle || autoKillauto()) {
                     val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
                     GBLog.d("Setting Destination of " + cruiser.name + " to " + planet.name)
                     cruiser.dest = loc

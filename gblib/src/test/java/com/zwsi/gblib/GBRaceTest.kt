@@ -12,11 +12,12 @@ import org.junit.Assert.*
 
 class GBRaceTest {
 
-    fun consistent(r: GBRace){
+    private fun consistent(r: GBRace){
         GBController.u
         assertTrue(r.description.length > 0)
         assertTrue(u.races.containsValue(r))
         assertEquals(r, u.race(r.uid))
+        assertNotNull(r.headquarters)
     }
 
     @Test
@@ -25,7 +26,7 @@ class GBRaceTest {
 
         for ((_,race) in u.races) {
             consistent(race)
-            assertEquals(race.raceShips.size,0 )
+            assertEquals(race.raceShips.size,1 )
         }
 
         // TODO TEST add shipsData to race and check again

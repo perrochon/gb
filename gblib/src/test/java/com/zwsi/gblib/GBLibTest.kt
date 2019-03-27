@@ -25,7 +25,7 @@ class GBLibTest {
     fun verifyConstants() {
         // If these are different, some other tests in this class will fail
         assertEquals(24, GBController.numberOfStars)
-        assertEquals(4, GBController.numberOfRaces)
+        assertEquals(6, GBController.numberOfRaces)
         assertEquals(5, GBController.numberOfStarsSmall)
         assertEquals(100, GBController.numberOfStarsBig)
     }
@@ -42,7 +42,7 @@ class GBLibTest {
 
 
         populate()
-        assertEquals(shipsMade, u.ships.size)
+        assertEquals(shipsMade+u.races.size, u.ships.size) // account for headquarters
         consistent()
 
 
@@ -63,7 +63,7 @@ class GBLibTest {
 
 
         populate()
-        assertEquals(shipsMade, u.ships.size)
+        assertEquals(shipsMade+u.races.size, u.ships.size) // account for headquarters
         consistent()
 
         u.doUniverse()
