@@ -16,6 +16,7 @@ import android.widget.ScrollView
 import android.widget.Space
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.ready
+import com.zwsi.gb.feature.GBViewModel.Companion.showContButton
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
@@ -137,9 +138,12 @@ class MainActivity : AppCompatActivity() {
         })
 
         val contButton: Button = findViewById(R.id.ContinuousButton)
-        contButton.setOnClickListener(View.OnClickListener {
-            GlobalStuff.toggleContinuous(it)
-        })
+        if (showContButton) {
+            contButton.visibility = View.VISIBLE
+            contButton.setOnClickListener(View.OnClickListener {
+                GlobalStuff.toggleContinuous(it)
+            })
+        }
 
         val helpButton: Button = findViewById(R.id.HelpButtonMain)
         helpButton.setOnClickListener(View.OnClickListener {

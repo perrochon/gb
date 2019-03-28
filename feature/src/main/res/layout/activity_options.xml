@@ -48,6 +48,7 @@
                       android:textColor="@android:color/holo_orange_light"
                       android:text="Hyper Sensors"
                       android:textSize="18sp"
+                      android:layout_marginEnd="8dp"
                     />
             <Switch android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,6 +77,7 @@
                       android:textColor="@android:color/holo_orange_light"
                       android:text="Show Perf Stats"
                       android:textSize="18sp"
+                      android:layout_marginEnd="8dp"
                     />
             <Switch android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,10 +98,32 @@
                       android:textColor="@android:color/holo_orange_light"
                       android:text="Show Click Targets"
                       android:textSize="18sp"
+                      android:layout_marginEnd="8dp"
                     />
             <Switch android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ShowClickTargets"
+                    android:background="@drawable/border_message"
+                    />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                >
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@android:color/holo_orange_light"
+                      android:text="Show Continuous Do Button"
+                      android:textSize="18sp"
+                      android:layout_marginEnd="8dp"
+                    />
+            <Switch android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ShowContButton"
                     android:background="@drawable/border_message"
                     />
         </LinearLayout>

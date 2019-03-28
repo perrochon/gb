@@ -39,6 +39,7 @@ class GBViewModel {
         private var sharedPref: SharedPreferences? = null
         var showStats = false
         var showClickTargets = false
+        var showContButton = false
         var superSensors = false
 
         var missionResultsString = "999,-1,-1,-1,-1,-1" // Turn when mission success was achieved
@@ -132,6 +133,7 @@ class GBViewModel {
 //                secondPlayer = sharedPref!!.getBoolean("secondPlayer", false)
                 showStats = sharedPref!!.getBoolean("showStats", false)
                 showClickTargets = sharedPref!!.getBoolean("showClickTargets", false)
+                showContButton = sharedPref!!.getBoolean("showContButton", false)
                 superSensors = sharedPref!!.getBoolean("superSensors", false)
             }
 

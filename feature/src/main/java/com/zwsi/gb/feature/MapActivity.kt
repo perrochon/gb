@@ -17,6 +17,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import com.davemorrissey.labs.subscaleview.ImageViewState
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.zwsi.gb.feature.GBViewModel.Companion.showContButton
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBPlanet
@@ -45,18 +46,21 @@ class MapActivity : AppCompatActivity() {
         })
 
         val contButton: Button = findViewById(R.id.ContinuousButton)
+        if (showContButton && !vm.secondPlayer) {
+            contButton.visibility = View.VISIBLE
+        }
         if (vm.secondPlayer) {
-            contButton.visibility = View.GONE
-        } else {
             doButton.visibility = View.VISIBLE
         }
-        contButton.setOnClickListener(View.OnClickListener {
+        contButton.setOnClickListener(View.OnClickListener
+        {
             GlobalStuff.toggleContinuous(it)
         })
 
 
         val helpButton: Button = findViewById(R.id.HelpButtonMap)
-        helpButton.setOnClickListener(View.OnClickListener {
+        helpButton.setOnClickListener(View.OnClickListener
+        {
             val helpText = HtmlCompat.fromHtml(getString(R.string.maphelp), HtmlCompat.FROM_HTML_MODE_LEGACY)
             val helpView = TextView(this)
             helpView.setText(helpText)
@@ -99,18 +103,18 @@ class MapActivity : AppCompatActivity() {
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
-        val actionObserver = Observer<Int> { _->
+        val actionObserver = Observer<Int> { _ ->
             action1.text = "${vm.playerTurns[0]}"
             action2.text = "${vm.playerTurns[1]}"
 
-            if (!vm.secondPlayer || vm.playerTurns[1- uidActivePlayer] < 0) {
+            if (!vm.secondPlayer || vm.playerTurns[1 - uidActivePlayer] < 0) {
                 DoButton.isEnabled = true
             } else {
                 DoButton.isEnabled = false
             }
 
         }
-        GBViewModel.actionsTaken.observe(this,actionObserver)
+        GBViewModel.actionsTaken.observe(this, actionObserver)
 
         // Gestures
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.*
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
+import com.zwsi.gb.feature.GBViewModel.Companion.showContButton
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 
@@ -57,8 +58,15 @@ class AROptionsActivity : AppCompatActivity() {
             GBViewModel.updatePrefs()
         }
 
-
-
+        val showContButtonButton: Switch = findViewById(R.id.ShowClickTargets)
+        showContButtonButton.isChecked = showContButton
+        showContButtonButton.setOnCheckedChangeListener { _, isChecked ->
+            with(sharedPref.edit()) {
+                putBoolean("showContButton", isChecked)
+                apply()
+            }
+            GBViewModel.updatePrefs()
+        }
     }
 
 }
