@@ -3,6 +3,7 @@ package com.zwsi.gb.feature
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import android.content.SharedPreferences
+import com.zwsi.gblib.GBData.Companion.HEADQUARTERS
 import com.zwsi.gblib.GBUniverse
 import kotlin.system.measureNanoTime
 
@@ -40,7 +41,8 @@ class GBViewModel {
         var showClickTargets = false
         var superSensors = false
 
-        var missionAchieved = 1
+        var missionResultsString = "999,-1,-1,-1,-1,-1" // Turn when mission success was achieved
+        var missionResults = listOf<Int>(0)
 
         var uidActivePlayer = 0;
         val actionsTaken by lazy { MutableLiveData<Int>() }
@@ -66,7 +68,26 @@ class GBViewModel {
 
                 ready = true
 
+            }
 
+            // FIXME Mission Achieved Hack
+
+            if (vm.description == "Mission 2: Conquer neighbouring systems") {
+                if (vm.ships.filter { it.value.idxtype == HEADQUARTERS }.count() == 1) {
+
+                    val sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
+
+                    // FIXME Move mission check into separate class
+                    // FIXME Better Test (make sure player is winning, not Computer)
+                    // FIXME Better string updates
+
+                    missionResultsString = "999,${vm.turn},-1,-1,-1,-1" // FIXME This is a terrible hack
+                    with(sharedPref.edit()) {
+                        putString("missionResults", missionResultsString)
+                        apply()
+                    }
+                    GBViewModel.updatePlayerStats()
+                }
 
             }
 
@@ -94,7 +115,8 @@ class GBViewModel {
         fun updatePlayerStats() {
             if (context != null) {
                 sharedPref = context!!.getSharedPreferences("playerstats", Context.MODE_PRIVATE)
-                missionAchieved = sharedPref!!.getInt("showStats", missionAchieved)
+                missionResultsString = sharedPref!!.getString("missionResults", missionResultsString)
+                missionResults = missionResultsString.split(",").map { it.toInt() }
             }
         }
 

@@ -32,7 +32,7 @@ class AROptionsActivity : AppCompatActivity() {
         superSensorsButton.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("superSensors", isChecked)
-                commit()
+                apply()
             }
             GBViewModel.updatePrefs()
         }
@@ -42,7 +42,7 @@ class AROptionsActivity : AppCompatActivity() {
         showStatsButton.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("showStats", isChecked)
-                commit()
+                apply()
             }
             GBViewModel.updatePrefs()
         }
@@ -52,7 +52,7 @@ class AROptionsActivity : AppCompatActivity() {
         showClickTargetsButton.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("showClickTargets", isChecked)
-                commit()
+                apply()
             }
             GBViewModel.updatePrefs()
         }
