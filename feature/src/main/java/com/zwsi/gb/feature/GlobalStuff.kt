@@ -14,7 +14,6 @@ import com.zwsi.gb.feature.GBViewModel.Companion.actionsTaken
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
-import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import com.zwsi.gblib.GBUniverse
 import java.io.File
@@ -24,6 +23,9 @@ import kotlin.system.measureNanoTime
 class GlobalStuff {
 
     companion object {
+
+        var lastClickTime = 0L
+        val clickDelay = 300L
 
         val moshi = Moshi.Builder().build()
         val jsonAdapter: JsonAdapter<GBUniverse> = moshi.adapter(GBUniverse::class.java).indent("  ")
@@ -298,6 +300,12 @@ class GlobalStuff {
                 doUniverse(view, true)
             }
 
+        }
+
+        fun doubleClick(): Boolean {
+            val elapsedTime = SystemClock.elapsedRealtime() - lastClickTime
+            lastClickTime = SystemClock.elapsedRealtime();
+            return (elapsedTime < clickDelay)
         }
 
     }

@@ -4,7 +4,67 @@
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             tools:context=".Player"
+                                             tools:context=".MainActivity"
+                                             tools:layout_editor_absoluteY="25dp"
         >
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@drawable/border_message"
+                  android:layout_margin="8dp"
+                  android:padding="16dp"
+                  android:id="@+id/linearLayout2"
+                  tools:layout_editor_absoluteY="8dp"
+                  tools:layout_editor_absoluteX="8dp"
+            >
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="@android:color/holo_orange_light"
+                  android:text="Player Dashboard"
+                  android:textSize="24sp"
+                  android:textAlignment="center"
+                  android:padding="16dp"
+                />
 
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="@android:color/holo_orange_light"
+                  android:textSize="18sp"
+                  android:text="Missions"
+                  android:textAlignment="center"
+                  android:padding="16dp"
+                />
+        <TextView android:id="@+id/missionResults"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="@android:color/holo_orange_light"
+                  android:text=""
+                  tools:text="Mission 999: Achieved in 999999 turns."
+                  android:textSize="18sp"
+                />
+
+    </LinearLayout>
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DoneButton"
+            android:text="Done"
+            android:background="@drawable/border_message"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            />
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/version"
+              android:text="Version"
+              android:textColor="@android:color/holo_green_light"
+              android:textSize="8sp"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+            />
 </android.support.constraint.ConstraintLayout>

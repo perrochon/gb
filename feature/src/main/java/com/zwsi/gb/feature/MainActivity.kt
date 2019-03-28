@@ -4,28 +4,24 @@ package com.zwsi.gb.feature
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import android.os.SystemClock
 import android.support.v4.content.ContextCompat
 import android.support.v4.text.HtmlCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.method.LinkMovementMethod
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.widget.Button
 import android.widget.ScrollView
+import android.widget.Space
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.ready
+import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
+import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
 import java.io.File
-import android.text.method.ScrollingMovementMethod
-import android.widget.Space
-import com.zwsi.gb.feature.GBViewModel.Companion.ready
-import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
-import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
-
-var lastClickTime = 0L
-val clickDelay = 300L
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,12 +36,13 @@ class MainActivity : AppCompatActivity() {
 
         GBViewModel.context = applicationContext
         GBViewModel.updatePrefs()
+        GBViewModel.updatePlayerStats()
 
         GBController.currentFilePath = filesDir // Tell the controller where to save games
 
-        // Set up the Version View
+        // Version TextView
         val version = findViewById<TextView>(R.id.version)
-        version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+        version.setText(BuildConfig.VERSIONNAME)
 
         // Set up the MessageBox View to listen to news
         val messageBox: TextView = findViewById<TextView>(R.id.messageBox)!!
@@ -72,12 +69,32 @@ class MainActivity : AppCompatActivity() {
 
         val optionsButton: Button = findViewById(R.id.OptionsButton)
         optionsButton.setOnClickListener(View.OnClickListener {
-            gotoOptions(it)
+            if (!GlobalStuff.doubleClick()) {
+                val intent = Intent(this, AROptionsActivity::class.java)
+                startActivity(intent)
+            }
+        })
+
+        val statsButton: Button = findViewById(R.id.StatsButton)
+        statsButton.setOnClickListener(View.OnClickListener {
+            if (!GlobalStuff.doubleClick()) {
+                val intent = Intent(this, ARPlayerActivity::class.java)
+                startActivity(intent)
+            }
+        })
+
+        val saveButton: Button = findViewById(R.id.SaveButton)
+        saveButton.isEnabled = false
+        saveButton.setOnClickListener(View.OnClickListener {
         })
 
         val loadButton: Button = findViewById(R.id.LoadButton)
         loadButton.setOnClickListener(View.OnClickListener {
-            gotoLoad(it)
+            if (!GlobalStuff.doubleClick()) {
+                GlobalStuff.autoDo = false
+                val intent = Intent(this, LoadActivity::class.java)
+                startActivity(intent)
+            }
         })
 
         val turnObserver = Observer<Int> { newTurn ->
@@ -132,7 +149,7 @@ class MainActivity : AppCompatActivity() {
             helpView.setMovementMethod(LinkMovementMethod.getInstance());
             helpView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_light))
             val scroller = ScrollView(this)
-            scroller.setPadding(10,10,10,10)
+            scroller.setPadding(10, 10, 10, 10)
             scroller.addView(helpView)
 
             val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
@@ -179,7 +196,7 @@ class MainActivity : AppCompatActivity() {
         if (ready && vm.secondPlayer) {
             play2Button.visibility = View.VISIBLE
             play2Space.visibility = View.VISIBLE
-            play1Button.text = "Player 1"
+            play1Button.text = "ARPlayerActivity 1"
         } else {
             play2Button.visibility = View.GONE
             play2Space.visibility = View.GONE
@@ -187,36 +204,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /** Called when the user taps the Map button */
-    fun gotoMap(@Suppress("UNUSED_PARAMETER") view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-            return;
-        }
-        lastClickTime = SystemClock.elapsedRealtime();
+    /** Called when the user taps the Map, or the Player 1/Player 2 button */
+    private fun gotoMap(@Suppress("UNUSED_PARAMETER") view: View) {
+        if (GlobalStuff.doubleClick()) return
         val intent = Intent(this, MapActivity::class.java)
         startActivity(intent)
     }
 
-    /** Called when the user taps the Map button */
-    fun gotoOptions(@Suppress("UNUSED_PARAMETER") view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-            return;
-        }
-        lastClickTime = SystemClock.elapsedRealtime();
-        val intent = Intent(this, AROptions::class.java)
-        startActivity(intent)
-    }
+//    /** Called when the user taps the Map button */
+//    fun gotoOptions(@Suppress("UNUSED_PARAMETER") view: View) {
+//        if (GlobalStuff.doubleClick()) return
+//        val intent = Intent(this, AROptionsActivity::class.java)
+//        startActivity(intent)
+//    }
 
-    fun gotoLoad(@Suppress("UNUSED_PARAMETER") view: View) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-            return;
-        }
-        lastClickTime = SystemClock.elapsedRealtime();
+//    fun gotoStats(@Suppress("UNUSED_PARAMETER") view: View) {
+//        if (GlobalStuff.doubleClick()) return
+//        val intent = Intent(this, ARPlayerActivity::class.java)
+//        startActivity(intent)
+//    }
 
-        GlobalStuff.autoDo = false
-
-        val intent = Intent(this, LoadActivity::class.java)
-        startActivity(intent)
-    }
+//    fun gotoLoad(@Suppress("UNUSED_PARAMETER") view: View) {
+//        if (GlobalStuff.doubleClick()) return
+//        GlobalStuff.autoDo = false
+//        val intent = Intent(this, LoadActivity::class.java)
+//        startActivity(intent)
+//    }
 
 }

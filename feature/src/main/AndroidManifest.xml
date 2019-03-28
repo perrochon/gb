@@ -4,7 +4,7 @@
         >
 
     <application>
-        <activity android:name=".Player"></activity>
+        <activity android:name=".ARPlayerActivity"></activity>
         <activity
                 android:name=".LoadActivity"
                 android:label="Load"
@@ -12,7 +12,7 @@
                 android:theme="@style/AppTheme.Launcher.NoActionBar"
                 />
         <activity
-                android:name=".AROptions"
+                android:name=".AROptionsActivity"
                 android:label="@string/title_activity_preferences"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.Launcher.NoActionBar"

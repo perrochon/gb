@@ -34,11 +34,13 @@ class GBViewModel {
         var ready = false
         lateinit var vm: GBUniverse
 
-        var context: Context? = null
-        var sharedPref: SharedPreferences? = null
+        var context: Context? = null // FIXME what is going on here?
+        private var sharedPref: SharedPreferences? = null
         var showStats = false
         var showClickTargets = false
         var superSensors = false
+
+        var missionAchieved = 1
 
         var uidActivePlayer = 0;
         val actionsTaken by lazy { MutableLiveData<Int>() }
@@ -87,6 +89,13 @@ class GBViewModel {
                 superSensors = sharedPref!!.getBoolean("superSensors", false)
             }
 
+        }
+
+        fun updatePlayerStats() {
+            if (context != null) {
+                sharedPref = context!!.getSharedPreferences("playerstats", Context.MODE_PRIVATE)
+                missionAchieved = sharedPref!!.getInt("showStats", missionAchieved)
+            }
         }
 
     }

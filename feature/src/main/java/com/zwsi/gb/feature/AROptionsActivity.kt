@@ -9,15 +9,21 @@ import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 
-class AROptions : AppCompatActivity() {
+class AROptionsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
 
-        // Set up the Version View
+        // Version TextView
         val version = findViewById<TextView>(R.id.version)
-        version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+        version.setText(BuildConfig.VERSIONNAME)
+
+        // Done Button
+        val doneButton: Button = findViewById(R.id.DoneButton)
+        doneButton.setOnClickListener(View.OnClickListener {
+            finish()
+        })
 
         val sharedPref = this.getSharedPreferences("options", Context.MODE_PRIVATE)
 
@@ -51,10 +57,6 @@ class AROptions : AppCompatActivity() {
             GBViewModel.updatePrefs()
         }
 
-        val doneButton: Button = findViewById(R.id.DoneButton)
-        doneButton.setOnClickListener(View.OnClickListener {
-            finish()
-        })
 
 
     }

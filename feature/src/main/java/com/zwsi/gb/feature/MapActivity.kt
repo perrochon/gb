@@ -34,16 +34,12 @@ class MapActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
-        // Set up the Version View
+        // Version TextView
         val version = findViewById<TextView>(R.id.version)
-        version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+        version.setText(BuildConfig.VERSIONNAME)
 
         val doButton: Button = findViewById(R.id.DoButton)
-        if (vm.secondPlayer) {
-            doButton.isEnabled = false
-        } else {
-            doButton.isEnabled = true
-        }
+        doButton.isEnabled = !vm.secondPlayer
         doButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.doUniverse(it)
         })
