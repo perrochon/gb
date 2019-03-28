@@ -140,7 +140,7 @@ class GBViewModel {
         fun updatePlayerStats() {
             if (context != null) {
                 sharedPref = context!!.getSharedPreferences("playerstats", Context.MODE_PRIVATE)
-                missionResultsString = sharedPref!!.getString("missionResults", missionResultsString)
+                missionResultsString = sharedPref!!.getString("missionResults", missionResultsString)!!
                 missionResults = missionResultsString.split(",").map { it.toInt() }
             }
         }

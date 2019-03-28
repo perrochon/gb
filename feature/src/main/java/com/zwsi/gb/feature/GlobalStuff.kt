@@ -1,11 +1,13 @@
 package com.zwsi.gb.feature
 
 import android.app.Activity
+import android.graphics.LightingColorFilter
 import android.graphics.PointF
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.squareup.moshi.JsonAdapter
@@ -307,6 +309,16 @@ class GlobalStuff {
             lastClickTime = SystemClock.elapsedRealtime();
             return (elapsedTime < clickDelay)
         }
+
+        fun handleClick(
+            button: View, destinationsList: List<Button>
+        ) {
+            for (b in destinationsList) {
+                b.background.colorFilter = LightingColorFilter(1, 0)
+            }
+            button.background.colorFilter = LightingColorFilter(0x55555, 0x774400)
+        }
+
 
     }
 }

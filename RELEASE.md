@@ -25,6 +25,7 @@ next
 - New ship types: shuttles, battle stars, stations, headquarters, research centers.
 - New Destination Selection Activity replaces Spinner
 - Stations are animated
+- 3 more missions
 
 .677/.678
 - Rules change: 1 action per turn. Choose wisely.

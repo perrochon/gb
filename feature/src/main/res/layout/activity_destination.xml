@@ -78,5 +78,13 @@
             app:layout_constraintStart_toEndOf="@+id/cancelDestination"
             android:layout_marginStart="8dp"
             />
-
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/version"
+              android:text="Version"
+              android:textColor="@android:color/holo_green_light"
+              android:textSize="8sp"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+            />
 </android.support.constraint.ConstraintLayout>

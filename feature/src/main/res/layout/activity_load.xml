@@ -9,13 +9,14 @@
         >
     <LinearLayout android:orientation="vertical"
                   android:layout_width="match_parent"
-                  android:layout_height="match_parent"
+                  android:layout_height="0dp"
                   android:background="@drawable/border_message"
                   android:layout_margin="8dp"
                   android:padding="8dp"
                   android:id="@+id/linearLayout4"
-                  tools:layout_editor_absoluteY="8dp"
                   tools:layout_editor_absoluteX="8dp"
+                  app:layout_constraintBottom_toTopOf="@+id/cancelDestination"
+                  android:layout_marginBottom="8dp"
             >
         <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -34,29 +35,6 @@
                   android:textAlignment="center"
                   android:padding="16dp"
                 />
-        <LinearLayout android:orientation="horizontal"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:padding="16dp"
-
-                >
-            <Space android:layout_width="0dp"
-                   android:layout_height="1dp"
-                   android:layout_weight="1"
-                    />
-            <Button android:text="New Random Mission"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/New1Button"
-                    android:background="@drawable/border_message"
-                    android:textSize="12sp"
-                    android:minWidth="80dp"
-                    />
-            <Space android:layout_width="0dp"
-                   android:layout_height="1dp"
-                   android:layout_weight="1"
-                    />
-        </LinearLayout>
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -105,16 +83,6 @@
                    android:layout_weight="1"
                     />
         </LinearLayout>
-
-        <TextView android:id="@+id/settings"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textColor="@android:color/holo_orange_light"
-                  android:text="Two Players Pass and Play"
-                  android:textSize="18sp"
-                  android:textAlignment="center"
-                  android:padding="16dp"
-                />
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -125,10 +93,35 @@
                    android:layout_height="1dp"
                    android:layout_weight="1"
                     />
-            <Button android:text="New Random Map"
+
+            <Button android:text="Mission 4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/New2Button"
+                    android:id="@+id/Load1Button4"
+                    android:background="@drawable/border_message"
+                    android:textSize="12sp"
+                    android:minWidth="80dp"
+                    />
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+            <Button android:text="Mission 5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Load1Button5"
+                    android:background="@drawable/border_message"
+                    android:textSize="12sp"
+                    android:minWidth="80dp"
+                    />
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+            <Button android:text="Mission 6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Load1Button6"
                     android:background="@drawable/border_message"
                     android:textSize="12sp"
                     android:minWidth="80dp"
@@ -138,6 +131,39 @@
                    android:layout_weight="1"
                     />
         </LinearLayout>
+        <LinearLayout android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="16dp"
+
+                >
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+            <Button android:text="New Random Mission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/New1Button"
+                    android:background="@drawable/border_message"
+                    android:textSize="12sp"
+                    android:minWidth="80dp"
+                    />
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+        </LinearLayout>
+
+        <TextView android:id="@+id/settings"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="@android:color/holo_orange_light"
+                  android:text="Two Players Pass and Play"
+                  android:textSize="18sp"
+                  android:textAlignment="center"
+                  android:padding="16dp"
+                />
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -186,20 +212,56 @@
                     />
 
         </LinearLayout>
+        <LinearLayout android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="16dp"
+
+                >
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+            <Button android:text="New Random Map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/New2Button"
+                    android:background="@drawable/border_message"
+                    android:textSize="12sp"
+                    android:minWidth="80dp"
+                    />
+            <Space android:layout_width="0dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+        </LinearLayout>
 
     </LinearLayout>
+
+    <Button android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancelDestination"
+            android:background="@drawable/border_message"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/DoneButton"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            />
 
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/DoneButton"
             android:text="Done"
             android:background="@drawable/border_message"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cancelDestination"
+            android:layout_marginStart="8dp"
             />
 
 

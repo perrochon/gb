@@ -3,6 +3,7 @@ package com.zwsi.gblib
 import com.squareup.moshi.JsonClass
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.HEADQUARTERS
+import com.zwsi.gblib.GBData.Companion.MissionRandom
 import java.util.*
 import kotlin.math.PI
 import kotlin.math.max
@@ -10,7 +11,8 @@ import kotlin.math.max
 @JsonClass(generateAdapter = true)
 data class GBUniverse(
     // Constant Fields
-    var description: String = "Unitialized Universe",
+    var id : String = "unknown",
+    var description: String = "Unitialized universe",
     val universeMaxX: Int = -1,
     val universeMaxY: Int = -1,
     val starMaxOrbit: Float = -1f,
@@ -37,7 +39,8 @@ data class GBUniverse(
 
     //numberOfRaces <= what we have in GBData. >= 4 or tests will fail
     constructor(_numberOfStars: Int, _numberOfRaces: Int) : this(
-        "A Universe",
+        MissionRandom,
+        "A random universe.",
         GBData.UniverseMaxX,
         GBData.UniverseMaxY,
         GBData.starMaxOrbit,

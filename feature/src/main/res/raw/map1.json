@@ -1,12 +1,13 @@
 {
+  "id": "Map 1",
   "description": "Map 1: Virgo",
   "universeMaxX": 1000,
   "universeMaxY": 1000,
   "starMaxOrbit": 40.0,
   "planetOrbit": 2.0,
   "numberOfStars": 5,
-  "numberOfRaces": 4,
-  "nextGlobalID": 1006,
+  "numberOfRaces": 2,
+  "nextGlobalID": 1004,
   "secondPlayer": true,
   "playerTurns": [
     4,
@@ -167,11 +168,11 @@
       "idxtype": 2,
       "landedUidShips": [
         1000,
-        1004
+        1002
       ],
       "name": "Logan",
       "orbitUidShips": [],
-      "planetPopulation": 1776,
+      "planetPopulation": 1784,
       "planetUidRaces": [
         0
       ],
@@ -216,11 +217,11 @@
           "uidPlanet": 0,
           "i": 3,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 19,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 3,
           "y": 0
         },
@@ -228,11 +229,11 @@
           "uidPlanet": 0,
           "i": 4,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 311,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 4,
           "y": 0
         },
@@ -240,11 +241,11 @@
           "uidPlanet": 0,
           "i": 5,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 902,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 5,
           "y": 0
         },
@@ -252,11 +253,11 @@
           "uidPlanet": 0,
           "i": 6,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 226,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 6,
           "y": 0
         },
@@ -336,11 +337,11 @@
           "uidPlanet": 0,
           "i": 13,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 1,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 3,
           "y": 1
         },
@@ -348,11 +349,11 @@
           "uidPlanet": 0,
           "i": 14,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 41,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 4,
           "y": 1
         },
@@ -360,11 +361,11 @@
           "uidPlanet": 0,
           "i": 15,
           "maxPopulation": 800,
-          "population": 0,
+          "population": 229,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 5,
           "y": 1
         },
@@ -372,11 +373,11 @@
           "uidPlanet": 0,
           "i": 16,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 31,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 6,
           "y": 1
         },
@@ -468,11 +469,11 @@
           "uidPlanet": 0,
           "i": 24,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 2,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 4,
           "y": 2
         },
@@ -480,7 +481,7 @@
           "uidPlanet": 0,
           "i": 25,
           "maxPopulation": 1000,
-          "population": 27,
+          "population": 21,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -588,11 +589,11 @@
           "uidPlanet": 0,
           "i": 34,
           "maxPopulation": 1000,
-          "population": 10,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 4,
           "y": 3
         },
@@ -600,11 +601,11 @@
           "uidPlanet": 0,
           "i": 35,
           "maxPopulation": 1000,
-          "population": 401,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 5,
           "y": 3
         },
@@ -612,11 +613,11 @@
           "uidPlanet": 0,
           "i": 36,
           "maxPopulation": 1000,
-          "population": 34,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 6,
           "y": 3
         },
@@ -696,11 +697,11 @@
           "uidPlanet": 0,
           "i": 43,
           "maxPopulation": 1000,
-          "population": 6,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 3,
           "y": 4
         },
@@ -708,11 +709,11 @@
           "uidPlanet": 0,
           "i": 44,
           "maxPopulation": 1000,
-          "population": 126,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 4,
           "y": 4
         },
@@ -720,11 +721,11 @@
           "uidPlanet": 0,
           "i": 45,
           "maxPopulation": 1000,
-          "population": 827,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 5,
           "y": 4
         },
@@ -732,11 +733,11 @@
           "uidPlanet": 0,
           "i": 46,
           "maxPopulation": 1000,
-          "population": 344,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 6,
           "y": 4
         },
@@ -3278,11 +3279,11 @@
       "idxtype": 4,
       "landedUidShips": [
         1001,
-        1005
+        1003
       ],
       "name": "Trantor",
       "orbitUidShips": [],
-      "planetPopulation": 512,
+      "planetPopulation": 487,
       "planetUidRaces": [
         1
       ],
@@ -3303,7 +3304,7 @@
           "uidPlanet": 5,
           "i": 1,
           "maxPopulation": 5000,
-          "population": 1,
+          "population": 2,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3315,11 +3316,11 @@
           "uidPlanet": 5,
           "i": 2,
           "maxPopulation": 5000,
-          "population": 8,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 2,
           "y": 0
         },
@@ -3327,11 +3328,11 @@
           "uidPlanet": 5,
           "i": 3,
           "maxPopulation": 5000,
-          "population": 5,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 3,
           "y": 0
         },
@@ -3375,11 +3376,11 @@
           "uidPlanet": 5,
           "i": 7,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 4,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 7,
           "y": 0
         },
@@ -3387,7 +3388,7 @@
           "uidPlanet": 5,
           "i": 8,
           "maxPopulation": 5000,
-          "population": 1,
+          "population": 84,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3399,7 +3400,7 @@
           "uidPlanet": 5,
           "i": 9,
           "maxPopulation": 5000,
-          "population": 9,
+          "population": 17,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3411,7 +3412,7 @@
           "uidPlanet": 5,
           "i": 10,
           "maxPopulation": 5000,
-          "population": 59,
+          "population": 1,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3423,11 +3424,11 @@
           "uidPlanet": 5,
           "i": 11,
           "maxPopulation": 5000,
-          "population": 35,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 3,
           "y": 1
         },
@@ -3435,11 +3436,11 @@
           "uidPlanet": 5,
           "i": 12,
           "maxPopulation": 5000,
-          "population": 2,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 4,
           "y": 1
         },
@@ -3459,11 +3460,11 @@
           "uidPlanet": 5,
           "i": 14,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 2,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 6,
           "y": 1
         },
@@ -3471,11 +3472,11 @@
           "uidPlanet": 5,
           "i": 15,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 16,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 7,
           "y": 1
         },
@@ -3483,7 +3484,7 @@
           "uidPlanet": 5,
           "i": 16,
           "maxPopulation": 2000,
-          "population": 10,
+          "population": 196,
           "revenue": 2,
           "type": 1,
           "typeSymbol": ".",
@@ -3495,7 +3496,7 @@
           "uidPlanet": 5,
           "i": 17,
           "maxPopulation": 5000,
-          "population": 40,
+          "population": 65,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3507,7 +3508,7 @@
           "uidPlanet": 5,
           "i": 18,
           "maxPopulation": 5000,
-          "population": 197,
+          "population": 7,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3519,7 +3520,7 @@
           "uidPlanet": 5,
           "i": 19,
           "maxPopulation": 5000,
-          "population": 94,
+          "population": 1,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3555,11 +3556,11 @@
           "uidPlanet": 5,
           "i": 22,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 3,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 6,
           "y": 2
         },
@@ -3567,11 +3568,11 @@
           "uidPlanet": 5,
           "i": 23,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 15,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 7,
           "y": 2
         },
@@ -3579,7 +3580,7 @@
           "uidPlanet": 5,
           "i": 24,
           "maxPopulation": 5000,
-          "population": 1,
+          "population": 46,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3591,7 +3592,7 @@
           "uidPlanet": 5,
           "i": 25,
           "maxPopulation": 5000,
-          "population": 11,
+          "population": 15,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3603,11 +3604,11 @@
           "uidPlanet": 5,
           "i": 26,
           "maxPopulation": 5000,
-          "population": 25,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 2,
           "y": 3
         },
@@ -3615,11 +3616,11 @@
           "uidPlanet": 5,
           "i": 27,
           "maxPopulation": 5000,
-          "population": 14,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 3,
           "y": 3
         },
@@ -3663,11 +3664,11 @@
           "uidPlanet": 5,
           "i": 31,
           "maxPopulation": 2000,
-          "population": 0,
+          "population": 13,
           "revenue": 2,
           "type": 1,
           "typeSymbol": ".",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 7,
           "y": 3
         }
@@ -5763,15 +5764,11 @@
       },
       "height": 4,
       "idxtype": 0,
-      "landedUidShips": [
-        1002
-      ],
+      "landedUidShips": [],
       "name": "Claire",
       "orbitUidShips": [],
-      "planetPopulation": 100,
-      "planetUidRaces": [
-        2
-      ],
+      "planetPopulation": 0,
+      "planetUidRaces": [],
       "sectors": [
         {
           "uidPlanet": 10,
@@ -5909,11 +5906,11 @@
           "uidPlanet": 10,
           "i": 11,
           "maxPopulation": 5000,
-          "population": 2,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 2,
+          "uidSectorOwner": -1,
           "x": 3,
           "y": 1
         },
@@ -5993,11 +5990,11 @@
           "uidPlanet": 10,
           "i": 18,
           "maxPopulation": 1000,
-          "population": 5,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 2,
+          "uidSectorOwner": -1,
           "x": 2,
           "y": 2
         },
@@ -6005,11 +6002,11 @@
           "uidPlanet": 10,
           "i": 19,
           "maxPopulation": 100,
-          "population": 90,
+          "population": 0,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 2,
+          "uidSectorOwner": -1,
           "x": 3,
           "y": 2
         },
@@ -6017,11 +6014,11 @@
           "uidPlanet": 10,
           "i": 20,
           "maxPopulation": 100,
-          "population": 2,
+          "population": 0,
           "revenue": 0,
           "type": 6,
           "typeSymbol": "#",
-          "uidSectorOwner": 2,
+          "uidSectorOwner": -1,
           "x": 4,
           "y": 2
         },
@@ -6101,11 +6098,11 @@
           "uidPlanet": 10,
           "i": 27,
           "maxPopulation": 1000,
-          "population": 1,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 2,
+          "uidSectorOwner": -1,
           "x": 3,
           "y": 3
         },
@@ -8587,15 +8584,11 @@
       },
       "height": 7,
       "idxtype": 1,
-      "landedUidShips": [
-        1003
-      ],
+      "landedUidShips": [],
       "name": "Tyrrea",
       "orbitUidShips": [],
-      "planetPopulation": 120,
-      "planetUidRaces": [
-        3
-      ],
+      "planetPopulation": 0,
+      "planetUidRaces": [],
       "sectors": [
         {
           "uidPlanet": 16,
@@ -9453,11 +9446,11 @@
           "uidPlanet": 16,
           "i": 71,
           "maxPopulation": 200,
-          "population": 12,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 3,
+          "uidSectorOwner": -1,
           "x": 1,
           "y": 5
         },
@@ -9609,11 +9602,11 @@
           "uidPlanet": 16,
           "i": 84,
           "maxPopulation": 200,
-          "population": 17,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 3,
+          "uidSectorOwner": -1,
           "x": 0,
           "y": 6
         },
@@ -9621,11 +9614,11 @@
           "uidPlanet": 16,
           "i": 85,
           "maxPopulation": 200,
-          "population": 86,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 3,
+          "uidSectorOwner": -1,
           "x": 1,
           "y": 6
         },
@@ -9633,11 +9626,11 @@
           "uidPlanet": 16,
           "i": 86,
           "maxPopulation": 200,
-          "population": 5,
+          "population": 0,
           "revenue": 1,
           "type": 2,
           "typeSymbol": "@",
-          "uidSectorOwner": 3,
+          "uidSectorOwner": -1,
           "x": 2,
           "y": 6
         },
@@ -13086,7 +13079,7 @@
       "population": 0,
       "raceUidShips": [
         1000,
-        1004
+        1002
       ],
       "raceVisibleStars": [
         0
@@ -13106,50 +13099,12 @@
       "population": 0,
       "raceUidShips": [
         1001,
-        1005
+        1003
       ],
       "raceVisibleStars": [
         1
       ],
       "uidHeadquarters": 1001
-    },
-    "2": {
-      "idx": 2,
-      "uid": 2,
-      "uidHomePlanet": 10,
-      "absorption": 0,
-      "birthrate": 10,
-      "color": "#ffcc79a7",
-      "description": "Ancient legends rumor that Rainbox Beetles once visited us.\n\nRainbow Beetles are small but deadly, they have small snipers, they fly like a beetle at 25mph, they crawl at 40mph, they can see all directions, they can hang upside down and climb walls.",
-      "explore": 5,
-      "name": "Rainbow Beetles",
-      "population": 0,
-      "raceUidShips": [
-        1002
-      ],
-      "raceVisibleStars": [
-        2
-      ],
-      "uidHeadquarters": 1002
-    },
-    "3": {
-      "idx": 3,
-      "uid": 3,
-      "uidHomePlanet": 16,
-      "absorption": 0,
-      "birthrate": 5,
-      "color": "#ff56b4e9",
-      "description": "Ancient legends rumor that Warhide Tortoises once visited us. \n\nHard shell, can see with three heads, SUPER SHARP claws, moves at 25mph,  can swim at 65mph, sarp shell, can turn to a sping.",
-      "explore": 20,
-      "name": "Warhide Tortois",
-      "population": 0,
-      "raceUidShips": [
-        1003
-      ],
-      "raceVisibleStars": [
-        3
-      ],
-      "uidHeadquarters": 1003
     }
   },
   "ships": {
@@ -13165,7 +13120,7 @@
         "t": -1.0,
         "r": -1.0,
         "sx": 5,
-        "sy": 4
+        "sy": 0
       },
       "damage": 0,
       "guns": 0,
@@ -13176,7 +13131,7 @@
       "trails": [
         {
           "x": 315.55533,
-          "y": 615.40765
+          "y": 614.1276
         }
       ],
       "type": "Headquarters"
@@ -13192,7 +13147,7 @@
         "y": -1.0,
         "t": -1.0,
         "r": -1.0,
-        "sx": 2,
+        "sx": 0,
         "sy": 2
       },
       "damage": 0,
@@ -13203,7 +13158,7 @@
       "speed": 0,
       "trails": [
         {
-          "x": 488.57675,
+          "x": 487.77676,
           "y": 783.04724
         }
       ],
@@ -13211,62 +13166,6 @@
     },
     "1002": {
       "uid": 1002,
-      "idxtype": 3,
-      "uidRace": 2,
-      "loc": {
-        "level": 1,
-        "uidRef": 10,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 3,
-        "sy": 2
-      },
-      "damage": 0,
-      "guns": 0,
-      "health": 1000,
-      "name": "RH1002",
-      "range": 0,
-      "speed": 0,
-      "trails": [
-        {
-          "x": 255.131,
-          "y": 847.4468
-        }
-      ],
-      "type": "Headquarters"
-    },
-    "1003": {
-      "uid": 1003,
-      "idxtype": 3,
-      "uidRace": 3,
-      "loc": {
-        "level": 1,
-        "uidRef": 16,
-        "x": -1.0,
-        "y": -1.0,
-        "t": -1.0,
-        "r": -1.0,
-        "sx": 1,
-        "sy": 6
-      },
-      "damage": 0,
-      "guns": 0,
-      "health": 1000,
-      "name": "WH1003",
-      "range": 0,
-      "speed": 0,
-      "trails": [
-        {
-          "x": 483.7319,
-          "y": 613.19507
-        }
-      ],
-      "type": "Headquarters"
-    },
-    "1004": {
-      "uid": 1004,
       "idxtype": 0,
       "uidRace": 0,
       "loc": {
@@ -13282,7 +13181,7 @@
       "damage": 0,
       "guns": 0,
       "health": 500,
-      "name": "XF1004",
+      "name": "XF1002",
       "range": 0,
       "speed": 0,
       "trails": [
@@ -13293,8 +13192,8 @@
       ],
       "type": "Factory"
     },
-    "1005": {
-      "uid": 1005,
+    "1003": {
+      "uid": 1003,
       "idxtype": 0,
       "uidRace": 1,
       "loc": {
@@ -13310,7 +13209,7 @@
       "damage": 0,
       "guns": 0,
       "health": 500,
-      "name": "IF1005",
+      "name": "IF1003",
       "range": 0,
       "speed": 0,
       "trails": [

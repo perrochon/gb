@@ -35,6 +35,17 @@ class GBData {
         internal const val MinNumberOfPlanets = 2
         internal const val MaxNumberOfPlanets = 8
 
+        internal const val Mission1 = "Mission 1"
+        internal const val Mission2 = "Mission 2"
+        internal const val Mission3 = "Mission 3"
+        internal const val Mission4 = "Mission 4"
+        internal const val Mission5 = "Mission 5"
+        internal const val Mission6 = "Mission 6"
+        internal const val MissionRandom = "Random Mission"
+        internal const val Map1 = "Map 1"
+        internal const val Map2 = "Map 2"
+        internal const val Map3 = "Map 3"
+        internal const val MapRandom = "Random Map"
 
         internal fun selectStarNameIdx(): Int {
             // TODO Science no dupes in System Names - not a high priority, real world may have duplicates...

@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
+import com.zwsi.gb.feature.GlobalStuff.Companion.handleClick
 import com.zwsi.gblib.*
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -21,6 +23,10 @@ class DestinationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destination)
+
+        // Set up the Version View
+        val version = findViewById<TextView>(R.id.version)
+        version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
 
         val uidShip = intent.extras!!.getInt("uidShip")
         val ship = vm.ship(uidShip)
@@ -156,13 +162,5 @@ class DestinationActivity : AppCompatActivity() {
         return button
     }
 
-    private fun handleClick(
-        button: View, destinationsList: List<Button>
-    ) {
-        for (b in destinationsList) {
-            b.background.colorFilter = LightingColorFilter(1, 0)
-        }
-        button.background.colorFilter = LightingColorFilter(0x55555, 0x774400)
-    }
 
 }
