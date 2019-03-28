@@ -78,8 +78,33 @@ class GBViewModel {
                     val sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
 
                     // FIXME Move mission check into separate class
-                    // FIXME Better Test (make sure player is winning, not Computer)
+                    // FIXME Better Test (make sure player is winning, not Computer)  But then 1 HQ left is the default win condition...
                     // FIXME Better string updates
+                    // FIXME Don't increase on every later turn. Don't increase if current turn higher than existing value!
+
+                    // https://stackoverflow.com/questions/7175880/how-can-i-store-an-integer-array-in-sharedpreferences
+
+                    // Here is how the "convert to comma-separated String" solution could look in Kotlin, implemented as extension functions:
+                    //
+                    //fun SharedPreferences.Editor.putIntArray(key: String, value: IntArray): SharedPreferences.Editor {
+                    //    return putString(key, value.joinToString(
+                    //            separator = ",",
+                    //            transform = { it.toString() }))
+                    //}
+                    //
+                    //fun SharedPreferences.getIntArray(key: String): IntArray {
+                    //    with(getString(key, "")) {
+                    //        with(if(isNotEmpty()) split(',') else return intArrayOf()) {
+                    //            return IntArray(count(), { this[it].toInt() })
+                    //        }
+                    //    }
+                    //}
+                    //That way you can use putIntArray(String, IntArray) and getIntArray(String) just like the other put and set methods:
+                    //
+                    //val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                    //prefs.edit().putIntArray(INT_ARRAY_TEST_KEY, intArrayOf(1, 2, 3)).apply()
+                    //val intArray = prefs.getIntArray(INT_ARRAY_TEST_KEY)
+
 
                     missionResultsString = "999,${vm.turn},-1,-1,-1,-1" // FIXME This is a terrible hack
                     with(sharedPref.edit()) {

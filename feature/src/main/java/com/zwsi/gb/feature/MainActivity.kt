@@ -196,7 +196,7 @@ class MainActivity : AppCompatActivity() {
         if (ready && vm.secondPlayer) {
             play2Button.visibility = View.VISIBLE
             play2Space.visibility = View.VISIBLE
-            play1Button.text = "ARPlayerActivity 1"
+            play1Button.text = "Player 1"
         } else {
             play2Button.visibility = View.GONE
             play2Space.visibility = View.GONE
