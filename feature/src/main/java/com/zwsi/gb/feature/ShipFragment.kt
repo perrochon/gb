@@ -17,7 +17,6 @@ import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBData.Companion.BATTLESTAR
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
-import com.zwsi.gblib.GBData.Companion.HEADQUARTERS
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.RESEARCH
 import com.zwsi.gblib.GBData.Companion.SHUTTLE
@@ -148,9 +147,11 @@ class ShipFragment : Fragment() {
             }
 
             val shipView = view.findViewById<ImageView>(R.id.ShipView)
-
+            shipView.setImageBitmap(sh.getBitmap())
+            if (sh.idxtype == STATION) {
+                // TODO Animate Station in ShipDetail. Redraw the image view on every vsync postInvalidateOnAnimation()
+            }
             if (sh.idxtype == FACTORY) {
-                shipView.setImageResource(R.drawable.ship_factory)
                 if (sh.uidRace == uidActivePlayer) {
                     view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
                     view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
@@ -174,32 +175,7 @@ class ShipFragment : Fragment() {
                         view.findViewById<Button>(R.id.makeResearch).isEnabled = true
                     }
                 }
-            } else if (sh.idxtype == POD) {
-                if (sh.race.idx == 2) {
-                    shipView.setImageResource(R.drawable.ship_pod_beetle)
-                } else {
-                    shipView.setImageResource(R.drawable.podt)
-                }
-            } else if (sh.idxtype == CRUISER) {
-                shipView.setImageResource(R.drawable.ship_cruiser)
-            } else if (sh.idxtype == HEADQUARTERS) {
-                shipView.setImageResource(R.drawable.ship_hq)
-            } else if (sh.idxtype == RESEARCH) {
-                shipView.setImageResource(R.drawable.ship_research)
-            } else if (sh.idxtype == SHUTTLE) {
-                shipView.setImageResource(R.drawable.ship_shuttle)
-            } else if (sh.idxtype == BATTLESTAR) {
-                shipView.setImageResource(R.drawable.ship_battlestar)
-            } else if (sh.idxtype == STATION) {
-                shipView.setImageResource(R.drawable.ship_wheel) // TODO Animate Bitmaps in Ship Fragment.
-            } else if (sh.idxtype == RESEARCH) {
-                shipView.setImageResource(R.drawable.ship_research) // TODO Animate Bitmaps in Ship Fragment.
-            } else if (sh.idxtype == HEADQUARTERS) {
-                shipView.setImageResource(R.drawable.ship_hq) // TODO Animate Bitmaps in Ship Fragment.
-            } else {
-                shipView.setImageResource(R.drawable.missing)
             }
-
         }
     }
 }

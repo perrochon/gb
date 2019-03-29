@@ -3,25 +3,66 @@ package com.zwsi.gb.feature
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
+import com.zwsi.gb.feature.ARBitmaps.Companion.raceBitmap
+import com.zwsi.gb.feature.ARBitmaps.Companion.shipBitmap
+import com.zwsi.gb.feature.ARBitmaps.Companion.wheelBitmap
+import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBRace
+import com.zwsi.gblib.GBShip
 import kotlin.system.measureNanoTime
-
-
-fun GBRace.getDrawableResource() : Int {
-    return getRaceDrawableResource(this.idx)
-}
 
 const val NumberOfRacesWithBitmaps = 6
 
-fun getRaceDrawableResource(idxRace: Int): Int {
-    return when (idxRace) {
+fun GBRace.getDrawableResource(): Int {
+    return getRaceDrawableResource(this.idx)
+}
+
+fun GBRace.getBitmap(): Bitmap {
+    return raceBitmap(this.idx)
+}
+
+fun getRaceDrawableResource(idx: Int): Int {
+    return when (idx) {
         0 -> R.drawable.race_xenos
         1 -> R.drawable.race_impi
         2 -> R.drawable.race_beetle
         3 -> R.drawable.race_tortoise
         4 -> R.drawable.race_5
         5 -> R.drawable.race_6
+        else -> R.drawable.missing
+    }
+}
+
+const val NumberOfShipsWithBitmaps = 8
+const val NumberOfShipsWithAlternativeBitmaps = 1 // FIXME Better handling of alternative ship bitmaps
+
+fun GBShip.getDrawableResource(): Int {
+    return getShipDrawableResource(this.idxtype)
+}
+
+fun GBShip.getBitmap(): Bitmap {
+    if (this.idxtype == GBData.POD && this.uidRace == 2) {
+        return shipBitmap(NumberOfShipsWithBitmaps) // FIXME Better handling of alternative ship bitmaps
+    } else if (this.idxtype == GBData.STATION) {
+        val i = (System.currentTimeMillis().rem(10000).div((10000 / ARBitmaps.numberOfFrames)).toInt()
+                + this.uid).rem(ARBitmaps.numberOfFrames)
+        return wheelBitmap(i)
+    } else {
+        return shipBitmap(this.idxtype)
+    }
+}
+
+fun getShipDrawableResource(idx: Int): Int {
+    return when (idx) {
+        GBData.POD -> R.drawable.podt
+        GBData.CRUISER -> R.drawable.ship_cruiser
+        GBData.FACTORY -> R.drawable.ship_factory
+        GBData.SHUTTLE -> R.drawable.ship_shuttle
+        GBData.RESEARCH -> R.drawable.ship_research
+        GBData.HEADQUARTERS -> R.drawable.ship_hq
+        GBData.BATTLESTAR -> R.drawable.ship_battlestar
+        GBData.STATION -> R.drawable.ship_wheel
+        GBData.STATION + 1 -> R.drawable.ship_pod_beetle // FIXME Better handling of alternative ship bitmaps
         else -> R.drawable.missing
     }
 }
@@ -141,8 +182,8 @@ class ARBitmaps {
                     R.drawable.ship_battlestar,
                     R.drawable.ship_wheel
                 )
-                for (i in drawables) {
-                    val bm = BitmapFactory.decodeResource(context.getResources(), i)!!
+                for (i in 0..NumberOfShipsWithBitmaps + NumberOfShipsWithAlternativeBitmaps) {
+                    val bm = BitmapFactory.decodeResource(context.getResources(), getShipDrawableResource(i))!!
                     w = density / 420f * bm.getWidth() / 6
                     h = density / 420f * bm.getHeight() / 6
                     shipBitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
@@ -151,7 +192,7 @@ class ARBitmaps {
 
             initTimes["iRB"] = measureNanoTime {
                 for (i in 0 until numberOfFrames) {
-                    wheelBitmaps[i] = shipBitmaps[R.drawable.ship_wheel]!!.rotate((360.toFloat() / numberOfFrames * i))
+                    wheelBitmaps[i] = shipBitmaps[GBData.STATION]!!.rotate((360.toFloat() / numberOfFrames * i))
                 }
             }
             ready = true

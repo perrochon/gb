@@ -10,12 +10,9 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.zwsi.gb.feature.ARBitmaps.Companion.numberOfFrames
 import com.zwsi.gb.feature.ARBitmaps.Companion.otherBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.planetBitmap
-import com.zwsi.gb.feature.ARBitmaps.Companion.shipBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.surfaceBitmap
-import com.zwsi.gb.feature.ARBitmaps.Companion.wheelBitmap
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
@@ -359,7 +356,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     ) {
                         sP1.set(r.getHome().star.loc.getLoc().x * uToSf + 50, r.getHome().star.loc.getLoc().y * uToSf)
                         sourceToViewCoord(sP1, vP1)
-                        canvas.drawBitmap(ARBitmaps.raceBitmap(r.idx), vP1.x, vP1.y, null)
+                        canvas.drawBitmap(r.getBitmap(), vP1.x, vP1.y, null)
                     }
                 }
             }
@@ -708,43 +705,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         // Draw bitmap
         if (1 > normScale) {
-            when (sh.idxtype) {
-                // TODO: Ships should tell give me the ID of their bitmap and this when statement would go away
-                // But GBShips don't know anything about shipBitmaps, so the logic needs to live elsewhere.
-                FACTORY -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_factory), false, radius)
-                }
-                POD -> {
-                    if (sh.race.uid == 2) {
-                        drawShipBitmap(canvas, shipBitmap(R.drawable.ship_pod_beetle), true, radius)
-                    } else {
-                        drawShipBitmap(canvas, shipBitmap(R.drawable.podt), true, radius)
-                    }
-                }
-                CRUISER -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_cruiser), true, radius)
-                }
-                HEADQUARTERS -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_hq), false, radius)
-                }
-                RESEARCH -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_research), false, radius)
-                }
-                SHUTTLE -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_shuttle), true, radius)
-                }
-                BATTLESTAR -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.ship_battlestar), true, radius * 1.5f)
-                }
-                STATION -> {
-                    val i = (currentTimeMillis().rem(10000).div((10000 / numberOfFrames)).toInt()
-                            + sh.uid).rem(numberOfFrames)
-                    drawShipBitmap(canvas, wheelBitmap(i), true, radius)
-                }
-                else -> {
-                    drawShipBitmap(canvas, shipBitmap(R.drawable.podt), false, radius)
-                }
-            }
+            drawShipBitmap(canvas, sh.getBitmap(), false, radius)
         }
 
         if (5 > normScale) {
@@ -753,6 +714,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     }
 
+    // FIXME Inline this?
     private fun drawShipBitmap(canvas: Canvas, bitmap: Bitmap, circle: Boolean, radius: Float) {
 
 //        if (circle) { // FIXME remove code and parameter circle
