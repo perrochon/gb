@@ -3,7 +3,28 @@ package com.zwsi.gb.feature
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
+import com.zwsi.gblib.GBRace
 import kotlin.system.measureNanoTime
+
+
+fun GBRace.getDrawableResource() : Int {
+    return getRaceDrawableResource(this.idx)
+}
+
+const val NumberOfRacesWithBitmaps = 6
+
+fun getRaceDrawableResource(idxRace: Int): Int {
+    return when (idxRace) {
+        0 -> R.drawable.race_xenos
+        1 -> R.drawable.race_impi
+        2 -> R.drawable.race_beetle
+        3 -> R.drawable.race_tortoise
+        4 -> R.drawable.race_5
+        5 -> R.drawable.race_6
+        else -> R.drawable.missing
+    }
+}
 
 class ARBitmaps {
     companion object {
@@ -100,16 +121,8 @@ class ARBitmaps {
 
             // get Races
             initTimes["iRB"] = measureNanoTime {
-                val drawables = listOf<Int>(
-                    R.drawable.race_xenos,
-                    R.drawable.race_impi,
-                    R.drawable.race_beetle,
-                    R.drawable.race_tortoise,
-                    R.drawable.race_5,
-                    R.drawable.race_6
-                )
-                for (i in drawables) {
-                    val bm = BitmapFactory.decodeResource(context.getResources(), i)!!
+                for (i in 0 until NumberOfRacesWithBitmaps) {
+                    val bm = BitmapFactory.decodeResource(context.getResources(), getRaceDrawableResource(i))!!
                     w = density / 420f * bm.getWidth() / 30
                     h = density / 420f * bm.getHeight() / 30
                     raceBitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!

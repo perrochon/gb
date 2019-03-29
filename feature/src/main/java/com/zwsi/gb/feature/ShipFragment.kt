@@ -134,14 +134,7 @@ class ShipFragment : Fragment() {
             if (sh.uidRace == uidActivePlayer && sh.dest != null) stats.append("Destination: ${sh.dest?.getLocDesc()}\n")
 
             val shipRaceView = view.findViewById<ImageView>(R.id.ShipRaceView)
-
-            when (sh.race.uid) {
-                // FIXME if Ships only knew their drawable.. Fix here and in MapView.drawShip()
-                0 -> shipRaceView.setImageResource((R.drawable.race_xenos))
-                1 -> shipRaceView.setImageResource((R.drawable.race_impi))
-                2 -> shipRaceView.setImageResource((R.drawable.race_beetle))
-                3 -> shipRaceView.setImageResource((R.drawable.race_tortoise))
-            }
+            shipRaceView.setImageResource(sh.race.getDrawableResource())
 
             val destinationButton = view.findViewById<Button>(R.id.destination)!!
             if (sh.uidRace != uidActivePlayer || sh.speed == 0) {

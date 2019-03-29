@@ -346,7 +346,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private fun drawRaces(canvas: Canvas) {
         // Timing Info:  no race 200μs, 1 race 400μs, more ?μs
-        if (normScale > 50) {
+        if (normScale > 10) {
 
             for ((_, r) in vm.races) {
 
@@ -359,26 +359,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     ) {
                         sP1.set(r.getHome().star.loc.getLoc().x * uToSf + 50, r.getHome().star.loc.getLoc().y * uToSf)
                         sourceToViewCoord(sP1, vP1)
-                        when (r.idx) {
-                            0 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_xenos), vP1.x, vP1.y, null)
-                            }
-                            1 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_impi), vP1.x, vP1.y, null)
-                            }
-                            2 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_beetle), vP1.x, vP1.y, null)
-                            }
-                            3 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_tortoise), vP1.x, vP1.y, null)
-                            }
-                            4 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_5), vP1.x, vP1.y, null)
-                            }
-                            5 -> {
-                                canvas.drawBitmap(ARBitmaps.raceBitmap(R.drawable.race_6), vP1.x, vP1.y, null)
-                            }
-                        }
+                        canvas.drawBitmap(ARBitmaps.raceBitmap(r.idx), vP1.x, vP1.y, null)
                     }
                 }
             }
