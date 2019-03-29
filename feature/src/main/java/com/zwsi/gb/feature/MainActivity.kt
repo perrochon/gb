@@ -105,10 +105,13 @@ class MainActivity : AppCompatActivity() {
         })
 
         val contButton: Button = findViewById(R.id.ContinuousButton)
+        val contSpace: Space = findViewById(R.id.ContinuousSpace)
         if (showContButton) {
             contButton.visibility = View.VISIBLE
+            contSpace.visibility = View.VISIBLE
         } else {
             contButton.visibility = View.GONE
+            contSpace.visibility = View.GONE
         }
         contButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.toggleContinuous(it)
@@ -169,8 +172,10 @@ class MainActivity : AppCompatActivity() {
         val actionObserver = Observer<Int> { _ ->
             if (showContButton) {
                 contButton.visibility = View.VISIBLE
+                contSpace.visibility = View.VISIBLE
             } else {
                 contButton.visibility = View.GONE
+                contSpace.visibility = View.GONE
             }
         }
         GBViewModel.actionsTaken.observe(this, actionObserver)
