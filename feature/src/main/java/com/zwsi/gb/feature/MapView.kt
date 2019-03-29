@@ -17,7 +17,6 @@ import com.zwsi.gb.feature.ARBitmaps.Companion.shipBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.surfaceBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.wheelBitmap
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
-import com.zwsi.gb.feature.GBViewModel.Companion.showContButton
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer

@@ -143,7 +143,10 @@ class MainActivity : AppCompatActivity() {
             contButton.setOnClickListener(View.OnClickListener {
                 GlobalStuff.toggleContinuous(it)
             })
+        } else {
+            contButton.visibility = View.GONE
         }
+
 
         val helpButton: Button = findViewById(R.id.HelpButtonMain)
         helpButton.setOnClickListener(View.OnClickListener {

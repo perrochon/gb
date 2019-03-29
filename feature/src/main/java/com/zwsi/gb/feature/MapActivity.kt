@@ -48,14 +48,13 @@ class MapActivity : AppCompatActivity() {
         val contButton: Button = findViewById(R.id.ContinuousButton)
         if (showContButton && !vm.secondPlayer) {
             contButton.visibility = View.VISIBLE
+            contButton.setOnClickListener(View.OnClickListener
+            {
+                GlobalStuff.toggleContinuous(it)
+            })
+        } else {
+            contButton.visibility = View.GONE
         }
-        if (vm.secondPlayer) {
-            doButton.visibility = View.VISIBLE
-        }
-        contButton.setOnClickListener(View.OnClickListener
-        {
-            GlobalStuff.toggleContinuous(it)
-        })
 
 
         val helpButton: Button = findViewById(R.id.HelpButtonMap)

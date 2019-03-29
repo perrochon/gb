@@ -58,7 +58,7 @@ class AROptionsActivity : AppCompatActivity() {
             GBViewModel.updatePrefs()
         }
 
-        val showContButtonButton: Switch = findViewById(R.id.ShowClickTargets)
+        val showContButtonButton: Switch = findViewById(R.id.ShowContButton)
         showContButtonButton.isChecked = showContButton
         showContButtonButton.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
