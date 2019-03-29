@@ -346,7 +346,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     private fun drawRaces(canvas: Canvas) {
         // Timing Info:  no race 200μs, 1 race 400μs, more ?μs
-        if (normScale > 50 && ARBitmaps.ready) {
+        if (normScale > 50) {
 
             for ((_, r) in vm.races) {
 
@@ -545,7 +545,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                             sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                             sourceToViewCoord(sP1, vP1)
-                            if (normScale > 2 && ARBitmaps.ready) {
+                            if (normScale > 2) {
                                 val planetBitmap = planetBitmap(p.idxtype)
                                 val planetSize = 1.6f * uToSf * scale // FIXME - move outside loops...
                                 canvas.drawBitmap(
@@ -553,8 +553,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                                     null,
                                     RectF(
                                         vP1.x - planetSize,
-                                        vP1.y -  planetSize,
-                                        vP1.x  + planetSize,
+                                        vP1.y - planetSize,
+                                        vP1.x + planetSize,
                                         vP1.y + planetSize
                                     ),
                                     null
@@ -726,7 +726,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
 
         // Draw bitmap
-        if (1 > normScale && ARBitmaps.ready) {
+        if (1 > normScale) {
             when (sh.idxtype) {
                 // TODO: Ships should tell give me the ID of their bitmap and this when statement would go away
                 // But GBShips don't know anything about shipBitmaps, so the logic needs to live elsewhere.
@@ -891,22 +891,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     fun drawStarsAndCircles(canvas: Canvas) {
         // Always draw stars
 
-        if (ARBitmaps.ready) {
-            paint.style = Style.STROKE
-            for ((_, s) in vm.stars) {
-                if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
-                    sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
-                    sourceToViewCoord(sP1, vP1)
-                    canvas.drawBitmap(
-                        otherBitmap(R.drawable.star),
-                        vP1.x - otherBitmap(R.drawable.star).getWidth() / 2,
-                        vP1.y - otherBitmap(R.drawable.star).getWidth() / 2,
-                        null
-                    )
+        paint.style = Style.STROKE // FIXME use dedicated paint
+        val starBitmap = otherBitmap(R.drawable.star)
+        val halfSize = starBitmap.getWidth() / 2
+        for ((_, s) in vm.stars) {
+            if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
+                sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
+                sourceToViewCoord(sP1, vP1)
+                canvas.drawBitmap(starBitmap, vP1.x - halfSize, vP1.y - halfSize, null)
+                clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), s))
 
-                    clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), s))
-
-                }
             }
         }
 

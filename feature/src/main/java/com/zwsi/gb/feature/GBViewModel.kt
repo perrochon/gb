@@ -35,7 +35,7 @@ class GBViewModel {
         var ready = false
         lateinit var vm: GBUniverse
 
-        var context: Context? = null // FIXME what is going on here?
+        var context: Context? = null // Keeping the Application Context in a singleton in case we need it.
         private var sharedPref: SharedPreferences? = null
         var showStats = false
         var showClickTargets = false

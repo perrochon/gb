@@ -112,6 +112,12 @@ class MapActivity : AppCompatActivity() {
                 DoButton.isEnabled = false
             }
 
+            if (showContButton) {
+                contButton.visibility = View.VISIBLE
+            } else {
+                contButton.visibility = View.GONE
+            }
+
         }
         GBViewModel.actionsTaken.observe(this, actionObserver)
 

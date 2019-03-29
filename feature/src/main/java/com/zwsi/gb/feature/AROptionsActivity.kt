@@ -66,6 +66,8 @@ class AROptionsActivity : AppCompatActivity() {
                 apply()
             }
             GBViewModel.updatePrefs()
+            GBViewModel.actionsTaken.value = System.currentTimeMillis().toInt()
+
         }
     }
 

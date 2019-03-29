@@ -204,7 +204,7 @@ class ShipFragment : Fragment() {
             } else if (sh.idxtype == HEADQUARTERS) {
                 shipView.setImageResource(R.drawable.ship_hq) // TODO Animate Bitmaps in Ship Fragment.
             } else {
-                shipView.setImageResource(R.drawable.yellow)
+                shipView.setImageResource(R.drawable.missing)
             }
 
         }

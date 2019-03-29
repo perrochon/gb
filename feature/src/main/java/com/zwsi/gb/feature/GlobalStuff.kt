@@ -120,7 +120,8 @@ class GlobalStuff {
                 vm.playerTurns[1]++
             }
 
-            actionsTaken.value = vm.playerTurns[0] + vm.playerTurns[1]
+            actionsTaken.value = System.currentTimeMillis().toInt()
+
 
             val message = "Executing Orders"
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
@@ -292,7 +293,7 @@ class GlobalStuff {
         fun updateActions(view: View) {
             if (vm.secondPlayer) {
                 vm.playerTurns[uidActivePlayer]--
-                actionsTaken.value = vm.playerTurns[0] + vm.playerTurns[1]
+                actionsTaken.value = System.currentTimeMillis().toInt()
 
                 if (vm.playerTurns[1 - uidActivePlayer] < 0) {
                     doUniverse(view, true)
