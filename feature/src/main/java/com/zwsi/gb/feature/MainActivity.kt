@@ -22,6 +22,7 @@ import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
+import kotlinx.android.synthetic.main.activity_map.*
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
@@ -98,6 +99,39 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        val doButton: Button = findViewById(R.id.DoButton)
+        doButton.setOnClickListener(View.OnClickListener {
+            GlobalStuff.doUniverse(it)
+        })
+
+        val contButton: Button = findViewById(R.id.ContinuousButton)
+        if (showContButton) {
+            contButton.visibility = View.VISIBLE
+        } else {
+            contButton.visibility = View.GONE
+        }
+        contButton.setOnClickListener(View.OnClickListener {
+            GlobalStuff.toggleContinuous(it)
+        })
+
+
+        val helpButton: Button = findViewById(R.id.HelpButtonMain)
+        helpButton.setOnClickListener(View.OnClickListener {
+            val helpText = HtmlCompat.fromHtml(getString(R.string.mainhelp), HtmlCompat.FROM_HTML_MODE_LEGACY)
+            val helpView = TextView(this)
+            helpView.text = helpText
+            helpView.setMovementMethod(LinkMovementMethod.getInstance());
+            helpView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_light))
+            val scroller = ScrollView(this)
+            scroller.setPadding(10, 10, 10, 10)
+            scroller.addView(helpView)
+
+            val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
+            builder.setView(scroller)
+                .setNeutralButton("OK", null)
+                .show()
+        })
+
         val turnObserver = Observer<Int> { newTurn ->
             // TODO This is a bit overkill, as it enables on every new turn
             play1Button.isEnabled = true
@@ -132,38 +166,15 @@ class MainActivity : AppCompatActivity() {
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
-        val doButton: Button = findViewById(R.id.DoButton)
-        doButton.setOnClickListener(View.OnClickListener {
-            GlobalStuff.doUniverse(it)
-        })
-
-        val contButton: Button = findViewById(R.id.ContinuousButton)
-        if (showContButton) {
-            contButton.visibility = View.VISIBLE
-            contButton.setOnClickListener(View.OnClickListener {
-                GlobalStuff.toggleContinuous(it)
-            })
-        } else {
-            contButton.visibility = View.GONE
+        val actionObserver = Observer<Int> { _ ->
+            if (showContButton) {
+                contButton.visibility = View.VISIBLE
+            } else {
+                contButton.visibility = View.GONE
+            }
         }
+        GBViewModel.actionsTaken.observe(this, actionObserver)
 
-
-        val helpButton: Button = findViewById(R.id.HelpButtonMain)
-        helpButton.setOnClickListener(View.OnClickListener {
-            val helpText = HtmlCompat.fromHtml(getString(R.string.mainhelp), HtmlCompat.FROM_HTML_MODE_LEGACY)
-            val helpView = TextView(this)
-            helpView.text = helpText
-            helpView.setMovementMethod(LinkMovementMethod.getInstance());
-            helpView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_light))
-            val scroller = ScrollView(this)
-            scroller.setPadding(10, 10, 10, 10)
-            scroller.addView(helpView)
-
-            val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
-            builder.setView(scroller)
-                .setNeutralButton("OK", null)
-                .show()
-        })
 
         // Get a head start on bitmap loading
         if (!ARBitmaps.ready) {

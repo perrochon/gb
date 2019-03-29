@@ -105,7 +105,6 @@ class LoadActivity : AppCompatActivity() {
                 20 -> GlobalStuff.makeUniverse(it, true)
                 in 11..16, in 21..23 -> GlobalStuff.loadUniverse(it, lastSelection)
             }
-
             finish()
         })
 
