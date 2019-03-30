@@ -67,6 +67,10 @@ fun getShipDrawableResource(idx: Int): Int {
     }
 }
 
+// FIXME Planets
+
+// FIXME Sectors
+
 class ARBitmaps {
     companion object {
 

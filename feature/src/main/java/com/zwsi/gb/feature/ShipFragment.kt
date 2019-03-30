@@ -2,7 +2,10 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -21,6 +24,11 @@ import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.RESEARCH
 import com.zwsi.gblib.GBData.Companion.SHUTTLE
 import com.zwsi.gblib.GBData.Companion.STATION
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
+
+
 
 
 class ShipFragment : Fragment() {
@@ -150,7 +158,16 @@ class ShipFragment : Fragment() {
             shipView.setImageBitmap(sh.getBitmap())
             if (sh.idxtype == STATION) {
                 // TODO Animate Station in ShipDetail. Redraw the image view on every vsync postInvalidateOnAnimation()
+
+                val anim = RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+                anim.interpolator = LinearInterpolator()
+                anim.repeatCount = Animation.INFINITE
+                anim.duration = 10000
+
+                // Start animating the image
+                shipView.startAnimation(anim)
             }
+
             if (sh.idxtype == FACTORY) {
                 if (sh.uidRace == uidActivePlayer) {
                     view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
