@@ -27,8 +27,8 @@ fun getRaceDrawableResource(idx: Int): Int {
         1 -> R.drawable.race_impi
         2 -> R.drawable.race_beetle
         3 -> R.drawable.race_tortoise
-        4 -> R.drawable.race_5
-        5 -> R.drawable.race_6
+        4 -> R.drawable.race_ghosts
+        5 -> R.drawable.race_tools
         else -> R.drawable.missing
     }
 }
