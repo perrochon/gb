@@ -22,7 +22,6 @@ data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int) {
     var explore: Int
     var absorption: Int
     var description: String
-    var color: String
     var uidHeadquarters = -1
 
     // Properties that DO change after construction
@@ -43,7 +42,6 @@ data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int) {
         explore = GBData.getRaceExplore(idx)
         absorption = GBData.getRaceAbsorption(idx)
         description = GBData.getRaceDescription(idx)
-        color = GBData.getRaceColor(idx)
         GBLog.i("Created Race object for race $name")
     }
 

@@ -370,8 +370,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     if (pointVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||
                         pointVisible(shot.to.x * uToSf, shot.to.y * uToSf)
                     ) {
-                        shotPaint.color =
-                            Color.parseColor(vm.race(shot.uidRace).color) // TODO PERFORMANCE add color when making shots as an int
+                        shotPaint.color = vm.race(shot.uidRace).getColor() // TODO PERFORMANCE add color when making shots as an int
                         val shotduration = 333
                         val distance = shot.from.distance(shot.to) * uToS * scale * 2f
                         val milis = currentTimeMillis().rem(shotduration).toFloat()
@@ -483,7 +482,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                                         val fill =
                                             p.sectors[j].population.toFloat() / p.sectors[j].maxPopulation.toFloat()
                                         paint.style = Style.STROKE
-                                        paint.color = Color.parseColor(p.sectors[j].sectorOwner.color)
+                                        paint.color = p.sectors[j].sectorOwner.getColor()
                                         paint.strokeWidth = strokeWidth.toFloat()
                                         canvas.drawLine(
                                             vP1.x - 2 * o + p.sectorX(j) * size + size / 10f,
@@ -651,7 +650,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (sh.health <= 0) {
             shipPaint.color = deadColor
         } else {
-            shipPaint.color = Color.parseColor(sh.race.color)
+            shipPaint.color = sh.race.getColor()
         }
         if (sh.loc.level == DEEPSPACE) {
             shipPaint.alpha = 128

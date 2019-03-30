@@ -50,7 +50,7 @@ class ShipFragment : Fragment() {
 
         val background = view.background as GradientDrawable
         background.mutate()
-        background.setStroke(2, Color.parseColor(vm.race(sh.uidRace).color))
+        background.setStroke(2, vm.race(sh.uidRace).getColor())
 
         val turnObserver = Observer<Int> { _ ->
             setDetails(view)

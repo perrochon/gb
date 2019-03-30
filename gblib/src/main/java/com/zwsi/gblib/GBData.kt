@@ -135,43 +135,38 @@ class GBData {
             val birthrate: Int, // 00...100 (originally 0..1?)
             val explore: Int, // adventurism 00..100 (originally percent)
             val absorption: Int,
-            val description: String,
-            val color: String
+            val description: String
         )
 
         private val races = hashMapOf(
             0 to RaceData(
-                "Xenos", 50, 20, 20, "Xenos can’t burn, they can’t " +
-                        "suffocate, they can glide, they can run at 20 mph, they can find underground materials fast, " +
-                        "and they walk at 5mph, they glide at 65mph.", "#e34234"
+                "Xenos", 50, 20, 20, "Xenos can’t burn and they can’t suffocate. " +
+                        "They can glide at 65mph and they can run at 20 mph and they walk at 5mph. " +
+                        "They can find underground materials fast."
             ),
             1 to RaceData(
-                "Impi", 20, 50, 10, "Ancient legends rumor that Impis once visited us." +
-                        "Impi can breath underwater, " +
-                        "they swim at 80mph, they can change color like a chameleon, they run at 30 mph, they walk at 5.3mph, " +
-                        "and can use all four hands for piloting, fighting and other activities.", "#ff009e73"
+                "Impis", 20, 50, 10,
+                "Impis can breath underwater, they swim at 80mph and they can change color like a chameleon. " +
+                        "They run at 30 mph, they walk at 5.3mph and can use all four hands for piloting, fighting and " +
+                        "other activities."
             ),
             2 to RaceData(
-                "Rainbow Beetles", 10, 5, 0, "Ancient legends rumor that Rainbox Beetles once visited us." +
-                        "Rainbow Beetles " +
-                        "are small but deadly, they have small snipers, they fly like a beetle at 25mph, they crawl at 40mph, " +
-                        "they can see all directions, they can hang upside down and climb walls.", "#ffcc79a7"
+                "Rainbow Beetles", 10, 5, 0,
+                "Beetles have small pincers and they fly like a beetle at 25 mph. They crawl at 40mph, " +
+                        "can see in all directions and they can hang upside down and climb walls."
             ),
             3 to RaceData(
-                "Warhide Tortois",
-                5,
-                20,
-                0,
-                "Ancient legends rumor that Warhide Tortoises once visited us. \n\n" +
-                        "Hard shell, can see with three heads, SUPER SHARP claws, moves at 25mph,  can swim at 65mph, " +
-                        "sharp shell, can turn to a spining shell.",
-                "#ff56b4e9"
+                "Warhide Tortoises", 5, 20, 0,
+                "Tortoises have hard shells, can see with three heads and have super sharp claws. \n" +
+                        "They move at 25 mph,  can swim at 65mph. Its sharp shell can turn into a spinning shell.\n"
             ),
             4 to RaceData(
-                "Tools", 20, 50, 10, "", "#ff0072b2"
+                "Tools", 20, 50, 10,
+                "Tools are transformers and they are good pilots."
             ),
             5 to RaceData(
-                "Elemental Ghost Babies", 20, 50, 10, "", "#ffF0E442"
+                "Elemental Ghost Babies", 20, 50, 10,
+                "Can Summon Fire and can summon water. They can hover in any gas and move at 25 mph."
             )
         )
 
@@ -193,10 +188,6 @@ class GBData {
 
         internal fun getRaceDescription(idx: Int): String {
             return races.get(idx)!!.description
-        }
-
-        internal fun getRaceColor(idx: Int): String {
-            return races.get(idx)!!.color
         }
 
         const val FACTORY = 0

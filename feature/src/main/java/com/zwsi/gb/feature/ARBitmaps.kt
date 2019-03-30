@@ -3,6 +3,7 @@ package com.zwsi.gb.feature
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import com.zwsi.gb.feature.ARBitmaps.Companion.raceBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.shipBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.wheelBitmap
@@ -12,6 +13,12 @@ import com.zwsi.gblib.GBShip
 import kotlin.system.measureNanoTime
 
 const val NumberOfRacesWithBitmaps = 6
+
+val race_colors = longArrayOf(0xffe34234, 0xff009e73, 0xffcc79a7, 0xff56b4e9, 0xff0072b2, 0xffF0E442)
+
+fun GBRace.getColor(): Int {
+    return race_colors[this.idx].toInt()
+}
 
 fun GBRace.getDrawableResource(): Int {
     return getRaceDrawableResource(this.idx)
@@ -177,17 +184,6 @@ class ARBitmaps {
             }
 
             initTimes["iSB"] = measureNanoTime {
-                val drawables = listOf<Int>(
-                    R.drawable.podt,
-                    R.drawable.ship_cruiser,
-                    R.drawable.ship_factory,
-                    R.drawable.ship_pod_beetle,
-                    R.drawable.ship_shuttle,
-                    R.drawable.ship_research,
-                    R.drawable.ship_hq,
-                    R.drawable.ship_battlestar,
-                    R.drawable.ship_wheel
-                )
                 for (i in 0..NumberOfShipsWithBitmaps + NumberOfShipsWithAlternativeBitmaps) {
                     val bm = BitmapFactory.decodeResource(context.getResources(), getShipDrawableResource(i))!!
                     w = density / 420f * bm.getWidth() / 6
