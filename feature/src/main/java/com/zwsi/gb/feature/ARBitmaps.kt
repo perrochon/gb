@@ -67,6 +67,8 @@ fun getShipDrawableResource(idx: Int): Int {
     }
 }
 
+// FIXME Should functions that are not extensions move into the class?
+
 // FIXME Planets
 
 // FIXME Sectors

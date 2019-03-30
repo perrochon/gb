@@ -21,6 +21,12 @@ import com.zwsi.gblib.GBUniverse
 import java.io.File
 import kotlin.system.measureNanoTime
 
+// Utility Extension Function for formatting numbers with leading space
+fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
+fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
+fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
+fun Long.f(digits: Int) = java.lang.String.format("%${digits}d", this)
+
 // TODO rename this, once we know what all it does :-)
 class GlobalStuff {
 
