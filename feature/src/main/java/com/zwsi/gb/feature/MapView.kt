@@ -828,12 +828,17 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         paint.style = Style.STROKE // FIXME use dedicated paint
         val starBitmap = otherBitmap(R.drawable.star)
-        val halfSize = starBitmap.getWidth() / 2
+        val halfSize = 20
         for ((_, s) in vm.stars) {
             if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
-                canvas.drawBitmap(starBitmap, vP1.x - halfSize, vP1.y - halfSize, null)
+                canvas.drawBitmap(starBitmap, null, RectF(
+                    vP1.x - halfSize,
+                    vP1.y - halfSize,
+                    vP1.x + halfSize,
+                    vP1.y + halfSize
+                ), null)
                 clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), s))
 
             }
