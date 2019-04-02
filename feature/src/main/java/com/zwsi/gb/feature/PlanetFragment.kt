@@ -63,6 +63,8 @@ class PlanetFragment : Fragment() {
 
     private fun setDetails(view: View) {
 
+        // FIXME load planet image into imageview
+
         val p = vm.planet(tag!!.toInt())
 
         val factoryButton: Button = view.findViewById(R.id.makefactory)
@@ -116,7 +118,5 @@ class PlanetFragment : Fragment() {
             }
             planetStats.append("\n")
         }
-
     }
-
 }

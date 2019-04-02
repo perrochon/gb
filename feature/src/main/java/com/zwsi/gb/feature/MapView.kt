@@ -516,7 +516,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                             sourceToViewCoord(sP1, vP1)
                             if (normScale > 2) {
-                                val planetBitmap = planetBitmap(p.idxtype)
+                                val planetBitmap = p.getBitmap()
                                 val planetSize = 1.6f * uToSf * scale // FIXME - move outside loops...
                                 canvas.drawBitmap(
                                     planetBitmap,

@@ -4,10 +4,12 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import com.zwsi.gb.feature.ARBitmaps.Companion.planetBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.raceBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.shipBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.wheelBitmap
 import com.zwsi.gblib.GBData
+import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBRace
 import com.zwsi.gblib.GBShip
 import kotlin.system.measureNanoTime
@@ -74,6 +76,25 @@ fun getShipDrawableResource(idx: Int): Int {
     }
 }
 
+fun GBPlanet.getBitmap(): Bitmap {
+        return planetBitmap(this.idxtype)
+}
+
+fun getPlanetDrawableResource(idx: Int): Int {
+    return when (idx) {
+        0 -> R.drawable.planet_mclass
+        1 -> R.drawable.planet_jovian
+        2 -> R.drawable.planet_water
+        3 -> R.drawable.planet_desert
+        4-> R.drawable.planet_forest
+        5-> R.drawable.planet_ice
+        6-> R.drawable.planet_airless
+        7-> R.drawable.planet_asteroid
+        else -> R.drawable.missing
+    }
+}
+
+
 // FIXME Should functions that are not extensions move into the class?
 
 // FIXME Planets
@@ -96,6 +117,8 @@ class ARBitmaps {
         var wheelBitmaps = arrayOfNulls<Bitmap>(numberOfFrames)
 
         var initTimes = mutableMapOf<String, Long>()
+
+        // These will be only called from one place, so maybe get rid of functions?
 
         fun planetBitmap(id: Int): Bitmap {
             return if (ready) planetBitmaps[id] ?: defaultBitMap else defaultBitMap
@@ -143,22 +166,11 @@ class ARBitmaps {
 
             bmOptions.inSampleSize = 10
             initTimes["iPB"] = measureNanoTime {
-                planetBitmaps[0] =
-                    BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_mclass, bmOptions)!!
-                planetBitmaps[1] =
-                    BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_jovian, bmOptions)!!
-                planetBitmaps[2] =
-                    BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_water, bmOptions)!!
-                planetBitmaps[3] =
-                    BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_desert, bmOptions)!!
-                planetBitmaps[4] =
-                    BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_forest, bmOptions)!!
-                planetBitmaps[5] =
-                    BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_ice, bmOptions)!!
-                planetBitmaps[6] =
-                    BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_airless, bmOptions)!!
-                planetBitmaps[7] =
-                    BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_asteroid, bmOptions)!!
+
+                for (i in 0..7) {
+                    planetBitmaps[i] =
+                        BitmapFactory.decodeResource(context.getResources(), getPlanetDrawableResource(i), bmOptions)!!
+                }
             }
 
             initTimes["iPS"] = measureNanoTime {
