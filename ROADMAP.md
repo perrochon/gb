@@ -11,6 +11,7 @@ game play, or prevent game play are second priority. Here are a few examples
 ## Short Term Small Items
 * Money should come next...really
 * Play Impis in Map (generally fix who plays)
+* Stronger AI...
 * Fix action counts
 * Track mission wins
 * Deploy remaining ships

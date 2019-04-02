@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
@@ -27,6 +28,11 @@ class PlanetFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_planet, container, false)!!
 
         setDetails(view)
+
+        val p = vm.planet(tag!!.toInt())
+
+        val planetView = view.findViewById<ImageView>(R.id.PlanetView)
+        planetView.setImageBitmap(p.getBitmap())
 
         val turnObserver = Observer<Int> { _ ->
             setDetails(view)
@@ -62,8 +68,6 @@ class PlanetFragment : Fragment() {
     }
 
     private fun setDetails(view: View) {
-
-        // FIXME load planet image into imageview
 
         val p = vm.planet(tag!!.toInt())
 

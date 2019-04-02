@@ -3,7 +3,6 @@ package com.zwsi.gb.feature
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import com.zwsi.gb.feature.ARBitmaps.Companion.planetBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.raceBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.shipBitmap
@@ -77,7 +76,7 @@ fun getShipDrawableResource(idx: Int): Int {
 }
 
 fun GBPlanet.getBitmap(): Bitmap {
-        return planetBitmap(this.idxtype)
+    return planetBitmap(this.idxtype)
 }
 
 fun getPlanetDrawableResource(idx: Int): Int {
@@ -86,10 +85,10 @@ fun getPlanetDrawableResource(idx: Int): Int {
         1 -> R.drawable.planet_jovian
         2 -> R.drawable.planet_water
         3 -> R.drawable.planet_desert
-        4-> R.drawable.planet_forest
-        5-> R.drawable.planet_ice
-        6-> R.drawable.planet_airless
-        7-> R.drawable.planet_asteroid
+        4 -> R.drawable.planet_forest
+        5 -> R.drawable.planet_ice
+        6 -> R.drawable.planet_airless
+        7 -> R.drawable.planet_asteroid
         else -> R.drawable.missing
     }
 }
@@ -98,8 +97,6 @@ fun getPlanetDrawableResource(idx: Int): Int {
 // FIXME Should functions that are not extensions move into the class?
 
 // FIXME Planets
-
-// FIXME Sectors
 
 class ARBitmaps {
     companion object {
@@ -152,43 +149,43 @@ class ARBitmaps {
 
             val density = context.resources.displayMetrics.densityDpi.toFloat()
             val bmOptions = BitmapFactory.Options()
-            bmOptions.inSampleSize = 10
+//            bmOptions.inSampleSize = 10
 
             // Get star and planet
             otherBitmaps[R.drawable.star] =
-                BitmapFactory.decodeResource(context.getResources(), R.drawable.star, bmOptions)!!
+                BitmapFactory.decodeResource(context.resources, R.drawable.star, bmOptions)!!
 
-            val bmPlanet = BitmapFactory.decodeResource(context.getResources(), R.drawable.planet_deprecated)!!
+            val bmPlanet = BitmapFactory.decodeResource(context.resources, R.drawable.planet_deprecated)!!
             w = density / 420f * bmPlanet.getWidth() / 2
             h = density / 420f * bmPlanet.getHeight() / 2
             otherBitmaps[R.drawable.planet_deprecated] =
                 Bitmap.createScaledBitmap(bmPlanet, w.toInt(), h.toInt(), true)!!
 
-            bmOptions.inSampleSize = 10
+            //bmOptions.inSampleSize = 10
             initTimes["iPB"] = measureNanoTime {
 
                 for (i in 0..7) {
                     planetBitmaps[i] =
-                        BitmapFactory.decodeResource(context.getResources(), getPlanetDrawableResource(i), bmOptions)!!
+                        BitmapFactory.decodeResource(context.resources, getPlanetDrawableResource(i), bmOptions)!!
                 }
             }
 
             initTimes["iPS"] = measureNanoTime {
-                surfaceBitmaps[3] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_desert)!!
-                surfaceBitmaps[5] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_forest)!!
-                surfaceBitmaps[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_gas)!!
-                surfaceBitmaps[6] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_ice)!!
-                surfaceBitmaps[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_land)!!
-                surfaceBitmaps[4] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_mountain)!!
-                surfaceBitmaps[7] = BitmapFactory.decodeResource(context.getResources(), R.drawable.surface_rock)!!
-                surfaceBitmaps[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.water)!!
+                surfaceBitmaps[3] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_desert)!!
+                surfaceBitmaps[5] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_forest)!!
+                surfaceBitmaps[2] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_gas)!!
+                surfaceBitmaps[6] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_ice)!!
+                surfaceBitmaps[1] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_land)!!
+                surfaceBitmaps[4] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_mountain)!!
+                surfaceBitmaps[7] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_rock)!!
+                surfaceBitmaps[0] = BitmapFactory.decodeResource(context.resources, R.drawable.water)!!
             }
 
 
             // get Races
             initTimes["iRB"] = measureNanoTime {
                 for (i in 0 until NumberOfRacesWithBitmaps) {
-                    val bm = BitmapFactory.decodeResource(context.getResources(), getRaceDrawableResource(i))!!
+                    val bm = BitmapFactory.decodeResource(context.resources, getRaceDrawableResource(i))!!
                     w = density / 420f * bm.getWidth() / 30
                     h = density / 420f * bm.getHeight() / 30
                     raceBitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
@@ -197,7 +194,7 @@ class ARBitmaps {
 
             initTimes["iSB"] = measureNanoTime {
                 for (i in 0..NumberOfShipsWithBitmaps + NumberOfShipsWithAlternativeBitmaps) {
-                    val bm = BitmapFactory.decodeResource(context.getResources(), getShipDrawableResource(i))!!
+                    val bm = BitmapFactory.decodeResource(context.resources, getShipDrawableResource(i))!!
                     w = density / 420f * bm.getWidth() / 6
                     h = density / 420f * bm.getHeight() / 6
                     shipBitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!

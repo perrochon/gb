@@ -52,6 +52,20 @@ class ShipFragment : Fragment() {
         background.mutate()
         background.setStroke(2, vm.race(sh.uidRace).getColor())
 
+        val shipView = view.findViewById<ImageView>(R.id.ShipView)
+        shipView.setImageBitmap(sh.getBitmap())
+        if (sh.idxtype == STATION) {
+            // TODO Animate Station in ShipDetail. Redraw the image view on every vsync postInvalidateOnAnimation()
+
+            val anim = RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+            anim.interpolator = LinearInterpolator()
+            anim.repeatCount = Animation.INFINITE
+            anim.duration = 10000
+
+            // Start animating the image
+            shipView.startAnimation(anim)
+        }
+
         val turnObserver = Observer<Int> { _ ->
             setDetails(view)
             view.invalidate()
@@ -154,19 +168,6 @@ class ShipFragment : Fragment() {
                 destinationButton.alpha = 1f // See Hack above.
             }
 
-            val shipView = view.findViewById<ImageView>(R.id.ShipView)
-            shipView.setImageBitmap(sh.getBitmap())
-            if (sh.idxtype == STATION) {
-                // TODO Animate Station in ShipDetail. Redraw the image view on every vsync postInvalidateOnAnimation()
-
-                val anim = RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
-                anim.interpolator = LinearInterpolator()
-                anim.repeatCount = Animation.INFINITE
-                anim.duration = 10000
-
-                // Start animating the image
-                shipView.startAnimation(anim)
-            }
 
             if (sh.idxtype == FACTORY) {
                 if (sh.uidRace == uidActivePlayer) {

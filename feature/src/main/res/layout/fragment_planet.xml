@@ -84,8 +84,8 @@
         <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/StarView"
-                app:srcCompat="@drawable/planet_deprecated"
+                android:id="@+id/PlanetView"
+                app:srcCompat="@drawable/missing"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp"
