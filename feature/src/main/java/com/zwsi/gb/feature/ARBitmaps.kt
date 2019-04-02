@@ -79,6 +79,10 @@ fun GBPlanet.getBitmap(): Bitmap {
     return planetBitmap(this.idxtype)
 }
 
+fun GBPlanet.getDrawableResource(): Int {
+    return getPlanetDrawableResource(this.idxtype)
+}
+
 fun getPlanetDrawableResource(idx: Int): Int {
     return when (idx) {
         0 -> R.drawable.planet_mclass
@@ -95,8 +99,6 @@ fun getPlanetDrawableResource(idx: Int): Int {
 
 
 // FIXME Should functions that are not extensions move into the class?
-
-// FIXME Planets
 
 class ARBitmaps {
     companion object {
@@ -148,25 +150,15 @@ class ARBitmaps {
             var w: Float
 
             val density = context.resources.displayMetrics.densityDpi.toFloat()
-            val bmOptions = BitmapFactory.Options()
-//            bmOptions.inSampleSize = 10
 
             // Get star and planet
             otherBitmaps[R.drawable.star] =
-                BitmapFactory.decodeResource(context.resources, R.drawable.star, bmOptions)!!
+                BitmapFactory.decodeResource(context.resources, R.drawable.star)!!
 
-            val bmPlanet = BitmapFactory.decodeResource(context.resources, R.drawable.planet_deprecated)!!
-            w = density / 420f * bmPlanet.getWidth() / 2
-            h = density / 420f * bmPlanet.getHeight() / 2
-            otherBitmaps[R.drawable.planet_deprecated] =
-                Bitmap.createScaledBitmap(bmPlanet, w.toInt(), h.toInt(), true)!!
-
-            //bmOptions.inSampleSize = 10
             initTimes["iPB"] = measureNanoTime {
-
                 for (i in 0..7) {
                     planetBitmaps[i] =
-                        BitmapFactory.decodeResource(context.resources, getPlanetDrawableResource(i), bmOptions)!!
+                        BitmapFactory.decodeResource(context.resources, getPlanetDrawableResource(i))!!
                 }
             }
 
@@ -181,7 +173,6 @@ class ARBitmaps {
                 surfaceBitmaps[0] = BitmapFactory.decodeResource(context.resources, R.drawable.water)!!
             }
 
-
             // get Races
             initTimes["iRB"] = measureNanoTime {
                 for (i in 0 until NumberOfRacesWithBitmaps) {
@@ -192,6 +183,7 @@ class ARBitmaps {
                 }
             }
 
+            // get Ships
             initTimes["iSB"] = measureNanoTime {
                 for (i in 0..NumberOfShipsWithBitmaps + NumberOfShipsWithAlternativeBitmaps) {
                     val bm = BitmapFactory.decodeResource(context.resources, getShipDrawableResource(i))!!
@@ -201,7 +193,8 @@ class ARBitmaps {
                 }
             }
 
-            initTimes["iRB"] = measureNanoTime {
+            // compute wheel animations
+            initTimes["iWB"] = measureNanoTime {
                 for (i in 0 until numberOfFrames) {
                     wheelBitmaps[i] = shipBitmaps[GBData.STATION]!!.rotate((360.toFloat() / numberOfFrames * i))
                 }

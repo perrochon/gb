@@ -1,6 +1,7 @@
 package com.zwsi.gb.feature
 
 import android.graphics.LightingColorFilter
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -56,20 +57,7 @@ class DestinationActivity : AppCompatActivity() {
         if (shipStar != null) {
             for (p in shipStar.starUidPlanets.map { vm.planet(it) }) {
 
-                val planetDrawable = getDrawable(
-                    when (p.idxtype) {
-                        0 -> R.drawable.planet_mclass
-                        1 -> R.drawable.planet_jovian
-                        2 -> R.drawable.planet_water
-                        3 -> R.drawable.planet_desert
-                        4 -> R.drawable.planet_forest
-                        5 -> R.drawable.planet_ice
-                        6 -> R.drawable.planet_airless
-                        7 -> R.drawable.planet_asteroid
-                        else -> R.drawable.planet_deprecated
-                    }
-                )!!// FIXME Get this from bitmap factory?
-
+                val planetDrawable = getDrawable(p.getDrawableResource())!!
 
                 val button = getButton(planetDrawable, "Planet ${p.name}")
                 if (uidSelectedPlanet == p.uid) {
@@ -80,8 +68,6 @@ class DestinationActivity : AppCompatActivity() {
                     uidSelectedPlanet = p.uid
                     uidSelectedStar = -1
                 })
-
-
 
                 linearLayout.addView(button, lp)
                 destinationsList.add(button)
@@ -153,12 +139,14 @@ class DestinationActivity : AppCompatActivity() {
 
     private fun getButton(drawable: Drawable, text: String): Button {
 
-        val button = Button(this)
-        button.text = text
-        button.height = 140
-        button.setBackgroundResource(R.drawable.border_message)
-        button.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+        drawable.bounds = Rect(0, 0, 100, 100)
 
+        val button = Button(this)
+        button.transformationMethod = null
+        button.text = text
+        button.setBackgroundResource(R.drawable.border_message)
+        button.setPadding(50, button.paddingTop, button.paddingRight, button.paddingBottom)
+        button.setCompoundDrawables(drawable, null, null, null)
         return button
     }
 

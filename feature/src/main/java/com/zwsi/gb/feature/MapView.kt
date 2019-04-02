@@ -327,7 +327,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             }
 
             ARBitmaps.initTimes.forEach { t, u ->
-                canvas.drawText("$t:${(u / 1000L).f(5)}μs", 8f, l++ * h, statsNamesPaint)
+                canvas.drawText("$t:${(u / 1000000L).f(5)}ms", 8f, l++ * h, statsNamesPaint)
             }
 
         }
@@ -828,7 +828,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         paint.style = Style.STROKE // FIXME use dedicated paint
         val starBitmap = otherBitmap(R.drawable.star)
-        val halfSize = 20
+        val halfSize = 20 // FIXME PERFORMANCE if we have fixed size, we only need to scale bitmap once, not 60/s
         for ((_, s) in vm.stars) {
             if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
