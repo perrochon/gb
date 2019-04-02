@@ -84,7 +84,7 @@ class DestinationActivity : AppCompatActivity() {
 
         for ((_, star) in sortedStars) {
 
-            val button = getButton(starDrawable, "System ${star.name}")
+            val button = getButton(starDrawable!!, "System ${star.name}")
             if (uidSelectedStar == star.uid) {
                 button.background.colorFilter = LightingColorFilter(0x55555, 0x774400)
             }
