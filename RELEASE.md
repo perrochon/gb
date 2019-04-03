@@ -21,6 +21,8 @@ Steps for release, because I always forget some. // TODO Automate this
 ### Release Notes
 
 next
+
+.754
 - Races have money that limit their building abilities
 - New ship types: shuttles, battle stars, stations, headquarters, research centers.
 - (Most) Missions are "destroy all other headquarters"
@@ -28,6 +30,7 @@ next
 - New Destination Selection Activity replaces ugly Spinner
 - Stations are animated
 - 3 more missions
+- known issues: actions/money display kinda broken in single player
 
 .677/.678
 - Rules change: 1 action per turn. Choose wisely.

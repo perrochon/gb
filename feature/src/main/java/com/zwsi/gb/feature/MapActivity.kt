@@ -77,10 +77,10 @@ class MapActivity : AppCompatActivity() {
 
         // Set up the action bar
         val actionBar = findViewById<LinearLayout>(R.id.actionBar)
-        val action1 = findViewById<TextView>(R.id.action1)
-        val action2 = findViewById<TextView>(R.id.action2)
-        val money1 = findViewById<TextView>(R.id.money1)
-        val money2 = findViewById<TextView>(R.id.money2)
+//        val action1 = findViewById<TextView>(R.id.action1)
+//        val action2 = findViewById<TextView>(R.id.action2)
+//        val money1 = findViewById<TextView>(R.id.money1)
+//        val money2 = findViewById<TextView>(R.id.money2)
 
         val imageView: MapView = findViewById<MapView>(R.id.mapView)!!
 
@@ -90,27 +90,17 @@ class MapActivity : AppCompatActivity() {
         }
 
         val turnObserver = Observer<Int> { newTurn ->
+            setActionBar()
+            actionBar.invalidate()
             imageView.turn = newTurn;
             imageView.shiftToPinnedPlanet()
             imageView.invalidate()
-            action1.text = "${vm.playerTurns[0]}"
-            action2.text = "${vm.playerTurns[1]}"
-            money1.text = "${vm.race(0).money}"
-            money2.text = "${vm.races[1]?.money ?: 0}" // Mission 1 only has one race...
-            if (vm.secondPlayer) {
-                actionBar.visibility = View.VISIBLE
-            } else {
-                //actionBar.visibility = View.GONE
-            }
-            actionBar.invalidate()
         }  // TODO why is newTurn nullable?
         GBViewModel.currentTurn.observe(this, turnObserver)
 
         val actionObserver = Observer<Int> { _ ->
-            action1.text = "${vm.playerTurns[0]}"
-            action2.text = "${vm.playerTurns[1]}"
-            money1.text = "${vm.race(0).money}"
-            money2.text = "${vm.races[1]?.money ?: 0}" // Mission 1 only has one race...
+            setActionBar()
+            actionBar.invalidate()
 
             if (!vm.secondPlayer || vm.playerTurns[1 - uidActivePlayer] < 0) {
                 DoButton.isEnabled = true
@@ -234,6 +224,36 @@ class MapActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
+
+    private fun setActionBar() {
+
+        action1.text = "${vm.playerTurns[0]}"
+        action2.text = "${vm.playerTurns[1]}"
+        money1.text = "${vm.race(0).money}"
+        money2.text = "${vm.races[1]?.money ?: 0}" // Mission 1 only has one race...
+        if (vm.secondPlayer) {
+            if (uidActivePlayer == 0) {
+                action1.visibility = View.VISIBLE
+                money1.visibility = View.VISIBLE
+                action2.visibility = View.VISIBLE
+                money2.visibility = View.INVISIBLE
+            } else {
+                action1.visibility = View.VISIBLE
+                money1.visibility = View.INVISIBLE
+                action2.visibility = View.VISIBLE
+                money2.visibility = View.VISIBLE
+            }
+            image2.visibility = View.VISIBLE
+            image1.visibility = View.VISIBLE
+        } else {
+            action1.visibility = View.INVISIBLE
+            image1.visibility = View.VISIBLE
+            money1.visibility = View.VISIBLE
+            action2.visibility = View.INVISIBLE
+            image2.visibility = View.INVISIBLE
+            money2.visibility = View.INVISIBLE
+        }
+    }
 
     fun panzoomToShip(view: View) {
         GlobalStuff.panzoomToShip(view)
