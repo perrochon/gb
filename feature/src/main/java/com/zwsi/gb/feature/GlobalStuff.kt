@@ -26,10 +26,7 @@ fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
 fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
 fun Long.f(digits: Int) = java.lang.String.format("%${digits}d", this)
 
-// FIXME Fundamental problem with re-using code for model and viewmodel and using a single static universe.
-// Get VMLoc takes a parameter stating which Universe to look up things in...
-
-fun GBLocation.getVMLoc(vm: GBUniverse): GBxy {
+fun GBLocation.getVMLoc(): GBxy {
 
     if (level == GBLocation.LANDED) {
         // TODO This calculation is probably a rendering issue and belongs into MapView.
@@ -70,7 +67,7 @@ internal fun GBLocation.getVMStar(): GBStar? {
     }
 }
 
-internal fun GBLocation.getVMPlanet(): GBPlanet? { // FIXME Make internal and replace in the app
+internal fun GBLocation.getVMPlanet(): GBPlanet? {
     when (level) {
         GBLocation.LANDED -> return vm.planet(uidRef)
         GBLocation.ORBIT -> return vm.planet(uidRef)

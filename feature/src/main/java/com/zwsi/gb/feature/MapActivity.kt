@@ -24,6 +24,7 @@ import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBStar
 import kotlinx.android.synthetic.main.activity_map.*
+import kotlinx.android.synthetic.main.activity_map.view.*
 
 
 class MapActivity : AppCompatActivity() {
@@ -75,10 +76,12 @@ class MapActivity : AppCompatActivity() {
                 .show()
         })
 
-        // Set up the Version View
+        // Set up the action bar
         val actionBar = findViewById<LinearLayout>(R.id.actionBar)
         val action1 = findViewById<TextView>(R.id.action1)
         val action2 = findViewById<TextView>(R.id.action2)
+        val money1 = findViewById<TextView>(R.id.money1)
+        val money2 = findViewById<TextView>(R.id.money2)
 
         val imageView: MapView = findViewById<MapView>(R.id.mapView)!!
 
@@ -91,12 +94,14 @@ class MapActivity : AppCompatActivity() {
             imageView.turn = newTurn;
             imageView.shiftToPinnedPlanet()
             imageView.invalidate()
+            action1.text = "${vm.playerTurns[0]}"
+            action2.text = "${vm.playerTurns[1]}"
+            money1.text = "${vm.races[0]!!.money}"
+            money2.text = "${vm.races[2]!!.money}"
             if (vm.secondPlayer) {
                 actionBar.visibility = View.VISIBLE
-                action1.text = "${vm.playerTurns[0]}"
-                action2.text = "${vm.playerTurns[1]}"
             } else {
-                actionBar.visibility = View.GONE
+                //actionBar.visibility = View.GONE
             }
             actionBar.invalidate()
         }  // TODO why is newTurn nullable?
@@ -105,6 +110,8 @@ class MapActivity : AppCompatActivity() {
         val actionObserver = Observer<Int> { _ ->
             action1.text = "${vm.playerTurns[0]}"
             action2.text = "${vm.playerTurns[1]}"
+            money1.text = "${vm.races[0]!!.money}"
+            money2.text = "${vm.races[2]!!.money}"
 
             if (!vm.secondPlayer || vm.playerTurns[1 - uidActivePlayer] < 0) {
                 DoButton.isEnabled = true
@@ -228,50 +235,10 @@ class MapActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-//    /** Called when the user taps the Do button */
-//    fun doUniverse(view: View) {
-//        GlobalStuff.doUniverse(view)
-//    }
-//
-//    fun continuousDo(view: View) {
-//        GlobalStuff.toggleContinuous(view)
-//    }
-//
-////    fun makeFactory(view: View) {
-//        GlobalStuff.makeFactory(view)
-//    }
-//
-//    fun panzoomToStar(view: View) {
-//        GlobalStuff.panzoomToStar(view)
-//    }
-//
-//    fun panzoomToPlanet(view: View) {
-//        GlobalStuff.panzoomToPlanet(view)
-//    }
-
-//    fun panzoomToSystemStar(view: View) {
-//        GlobalStuff.panzoomToSystemStar(view)
-//    }
 
     fun panzoomToShip(view: View) {
         GlobalStuff.panzoomToShip(view)
     }
 
-//    fun goToLocationShip(view: View) {
-//        GlobalStuff.goToLocationShip(view)
-//    }
 
-//    fun makePod(view: View) {
-//        GlobalStuff.makePod(view)
-//    }
-//
-//    fun makeCruiser(view: View) {
-//        GlobalStuff.makeCruiser(view)
-//    }
-
-//    /** Called when the user taps the fly  To button */
-//    fun flyTo(view: View) {
-//        GlobalStuff.flyTo(view)
-//    }
-//
 }

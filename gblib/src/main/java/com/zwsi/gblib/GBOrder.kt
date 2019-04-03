@@ -44,31 +44,42 @@ class GBOrder {
 
         val factory = u.ship(uidFactory)
 
-        if (factory.health > 0) {
-            gbAssert { type == -1 }
-            type = _type
-            uidShip = factory.uid
-            uidRace = factory.uidRace
-            if (GBData.shipsData[_type]!!.surface) {
-                val sector = factory.loc.getPlanet()!!.emptySector()
-                if (sector != null) {
-                    this.loc = GBLocation(factory.loc.getPlanet()!!, sector.x, sector.y)
+        if (GBData.shipsData[_type]!!.cost <= factory.race.money) {
+
+            // Pay for it...
+            factory.race.money -= GBData.shipsData[_type]!!.cost
+
+            if (factory.health > 0) {
+                gbAssert { type == -1 }
+                type = _type
+                uidShip = factory.uid
+                uidRace = factory.uidRace
+                if (GBData.shipsData[_type]!!.surface) {
+                    val sector = factory.loc.getPlanet()!!.emptySector()
+                    if (sector != null) {
+                        this.loc = GBLocation(factory.loc.getPlanet()!!, sector.x, sector.y)
+                    } else {
+                        // TODO Do not silently fail to build anything
+                        // this.loc = GBLocation(factory.loc.getPlanet()!!, 0, 0)
+                    }
                 } else {
-                    // TODO Do not silently fail to build anything
-                    // this.loc = GBLocation(factory.loc.getPlanet()!!, 0, 0)
+                    this.loc = GBLocation(
+                        factory.loc.getPlanet()!!,
+                        GBData.PlanetOrbit,
+                        GBData.rand.nextFloat() * 2 * PI.toFloat()
+                    )
                 }
             } else {
-                this.loc = GBLocation(
-                    factory.loc.getPlanet()!!,
-                    GBData.PlanetOrbit,
-                    GBData.rand.nextFloat() * 2 * PI.toFloat()
-                )
+                // Factory died since order was created
+                u.news.add("Factory was destroyed before order could be executed.\n")
+                // Leave type as is, at -1
             }
         } else {
-            // Factory died since order was created
-            // TODO Do not silently fail to build anything
+            // No Money
+            u.news.add("Tried to build a ship at factory, but run out of money.\n")
             // Leave type as is, at -1
         }
+
     }
 
     fun execute() {

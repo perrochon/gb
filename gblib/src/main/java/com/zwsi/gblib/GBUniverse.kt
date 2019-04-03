@@ -207,7 +207,7 @@ data class GBUniverse(
 
     private fun makeRace(idxRace: Int, uidStar: Int) {
         val homePlanet = star(uidStar).starPlanets.first()
-        val race = GBRace(idxRace, idxRace, homePlanet.uid)
+        val race = GBRace(idxRace, idxRace, homePlanet.uid, 50)
         races[idxRace] = race
         race.raceVisibleStars.add(homePlanet.uidStar)
 
@@ -248,6 +248,7 @@ data class GBUniverse(
                     ship.health = 0
                 }
             }
+            race.money += 50
         }
 
         for ((_, star) in stars) {

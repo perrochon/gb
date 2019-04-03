@@ -656,7 +656,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             shipPaint.alpha = 128
         }
 
-        sP1.set(sh.loc.getVMLoc(vm).x * uToS, sh.loc.getVMLoc(vm).y * uToS)
+        sP1.set(sh.loc.getVMLoc().x * uToS, sh.loc.getVMLoc().y * uToS)
         sourceToViewCoord(sP1, vP1)
 
         if (normScale >= 10) {

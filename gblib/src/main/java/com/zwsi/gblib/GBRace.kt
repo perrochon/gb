@@ -9,7 +9,7 @@ import com.zwsi.gblib.GBController.Companion.u
 import java.util.*
 
 @JsonClass(generateAdapter = true)
-data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int) {
+data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int, var money: Int) {
     // idx is the number to go look up static race information in GBData.
     //      Not needed with dynamic race design or load from json
 

@@ -40,7 +40,7 @@ class DestinationActivity : AppCompatActivity() {
         val destinationsList = arrayListOf<Button>()
 
         val shipStar = ship.loc.getVMStar()
-        val shipPlanet = ship.loc.getVMPlanet() // FIXME Not used, but maybe should mark "current" planet
+        // val shipPlanet = ship.loc.getVMPlanet() // TODO mark "current" planet, as well as current destination?
 
         var uidSelectedPlanet = -1
         var uidSelectedStar = -1
