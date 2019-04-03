@@ -21,9 +21,11 @@ Steps for release, because I always forget some. // TODO Automate this
 ### Release Notes
 
 next
-- Races have head quarters, and destroying a headquarter ends the race
+- Races have money that limit their building abilities
 - New ship types: shuttles, battle stars, stations, headquarters, research centers.
-- New Destination Selection Activity replaces Spinner
+- (Most) Missions are "destroy all other headquarters"
+- New races (2)
+- New Destination Selection Activity replaces ugly Spinner
 - Stations are animated
 - 3 more missions
 

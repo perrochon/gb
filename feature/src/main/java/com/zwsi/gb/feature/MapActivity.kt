@@ -24,7 +24,6 @@ import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBStar
 import kotlinx.android.synthetic.main.activity_map.*
-import kotlinx.android.synthetic.main.activity_map.view.*
 
 
 class MapActivity : AppCompatActivity() {
@@ -96,8 +95,8 @@ class MapActivity : AppCompatActivity() {
             imageView.invalidate()
             action1.text = "${vm.playerTurns[0]}"
             action2.text = "${vm.playerTurns[1]}"
-            money1.text = "${vm.races[0]!!.money}"
-            money2.text = "${vm.races[2]!!.money}"
+            money1.text = "${vm.race(0).money}"
+            money2.text = "${vm.races[1]?.money ?: 0}" // Mission 1 only has one race...
             if (vm.secondPlayer) {
                 actionBar.visibility = View.VISIBLE
             } else {
@@ -110,8 +109,8 @@ class MapActivity : AppCompatActivity() {
         val actionObserver = Observer<Int> { _ ->
             action1.text = "${vm.playerTurns[0]}"
             action2.text = "${vm.playerTurns[1]}"
-            money1.text = "${vm.races[0]!!.money}"
-            money2.text = "${vm.races[2]!!.money}"
+            money1.text = "${vm.race(0).money}"
+            money2.text = "${vm.races[1]?.money ?: 0}" // Mission 1 only has one race...
 
             if (!vm.secondPlayer || vm.playerTurns[1 - uidActivePlayer] < 0) {
                 DoButton.isEnabled = true
