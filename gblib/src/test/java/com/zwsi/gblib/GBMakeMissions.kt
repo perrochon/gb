@@ -3,6 +3,7 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
+import com.zwsi.gblib.GBData.Companion.Demo1
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.Map1
 import com.zwsi.gblib.GBData.Companion.Map2
@@ -219,6 +220,28 @@ class GBMakeMissions {
         GBController.loadUniverseFromJSON(json)
         u.doUniverse()
     }
+
+    @Test
+    fun makeDemo1() {
+        GBController.makeUniverse(6, 6)
+        u.star(0).loc = GBLocation(184f,446f)
+        u.star(1).loc = GBLocation(95f, 400f)
+        u.star(2).loc = GBLocation(11f, 455f)
+        u.star(3).loc = GBLocation(16f, 554f)
+        u.star(4).loc = GBLocation(105f, 600f)
+        u.star(5).loc = GBLocation(189f, 545f)
+
+        u.id = Demo1
+        u.description = "Demo 1: The Hexagon of Death"
+        u.demoMode = true
+        val json = GBController.saveUniverse()
+        File("levels/demo1.json").writeText(json)
+
+        // Quick check we can load it again
+        GBController.loadUniverseFromJSON(json)
+        u.doUniverse()
+    }
+
 
 }
 

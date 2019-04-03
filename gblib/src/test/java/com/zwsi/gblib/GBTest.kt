@@ -21,9 +21,9 @@ class GBTest {
 
         println("Welcome to GB Test")
         GBController.makeUniverse()
-        playBeetle()
-        playImpi()
-        playTortoise()
+        playBeetle(u.race(GBData.BEETLES))
+        playImpi(u.race(GBData.IMPI))
+        playTortoise(u.race(GBData.TORTOISES))
 
         var elapsed : Long
 

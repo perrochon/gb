@@ -6,6 +6,7 @@ package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.BATTLESTAR
+import com.zwsi.gblib.GBData.Companion.BEETLES
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
@@ -16,12 +17,6 @@ import kotlin.math.PI
 class GBAutoPlayer() {
 
     companion object {
-
-        // Whether autoplayers kill each other or not (i.e. fly to each otehrs home planet and attack headquarters)
-        // TODO either make a universe setting or remove
-        private fun autoKillauto(): Boolean {
-            return true
-        }
 
         private fun findOrOrderFactory(r: GBRace): GBShip? {
             val factory = r.raceShips.filter { it.idxtype == FACTORY }.sortedBy { -it.uid }.firstOrNull()
@@ -35,7 +30,7 @@ class GBAutoPlayer() {
 
         private fun orderFactories(r: GBRace) {
             for (planet in u.planets.values) {
-                if (r.uid in planet.planetUidRaces){
+                if (r.uid in planet.planetUidRaces) {
                     if (planet.landedShips.filter { it.uidRace == r.uid && it.idxtype == FACTORY }.isEmpty()) {
                         val order = GBOrder()
                         order.makeStructure(planet.uid, r.uid, FACTORY)
@@ -45,24 +40,103 @@ class GBAutoPlayer() {
             }
         }
 
-        fun playXenos() {
-
-            val r = u.race(0)
-            GBLog.d("(Not) Playing Xenos in turn $u.turn")
+        private fun orderShips(
+            r: GBRace,
+            factory: GBShip,
+            cruiser: Int,
+            station: Int,
+            shuttle: Int,
+            battlestar: Int,
+            other: Int
+        ) {
+            if (r.raceShips.filter { it.idxtype == CRUISER }.size < cruiser) {
+                val order = GBOrder()
+                order.makeShip(factory.uid, CRUISER)
+                u.orders.add(order)
+            } else if (r.raceShips.filter { it.idxtype == STATION }.size < station) {
+                val order = GBOrder()
+                order.makeShip(factory.uid, STATION)
+                u.orders.add(order)
+            } else if (r.raceShips.filter { it.idxtype == SHUTTLE }.size < shuttle) {
+                val order = GBOrder()
+                order.makeShip(factory.uid, SHUTTLE)
+                u.orders.add(order)
+            } else if (r.raceShips.filter { it.idxtype == BATTLESTAR }.size < battlestar) {
+                val order = GBOrder()
+                order.makeShip(factory.uid, BATTLESTAR)
+                u.orders.add(order)
+            } else {
+                val order = GBOrder()
+                order.makeShip(factory.uid, other)
+                u.orders.add(order)
+            }
 
         }
 
-        fun playImpi() {
+        const val DEPLOYMENT_TOPLANET = 0
+        const val DEPLOYMENT_RANDOM = 1
+        const val DEPLOYMENT_ATTACK =2
+        const val DEPLOYMENT_GAS = 3
 
-            val r = u.race(1)
-            GBLog.d("Playing Impi in turn $u.turn")
+
+        private fun deployShips(r: GBRace, type: Int, destination: GBPlanet?) {
+
+            for (ship in r.raceShips.filter {
+                (it.idxtype == CRUISER || it.idxtype == BATTLESTAR || it.idxtype == SHUTTLE) && it.loc.uidRef == r.uidHomePlanet
+            }) {
+                val planet = when (type) {
+                    DEPLOYMENT_TOPLANET -> destination
+
+                    DEPLOYMENT_ATTACK ->
+                        if (u.turn % 5 == 0) {
+                            u.race(0).getHome()
+                        } else {
+                            u.planets.values.shuffled().first()
+                        }
+
+                    DEPLOYMENT_GAS -> u.planets.values.filter { it.idxtype == 3 }.firstOrNull()
+
+                    else -> u.planets.values.shuffled().first()
+                }
+                if (planet != null) {
+                    val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
+                    GBLog.d("Setting Destination of " + ship.name + " to " + planet.name)
+                    ship.dest = loc
+
+                }
+            } // else just try again next time this code runs...
+        }
+
+
+        fun playXenos(r: GBRace) {
+
+            GBLog.d("Playing ${r.name} in turn ${u.turn}")
+
+            // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
+            val factory = findOrOrderFactory(r) ?: return
+
+            orderShips(r, factory, 5, 10, 0, 0, BATTLESTAR)
+
+            deployShips(r, DEPLOYMENT_RANDOM, null)
 
         }
 
-        fun playBeetle() {
+        fun playImpi(r: GBRace) {
+
+            GBLog.d("Playing ${r.name} in turn ${u.turn}")
+
+            // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
+            val factory = findOrOrderFactory(r) ?: return
+
+            orderShips(r, factory, 5, 5, 0, 0, CRUISER)
+
+            deployShips(r, DEPLOYMENT_RANDOM, null)
+
+        }
+
+        fun playBeetle(r: GBRace) {
 
             // TODO: Beetles just make a new queen/headquarter if they lose it...
-            val r = u.race(2)
             GBLog.d("Playing Beetles in turn ${u.turn} (${u.ship(r.uidHeadquarters).health})")
 
             // Find factory and order a pod. If we don't have a factory order one at home.
@@ -78,137 +152,58 @@ class GBAutoPlayer() {
             // Send any pod that doesn't have a destination to some random planet
             for (pod in r.raceShips.filter { (it.idxtype == GBData.POD) && (it.dest == null) }) {
 
-                // TODO Fun: Other than random. E.g. order all planets by direction to create a nice spiral :-)
-                val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
-                val loc = GBLocation(planet, 0, 0) // TODO Have caller give us a better location?
+                val planet = u.planets.values.filter { it.orbitShips.size == 0 }.shuffled().firstOrNull()
+                    ?: u.planets.values.sortedBy { it.orbitShips.size }.first()
+
+                pod.dest = GBLocation(planet, 0, 0)
                 GBLog.d("Setting Destination of " + pod.name + " to " + planet.name)
-                pod.dest = loc
             }
             GBLog.d("Directed Pods")
         }
 
+        fun playTortoise(r: GBRace) {
 
-        fun playTortoise() {
-
-            val r = u.race(3)
-            GBLog.d("Playing Tortoise in  turn  $u.turn")
+            GBLog.d("Playing ${r.name} in turn ${u.turn}")
 
             // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
             val factory = findOrOrderFactory(r) ?: return
 
-            if (r.raceShips.filter { it.idxtype == CRUISER }.size < 31) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, CRUISER)
-                u.orders.add(order)
-            } else if (r.raceShips.filter { it.idxtype == STATION }.size < 5) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, STATION)
-                u.orders.add(order)
-            } else if (r.raceShips.filter { it.idxtype == SHUTTLE }.size < 5) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, SHUTTLE)
-                u.orders.add(order)
-            } else if (r.raceShips.filter { it.idxtype == BATTLESTAR }.size < 5) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, BATTLESTAR)
-                u.orders.add(order)
-            }
-            // Send any cruiser that's landed (likely freshly made) to some random planet, but not the beetle home
-            val homeBeetle = u.race(2).getHome()
-            for (cruiser in r.raceShips.filter
-            {
-                (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.ORBIT) && it.loc.uidRef == r.uidHomePlanet
-            }.drop(5)) {
-                val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
-                if (planet != homeBeetle || autoKillauto()) {
-                    val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
-                    GBLog.d("Setting Destination of " + cruiser.name + " to " + planet.name)
-                    cruiser.dest = loc
+            orderShips(r, factory, 31, 5, 5, 5, CRUISER)
 
-                } // else just try again next time this code runs...
-            }
+            deployShips(r, DEPLOYMENT_ATTACK, null)
 
         }
 
-        fun play5() {
+        var toolsTarget = mutableListOf<GBPlanet>()
 
-            val r = u.race(4)
-            GBLog.d("Playing Impi in turn $u.turn")
+        fun playTools(r: GBRace) {
+
+            if (toolsTarget.isEmpty()) {
+                toolsTarget.addAll(u.planets.values.sortedBy { it.loc.getLoc().distance(r.getHome().loc.getLoc()) })
+            }
+
+            GBLog.d("Playing ${r.name} in turn ${u.turn}")
 
             val factory = findOrOrderFactory(r) ?: return
 
-            if (r.raceShips.filter { it.idxtype == CRUISER }.size < 31) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, CRUISER)
-                u.orders.add(order)
-            } else if (r.raceShips.filter { it.idxtype == STATION }.size < 5) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, STATION)
-                u.orders.add(order)
-            } else if (r.raceShips.filter { it.idxtype == SHUTTLE }.size < 5) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, SHUTTLE)
-                u.orders.add(order)
-            } else if (r.raceShips.filter { it.idxtype == BATTLESTAR }.size < 5) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, BATTLESTAR)
-                u.orders.add(order)
-            }
-            // Send any cruiser that's landed (likely freshly made) to some random planet, but not the beetle home
-            val homeBeetle = u.race(2).getHome()
-            for (cruiser in r.raceShips.filter
-            {
-                (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.ORBIT) && it.loc.uidRef == r.uidHomePlanet
-            }.drop(5)) {
-                val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
-                if (planet != homeBeetle || autoKillauto()) {
-                    val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
-                    GBLog.d("Setting Destination of " + cruiser.name + " to " + planet.name)
-                    cruiser.dest = loc
+            orderShips(r, factory, 10, 5, 5, 5, BATTLESTAR)
 
-                } // else just try again next time this code runs...
+            if (u.turn % 10 == 0) {
+                deployShips(r, DEPLOYMENT_TOPLANET, toolsTarget.first())
+                toolsTarget.removeAt(0)
             }
         }
 
+        fun playGhosts(r: GBRace) {
 
-        fun play6() {
-
-            val r = u.race(5)
-            GBLog.d("Playing Impi in turn $u.turn")
+            GBLog.d("Playing ${r.name} in turn ${u.turn}")
 
             val factory = findOrOrderFactory(r) ?: return
 
-            if (r.raceShips.filter { it.idxtype == CRUISER }.size < 31) {
-                    val order = GBOrder()
-                    order.makeShip(factory.uid, CRUISER)
-                    u.orders.add(order)
-                } else if (r.raceShips.filter { it.idxtype == STATION }.size < 5) {
-                    val order = GBOrder()
-                    order.makeShip(factory.uid, STATION)
-                    u.orders.add(order)
-                } else if (r.raceShips.filter { it.idxtype == SHUTTLE }.size < 5) {
-                    val order = GBOrder()
-                    order.makeShip(factory.uid, SHUTTLE)
-                    u.orders.add(order)
-                } else if (r.raceShips.filter { it.idxtype == BATTLESTAR }.size < 5) {
-                    val order = GBOrder()
-                    order.makeShip(factory.uid, BATTLESTAR)
-                    u.orders.add(order)
-                }
-            // Send any cruiser that's landed (likely freshly made) to some random planet, but not the beetle home
-            val homeBeetle = u.race(2).getHome()
-            for (cruiser in r.raceShips.filter
-            {
-                (it.idxtype == GBData.CRUISER) && (it.loc.level == GBLocation.ORBIT) && it.loc.uidRef == r.uidHomePlanet
-            }.drop(5)) {
-                val planet = u.planets[GBData.rand.nextInt(u.planets.size)]!!
-                if (planet != homeBeetle || autoKillauto()) {
-                    val loc = GBLocation(planet, GBData.PlanetOrbit, GBData.rand.nextFloat() * 2 * PI.toFloat())
-                    GBLog.d("Setting Destination of " + cruiser.name + " to " + planet.name)
-                    cruiser.dest = loc
+            orderShips(r, factory, 5, 5, 10, 5, SHUTTLE)
 
-                } // else just try again next time this code runs...
-            }
+            deployShips(r, DEPLOYMENT_GAS, null)
+
         }
 
     }

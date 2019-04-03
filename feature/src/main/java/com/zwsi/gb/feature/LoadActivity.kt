@@ -81,6 +81,13 @@ class LoadActivity : AppCompatActivity() {
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
+        val demo1Button: Button = findViewById(R.id.DemoButton)
+        buttons.add(demo1Button)
+        demo1Button.setOnClickListener(View.OnClickListener {
+            lastSelection = 31
+            GlobalStuff.handleClickInSelectionActivity(it, buttons)
+        })
+
         val load2Button1: Button = findViewById(R.id.Load2Button1)
         buttons.add(load2Button1)
         load2Button1.setOnClickListener(View.OnClickListener {
@@ -108,7 +115,7 @@ class LoadActivity : AppCompatActivity() {
             when (lastSelection) {
                 10 -> makeUniverse(it, false)
                 20 -> makeUniverse(it, true)
-                in 11..16, in 21..23 -> loadUniverse(it, lastSelection)
+                in 11..16, in 21..23, 31 -> loadUniverse(it, lastSelection)
             }
             finish()
         })
@@ -152,6 +159,7 @@ class LoadActivity : AppCompatActivity() {
             21 -> view.context.resources.openRawResource(R.raw.map1).reader().readText()
             22 -> view.context.resources.openRawResource(R.raw.map2).reader().readText()
             23 -> view.context.resources.openRawResource(R.raw.map3).reader().readText()
+            31 -> view.context.resources.openRawResource(R.raw.demo1).reader().readText()
             else -> File(view.context.filesDir, GBData.currentGameFileName).readText()
         }
 

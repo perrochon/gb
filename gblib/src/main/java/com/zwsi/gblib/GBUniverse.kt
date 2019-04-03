@@ -1,10 +1,11 @@
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
-import com.zwsi.gblib.GBAutoPlayer.Companion.play5
-import com.zwsi.gblib.GBAutoPlayer.Companion.play6
+import com.sun.org.apache.xpath.internal.operations.Bool
 import com.zwsi.gblib.GBAutoPlayer.Companion.playBeetle
+import com.zwsi.gblib.GBAutoPlayer.Companion.playGhosts
 import com.zwsi.gblib.GBAutoPlayer.Companion.playImpi
+import com.zwsi.gblib.GBAutoPlayer.Companion.playTools
 import com.zwsi.gblib.GBAutoPlayer.Companion.playTortoise
 import com.zwsi.gblib.GBAutoPlayer.Companion.playXenos
 import com.zwsi.gblib.GBController.Companion.u
@@ -18,8 +19,9 @@ import kotlin.math.min
 @JsonClass(generateAdapter = true)
 data class GBUniverse(
     // Constant Fields
-    var id : String = "unknown",
+    var id: String = "unknown",
     var description: String = "Unitialized universe",
+    var demoMode: Boolean = false,
     val universeMaxX: Int = -1,
     val universeMaxY: Int = -1,
     val starMaxOrbit: Float = -1f,
@@ -48,6 +50,7 @@ data class GBUniverse(
     constructor(_numberOfStars: Int, _numberOfRaces: Int) : this(
         MissionRandom,
         "A random universe.",
+        false,
         GBData.UniverseMaxX,
         GBData.UniverseMaxY,
         GBData.starMaxOrbit,
@@ -235,12 +238,12 @@ data class GBUniverse(
         u.news.add("\nTurn: ${turn.toString()}\n")
 
         // TODO Less code below
-        if (u.races.containsKey(0) && !u.race(0).dead()) playXenos()
-        if (u.races.containsKey(1) && !u.race(1).dead() && !secondPlayer) playImpi()
-        if (u.races.containsKey(2) && !u.race(2).dead()) playBeetle()
-        if (u.races.containsKey(3) && !u.race(3).dead()) playTortoise()
-        if (u.races.containsKey(4) && !u.race(4).dead()) play5()
-        if (u.races.containsKey(5) && !u.race(5).dead()) play6()
+        if (u.races.containsKey(0) && !u.race(0).dead() && u.demoMode) playXenos(u.race(0))
+        if (u.races.containsKey(1) && !u.race(1).dead() && !secondPlayer) playImpi(u.race(1))
+        if (u.races.containsKey(2) && !u.race(2).dead()) playBeetle(u.race(2))
+        if (u.races.containsKey(3) && !u.race(3).dead()) playTortoise(u.race(3))
+        if (u.races.containsKey(4) && !u.race(4).dead()) playTools(u.race(4))
+        if (u.races.containsKey(5) && !u.race(5).dead()) playGhosts(u.race(5))
 
         for (o in orders) {
             o.execute()
@@ -257,7 +260,7 @@ data class GBUniverse(
                 race.money = 0
             } else {
                 race.money += race.production
-                if (race.money>99999) race.money = 99999
+                if (race.money > 99999) race.money = 99999
                 race.raceVisibleStars.add(race.getHome().star.uid)
             }
         }
@@ -349,7 +352,7 @@ data class GBUniverse(
                             if (sh1.loc.getLoc().distance(sh2.loc.getLoc()) < sh1.range) {
                                 fireOneShot(sh1, sh2)
                                 sh1.guns--
-                                if (sh1.guns <=0) {
+                                if (sh1.guns <= 0) {
                                     continue@fireShips
                                 }
                             }

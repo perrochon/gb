@@ -45,6 +45,7 @@ class GBData {
         internal const val Map1 = "Map 1"
         internal const val Map2 = "Map 2"
         internal const val Map3 = "Map 3"
+        internal const val Demo1 = "Demo 1"
         internal const val MapRandom = "Random Map"
 
         internal fun selectStarNameIdx(): Int {
@@ -129,6 +130,14 @@ class GBData {
             intArrayOf(7, 7, 7, 7, 7, 7, 7, 7, 6, 6)  // Asteroid
         )
 
+        const val XENOS = 0
+        const val IMPI = 1
+        const val BEETLES = 2
+        const val TORTOISES = 3
+        const val TOOLS = 4
+        const val GHOSTS = 5
+
+
         // Races
         internal data class RaceData(
             val name: String,
@@ -140,34 +149,34 @@ class GBData {
         )
 
         private val races = hashMapOf(
-            0 to RaceData(
+            XENOS to RaceData(
                 "Xenos", 50, 20, 20, 50,
                 "Xenos can’t burn and they can’t suffocate. " +
                         "They can glide at 65mph and they can run at 20 mph and they walk at 5mph. " +
                         "They can find underground materials fast."
             ),
-            1 to RaceData(
+            IMPI to RaceData(
                 "Impis", 20, 50, 10, 50,
                 "Impis can breath underwater, they swim at 80mph and they can change color like a chameleon. " +
                         "They run at 30 mph, they walk at 5.3mph and can use all four hands for piloting, fighting and " +
                         "other activities."
             ),
-            2 to RaceData(
+            BEETLES to RaceData(
                 "Rainbow Beetles", 10, 5, 0, 10,
                 "Beetles have small pincers and they fly like a beetle at 25 mph. They crawl at 40mph, " +
                         "can see in all directions and they can hang upside down and climb walls."
             ),
-            3 to RaceData(
+            TORTOISES to RaceData(
                 "Warhide Tortoises", 5, 20, 0, 50,
                 "Tortoises have hard shells, can see with three heads and have super sharp claws. \n" +
                         "They move at 25 mph,  can swim at 65mph. Its sharp shell can turn into a spinning shell.\n"
             ),
-            4 to RaceData(
+            TOOLS to RaceData(
                 "Tools", 20, 50, 10, 50,
                 "Tools are transformers and they are good pilots."
             ),
-            5 to RaceData(
-                "Elemental Ghost Babies", 20, 50, 10, 50,
+            GHOSTS to RaceData(
+                "Elemental Ghost Babies", 20, 50, 10, 20,
                 "Can Summon Fire and can summon water. They can hover in any gas and move at 25 mph."
             )
         )
