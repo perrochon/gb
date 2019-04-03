@@ -23,7 +23,7 @@ Steps for release, because I always forget some. // TODO Automate this
 next
 - Stronger AIs. Beetles have awesome defense now, but still die...
 
-.754/.756
+.754/.756/.765
 - New ship types: shuttles, battle stars, stations, headquarters, research centers.
 - Races earn money each turn which limits their building abilities. Battle stars are pricey.
 - Missions are "destroy all other headquarters" (except first mission). 
@@ -32,6 +32,7 @@ next
 - Three new missions (still suffering from true diversity)
 - New Destination Selection Activity replaces ugly Spinner
 - Stations are animated
+- Better AI in .765
 
 .677/.678
 - Rules change: 1 action per turn. Choose wisely.

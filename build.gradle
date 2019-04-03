@@ -2,8 +2,8 @@
 
 buildscript {
     // Change the below two for each upload to Play Store
-    ext.app_version_code = 14
-    ext.app_version_name = '0.0.0.756'
+    ext.app_version_code = 15
+    ext.app_version_name = '0.0.0.765'
     ext.kotlin_version = '1.3.11'
     repositories {
         google()
