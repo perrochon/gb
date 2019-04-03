@@ -11,7 +11,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
-import com.zwsi.gb.feature.GlobalStuff.Companion.handleClick
+import com.zwsi.gb.feature.GlobalStuff.Companion.handleClickInSelectionActivity
 import com.zwsi.gblib.*
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
@@ -63,7 +63,7 @@ class DestinationActivity : AppCompatActivity() {
                     button.background.colorFilter = LightingColorFilter(0x55555, 0x774400)
                 }
                 button.setOnClickListener(View.OnClickListener {
-                    handleClick(it, destinationsList)
+                    handleClickInSelectionActivity(it, destinationsList)
                     uidSelectedPlanet = p.uid
                     uidSelectedStar = -1
                 })
@@ -88,7 +88,7 @@ class DestinationActivity : AppCompatActivity() {
                 button.background.colorFilter = LightingColorFilter(0x55555, 0x774400)
             }
             button.setOnClickListener(View.OnClickListener {
-                handleClick(it, destinationsList)
+                handleClickInSelectionActivity(it, destinationsList)
                 uidSelectedPlanet = -1
                 uidSelectedStar = star.uid
 

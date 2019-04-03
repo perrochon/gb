@@ -22,6 +22,7 @@ import kotlin.system.measureNanoTime
 
 // Utility Extension Function for formatting numbers with leading space
 fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
+
 fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
 fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
 fun Long.f(digits: Int) = java.lang.String.format("%${digits}d", this)
@@ -87,46 +88,6 @@ class GlobalStuff {
         val moshi = Moshi.Builder().build()
         val jsonAdapter: JsonAdapter<GBUniverse> = moshi.adapter(GBUniverse::class.java).indent("  ")
         var autoDo = false
-
-        fun makeUniverse(@Suppress("UNUSED_PARAMETER") view: View, secondPlayer: Boolean) {
-            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
-            }
-            lastClickTime = SystemClock.elapsedRealtime();
-
-            Toast.makeText(view.context, "Creating a new Universe", Toast.LENGTH_SHORT).show()
-
-            Thread(Runnable {
-                val json = GBController.makeAndSaveUniverse(secondPlayer)
-                processGameInfo(json, true)
-            }).start()
-        }
-
-        fun loadUniverse(view: View, number: Int) {
-            if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
-            }
-            lastClickTime = SystemClock.elapsedRealtime();
-
-            Toast.makeText(view.context, "Loading Universe ${number}", Toast.LENGTH_SHORT).show()
-
-            val json = when (number) {
-                11 -> view.context.resources.openRawResource(R.raw.mission1).reader().readText()
-                12 -> view.context.resources.openRawResource(R.raw.mission2).reader().readText()
-                13 -> view.context.resources.openRawResource(R.raw.mission3).reader().readText()
-                21 -> view.context.resources.openRawResource(R.raw.map1).reader().readText()
-                22 -> view.context.resources.openRawResource(R.raw.map2).reader().readText()
-                23 -> view.context.resources.openRawResource(R.raw.map3).reader().readText()
-                else -> File(view.context.filesDir, currentGameFileName).readText()
-            }
-
-            Thread(Runnable {
-                GBController.loadUniverseFromJSON(json)  // SERVER Talk to not-remote server
-                processGameInfo(json, true)
-                // todo refresh main activity, because number of players may have changed
-                // But Not needed as long as we set secondPlayer from the LoadActivity
-            }).start()
-        }
 
 
         // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
@@ -366,10 +327,8 @@ class GlobalStuff {
             return (elapsedTime < clickDelay)
         }
 
-        fun handleClick(
-            button: View, destinationsList: List<Button>
-        ) {
-            for (b in destinationsList) {
+        fun handleClickInSelectionActivity(button: View, buttons: List<Button>) {
+            for (b in buttons) {
                 b.background.colorFilter = LightingColorFilter(1, 0)
             }
             button.background.colorFilter = LightingColorFilter(0x55555, 0x774400)
