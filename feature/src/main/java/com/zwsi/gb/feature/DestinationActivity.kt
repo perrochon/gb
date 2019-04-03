@@ -40,14 +40,14 @@ class DestinationActivity : AppCompatActivity() {
         val destinationsList = arrayListOf<Button>()
 
         val shipStar = ship.loc.getVMStar()
-        val shipPlanet = ship.loc.getPlanet() // FIXME Not used, but maybe should mark "current" planet
+        val shipPlanet = ship.loc.getVMPlanet() // FIXME Not used, but maybe should mark "current" planet
 
         var uidSelectedPlanet = -1
         var uidSelectedStar = -1
 
         if (ship.dest != null) {
             if (ship.dest!!.level == ORBIT || ship.dest!!.level == LANDED) {
-                uidSelectedPlanet = ship.dest!!.getPlanet()!!.uid
+                uidSelectedPlanet = ship.dest!!.getVMPlanet()!!.uid
             } else if (ship.dest!!.level == PATROL) {
                 uidSelectedStar = ship.dest!!.getVMUidStar()
             }
