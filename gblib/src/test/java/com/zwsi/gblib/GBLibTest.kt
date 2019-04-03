@@ -26,7 +26,7 @@ class GBLibTest {
         // If these are different, some other tests in this class will fail
         assertEquals(24, GBController.numberOfStars)
         assertEquals(6, GBController.numberOfRaces)
-        assertEquals(5, GBController.numberOfStarsSmall)
+        assertEquals(6, GBController.numberOfStarsSmall)
         assertEquals(100, GBController.numberOfStarsBig)
     }
 

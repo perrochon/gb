@@ -215,11 +215,6 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
         }
 
         val moveDest: GBLocation
-//        if (dest!!.level == LANDED || dest!!.level == ORBIT) {  // TODO. Sometimes arrival in orbit looks funky
-//            moveDest = dest!!.getPlanet()!!.computePlanetPositions(1) // But this fix made pods never arrive...
-//        } else {
-//            moveDest = this.dest!!
-//        }
 
         moveDest = this.dest!!
 
@@ -390,9 +385,7 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
         }
     }
 
-    fun getStar(): GBStar? {
-        return loc.getStar()
-    }
+
 
 }
 

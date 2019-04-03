@@ -39,7 +39,7 @@ class DestinationActivity : AppCompatActivity() {
 
         val destinationsList = arrayListOf<Button>()
 
-        val shipStar = ship.getStar() // FIXME This likely returns a server object.... here and elsewhere...
+        val shipStar = ship.loc.getVMStar()
         val shipPlanet = ship.loc.getPlanet() // FIXME Not used, but maybe should mark "current" planet
 
         var uidSelectedPlanet = -1
@@ -49,10 +49,9 @@ class DestinationActivity : AppCompatActivity() {
             if (ship.dest!!.level == ORBIT || ship.dest!!.level == LANDED) {
                 uidSelectedPlanet = ship.dest!!.getPlanet()!!.uid
             } else if (ship.dest!!.level == PATROL) {
-                uidSelectedStar = ship.dest!!.getStar()!!.uid
+                uidSelectedStar = ship.dest!!.getVMUidStar()
             }
         }
-
 
         if (shipStar != null) {
             for (p in shipStar.starUidPlanets.map { vm.planet(it) }) {
@@ -123,7 +122,7 @@ class DestinationActivity : AppCompatActivity() {
                     patrolPoint = vm.patrolPoint(star.starUidPatrolPoints.drop(1).first())
                 }
                 GBController.flyShipStarPatrol(ship.uid, patrolPoint.uid)// update server side
-                ship.dest = GBLocation(patrolPoint, 0f, 0f) // update vm // FIXME select patrol point
+                ship.dest = GBLocation(patrolPoint, 0f, 0f) // update vm
             }
             GlobalStuff.updateActions(it)
             finish()

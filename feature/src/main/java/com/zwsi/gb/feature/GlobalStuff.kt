@@ -15,9 +15,8 @@ import com.squareup.moshi.Moshi
 import com.zwsi.gb.feature.GBViewModel.Companion.actionsTaken
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
-import com.zwsi.gblib.GBController
+import com.zwsi.gblib.*
 import com.zwsi.gblib.GBData.Companion.currentGameFileName
-import com.zwsi.gblib.GBUniverse
 import java.io.File
 import kotlin.system.measureNanoTime
 
@@ -26,6 +25,59 @@ fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
 fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
 fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
 fun Long.f(digits: Int) = java.lang.String.format("%${digits}d", this)
+
+// FIXME Fundamental problem with re-using code for model and viewmodel and using a single static universe.
+// Get VMLoc takes a parameter stating which Universe to look up things in...
+
+fun GBLocation.getVMLoc(vm: GBUniverse): GBxy {
+
+    if (level == GBLocation.LANDED) {
+        // TODO This calculation is probably a rendering issue and belongs into MapView.
+        // The constants have to be the same as the ones used to draw planet surfaces on the map
+        val size = GBData.PlanetOrbit * 1.6f / this.getVMPlanet()!!.width
+        return GBxy(
+            vm.planet(uidRef).loc.getLoc().x - GBData.PlanetOrbit * .80f + sx.toFloat() * size + size / 2,
+            vm.planet(uidRef).loc.getLoc().y - GBData.PlanetOrbit * .4f + sy.toFloat() * size + size / 2
+        )
+    }
+    if (level == GBLocation.ORBIT) {
+        return GBxy(vm.planet(uidRef).loc.getLoc().x + x, vm.planet(uidRef).loc.getLoc().y + y)
+    }
+    if (level == GBLocation.PATROL) {
+        return GBxy(vm.patrolPoint(uidRef).loc.getLoc().x + x, vm.patrolPoint(uidRef).loc.getLoc().y + y)
+    }
+    if (level == GBLocation.SYSTEM) {
+        return GBxy(vm.star(uidRef).loc.getLoc().x + x, vm.star(uidRef).loc.getLoc().y + y)
+    } else {
+        return GBxy(x, y)
+    }
+}
+
+internal fun GBLocation.getVMUidStar(): Int {
+    when (level) {
+        GBLocation.LANDED -> return vm.planet(uidRef).uidStar
+        GBLocation.ORBIT -> return vm.planet(uidRef).uidStar
+        GBLocation.SYSTEM -> return uidRef
+        GBLocation.PATROL -> return vm.patrolPoint(uidRef).uidStar
+        else -> return -1
+    }
+}
+
+internal fun GBLocation.getVMStar(): GBStar? {
+    when (level) {
+        GBLocation.LANDED, GBLocation.ORBIT, GBLocation.SYSTEM, GBLocation.PATROL -> return vm.star(getVMUidStar())
+        else -> return null
+    }
+}
+
+internal fun GBLocation.getVMPlanet(): GBPlanet? { // FIXME Make internal and replace in the app
+    when (level) {
+        GBLocation.LANDED -> return vm.planet(uidRef)
+        GBLocation.ORBIT -> return vm.planet(uidRef)
+        else -> return null
+    }
+}
+
 
 // TODO rename this, once we know what all it does :-)
 class GlobalStuff {
