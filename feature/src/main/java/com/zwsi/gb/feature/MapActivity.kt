@@ -224,9 +224,9 @@ class MapActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-
     private fun setActionBar() {
 
+        turns.text = "${vm.turn}"
         action1.text = "${vm.playerTurns[0]}"
         action2.text = "${vm.playerTurns[1]}"
         money1.text = "${vm.race(0).money}"
