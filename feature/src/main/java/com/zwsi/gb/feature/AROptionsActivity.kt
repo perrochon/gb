@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.*
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
 import com.zwsi.gb.feature.GBViewModel.Companion.showContButton
+import com.zwsi.gb.feature.GBViewModel.Companion.showRaceStats
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 
@@ -49,7 +50,7 @@ class AROptionsActivity : AppCompatActivity() {
         }
 
         val showRaceStatsButton: Switch = findViewById(R.id.ShowRaceStats)
-        showRaceStatsButton.isChecked = showStats
+        showRaceStatsButton.isChecked = showRaceStats
         showRaceStatsButton.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("showRaceStats", isChecked)

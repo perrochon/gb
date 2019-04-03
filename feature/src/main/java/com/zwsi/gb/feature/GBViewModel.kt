@@ -72,8 +72,8 @@ class GBViewModel {
                     newsHistory.clear()
                 }
                 newsHistory.addAll(vm.news)
-                if (newsHistory.size > 5) {
-                    newsHistory.drop(newsHistory.size - 5)
+                while (newsHistory.size > 50) {
+                    newsHistory.removeAt(0)
                 }
                 ready = true
 
@@ -140,7 +140,7 @@ class GBViewModel {
                 sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
 //                secondPlayer = sharedPref!!.getBoolean("secondPlayer", false)
                 showStats = sharedPref!!.getBoolean("showStats", false)
-                showStats = sharedPref!!.getBoolean("showRaceStats", false)
+                showRaceStats = sharedPref!!.getBoolean("showRaceStats", false)
                 showClickTargets = sharedPref!!.getBoolean("showClickTargets", false)
                 showContButton = sharedPref!!.getBoolean("showContButton", false)
                 superSensors = sharedPref!!.getBoolean("superSensors", false)
