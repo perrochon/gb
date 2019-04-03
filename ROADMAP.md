@@ -4,18 +4,17 @@
 ## Guiding Principles
 Right now, the focus is on enabling game play, i.e. add features that allow more game play. Features that don't enhance
 game play, or prevent game play are second priority. Here are a few examples
-* Limits on money: Players will be resource constraint. For now, enjoy unlimited resources.
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 * Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
 ## Short Term Small Items
-* Money should come next...really
 * Play Impis in Map (generally fix who plays)
 * Stronger AI...
-* Fix action counts
-* Track mission wins
-* Deploy remaining ships
-* DO skips frames (on emulator) - make sure we minimize work on UI thread
+* Improve action counts
+* Better Track mission wins
+* Race Screen: Stats, population, money, ships, etc.
+* Deploy remaining ships (mostly surface)
+* Look into skiped frames (on emulator) - make sure we minimize work on UI thread
 * Moving Dot animation on squares follow the square, instead of a circle. Drive by a parameter of the ship (extension)
 * same ssytem patrol flies to inside of circle, instead of outside...
 * Settings: Clean code smell
@@ -24,13 +23,10 @@ game play, or prevent game play are second priority. Here are a few examples
 
 ## Short Term Larger Items
 * Population on planets (per race, and do correctly). Fix "Make Factory" etc.
-* Money as primary resource
-* Settings! stats, click targets, fog of war/advanced sensing. AI support (off, low (build factories), full (like Impi))
+* Settings! AI support (off, low (build factories), full (like Impi))
 * Different speeds on auto, or until contact/battle
-* Fog of war (gating for player mode)
-    * Passing race around on commands, to make sure actions are access controlled :-)
-* Player mode (not just god mode).
 * Manual Shooting?
+* Set Destination on Map, not from a list?
 
 ## Regression
 
@@ -47,10 +43,10 @@ game play, or prevent game play are second priority. Here are a few examples
 
 ### Not Gating
 * Different layouts for landscape/tablet
-* Big: Problem with GBLib relying on u.() when it should use vm.x() for view model. Workaround for ship location in place.
+* Big: Problem with GBLib relying on u.() when it should use vm.x() for view model. Implement extension pattern every where
 * Refactor firing solution and move logic for firing and taking damage into each ship's class (depends on ship refactor)
 * Refactor and apply naming conventions for UI elements (btn_do etc.) and other things
-* Access and visibility in gblib
+* Access and visibility in gblib. What returns variable GBObjects needs to be internal. App needs their own.
 * Use Application for global state in Android: https://developer.android.com/reference/android/app/Application
 * Debug buffer and Console Buffer. Message buffer per race. These may all be related.
 * On Animations: "Nowadays, Android documentation clearly recommends not to use resources directly from android.R.*, since every 
@@ -60,6 +56,7 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 
 ## Test Efficiency
 * Fast and Slow Tests
+* On Device tests
 
 ## Design
 * Make "DO" a FloatingActionButton? It's the "primary activity" in the game...
@@ -67,7 +64,6 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 ## Features
 
 ### Future missions
-* Invade enemy system and eradicate everything.
 * Build infrastructure: planetary effects
 * Play different races: Mission n could be getting another race up and running.
 * Research
@@ -77,15 +73,12 @@ so you shouldn't rely on them. On the other hand, lots of resources are private 
 * Run Tests on phone (text based?)
 
 ### General
-* Visibility
-* God Mode Toggle
 * Get a picture of the Andromeda Galaxy https://www.spacetelescope.org/images/heic1502a/ Problem is the 40k picture is not high enough, and the fullsize is 69536 x 22230 px (4.3GB, psb file). That could give me a 22,000 square picture, or 484k pixel (right now I have 18k (325k pixel). This is a 50% increase in pixels - and image size from 40MB to say 60M (compressed). Original resolution of the Hubble image (a third of the total) would be ~2GB. Not sure how to compress that.
 
 ### Star Map
 
 #### Planet
-* Resources: Money, other. Probably money first, as a summary for all else
-* Population: multiple races per planet
+* Population: multiple races per planet properly implemented (so they fight!)
 * Environment and impact on migration and population growth
 
 #### Systems
