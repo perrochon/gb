@@ -9,7 +9,7 @@ game play, or prevent game play are second priority. Here are a few examples
 
 ## Short Term Small Items
 * Play Impis in Map (generally fix who plays)
-* Stronger AI...
+* Stronger AI... Ghosts only go to one planet, xenos fly like drunk
 * Improve action counts
 * Better Track mission wins
 * Race Screen: Stats, population, money, ships, etc.

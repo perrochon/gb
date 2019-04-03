@@ -51,16 +51,17 @@ class GBOrder {
 
             if (factory.health > 0) {
                 gbAssert { type == -1 }
-                type = _type
                 uidShip = factory.uid
                 uidRace = factory.uidRace
                 if (GBData.shipsData[_type]!!.surface) {
                     val sector = factory.loc.getPlanet()!!.emptySector()
                     if (sector != null) {
                         this.loc = GBLocation(factory.loc.getPlanet()!!, sector.x, sector.y)
+                        type = _type
                     } else {
-                        // TODO Do not silently fail to build anything
+                        u.news.add("${factory.name} tried to make surface ship but couldn't find empty sector.\n")
                         // this.loc = GBLocation(factory.loc.getPlanet()!!, 0, 0)
+                        // Leave type as is, at -1
                     }
                 } else {
                     this.loc = GBLocation(
