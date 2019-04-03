@@ -21,7 +21,7 @@ class LoadActivity : AppCompatActivity() {
         val version = findViewById<TextView>(R.id.version)
         version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
 
-        var lastSelection = 0
+        var lastSelection = 0 // FIXME: Use resource IDs, and tag the button...
         val buttons = arrayListOf<Button>()
 
         // TODO Reduce the code duplication below

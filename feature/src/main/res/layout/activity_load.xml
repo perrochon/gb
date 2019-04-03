@@ -14,17 +14,27 @@
                   android:layout_margin="8dp"
                   android:padding="8dp"
                   android:id="@+id/linearLayout4"
-                  tools:layout_editor_absoluteX="8dp"
                   app:layout_constraintBottom_toTopOf="@+id/cancelDestination"
                   android:layout_marginBottom="8dp"
+                  android:layout_marginTop="8dp"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginStart="8dp"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  android:layout_marginEnd="8dp"
             >
+
         <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:textColor="@android:color/holo_orange_light"
                   android:text="Load Games"
                   android:textSize="24sp"
                   android:textAlignment="center"
-                  android:padding="16dp"
+                  android:padding="8dp"
+                />
+        <Space android:layout_width="1dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
                 />
 
         <TextView android:layout_width="wrap_content"
@@ -33,12 +43,12 @@
                   android:text="Single Player"
                   android:textSize="18sp"
                   android:textAlignment="center"
-                  android:padding="16dp"
+                  android:padding="8dp"
                 />
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:padding="16dp"
+                      android:padding="8dp"
 
                 >
             <Space android:layout_width="0dp"
@@ -86,7 +96,7 @@
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:padding="16dp"
+                      android:padding="8dp"
 
                 >
             <Space android:layout_width="0dp"
@@ -134,7 +144,7 @@
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:padding="16dp"
+                      android:padding="8dp"
 
                 >
             <Space android:layout_width="0dp"
@@ -154,7 +164,10 @@
                    android:layout_weight="1"
                     />
         </LinearLayout>
-
+        <Space android:layout_width="1dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+                />
         <TextView android:id="@+id/settings"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -162,12 +175,12 @@
                   android:text="Two Players Pass and Play"
                   android:textSize="18sp"
                   android:textAlignment="center"
-                  android:padding="16dp"
+                  android:padding="8dp"
                 />
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:padding="16dp"
+                      android:padding="8dp"
 
                 >
             <Space android:layout_width="0dp"
@@ -215,7 +228,7 @@
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:padding="16dp"
+                      android:padding="8dp"
 
                 >
             <Space android:layout_width="0dp"
@@ -235,6 +248,10 @@
                    android:layout_weight="1"
                     />
         </LinearLayout>
+        <Space android:layout_width="1dp"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+                />
 
     </LinearLayout>
 
