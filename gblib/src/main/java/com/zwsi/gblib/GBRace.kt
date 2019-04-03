@@ -21,6 +21,7 @@ data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int, var money:
     var birthrate: Int
     var explore: Int
     var absorption: Int
+    var production: Int
     var description: String
     var uidHeadquarters = -1
 
@@ -45,6 +46,7 @@ data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int, var money:
         birthrate = GBData.getRaceBirthrate(idx)
         explore = GBData.getRaceExplore(idx)
         absorption = GBData.getRaceAbsorption(idx)
+        production = GBData.getRaceProduction(idx)
         description = GBData.getRaceDescription(idx)
         GBLog.i("Created Race object for race $name")
     }

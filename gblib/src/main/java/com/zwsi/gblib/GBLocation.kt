@@ -76,7 +76,12 @@ data class GBLocation(
     }
 
     // make a LANDED location by giving Surface Int x and y
-    constructor(planet: GBPlanet, sx: Int, sy: Int) : this(LANDED, planet.uid, sx = sx, sy = sy) {
+    constructor(planet: GBPlanet, sx: Int, sy: Int) : this(
+        LANDED,
+        planet.uid,
+        sx = sx,
+        sy = sy
+    ) {
     }
 
     /** Make an ORBIT location by giving Float angle theta [t] and distance [r] to center.

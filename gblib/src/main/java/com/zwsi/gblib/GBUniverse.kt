@@ -1,12 +1,19 @@
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
+import com.zwsi.gblib.GBAutoPlayer.Companion.play5
+import com.zwsi.gblib.GBAutoPlayer.Companion.play6
+import com.zwsi.gblib.GBAutoPlayer.Companion.playBeetle
+import com.zwsi.gblib.GBAutoPlayer.Companion.playImpi
+import com.zwsi.gblib.GBAutoPlayer.Companion.playTortoise
+import com.zwsi.gblib.GBAutoPlayer.Companion.playXenos
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.HEADQUARTERS
 import com.zwsi.gblib.GBData.Companion.MissionRandom
 import java.util.*
 import kotlin.math.PI
 import kotlin.math.max
+import kotlin.math.min
 
 @JsonClass(generateAdapter = true)
 data class GBUniverse(
@@ -227,14 +234,13 @@ data class GBUniverse(
 
         u.news.add("\nTurn: ${turn.toString()}\n")
 
-        // FEATURE only do this if other races are playing. Need to persist which races are playing
-        // For now, always play Beetle and Tortoise
-//        GBAutoPlayer.playXenos()
-//        GBAutoPlayer.playImpi()
-        GBAutoPlayer.playBeetle()
-        GBAutoPlayer.playTortoise()
-        GBAutoPlayer.play5()
-        GBAutoPlayer.play6()
+        // TODO Less code below
+        if (u.races.containsKey(0) && !u.race(0).dead()) playXenos()
+        if (u.races.containsKey(1) && !u.race(1).dead() && !secondPlayer) playImpi()
+        if (u.races.containsKey(2) && !u.race(2).dead()) playBeetle()
+        if (u.races.containsKey(3) && !u.race(3).dead()) playTortoise()
+        if (u.races.containsKey(4) && !u.race(4).dead()) play5()
+        if (u.races.containsKey(5) && !u.race(5).dead()) play6()
 
         for (o in orders) {
             o.execute()
@@ -243,15 +249,17 @@ data class GBUniverse(
 
         for ((_, race) in races) {
             race.raceVisibleStars.clear()
-            race.raceVisibleStars.add(race.getHome().star.uid)
             if (race.dead()) {
                 // Race got eliminated... Kill all their ships. TODO What to do on race elimination. Deal with winning.
                 for (ship in race.raceShips) {
                     ship.health = 0
                 }
+                race.money = 0
+            } else {
+                race.money += race.production
+                if (race.money>99999) race.money = 99999
+                race.raceVisibleStars.add(race.getHome().star.uid)
             }
-            race.money += 50
-            if (race.money>99999) race.money = 99999
         }
 
         for ((_, star) in stars) {
@@ -355,7 +363,14 @@ data class GBUniverse(
     private fun fireOneShot(sh1: GBShip, sh2: GBShip) {
         shots.add(GBVector(sh1.loc.getLoc(), sh2.loc.getLoc(), sh1.race.uid))
         GBLog.d("Firing shot from ${sh1.name} to ${sh2.name} in ${sh1.loc.getLocDesc()}")
+
+        // Beetles hit back hard...
+        if (sh2.uidRace == 2) {
+            sh1.health = max(0, sh1.health - min(sh1.damage, sh2.health))
+        }
+
         sh2.health = max(0, sh2.health - sh1.damage)
+
         u.news.add("${sh1.name} fired at ${sh2.name}.\n")
     }
 }

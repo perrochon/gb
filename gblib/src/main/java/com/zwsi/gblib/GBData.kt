@@ -135,37 +135,39 @@ class GBData {
             val birthrate: Int, // 00...100 (originally 0..1?)
             val explore: Int, // adventurism 00..100 (originally percent)
             val absorption: Int,
+            val production: Int,
             val description: String
         )
 
         private val races = hashMapOf(
             0 to RaceData(
-                "Xenos", 50, 20, 20, "Xenos can’t burn and they can’t suffocate. " +
+                "Xenos", 50, 20, 20, 50,
+                "Xenos can’t burn and they can’t suffocate. " +
                         "They can glide at 65mph and they can run at 20 mph and they walk at 5mph. " +
                         "They can find underground materials fast."
             ),
             1 to RaceData(
-                "Impis", 20, 50, 10,
+                "Impis", 20, 50, 10, 50,
                 "Impis can breath underwater, they swim at 80mph and they can change color like a chameleon. " +
                         "They run at 30 mph, they walk at 5.3mph and can use all four hands for piloting, fighting and " +
                         "other activities."
             ),
             2 to RaceData(
-                "Rainbow Beetles", 10, 5, 0,
+                "Rainbow Beetles", 10, 5, 0, 10,
                 "Beetles have small pincers and they fly like a beetle at 25 mph. They crawl at 40mph, " +
                         "can see in all directions and they can hang upside down and climb walls."
             ),
             3 to RaceData(
-                "Warhide Tortoises", 5, 20, 0,
+                "Warhide Tortoises", 5, 20, 0, 50,
                 "Tortoises have hard shells, can see with three heads and have super sharp claws. \n" +
                         "They move at 25 mph,  can swim at 65mph. Its sharp shell can turn into a spinning shell.\n"
             ),
             4 to RaceData(
-                "Tools", 20, 50, 10,
+                "Tools", 20, 50, 10, 50,
                 "Tools are transformers and they are good pilots."
             ),
             5 to RaceData(
-                "Elemental Ghost Babies", 20, 50, 10,
+                "Elemental Ghost Babies", 20, 50, 10, 50,
                 "Can Summon Fire and can summon water. They can hover in any gas and move at 25 mph."
             )
         )
@@ -185,6 +187,11 @@ class GBData {
         internal fun getRaceAbsorption(idx: Int): Int {
             return races.get(idx)!!.absorption
         }
+
+        internal fun getRaceProduction(idx: Int): Int {
+            return races.get(idx)!!.production
+        }
+
 
         internal fun getRaceDescription(idx: Int): String {
             return races.get(idx)!!.description

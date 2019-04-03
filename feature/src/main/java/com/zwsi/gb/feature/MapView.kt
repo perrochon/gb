@@ -256,12 +256,13 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         for ((i, r) in vm.races) {
             canvas.drawText(
-                "${r.idx}:$${r.money.f(5)}|S ${r.raceUidShips.size.f(4)}" +
-                        "|P ${r.population.f(5)}|${r.name}", 8f, l++ * h, statsNamesPaint
+                "${r.idx}${r.name[0]}:$${r.money.f(5)}|S${r.raceUidShips.size.f(4)}" +
+                        "|P${r.population.f(2)}|S ${r.raceVisibleStars.size.f(2)}" +
+                        "|H${vm.ship(r.uidHeadquarters).health.f(4)}",
+                8f, l++ * h, statsNamesPaint
             )
 
         }
-
 
     }
 

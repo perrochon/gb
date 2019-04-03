@@ -21,6 +21,7 @@ Steps for release, because I always forget some. // TODO Automate this
 ### Release Notes
 
 next
+- Better AI. And Beetles have awesome defense now.
 
 .754/.756
 - New ship types: shuttles, battle stars, stations, headquarters, research centers.
