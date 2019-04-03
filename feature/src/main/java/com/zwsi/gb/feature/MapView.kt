@@ -11,9 +11,9 @@ import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.zwsi.gb.feature.ARBitmaps.Companion.otherBitmap
-import com.zwsi.gb.feature.ARBitmaps.Companion.planetBitmap
 import com.zwsi.gb.feature.ARBitmaps.Companion.surfaceBitmap
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
+import com.zwsi.gb.feature.GBViewModel.Companion.showRaceStats
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
@@ -53,7 +53,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var strokeWidth: Int = 0
 
     private var normScale: Float = 1f // used to make decisions on what to draw at what level
-    private val gbDebug = true // show debugbox
 
     val sourceSize = 18000  // FIXME Would be nice not to hard code here and below
     val universeSize = vm.universeMaxX
@@ -226,9 +225,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             drawStats(canvas)
         }
 
+        if (showRaceStats) {
+            drawRacesStats(canvas)
+        }
+
         if (showClickTargets) {
             drawClickTargets(canvas)
         }
+
 
         postInvalidateOnAnimation()
 //        postInvalidateDelayed(18) // 40 -> ~24 fps, 20 -> 50fps
@@ -246,16 +250,31 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         statsNamesPaint.alpha = 255
     }
 
-    private fun drawStats(canvas: Canvas) {
-        if (gbDebug) {
+    private fun drawRacesStats(canvas: Canvas) {
+        var l = 4f
+        val h = 50
 
-            var l = 1f
-            val h = 50
-
+        for ((i,r) in vm.races) {
             canvas.drawText(
-                "MS:${maxScale.toInt()}|mS:${minScale.f(3)}|DY:${density.toInt()}" +
-                        "|NS:${normScale.f(2)}|SC:${scale.f(2)}", 8f, l++ * h, statsNamesPaint
+                "${r.idx}:$${r.money.f(5)}|S ${r.raceUidShips.size.f(4)}" +
+                        "|P ${r.population .f(5)}", 8f, l++ * h, statsNamesPaint
             )
+
+        }
+
+
+
+    }
+
+    private fun drawStats(canvas: Canvas) {
+
+        var l = 4f
+        val h = 50
+
+        canvas.drawText(
+            "MS:${maxScale.toInt()}|mS:${minScale.f(3)}|DY:${density.toInt()}" +
+                    "|NS:${normScale.f(2)}|SC:${scale.f(2)}", 8f, l++ * h, statsNamesPaint
+        )
 //            canvas.drawText(
 //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
 //                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, statsNamesPaint
@@ -277,16 +296,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //            canvas.drawText(
 //                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, statsNamesPaint
 //            )
-            // Turn Stats
-            canvas.drawText(
-                "TU:${turn!!.f(4)}" +
-                        "|As:${vm.ships.size.f(4)}" +
-                        "|Ds:${vm.deepSpaceUidShips.size.f(4)}" +
-                        "|sh:${vm.shots.size.f(3)}",
-                8f,
-                l++ * h,
-                statsNamesPaint
-            )
+        // Turn Stats
+        canvas.drawText(
+            "TU:${turn!!.f(4)}" +
+                    "|As:${vm.ships.size.f(4)}" +
+                    "|Ds:${vm.deepSpaceUidShips.size.f(4)}" +
+                    "|sh:${vm.shots.size.f(3)}",
+            8f,
+            l++ * h,
+            statsNamesPaint
+        )
 //            // Memory Stats
 //            canvas.drawText(
 //                "MM:${(Runtime.getRuntime().maxMemory() / 1048576).f(3)}" +
@@ -297,40 +316,39 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //                l++ * h,
 //                statsNamesPaint
 //            )
-            // Performance Stats
-            canvas.drawText(
-                "Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}" +
-                        "|TJ:${(GBViewModel.timeLastToJSON / 1000000L).f(3)}" +
-                        "|FW:${(GBViewModel.timeFileWrite / 1000000L).f(2)}" +
-                        "|LL:${(GBViewModel.timeLastLoad / 1000000L).f(2)}" + // Rare event. We don't care so much
-                        "|FJ:${(GBViewModel.timeFromJson / 1000000L).f(2)}" +
-                        "|MU:${(GBViewModel.timeModelUpdate / 1000000L).f(2)}",
-                8f,
-                l++ * h,
-                statsNamesPaint
-            )
+        // Performance Stats
+        canvas.drawText(
+            "Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}" +
+                    "|TJ:${(GBViewModel.timeLastToJSON / 1000000L).f(3)}" +
+                    "|FW:${(GBViewModel.timeFileWrite / 1000000L).f(2)}" +
+                    "|LL:${(GBViewModel.timeLastLoad / 1000000L).f(2)}" + // Rare event. We don't care so much
+                    "|FJ:${(GBViewModel.timeFromJson / 1000000L).f(2)}" +
+                    "|MU:${(GBViewModel.timeModelUpdate / 1000000L).f(2)}",
+            8f,
+            l++ * h,
+            statsNamesPaint
+        )
 
-            canvas.drawText(
-                "Draw:${(lastN.average() / 1000000).toInt().f(2)}ms" +
-                        "|fps:${framesLastSec.f(3)}" +
-                        "|fms:${framesMissedLastSec.f(3)}" +
-                        "|init:${initTime.f(5)}ms",
-                8f,
-                l++ * h,
-                statsNamesPaint
-            )
+        canvas.drawText(
+            "Draw:${(lastN.average() / 1000000).toInt().f(2)}ms" +
+                    "|fps:${framesLastSec.f(3)}" +
+                    "|fms:${framesMissedLastSec.f(3)}" +
+                    "|init:${initTime.f(5)}ms",
+            8f,
+            l++ * h,
+            statsNamesPaint
+        )
 
 //            GBViewModel.drawTimes.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint) }
 
-            drawTimes.forEach { t, u ->
-                canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint)
-            }
-
-            ARBitmaps.initTimes.forEach { t, u ->
-                canvas.drawText("$t:${(u / 1000000L).f(5)}ms", 8f, l++ * h, statsNamesPaint)
-            }
-
+        drawTimes.forEach { t, u ->
+            canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint)
         }
+
+        ARBitmaps.initTimes.forEach { t, u ->
+            canvas.drawText("$t:${(u / 1000000L).f(5)}ms", 8f, l++ * h, statsNamesPaint)
+        }
+
     }
 
 
@@ -370,7 +388,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     if (pointVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||
                         pointVisible(shot.to.x * uToSf, shot.to.y * uToSf)
                     ) {
-                        shotPaint.color = vm.race(shot.uidRace).getColor() // TODO PERFORMANCE add color when making shots as an int
+                        shotPaint.color =
+                            vm.race(shot.uidRace).getColor() // TODO PERFORMANCE add color when making shots as an int
                         val shotduration = 333
                         val distance = shot.from.distance(shot.to) * uToS * scale * 2f
                         val milis = currentTimeMillis().rem(shotduration).toFloat()
@@ -833,12 +852,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
                 sourceToViewCoord(sP1, vP1)
-                canvas.drawBitmap(starBitmap, null, RectF(
-                    vP1.x - halfSize,
-                    vP1.y - halfSize,
-                    vP1.x + halfSize,
-                    vP1.y + halfSize
-                ), null)
+                canvas.drawBitmap(
+                    starBitmap, null, RectF(
+                        vP1.x - halfSize,
+                        vP1.y - halfSize,
+                        vP1.x + halfSize,
+                        vP1.y + halfSize
+                    ), null
+                )
                 clickTargets.add(GBClickTarget(PointF(vP1.x, vP1.y), s))
 
             }

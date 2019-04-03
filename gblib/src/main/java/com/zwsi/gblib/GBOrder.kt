@@ -71,12 +71,12 @@ class GBOrder {
                 }
             } else {
                 // Factory died since order was created
-                u.news.add("Factory was destroyed before order could be executed.\n")
+                u.news.add("${factory.name} was destroyed before order could be executed.\n")
                 // Leave type as is, at -1
             }
         } else {
             // No Money
-            u.news.add("Tried to build a ship at factory, but run out of money.\n")
+            u.news.add("${factory.name} tried to build a ship, but run out of money.\n")
             // Leave type as is, at -1
         }
 
@@ -89,7 +89,7 @@ class GBOrder {
             ship.initializeShip()
             u.news.add("${ship.name} built on ${ship.loc.getPlanet()!!.name}.\n")
         } else {
-            // Order bad, maybe because factory died since we ordered something.
+            // Order bad, maybe because factory died since we ordered something or no money
         }
     }
 

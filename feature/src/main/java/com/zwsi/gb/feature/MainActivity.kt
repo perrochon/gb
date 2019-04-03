@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.ScrollView
 import android.widget.Space
 import android.widget.TextView
+import com.zwsi.gb.feature.GBViewModel.Companion.newsHistory
 import com.zwsi.gb.feature.GBViewModel.Companion.ready
 import com.zwsi.gb.feature.GBViewModel.Companion.showContButton
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
@@ -22,7 +23,6 @@ import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
-import kotlinx.android.synthetic.main.activity_map.*
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
@@ -139,22 +139,14 @@ class MainActivity : AppCompatActivity() {
             // TODO This is a bit overkill, as it enables on every new turn
             play1Button.isEnabled = true
             play2Button.isEnabled = true
-
-            if (GBViewModel.freshUniverse) {
-                messageBox.text = ""
-                messageBox.append("Universe: ")
-                messageBox.append(vm.description)
-                messageBox.append("\n")
-            }
-
-            messageBox.append("\nTurn: ${newTurn.toString()}\n")
-
+            messageBox.text = ""
             if (superSensors || !vm.secondPlayer) {
-                for (article in vm.news) {
+                for (article in newsHistory) {
                     messageBox.append(article)
                 }
-                messageBox.invalidate()
             }
+            messageBox.append("\nTurn: ${newTurn.toString()}\n")
+            messageBox.invalidate()
 
             if (vm.secondPlayer) {
                 play2Button.visibility = View.VISIBLE

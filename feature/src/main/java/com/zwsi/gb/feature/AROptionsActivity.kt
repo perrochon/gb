@@ -48,6 +48,16 @@ class AROptionsActivity : AppCompatActivity() {
             GBViewModel.updatePrefs()
         }
 
+        val showRaceStatsButton: Switch = findViewById(R.id.ShowRaceStats)
+        showRaceStatsButton.isChecked = showStats
+        showRaceStatsButton.setOnCheckedChangeListener { _, isChecked ->
+            with(sharedPref.edit()) {
+                putBoolean("showRaceStats", isChecked)
+                apply()
+            }
+            GBViewModel.updatePrefs()
+        }
+
         val showClickTargetsButton: Switch = findViewById(R.id.ShowClickTargets)
         showClickTargetsButton.isChecked = showClickTargets
         showClickTargetsButton.setOnCheckedChangeListener { _, isChecked ->

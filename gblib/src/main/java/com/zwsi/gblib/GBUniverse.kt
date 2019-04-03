@@ -225,6 +225,8 @@ data class GBUniverse(
 
         news.clear()
 
+        u.news.add("\nTurn: ${turn.toString()}\n")
+
         // FEATURE only do this if other races are playing. Need to persist which races are playing
         // For now, always play Beetle and Tortoise
 //        GBAutoPlayer.playXenos()
@@ -242,13 +244,14 @@ data class GBUniverse(
         for ((_, race) in races) {
             race.raceVisibleStars.clear()
             race.raceVisibleStars.add(race.getHome().star.uid)
-            if (race.uidHeadquarters == -1 || ship(race.uidHeadquarters).health <= 0) {
+            if (race.dead()) {
                 // Race got eliminated... Kill all their ships. TODO What to do on race elimination. Deal with winning.
                 for (ship in race.raceShips) {
                     ship.health = 0
                 }
             }
             race.money += 50
+            if (race.money>99999) race.money = 99999
         }
 
         for ((_, star) in stars) {

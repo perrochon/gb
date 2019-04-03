@@ -30,7 +30,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(0)
-            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
+            if (r.dead()) {
                 return
             }
             GBLog.d("(Not) Playing Xenos in turn $u.turn")
@@ -44,7 +44,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(1)
-            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
+            if (r.dead()) {
                 return
             }
             GBLog.d("Playing Impi in turn $u.turn")
@@ -73,7 +73,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(2)
-            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
+            if (r.dead()) {
                 return
             }
             GBLog.d("Playing Beetles in turn ${u.turn} (${u.ship(r.uidHeadquarters).health})")
@@ -115,7 +115,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(3)
-            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
+            if (r.dead()) {
                 return
             }
             GBLog.d("Playing Tortoise in  turn  $u.turn")
@@ -169,7 +169,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(4)
-            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
+            if (r.dead()) {
                 return
             }
             GBLog.d("Playing Impi in turn $u.turn")
@@ -222,7 +222,7 @@ class GBAutoPlayer() {
             }
 
             val r = u.race(5)
-            if (r.uidHeadquarters == -1 || u.ship(r.uidHeadquarters).health <= 0) {
+            if (r.dead()) {
                 return
             }
             GBLog.d("Playing Impi in turn $u.turn")

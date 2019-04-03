@@ -69,16 +69,11 @@ class GBController {
                 _u = GBUniverse(stars, races)
                 _u!!.makeStarsAndPlanets()
                 _u!!.makeRaces()
+                _u!!.news.add("Universe: ${u.description}\n")
                 // PERF without reload single digit ms update time, with reload low 100's ms update time.
             }
             GBLog.d("Universe made with $stars stars")
         }
-
-//        fun makeStuff() {
-//            //playBeetle()
-//            //playImpi()
-//            //playTortoise()
-//        }
 
         fun doAndSaveUniverse(): String {
 

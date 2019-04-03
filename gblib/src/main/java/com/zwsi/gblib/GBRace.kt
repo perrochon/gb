@@ -24,6 +24,10 @@ data class GBRace(val idx: Int, val uid: Int, val uidHomePlanet: Int, var money:
     var description: String
     var uidHeadquarters = -1
 
+    internal fun dead():Boolean {
+        return uidHeadquarters == -1 || u.ship(uidHeadquarters).health <= 0
+    }
+
     // Properties that DO change after construction
     var population = 0 // (planetary) planetPopulation. Ships don't have planetPopulation
 

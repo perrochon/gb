@@ -34,10 +34,12 @@ class GBViewModel {
 
         var ready = false
         lateinit var vm: GBUniverse
+        var newsHistory = mutableListOf<String>()
 
         var context: Context? = null // Keeping the Application Context in a singleton in case we need it.
         private var sharedPref: SharedPreferences? = null
         var showStats = false
+        var showRaceStats = true
         var showClickTargets = false
         var showContButton = false
         var superSensors = false
@@ -66,7 +68,13 @@ class GBViewModel {
                 timeFromJson = fromJSON
 
                 freshUniverse = fresh
-
+                if (freshUniverse) {
+                    newsHistory.clear()
+                }
+                newsHistory.addAll(vm.news)
+                if (newsHistory.size > 5) {
+                    newsHistory.drop(newsHistory.size - 5)
+                }
                 ready = true
 
             }
@@ -132,6 +140,7 @@ class GBViewModel {
                 sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
 //                secondPlayer = sharedPref!!.getBoolean("secondPlayer", false)
                 showStats = sharedPref!!.getBoolean("showStats", false)
+                showStats = sharedPref!!.getBoolean("showRaceStats", false)
                 showClickTargets = sharedPref!!.getBoolean("showClickTargets", false)
                 showContButton = sharedPref!!.getBoolean("showContButton", false)
                 superSensors = sharedPref!!.getBoolean("superSensors", false)
