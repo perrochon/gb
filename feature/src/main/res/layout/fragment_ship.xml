@@ -87,7 +87,7 @@
                    android:layout_height="1dp"
                    android:layout_weight="1"
                     />
-            <Button android:text="Pod"
+            <Button android:text="Pod (10)"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/makePod"
@@ -100,20 +100,7 @@
                    android:layout_height="1dp"
                    android:layout_weight="1"
                     />
-            <Button android:text="Cruiser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/makeCruiser"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    android:background="@drawable/border_message"
-                    android:layout_weight="1"
-                    />
-            <Space android:layout_width="10dp"
-                   android:layout_height="1dp"
-                   android:layout_weight="1"
-                    />
-            <Button android:text="Shuttle"
+            <Button android:text="Shuttle (20)"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/makeShuttle"
@@ -126,10 +113,10 @@
                    android:layout_height="1dp"
                    android:layout_weight="1"
                     />
-            <Button android:text="Battle Star"
+            <Button android:text="Cruiser (50)"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/makeBattlestar"
+                    android:id="@+id/makeCruiser"
                     android:visibility="gone"
                     tools:visibility="visible"
                     android:background="@drawable/border_message"
@@ -139,7 +126,7 @@
                    android:layout_height="1dp"
                    android:layout_weight="1"
                     />
-            <Button android:text="Station"
+            <Button android:text="Station (500)"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/makeStation"
@@ -152,7 +139,20 @@
                    android:layout_height="1dp"
                    android:layout_weight="1"
                     />
-            <Button android:text="Research Center"
+            <Button android:text="Battle Star (1000)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/makeBattlestar"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:background="@drawable/border_message"
+                    android:layout_weight="1"
+                    />
+            <Space android:layout_width="10dp"
+                   android:layout_height="1dp"
+                   android:layout_weight="1"
+                    />
+            <Button android:text="Research Center (2000)"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/makeResearch"
@@ -167,17 +167,5 @@
                     />
         </LinearLayout>
     </HorizontalScrollView>
-    <Spinner android:layout_width="200dp"
-             android:layout_height="50dp"
-             android:id="@+id/spinnerOld"
-             android:spinnerMode="dialog"
-             android:background="@drawable/border_message"
-             android:popupBackground="@drawable/border_message"
-             android:layout_marginEnd="8dp"
-             android:visibility="gone"
-             app:layout_constraintEnd_toEndOf="parent"
-             android:layout_marginTop="8dp"
-             app:layout_constraintTop_toTopOf="parent"
-            />
 
 </android.support.constraint.ConstraintLayout>

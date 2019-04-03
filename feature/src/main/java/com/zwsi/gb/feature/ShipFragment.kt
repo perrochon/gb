@@ -2,21 +2,21 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.uidActivePlayer
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
+import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.BATTLESTAR
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
@@ -24,11 +24,6 @@ import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.RESEARCH
 import com.zwsi.gblib.GBData.Companion.SHUTTLE
 import com.zwsi.gblib.GBData.Companion.STATION
-import android.view.animation.Animation
-import android.view.animation.LinearInterpolator
-import android.view.animation.RotateAnimation
-
-
 
 
 class ShipFragment : Fragment() {
@@ -82,6 +77,9 @@ class ShipFragment : Fragment() {
         makePodButton.tag = sh.uid
         makePodButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, POD)
+            vm.race(uidActivePlayer).money -= GBData.shipsData[POD]!!.cost
+            setDetails(view)
+            view.invalidate()
         })
 
         // FIXME Clean up this mess
@@ -89,27 +87,42 @@ class ShipFragment : Fragment() {
         makeCruiserButton.tag = sh.uid
         makeCruiserButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, CRUISER)
+            vm.race(uidActivePlayer).money -= GBData.shipsData[CRUISER]!!.cost
+            setDetails(view)
+            view.invalidate()
         })
 
         makeCruiserButton = view.findViewById(R.id.makeShuttle)
         makeCruiserButton.tag = sh.uid
         makeCruiserButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, SHUTTLE)
+            vm.race(uidActivePlayer).money -= GBData.shipsData[SHUTTLE]!!.cost
+            setDetails(view)
+            view.invalidate()
         })
         makeCruiserButton = view.findViewById(R.id.makeBattlestar)
         makeCruiserButton.tag = sh.uid
         makeCruiserButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, BATTLESTAR)
+            vm.race(uidActivePlayer).money -= GBData.shipsData[BATTLESTAR]!!.cost
+            setDetails(view)
+            view.invalidate()
         })
         makeCruiserButton = view.findViewById(R.id.makeStation)
         makeCruiserButton.tag = sh.uid
         makeCruiserButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, STATION)
+            vm.race(uidActivePlayer).money -= GBData.shipsData[STATION]!!.cost
+            setDetails(view)
+            view.invalidate()
         })
         makeCruiserButton = view.findViewById(R.id.makeResearch)
         makeCruiserButton.tag = sh.uid
         makeCruiserButton.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, RESEARCH)
+            vm.race(uidActivePlayer).money -= GBData.shipsData[RESEARCH]!!.cost
+            setDetails(view)
+            view.invalidate()
         })
 
         val zoomButton: Button = view.findViewById(R.id.panzoomToShip)
@@ -127,6 +140,20 @@ class ShipFragment : Fragment() {
 
         return view
     }
+
+
+    // FIXME. Replace this with race.has(POD) and race.canafford(POD) then shipsdata.getbutton
+    private val shipbuttons = intArrayOf(
+        R.id.makePod, R.id.makeCruiser, R.id.makeShuttle, R.id.makeBattlestar, R.id.makeStation, R.id.makeResearch
+    )
+    private val shipcost = intArrayOf(
+        GBData.shipsData[POD]!!.cost,
+        GBData.shipsData[CRUISER]!!.cost,
+        GBData.shipsData[SHUTTLE]!!.cost,
+        GBData.shipsData[BATTLESTAR]!!.cost,
+        GBData.shipsData[STATION]!!.cost,
+        GBData.shipsData[RESEARCH]!!.cost
+    )
 
     private fun setDetails(view: View) {
 
@@ -168,33 +195,25 @@ class ShipFragment : Fragment() {
                 destinationButton.alpha = 1f // See Hack above.
             }
 
-
             if (sh.idxtype == FACTORY) {
                 if (sh.uidRace == uidActivePlayer) {
-                    view.findViewById<Button>(R.id.makePod).setVisibility(View.VISIBLE)
-                    view.findViewById<Button>(R.id.makeCruiser).setVisibility(View.VISIBLE)
-                    view.findViewById<Button>(R.id.makeShuttle).setVisibility(View.VISIBLE)
-                    view.findViewById<Button>(R.id.makeBattlestar).setVisibility(View.VISIBLE)
-                    view.findViewById<Button>(R.id.makeStation).setVisibility(View.VISIBLE)
-                    view.findViewById<Button>(R.id.makeResearch).setVisibility(View.VISIBLE)
+                    for (i in 0..5) {
+                        view.findViewById<Button>(shipbuttons[i]).visibility = View.VISIBLE
+                    }
                     if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
-                        view.findViewById<Button>(R.id.makePod).isEnabled = false
-                        view.findViewById<Button>(R.id.makeCruiser).isEnabled = false
-                        view.findViewById<Button>(R.id.makeShuttle).isEnabled = false
-                        view.findViewById<Button>(R.id.makeBattlestar).isEnabled = false
-                        view.findViewById<Button>(R.id.makeStation).isEnabled = false
-                        view.findViewById<Button>(R.id.makeResearch).isEnabled = false
+                        for (i in 0..5) {
+                            view.findViewById<Button>(shipbuttons[i]).isEnabled = false
+                        }
                     } else {
-                        view.findViewById<Button>(R.id.makePod).isEnabled = true
-                        view.findViewById<Button>(R.id.makeCruiser).isEnabled = true
-                        view.findViewById<Button>(R.id.makeShuttle).isEnabled = true
-                        view.findViewById<Button>(R.id.makeBattlestar).isEnabled = true
-                        view.findViewById<Button>(R.id.makeStation).isEnabled = true
-                        view.findViewById<Button>(R.id.makeResearch).isEnabled = true
+                        for (i in 0..5) {
+                            view.findViewById<Button>(shipbuttons[i]).isEnabled =
+                                (shipcost[i] <= vm.race(uidActivePlayer).money)
+                        }
                     }
                 }
             }
         }
     }
 }
+
 

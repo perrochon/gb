@@ -155,6 +155,8 @@ class GBMakeMissions {
         u.id = Map1
         u.description = "Map 1: Virgo"
         u.secondPlayer = true
+        u.race(0).money = 500
+        u.race(1).money = 500
         val json = GBController.saveUniverse()
         File("levels/map1.json").writeText(json)
 
@@ -173,7 +175,6 @@ class GBMakeMissions {
         u.star(2).loc = GBLocation(400f, 700f)
         u.star(5).loc = GBLocation(610f, 490f)
 
-
         GBController.makeStructure(u.race(0).uidHomePlanet, 0, FACTORY)
         GBController.makeStructure(u.race(1).uidHomePlanet, 1, FACTORY)
 
@@ -185,6 +186,8 @@ class GBMakeMissions {
         u.id = Map2
         u.description = "Map 2: Southern Cross"
         u.secondPlayer = true
+        u.race(0).money = 1000
+        u.race(1).money = 1000
         val json = GBController.saveUniverse()
         File("levels/map2.json").writeText(json)
 
@@ -207,6 +210,8 @@ class GBMakeMissions {
         u.id = Map3
         u.description = "Map 3: All out War"
         u.secondPlayer = true
+        u.race(0).money = 1000
+        u.race(1).money = 1000
         val json = GBController.saveUniverse()
         File("levels/map3.json").writeText(json)
 

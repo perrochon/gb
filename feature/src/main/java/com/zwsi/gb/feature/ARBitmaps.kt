@@ -97,7 +97,6 @@ fun getPlanetDrawableResource(idx: Int): Int {
     }
 }
 
-
 // FIXME Should functions that are not extensions move into the class?
 
 class ARBitmaps {
