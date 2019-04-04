@@ -251,6 +251,7 @@ data class GBUniverse(
         orders.clear()
 
         for ((_, race) in races) {
+            var exploreBonus = race.raceVisibleStars.size
             race.raceVisibleStars.clear()
             if (race.dead()) {
                 // Race got eliminated... Kill all their ships. TODO What to do on race elimination. Deal with winning.
@@ -259,7 +260,7 @@ data class GBUniverse(
                 }
                 race.money = 0
             } else {
-                race.money += race.production
+                race.money = race.money + race.production + exploreBonus + 1
                 if (race.money > 99999) race.money = 99999
                 race.raceVisibleStars.add(race.getHome().star.uid)
             }

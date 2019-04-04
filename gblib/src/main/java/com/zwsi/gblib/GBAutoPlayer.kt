@@ -6,7 +6,6 @@ package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.BATTLESTAR
-import com.zwsi.gblib.GBData.Companion.BEETLES
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
@@ -50,37 +49,44 @@ class GBAutoPlayer() {
             battlestar: Int,
             other: Int
         ) {
-            if (r.raceShips.filter { it.idxtype == POD }.size < 0) { // FIXME Pods creation fails anyway, so let's not attempt to do them here
-                val order = GBOrder()
-                order.makeShip(factory.uid, POD)
-                u.orders.add(order)
-            } else if (r.raceShips.filter { it.idxtype == CRUISER }.size < cruiser) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, CRUISER)
-                u.orders.add(order)
-            } else if (r.raceShips.filter { it.idxtype == STATION }.size < station) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, STATION)
-                u.orders.add(order)
-            } else if (r.raceShips.filter { it.idxtype == SHUTTLE }.size < shuttle) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, SHUTTLE)
-                u.orders.add(order)
-            } else if (r.raceShips.filter { it.idxtype == BATTLESTAR }.size < battlestar) {
-                val order = GBOrder()
-                order.makeShip(factory.uid, BATTLESTAR)
-                u.orders.add(order)
-            } else {
-                val order = GBOrder()
-                order.makeShip(factory.uid, other)
-                u.orders.add(order)
+            when {
+//                r.raceShips.filter { it.idxtype == POD }.size < 0 -> { // FIXME Pods creation fails anyway, so let's not attempt to do them here
+//                    val order = GBOrder()
+//                    order.makeShip(factory.uid, POD)
+//                    u.orders.add(order)
+//                }
+                r.raceShips.filter { it.idxtype == CRUISER }.size < cruiser -> {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, CRUISER)
+                    u.orders.add(order)
+                }
+                r.raceShips.filter { it.idxtype == STATION }.size < station -> {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, STATION)
+                    u.orders.add(order)
+                }
+                r.raceShips.filter { it.idxtype == SHUTTLE }.size < shuttle -> {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, SHUTTLE)
+                    u.orders.add(order)
+                }
+                r.raceShips.filter { it.idxtype == BATTLESTAR }.size < battlestar -> {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, BATTLESTAR)
+                    u.orders.add(order)
+                }
+                else -> {
+                    val order = GBOrder()
+                    order.makeShip(factory.uid, other)
+                    u.orders.add(order)
+                }
             }
 
         }
 
         const val DEPLOYMENT_TOPLANET = 0
         const val DEPLOYMENT_RANDOM = 1
-        const val DEPLOYMENT_ATTACK =2
+        const val DEPLOYMENT_ATTACK = 2
         const val DEPLOYMENT_GAS = 3
 
 
@@ -120,7 +126,7 @@ class GBAutoPlayer() {
             // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
             val factory = findOrOrderFactory(r) ?: return
 
-            orderShips(r, factory,20, 5, 10, 0, 0, BATTLESTAR)
+            orderShips(r, factory, 20, 5, 10, 0, 0, BATTLESTAR)
 
             deployShips(r, DEPLOYMENT_RANDOM, null)
 
@@ -133,7 +139,7 @@ class GBAutoPlayer() {
             // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
             val factory = findOrOrderFactory(r) ?: return
 
-            orderShips(r, factory,20, 5, 5, 0, 0, POD)
+            orderShips(r, factory, 20, 5, 5, 0, 0, CRUISER)
 
             deployShips(r, DEPLOYMENT_RANDOM, null)
 
@@ -173,7 +179,7 @@ class GBAutoPlayer() {
             // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
             val factory = findOrOrderFactory(r) ?: return
 
-            orderShips(r, factory, 0,31, 5, 5, 5, CRUISER)
+            orderShips(r, factory, 0, 31, 5, 5, 5, CRUISER)
 
             deployShips(r, DEPLOYMENT_ATTACK, null)
 
@@ -191,7 +197,7 @@ class GBAutoPlayer() {
 
             val factory = findOrOrderFactory(r) ?: return
 
-            orderShips(r, factory, 20,10, 5, 5, 5, BATTLESTAR)
+            orderShips(r, factory, 20, 10, 5, 5, 5, BATTLESTAR)
 
             if (u.turn % 10 == 0) {
                 deployShips(r, DEPLOYMENT_TOPLANET, toolsTarget.first())
@@ -205,7 +211,7 @@ class GBAutoPlayer() {
 
             val factory = findOrOrderFactory(r) ?: return
 
-            orderShips(r, factory,50, 5, 5, 10, 5, SHUTTLE)
+            orderShips(r, factory, 50, 5, 5, 10, 5, SHUTTLE)
 
             deployShips(r, DEPLOYMENT_GAS, null)
 
