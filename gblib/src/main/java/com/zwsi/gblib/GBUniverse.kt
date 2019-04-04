@@ -394,7 +394,7 @@ data class GBUniverse(
                 }
             }
             MISSION_EXTERMINATE -> {
-                if (u.races.values.filter { it.uid == 0 || it.dead() }.isEmpty()) {
+                if (u.races.values.filter { it.uid != 0 && !it.dead() }.isEmpty()) {
                     u.missionCompletedTurns = u.turn
                     u.news.add("Congratulations! You completed ${u.id} in  ${u.missionCompletedTurns} turns.\n")
                 }

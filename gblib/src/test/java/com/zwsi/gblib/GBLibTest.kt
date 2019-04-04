@@ -26,7 +26,7 @@ class GBLibTest {
     @Test
     fun verifyConstants() {
         // If these are different, some other tests in this class will fail
-        assertEquals(24, DefaultNumberOfStars)
+        assertEquals(23, DefaultNumberOfStars)
         assertEquals(6, DefaultNumberOfRaces)
         assertEquals(6, GBController.numberOfStarsSmall)
         assertEquals(100, GBController.numberOfStarsBig)
