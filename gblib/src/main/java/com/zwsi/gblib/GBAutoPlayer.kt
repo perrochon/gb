@@ -107,7 +107,7 @@ class GBAutoPlayer() {
                             u.planets.values.shuffled().first()
                         }
 
-                    DEPLOYMENT_GAS -> u.planets.values.filter { it.idxtype == 3 }.shuffled().firstOrNull()
+                    DEPLOYMENT_GAS -> u.planets.values.filter { it.idxtype == 1 }.shuffled().firstOrNull()
 
                     else -> u.planets.values.shuffled().first()
                 }
@@ -201,7 +201,7 @@ class GBAutoPlayer() {
 
             orderShips(r, factory, 20, 10, 5, 5, 5, BATTLESTAR)
 
-            if (u.turn % 10 == 0) {
+            if (u.turn % 20 == 0) {
                 deployShips(r, DEPLOYMENT_TOPLANET, toolsTarget.first())
                 toolsTarget.removeAt(0)
             }
