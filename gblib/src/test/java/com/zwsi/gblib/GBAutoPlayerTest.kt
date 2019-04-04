@@ -1,12 +1,6 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
-import com.zwsi.gblib.GBData.Companion.BEETLES
-import com.zwsi.gblib.GBData.Companion.GHOSTS
-import com.zwsi.gblib.GBData.Companion.IMPI
-import com.zwsi.gblib.GBData.Companion.TOOLS
-import com.zwsi.gblib.GBData.Companion.TORTOISES
-import com.zwsi.gblib.GBData.Companion.XENOS
 import org.junit.Test
 
 class GBAutoPlayerTest {

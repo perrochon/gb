@@ -22,6 +22,7 @@ Steps for release, because I always forget some. // TODO Automate this
 
 next
 - Stronger AIs. Beetles have awesome defense now, but still die...
+- Now all missions test for and celebrate mission success
 
 .754/.756/.765
 - New ship types: shuttles, battle stars, stations, headquarters, research centers.
