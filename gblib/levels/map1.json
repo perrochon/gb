@@ -181,7 +181,7 @@
       ],
       "name": "Logan",
       "orbitUidShips": [],
-      "planetPopulation": 1913,
+      "planetPopulation": 1653,
       "planetUidRaces": [
         0
       ],
@@ -190,11 +190,11 @@
           "uidPlanet": 0,
           "i": 0,
           "maxPopulation": 1000,
-          "population": 3,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 0,
           "y": 0
         },
@@ -202,11 +202,11 @@
           "uidPlanet": 0,
           "i": 1,
           "maxPopulation": 1000,
-          "population": 5,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 1,
           "y": 0
         },
@@ -310,11 +310,11 @@
           "uidPlanet": 0,
           "i": 10,
           "maxPopulation": 1000,
-          "population": 45,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 0,
           "y": 1
         },
@@ -322,11 +322,11 @@
           "uidPlanet": 0,
           "i": 11,
           "maxPopulation": 800,
-          "population": 112,
+          "population": 0,
           "revenue": 2,
           "type": 4,
           "typeSymbol": "^",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 1,
           "y": 1
         },
@@ -334,11 +334,11 @@
           "uidPlanet": 0,
           "i": 12,
           "maxPopulation": 1000,
-          "population": 5,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 2,
           "y": 1
         },
@@ -430,11 +430,11 @@
           "uidPlanet": 0,
           "i": 20,
           "maxPopulation": 1000,
-          "population": 221,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 0,
           "y": 2
         },
@@ -442,11 +442,11 @@
           "uidPlanet": 0,
           "i": 21,
           "maxPopulation": 1000,
-          "population": 833,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 1,
           "y": 2
         },
@@ -454,7 +454,7 @@
           "uidPlanet": 0,
           "i": 22,
           "maxPopulation": 1000,
-          "population": 264,
+          "population": 6,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -466,7 +466,7 @@
           "uidPlanet": 0,
           "i": 23,
           "maxPopulation": 1000,
-          "population": 23,
+          "population": 1,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -538,11 +538,11 @@
           "uidPlanet": 0,
           "i": 29,
           "maxPopulation": 1000,
-          "population": 2,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 9,
           "y": 2
         },
@@ -550,11 +550,11 @@
           "uidPlanet": 0,
           "i": 30,
           "maxPopulation": 1000,
-          "population": 27,
+          "population": 0,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": 0,
+          "uidSectorOwner": -1,
           "x": 0,
           "y": 3
         },
@@ -562,7 +562,7 @@
           "uidPlanet": 0,
           "i": 31,
           "maxPopulation": 1000,
-          "population": 337,
+          "population": 46,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -574,7 +574,7 @@
           "uidPlanet": 0,
           "i": 32,
           "maxPopulation": 1000,
-          "population": 16,
+          "population": 120,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -586,11 +586,11 @@
           "uidPlanet": 0,
           "i": 33,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 33,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 3,
           "y": 3
         },
@@ -598,11 +598,11 @@
           "uidPlanet": 0,
           "i": 34,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 1,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 4,
           "y": 3
         },
@@ -682,7 +682,7 @@
           "uidPlanet": 0,
           "i": 41,
           "maxPopulation": 1000,
-          "population": 19,
+          "population": 308,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
@@ -694,11 +694,11 @@
           "uidPlanet": 0,
           "i": 42,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 861,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 2,
           "y": 4
         },
@@ -706,11 +706,11 @@
           "uidPlanet": 0,
           "i": 43,
           "maxPopulation": 1000,
-          "population": 0,
+          "population": 276,
           "revenue": 1,
           "type": 0,
           "typeSymbol": "~",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 0,
           "x": 3,
           "y": 4
         },
@@ -3293,7 +3293,7 @@
       ],
       "name": "Trantor",
       "orbitUidShips": [],
-      "planetPopulation": 502,
+      "planetPopulation": 539,
       "planetUidRaces": [
         1
       ],
@@ -3302,11 +3302,11 @@
           "uidPlanet": 5,
           "i": 0,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 3,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 0,
           "y": 0
         },
@@ -3314,7 +3314,7 @@
           "uidPlanet": 5,
           "i": 1,
           "maxPopulation": 5000,
-          "population": 9,
+          "population": 104,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3326,7 +3326,7 @@
           "uidPlanet": 5,
           "i": 2,
           "maxPopulation": 5000,
-          "population": 5,
+          "population": 219,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3338,11 +3338,11 @@
           "uidPlanet": 5,
           "i": 3,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 45,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 3,
           "y": 0
         },
@@ -3350,11 +3350,11 @@
           "uidPlanet": 5,
           "i": 4,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 10,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 4,
           "y": 0
         },
@@ -3362,11 +3362,11 @@
           "uidPlanet": 5,
           "i": 5,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 1,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 5,
           "y": 0
         },
@@ -3398,11 +3398,11 @@
           "uidPlanet": 5,
           "i": 8,
           "maxPopulation": 5000,
-          "population": 5,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 0,
           "y": 1
         },
@@ -3410,7 +3410,7 @@
           "uidPlanet": 5,
           "i": 9,
           "maxPopulation": 5000,
-          "population": 42,
+          "population": 31,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3422,7 +3422,7 @@
           "uidPlanet": 5,
           "i": 10,
           "maxPopulation": 5000,
-          "population": 39,
+          "population": 85,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3434,11 +3434,11 @@
           "uidPlanet": 5,
           "i": 11,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 25,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 3,
           "y": 1
         },
@@ -3446,11 +3446,11 @@
           "uidPlanet": 5,
           "i": 12,
           "maxPopulation": 5000,
-          "population": 0,
+          "population": 2,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": -1,
+          "uidSectorOwner": 1,
           "x": 4,
           "y": 1
         },
@@ -3494,11 +3494,11 @@
           "uidPlanet": 5,
           "i": 16,
           "maxPopulation": 2000,
-          "population": 15,
+          "population": 0,
           "revenue": 2,
           "type": 1,
           "typeSymbol": ".",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 0,
           "y": 2
         },
@@ -3506,11 +3506,11 @@
           "uidPlanet": 5,
           "i": 17,
           "maxPopulation": 5000,
-          "population": 170,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 1,
           "y": 2
         },
@@ -3518,7 +3518,7 @@
           "uidPlanet": 5,
           "i": 18,
           "maxPopulation": 5000,
-          "population": 110,
+          "population": 11,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3530,7 +3530,7 @@
           "uidPlanet": 5,
           "i": 19,
           "maxPopulation": 5000,
-          "population": 19,
+          "population": 3,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
@@ -3578,11 +3578,11 @@
           "uidPlanet": 5,
           "i": 23,
           "maxPopulation": 5000,
-          "population": 3,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 7,
           "y": 2
         },
@@ -3590,11 +3590,11 @@
           "uidPlanet": 5,
           "i": 24,
           "maxPopulation": 5000,
-          "population": 17,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 0,
           "y": 3
         },
@@ -3602,11 +3602,11 @@
           "uidPlanet": 5,
           "i": 25,
           "maxPopulation": 5000,
-          "population": 45,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 1,
           "y": 3
         },
@@ -3614,11 +3614,11 @@
           "uidPlanet": 5,
           "i": 26,
           "maxPopulation": 5000,
-          "population": 22,
+          "population": 0,
           "revenue": 1,
           "type": 5,
           "typeSymbol": "*",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 2,
           "y": 3
         },
@@ -3674,11 +3674,11 @@
           "uidPlanet": 5,
           "i": 31,
           "maxPopulation": 2000,
-          "population": 1,
+          "population": 0,
           "revenue": 2,
           "type": 1,
           "typeSymbol": ".",
-          "uidSectorOwner": 1,
+          "uidSectorOwner": -1,
           "x": 7,
           "y": 3
         }
@@ -13133,20 +13133,20 @@
       "loc": {
         "level": 3,
         "uidRef": 1,
-        "x": -15.15509,
-        "y": -4.8219604,
-        "t": 1.0268836,
-        "r": 917.5959,
+        "x": -12.699707,
+        "y": -10.900513,
+        "t": 1.0211413,
+        "r": 913.68024,
         "sx": -1,
         "sy": -1
       },
       "damage": 40,
       "dest": {
         "level": 2,
-        "uidRef": 8,
-        "x": -1.154042,
-        "y": -1.6334586,
-        "t": 4.0973125,
+        "uidRef": 20,
+        "x": -1.9520236,
+        "y": -0.43543518,
+        "t": 3.361068,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13158,24 +13158,24 @@
       "speed": 3,
       "trails": [
         {
-          "x": 486.47598,
-          "y": 782.2253
+          "x": 489.16852,
+          "y": 780.87317
         },
         {
-          "x": 483.5682,
-          "y": 782.9635
+          "x": 486.20193,
+          "y": 780.4266
         },
         {
-          "x": 480.66043,
-          "y": 783.70166
+          "x": 483.23535,
+          "y": 779.98
         },
         {
-          "x": 477.7527,
-          "y": 784.4399
+          "x": 480.26782,
+          "y": 779.53973
         },
         {
-          "x": 474.8449,
-          "y": 785.17804
+          "x": 477.3003,
+          "y": 779.0995
         }
       ],
       "type": "Cruiser"
@@ -13187,20 +13187,20 @@
       "loc": {
         "level": 3,
         "uidRef": 1,
-        "x": -10.069305,
-        "y": -15.393799,
-        "t": 1.0161039,
-        "r": 911.23444,
+        "x": -5.574707,
+        "y": -16.86084,
+        "t": 1.0110693,
+        "r": 912.3662,
         "sx": -1,
         "sy": -1
       },
       "damage": 40,
       "dest": {
         "level": 2,
-        "uidRef": 1,
-        "x": 1.4359189,
-        "y": 1.3921698,
-        "t": 0.76992995,
+        "uidRef": 3,
+        "x": -1.9991294,
+        "y": -0.059004977,
+        "t": 3.1710994,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13212,24 +13212,24 @@
       "speed": 3,
       "trails": [
         {
-          "x": 488.86288,
-          "y": 783.09845
+          "x": 492.74194,
+          "y": 782.2093
         },
         {
-          "x": 486.3172,
-          "y": 780.9475
+          "x": 490.35013,
+          "y": 779.9139
         },
         {
-          "x": 484.18835,
-          "y": 778.83374
+          "x": 488.37518,
+          "y": 777.65564
         },
         {
-          "x": 482.0595,
-          "y": 776.72
+          "x": 486.40024,
+          "y": 775.3974
         },
         {
-          "x": 479.9307,
-          "y": 774.6062
+          "x": 484.4253,
+          "y": 773.13916
         }
       ],
       "type": "Cruiser"
@@ -13245,8 +13245,8 @@
         "y": -1.0,
         "t": -1.0,
         "r": -1.0,
-        "sx": 1,
-        "sy": 2
+        "sx": 2,
+        "sy": 4
       },
       "damage": 0,
       "guns": 0,
@@ -13256,8 +13256,8 @@
       "speed": 0,
       "trails": [
         {
-          "x": 314.27533,
-          "y": 614.76764
+          "x": 314.59534,
+          "y": 615.40765
         }
       ],
       "type": "Headquarters"
@@ -13273,8 +13273,8 @@
         "y": -1.0,
         "t": -1.0,
         "r": -1.0,
-        "sx": 1,
-        "sy": 2
+        "sx": 2,
+        "sy": 0
       },
       "damage": 0,
       "guns": 0,
@@ -13284,8 +13284,8 @@
       "speed": 0,
       "trails": [
         {
-          "x": 488.17676,
-          "y": 783.04724
+          "x": 488.57675,
+          "y": 782.24725
         }
       ],
       "type": "Headquarters"
@@ -13381,20 +13381,20 @@
       "loc": {
         "level": 3,
         "uidRef": 1,
-        "x": -22.862213,
-        "y": -1.286377,
-        "t": 1.036074,
-        "r": 916.67163,
+        "x": -5.717621,
+        "y": 12.738892,
+        "t": 1.027963,
+        "r": 937.5069,
         "sx": -1,
         "sy": -1
       },
       "damage": 40,
       "dest": {
         "level": 2,
-        "uidRef": 13,
-        "x": -0.27462238,
-        "y": 1.981056,
-        "t": 1.7085427,
+        "uidRef": 7,
+        "x": 1.3205111,
+        "y": 1.5020821,
+        "t": 0.8496374,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13406,24 +13406,24 @@
       "speed": 3,
       "trails": [
         {
-          "x": 478.96335,
-          "y": 786.6753
+          "x": 487.40335,
+          "y": 791.1519
         },
         {
-          "x": 476.00696,
-          "y": 787.1849
+          "x": 486.6231,
+          "y": 794.0487
         },
         {
-          "x": 473.05057,
-          "y": 787.69446
+          "x": 485.84286,
+          "y": 796.94543
         },
         {
-          "x": 470.09418,
-          "y": 788.20404
+          "x": 485.06262,
+          "y": 799.84216
         },
         {
-          "x": 467.1378,
-          "y": 788.7136
+          "x": 484.28238,
+          "y": 802.7389
         }
       ],
       "type": "Cruiser"
@@ -13435,17 +13435,17 @@
       "loc": {
         "level": 3,
         "uidRef": 1,
-        "x": -17.17746,
-        "y": -4.0926514,
-        "t": 1.0291818,
-        "r": 917.17584,
+        "x": -17.07434,
+        "y": -3.7579956,
+        "t": 1.0292736,
+        "r": 917.51575,
         "sx": -1,
         "sy": -1
       },
       "damage": 40,
       "dest": {
         "level": 2,
-        "uidRef": 13,
+        "uidRef": 15,
         "x": -1.5270674,
         "y": 1.291536,
         "t": 2.439564,
@@ -13460,24 +13460,24 @@
       "speed": 3,
       "trails": [
         {
-          "x": 484.62943,
-          "y": 783.7628
+          "x": 484.7138,
+          "y": 783.9972
         },
         {
-          "x": 481.6777,
-          "y": 784.29895
+          "x": 481.76633,
+          "y": 784.5561
         },
         {
-          "x": 478.72598,
-          "y": 784.8351
+          "x": 478.81885,
+          "y": 785.115
         },
         {
-          "x": 475.77426,
-          "y": 785.3712
+          "x": 475.87137,
+          "y": 785.6739
         },
         {
-          "x": 472.82254,
-          "y": 785.90735
+          "x": 472.92566,
+          "y": 786.242
         }
       ],
       "type": "Cruiser"
@@ -13489,20 +13489,20 @@
       "loc": {
         "level": 3,
         "uidRef": 1,
-        "x": -14.741425,
-        "y": 0.5661621,
-        "t": 1.0295227,
-        "r": 922.42377,
+        "x": 2.5,
+        "y": 9.471313,
+        "t": 1.0186719,
+        "r": 938.99445,
         "sx": -1,
         "sy": -1
       },
       "damage": 40,
       "dest": {
         "level": 2,
-        "uidRef": 12,
-        "x": -0.04299628,
-        "y": 1.9995378,
-        "t": 1.5922961,
+        "uidRef": 6,
+        "x": -1.8788787,
+        "y": -0.6854305,
+        "t": 3.4913983,
         "r": 2.0,
         "sx": -1,
         "sy": -1
@@ -13514,24 +13514,24 @@
       "speed": 3,
       "trails": [
         {
-          "x": 486.59073,
-          "y": 786.61865
+          "x": 490.61606,
+          "y": 787.62024
         },
         {
-          "x": 483.7577,
-          "y": 787.6055
+          "x": 491.08704,
+          "y": 790.583
         },
         {
-          "x": 480.92465,
-          "y": 788.5924
+          "x": 491.558,
+          "y": 793.5458
         },
         {
-          "x": 478.0916,
-          "y": 789.5793
+          "x": 492.02902,
+          "y": 796.50854
         },
         {
-          "x": 475.25858,
-          "y": 790.56616
+          "x": 492.5,
+          "y": 799.4713
         }
       ],
       "type": "Cruiser"
@@ -13539,7 +13539,8 @@
   },
   "shots": [],
   "news": [
-    "Map 1: Virgo"
+    "Map 1: Virgo\n",
+    "Player 1/2 click 'Player 1/2' and do your turns. Then hit the back button and pass on the device.\n"
   ],
   "deepSpaceUidShips": []
 }

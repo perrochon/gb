@@ -388,7 +388,7 @@ data class GBUniverse(
             MISSION_COLONIZE -> {
                 if (u.planets.values.filter { it.planetPopulation == 0 }.isEmpty()) {
                     u.missionCompletedTurns = u.turn
-                    u.news.add("Congratulations! You completed ${u.id} in ${u.missionCompletedTurns} turns.")
+                    u.news.add("Congratulations! You completed ${u.id} in ${u.missionCompletedTurns} turns.\n")
 
 
                 }
@@ -396,7 +396,7 @@ data class GBUniverse(
             MISSION_EXTERMINATE -> {
                 if (u.races.values.filter { it.uid == 0 || it.dead() }.isEmpty()) {
                     u.missionCompletedTurns = u.turn
-                    u.news.add("Congratulations! You completed ${u.id} in  ${u.missionCompletedTurns} turns.")
+                    u.news.add("Congratulations! You completed ${u.id} in  ${u.missionCompletedTurns} turns.\n")
                 }
             }
         }

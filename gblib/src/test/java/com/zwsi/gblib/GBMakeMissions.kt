@@ -23,6 +23,9 @@ import java.io.File
 // Missions: Single Player
 // Maps: Two Players
 
+val PASS_AND_PLAY_INSTRUCTIONS = "Player 1/2 click 'Player 1/2' and do your turns. Then hit the back button and pass on the device.\n"
+
+
 class GBMakeMissions {
 
     @Test
@@ -30,10 +33,10 @@ class GBMakeMissions {
         GBController.makeUniverse(1, 1)
         u.star(0).loc = GBLocation(410f, 710f)
         u.id = Mission1
-        u.description = "Mission 1: Expand through your solar system"
+        u.description = "Mission 1: This is our system!"
         u.news.clear()
-        u.news.add(u.description)
-        u.news.add("Colonize all planets!")
+        u.news.add("${u.description}\n")
+        u.news.add("Colonize all planets!\n")
         u.missionGoal = MISSION_COLONIZE
         val json = GBController.saveUniverse()
         File("levels/mission1.json").writeText(json)
@@ -54,10 +57,10 @@ class GBMakeMissions {
         u.star(4).loc = GBLocation(400f, 700f)
 
         u.id = Mission2
-        u.description = "Mission 2: Conquer neighbouring systems"
+        u.description = "Mission 2: We are not alone!"
         u.news.clear()
-        u.news.add(u.description)
-        u.news.add("Destroy all enemy headquarters!")
+        u.news.add("${u.description}\n")
+        u.news.add("Destroy the enemy headquarters!\n")
         u.missionGoal = MISSION_EXTERMINATE
         val json = GBController.saveUniverse()
         File("levels/mission2.json").writeText(json)
@@ -77,10 +80,10 @@ class GBMakeMissions {
         u.star(4).loc = GBLocation(400f, 700f)
 
         u.id = Mission3
-        u.description = "Mission 3: Conquer neighbouring systems"
+        u.description = "Mission 3: Beware of the Beetles!"
         u.news.clear()
-        u.news.add(u.description)
-        u.news.add("Destroy all enemy headquarters!")
+        u.news.add("${u.description}\n")
+        u.news.add("Destroy all enemy headquarters!\n")
         u.missionGoal = MISSION_EXTERMINATE
         val json = GBController.saveUniverse()
         File("levels/mission3.json").writeText(json)
@@ -100,10 +103,10 @@ class GBMakeMissions {
         u.star(4).loc = GBLocation(400f, 700f)
 
         u.id = Mission4
-        u.description = "Mission 4: Conquer neighbouring systems"
+        u.description = "Mission 4: Tortoises"
         u.news.clear()
-        u.news.add(u.description)
-        u.news.add("Destroy all enemy headquarters!")
+        u.news.add("${u.description}\n")
+        u.news.add("Destroy all enemy headquarters!\n")
         u.missionGoal = MISSION_EXTERMINATE
         val json = GBController.saveUniverse()
         File("levels/mission4.json").writeText(json)
@@ -123,10 +126,10 @@ class GBMakeMissions {
         u.star(4).loc = GBLocation(400f, 700f)
 
         u.id = Mission5
-        u.description = "Mission 5: Conquer neighbouring systems"
+        u.description = "Mission 5: Don't call them 'Tools'!"
         u.news.clear()
-        u.news.add(u.description)
-        u.news.add("Destroy all enemy head quarters!")
+        u.news.add("${u.description}\n")
+        u.news.add("Destroy all enemy head quarters!\n")
         u.missionGoal = MISSION_EXTERMINATE
         val json = GBController.saveUniverse()
         File("levels/mission5.json").writeText(json)
@@ -147,10 +150,10 @@ class GBMakeMissions {
         u.star(5).loc = GBLocation(610f, 490f)
 
         u.id = Mission6
-        u.description = "Mission 6: Conquer neighbouring systems"
+        u.description = "Mission 6: Ghosts are Pacifists"
         u.news.clear()
-        u.news.add(u.description)
-        u.news.add("Destroy all enemy head quarters!")
+        u.news.add("${u.description}\n")
+        u.news.add("Destroy all enemy head quarters!\n")
         u.missionGoal = MISSION_EXTERMINATE
         val json = GBController.saveUniverse()
         File("levels/mission6.json").writeText(json)
@@ -159,6 +162,7 @@ class GBMakeMissions {
         GBController.loadUniverseFromJSON(json)
         u.doUniverse()
     }
+
 
     @Test
     fun makeMap1() {
@@ -180,7 +184,8 @@ class GBMakeMissions {
         u.id = Map1
         u.description = "Map 1: Virgo"
         u.news.clear()
-        u.news.add(u.description)
+        u.news.add("${u.description}\n")
+        u.news.add(PASS_AND_PLAY_INSTRUCTIONS)
         u.secondPlayer = true
         u.race(0).money = 500
         u.race(1).money = 500
@@ -213,7 +218,8 @@ class GBMakeMissions {
         u.id = Map2
         u.description = "Map 2: Southern Cross"
         u.news.clear()
-        u.news.add(u.description)
+        u.news.add("${u.description}\n")
+        u.news.add(PASS_AND_PLAY_INSTRUCTIONS)
         u.secondPlayer = true
         u.race(0).money = 1000
         u.race(1).money = 1000
@@ -239,7 +245,8 @@ class GBMakeMissions {
         u.id = Map3
         u.description = "Map 3: All out War"
         u.news.clear()
-        u.news.add(u.description)
+        u.news.add("${u.description}\n")
+        u.news.add(PASS_AND_PLAY_INSTRUCTIONS)
         u.secondPlayer = true
         u.race(0).money = 1000
         u.race(1).money = 1000
@@ -262,11 +269,11 @@ class GBMakeMissions {
         u.star(5).loc = GBLocation(289f, 545f)
 
         u.id = Demo1
-        u.description = "Demo 1: The Hexagon of Death"
+        u.description = "The Hexagon of Death"
         u.news.clear()
-        u.news.add(u.description)
-        u.news.add("Turn on 'Hyper Sensors' and 'Show Continuous Do Button' in 'OPTIONS'.")
-        u.news.add("Then click on 'CONT' and 'PLAY'.")
+        u.news.add("${u.description}\n")
+        u.news.add("Turn on 'Hyper Sensors' and 'Show Continuous Do Button' in 'OPTIONS'.\n")
+        u.news.add("Then click on 'CONT' and 'PLAY' and watch the slaughter.\n")
         u.demoMode = true
         val json = GBController.saveUniverse()
         File("levels/demo1.json").writeText(json)
