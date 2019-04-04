@@ -14,55 +14,44 @@ class GBAutoPlayerTest {
     @Test
     fun testXenos() {
         GBController.makeUniverse()
-        GBAutoPlayer.playXenos(u.race(XENOS))
+        u.autoPlayer.playXenos(u.race(XENOS)) // FIXME - These all don't really test one race for long...
         for (i in 1..100) u.doUniverse()
     }
 
     @Test
     fun testImpi() {
         GBController.makeUniverse()
-        GBAutoPlayer.playImpi(u.race(IMPI))
-        for (i in 1..100) u.doUniverse()
+        for (i in 1..1000) u.doUniverse()
     }
 
 
     @Test
     fun testBeetle() {
         GBController.makeUniverse()
-        GBAutoPlayer.playBeetle(u.race(BEETLES))
         for (i in 1..100) u.doUniverse()
     }
 
     @Test
     fun testTortoise() {
         GBController.makeUniverse()
-        GBAutoPlayer.playTortoise(u.race(TORTOISES))
         for (i in 1..100) u.doUniverse()
     }
 
     @Test
     fun testTools() {
         GBController.makeUniverse()
-        GBAutoPlayer.playTools(u.race(TOOLS))
         for (i in 1..100) u.doUniverse()
     }
 
     @Test
     fun testGhosts() {
         GBController.makeUniverse()
-        GBAutoPlayer.playGhosts(u.race(GHOSTS))
         for (i in 1..100) u.doUniverse()
     }
 
     @Test
     fun testTogether() {
         GBController.makeUniverse()
-        GBAutoPlayer.playXenos(u.race(XENOS))
-        GBAutoPlayer.playImpi(u.race(IMPI))
-        GBAutoPlayer.playBeetle(u.race(BEETLES))
-        GBAutoPlayer.playTortoise(u.race(TORTOISES))
-        GBAutoPlayer.playTools(u.race(TOOLS))
-        GBAutoPlayer.playGhosts(u.race(GHOSTS))
         for (i in 1..200) u.doUniverse()
     }
 

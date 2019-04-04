@@ -37,7 +37,12 @@ internal object GBLog {
     val DEBUG_LEVEL = 0
     val LOG_LEVEL = 0
 
+    init {
+        // https://docs.oracle.com/javase/7/docs/api/java/util/logging/SimpleFormatter.html
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1\$tc] %4\$s: %5\$s%n");
+    }
     val Log = Logger.getLogger("GB")
+
 
     fun e(message: String) {
         if (LOG_LEVEL > 0) Log.severe(message)

@@ -97,6 +97,7 @@ data class GBLocation(
     ) {
         // These asserts may also catch mistaken use of Float (x,y).
         gbAssert("Distance to planet too big", r <= 1.2f * PlanetOrbit)
+
     }
 
     /** Make a PATROL location by giving Float angle theta [t] and distance [r] to center.
@@ -164,6 +165,12 @@ data class GBLocation(
             )
         }
         if (level == ORBIT) {
+
+            gbAssert(
+                "Sporadic Crashes: level = ${level} uidRef = ${uidRef} ",
+                u.planets[uidRef] != null
+            ) // FIXME
+
             return GBxy(u.planet(uidRef).loc.getLoc().x + x, u.planet(uidRef).loc.getLoc().y + y)
         }
         if (level == PATROL) {

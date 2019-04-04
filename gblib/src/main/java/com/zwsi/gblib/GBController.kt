@@ -70,6 +70,7 @@ class GBController {
                 _u = GBUniverse(stars, races)
                 _u!!.makeStarsAndPlanets()
                 _u!!.makeRaces()
+                _u!!.autoPlayer = GBAutoPlayer()
                 _u!!.news.add("Universe: ${u.description}\n")
                 // PERF without reload single digit ms update time, with reload low 100's ms update time.
             }

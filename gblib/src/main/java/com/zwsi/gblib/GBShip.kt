@@ -24,7 +24,8 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     var name = "ship" // Change this in initializeShip() when we have a universe
 
     var type = GBData.shipsData[idxtype]!!.type
-    var speed = GBData.shipsData[idxtype]!!.speed   // TODO Feature: hyperspeed per type (as opposed to fixed multiplier)
+    var speed =
+        GBData.shipsData[idxtype]!!.speed   // TODO Feature: hyperspeed per type (as opposed to fixed multiplier)
     var damage = GBData.shipsData[idxtype]!!.damage
     var range = GBData.shipsData[idxtype]!!.range
 
@@ -46,7 +47,8 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
     fun initializeShip() {
         u.ships[uid] = this
         u.race(uidRace).raceUidShips.add(this.uid)
-        name = u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
+        name =
+            u.race(uidRace).name.first().toString() + type.first().toString() + uid // TODO Feature, increment per race only
         when (loc.level) {
             LANDED -> {
                 loc.getPlanet()!!.landedUidShips.add(this.uid)
@@ -210,15 +212,19 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
     private fun moveShip() {
 
-        if (dest == null) {
+        if (this.dest == null) {
             return
         }
 
-        val moveDest: GBLocation
+        val moveDest = this.dest!!
 
-        moveDest = this.dest!!
+        GBLog.gbAssert(
+            "Sporadic Crashes: ${this.name} ${this.loc} ${this.dest}",
+            !(moveDest.level == ORBIT && u.planets[moveDest.uidRef] == null)
+        ) // FIXME
 
         val dxy = moveDest.getLoc() // use getLoc to get universal (x,y)
+
         val sxy = loc.getLoc()
 
         GBLog.d("Moving $name from ${this.loc.getLocDesc()} to ${moveDest.getLocDesc()}.")
@@ -384,7 +390,6 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
             }
         }
     }
-
 
 
 }

@@ -7,9 +7,6 @@
 
 package com.zwsi.gblib
 
-import com.zwsi.gblib.GBAutoPlayer.Companion.playBeetle
-import com.zwsi.gblib.GBAutoPlayer.Companion.playImpi
-import com.zwsi.gblib.GBAutoPlayer.Companion.playTortoise
 import com.zwsi.gblib.GBController.Companion.u
 import kotlin.system.measureNanoTime
 
@@ -21,9 +18,9 @@ class GBTest {
 
         println("Welcome to GB Test")
         GBController.makeUniverse()
-        playBeetle(u.race(GBData.BEETLES))
-        playImpi(u.race(GBData.IMPI))
-        playTortoise(u.race(GBData.TORTOISES))
+        u.autoPlayer.playBeetle(u.race(GBData.BEETLES))
+        u.autoPlayer.playImpi(u.race(GBData.IMPI))
+        u.autoPlayer.playTortoise(u.race(GBData.TORTOISES))
 
         var elapsed : Long
 

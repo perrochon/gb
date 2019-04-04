@@ -1,12 +1,6 @@
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
-import com.zwsi.gblib.GBAutoPlayer.Companion.playBeetle
-import com.zwsi.gblib.GBAutoPlayer.Companion.playGhosts
-import com.zwsi.gblib.GBAutoPlayer.Companion.playImpi
-import com.zwsi.gblib.GBAutoPlayer.Companion.playTools
-import com.zwsi.gblib.GBAutoPlayer.Companion.playTortoise
-import com.zwsi.gblib.GBAutoPlayer.Companion.playXenos
 import com.zwsi.gblib.GBController.Companion.u
 import com.zwsi.gblib.GBData.Companion.HEADQUARTERS
 import com.zwsi.gblib.GBData.Companion.MissionRandom
@@ -60,6 +54,8 @@ data class GBUniverse(
         numberOfRaces = _numberOfRaces
     ) {
     }
+
+    lateinit var autoPlayer : GBAutoPlayer
 
     var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of shipsData.
 
@@ -235,12 +231,12 @@ data class GBUniverse(
         u.news.add("\nTurn: ${turn.toString()}\n")
 
         // TODO Less code below
-        if (u.races.containsKey(0) && !u.race(0).dead() && u.demoMode) playXenos(u.race(0))
-        if (u.races.containsKey(1) && !u.race(1).dead() && !secondPlayer) playImpi(u.race(1))
-        if (u.races.containsKey(2) && !u.race(2).dead()) playBeetle(u.race(2))
-        if (u.races.containsKey(3) && !u.race(3).dead()) playTortoise(u.race(3))
-        if (u.races.containsKey(4) && !u.race(4).dead()) playTools(u.race(4))
-        if (u.races.containsKey(5) && !u.race(5).dead()) playGhosts(u.race(5))
+        if (u.races.containsKey(0) && !u.race(0).dead() && u.demoMode) autoPlayer.playXenos(u.race(0))
+        if (u.races.containsKey(1) && !u.race(1).dead() && !secondPlayer) autoPlayer.playImpi(u.race(1))
+        if (u.races.containsKey(2) && !u.race(2).dead()) autoPlayer.playBeetle(u.race(2))
+        if (u.races.containsKey(3) && !u.race(3).dead()) autoPlayer.playTortoise(u.race(3))
+        if (u.races.containsKey(4) && !u.race(4).dead()) autoPlayer.playTools(u.race(4))
+        if (u.races.containsKey(5) && !u.race(5).dead()) autoPlayer.playGhosts(u.race(5))
 
         for (o in orders) {
             o.execute()
