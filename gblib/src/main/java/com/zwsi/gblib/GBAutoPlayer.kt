@@ -11,6 +11,7 @@ import com.zwsi.gblib.GBData.Companion.FACTORY
 import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.SHUTTLE
 import com.zwsi.gblib.GBData.Companion.STATION
+import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import kotlin.math.PI
 
 class GBAutoPlayer() {
@@ -93,7 +94,8 @@ class GBAutoPlayer() {
         private fun deployShips(r: GBRace, type: Int, destination: GBPlanet?) {
 
             for (ship in r.raceShips.filter {
-                (it.idxtype == CRUISER || it.idxtype == BATTLESTAR || it.idxtype == SHUTTLE) && it.loc.uidRef == r.uidHomePlanet
+                (it.idxtype == CRUISER || it.idxtype == BATTLESTAR || it.idxtype == SHUTTLE)
+                        && it.loc.level == ORBIT && it.loc.uidRef == r.uidHomePlanet
             }) {
                 val planet = when (type) {
                     DEPLOYMENT_TOPLANET -> destination
@@ -126,7 +128,7 @@ class GBAutoPlayer() {
             // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
             val factory = findOrOrderFactory(r) ?: return
 
-            orderShips(r, factory, 20, 5, 10, 0, 0, BATTLESTAR)
+            orderShips(r, factory, 20, 5, 10, 0, 0, CRUISER)
 
             deployShips(r, DEPLOYMENT_RANDOM, null)
 
@@ -139,7 +141,7 @@ class GBAutoPlayer() {
             // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
             val factory = findOrOrderFactory(r) ?: return
 
-            orderShips(r, factory, 20, 5, 5, 0, 0, CRUISER)
+            orderShips(r, factory, 20, 5, 5, 0, 0, BATTLESTAR)
 
             deployShips(r, DEPLOYMENT_RANDOM, null)
 

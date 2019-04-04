@@ -251,7 +251,7 @@ data class GBUniverse(
         orders.clear()
 
         for ((_, race) in races) {
-            var exploreBonus = race.raceVisibleStars.size
+            val exploreBonus = race.raceVisibleStars.size
             race.raceVisibleStars.clear()
             if (race.dead()) {
                 // Race got eliminated... Kill all their ships. TODO What to do on race elimination. Deal with winning.
