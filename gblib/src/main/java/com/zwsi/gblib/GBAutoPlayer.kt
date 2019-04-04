@@ -19,7 +19,10 @@ const val DEPLOYMENT_RANDOM = 1
 const val DEPLOYMENT_ATTACK = 2
 const val DEPLOYMENT_GAS = 3
 
+
 class GBAutoPlayer() {
+
+    var autoPlayers = arrayOf(true, true, true, true, true, true)
 
     private fun findOrOrderFactory(r: GBRace): GBShip? {
         val factory = r.raceShips.filter { it.idxtype == FACTORY }.sortedBy { -it.uid }.firstOrNull()
@@ -88,24 +91,14 @@ class GBAutoPlayer() {
 
     }
 
-
-    private fun deployShips(r: GBRace, type: Int, uidDestination: Int) {
+    private fun deployShips(r: GBRace, type: Int, targetPlanet: GBPlanet? = null) {
 
         for (ship in r.raceShips.filter {
             (it.idxtype == CRUISER || it.idxtype == BATTLESTAR || it.idxtype == SHUTTLE)
                     && it.loc.level == ORBIT && it.loc.uidRef == r.uidHomePlanet
         }) {
             val planet = when (type) {
-                DEPLOYMENT_TOPLANET -> {
-
-                    GBLog.gbAssert(
-                        "Sporadic Crashes: ${uidDestination}",
-                        u.planets[uidDestination] != null
-                    ) // FIXME
-
-
-                    u.planet(uidDestination)
-                }
+                DEPLOYMENT_TOPLANET -> targetPlanet
 
                 DEPLOYMENT_ATTACK ->
                     if (u.turn % 5 == 0) {
@@ -127,7 +120,6 @@ class GBAutoPlayer() {
         } // else just try again next time this code runs...
     }
 
-
     fun playXenos(r: GBRace) {
 
         GBLog.d("Playing ${r.name} in turn ${u.turn}")
@@ -137,7 +129,7 @@ class GBAutoPlayer() {
 
         orderShips(r, factory, 20, 5, 10, 0, 0, CRUISER)
 
-        deployShips(r, DEPLOYMENT_RANDOM, -1)
+        deployShips(r, DEPLOYMENT_RANDOM)
 
     }
 
@@ -150,7 +142,7 @@ class GBAutoPlayer() {
 
         orderShips(r, factory, 20, 5, 5, 0, 0, BATTLESTAR)
 
-        deployShips(r, DEPLOYMENT_RANDOM, -1)
+        deployShips(r, DEPLOYMENT_RANDOM)
 
     }
 
@@ -190,47 +182,30 @@ class GBAutoPlayer() {
 
         orderShips(r, factory, 0, 31, 5, 5, 5, CRUISER)
 
-        deployShips(r, DEPLOYMENT_ATTACK, -1)
+        deployShips(r, DEPLOYMENT_ATTACK)
 
     }
 
-    private val toolsUidTargets = mutableListOf<Int>()
-
-    init {
-        GBLog.i("${u.turn} Tools (init): ${toolsUidTargets}")
-        toolsUidTargets.clear()
-        GBLog.i("${u.turn} Tools (init): ${toolsUidTargets}")
-    }
+    private val toolsTargets = mutableListOf<GBPlanet>()
 
     fun playTools(r: GBRace) {
 
         GBLog.d("Playing ${r.name} in turn ${u.turn}")
 
-        GBLog.i("${u.turn} Planets 1: ${u.planets.values.map { it.uid }}")
-        GBLog.i("${u.turn} Planets 2: ${u.planets.values.sortedBy {
-            it.loc.getLoc().distance(r.getHome().loc.getLoc())
-        }.map { it.uid }}")
-        GBLog.i("${u.turn} Tools    : ${toolsUidTargets}")
-
-        if (toolsUidTargets.isEmpty()) {
-            toolsUidTargets.addAll(u.planets.values.sortedBy {
+        if (toolsTargets.isEmpty()) {
+            toolsTargets.addAll(u.planets.values.sortedBy {
                 it.loc.getLoc().distance(r.getHome().loc.getLoc())
-            }.map { it.uid })
+            })
         }
-
-        GBLog.i("${u.turn} Tools    : ${toolsUidTargets}")
-
 
         val factory = findOrOrderFactory(r) ?: return
 
         orderShips(r, factory, 20, 10, 5, 5, 5, BATTLESTAR)
 
         if (u.turn % 2 == 0) {
-            deployShips(r, DEPLOYMENT_TOPLANET, toolsUidTargets.first())
-            toolsUidTargets.removeAt(0)
+            deployShips(r, DEPLOYMENT_TOPLANET, toolsTargets.first())
+            toolsTargets.removeAt(0)
         }
-
-        GBLog.i("${u.turn} Tools    : ${toolsUidTargets}")
 
     }
 
@@ -242,7 +217,7 @@ class GBAutoPlayer() {
 
         orderShips(r, factory, 50, 5, 5, 10, 5, SHUTTLE)
 
-        deployShips(r, DEPLOYMENT_GAS, -1)
+        deployShips(r, DEPLOYMENT_GAS)
 
     }
 

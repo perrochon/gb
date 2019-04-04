@@ -43,7 +43,6 @@ internal object GBLog {
     }
     val Log = Logger.getLogger("GB")
 
-
     fun e(message: String) {
         if (LOG_LEVEL > 0) Log.severe(message)
     }

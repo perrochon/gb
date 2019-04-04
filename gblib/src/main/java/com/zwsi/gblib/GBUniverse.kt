@@ -55,7 +55,7 @@ data class GBUniverse(
     ) {
     }
 
-    lateinit var autoPlayer : GBAutoPlayer
+    lateinit var autoPlayer: GBAutoPlayer
 
     var deepSpaceUidShips: MutableSet<Int> = HashSet<Int>() // UID of shipsData.
 
@@ -231,12 +231,16 @@ data class GBUniverse(
         u.news.add("\nTurn: ${turn.toString()}\n")
 
         // TODO Less code below
-        if (u.races.containsKey(0) && !u.race(0).dead() && u.demoMode) autoPlayer.playXenos(u.race(0))
-        if (u.races.containsKey(1) && !u.race(1).dead() && !secondPlayer) autoPlayer.playImpi(u.race(1))
-        if (u.races.containsKey(2) && !u.race(2).dead()) autoPlayer.playBeetle(u.race(2))
-        if (u.races.containsKey(3) && !u.race(3).dead()) autoPlayer.playTortoise(u.race(3))
-        if (u.races.containsKey(4) && !u.race(4).dead()) autoPlayer.playTools(u.race(4))
-        if (u.races.containsKey(5) && !u.race(5).dead()) autoPlayer.playGhosts(u.race(5))
+        if (u.races.containsKey(0) && !u.race(0).dead() && autoPlayer.autoPlayers[0] && u.demoMode) autoPlayer.playXenos(
+            u.race(0)
+        )
+        if (u.races.containsKey(1) && !u.race(1).dead() && autoPlayer.autoPlayers[1] && !secondPlayer) autoPlayer.playImpi(
+            u.race(1)
+        )
+        if (u.races.containsKey(2) && !u.race(2).dead() && autoPlayer.autoPlayers[2]) autoPlayer.playBeetle(u.race(2))
+        if (u.races.containsKey(3) && !u.race(3).dead() && autoPlayer.autoPlayers[3]) autoPlayer.playTortoise(u.race(3))
+        if (u.races.containsKey(4) && !u.race(4).dead() && autoPlayer.autoPlayers[4]) autoPlayer.playTools(u.race(4))
+        if (u.races.containsKey(5) && !u.race(5).dead() && autoPlayer.autoPlayers[5]) autoPlayer.playGhosts(u.race(5))
 
         for (o in orders) {
             o.execute()
