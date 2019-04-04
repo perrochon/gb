@@ -2,6 +2,9 @@ package com.zwsi.gblib
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.zwsi.gblib.GBData.Companion.DefaultNumberOfRaces
+import com.zwsi.gblib.GBData.Companion.DefaultNumberOfStars
+import com.zwsi.gblib.GBData.Companion.MissionRandom
 import com.zwsi.gblib.GBData.Companion.currentGameFileName
 import java.io.File
 import java.util.concurrent.locks.ReentrantLock
@@ -19,12 +22,10 @@ class GBController {
         // Where to store the snapshot after every turn
         var currentFilePath: File? = null
 
-        internal val numberOfStars = 24 // TODO Get Rid of these 4 constants here. GBData may keep some
-        internal val numberOfRaces = 6   // <= what we have in GBData.
-
         // Small universe has some hard coded rules around how many stars and how many planets per systems
         // Do not change these values...
         internal val numberOfStarsSmall = 6
+        internal val numberOfRacesSmall = 6
 
         // Big Universe just has a lot of stars, but is otherwise the same as regular sized
         internal val numberOfStarsBig = 100
@@ -56,14 +57,14 @@ class GBController {
         }
 
         internal fun makeSmallUniverse() {
-            makeUniverse(numberOfStarsSmall, numberOfRaces)
+            makeUniverse(numberOfStarsSmall, numberOfRacesSmall)
         }
 
         internal fun makeBigUniverse() {
-            makeUniverse(numberOfStarsBig, numberOfRaces)
+            makeUniverse(numberOfStarsBig, DefaultNumberOfRaces)
         }
 
-        internal fun makeUniverse(stars: Int = numberOfStars, races: Int = numberOfRaces) {
+        internal fun makeUniverse(stars: Int = DefaultNumberOfStars, races: Int = DefaultNumberOfRaces) {
             GBLog.i("Making Universe with $stars stars")
             elapsedTimeLastUpdate = measureNanoTime {
                 _u = GBUniverse(stars, races)

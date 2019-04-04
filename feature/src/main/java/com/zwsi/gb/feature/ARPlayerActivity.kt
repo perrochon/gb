@@ -6,8 +6,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.vm
-import com.zwsi.gb.feature.GBViewModel.Companion.missionResults
-import com.zwsi.gb.feature.GBViewModel.Companion.missionResultsString
+import com.zwsi.gblib.GBData.Companion.Mission1
+import com.zwsi.gblib.GBData.Companion.Mission2
+import com.zwsi.gblib.GBData.Companion.Mission3
+import com.zwsi.gblib.GBData.Companion.Mission4
+import com.zwsi.gblib.GBData.Companion.Mission5
+import com.zwsi.gblib.GBData.Companion.Mission6
 
 class ARPlayerActivity : AppCompatActivity() {
 
@@ -26,12 +30,18 @@ class ARPlayerActivity : AppCompatActivity() {
         })
 
         val statsTextView: TextView = findViewById(R.id.missionResults)
-        for (i in 0 until missionResults.size) {
-            if (missionResults[i]>0) {
-                statsTextView.append("Mission ${i + 1}: Achieved in ${missionResults[i]} turns.\n")
+
+        val sharedPref = this.getSharedPreferences("playerstats", MODE_PRIVATE)
+
+        for (i in arrayOf(Mission1, Mission2, Mission3, Mission4, Mission5, Mission6)) {
+
+            val days = sharedPref!!.getInt(i, -1)
+            if (days > 0) {
+                statsTextView.append("${i}: Achieved in ${days} turns.\n\n")
             } else {
-                statsTextView.append("Mission ${i + 1}: Not achieved yet.\n")
+                statsTextView.append("${i}: Not achieved yet.\n\n")
             }
+
         }
     }
 }

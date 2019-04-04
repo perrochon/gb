@@ -1,7 +1,6 @@
 package com.zwsi.gblib
 
 import com.squareup.moshi.JsonClass
-import com.sun.org.apache.xpath.internal.operations.Bool
 import com.zwsi.gblib.GBAutoPlayer.Companion.playBeetle
 import com.zwsi.gblib.GBAutoPlayer.Companion.playGhosts
 import com.zwsi.gblib.GBAutoPlayer.Companion.playImpi
@@ -16,24 +15,33 @@ import kotlin.math.PI
 import kotlin.math.max
 import kotlin.math.min
 
+
+const val MISSION_NONE = 0
+const val MISSION_COLONIZE = 1
+const val MISSION_EXTERMINATE = 2
+
 @JsonClass(generateAdapter = true)
 data class GBUniverse(
     // Constant Fields
-    var id: String = "unknown",
-    var description: String = "Unitialized universe",
+    val numberOfStars: Int = 15,
+    val numberOfRaces: Int = 6,
+    val universeMaxX: Int = GBData.UniverseMaxX,
+    val universeMaxY: Int = GBData.UniverseMaxY,
+    val starMaxOrbit: Float = GBData.starMaxOrbit,
+    val planetOrbit: Float = GBData.PlanetOrbit,
+
+    var id: String = "not set",
+    var description: String = MissionRandom,
     var demoMode: Boolean = false,
-    val universeMaxX: Int = -1,
-    val universeMaxY: Int = -1,
-    val starMaxOrbit: Float = -1f,
-    val planetOrbit: Float = -1f,
-    val numberOfStars: Int = -1,
-    val numberOfRaces: Int = -1,
+    var missionGoal: Int = MISSION_NONE,
+    var missionCompletedTurns: Int = -1,
+
     // Variable Fields
-    var nextGlobalID: Int = -1,
+    var nextGlobalID: Int = 1000,
     var secondPlayer: Boolean = false,
     val playerTurns: IntArray = intArrayOf(5, 5), // uidActive Players currently is 0 or 1, so can use uid
 
-    var turn: Int = -1,
+    var turn: Int = 1,
     // FIXME PERSISTENCE SavedGameTest reassign these lists, instead of creating a new Universe. Once fixed, can use val
     // Will val persist them in JSON, though?
     var stars: MutableMap<Int, GBStar> = hashMapOf<Int, GBStar>(),
@@ -44,23 +52,12 @@ data class GBUniverse(
     val shots: MutableList<GBVector> = arrayListOf<GBVector>(),
     val news: MutableList<String> = arrayListOf<String>()
     // orders not needed while we only save/restore at beginning of turn
-) {
 
+) {
     //numberOfRaces <= what we have in GBData. >= 4 or tests will fail
     constructor(_numberOfStars: Int, _numberOfRaces: Int) : this(
-        MissionRandom,
-        "A random universe.",
-        false,
-        GBData.UniverseMaxX,
-        GBData.UniverseMaxY,
-        GBData.starMaxOrbit,
-        GBData.PlanetOrbit,
-        _numberOfStars,
-        _numberOfRaces,
-        1000,
-        false,
-        intArrayOf(5, 5),
-        1
+        numberOfStars = _numberOfStars,
+        numberOfRaces = _numberOfRaces
     ) {
     }
 
@@ -323,6 +320,8 @@ data class GBUniverse(
 
         fireShots()
 
+        checkMissionSuccess()
+
         // last thing we do...
         turn++
 
@@ -334,15 +333,16 @@ data class GBUniverse(
         // PERF Create one list of all insystem ships, then find shots
         for ((_, star) in stars) {
 
-            var systemShips = star.starShips +
-                    star.starPatrolPoints[0].orbitShips +
-                    star.starPatrolPoints[1].orbitShips
+            val systemShips = mutableListOf<GBShip>()
+            systemShips.addAll(star.starShips)
+            systemShips.addAll(star.starPatrolPoints[0].orbitShips)
+            systemShips.addAll(star.starPatrolPoints[1].orbitShips)
 
             // TODO right now we allow in-system to shoot at landed ships. We may want to limit this to orbit ships.
 
             for (p in star.starPlanets) {
-                systemShips += p.orbitShips
-                systemShips += p.landedShips
+                systemShips.addAll(p.orbitShips)
+                systemShips.addAll(p.landedShips)
             }
 
 
@@ -376,5 +376,29 @@ data class GBUniverse(
         sh2.health = max(0, sh2.health - sh1.damage)
 
         u.news.add("${sh1.name} fired at ${sh2.name}.\n")
+    }
+
+    private fun checkMissionSuccess() {
+
+        if (u.missionCompletedTurns > 0) {
+            return
+        }
+
+        when (u.missionGoal) {
+            MISSION_COLONIZE -> {
+                if (u.planets.values.filter { it.planetPopulation == 0 }.isEmpty()) {
+                    u.missionCompletedTurns = u.turn
+                    u.news.add("Congratulations! You completed ${u.id} in ${u.missionCompletedTurns} turns.")
+
+
+                }
+            }
+            MISSION_EXTERMINATE -> {
+                if (u.races.values.filter { it.uid == 0 || it.dead() }.isEmpty()) {
+                    u.missionCompletedTurns = u.turn
+                    u.news.add("Congratulations! You completed ${u.id} in  ${u.missionCompletedTurns} turns.")
+                }
+            }
+        }
     }
 }

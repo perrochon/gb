@@ -25,6 +25,9 @@ class GBData {
 
         val rand = Random(1) // Our RNG. We could seed it for testing. Make it var, and assign in init block?
 
+        internal const val DefaultNumberOfStars = 23
+        internal const val DefaultNumberOfRaces = 6
+
         internal const val UniverseMaxX = 1000 // Width of the Universe
         internal const val UniverseMaxY = 1000 // Height of the Universe
         // TODO difference between these two
@@ -35,12 +38,12 @@ class GBData {
         internal const val MinNumberOfPlanets = 2
         internal const val MaxNumberOfPlanets = 8
 
-        internal const val Mission1 = "Mission 1"
-        internal const val Mission2 = "Mission 2"
-        internal const val Mission3 = "Mission 3"
-        internal const val Mission4 = "Mission 4"
-        internal const val Mission5 = "Mission 5"
-        internal const val Mission6 = "Mission 6"
+        const val Mission1 = "Mission 1"
+        const val Mission2 = "Mission 2"
+        const val Mission3 = "Mission 3"
+        const val Mission4 = "Mission 4"
+        const val Mission5 = "Mission 5"
+        const val Mission6 = "Mission 6"
         internal const val MissionRandom = "Random Mission"
         internal const val Map1 = "Map 1"
         internal const val Map2 = "Map 2"

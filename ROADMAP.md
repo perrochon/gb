@@ -8,8 +8,7 @@ game play, or prevent game play are second priority. Here are a few examples
 * Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
 ## Short Term Small Items
-* Play Impis in Map (generally fix who plays)
-* Stronger AI... Ghosts only go to one planet, xenos fly like drunk
+* Fix sporadically failing tests!
 * Improve action counts
 * Better Track mission wins
 * Race Screen: Stats, population, money, ships, etc.

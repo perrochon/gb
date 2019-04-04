@@ -2,8 +2,6 @@ package com.zwsi.gb.feature
 
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
-import android.content.SharedPreferences
-import com.zwsi.gblib.GBData.Companion.HEADQUARTERS
 import com.zwsi.gblib.GBUniverse
 import kotlin.system.measureNanoTime
 
@@ -37,7 +35,6 @@ class GBViewModel {
         var newsHistory = mutableListOf<String>()
 
         var context: Context? = null // Keeping the Application Context in a singleton in case we need it.
-        private var sharedPref: SharedPreferences? = null
         var showStats = false
         var showRaceStats = true
         var showClickTargets = false
@@ -75,57 +72,22 @@ class GBViewModel {
                 while (newsHistory.size > 50) {
                     newsHistory.removeAt(0)
                 }
+
+                if (vm.missionCompletedTurns > 0 ) {
+                    val sharedPref = context?.getSharedPreferences("playerstats", Context.MODE_PRIVATE)
+                    if (sharedPref != null && vm.missionCompletedTurns < sharedPref!!.getInt(vm.id, 99999)) {
+                        with(sharedPref.edit()) {
+                            putInt(vm.id, vm.missionCompletedTurns)
+                            apply()
+                        }
+                    }
+                }
+
                 ready = true
 
             }
 
-            // FIXME Mission Achieved Hack
-
-            if (vm.description == "Mission 2: Conquer neighbouring systems") {
-                if (vm.ships.filter { it.value.idxtype == HEADQUARTERS }.count() == 1) {
-
-                    val sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
-
-                    // FIXME Move mission check into separate class
-                    // FIXME Better Test (make sure player is winning, not Computer)  But then 1 HQ left is the default win condition...
-                    // FIXME Better string updates
-                    // FIXME Don't increase on every later turn. Don't increase if current turn higher than existing value!
-
-                    // https://stackoverflow.com/questions/7175880/how-can-i-store-an-integer-array-in-sharedpreferences
-
-                    // Here is how the "convert to comma-separated String" solution could look in Kotlin, implemented as extension functions:
-                    //
-                    //fun SharedPreferences.Editor.putIntArray(key: String, value: IntArray): SharedPreferences.Editor {
-                    //    return putString(key, value.joinToString(
-                    //            separator = ",",
-                    //            transform = { it.toString() }))
-                    //}
-                    //
-                    //fun SharedPreferences.getIntArray(key: String): IntArray {
-                    //    with(getString(key, "")) {
-                    //        with(if(isNotEmpty()) split(',') else return intArrayOf()) {
-                    //            return IntArray(count(), { this[it].toInt() })
-                    //        }
-                    //    }
-                    //}
-                    //That way you can use putIntArray(String, IntArray) and getIntArray(String) just like the other put and set methods:
-                    //
-                    //val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                    //prefs.edit().putIntArray(INT_ARRAY_TEST_KEY, intArrayOf(1, 2, 3)).apply()
-                    //val intArray = prefs.getIntArray(INT_ARRAY_TEST_KEY)
-
-
-                    missionResultsString = "999,${vm.turn},-1,-1,-1,-1" // FIXME This is a terrible hack
-                    with(sharedPref.edit()) {
-                        putString("missionResults", missionResultsString)
-                        apply()
-                    }
-                    GBViewModel.updatePlayerStats()
-                }
-
-            }
-
-            /*
+            /* FIXME
             Note: You must call the setValue(T) method to update the LiveData object from the main thread.
             If the code is executed in a worker thread, you can use the postValue(T) method instead
             to update the LiveData object.
@@ -137,8 +99,7 @@ class GBViewModel {
 
         fun updatePrefs() {
             if (context != null) {
-                sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
-//                secondPlayer = sharedPref!!.getBoolean("secondPlayer", false)
+                val sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
                 showStats = sharedPref!!.getBoolean("showStats", false)
                 showRaceStats = sharedPref!!.getBoolean("showRaceStats", false)
                 showClickTargets = sharedPref!!.getBoolean("showClickTargets", false)
@@ -146,14 +107,6 @@ class GBViewModel {
                 superSensors = sharedPref!!.getBoolean("superSensors", false)
             }
 
-        }
-
-        fun updatePlayerStats() {
-            if (context != null) {
-                sharedPref = context!!.getSharedPreferences("playerstats", Context.MODE_PRIVATE)
-                missionResultsString = sharedPref!!.getString("missionResults", missionResultsString)!!
-                missionResults = missionResultsString.split(",").map { it.toInt() }
-            }
         }
 
     }

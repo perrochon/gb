@@ -6,6 +6,8 @@
 package com.zwsi.gblib
 
 import com.zwsi.gblib.GBController.Companion.u
+import com.zwsi.gblib.GBData.Companion.DefaultNumberOfRaces
+import com.zwsi.gblib.GBData.Companion.DefaultNumberOfStars
 import com.zwsi.gblib.GBData.Companion.PlanetOrbit
 import com.zwsi.gblib.GBData.Companion.starMaxOrbit
 import org.junit.Assert.assertEquals
@@ -24,8 +26,8 @@ class GBLibTest {
     @Test
     fun verifyConstants() {
         // If these are different, some other tests in this class will fail
-        assertEquals(24, GBController.numberOfStars)
-        assertEquals(6, GBController.numberOfRaces)
+        assertEquals(24, DefaultNumberOfStars)
+        assertEquals(6, DefaultNumberOfRaces)
         assertEquals(6, GBController.numberOfStarsSmall)
         assertEquals(100, GBController.numberOfStarsBig)
     }
