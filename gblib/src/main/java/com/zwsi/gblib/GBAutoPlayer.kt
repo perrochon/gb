@@ -57,11 +57,11 @@ class GBAutoPlayer() {
         other: Int
     ) {
         when {
-//                r.raceShips.filter { it.idxtype == POD }.size < 0 -> { // FIXME Pods creation fails anyway, so let's not attempt to do them here
-//                    val order = GBOrder()
-//                    order.makeShip(factory.uid, POD)
-//                    u.orders.add(order)
-//                }
+            r.raceShips.filter { it.idxtype == POD }.size < pod -> { // FIXME Pods creation fails anyway, so let's not attempt to do them here
+                val order = GBOrder()
+                order.makeShip(factory.uid, POD)
+                u.orders.add(order)
+            }
             r.raceShips.filter { it.idxtype == CRUISER }.size < cruiser -> {
                 val order = GBOrder()
                 order.makeShip(factory.uid, CRUISER)
@@ -89,6 +89,20 @@ class GBAutoPlayer() {
             }
         }
 
+    }
+
+    private fun deployPods(r: GBRace) {
+        for (pod in r.raceShips.filter { (it.idxtype == GBData.POD) && (it.dest == null) }) {
+
+            val planet = u.planets.values.filter { !it.planetUidRaces.contains(r.uid) }.sortedBy {
+                it.loc.getLoc().distance(pod.loc.getLoc())
+            }.firstOrNull()
+            if (planet != null) {
+                pod.dest = GBLocation(planet, 0, 0)
+                GBLog.d("Setting Destination of " + pod.name + " to " + planet.name)
+            }
+        }
+        GBLog.d("Directed Pods")
     }
 
     private fun deployShips(r: GBRace, type: Int, targetPlanet: GBPlanet? = null) {
@@ -133,6 +147,7 @@ class GBAutoPlayer() {
             orderShips(r, factory, 20, 5, 10, 0, 0, CRUISER)
         }
         deployShips(r, DEPLOYMENT_RANDOM)
+        deployPods(r)
 
     }
 
@@ -146,6 +161,7 @@ class GBAutoPlayer() {
         orderShips(r, factory, 20, 5, 5, 0, 0, BATTLESTAR)
 
         deployShips(r, DEPLOYMENT_RANDOM)
+        deployPods(r)
 
     }
 
@@ -189,6 +205,7 @@ class GBAutoPlayer() {
         }
 
         deployShips(r, DEPLOYMENT_ATTACK)
+        deployPods(r)
 
     }
 
@@ -208,10 +225,12 @@ class GBAutoPlayer() {
 
         orderShips(r, factory, 20, 10, 5, 5, 5, BATTLESTAR)
 
-        if (u.turn % 2 == 0) {
+        if (u.turn % 10 == 0) {
             deployShips(r, DEPLOYMENT_TOPLANET, toolsTargets.first())
             toolsTargets.removeAt(0)
         }
+
+        deployPods(r)
 
     }
 
@@ -221,9 +240,10 @@ class GBAutoPlayer() {
 
         val factory = findOrOrderFactory(r) ?: return
 
-        orderShips(r, factory, 50, 5, 5, 10, 5, SHUTTLE)
+        orderShips(r, factory, 5, 5, 10, 10, 5, SHUTTLE)
 
         deployShips(r, DEPLOYMENT_GAS)
+        deployPods(r)
 
     }
 
