@@ -144,6 +144,8 @@ data class GBPlanet(val uid: Int, val sid: Int, val uidStar: Int, var loc: GBLoc
 
                 GBLog.d("New Population is ${sectors[i].population}")
 
+                sectors[i].sectorOwner.money += 1
+
             }
         }
 

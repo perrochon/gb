@@ -127,8 +127,11 @@ class GBAutoPlayer() {
         // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
         val factory = findOrOrderFactory(r) ?: return
 
-        orderShips(r, factory, 20, 5, 10, 0, 0, CRUISER)
-
+        if (r.money > GBData.shipsData[BATTLESTAR]!!.cost) {
+            orderShips(r, factory, 20, 5, 10, 0, 0, BATTLESTAR)
+        } else {
+            orderShips(r, factory, 20, 5, 10, 0, 0, CRUISER)
+        }
         deployShips(r, DEPLOYMENT_RANDOM)
 
     }
@@ -152,15 +155,14 @@ class GBAutoPlayer() {
         GBLog.d("Playing Beetles in turn ${u.turn} (${u.ship(r.uidHeadquarters).health})")
 
         // Find factory and order a pod. If we don't have a factory order one at home.
-        val factory = findOrOrderFactory(r) ?: return
-
         orderFactories(r)
 
-        val order = GBOrder()
-        order.makeShip(factory.uid, POD)
-        u.orders.add(order)
-        GBLog.d("Ordered Pod")
-
+        for ((uid) in r.raceShips.filter { it.idxtype == FACTORY }) {
+            val order = GBOrder()
+            order.makeShip(uid, POD)
+            u.orders.add(order)
+            GBLog.d("Ordered Pod")
+        }
         // Send any pod that doesn't have a destination to some random planet
         for (pod in r.raceShips.filter { (it.idxtype == GBData.POD) && (it.dest == null) }) {
 
@@ -180,7 +182,11 @@ class GBAutoPlayer() {
         // Find factory and order a cruiser, up to a certain number of shipsData. If we don't have a factory order one
         val factory = findOrOrderFactory(r) ?: return
 
-        orderShips(r, factory, 0, 31, 5, 5, 5, CRUISER)
+        if (r.money > GBData.shipsData[BATTLESTAR]!!.cost) {
+            orderShips(r, factory, 5, 31, 5, 5, 5, BATTLESTAR)
+        } else {
+            orderShips(r, factory, 5, 31, 5, 5, 5, CRUISER)
+        }
 
         deployShips(r, DEPLOYMENT_ATTACK)
 
