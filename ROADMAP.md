@@ -8,6 +8,7 @@ game play, or prevent game play are second priority. Here are a few examples
 * Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
 ## Short Term Small Items
+* Disable Demo mode option for PvP maps.
 * Have autoplayers use pods, or 
 * Allow shuttles to colonize
 * Improve action counts

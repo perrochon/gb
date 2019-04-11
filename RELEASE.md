@@ -22,6 +22,7 @@ Steps for release, because I always forget some. // TODO Automate this
 
 0.1.781
 - Stronger AIs. Beetles have awesome defense now, but still die...
+- Owning sectors (on planets) currently gives you 1 credit per turn. Use pods to colonize.
 - Now all missions test for and celebrate mission success
 - Demo mode, and switch to turn on demo mode for Xenos for all missions
 - Massive upgrade in version number scheme
