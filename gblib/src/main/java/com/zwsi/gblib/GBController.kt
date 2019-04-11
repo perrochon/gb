@@ -259,5 +259,16 @@ class GBController {
                 GBController.lock.unlock()
             }
         }
+
+        fun setDemoMode(_demoMode: Boolean) {
+
+            GBController.lock.lock();
+            try {
+                u.demoMode = _demoMode
+            } finally {
+                GBController.lock.unlock()
+            }
+        }
+
     }
 }

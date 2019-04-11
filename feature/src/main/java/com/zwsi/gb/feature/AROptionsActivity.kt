@@ -4,12 +4,16 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.Switch
+import android.widget.TextView
 import com.zwsi.gb.feature.GBViewModel.Companion.showClickTargets
 import com.zwsi.gb.feature.GBViewModel.Companion.showContButton
 import com.zwsi.gb.feature.GBViewModel.Companion.showRaceStats
 import com.zwsi.gb.feature.GBViewModel.Companion.showStats
 import com.zwsi.gb.feature.GBViewModel.Companion.superSensors
+import com.zwsi.gb.feature.GBViewModel.Companion.vm
+import com.zwsi.gblib.GBController
 
 class AROptionsActivity : AppCompatActivity() {
 
@@ -79,6 +83,14 @@ class AROptionsActivity : AppCompatActivity() {
             GBViewModel.updatePrefs()
             GBViewModel.actionsTaken.value = System.currentTimeMillis().toInt()
 
+        }
+
+        val DemoModeButton: Switch = findViewById(R.id.DemoModeButton)
+        DemoModeButton.isChecked
+        DemoModeButton.setOnCheckedChangeListener { _, isChecked ->
+            vm.demoMode = isChecked
+            GBController.setDemoMode(isChecked)
+            GBViewModel.actionsTaken.value = System.currentTimeMillis().toInt()
         }
     }
 
