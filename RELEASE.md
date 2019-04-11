@@ -20,9 +20,11 @@ Steps for release, because I always forget some. // TODO Automate this
 
 ### Release Notes
 
-next
+0.1.781
 - Stronger AIs. Beetles have awesome defense now, but still die...
 - Now all missions test for and celebrate mission success
+- Demo mode, and switch to turn on demo mode for Xenos for all missions
+- Massive upgrade in version number scheme
 
 .754/.756/.765
 - New ship types: shuttles, battle stars, stations, headquarters, research centers.
