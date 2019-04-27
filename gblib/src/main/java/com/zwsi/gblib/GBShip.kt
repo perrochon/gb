@@ -25,7 +25,9 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
     var type = GBData.shipsData[idxtype]!!.type
     var speed =
-        GBData.shipsData[idxtype]!!.speed   // TODO Feature: hyperspeed per type (as opposed to fixed multiplier)
+        GBData.shipsData[idxtype]!!.speed
+    var hyperspeed =
+        GBData.shipsData[idxtype]!!.hyperspeed
     var damage = GBData.shipsData[idxtype]!!.damage
     var range = GBData.shipsData[idxtype]!!.range
 
@@ -309,17 +311,9 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
             }
 
-            var nxy = sxy.towards(dxy, speed.toFloat())
-
             if (loc.level == DEEPSPACE) {
 
-                var hyperspeed = speed.toFloat()
-
-                if (idxtype != POD) { // TODO All but pods have hyperdrive
-                    hyperspeed = hyperspeed * 2
-                    nxy = sxy.towards(dxy, hyperspeed)
-                }
-
+                val nxy = sxy.towards(dxy, hyperspeed.toFloat())
                 val distanceToStar = sxy.distance(moveDest.getStar()!!.loc.getLoc())
 
                 if (distanceToStar < hyperspeed + GBData.starMaxOrbit) { // we arrived at destination System
@@ -349,37 +343,35 @@ data class GBShip(val uid: Int, val idxtype: Int, val uidRace: Int, var loc: GBL
 
 
             } else {
+//                val distanceToStar = sxy.distance(loc.getStar()!!.loc.getLoc())
+//                if (distanceToStar > GBData.starMaxOrbit) {  // we left the system
+                  if (loc.getUidStar() != dest!!.getUidStar()) { // changing system, so entering hyperspace
+                      // FIXME Pods also enter Deepspace immediately, but they don't really have hyper speed.
+                      // FIXME
 
-                val distanceToStar = sxy.distance(loc.getStar()!!.loc.getLoc())
-
-                if (distanceToStar > GBData.starMaxOrbit) {  // we left the system
-
+                    val nxy = sxy.towards(dxy, hyperspeed.toFloat())
                     val next = GBLocation(nxy.x, nxy.y)
                     changeShipLocation(next)
-
                     GBLog.d("Left System")
 
                     //u.news.add("$name entered Deep Space.\n")
                     return
                 } else {
 
-                    // Flying insystem
-
-                    val next: GBLocation
-
                     if (moveDest.level == ORBIT || moveDest.level == LANDED) {
                         // Fly to where planet will  be, not where it is. TODO same thing when in deepspace.
                         val n = (distanceToDestination / speed).toInt()
                         val target = moveDest.getPlanet()!!.computePlanetPositions(n)
-                        nxy = sxy.towards(target.getLoc(), speed.toFloat())
-                        next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
-
+                        val nxy = sxy.towards(target.getLoc(), speed.toFloat())
+                        val next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
+                        changeShipLocation(next)
                     } else {
                         // Not sure this is ever executed right now
-                        next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
+                        val nxy = sxy.towards(dxy, speed.toFloat())
+                        val next = GBLocation(loc.getStar()!!, nxy.x, nxy.y, true)
+                        changeShipLocation(next)
                     }
 
-                    changeShipLocation(next)
 
                     GBLog.d("Flying insystem ")
 

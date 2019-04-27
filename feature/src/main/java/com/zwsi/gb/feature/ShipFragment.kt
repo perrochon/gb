@@ -170,7 +170,10 @@ class ShipFragment : Fragment() {
             stats.setText("Name: " + sh.name + "\n")
             stats.append("Type: " + sh.type + "\n")
             stats.append("Race: " + sh.race.name + "\n")
-            stats.append("Speed: " + sh.speed + "\n")
+            if (sh.speed > 0) {
+                stats.append("Speed: " + sh.speed + "\n")
+                stats.append("Hyperspeed: " + sh.hyperspeed + "\n")
+            }
             if (sh.guns > 0) {
                 stats.append("Weapons: " + sh.guns + " ")
                 stats.append("Damage: " + sh.damage + " ")

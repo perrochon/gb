@@ -221,6 +221,7 @@ class GBData {
         data class ShipData(
             val type: String,
             val speed: Int,
+            val hyperspeed: Int,
             val shots: Int,
             val damage: Int,
             val range: Int,
@@ -230,14 +231,14 @@ class GBData {
         )
 
         val shipsData = hashMapOf(
-            FACTORY to ShipData("Factory", 0, 0, 0, 0, 500, 0, true),
-            POD to ShipData("Spore Pod", 1, 0, 0, 0, 10, 10, true),
-            CRUISER to ShipData("Cruiser", 3, 1, 40, 5, 100, 50, false),
-            HEADQUARTERS to ShipData("Headquarters", 0, 0, 0, 0, 1000, 5000, true),
-            RESEARCH to ShipData("Research", 0, 0, 0, 100, 100, 2000, true),
-            SHUTTLE to ShipData("Shuttle", 3, 1, 0, 2, 50, 20, false),
-            BATTLESTAR to ShipData("Battle Star", 1, 4, 60, 8, 1000, 1000, false),
-            STATION to ShipData("Orbital Station", 0, 6, 50, 10, 100, 500, false)
+            FACTORY to ShipData("Factory", 0,0, 0, 0, 0, 500, 0, true),
+            POD to ShipData("Spore Pod", 1,1, 0, 0, 0, 10, 10, true),
+            CRUISER to ShipData("Cruiser", 3,10, 1, 40, 5, 100, 50, false),
+            HEADQUARTERS to ShipData("Headquarters", 0,0, 0, 0, 0, 1000, 5000, true),
+            RESEARCH to ShipData("Research", 0,0, 0, 0, 100, 100, 2000, true),
+            SHUTTLE to ShipData("Shuttle", 3,10, 1, 0, 2, 50, 20, false),
+            BATTLESTAR to ShipData("Battle Star", 1,10, 4, 60, 8, 1000, 1000, false),
+            STATION to ShipData("Orbital Station", 0,0, 6, 50, 10, 100, 500, false)
         )
 
         // Stars
