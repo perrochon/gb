@@ -20,6 +20,9 @@ Steps for release, because I always forget some. // TODO Automate this
 
 ### Release Notes
 
+next
+- Increased hyperspeed 2-3x to speed up the action
+
 0.1.781
 - Stronger AIs. Beetles have awesome defense now, but still die...
 - Owning sectors (on planets) currently gives you 1 credit per turn. Use pods to colonize.
