@@ -4,7 +4,7 @@ Kotlin on Android based implementation of a game that is inspired by Galactic Bl
 Wargame. It's a turn based 4x game. For now, it's single player on device only, but the current long term plan is to 
 make it multi-player Internet based.
 
-Find it in the appstore: https://play.google.com/store/apps/details?id=com.zwsi.gb.app&hl=en
+Find it in the Play store: https://play.google.com/store/apps/details?id=com.zwsi.gb.app&hl=en
 
 ### Directories
 
