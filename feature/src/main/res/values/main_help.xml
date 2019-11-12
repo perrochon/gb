@@ -74,9 +74,9 @@
 
         <big>God Mode Fun Stuff</big>
         <ul>
-            <li>Click on "Cont(inue)". This will start automated turns until you hit "Cont" again. It's like
+            <li>Click on "Cont(inue)". This will start automated turns until you hit "Cont" again. It\'s like
                 fast-forward. You can leave it on and see your planets orbit your star. Zoom all the way out to see
-                other races' ships exploring. Beware of the beetles.
+                other races\' ships exploring. Beware of the beetles.
             </li>
 
             <li>Send cruisers to some of the other systems, or wait for the beetles to arrive.</li>
@@ -90,11 +90,11 @@
                 <A href="https://github.com/perrochon/gb/blob/master/ROADMAP.md">road map</a>
             </li>
 
-            <li>Why don't my ships shoot at enemy ships passing through a star system?
+            <li>Why don\'t my ships shoot at enemy ships passing through a star system?
                 <br>
                 It may look like they fly through the system, but they are way above or below in the galactic planet.
-                One way to tell if a Pod is in-system is to watch it's trail. If it's straight, it may be heading
-                elsewhere. If it curves toward a planet then it's in-system. Another way to tell is by looking closely
+                One way to tell if a Pod is in-system is to watch it\'s trail. If it\'s straight, it may be heading
+                elsewhere. If it curves toward a planet then it\'s in-system. Another way to tell is by looking closely
                 at the color. Deep space ships are more muted than in-system.
             </li>
 
@@ -103,7 +103,7 @@
                 An experimental feature shows click targets. If it has a circle, you can click it.
             </li>
 
-            <li>What's up with the graphics?
+            <li>What\'s up with the graphics?
                 <br>
                 All graphics assets are currently place holders. The ship and race pictures have been drawn by a local
                 aspiring artist. If you are a graphics designer and have cycles to spare, feel free to reach out to me.
@@ -111,13 +111,13 @@
 
             <li>What is the background
                 <br>
-                The background is <a href="https://spacetelescope.org/images/heic0601a/">Hubble's picture of the
+                The background is <a href="https://spacetelescope.org/images/heic0601a/">Hubble\'s picture of the
                 Orion Nebula.</a> Hubble took pictures of Andromeda, too. But Orion is more dramatic.
             </li>
 
             <li>Why is there a GB on some screens?
                 <br>
-                It's a reference to Galactic Bloodshed, an 80/90 online multi-user 4X space themed game.
+                It\'s a reference to Galactic Bloodshed, an 80/90 online multi-user 4X space themed game.
             </li>
 
         </ul>
