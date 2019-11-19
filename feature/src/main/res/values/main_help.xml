@@ -13,22 +13,35 @@
             anyone in your way (4X).
         </p>
 
-        <p>This game is in internal release only and has limited game play at this point. Please do not install if you
-            do not want to be an early tester.
+        <p>This game is in early release and has limited game play. Please do not install if you
+           do not want to be an early tester.
         </p>
 
         <big>Main Menu</big>
         <ul>
+            <li>Play - Play the current game. Greyed out until you load a mission or a game</li>
+
+            <li>Save Game - Save your current game (Greyed out due to not implemented yet) </li>
+
+            <li>Load Game - Load a new Game. Choose between single player missions, two player
+            Pass and Play maps, or a demo mode.</li>
+
+            <li>Stats - Your player achievements</li>
+
             <li>Help - Loads this page</li>
 
-            <li>New Game - Creates a new random map.</li>
+            <li>Options - Change various Options</li>
 
-            <li>Play - Play the game. Greyed out until you load a mission or a game</li>
+            <li>Do - Finalize your turn and let the enemies do their turn.</li>
+
+
 
             <li>Mission 1/2/3 - Three missions to play (see below for details)</li>
         </ul>
 
-        <big>Mission 1 - Secure Your Star System</big>
+        <big>Load Games</big>
+
+        <b>Mission 1 - Secure Your Star System</b>
 
         <ul>
             <li>Click on Map - the map will show you your home planet</li>
@@ -59,7 +72,7 @@
             <li>Mission Success: Population on all planets. Armed ships (i.e. cruiser) around all planets.</li>
         </ul>
 
-        <big>Mission 2 - Explore Next System</big>
+        <b>Mission 2 - Explore Next System</b>
         <ul>
             <li>Zoom out all the way. By now, you should see other ships from other races. They are not friendly.</li>
 
@@ -72,14 +85,20 @@
             </li>
         </ul>
 
-        <big>God Mode Fun Stuff</big>
+        <big>Options</big>
         <ul>
+            <li>Hyper Sensors - show you all ships anywhere in the universe.
+            Turned off, you can only see enemy ships if they are in the same system as you.<li>
+            <li>Show Perf Stats - Displays various performance related stats.<li>
+            <li>Show Race Stats - Displays stats about each races in the Universe.<li>
+            <li>Show Click Targets - Displays the circle that registers clicks.<li>
+            <li>Show Continuous Do Button - Display Fast Forward button where you skip your turns.
+                You can leave it on and see your planets orbit your star. Zoom all the way out to see
+                other races\' ships exploring. Beware of the beetles.<li>
+            <li>Play Xenos - Let the computer play all races. Works together with Continuous Do and the Demo map.<li>
             <li>Click on "Cont(inue)". This will start automated turns until you hit "Cont" again. It\'s like
-                fast-forward. You can leave it on and see your planets orbit your star. Zoom all the way out to see
-                other races\' ships exploring. Beware of the beetles.
+                fast-forward.
             </li>
-
-            <li>Send cruisers to some of the other systems, or wait for the beetles to arrive.</li>
         </ul>
 
         <big>FAQ</big>
