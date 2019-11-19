@@ -119,7 +119,8 @@
 
             <li>What are the circles around some ships?
                 <br>
-                An experimental feature shows click targets. If it has a circle, you can click it.
+                An experimental feature shows click targets. If it has a circle, you can click it. You can toggle this
+                in options (Show Click Targets)
             </li>
 
             <li>What\'s up with the graphics?
