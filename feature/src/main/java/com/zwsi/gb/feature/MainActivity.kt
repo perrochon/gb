@@ -195,7 +195,7 @@ class MainActivity : AppCompatActivity() {
                     messageBox.append(", but file is empty")
                 }
             } else {
-                messageBox.append("Couldn't find any current game. Please create a new Universe, or start a mission.")
+                messageBox.append("Couldn't find any current game. Click LOAD GAME to load a mission or HELP to learn more.")
             }
         }
     }
