@@ -29,6 +29,9 @@ game play, or prevent game play are second priority. Here are a few examples
 * Different speeds on auto, or until contact/battle
 * Manual Shooting?
 * Set Destination on Map, not from a list?
+  # Look and Feel: 
+* Better bitmaps, buttons, etc.
+* Stars should get bigger at high zoom level, similar to planets
 
 ## Regression
 

@@ -233,25 +233,25 @@ class MapActivity : AppCompatActivity() {
         money2.text = "${vm.races[1]?.money ?: 0}" // Mission 1 only has one race...
         if (vm.secondPlayer) {
             if (uidActivePlayer == 0) {
-                action1.visibility = View.VISIBLE
-                money1.visibility = View.VISIBLE
-                action2.visibility = View.VISIBLE
-                money2.visibility = View.INVISIBLE
+                action1Area.visibility = View.VISIBLE
+                money1Area.visibility = View.VISIBLE
+                action2Area.visibility = View.VISIBLE
+                money2Area.visibility = View.INVISIBLE
             } else {
-                action1.visibility = View.VISIBLE
-                money1.visibility = View.INVISIBLE
-                action2.visibility = View.VISIBLE
-                money2.visibility = View.VISIBLE
+                action1Area.visibility = View.VISIBLE
+                money1Area.visibility = View.INVISIBLE
+                action2Area.visibility = View.VISIBLE
+                money2Area.visibility = View.VISIBLE
             }
             image2.visibility = View.VISIBLE
             image1.visibility = View.VISIBLE
         } else {
-            action1.visibility = View.INVISIBLE
+            action1Area.visibility = View.INVISIBLE
             image1.visibility = View.VISIBLE
-            money1.visibility = View.VISIBLE
-            action2.visibility = View.INVISIBLE
+            money1Area.visibility = View.VISIBLE
+            action2Area.visibility = View.INVISIBLE
             image2.visibility = View.INVISIBLE
-            money2.visibility = View.INVISIBLE
+            money2Area.visibility = View.INVISIBLE
         }
     }
 
