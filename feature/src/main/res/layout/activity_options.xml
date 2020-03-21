@@ -173,6 +173,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/DemoModeButton"
                     android:background="@drawable/border_message"
+                    android:visibility="invisible"
                     />
         </LinearLayout>
 
