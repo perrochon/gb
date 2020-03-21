@@ -20,25 +20,27 @@ Steps for release, because I always forget some. // TODO Automate this
 
 ### Release Notes
 
-next
-- Increased hyperspeed 2-3x to speed up the action
+0.2.799
+- .2 for "Shelter in Place" releases. Might as well code if I have to shelter.
+- Increased hyper speed 2-3x to speed up the action.
+- Minor visual refreshes and help text updates.
 
 0.1.781
-- Stronger AIs. Beetles have awesome defense now, but still die...
+- Stronger AIs. Beetles have awesome defense now, but still die.
 - Owning sectors (on planets) currently gives you 1 credit per turn. Use pods to colonize.
-- Now all missions test for and celebrate mission success
-- Demo mode, and switch to turn on demo mode for Xenos for all missions
-- Massive upgrade in version number scheme
+- Now all missions test for and celebrate mission success.
+- Demo mode, and switch to turn on demo mode for Xenos for all missions.
+- Massive upgrade in version number scheme.
 
 .754/.756/.765
 - New ship types: shuttles, battle stars, stations, headquarters, research centers.
 - Races earn money each turn which limits their building abilities. Battle stars are pricey.
 - Missions are "destroy all other headquarters" (except first mission). 
-- Player Stats Screen. Beat your personal record for each mission
-- Two new races
-- Three new missions (still suffering from true diversity)
-- New Destination Selection Activity replaces ugly Spinner
-- Stations are animated
+- Player Stats Screen. Beat your personal record for each mission.
+- Two new races.
+- Three new missions (still suffering from true diversity).
+- New Destination Selection Activity replaces ugly Spinner.
+- Stations are animated.
 - Better AI in .765
 
 .677/.678
