@@ -10,7 +10,7 @@ Steps for release, because I always forget some. // TODO Automate this
 - In build.gradle update version_name to one more than commit # from Github
 - Sync Gradle
 - Commit again
-- Create signed AAB (goes to app->release, AS no longer finds the folder :-() )
+- Create signed AAB (goes to app->release, AS no longer finds the folder :-() ) (TODO default to C:\AndroidStudioProjects\gb\app\release)
 - Upload that to Android Play
 - Check release name in Android Play (it takes versionName by default, but check)
 - Paste release notes into Play. 500 character limit.
@@ -20,8 +20,8 @@ Steps for release, because I always forget some. // TODO Automate this
 
 ### Release Notes
 
-0.2.799
-- .2 for "Shelter in Place" releases. Might as well code if I have to shelter.
+0.1.799
+- First "Shelter in Place" release. Might as well code if I have to shelter.
 - Increased hyper speed 2-3x to speed up the action.
 - Minor visual refreshes and help text updates.
 
