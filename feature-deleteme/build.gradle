@@ -1,17 +1,17 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.android.dynamic-feature'
+
 apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
-
     defaultConfig {
-        applicationId "com.zwsi.gb.app"
         minSdkVersion 24 // scheduledActions.removeIf in GBScheduler requires 24.
         targetSdkVersion 28
         versionCode app_version_code
-        versionName "${app_version_name}"
-        // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionName app_version_name
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -19,7 +19,6 @@ android {
             buildConfigField "int", "VERSIONCODE", "${app_version_code}"
             buildConfigField "String", "VERSIONNAME", "\"${app_version_name}r\""
             buildConfigField "boolean", "SHOWSTATS", "false"
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             minifyEnabled false
@@ -28,19 +27,14 @@ android {
             buildConfigField "boolean", "SHOWSTATS", "true"
         }
     }
-    productFlavors {
-    }
 }
 
 dependencies {
-    api 'com.android.support:appcompat-v7:28.0.0'
-    api 'com.android.support.constraint:constraint-layout:1.1.3'
-    api 'com.android.support:support-v4:28.0.0'
-    api 'com.android.support:design:28.0.0'
+    //implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(':base')
     implementation project(':gblib')
     testImplementation 'junit:junit:4.12'
-    //implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation 'com.android.support.test:runner'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
@@ -52,25 +46,5 @@ dependencies {
     annotationProcessor 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // added for moshi
 }
-repositories {
-    mavenCentral()
-}
-// FIXME We have two libraries that request old support version. Below forcing both to 28
 
-// ./gradlew feature:dependencies --configuration debugFeatureRuntimeClasspath
-// SSIV requests 27.1.0. Would have to compile (test) on our own to make it use 28 at compile
-// Lifecycle:1.1.1 requires 26.x  It's deprecated, so need to use AndroidX libraries, but using those
-//    don't compile because AppCompatActivity doesn't implement LifeCycleOwner anymore, so needs more work
-//    "It looks like there's a ComponentActivity both at androidx.activity.ComponentActivity and
-//     androidx.core.app.ComponentActivity. The former implements the LifecycleOwner interface,
-//     while the second doesn't. I think your IDE is using the first one and the runtime is trying
-//     to use the second one. I guess this is why AndroidX is still mostly in alpha. – (from 1.0)
 
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'com.android.support') {
-            details.useVersion '28.0.0'
-        }
-    }
-}

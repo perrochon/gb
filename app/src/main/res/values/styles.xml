@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Base application theme. --><style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="android:windowBackground">@drawable/app_background</item>
+</style>
+
+    <style name="AppTheme.Launcher">
+
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
+        <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
+    </style>
+
+    <style name="AppTheme.Launcher.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Launcher.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.Launcher.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="TutorialStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#FFC107</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@android:color/holo_orange_light</item>
+        <!-- Used for the background -->
+        <item name="android:background">#000000</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+</resources>
