@@ -9,10 +9,7 @@ Find it in the Play store: https://play.google.com/store/apps/details?id=com.zws
 ### Directories
 
 gblib: contains all the game logic.
-feature: (Android) frontend.
-app: Not really clear why there is app and feature.
-
-The rest are various Android Studio files. Not sure yet what they all do :-)
+app: (Android) app.
 
 In addition to adding a lot more features to the game, there remains lots to do to make this better code, from tests 
 to thread safety to just following general Android best practices. There is much more work to make it a better app, 

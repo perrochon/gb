@@ -1,16 +1,18 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
+    ext.app_version_code = 18
+    ext.app_version_name = '0.2.799'
 
     defaultConfig {
         applicationId "com.zwsi.gb.app"
         minSdkVersion 24 // scheduledActions.removeIf in GBScheduler requires 24.
         targetSdkVersion 28
-        versionCode app_version_code
-        versionName "${app_version_name}"
+        //versionCode app_version_code
+        //versionName "${app_version_name}"
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -20,6 +20,9 @@ Steps for release, because I always forget some. // TODO Automate this
 
 ### Release Notes
 
+0.2.
+- Post module/bundle restructure.
+
 0.1.799
 - First "Shelter in Place" release. Might as well code if I have to shelter.
 - Increased hyper speed 2-3x to speed up the action.
