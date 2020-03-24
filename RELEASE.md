@@ -6,8 +6,9 @@ Steps for release, because I always forget some. // TODO Automate this
 - Build and test
 - Update release notes below
 - Commit to github and get commit # (from Github)
-- In build.gradle increase version_code by 1 (1 higher than in Play Console for current release)
+- In app/build.gradle increase version_code by 1 (1 higher than in Play Console for current release)
 - In build.gradle update version_name to one more than commit # from Github
+- Below update version name, too.
 - Sync Gradle
 - Commit again
 - Create signed AAB (goes to app->release, AS no longer finds the folder :-() ) (TODO default to C:\AndroidStudioProjects\gb\app\release)
@@ -20,7 +21,7 @@ Steps for release, because I always forget some. // TODO Automate this
 
 ### Release Notes
 
-0.2.
+0.2.804
 - Post module/bundle restructure.
 
 0.1.799
