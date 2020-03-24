@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.zwsi.gb.app">
+        package="com.zwsi.gb.app"
+        >
 
     <application
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/ic_ar"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:roundIcon="@mipmap/ic_ar_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme.Launcher">
+            android:theme="@style/AppTheme.Launcher"
+            >
         <meta-data
                 android:name="aia-compat-api-min-version"
-                android:value="1"/>
+                android:value="1"
+                />
+        <meta-data
+                android:name="preloaded_fonts"
+                android:resource="@array/preloaded_fonts"
+                />
+
         <activity android:name="com.zwsi.gb.app.ARPlayerActivity"></activity>
         <activity
                 android:name="com.zwsi.gb.app.LoadActivity"
                 android:label="Load"
-                android:screenOrientation="portrait"
+                android:screenOrientation="unspecified"
                 android:theme="@style/AppTheme.Launcher.NoActionBar"
                 />
         <activity
                 android:name="com.zwsi.gb.app.AROptionsActivity"
                 android:label="@string/title_activity_preferences"
-                android:screenOrientation="portrait"
+                android:screenOrientation="unspecified"
                 android:theme="@style/AppTheme.Launcher.NoActionBar"
                 />
         <activity
                 android:name="com.zwsi.gb.app.DestinationActivity"
                 android:label="Destination"
-                android:screenOrientation="portrait"
+                android:screenOrientation="unspecified"
                 android:theme="@style/AppTheme.Launcher.NoActionBar"
                 />
         <activity
                 android:name="com.zwsi.gb.app.MainActivity"
-                android:screenOrientation="portrait"
+                android:screenOrientation="unspecified"
                 >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
                 android:name="com.zwsi.gb.app.MapActivity"
-                android:screenOrientation="portrait"
+                android:screenOrientation="unspecified"
                 />
     </application>
 

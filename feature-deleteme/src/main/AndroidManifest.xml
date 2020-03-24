@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:dist="http://schemas.android.com/apk/distribution" />
-<dist:module dist:instant="true" dist:onDemand="false"
-dist:title="@string/title_dynamic_feature">
+<manifest xmlns:dist="http://schemas.android.com/apk/distribution" /><dist:module
+dist:instant="true"
+dist:onDemand="false"
+dist:title="@string/title_dynamic_feature"
+        >
 <dist:fusing dist:include="true" />
 </dist:module>
 
-    <application>
-        <activity android:name=".ARPlayerActivity"></activity>
-        <activity
-                android:name=".LoadActivity"
-                android:label="Load"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.Launcher.NoActionBar"
-                />
-        <activity
-                android:name=".AROptionsActivity"
-                android:label="@string/title_activity_preferences"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.Launcher.NoActionBar"
-                />
-        <activity
-                android:name=".DestinationActivity"
-                android:label="Destination"
-                android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.Launcher.NoActionBar"
-                />
-        <activity
-                android:name=".MainActivity"
-                android:screenOrientation="portrait"
-                >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+<application>
+<activity android:name=".ARPlayerActivity"></activity>
+<activity
+        android:label="Load"
+        android:name=".LoadActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.Launcher.NoActionBar"
+        />
+<activity
+        android:label="@string/title_activity_preferences"
+        android:name=".AROptionsActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.Launcher.NoActionBar"
+        />
+<activity
+        android:label="Destination"
+        android:name=".DestinationActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.Launcher.NoActionBar"
+        />
+<activity
+        android:name=".MainActivity"
+        android:screenOrientation="portrait"
+        >
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
+<activity
+        android:name=".MapActivity"
+        android:screenOrientation="portrait"
+        />
+</application>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity
-                android:name=".MapActivity"
-                android:screenOrientation="portrait"
-                />
-    </application>
-
-</manifest>
+        </manifest>

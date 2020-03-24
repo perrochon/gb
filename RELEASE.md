@@ -15,7 +15,8 @@ Steps for release, because I always forget some. // TODO Automate this
 - Upload that to Android Play
 - Check release name in Android Play (it takes versionName by default, but check)
 - Paste release notes into Play. 500 character limit.
-- review and publish. Optional: Release previous or new to Beta
+- review and publish to internal beta. 
+- Optional: Release previous or current to Beta
 - Write release notes in e-mail. 
 - Send e-mail
 

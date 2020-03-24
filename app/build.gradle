@@ -11,8 +11,8 @@ android {
         applicationId "com.zwsi.gb.app"
         minSdkVersion 24 // scheduledActions.removeIf in GBScheduler requires 24.
         targetSdkVersion 28
-        //versionCode app_version_code
-        //versionName "${app_version_name}"
+        versionCode app_version_code // needed for publishing
+        versionName "${app_version_name}"
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
