@@ -10,7 +10,7 @@
     <item>
 
         <bitmap
-                android:src="@drawable/orionsplash"
+                android:src="@drawable/orionnebula"
                 android:gravity="center"/>
 
     </item>
