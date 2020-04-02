@@ -45,15 +45,21 @@
                 />
         <TextView android:id="@+id/helptext"
                 android:layout_width="wrap_content"
-                android:layout_height="156dp"
-                android:fontFamily="@font/black_ops_one"
+                android:layout_height="250dp"
+                android:fontFamily="@font/roboto_medium"
                 android:text=""
                 android:textColor="@android:color/holo_orange_light"
                 android:textSize="18sp"
+                android:visibility="gone"
                 tools:text="@string/mainhelp"
+                tools:visibility="gone"
                 />
-        <WebView android:layout_width="match_parent"
+        <WebView android:id="@+id/helpweb"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#00000000"
+                android:textColor="@android:color/holo_orange_light"
+                android:textSize="18sp"
                 />
 
     </LinearLayout>

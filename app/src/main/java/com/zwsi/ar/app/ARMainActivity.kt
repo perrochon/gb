@@ -119,19 +119,10 @@ class ARMainActivity : AppCompatActivity() {
 
         val helpButton: Button = findViewById(R.id.HelpButtonMain)
         helpButton.setOnClickListener(View.OnClickListener {
-            val helpText = HtmlCompat.fromHtml(getString(R.string.mainhelp), HtmlCompat.FROM_HTML_MODE_LEGACY)
-            val helpView = TextView(this)
-            helpView.text = helpText
-            helpView.setMovementMethod(LinkMovementMethod.getInstance());
-            helpView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_light))
-            val scroller = ScrollView(this)
-            scroller.setPadding(10, 10, 10, 10)
-            scroller.addView(helpView)
-
-            val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
-            builder.setView(scroller)
-                .setNeutralButton("OK", null)
-                .show()
+            if (!GlobalStuff.doubleClick()) {
+                val intent = Intent(this, ARHelpActivity::class.java)
+                startActivity(intent)
+            }
         })
 
         val turnObserver = Observer<Int> { newTurn ->
@@ -224,25 +215,5 @@ class ARMainActivity : AppCompatActivity() {
         val intent = Intent(this, ARMapActivity::class.java)
         startActivity(intent)
     }
-
-//    /** Called when the user taps the Map button */
-//    fun gotoOptions(@Suppress("UNUSED_PARAMETER") view: View) {
-//        if (GlobalStuff.doubleClick()) return
-//        val intent = Intent(this, AROptionsActivity::class.java)
-//        startActivity(intent)
-//    }
-
-//    fun gotoStats(@Suppress("UNUSED_PARAMETER") view: View) {
-//        if (GlobalStuff.doubleClick()) return
-//        val intent = Intent(this, ARPlayerActivity::class.java)
-//        startActivity(intent)
-//    }
-
-//    fun gotoLoad(@Suppress("UNUSED_PARAMETER") view: View) {
-//        if (GlobalStuff.doubleClick()) return
-//        GlobalStuff.autoDo = false
-//        val intent = Intent(this, LoadActivity::class.java)
-//        startActivity(intent)
-//    }
 
 }

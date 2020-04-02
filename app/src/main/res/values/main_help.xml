@@ -4,7 +4,9 @@
     <string name="mainhelp">
         <![CDATA[
         <HTML>
-    <head></head>
+    <head>
+        <style type=\"text/css\">body{color: #ffffbb33; }</style>
+     </head>
     <BODY>
         <big>Andromeda Rising</big>
 
