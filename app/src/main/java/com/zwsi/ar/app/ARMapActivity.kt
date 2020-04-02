@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.arch.lifecycle.Observer
 import android.graphics.PointF
@@ -17,16 +17,16 @@ import android.widget.ScrollView
 import android.widget.TextView
 import com.davemorrissey.labs.subscaleview.ImageViewState
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.zwsi.gb.app.GBViewModel.Companion.showContButton
-import com.zwsi.gb.app.GBViewModel.Companion.uidActivePlayer
-import com.zwsi.gb.app.GBViewModel.Companion.vm
+import com.zwsi.ar.app.ARViewModel.Companion.showContButton
+import com.zwsi.ar.app.ARViewModel.Companion.uidActivePlayer
+import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBShip
 import com.zwsi.gblib.GBStar
 import kotlinx.android.synthetic.main.activity_map.*
 
 
-class MapActivity : AppCompatActivity() {
+class ARMapActivity : AppCompatActivity() {
 
     private val BUNDLE_STATE = "ImageViewState"
 
@@ -96,7 +96,7 @@ class MapActivity : AppCompatActivity() {
             imageView.shiftToPinnedPlanet()
             imageView.invalidate()
         }  // TODO why is newTurn nullable?
-        GBViewModel.currentTurn.observe(this, turnObserver)
+        ARViewModel.currentTurn.observe(this, turnObserver)
 
         val actionObserver = Observer<Int> { _ ->
             setActionBar()
@@ -115,7 +115,7 @@ class MapActivity : AppCompatActivity() {
             }
 
         }
-        GBViewModel.actionsTaken.observe(this, actionObserver)
+        ARViewModel.actionsTaken.observe(this, actionObserver)
 
         // Gestures
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
@@ -164,21 +164,21 @@ class MapActivity : AppCompatActivity() {
                     val any = imageView.clickTarget(e)
                     if (any is GBPlanet) {
                         val ft = getSupportFragmentManager().beginTransaction()
-                        val fragment = PlanetFragment.newInstance(any.uid.toString())
+                        val fragment = ARPlanetFragment.newInstance(any.uid.toString())
                         //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.details, fragment, any.uid.toString())
                         ft.commit()
 
                     } else if (any is GBStar) {
                         val ft = getSupportFragmentManager().beginTransaction()
-                        val fragment = StarFragment.newInstance(any.uid.toString())
+                        val fragment = ARStarFragment.newInstance(any.uid.toString())
                         //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.details, fragment, any.uid.toString())
                         ft.commit()
 
                     } else if (any is GBShip) {
                         val ft = getSupportFragmentManager().beginTransaction()
-                        val fragment = ShipFragment.newInstance(any.uid.toString())
+                        val fragment = ARShipFragment.newInstance(any.uid.toString())
                         //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.details, fragment, any.uid.toString())
                         ft.commit()

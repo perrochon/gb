@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
@@ -6,7 +6,7 @@ import com.zwsi.gblib.GBUniverse
 import kotlin.system.measureNanoTime
 
 
-class GBViewModel {
+class ARViewModel {
 
     // Recommended is tying this to the life cycle of one (1) activity, and have different ones for each activity
     // However MapView requires a huge fraction of all the data, and most other views are subsets so it seems

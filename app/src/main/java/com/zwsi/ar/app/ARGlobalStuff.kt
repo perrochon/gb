@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.app.Activity
 import android.graphics.LightingColorFilter
@@ -12,9 +12,9 @@ import android.widget.Toast
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import com.zwsi.gb.app.GBViewModel.Companion.actionsTaken
-import com.zwsi.gb.app.GBViewModel.Companion.uidActivePlayer
-import com.zwsi.gb.app.GBViewModel.Companion.vm
+import com.zwsi.ar.app.ARViewModel.Companion.actionsTaken
+import com.zwsi.ar.app.ARViewModel.Companion.uidActivePlayer
+import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.*
 import kotlin.system.measureNanoTime
 
@@ -101,7 +101,7 @@ class GlobalStuff {
 
                 }
                 Handler(Looper.getMainLooper()).post({
-                    GBViewModel.update(
+                    ARViewModel.update(
                         gameInfo!!,
                         GBController.elapsedTimeLastUpdate,
                         GBController.elapsedTimeLastJSON,

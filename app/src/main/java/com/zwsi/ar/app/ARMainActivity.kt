@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 
 import android.arch.lifecycle.Observer
@@ -15,17 +15,17 @@ import android.widget.Button
 import android.widget.ScrollView
 import android.widget.Space
 import android.widget.TextView
-import com.zwsi.gb.app.GBViewModel.Companion.newsHistory
-import com.zwsi.gb.app.GBViewModel.Companion.ready
-import com.zwsi.gb.app.GBViewModel.Companion.showContButton
-import com.zwsi.gb.app.GBViewModel.Companion.superSensors
-import com.zwsi.gb.app.GBViewModel.Companion.uidActivePlayer
-import com.zwsi.gb.app.GBViewModel.Companion.vm
+import com.zwsi.ar.app.ARViewModel.Companion.newsHistory
+import com.zwsi.ar.app.ARViewModel.Companion.ready
+import com.zwsi.ar.app.ARViewModel.Companion.showContButton
+import com.zwsi.ar.app.ARViewModel.Companion.superSensors
+import com.zwsi.ar.app.ARViewModel.Companion.uidActivePlayer
+import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
 import java.io.File
 
-class MainActivity : AppCompatActivity() {
+class ARMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        GBViewModel.context = applicationContext
-        GBViewModel.updatePrefs()
+        ARViewModel.context = applicationContext
+        ARViewModel.updatePrefs()
 
         GBController.currentFilePath = filesDir // Tell the controller where to save games
 
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         loadButton.setOnClickListener(View.OnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 GlobalStuff.autoDo = false
-                val intent = Intent(this, LoadActivity::class.java)
+                val intent = Intent(this, ARLoadActivity::class.java)
                 startActivity(intent)
             }
         })
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         }  // TODO why is newTurn nullable?
-        GBViewModel.currentTurn.observe(this, turnObserver)
+        ARViewModel.currentTurn.observe(this, turnObserver)
 
         val actionObserver = Observer<Int> { _ ->
             if (showContButton) {
@@ -169,7 +169,7 @@ class MainActivity : AppCompatActivity() {
                 contSpace.visibility = View.GONE
             }
         }
-        GBViewModel.actionsTaken.observe(this, actionObserver)
+        ARViewModel.actionsTaken.observe(this, actionObserver)
 
 
         // Get a head start on bitmap loading
@@ -221,7 +221,7 @@ class MainActivity : AppCompatActivity() {
     /** Called when the user taps the Map, or the Player 1/Player 2 button */
     private fun gotoMap(@Suppress("UNUSED_PARAMETER") view: View) {
         if (GlobalStuff.doubleClick()) return
-        val intent = Intent(this, MapActivity::class.java)
+        val intent = Intent(this, ARMapActivity::class.java)
         startActivity(intent)
     }
 

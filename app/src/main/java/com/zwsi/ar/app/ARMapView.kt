@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.content.Context
 import android.graphics.*
@@ -10,14 +10,14 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import com.zwsi.gb.app.ARBitmaps.Companion.otherBitmap
-import com.zwsi.gb.app.ARBitmaps.Companion.surfaceBitmap
-import com.zwsi.gb.app.GBViewModel.Companion.showClickTargets
-import com.zwsi.gb.app.GBViewModel.Companion.showRaceStats
-import com.zwsi.gb.app.GBViewModel.Companion.showStats
-import com.zwsi.gb.app.GBViewModel.Companion.superSensors
-import com.zwsi.gb.app.GBViewModel.Companion.uidActivePlayer
-import com.zwsi.gb.app.GBViewModel.Companion.vm
+import com.zwsi.ar.app.ARBitmaps.Companion.otherBitmap
+import com.zwsi.ar.app.ARBitmaps.Companion.surfaceBitmap
+import com.zwsi.ar.app.ARViewModel.Companion.showClickTargets
+import com.zwsi.ar.app.ARViewModel.Companion.showRaceStats
+import com.zwsi.ar.app.ARViewModel.Companion.showStats
+import com.zwsi.ar.app.ARViewModel.Companion.superSensors
+import com.zwsi.ar.app.ARViewModel.Companion.uidActivePlayer
+import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.GBData.Companion.BATTLESTAR
 import com.zwsi.gblib.GBData.Companion.CRUISER
 import com.zwsi.gblib.GBData.Companion.FACTORY
@@ -318,12 +318,12 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //            )
         // Performance Stats
         canvas.drawText(
-            "Do:${(GBViewModel.timeLastTurn / 1000000L).f(3)}" +
-                    "|TJ:${(GBViewModel.timeLastToJSON / 1000000L).f(3)}" +
-                    "|FW:${(GBViewModel.timeFileWrite / 1000000L).f(2)}" +
-                    "|LL:${(GBViewModel.timeLastLoad / 1000000L).f(2)}" + // Rare event. We don't care so much
-                    "|FJ:${(GBViewModel.timeFromJson / 1000000L).f(2)}" +
-                    "|MU:${(GBViewModel.timeModelUpdate / 1000000L).f(2)}",
+            "Do:${(ARViewModel.timeLastTurn / 1000000L).f(3)}" +
+                    "|TJ:${(ARViewModel.timeLastToJSON / 1000000L).f(3)}" +
+                    "|FW:${(ARViewModel.timeFileWrite / 1000000L).f(2)}" +
+                    "|LL:${(ARViewModel.timeLastLoad / 1000000L).f(2)}" + // Rare event. We don't care so much
+                    "|FJ:${(ARViewModel.timeFromJson / 1000000L).f(2)}" +
+                    "|MU:${(ARViewModel.timeModelUpdate / 1000000L).f(2)}",
             8f,
             l++ * h,
             statsNamesPaint

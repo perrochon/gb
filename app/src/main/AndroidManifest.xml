@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.zwsi.gb.app"
+        package="com.zwsi.ar.app"
         >
 
     <application
@@ -20,27 +20,27 @@
                 android:resource="@array/preloaded_fonts"
                 />
 
-        <activity android:name="com.zwsi.gb.app.ARPlayerActivity"></activity>
+        <activity android:name="com.zwsi.ar.app.ARPlayerActivity"></activity>
         <activity
-                android:name="com.zwsi.gb.app.LoadActivity"
+                android:name="com.zwsi.ar.app.ARLoadActivity"
                 android:label="Load"
                 android:screenOrientation="unspecified"
                 android:theme="@style/AppTheme.Launcher.NoActionBar"
                 />
         <activity
-                android:name="com.zwsi.gb.app.AROptionsActivity"
+                android:name="com.zwsi.ar.app.AROptionsActivity"
                 android:label="@string/title_activity_preferences"
                 android:screenOrientation="unspecified"
                 android:theme="@style/AppTheme.Launcher.NoActionBar"
                 />
         <activity
-                android:name="com.zwsi.gb.app.DestinationActivity"
+                android:name="com.zwsi.ar.app.ARDestinationActivity"
                 android:label="Destination"
                 android:screenOrientation="unspecified"
                 android:theme="@style/AppTheme.Launcher.NoActionBar"
                 />
         <activity
-                android:name="com.zwsi.gb.app.MainActivity"
+                android:name="com.zwsi.ar.app.ARMainActivity"
                 android:screenOrientation="unspecified"
                 >
             <intent-filter>
@@ -49,7 +49,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="com.zwsi.gb.app.MapActivity"
+                android:name="com.zwsi.ar.app.ARMapActivity"
                 android:screenOrientation="unspecified"
                 />
     </application>

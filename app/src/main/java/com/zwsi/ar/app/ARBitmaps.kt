@@ -1,12 +1,12 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import com.zwsi.gb.app.ARBitmaps.Companion.planetBitmap
-import com.zwsi.gb.app.ARBitmaps.Companion.raceBitmap
-import com.zwsi.gb.app.ARBitmaps.Companion.shipBitmap
-import com.zwsi.gb.app.ARBitmaps.Companion.wheelBitmap
+import com.zwsi.ar.app.ARBitmaps.Companion.planetBitmap
+import com.zwsi.ar.app.ARBitmaps.Companion.raceBitmap
+import com.zwsi.ar.app.ARBitmaps.Companion.shipBitmap
+import com.zwsi.ar.app.ARBitmaps.Companion.wheelBitmap
 import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBPlanet
 import com.zwsi.gblib.GBRace
@@ -109,7 +109,7 @@ class ARBitmaps {
         private val otherBitmaps = HashMap<Int, Bitmap>()
         private val raceBitmaps = HashMap<Int, Bitmap>()
         private val shipBitmaps = HashMap<Int, Bitmap>()
-        private val defaultBitMap = BitmapFactory.decodeResource(GBViewModel.context!!.resources, R.drawable.missing);
+        private val defaultBitMap = BitmapFactory.decodeResource(ARViewModel.context!!.resources, R.drawable.missing);
 
         val numberOfFrames = 150 // 10s rotation, 30fps -> up to 300 different angles/shipBitmaps! 600 @60fps
         var wheelBitmaps = arrayOfNulls<Bitmap>(numberOfFrames)

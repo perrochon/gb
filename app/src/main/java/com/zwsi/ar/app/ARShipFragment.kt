@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
@@ -14,8 +14,8 @@ import android.view.animation.RotateAnimation
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.zwsi.gb.app.GBViewModel.Companion.uidActivePlayer
-import com.zwsi.gb.app.GBViewModel.Companion.vm
+import com.zwsi.ar.app.ARViewModel.Companion.uidActivePlayer
+import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.GBData
 import com.zwsi.gblib.GBData.Companion.BATTLESTAR
 import com.zwsi.gblib.GBData.Companion.CRUISER
@@ -26,12 +26,12 @@ import com.zwsi.gblib.GBData.Companion.SHUTTLE
 import com.zwsi.gblib.GBData.Companion.STATION
 
 
-class ShipFragment : Fragment() {
+class ARShipFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(@Suppress("UNUSED_PARAMETER") message: String): ShipFragment {
-            return ShipFragment()
+        fun newInstance(@Suppress("UNUSED_PARAMETER") message: String): ARShipFragment {
+            return ARShipFragment()
         }
     }
 
@@ -65,13 +65,13 @@ class ShipFragment : Fragment() {
             setDetails(view)
             view.invalidate()
         }  // TODO why is newTurn nullable?
-        GBViewModel.currentTurn.observe(this, turnObserver)
+        ARViewModel.currentTurn.observe(this, turnObserver)
 
         val actionObserver = Observer<Int> { _ ->
             setDetails(view)
             view.invalidate()
         }
-        GBViewModel.actionsTaken.observe(this, actionObserver)
+        ARViewModel.actionsTaken.observe(this, actionObserver)
 
         val makePodButton: Button = view.findViewById(R.id.makePod)
         makePodButton.tag = sh.uid
@@ -133,7 +133,7 @@ class ShipFragment : Fragment() {
 
         val destinationButton: Button = view.findViewById(R.id.destination)
         destinationButton.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this.context, DestinationActivity::class.java)
+            val intent = Intent(this.context, ARDestinationActivity::class.java)
             intent.putExtra("uidShip", sh.uid)
             startActivity(intent)
         })
@@ -190,7 +190,7 @@ class ShipFragment : Fragment() {
             val destinationButton = view.findViewById<Button>(R.id.destination)!!
             if (sh.uidRace != uidActivePlayer || sh.speed == 0) {
                 destinationButton.visibility = View.GONE
-            } else if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
+            } else if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < ARViewModel.MIN_ACTIONS) {
                 destinationButton.isEnabled = false
                 destinationButton.alpha = 0.5f
             } else {
@@ -203,7 +203,7 @@ class ShipFragment : Fragment() {
                     for (i in 0..5) {
                         view.findViewById<Button>(shipbuttons[i]).visibility = View.VISIBLE
                     }
-                    if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
+                    if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < ARViewModel.MIN_ACTIONS) {
                         for (i in 0..5) {
                             view.findViewById<Button>(shipbuttons[i]).isEnabled = false
                         }

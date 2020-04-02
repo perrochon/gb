@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.graphics.LightingColorFilter
 import android.graphics.Rect
@@ -10,15 +10,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.zwsi.gb.app.GBViewModel.Companion.vm
-import com.zwsi.gb.app.GlobalStuff.Companion.handleClickInSelectionActivity
+import com.zwsi.ar.app.ARViewModel.Companion.vm
+import com.zwsi.ar.app.GlobalStuff.Companion.handleClickInSelectionActivity
 import com.zwsi.gblib.*
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.PATROL
 
 
-class DestinationActivity : AppCompatActivity() {
+class ARDestinationActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

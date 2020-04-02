@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -9,17 +9,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.zwsi.gb.app.GBViewModel.Companion.uidActivePlayer
-import com.zwsi.gb.app.GBViewModel.Companion.vm
+import com.zwsi.ar.app.ARViewModel.Companion.uidActivePlayer
+import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.GBData.Companion.FACTORY
 
 
-class PlanetFragment : Fragment() {
+class ARPlanetFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(@Suppress("UNUSED_PARAMETER") message: String): PlanetFragment {
-            return PlanetFragment()
+        fun newInstance(@Suppress("UNUSED_PARAMETER") message: String): ARPlanetFragment {
+            return ARPlanetFragment()
         }
     }
 
@@ -38,13 +38,13 @@ class PlanetFragment : Fragment() {
             setDetails(view)
             view.invalidate()
         }  // TODO why is newTurn nullable?
-        GBViewModel.currentTurn.observe(this, turnObserver)
+        ARViewModel.currentTurn.observe(this, turnObserver)
 
         val actionObserver = Observer<Int> { _ ->
             setDetails(view)
             view.invalidate()
         }
-        GBViewModel.actionsTaken.observe(this, actionObserver)
+        ARViewModel.actionsTaken.observe(this, actionObserver)
 
         val factoryButton: Button = view.findViewById(R.id.makefactory)
         factoryButton.tag = tag!!.toInt()
@@ -74,7 +74,7 @@ class PlanetFragment : Fragment() {
         val factoryButton: Button = view.findViewById(R.id.makefactory)
         if (p.planetUidRaces.contains(uidActivePlayer)) {
             factoryButton.visibility = View.VISIBLE
-            if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < GBViewModel.MIN_ACTIONS) {
+            if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < ARViewModel.MIN_ACTIONS) {
                 factoryButton.isEnabled = false
             } else {
                 factoryButton.isEnabled = true

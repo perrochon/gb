@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,15 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.zwsi.gb.app.GBViewModel.Companion.vm
+import com.zwsi.ar.app.ARViewModel.Companion.vm
 
-class RaceFragment : Fragment() {
+class ARRaceFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(message: String): RaceFragment {
+        fun newInstance(message: String): ARRaceFragment {
 
-            val f = RaceFragment()
+            val f = ARRaceFragment()
 
             val bdl = Bundle(1)
 

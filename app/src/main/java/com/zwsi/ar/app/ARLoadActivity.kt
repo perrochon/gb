@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.os.Bundle
 import android.os.SystemClock
@@ -11,7 +11,7 @@ import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
 import java.io.File
 
-class LoadActivity : AppCompatActivity() {
+class ARLoadActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

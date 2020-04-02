@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -20,7 +20,7 @@ class ARPlayerActivity : AppCompatActivity() {
 
         // Version TextView
         val version = findViewById<TextView>(R.id.version)
-        version.setText(BuildConfig.VERSIONNAME)
+        version.text = BuildConfig.VERSIONNAME
 
         // Done Button
         val doneButton: Button = findViewById(R.id.DoneButton)
@@ -29,6 +29,7 @@ class ARPlayerActivity : AppCompatActivity() {
         })
 
         val statsTextView: TextView = findViewById(R.id.missionResults)
+        statsTextView.text = "";
 
         val sharedPref = this.getSharedPreferences("playerstats", MODE_PRIVATE)
 

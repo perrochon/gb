@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.content.Context
 import android.os.Bundle
@@ -7,12 +7,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.Switch
 import android.widget.TextView
-import com.zwsi.gb.app.GBViewModel.Companion.showClickTargets
-import com.zwsi.gb.app.GBViewModel.Companion.showContButton
-import com.zwsi.gb.app.GBViewModel.Companion.showRaceStats
-import com.zwsi.gb.app.GBViewModel.Companion.showStats
-import com.zwsi.gb.app.GBViewModel.Companion.superSensors
-import com.zwsi.gb.app.GBViewModel.Companion.vm
+import com.zwsi.ar.app.ARViewModel.Companion.showClickTargets
+import com.zwsi.ar.app.ARViewModel.Companion.showContButton
+import com.zwsi.ar.app.ARViewModel.Companion.showRaceStats
+import com.zwsi.ar.app.ARViewModel.Companion.showStats
+import com.zwsi.ar.app.ARViewModel.Companion.superSensors
+import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 
 class AROptionsActivity : AppCompatActivity() {
@@ -40,7 +40,7 @@ class AROptionsActivity : AppCompatActivity() {
                 putBoolean("superSensors", isChecked)
                 apply()
             }
-            GBViewModel.updatePrefs()
+            ARViewModel.updatePrefs()
         }
 
         val showStatsButton: Switch = findViewById(R.id.ShowStats)
@@ -50,7 +50,7 @@ class AROptionsActivity : AppCompatActivity() {
                 putBoolean("showStats", isChecked)
                 apply()
             }
-            GBViewModel.updatePrefs()
+            ARViewModel.updatePrefs()
         }
 
         val showRaceStatsButton: Switch = findViewById(R.id.ShowRaceStats)
@@ -60,7 +60,7 @@ class AROptionsActivity : AppCompatActivity() {
                 putBoolean("showRaceStats", isChecked)
                 apply()
             }
-            GBViewModel.updatePrefs()
+            ARViewModel.updatePrefs()
         }
 
         val showClickTargetsButton: Switch = findViewById(R.id.ShowClickTargets)
@@ -70,7 +70,7 @@ class AROptionsActivity : AppCompatActivity() {
                 putBoolean("showClickTargets", isChecked)
                 apply()
             }
-            GBViewModel.updatePrefs()
+            ARViewModel.updatePrefs()
         }
 
         val showContButtonButton: Switch = findViewById(R.id.ShowContButton)
@@ -80,8 +80,8 @@ class AROptionsActivity : AppCompatActivity() {
                 putBoolean("showContButton", isChecked)
                 apply()
             }
-            GBViewModel.updatePrefs()
-            GBViewModel.actionsTaken.value = System.currentTimeMillis().toInt()
+            ARViewModel.updatePrefs()
+            ARViewModel.actionsTaken.value = System.currentTimeMillis().toInt()
 
         }
 
@@ -90,7 +90,7 @@ class AROptionsActivity : AppCompatActivity() {
         DemoModeButton.setOnCheckedChangeListener { _, isChecked ->
             vm.demoMode = isChecked
             GBController.setDemoMode(isChecked)
-            GBViewModel.actionsTaken.value = System.currentTimeMillis().toInt()
+            ARViewModel.actionsTaken.value = System.currentTimeMillis().toInt()
         }
     }
 

@@ -8,7 +8,7 @@
         android:orientation="vertical"
         >
 
-    <com.zwsi.gb.app.MapView android:id="@+id/mapView"
+    <com.zwsi.ar.app.MapView android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"

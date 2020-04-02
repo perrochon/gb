@@ -28,22 +28,34 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/black_ops_one"
                 android:padding="16dp"
-                android:text="Player Dashboard"
+                android:text="Help"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_orange_light"
                 android:textSize="24sp"
                 />
 
-        <TextView android:id="@+id/missionResults"
-                android:layout_width="match_parent"
+        <TextView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/black_ops_one"
                 android:padding="16dp"
-                android:text="Missions"
+                android:text="Main Help"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_orange_light"
                 android:textSize="18sp"
                 />
+        <TextView android:id="@+id/helptext"
+                android:layout_width="wrap_content"
+                android:layout_height="156dp"
+                android:fontFamily="@font/black_ops_one"
+                android:text=""
+                android:textColor="@android:color/holo_orange_light"
+                android:textSize="18sp"
+                tools:text="@string/mainhelp"
+                />
+        <WebView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
     </LinearLayout>
 
     <Button android:id="@+id/DoneButton"

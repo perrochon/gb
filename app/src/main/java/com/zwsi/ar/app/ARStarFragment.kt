@@ -1,4 +1,4 @@
-package com.zwsi.gb.app
+package com.zwsi.ar.app
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -8,17 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.zwsi.gb.app.GBViewModel.Companion.superSensors
-import com.zwsi.gb.app.GBViewModel.Companion.uidActivePlayer
-import com.zwsi.gb.app.GBViewModel.Companion.vm
+import com.zwsi.ar.app.ARViewModel.Companion.superSensors
+import com.zwsi.ar.app.ARViewModel.Companion.uidActivePlayer
+import com.zwsi.ar.app.ARViewModel.Companion.vm
 
 
-class StarFragment : Fragment() {
+class ARStarFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(@Suppress("UNUSED_PARAMETER")message: String): StarFragment {
-            return StarFragment()
+        fun newInstance(@Suppress("UNUSED_PARAMETER")message: String): ARStarFragment {
+            return ARStarFragment()
         }
     }
 
@@ -32,7 +32,7 @@ class StarFragment : Fragment() {
             setDetails(view)
             view.invalidate()
         }  // TODO why is newTurn nullable?
-        GBViewModel.currentTurn.observe(this, turnObserver)
+        ARViewModel.currentTurn.observe(this, turnObserver)
 
         val starButton: Button = view.findViewById(R.id.panzoomToStar)
         starButton.tag = tag!!.toInt()
