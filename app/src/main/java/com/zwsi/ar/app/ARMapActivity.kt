@@ -1,19 +1,15 @@
 package com.zwsi.ar.app
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.graphics.PointF
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v4.text.HtmlCompat
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.text.method.LinkMovementMethod
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.TextView
 import com.davemorrissey.labs.subscaleview.ImageViewState
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
@@ -58,22 +54,34 @@ class ARMapActivity : AppCompatActivity() {
 
 
         val helpButton: Button = findViewById(R.id.HelpButtonMap)
-        helpButton.setOnClickListener(View.OnClickListener
-        {
-            val helpText = HtmlCompat.fromHtml(getString(R.string.maphelp), HtmlCompat.FROM_HTML_MODE_LEGACY)
-            val helpView = TextView(this)
-            helpView.setText(helpText)
-            helpView.setMovementMethod(LinkMovementMethod.getInstance());
-            helpView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_light))
-            val scroller = ScrollView(this)
-            scroller.setPadding(10, 10, 10, 10)
-            scroller.addView(helpView)
-
-            val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
-            builder.setView(scroller)
-                .setNeutralButton("OK", null)
-                .show()
+        helpButton.setOnClickListener(View.OnClickListener {
+            if (!GlobalStuff.doubleClick()) {
+                val intent = Intent(this, ARHelpActivity::class.java)
+                val b = Bundle()
+                b.putString("url", "file:///android_asset/mapHelp.html")
+                intent.putExtras(b)
+                startActivity(intent)
+            }
         })
+
+
+//        val helpButton: Button = findViewById(R.id.HelpButtonMap)
+//        helpButton.setOnClickListener(View.OnClickListener
+//        {
+//            val helpText = HtmlCompat.fromHtml(getString(R.string.maphelp), HtmlCompat.FROM_HTML_MODE_LEGACY)
+//            val helpView = TextView(this)
+//            helpView.setText(helpText)
+//            helpView.setMovementMethod(LinkMovementMethod.getInstance());
+//            helpView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_light))
+//            val scroller = ScrollView(this)
+//            scroller.setPadding(10, 10, 10, 10)
+//            scroller.addView(helpView)
+//
+//            val builder = AlertDialog.Builder(this, R.style.TutorialStyle)
+//            builder.setView(scroller)
+//                .setNeutralButton("OK", null)
+//                .show()
+//        })
 
         // Set up the action bar
         val actionBar = findViewById<LinearLayout>(R.id.actionBar)
