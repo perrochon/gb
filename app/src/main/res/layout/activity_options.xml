@@ -189,6 +189,22 @@
 
     </LinearLayout>
 
+    <Button android:id="@+id/HelpButtonOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/border_message"
+            android:fontFamily="@font/black_ops_one"
+            android:text="Help"
+            android:textColor="@android:color/holo_orange_light"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="675dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/DoneButton"
+            />
     <Button android:id="@+id/DoneButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -201,7 +217,7 @@
             android:textColor="@android:color/holo_orange_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/HelpButtonOptions"
             />
 
     <TextView android:id="@+id/version"

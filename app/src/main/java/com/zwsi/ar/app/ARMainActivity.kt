@@ -116,7 +116,6 @@ class ARMainActivity : AppCompatActivity() {
             GlobalStuff.toggleContinuous(it)
         })
 
-
         val helpButton: Button = findViewById(R.id.HelpButtonMain)
         helpButton.setOnClickListener(View.OnClickListener {
             if (!GlobalStuff.doubleClick()) {

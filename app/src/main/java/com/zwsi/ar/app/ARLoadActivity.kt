@@ -1,5 +1,6 @@
 package com.zwsi.ar.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
@@ -108,6 +109,18 @@ class ARLoadActivity : AppCompatActivity() {
             lastSelection = 23
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
+
+        val helpButton: Button = findViewById(R.id.HelpButtonLoad)
+        helpButton.setOnClickListener(View.OnClickListener {
+            if (!GlobalStuff.doubleClick()) {
+                val intent = Intent(this, ARHelpActivity::class.java)
+                val b = Bundle()
+                b.putString("url", "file:///android_asset/loadHelp.html")
+                intent.putExtras(b)
+                startActivity(intent)
+            }
+        })
+
 
         val doneButton: Button = findViewById(R.id.DoneButton)
         doneButton.setOnClickListener(View.OnClickListener {

@@ -294,6 +294,20 @@
 
     </LinearLayout>
 
+    <Button android:id="@+id/HelpButtonLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/border_message"
+            android:fontFamily="@font/black_ops_one"
+            android:text="Help"
+            android:textColor="@android:color/holo_orange_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cancelDestination"
+            />
     <Button android:id="@+id/cancelDestination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -306,7 +320,7 @@
             android:textColor="@android:color/holo_orange_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/DoneButton"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/HelpButtonLoad"
             />
 
     <Button android:id="@+id/DoneButton"

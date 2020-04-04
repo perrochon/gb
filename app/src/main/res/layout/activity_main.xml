@@ -183,6 +183,10 @@
                   app:layout_constraintStart_toStartOf="parent"
                   android:layout_marginStart="8dp"
             >
+        <Space android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                />
         <Button android:id="@+id/HelpButtonMain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -231,6 +235,10 @@
                 android:fontFamily="@font/black_ops_one"
                 android:text="@string/button_Do"
                 android:textColor="@android:color/holo_orange_light"
+                />
+        <Space android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
                 />
     </LinearLayout>
 

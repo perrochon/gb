@@ -1,6 +1,7 @@
 package com.zwsi.ar.app
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -24,6 +25,17 @@ class AROptionsActivity : AppCompatActivity() {
         // Version TextView
         val version = findViewById<TextView>(R.id.version)
         version.setText(BuildConfig.VERSIONNAME)
+
+        val helpButton: Button = findViewById(R.id.HelpButtonOptions)
+        helpButton.setOnClickListener(View.OnClickListener {
+            if (!GlobalStuff.doubleClick()) {
+                val intent = Intent(this, ARHelpActivity::class.java)
+                val b = Bundle()
+                b.putString("url", "file:///android_asset/optionsHelp.html")
+                intent.putExtras(b)
+                startActivity(intent)
+            }
+        })
 
         // Done Button
         val doneButton: Button = findViewById(R.id.DoneButton)
