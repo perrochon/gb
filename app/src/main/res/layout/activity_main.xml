@@ -138,6 +138,7 @@
                 android:background="@drawable/border_message"
                 android:fontFamily="@font/black_ops_one"
                 android:text="Save"
+                android:alpha="0.5"
                 android:textColor="@android:color/holo_orange_light"
                 />
         <Space android:layout_width="0dp"

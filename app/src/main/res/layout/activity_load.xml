@@ -331,7 +331,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/border_message"
             android:fontFamily="@font/black_ops_one"
-            android:text="Done"
+            android:text="Load"
             android:textColor="@android:color/holo_orange_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
