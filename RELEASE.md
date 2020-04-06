@@ -6,10 +6,12 @@ Steps for release, because I always forget some. // TODO Automate this
 - Build and test
 - Update release notes below
 - Commit to github and get commit # (from Github)
-- In app/build.gradle increase version_code by 1 (1 higher than in Play Console for current release)
 - In build.gradle update version_name to one more than commit # from Github
+  Major.Minor.Build - Build is commit # MOD 1000 from Github of this change (current+1)
 - Below update version name, too.
 - Sync Gradle
+- In app/build.gradle increase version_code to Major*10,000 + Minor*1000 + Build
+  version 0.2.804 becomes build number 002804 or 2804
 - Commit again
 - Create signed AAB (goes to app->release, AS no longer finds the folder :-() ) (TODO default to C:\AndroidStudioProjects\gb\app\release)
 - Upload that to Android Play
