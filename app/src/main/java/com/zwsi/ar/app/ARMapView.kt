@@ -494,7 +494,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                                 sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                                 sourceToViewCoord(sP1, vP1)
 
-                                for (j in 0 until p.sectors.size) {
+                                for (j in p.sectors.indices) {
 
                                     val o = (PlanetOrbit * 0.4f) * uToS * scale
                                     val size = 4 * o / p.width
@@ -707,7 +707,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             if (sh.health > 0 && sh.idxtype != STATION) {
                 var r = radius
                 if (sh.idxtype == BATTLESTAR) {
-                    r = r * 1.5f
+                    r *= 1.5f
                 }
                 val theta: Float =
                     currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000

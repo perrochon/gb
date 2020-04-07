@@ -122,7 +122,7 @@ class ARLoadActivity : AppCompatActivity() {
         }
     }
 
-    fun makeUniverse(@Suppress("UNUSED_PARAMETER") view: View, secondPlayer: Boolean) {
+    private fun makeUniverse(@Suppress("UNUSED_PARAMETER") view: View, secondPlayer: Boolean) {
         if (SystemClock.elapsedRealtime() - GlobalStuff.lastClickTime < GlobalStuff.clickDelay) {
             return
         }
@@ -136,7 +136,7 @@ class ARLoadActivity : AppCompatActivity() {
         }).start()
     }
 
-    fun loadUniverse(view: View, number: Int) {
+    private fun loadUniverse(view: View, number: Int) {
         if (SystemClock.elapsedRealtime() - GlobalStuff.lastClickTime < GlobalStuff.clickDelay) {
             return
         }

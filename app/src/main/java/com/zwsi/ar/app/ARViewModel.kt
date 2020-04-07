@@ -47,7 +47,7 @@ class ARViewModel {
         var uidActivePlayer = 0
         val actionsTaken by lazy { MutableLiveData<Int>() }
 
-        var freshUniverse = false
+        private var freshUniverse = false
 
 
 //        var drawTimes = mutableMapOf<String, Long>() // FIXME Cleanup the long list of ints below

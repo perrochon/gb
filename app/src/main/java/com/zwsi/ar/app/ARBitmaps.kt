@@ -15,7 +15,8 @@ import kotlin.system.measureNanoTime
 
 const val NumberOfRacesWithBitmaps: Int = 6
 
-val race_colors = longArrayOf(0xffe34234, 0xff009e73, 0xffcc79a7, 0xff56b4e9, 0xff0072b2, 0xffF0E442)
+val race_colors =
+    longArrayOf(0xffe34234, 0xff009e73, 0xffcc79a7, 0xff56b4e9, 0xff0072b2, 0xffF0E442)
 
 fun GBRace.getColor(): Int {
     return race_colors[this.idx].toInt()
@@ -42,7 +43,8 @@ fun getRaceDrawableResource(idx: Int): Int {
 }
 
 const val NumberOfShipsWithBitmaps = 8
-const val NumberOfShipsWithAlternativeBitmaps = 1 // FIXME Better handling of alternative ship bitmaps
+const val NumberOfShipsWithAlternativeBitmaps =
+    1 // FIXME Better handling of alternative ship bitmaps
 
 //fun GBShip.getDrawableResource(): Int {
 //    return getShipDrawableResource(this.idxtype)
@@ -52,8 +54,9 @@ fun GBShip.getBitmap(): Bitmap {
     if (this.idxtype == GBData.POD && this.uidRace == 2) {
         return shipBitmap(NumberOfShipsWithBitmaps) // FIXME Better handling of alternative ship bitmaps
     } else if (this.idxtype == GBData.STATION) {
-        val i = (System.currentTimeMillis().rem(10000).div((10000 / ARBitmaps.numberOfFrames)).toInt()
-                + this.uid).rem(ARBitmaps.numberOfFrames)
+        val i =
+            (System.currentTimeMillis().rem(10000).div((10000 / ARBitmaps.numberOfFrames)).toInt()
+                    + this.uid).rem(ARBitmaps.numberOfFrames)
         return wheelBitmap(i)
     } else {
         return shipBitmap(this.idxtype)
@@ -109,10 +112,12 @@ class ARBitmaps {
         private val otherBitmaps = HashMap<Int, Bitmap>()
         private val raceBitmaps = HashMap<Int, Bitmap>()
         private val shipBitmaps = HashMap<Int, Bitmap>()
-        private val defaultBitMap = BitmapFactory.decodeResource(ARViewModel.context!!.resources, R.drawable.missing)
+        private val defaultBitMap =
+            BitmapFactory.decodeResource(ARViewModel.context!!.resources, R.drawable.missing)
 
-        val numberOfFrames = 150 // 10s rotation, 30fps -> up to 300 different angles/shipBitmaps! 600 @60fps
-        var wheelBitmaps = arrayOfNulls<Bitmap>(numberOfFrames)
+        val numberOfFrames =
+            150 // 10s rotation, 30fps -> up to 300 different angles/shipBitmaps! 600 @60fps
+        private var wheelBitmaps = arrayOfNulls<Bitmap>(numberOfFrames)
 
         var initTimes = mutableMapOf<String, Long>()
 
@@ -157,25 +162,39 @@ class ARBitmaps {
             initTimes["iPB"] = measureNanoTime {
                 for (i in 0..7) {
                     planetBitmaps[i] =
-                        BitmapFactory.decodeResource(context.resources, getPlanetDrawableResource(i))!!
+                        BitmapFactory.decodeResource(
+                            context.resources,
+                            getPlanetDrawableResource(i)
+                        )!!
                 }
             }
 
             initTimes["iPS"] = measureNanoTime {
-                surfaceBitmaps[3] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_desert)!!
-                surfaceBitmaps[5] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_forest)!!
-                surfaceBitmaps[2] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_gas)!!
-                surfaceBitmaps[6] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_ice)!!
-                surfaceBitmaps[1] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_land)!!
-                surfaceBitmaps[4] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_mountain)!!
-                surfaceBitmaps[7] = BitmapFactory.decodeResource(context.resources, R.drawable.surface_rock)!!
-                surfaceBitmaps[0] = BitmapFactory.decodeResource(context.resources, R.drawable.water)!!
+                surfaceBitmaps[3] =
+                    BitmapFactory.decodeResource(context.resources, R.drawable.surface_desert)!!
+                surfaceBitmaps[5] =
+                    BitmapFactory.decodeResource(context.resources, R.drawable.surface_forest)!!
+                surfaceBitmaps[2] =
+                    BitmapFactory.decodeResource(context.resources, R.drawable.surface_gas)!!
+                surfaceBitmaps[6] =
+                    BitmapFactory.decodeResource(context.resources, R.drawable.surface_ice)!!
+                surfaceBitmaps[1] =
+                    BitmapFactory.decodeResource(context.resources, R.drawable.surface_land)!!
+                surfaceBitmaps[4] =
+                    BitmapFactory.decodeResource(context.resources, R.drawable.surface_mountain)!!
+                surfaceBitmaps[7] =
+                    BitmapFactory.decodeResource(context.resources, R.drawable.surface_rock)!!
+                surfaceBitmaps[0] =
+                    BitmapFactory.decodeResource(context.resources, R.drawable.water)!!
             }
 
             // get Races
             initTimes["iRB"] = measureNanoTime {
                 for (i in 0 until NumberOfRacesWithBitmaps) {
-                    val bm = BitmapFactory.decodeResource(context.resources, getRaceDrawableResource(i))!!
+                    val bm = BitmapFactory.decodeResource(
+                        context.resources,
+                        getRaceDrawableResource(i)
+                    )!!
                     w = density / 420f * bm.width / 30
                     h = density / 420f * bm.height / 30
                     raceBitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
@@ -185,7 +204,10 @@ class ARBitmaps {
             // get Ships
             initTimes["iSB"] = measureNanoTime {
                 for (i in 0..NumberOfShipsWithBitmaps + NumberOfShipsWithAlternativeBitmaps) {
-                    val bm = BitmapFactory.decodeResource(context.resources, getShipDrawableResource(i))!!
+                    val bm = BitmapFactory.decodeResource(
+                        context.resources,
+                        getShipDrawableResource(i)
+                    )!!
                     w = density / 420f * bm.width / 6
                     h = density / 420f * bm.height / 6
                     shipBitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
@@ -195,7 +217,8 @@ class ARBitmaps {
             // compute wheel animations
             initTimes["iWB"] = measureNanoTime {
                 for (i in 0 until numberOfFrames) {
-                    wheelBitmaps[i] = shipBitmaps[GBData.STATION]!!.rotate((360.toFloat() / numberOfFrames * i))
+                    wheelBitmaps[i] =
+                        shipBitmaps[GBData.STATION]!!.rotate((360.toFloat() / numberOfFrames * i))
                 }
             }
             ready = true
