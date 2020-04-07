@@ -189,7 +189,7 @@ class GlobalStuff {
             // Stars don't go away, so the below !! should be safe
             val star = vm.star(view.tag as Int)  // FIXME direct way?
 
-            val imageView = activity.findViewById<MapView>(R.id.mapView)!!
+            val imageView = activity.findViewById<MapView>(R.id.map_view)!!
 
             imageView.unpinPlanet()
             imageView.animateScaleAndCenter(
@@ -217,7 +217,7 @@ class GlobalStuff {
             // Planets don't go away, so the below !! should be safe
             val planet = vm.planet(view.tag as Int)
 
-            val imageView = activity.findViewById<MapView>(R.id.mapView)!!  // FIXME direct way?
+            val imageView = activity.findViewById<MapView>(R.id.map_view)!!  // FIXME direct way?
 
             imageView.pinPlanet(planet.uid)
             imageView.animateScaleAndCenter(
@@ -246,7 +246,7 @@ class GlobalStuff {
             val ship = vm.ships[view.tag as Int] // Don't use ship(), as we need to handle null (do nothing)
             if (ship != null) {
 
-                val imageView = activity.findViewById<MapView>(R.id.mapView)!!
+                val imageView = activity.findViewById<MapView>(R.id.map_view)!!
 
                 imageView.animateScaleAndCenter(
                     imageView.zoomLevelPlanet, PointF( // FEATURE Quality replace this with a constant from the view
