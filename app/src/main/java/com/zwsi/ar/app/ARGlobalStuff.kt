@@ -40,7 +40,10 @@ fun GBLocation.getVMLoc(): GBxy {
         return GBxy(vm.planet(uidRef).loc.getLoc().x + x, vm.planet(uidRef).loc.getLoc().y + y)
     }
     if (level == GBLocation.PATROL) {
-        return GBxy(vm.patrolPoint(uidRef).loc.getLoc().x + x, vm.patrolPoint(uidRef).loc.getLoc().y + y)
+        return GBxy(
+            vm.patrolPoint(uidRef).loc.getLoc().x + x,
+            vm.patrolPoint(uidRef).loc.getLoc().y + y
+        )
     }
     if (level == GBLocation.SYSTEM) {
         return GBxy(vm.star(uidRef).loc.getLoc().x + x, vm.star(uidRef).loc.getLoc().y + y)
@@ -61,7 +64,9 @@ internal fun GBLocation.getVMUidStar(): Int {
 
 internal fun GBLocation.getVMStar(): GBStar? {
     when (level) {
-        GBLocation.LANDED, GBLocation.ORBIT, GBLocation.SYSTEM, GBLocation.PATROL -> return vm.star(getVMUidStar())
+        GBLocation.LANDED, GBLocation.ORBIT, GBLocation.SYSTEM, GBLocation.PATROL -> return vm.star(
+            getVMUidStar()
+        )
         else -> return null
     }
 }
@@ -84,7 +89,8 @@ class GlobalStuff {
         val clickDelay = 300L
 
         val moshi = Moshi.Builder().build()
-        val jsonAdapter: JsonAdapter<GBUniverse> = moshi.adapter(GBUniverse::class.java).indent("  ")
+        val jsonAdapter: JsonAdapter<GBUniverse> =
+            moshi.adapter(GBUniverse::class.java).indent("  ")
         var autoDo = false
 
         // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
@@ -165,7 +171,8 @@ class GlobalStuff {
 
                 Thread(Runnable {
                     while (autoDo) {
-                        val json = GBController.doAndSaveUniverse() // SERVER Talk to not-remote server
+                        val json =
+                            GBController.doAndSaveUniverse() // SERVER Talk to not-remote server
                         processGameInfo(json, false)
                         Thread.sleep(500) // let everything else catch up before we do another turn
                     }
@@ -189,13 +196,13 @@ class GlobalStuff {
             // Stars don't go away, so the below !! should be safe
             val star = vm.star(view.tag as Int)  // FIXME direct way?
 
-            val imageView = activity.findViewById<MapView>(R.id.map_view)!!
+            val map_view = activity.findViewById<MapView>(R.id.map_view)!!
 
-            imageView.unpinPlanet()
-            imageView.animateScaleAndCenter(
-                imageView.zoomLevelStar, PointF(
-                    star.loc.getLoc().x * imageView.uToS,
-                    (star.loc.getLoc().y - 17f) * imageView.uToS
+            map_view.unpinPlanet()
+            map_view.animateScaleAndCenter(
+                map_view.zoomLevelStar, PointF(
+                    star.loc.getLoc().x * map_view.uToS,
+                    (star.loc.getLoc().y - 17f) * map_view.uToS
                 )
             )!!
                 .withDuration(1000)
@@ -217,13 +224,13 @@ class GlobalStuff {
             // Planets don't go away, so the below !! should be safe
             val planet = vm.planet(view.tag as Int)
 
-            val imageView = activity.findViewById<MapView>(R.id.map_view)!!  // FIXME direct way?
+            val map_view = activity.findViewById<MapView>(R.id.map_view)!!  // FIXME direct way?
 
-            imageView.pinPlanet(planet.uid)
-            imageView.animateScaleAndCenter(
-                imageView.zoomLevelPlanet, PointF(
-                    planet.loc.getLoc().x * imageView.uToS,
-                    (planet.loc.getLoc().y - 1) * imageView.uToS
+            map_view.pinPlanet(planet.uid)
+            map_view.animateScaleAndCenter(
+                map_view.zoomLevelPlanet, PointF(
+                    planet.loc.getLoc().x * map_view.uToS,
+                    (planet.loc.getLoc().y - 1) * map_view.uToS
                 )
             )!!
                 .withDuration(1000)
@@ -243,15 +250,17 @@ class GlobalStuff {
 
             val activity = view.context as Activity
 
-            val ship = vm.ships[view.tag as Int] // Don't use ship(), as we need to handle null (do nothing)
+            val ship =
+                vm.ships[view.tag as Int] // Don't use ship(), as we need to handle null (do nothing)
             if (ship != null) {
 
-                val imageView = activity.findViewById<MapView>(R.id.map_view)!!
+                val map_view = activity.findViewById<MapView>(R.id.map_view)!!
 
-                imageView.animateScaleAndCenter(
-                    imageView.zoomLevelPlanet, PointF( // FEATURE Quality replace this with a constant from the view
-                        ship.loc.getLoc().x * imageView.uToS,
-                        (ship.loc.getLoc().y - 1f) * imageView.uToS
+                map_view.animateScaleAndCenter(
+                    map_view.zoomLevelPlanet,
+                    PointF( // FEATURE Quality replace this with a constant from the view
+                        ship.loc.getLoc().x * map_view.uToS,
+                        (ship.loc.getLoc().y - 1f) * map_view.uToS
                     )
                 )!!
                     .withDuration(100)
@@ -270,7 +279,8 @@ class GlobalStuff {
             }
             lastClickTime = SystemClock.elapsedRealtime();
 
-            val factory = vm.ships[view.tag as Int] // Don't use ship() as we need to handle null (do nothing)
+            val factory =
+                vm.ships[view.tag as Int] // Don't use ship() as we need to handle null (do nothing)
             if (factory != null) {
                 GBController.makeShip(factory.uid, type)
                 updateActions(view)
