@@ -164,10 +164,10 @@ class ARShipFragment : Fragment() {
         paint.textSize = 40f
 
         if (sh == null) {
-            stats.setText("Boom! This ship no longer exists.")
+            stats.text="Boom! This ship no longer exists."
         } else {
 
-            stats.setText("Name: " + sh.name + "\n")
+            stats.text = "Name: " + sh.name + "\n"
             stats.append("Type: " + sh.type + "\n")
             stats.append("Race: " + sh.race.name + "\n")
             if (sh.speed > 0) {

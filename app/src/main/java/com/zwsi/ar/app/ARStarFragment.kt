@@ -53,7 +53,7 @@ class ARStarFragment : Fragment() {
         val paint = stats.paint
         paint.textSize = 40f
 
-        stats.setText("${star.name} at (" + (star.loc.getLoc().x.toInt()) + ", " + star.loc.getLoc().y.toInt() + ")\n")
+        stats.text="${star.name} at (" + (star.loc.getLoc().x.toInt()) + ", " + star.loc.getLoc().y.toInt() + ")\n"
 
         if (superSensors || vm.race(uidActivePlayer).raceVisibleStars.contains(star.uid)) {
             val planets = star.starUidPlanets.map { vm.planet(it) }

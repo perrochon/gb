@@ -67,7 +67,7 @@ class ARRaceFragment : Fragment() {
         var paint = stats.paint
         paint.textSize = 40f
 
-        stats.setText("Name      : " + (r.name) + "\n")
+        stats.text = "Name      : " + (r.name) + "\n"
         stats.append("Birthrate : " + (r.birthrate) + "\n")
         stats.append("Explore   : " + (r.explore) + "\n")
         stats.append("Absorption: " + (r.absorption) + "\n")

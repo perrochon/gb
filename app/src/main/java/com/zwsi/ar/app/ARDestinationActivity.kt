@@ -26,7 +26,7 @@ class ARDestinationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destination)
 
-        text_version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+        text_version.text=BuildConfig.VERSIONNAME
 
         val uidShip = intent.extras!!.getInt("uidShip")
         val ship = vm.ship(uidShip)

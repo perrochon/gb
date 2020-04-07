@@ -7,11 +7,8 @@ game play, or prevent game play are second priority. Here are a few examples
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 * Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
-# Coding Standards
-* Refactor to guidelines: https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md
-XML resources (e.g. text_version) are in snake case, like most Android code. This looks weird in Kotlin when
-accessed as variables (e.g. text_version.text = "1.1.1"), but it also makes it clear this is not a regular variable,
-but an XML layout element.
+## Regression
+* PanZoom to Star and Planet crashes
 
 ## Short Term Small Items
 * DO button crashes app when no game loaded. Grey it out.
@@ -39,7 +36,12 @@ but an XML layout element.
 * Better bitmaps, buttons, etc.
 * Stars should get bigger at high zoom level, similar to planets
 
-## Regression
+# Coding Standards
+* Refactor to guidelines: https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md
+XML resources (e.g. text_version) are in snake case, like most Android code. This looks weird in Kotlin when
+accessed as variables (e.g. text_version.text = "1.1.1"), but it also makes it clear this is not a regular variable,
+but an XML layout element.
+* Get rid of FindViewById in Fragments and global stuff
 
 ## Code Quality
 * Turn colors to proper resource strings. Then parse them once.
