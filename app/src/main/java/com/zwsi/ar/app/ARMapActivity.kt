@@ -225,7 +225,7 @@ class ARMapActivity : AppCompatActivity() {
     }
 
     fun panzoomToShip(view: View) {
-        GlobalStuff.panzoomToShip(view)
+        GlobalStuff.panZoomToShip(view)
     }
 
 }

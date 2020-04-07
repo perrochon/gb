@@ -6,9 +6,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import com.zwsi.ar.app.ARViewModel.Companion.uidActivePlayer
 import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.GBData.Companion.FACTORY
@@ -54,12 +51,12 @@ class ARPlanetFragment : Fragment() {
 
         button_to_system_star.tag = vm.planet(tag!!.toInt()).star.uid
         button_to_system_star.setOnClickListener(View.OnClickListener {
-            GlobalStuff.panzoomToStar(it)
+            GlobalStuff.panZoomToStar(it)
         })
 
         button_to_planet.tag = tag!!.toInt()
         button_to_planet.setOnClickListener(View.OnClickListener {
-            GlobalStuff.panzoomToPlanet(it)
+            GlobalStuff.panZoomToPlanet(it)
         })
 
     }

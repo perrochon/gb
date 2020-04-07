@@ -36,7 +36,7 @@ class ARStarFragment : Fragment() {
 
         button_to_star.tag = tag!!.toInt()
         button_to_star.setOnClickListener(View.OnClickListener {
-            GlobalStuff.panzoomToStar(it)
+            GlobalStuff.panZoomToStar(it)
         })
     }
 

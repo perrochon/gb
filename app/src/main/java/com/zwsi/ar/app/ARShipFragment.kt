@@ -12,8 +12,6 @@ import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import com.zwsi.ar.app.ARViewModel.Companion.uidActivePlayer
 import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.GBData
@@ -131,7 +129,7 @@ class ARShipFragment : Fragment() {
 
         button_to_ship.tag = sh.uid
         button_to_ship.setOnClickListener(View.OnClickListener {
-            GlobalStuff.panzoomToShip(it)
+            GlobalStuff.panZoomToShip(it)
         })
 
         button_destinations.setOnClickListener(View.OnClickListener {

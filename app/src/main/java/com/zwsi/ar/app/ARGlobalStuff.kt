@@ -20,7 +20,6 @@ import kotlin.system.measureNanoTime
 
 // Utility Extension Function for formatting numbers with leading space
 fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
-
 fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
 fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
 fun Long.f(digits: Int) = java.lang.String.format("%${digits}d", this)
@@ -88,15 +87,15 @@ class GlobalStuff {
         var lastClickTime = 0L
         val clickDelay = 300L
 
-        val moshi = Moshi.Builder().build()
-        val jsonAdapter: JsonAdapter<GBUniverse> =
+        private val moshi = Moshi.Builder().build()
+        private val jsonAdapter: JsonAdapter<GBUniverse> =
             moshi.adapter(GBUniverse::class.java).indent("  ")
-        var autoDo = false
+        public var autoDo = false
 
         // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
         fun processGameInfo(json: String, fresh: Boolean) {
 
-            // We create gameinfo in the worker thread, not the UI thread
+            // We create gameInfo in the worker thread, not the UI thread
             var gameInfo: GBUniverse? = null
 
             try {
@@ -106,7 +105,7 @@ class GlobalStuff {
 
 
                 }
-                Handler(Looper.getMainLooper()).post({
+                Handler(Looper.getMainLooper()).post {
                     ARViewModel.update(
                         gameInfo!!,
                         GBController.elapsedTimeLastUpdate,
@@ -116,7 +115,7 @@ class GlobalStuff {
                         fromJsonTime,
                         fresh
                     )
-                })
+                }
 
             } catch (e: Exception) {
                 // TODO We must have read a bad file, but not clear how to tell the user
@@ -182,8 +181,8 @@ class GlobalStuff {
 
         }
 
-        /** Zoom the mapview to a star (UID should be in View.tag) */
-        fun panzoomToStar(view: View) {
+        /** Zoom map_view to a star (UID should be in View.tag) */
+        fun panZoomToStar(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
@@ -211,8 +210,8 @@ class GlobalStuff {
                 .start()
         }
 
-        /** Zoom the mapview to a planet (UID should be in View.tag) */
-        fun panzoomToPlanet(view: View) {
+        /** Zoom map_view to a planet (UID should be in View.tag) */
+        fun panZoomToPlanet(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
@@ -239,9 +238,8 @@ class GlobalStuff {
                 .start()
         }
 
-
-        /** Called when the user taps the Go button */
-        fun panzoomToShip(view: View) {
+        /** Zoom map_view to a ship (UID should be in View.tag) */
+        fun panZoomToShip(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
                 return;
@@ -267,11 +265,9 @@ class GlobalStuff {
                     .withEasing(SubsamplingScaleImageView.EASE_OUT_QUAD)
                     .withInterruptible(false)
                     .start()
-
             }
         }
 
-        /** Called when the user taps a make Ship button */
         fun makeShip(view: View, type: Int) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
@@ -287,11 +283,9 @@ class GlobalStuff {
 
                 val message = "Ordered ship in Factory ${factory.name}."
                 Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-
             }
         }
 
-        /** Called when the user taps the Make Factory button */
         fun makeStructure(view: View, type: Int) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
@@ -309,9 +303,7 @@ class GlobalStuff {
 
             val message = "Ordered Factory on " + planet.name
             Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
-
         }
-
 
         fun updateActions(view: View) {
             if (vm.secondPlayer) {
@@ -325,7 +317,6 @@ class GlobalStuff {
             } else {
                 doUniverse(view, true)
             }
-
         }
 
         fun doubleClick(): Boolean {
@@ -340,7 +331,5 @@ class GlobalStuff {
             }
             button.background.colorFilter = LightingColorFilter(0x55555, 0x774400)
         }
-
-
     }
 }
