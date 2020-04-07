@@ -42,6 +42,8 @@ accessed as variables (e.g. text_version.text = "1.1.1"), but it also makes it c
 but an XML layout element.
 
 ## Code Quality
+* Analyze -> Inspect Code
+* Analyze -> Code Cleanup
 * Turn colors to proper resource strings. Then parse them once.
 * Tests for patrol points
 * Review all TODO and warnings
