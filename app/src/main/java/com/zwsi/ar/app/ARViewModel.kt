@@ -93,7 +93,7 @@ class ARViewModel {
             to update the LiveData object.
              */
             // update() should run in the UI thread, so use setValue()
-            currentTurn.setValue(gameinfo.turn)
+            currentTurn.value = gameinfo.turn
 
         }
 

@@ -17,7 +17,7 @@ class ARRaceFragment : Fragment() {
             val f = ARRaceFragment()
             val bdl = Bundle(1)
             bdl.putString("UID", message)
-            f.setArguments(bdl)
+            f.arguments = bdl
             return f
         }
     }
@@ -67,7 +67,7 @@ class ARRaceFragment : Fragment() {
         paint = text_race_ships.paint
         paint.textSize = 40f
 
-        text_race_ships.setMovementMethod(ScrollingMovementMethod())
+        text_race_ships.movementMethod = ScrollingMovementMethod()
 
         val ships = r.raceUidShips.map { vm.race(it) }
         if (ships.isNotEmpty()) {

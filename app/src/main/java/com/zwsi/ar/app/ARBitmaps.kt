@@ -44,9 +44,9 @@ fun getRaceDrawableResource(idx: Int): Int {
 const val NumberOfShipsWithBitmaps = 8
 const val NumberOfShipsWithAlternativeBitmaps = 1 // FIXME Better handling of alternative ship bitmaps
 
-fun GBShip.getDrawableResource(): Int {
-    return getShipDrawableResource(this.idxtype)
-}
+//fun GBShip.getDrawableResource(): Int {
+//    return getShipDrawableResource(this.idxtype)
+//}
 
 fun GBShip.getBitmap(): Bitmap {
     if (this.idxtype == GBData.POD && this.uidRace == 2) {
@@ -176,8 +176,8 @@ class ARBitmaps {
             initTimes["iRB"] = measureNanoTime {
                 for (i in 0 until NumberOfRacesWithBitmaps) {
                     val bm = BitmapFactory.decodeResource(context.resources, getRaceDrawableResource(i))!!
-                    w = density / 420f * bm.getWidth() / 30
-                    h = density / 420f * bm.getHeight() / 30
+                    w = density / 420f * bm.width / 30
+                    h = density / 420f * bm.height / 30
                     raceBitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
                 }
             }
@@ -186,8 +186,8 @@ class ARBitmaps {
             initTimes["iSB"] = measureNanoTime {
                 for (i in 0..NumberOfShipsWithBitmaps + NumberOfShipsWithAlternativeBitmaps) {
                     val bm = BitmapFactory.decodeResource(context.resources, getShipDrawableResource(i))!!
-                    w = density / 420f * bm.getWidth() / 6
-                    h = density / 420f * bm.getHeight() / 6
+                    w = density / 420f * bm.width / 6
+                    h = density / 420f * bm.height / 6
                     shipBitmaps[i] = Bitmap.createScaledBitmap(bm, w.toInt(), h.toInt(), true)!!
                 }
             }

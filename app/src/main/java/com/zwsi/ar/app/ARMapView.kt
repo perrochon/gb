@@ -246,8 +246,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     init {
         statsNamesPaint.textSize = 30f
-        statsNamesPaint.setTypeface(Typeface.MONOSPACE)
-        statsNamesPaint.setTextAlign(Paint.Align.LEFT)
+        statsNamesPaint.typeface = Typeface.MONOSPACE
+        statsNamesPaint.textAlign = Paint.Align.LEFT
         statsNamesPaint.style = Style.FILL
         statsNamesPaint.color = debugTextColor
         statsNamesPaint.alpha = 255
@@ -402,26 +402,22 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         val milis = currentTimeMillis().rem(shotduration).toFloat()
                         val shotFront = milis * distance / shotduration
                         if (milis < 50f) {
-                            shotPaint.setPathEffect(
-                                DashPathEffect(
-                                    floatArrayOf(
-                                        shotFront,
-                                        Float.MAX_VALUE
-                                    ), 0f
-                                )
+                            shotPaint.pathEffect = DashPathEffect(
+                                floatArrayOf(
+                                    shotFront,
+                                    Float.MAX_VALUE
+                                ), 0f
                             )
                         } else {
                             val shotend = (milis - 50f) * distance / shotduration
                             val shotlength = 50f * distance / shotduration
-                            shotPaint.setPathEffect(
-                                DashPathEffect(
-                                    floatArrayOf(
-                                        0f,
-                                        shotend,
-                                        shotlength,
-                                        Float.MAX_VALUE
-                                    ), 0f
-                                )
+                            shotPaint.pathEffect = DashPathEffect(
+                                floatArrayOf(
+                                    0f,
+                                    shotend,
+                                    shotlength,
+                                    Float.MAX_VALUE
+                                ), 0f
                             )
 
                         }
@@ -440,7 +436,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     init {
         starNamesPaint.textSize = 50f
-        starNamesPaint.setTextAlign(Paint.Align.CENTER)
+        starNamesPaint.textAlign = Paint.Align.CENTER
         starNamesPaint.style = Style.FILL
         starNamesPaint.color = labelColor
         starNamesPaint.alpha = 128
@@ -572,7 +568,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             // planet names
                             if (4 > normScale) {
                                 paint.textSize = 50f
-                                paint.setTextAlign(Paint.Align.CENTER)
+                                paint.textAlign = Paint.Align.CENTER
                                 paint.style = Style.FILL
                                 paint.color = labelColor
                                 paint.alpha = 128
@@ -867,7 +863,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             val dx = (p.loc.getLoc().x - pinnedPlanetX) * uToS
             val dy = (p.loc.getLoc().y - pinnedPlanetY) * uToS
             setScaleAndCenter(
-                getScale(),
+                scale,
                 PointF(
                     this.center!!.x + dx,
                     this.center!!.y + dy
