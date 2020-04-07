@@ -44,7 +44,7 @@ class ARViewModel {
         var missionResultsString = "999,-1,-1,-1,-1,-1" // Turn when mission success was achieved
         var missionResults = listOf<Int>(0)
 
-        var uidActivePlayer = 0;
+        var uidActivePlayer = 0
         val actionsTaken by lazy { MutableLiveData<Int>() }
 
         var freshUniverse = false

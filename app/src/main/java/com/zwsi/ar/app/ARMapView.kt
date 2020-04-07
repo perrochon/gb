@@ -146,7 +146,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         val lowResImage = ImageSource.resource(R.drawable.orion1024)
         fullResImage.dimensions(18000, 18000) // FIXME Would be nice not to hard code here and above
 
-        setImage(fullResImage, lowResImage);
+        setImage(fullResImage, lowResImage)
         setMinimumScaleType(SCALE_TYPE_CENTER_CROP)
         setDoubleTapZoomScale(zoomLevelStar)
         setScaleAndCenter(
@@ -246,8 +246,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     init {
         statsNamesPaint.textSize = 30f
-        statsNamesPaint.setTypeface(Typeface.MONOSPACE);
-        statsNamesPaint.setTextAlign(Paint.Align.LEFT);
+        statsNamesPaint.setTypeface(Typeface.MONOSPACE)
+        statsNamesPaint.setTextAlign(Paint.Align.LEFT)
         statsNamesPaint.style = Style.FILL
         statsNamesPaint.color = debugTextColor
         statsNamesPaint.alpha = 255
@@ -440,7 +440,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     init {
         starNamesPaint.textSize = 50f
-        starNamesPaint.setTextAlign(Paint.Align.CENTER);
+        starNamesPaint.setTextAlign(Paint.Align.CENTER)
         starNamesPaint.style = Style.FILL
         starNamesPaint.color = labelColor
         starNamesPaint.alpha = 128
@@ -491,7 +491,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
                                 // we are drawing a planet, consider pinning it.
                                 if (pinnedUidPlanet == null) {
-                                    pinPlanet(uidP);
+                                    pinPlanet(uidP)
                                 }
 
 
@@ -572,7 +572,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             // planet names
                             if (4 > normScale) {
                                 paint.textSize = 50f
-                                paint.setTextAlign(Paint.Align.CENTER);
+                                paint.setTextAlign(Paint.Align.CENTER)
                                 paint.style = Style.FILL
                                 paint.color = labelColor
                                 paint.alpha = 128

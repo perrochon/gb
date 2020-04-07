@@ -23,7 +23,7 @@ class ARHelpActivity : AppCompatActivity() {
         val helpUrl = b?.getString("url") ?: "file:///android_asset/mainHelp.html"
 
         webview_help.setBackgroundColor(0x00000000)
-        webview_help.loadUrl(helpUrl);
+        webview_help.loadUrl(helpUrl)
         // TODO FIXME Use Roboto font, ideally without packaging the whole font into the assets directory...
         // TODO FIXME Where to put display instructions? In each HTML file??? CSS file?
         // TODO FIXME Now that it's proper HTML again, we can link to it on Github

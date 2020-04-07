@@ -36,7 +36,7 @@ class ARMainActivity : AppCompatActivity() {
 
         text_version.text=BuildConfig.VERSIONNAME
 
-        text_messageBox.movementMethod = ScrollingMovementMethod();
+        text_messageBox.movementMethod = ScrollingMovementMethod()
 
         button_player1.isEnabled = false
         button_player1.text = "Play"

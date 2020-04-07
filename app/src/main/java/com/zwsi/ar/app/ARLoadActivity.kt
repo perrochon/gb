@@ -124,9 +124,9 @@ class ARLoadActivity : AppCompatActivity() {
 
     fun makeUniverse(@Suppress("UNUSED_PARAMETER") view: View, secondPlayer: Boolean) {
         if (SystemClock.elapsedRealtime() - GlobalStuff.lastClickTime < GlobalStuff.clickDelay) {
-            return;
+            return
         }
-        GlobalStuff.lastClickTime = SystemClock.elapsedRealtime();
+        GlobalStuff.lastClickTime = SystemClock.elapsedRealtime()
 
         Toast.makeText(view.context, "Creating a new Universe", Toast.LENGTH_SHORT).show()
 
@@ -138,9 +138,9 @@ class ARLoadActivity : AppCompatActivity() {
 
     fun loadUniverse(view: View, number: Int) {
         if (SystemClock.elapsedRealtime() - GlobalStuff.lastClickTime < GlobalStuff.clickDelay) {
-            return;
+            return
         }
-        GlobalStuff.lastClickTime = SystemClock.elapsedRealtime();
+        GlobalStuff.lastClickTime = SystemClock.elapsedRealtime()
 
         Toast.makeText(view.context, "Loading Universe $number", Toast.LENGTH_SHORT).show()
 

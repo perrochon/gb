@@ -102,14 +102,14 @@ fun getPlanetDrawableResource(idx: Int): Int {
 class ARBitmaps {
     companion object {
 
-        var ready = false;
+        var ready = false
 
         private val planetBitmaps = HashMap<Int, Bitmap>()
         private val surfaceBitmaps = HashMap<Int, Bitmap>()
         private val otherBitmaps = HashMap<Int, Bitmap>()
         private val raceBitmaps = HashMap<Int, Bitmap>()
         private val shipBitmaps = HashMap<Int, Bitmap>()
-        private val defaultBitMap = BitmapFactory.decodeResource(ARViewModel.context!!.resources, R.drawable.missing);
+        private val defaultBitMap = BitmapFactory.decodeResource(ARViewModel.context!!.resources, R.drawable.missing)
 
         val numberOfFrames = 150 // 10s rotation, 30fps -> up to 300 different angles/shipBitmaps! 600 @60fps
         var wheelBitmaps = arrayOfNulls<Bitmap>(numberOfFrames)

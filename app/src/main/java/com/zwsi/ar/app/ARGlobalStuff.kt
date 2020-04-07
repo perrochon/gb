@@ -126,9 +126,9 @@ class GlobalStuff {
         fun doUniverse(view: View, force: Boolean = false) {
 
             if (!force && SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
+                return
             }
-            lastClickTime = SystemClock.elapsedRealtime();
+            lastClickTime = SystemClock.elapsedRealtime()
 
             if (autoDo) { // If we are running on auto, ignore manual Do
                 return
@@ -154,9 +154,9 @@ class GlobalStuff {
 
         fun toggleContinuous(view: View) {
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
+                return
             }
-            lastClickTime = SystemClock.elapsedRealtime();
+            lastClickTime = SystemClock.elapsedRealtime()
 
             if (autoDo) {
                 autoDo = false
@@ -185,9 +185,9 @@ class GlobalStuff {
         fun panZoomToStar(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
+                return
             }
-            lastClickTime = SystemClock.elapsedRealtime();
+            lastClickTime = SystemClock.elapsedRealtime()
 
 
             val activity = view.context as Activity
@@ -214,9 +214,9 @@ class GlobalStuff {
         fun panZoomToPlanet(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
+                return
             }
-            lastClickTime = SystemClock.elapsedRealtime();
+            lastClickTime = SystemClock.elapsedRealtime()
 
             val activity = view.context as Activity
 
@@ -242,9 +242,9 @@ class GlobalStuff {
         fun panZoomToShip(view: View) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
+                return
             }
-            lastClickTime = SystemClock.elapsedRealtime();
+            lastClickTime = SystemClock.elapsedRealtime()
 
             val activity = view.context as Activity
 
@@ -271,9 +271,9 @@ class GlobalStuff {
         fun makeShip(view: View, type: Int) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
+                return
             }
-            lastClickTime = SystemClock.elapsedRealtime();
+            lastClickTime = SystemClock.elapsedRealtime()
 
             val factory =
                 vm.ships[view.tag as Int] // Don't use ship() as we need to handle null (do nothing)
@@ -289,9 +289,9 @@ class GlobalStuff {
         fun makeStructure(view: View, type: Int) {
 
             if (SystemClock.elapsedRealtime() - lastClickTime < clickDelay) {
-                return;
+                return
             }
-            lastClickTime = SystemClock.elapsedRealtime();
+            lastClickTime = SystemClock.elapsedRealtime()
 
             // Planets don't go away, so the below !! should be safe
             val planet = vm.planet(view.tag as Int)
@@ -321,7 +321,7 @@ class GlobalStuff {
 
         fun doubleClick(): Boolean {
             val elapsedTime = SystemClock.elapsedRealtime() - lastClickTime
-            lastClickTime = SystemClock.elapsedRealtime();
+            lastClickTime = SystemClock.elapsedRealtime()
             return (elapsedTime < clickDelay)
         }
 

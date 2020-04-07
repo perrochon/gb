@@ -23,7 +23,7 @@ class ARPlayerActivity : AppCompatActivity() {
             finish()
         }
 
-        missionResults.text = "";
+        missionResults.text = ""
         val sharedPref = this.getSharedPreferences("playerstats", MODE_PRIVATE)
 
         for (i in arrayOf(Mission1, Mission2, Mission3, Mission4, Mission5, Mission6)) {
