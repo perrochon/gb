@@ -8,7 +8,7 @@ game play, or prevent game play are second priority. Here are a few examples
 * Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
 ## Regression
-* PanZoom to Star and Planet crashes
+* Ship buttons in Factory no longer disabled when no money (due to array list due to no FindViewByID)
 
 ## Short Term Small Items
 * DO button crashes app when no game loaded. Grey it out.

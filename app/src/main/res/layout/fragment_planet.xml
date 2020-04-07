@@ -10,7 +10,7 @@
         tools:context=".ARPlanetFragment"
         >
 
-    <TextView android:id="@+id/PlanetStats"
+    <TextView android:id="@+id/text_planet_stats"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -19,7 +19,7 @@
             android:fontFamily="@font/roboto_medium"
             android:text="Planet Details"
             android:textColor="@android:color/holo_green_light"
-            android:textSize="24sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
@@ -39,14 +39,13 @@
             android:gravity="right"
             >
 
-        <Button android:id="@+id/makefactory"
+        <Button android:id="@+id/button_factory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/border_planet"
                 android:fontFamily="@font/black_ops_one"
-                android:onClick="makeFactory"
                 android:text="Factory"
                 android:textColor="@android:color/holo_green_light"
                 android:visibility="visible"
@@ -54,7 +53,7 @@
                 tools:visibility="visible"
                 />
 
-        <Button android:id="@+id/panzoomToSystemStar"
+        <Button android:id="@+id/button_to_system_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -69,7 +68,7 @@
                 tools:visibility="visible"
                 />
 
-        <Button android:id="@+id/panzoomToPlanet"
+        <Button android:id="@+id/button_to_planet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -87,7 +86,7 @@
         <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/PlanetView"
+                android:id="@+id/image_planet"
                 app:srcCompat="@drawable/missing"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

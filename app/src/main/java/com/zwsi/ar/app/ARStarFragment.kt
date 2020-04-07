@@ -45,17 +45,17 @@ class ARStarFragment : Fragment() {
         // Stars don't go away, so the below !! should be safe
         val star = vm.star(tag!!.toInt())
 
-        StarStats.text =
+        text_star_stats.text =
             "${star.name} at (" + (star.loc.getLoc().x.toInt()) + ", " + star.loc.getLoc().y.toInt() + ")\n"
 
         if (superSensors || vm.race(uidActivePlayer).raceVisibleStars.contains(star.uid)) {
             val planets = star.starUidPlanets.map { vm.planet(it) }
             if (planets.isNotEmpty()) {
-                StarStats.append("Planets (${planets.size}): ")
+                text_star_stats.append("Planets (${planets.size}): ")
                 for (p in planets) {
-                    StarStats.append("  " + p.name + " ")
+                    text_star_stats.append("  " + p.name + " ")
                 }
-                StarStats.append("\n")
+                text_star_stats.append("\n")
             }
 
             val uidShips = star.starUidShips
@@ -63,9 +63,9 @@ class ARStarFragment : Fragment() {
                 uidShips += vm.patrolPoint(uidPP).orbitUidShips
             }
             if (uidShips.isNotEmpty()) {
-                StarStats.append("Ships (${uidShips.size.toString()}): ")
+                text_star_stats.append("Ships (${uidShips.size.toString()}): ")
                 for (s in uidShips) {
-                    StarStats.append(vm.ship(s).name + " ")
+                    text_star_stats.append(vm.ship(s).name + " ")
                 }
             }
         }

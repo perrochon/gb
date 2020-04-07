@@ -6,94 +6,78 @@ import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import com.zwsi.ar.app.ARViewModel.Companion.vm
+import kotlinx.android.synthetic.main.fragment_race.*
 
 class ARRaceFragment : Fragment() {
 
     companion object {
 
         fun newInstance(message: String): ARRaceFragment {
-
             val f = ARRaceFragment()
-
             val bdl = Bundle(1)
-
             bdl.putString("UID", message)
-
             f.setArguments(bdl)
-
             return f
-
         }
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        val view: View = inflater.inflate(R.layout.fragment_race, container, false)!!
-
-        setDetails(view)
-
-        return view
+        return inflater.inflate(R.layout.fragment_race, container, false)!!
     }
 
-    private fun setDetails(view: View) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setDetails()
+    }
+
+    private fun setDetails() {
         // What is this fragment about, and make sure the fragment remembers
         val uidRace = arguments!!.getString("UID")!!.toInt()
         val r = vm.race(uidRace)
-        view.tag = r // FIXME PERSISTENCE Don't pass race, pass race UID
-
-
-        val imageView = view.findViewById<ImageView>(R.id.RaceView)
+        view!!.tag = r // FIXME PERSISTENCE Don't pass race, pass race UID
 
         if (uidRace == 0)
-            imageView.setImageResource(R.drawable.race_xenos)
+            image_race.setImageResource(R.drawable.race_xenos)
         if (uidRace == 1)
-            imageView.setImageResource(R.drawable.race_impi)
+            image_race.setImageResource(R.drawable.race_impi)
         if (uidRace == 2)
-            imageView.setImageResource(R.drawable.race_beetle)
+            image_race.setImageResource(R.drawable.race_beetle)
         if (uidRace == 3)
-            imageView.setImageResource(R.drawable.race_tortoise)
+            image_race.setImageResource(R.drawable.race_tortoise)
 
 
-        val stats = view.findViewById<TextView>(R.id.RaceStats)
-        var paint = stats.paint
+        var paint = text_race_stats.paint
         paint.textSize = 40f
 
-        stats.text = "Name      : " + (r.name) + "\n"
-        stats.append("Birthrate : " + (r.birthrate) + "\n")
-        stats.append("Explore   : " + (r.explore) + "\n")
-        stats.append("Absorption: " + (r.absorption) + "\n")
+        text_race_stats.text = "Name      : " + (r.name) + "\n"
+        text_race_stats.append("Birthrate : " + (r.birthrate) + "\n")
+        text_race_stats.append("Explore   : " + (r.explore) + "\n")
+        text_race_stats.append("Absorption: " + (r.absorption) + "\n")
 
-        val background = view.findViewById<TextView>(R.id.RaceBackground)
-        paint = background.paint
+        paint = text_race_background.paint
         paint.textSize = 40f
 
-        background.append(r.description)
-        background.append("\n")
+        text_race_background.append(r.description)
+        text_race_background.append("\n")
 
-        background.append("\n")
-        background.append("refUID: " + r.uid + " | ")
-        background.append("idxname: " + r.idx + "")
+        text_race_background.append("\n")
+        text_race_background.append("refUID: " + r.uid + " | ")
+        text_race_background.append("idxname: " + r.idx + "")
 
-        val shipsTextView = view.findViewById<TextView>(R.id.Ships)
-        paint = shipsTextView.paint
+        paint = text_race_ships.paint
         paint.textSize = 40f
 
-        shipsTextView.setMovementMethod(ScrollingMovementMethod())
+        text_race_ships.setMovementMethod(ScrollingMovementMethod())
 
         val ships = r.raceUidShips.map { vm.race(it) }
         if (ships.isNotEmpty()) {
-            shipsTextView.text = ("Ships (${ships.size.toString()}): ")
+            text_race_ships.text = ("Ships (${ships.size.toString()}): ")
             for (sh in ships) {
-                shipsTextView.append(sh.name + " ")
+                text_race_ships.append(sh.name + " ")
             }
         }
 

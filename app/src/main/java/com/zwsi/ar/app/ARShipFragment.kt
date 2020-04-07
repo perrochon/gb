@@ -24,22 +24,26 @@ import com.zwsi.gblib.GBData.Companion.POD
 import com.zwsi.gblib.GBData.Companion.RESEARCH
 import com.zwsi.gblib.GBData.Companion.SHUTTLE
 import com.zwsi.gblib.GBData.Companion.STATION
+import kotlinx.android.synthetic.main.fragment_ship.*
 
 
 class ARShipFragment : Fragment() {
 
-    companion object {
+    // FIXME. Replace this with race.has(POD) and race.canafford(POD) then shipsdata.getbutton
+    private val shipButtons = arrayListOf<Button>()
 
+    companion object {
         fun newInstance(@Suppress("UNUSED_PARAMETER") message: String): ARShipFragment {
             return ARShipFragment()
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_ship, container, false)!!
+    }
 
-        val view: View = inflater.inflate(R.layout.fragment_ship, container, false)!!
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        setDetails(view)
 
         val sh = vm.ship(tag!!.toInt())
 
@@ -47,8 +51,8 @@ class ARShipFragment : Fragment() {
         background.mutate()
         background.setStroke(2, vm.race(sh.uidRace).getColor())
 
-        val shipView = view.findViewById<ImageView>(R.id.ShipView)
-        shipView.setImageBitmap(sh.getBitmap())
+        image_ship.setImageBitmap(sh.getBitmap())
+
         if (sh.idxtype == STATION) {
             // TODO Animate Station in ShipDetail. Redraw the image view on every vsync postInvalidateOnAnimation()
 
@@ -58,94 +62,90 @@ class ARShipFragment : Fragment() {
             anim.duration = 10000
 
             // Start animating the image
-            shipView.startAnimation(anim)
+            image_ship.startAnimation(anim)
         }
 
         val turnObserver = Observer<Int> { _ ->
-            setDetails(view)
+            setDetails()
             view.invalidate()
         }  // TODO why is newTurn nullable?
         ARViewModel.currentTurn.observe(this, turnObserver)
 
         val actionObserver = Observer<Int> { _ ->
-            setDetails(view)
+            setDetails()
             view.invalidate()
         }
         ARViewModel.actionsTaken.observe(this, actionObserver)
 
-        val makePodButton: Button = view.findViewById(R.id.makePod)
-        makePodButton.tag = sh.uid
-        makePodButton.setOnClickListener(View.OnClickListener {
+        // FIXME Make this a loop with programmatically created buttons, instead of copy paste
+        button_pod.tag = sh.uid
+        shipButtons.add(button_pod)
+        button_pod.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, POD)
             vm.race(uidActivePlayer).money -= GBData.shipsData[POD]!!.cost
-            setDetails(view)
+            setDetails()
             view.invalidate()
         })
 
-        // FIXME Clean up this mess
-        var makeCruiserButton: Button = view.findViewById(R.id.makeCruiser)
-        makeCruiserButton.tag = sh.uid
-        makeCruiserButton.setOnClickListener(View.OnClickListener {
+        button_cruiser.tag = sh.uid
+        shipButtons.add(button_cruiser)
+        button_cruiser.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, CRUISER)
             vm.race(uidActivePlayer).money -= GBData.shipsData[CRUISER]!!.cost
-            setDetails(view)
+            setDetails()
             view.invalidate()
         })
 
-        makeCruiserButton = view.findViewById(R.id.makeShuttle)
-        makeCruiserButton.tag = sh.uid
-        makeCruiserButton.setOnClickListener(View.OnClickListener {
+        button_shuttle.tag = sh.uid
+        shipButtons.add(button_shuttle)
+        button_shuttle.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, SHUTTLE)
             vm.race(uidActivePlayer).money -= GBData.shipsData[SHUTTLE]!!.cost
-            setDetails(view)
+            setDetails()
             view.invalidate()
         })
-        makeCruiserButton = view.findViewById(R.id.makeBattlestar)
-        makeCruiserButton.tag = sh.uid
-        makeCruiserButton.setOnClickListener(View.OnClickListener {
+        button_battlestar.tag = sh.uid
+        shipButtons.add(button_battlestar)
+        button_battlestar.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, BATTLESTAR)
             vm.race(uidActivePlayer).money -= GBData.shipsData[BATTLESTAR]!!.cost
-            setDetails(view)
+            setDetails()
             view.invalidate()
         })
-        makeCruiserButton = view.findViewById(R.id.makeStation)
-        makeCruiserButton.tag = sh.uid
-        makeCruiserButton.setOnClickListener(View.OnClickListener {
+        button_station.tag = sh.uid
+        shipButtons.add(button_station)
+        button_station.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, STATION)
             vm.race(uidActivePlayer).money -= GBData.shipsData[STATION]!!.cost
-            setDetails(view)
+            setDetails()
             view.invalidate()
         })
-        makeCruiserButton = view.findViewById(R.id.makeResearch)
-        makeCruiserButton.tag = sh.uid
-        makeCruiserButton.setOnClickListener(View.OnClickListener {
+        button_research.tag = sh.uid
+        shipButtons.add(button_research)
+        button_research.setOnClickListener(View.OnClickListener {
             GlobalStuff.makeShip(it, RESEARCH)
             vm.race(uidActivePlayer).money -= GBData.shipsData[RESEARCH]!!.cost
-            setDetails(view)
+            setDetails()
             view.invalidate()
         })
 
-        val zoomButton: Button = view.findViewById(R.id.panzoomToShip)
-        zoomButton.tag = sh.uid
-        zoomButton.setOnClickListener(View.OnClickListener {
+        button_to_ship.tag = sh.uid
+        button_to_ship.setOnClickListener(View.OnClickListener {
             GlobalStuff.panzoomToShip(it)
         })
 
-        val destinationButton: Button = view.findViewById(R.id.destination)
-        destinationButton.setOnClickListener(View.OnClickListener {
+        button_destinations.setOnClickListener(View.OnClickListener {
             val intent = Intent(this.context, ARDestinationActivity::class.java)
             intent.putExtra("uidShip", sh.uid)
             startActivity(intent)
         })
 
-        return view
+        // TODO FIX is at the end because it relies on shipButtons arraylist hack
+        setDetails()
+
     }
 
 
-    // FIXME. Replace this with race.has(POD) and race.canafford(POD) then shipsdata.getbutton
-    private val shipbuttons = intArrayOf(
-        R.id.makePod, R.id.makeCruiser, R.id.makeShuttle, R.id.makeBattlestar, R.id.makeStation, R.id.makeResearch
-    )
     private val shipcost = intArrayOf(
         GBData.shipsData[POD]!!.cost,
         GBData.shipsData[CRUISER]!!.cost,
@@ -155,61 +155,59 @@ class ARShipFragment : Fragment() {
         GBData.shipsData[RESEARCH]!!.cost
     )
 
-    private fun setDetails(view: View) {
+    private fun setDetails() {
 
         val sh = vm.ships[tag!!.toInt()] // Don't use ship(), as we need to handle null here.
 
-        val stats = view.findViewById<TextView>(R.id.ShipStats)
-        val paint = stats.paint
+        val paint = text_ship_stats.paint
         paint.textSize = 40f
 
         if (sh == null) {
-            stats.text="Boom! This ship no longer exists."
+            text_ship_stats.text="Boom! This ship no longer exists."
         } else {
 
-            stats.text = "Name: " + sh.name + "\n"
-            stats.append("Type: " + sh.type + "\n")
-            stats.append("Race: " + sh.race.name + "\n")
+            text_ship_stats.text = "Name: " + sh.name + "\n"
+            text_ship_stats.append("Type: " + sh.type + "\n")
+            text_ship_stats.append("Race: " + sh.race.name + "\n")
             if (sh.speed > 0) {
-                stats.append("Speed: " + sh.speed + "\n")
-                stats.append("Hyperspeed: " + sh.hyperspeed + "\n")
+                text_ship_stats.append("Speed: " + sh.speed + "\n")
+                text_ship_stats.append("Hyperspeed: " + sh.hyperspeed + "\n")
             }
             if (sh.guns > 0) {
-                stats.append("Weapons: " + sh.guns + " ")
-                stats.append("Damage: " + sh.damage + " ")
-                stats.append("Range: " + sh.range + "\n")
+                text_ship_stats.append("Weapons: " + sh.guns + " ")
+                text_ship_stats.append("Damage: " + sh.damage + " ")
+                text_ship_stats.append("Range: " + sh.range + "\n")
             }
-            stats.append("Health: " + sh.health + "\n")
-            stats.append("Location: " + sh.loc.getLocDesc() + "\n")
+            text_ship_stats.append("Health: " + sh.health + "\n")
+            text_ship_stats.append("Location: " + sh.loc.getLocDesc() + "\n")
 
-            if (sh.uidRace == uidActivePlayer && sh.dest != null) stats.append("Destination: ${sh.dest?.getLocDesc()}\n")
+            if (sh.uidRace == uidActivePlayer && sh.dest != null) text_ship_stats.append("Destination: ${sh.dest?.getLocDesc()}\n")
 
-            val shipRaceView = view.findViewById<ImageView>(R.id.ShipRaceView)
-            shipRaceView.setImageResource(sh.race.getDrawableResource())
+            image_ship_race.setImageResource(sh.race.getDrawableResource())
 
-            val destinationButton = view.findViewById<Button>(R.id.destination)!!
             if (sh.uidRace != uidActivePlayer || sh.speed == 0) {
-                destinationButton.visibility = View.GONE
+                button_destinations.visibility = View.GONE
             } else if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < ARViewModel.MIN_ACTIONS) {
-                destinationButton.isEnabled = false
-                destinationButton.alpha = 0.5f
+                button_destinations.isEnabled = false
+                button_destinations.alpha = 0.5f
             } else {
-                destinationButton.isEnabled = true
-                destinationButton.alpha = 1f // See Hack above.
+                button_destinations.isEnabled = true
+                button_destinations.alpha = 1f // See Hack above.
             }
 
+            // TODO FIX Disabling of buttons no longer works with ArrayList
             if (sh.idxtype == FACTORY) {
                 if (sh.uidRace == uidActivePlayer) {
                     for (i in 0..5) {
-                        view.findViewById<Button>(shipbuttons[i]).visibility = View.VISIBLE
+                        shipButtons[i].visibility = View.VISIBLE
                     }
                     if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < ARViewModel.MIN_ACTIONS) {
                         for (i in 0..5) {
-                            view.findViewById<Button>(shipbuttons[i]).isEnabled = false
+                            shipButtons[i].isEnabled = false
                         }
                     } else {
                         for (i in 0..5) {
-                            view.findViewById<Button>(shipbuttons[i]).isEnabled =
+                            shipButtons[i].isEnabled =
                                 (shipcost[i] <= vm.race(uidActivePlayer).money)
                         }
                     }
