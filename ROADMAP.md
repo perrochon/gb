@@ -1,6 +1,5 @@
 # Roadmap
 
-
 ## Guiding Principles
 Right now, the focus is on enabling game play, i.e. add features that allow more game play. Features that don't enhance
 game play, or prevent game play are second priority. Here are a few examples
