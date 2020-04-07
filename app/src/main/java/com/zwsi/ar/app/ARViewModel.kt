@@ -36,6 +36,8 @@ class ARViewModel {
 
         var context: Context? =
             null // Keeping the Application Context in a singleton in case we need it.
+
+        // TODO FIX ? Lint says this is a memory leak, and it does seem like a bad idea.
         var showStats = false
         var showRaceStats = true
         var showClickTargets = false

@@ -70,13 +70,13 @@ class ARShipFragment : Fragment() {
             image_ship.startAnimation(anim)
         }
 
-        val turnObserver = Observer<Int> { _ ->
+        val turnObserver = Observer<Int> {
             setDetails()
             view.invalidate()
         }  // TODO why is newTurn nullable?
         ARViewModel.currentTurn.observe(this, turnObserver)
 
-        val actionObserver = Observer<Int> { _ ->
+        val actionObserver = Observer<Int> {
             setDetails()
             view.invalidate()
         }

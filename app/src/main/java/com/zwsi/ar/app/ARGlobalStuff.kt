@@ -18,11 +18,12 @@ import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.*
 import kotlin.system.measureNanoTime
 
-// Utility Extension Function for formatting numbers with leading space
-fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
-fun Float.f(digits: Int) = java.lang.String.format("%.${digits}f", this)
-fun Int.f(digits: Int) = java.lang.String.format("%${digits}d", this)
-fun Long.f(digits: Int) = java.lang.String.format("%${digits}d", this)
+// Utility Extension Function for formatting numbers with leading space. 
+// Test for null return from the java library to keep Kotlin (lint) happy
+fun Double.f(digits: Int) = java.lang.String.format("%.${digits}f", this) ?: ""
+fun Float.f(digits: Int): String = java.lang.String.format("%.${digits}f", this) ?: ""
+fun Int.f(digits: Int): String = java.lang.String.format("%${digits}d", this) ?: ""
+fun Long.f(digits: Int): String = java.lang.String.format("%${digits}d", this) ?: ""
 
 fun GBLocation.getVMLoc(): GBxy {
 
@@ -223,13 +224,13 @@ class GlobalStuff {
             // Planets don't go away, so the below !! should be safe
             val planet = vm.planet(view.tag as Int)
 
-            val map_view = activity.findViewById<MapView>(R.id.map_view)!!  // FIXME direct way?
+            val mapView = activity.findViewById<MapView>(R.id.map_view)!!  // FIXME direct way?
 
-            map_view.pinPlanet(planet.uid)
-            map_view.animateScaleAndCenter(
-                map_view.zoomLevelPlanet, PointF(
-                    planet.loc.getLoc().x * map_view.uToS,
-                    (planet.loc.getLoc().y - 1) * map_view.uToS
+            mapView.pinPlanet(planet.uid)
+            mapView.animateScaleAndCenter(
+                mapView.zoomLevelPlanet, PointF(
+                    planet.loc.getLoc().x * mapView.uToS,
+                    (planet.loc.getLoc().y - 1) * mapView.uToS
                 )
             )!!
                 .withDuration(1000)
@@ -252,13 +253,13 @@ class GlobalStuff {
                 vm.ships[view.tag as Int] // Don't use ship(), as we need to handle null (do nothing)
             if (ship != null) {
 
-                val map_view = activity.findViewById<MapView>(R.id.map_view)!!
+                val mapView = activity.findViewById<MapView>(R.id.map_view)!!
 
-                map_view.animateScaleAndCenter(
-                    map_view.zoomLevelPlanet,
+                mapView.animateScaleAndCenter(
+                    mapView.zoomLevelPlanet,
                     PointF( // FEATURE Quality replace this with a constant from the view
-                        ship.loc.getLoc().x * map_view.uToS,
-                        (ship.loc.getLoc().y - 1f) * map_view.uToS
+                        ship.loc.getLoc().x * mapView.uToS,
+                        (ship.loc.getLoc().y - 1f) * mapView.uToS
                     )
                 )!!
                     .withDuration(100)

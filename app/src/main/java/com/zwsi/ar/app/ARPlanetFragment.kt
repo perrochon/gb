@@ -32,13 +32,13 @@ class ARPlanetFragment : Fragment() {
 
         image_planet.setImageBitmap(p.getBitmap())
 
-        val turnObserver = Observer<Int> { _ ->
+        val turnObserver = Observer<Int> {
             setDetails()
             view.invalidate()
         }  // TODO why is newTurn nullable?
         ARViewModel.currentTurn.observe(this, turnObserver)
 
-        val actionObserver = Observer<Int> { _ ->
+        val actionObserver = Observer<Int> {
             setDetails()
             view.invalidate()
         }
@@ -68,11 +68,8 @@ class ARPlanetFragment : Fragment() {
 
         if (p.planetUidRaces.contains(uidActivePlayer)) {
             button_factory.visibility = View.VISIBLE
-            if (vm.secondPlayer && vm.playerTurns[uidActivePlayer] < ARViewModel.MIN_ACTIONS) {
-                button_factory.isEnabled = false
-            } else {
-                button_factory.isEnabled = true
-            }
+            button_factory.isEnabled =
+                !(vm.secondPlayer && vm.playerTurns[uidActivePlayer] < ARViewModel.MIN_ACTIONS)
 
         } else {
             button_factory.visibility = View.INVISIBLE

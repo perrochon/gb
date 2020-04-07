@@ -50,7 +50,6 @@
                 android:fontFamily="@font/black_ops_one"
                 android:minWidth="10dp"
                 android:minHeight="10dp"
-                android:onClick="continuousDo"
                 android:text="Cont"
                 android:textColor="@android:color/holo_orange_light"
                 android:visibility="visible"
@@ -273,7 +272,7 @@
     <ImageView android:id="@+id/image_player2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:layout_constraintEnd_toEndOf="@+id/mapView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_status_bar"
             app:srcCompat="@drawable/race_impi"
             />
@@ -296,6 +295,7 @@
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="SmallSp"
             />
 
 </android.support.constraint.ConstraintLayout>

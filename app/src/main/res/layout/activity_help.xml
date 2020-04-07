@@ -65,5 +65,6 @@
             android:textSize="8sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="SmallSp"
             />
 </android.support.constraint.ConstraintLayout>

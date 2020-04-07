@@ -389,6 +389,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         if (40 > normScale) {
 
             // TODO Fix only show when visible to player
+            @Suppress("ConstantConditionIf")
             if (true) {
                 for (shot: GBVector in vm.shots) {
                     if (pointVisible(shot.from.x * uToSf, shot.from.y * uToSf) ||

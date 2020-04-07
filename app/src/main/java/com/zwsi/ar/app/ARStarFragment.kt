@@ -28,7 +28,7 @@ class ARStarFragment : Fragment() {
 
         setDetails()
 
-        val turnObserver = Observer<Int> { _ ->
+        val turnObserver = Observer<Int> {
             setDetails()
             view.invalidate()
         }  // TODO why is newTurn nullable?

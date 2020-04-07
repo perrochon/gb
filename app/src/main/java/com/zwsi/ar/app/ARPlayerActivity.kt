@@ -2,7 +2,6 @@ package com.zwsi.ar.app
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import com.zwsi.gblib.GBData.Companion.Mission1
 import com.zwsi.gblib.GBData.Companion.Mission2
 import com.zwsi.gblib.GBData.Companion.Mission3

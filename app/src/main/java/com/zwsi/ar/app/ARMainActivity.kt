@@ -128,7 +128,7 @@ class ARMainActivity : AppCompatActivity() {
         }  // TODO why is newTurn nullable?
         ARViewModel.currentTurn.observe(this, turnObserver)
 
-        val actionObserver = Observer<Int> { _ ->
+        val actionObserver = Observer<Int> {
             if (showContButton) {
                 button_continuous.visibility = View.VISIBLE
                 space_continuous.visibility = View.VISIBLE
