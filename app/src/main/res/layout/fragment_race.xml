@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        android:layout_height="match_parent">
+        >
 
-
-    <ImageView
+    <ImageView android:id="@+id/image_race"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:id="@+id/image_race"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/race_impi"
-            android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"/>
+            />
     <ImageView android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -27,39 +30,46 @@
             app:layout_constraintTop_toTopOf="@+id/text_race_stats"
             app:srcCompat="@android:color/background_dark"
             />
-    <TextView
-            android:id="@+id/text_race_stats"
-            android:textColor="@android:color/holo_blue_bright"
-            android:text="Race"
-            android:textSize="24sp"
+    <TextView android:id="@+id/text_race_stats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/image_race" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"/>
-    <TextView
-            android:id="@+id/text_race_background"
-            android:textColor="@android:color/holo_blue_bright"
-            android:text="Background"
             android:padding="8dp"
+            android:text="Race"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_race"
+            />
+    <TextView android:id="@+id/text_race_background"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="24sp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/text_race_stats" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
-    <TextView
-            android:id="@+id/text_race_ships"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:padding="8dp"
+            android:text="Background"
             android:textColor="@android:color/holo_blue_bright"
-            android:text="No ships"
             android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_race_stats"
+            />
+    <TextView android:id="@+id/text_race_ships"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:padding="8dp"
             android:scrollbars="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/text_race_background" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="No ships"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_race_background"
+            />
 
 </android.support.constraint.ConstraintLayout>
