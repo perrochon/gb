@@ -98,14 +98,16 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var framesMissedThisSec = 0
     private var framesMissedLastSec = 0
     private var drawUntilStats = 0L
-    private var lastN = arrayListOf<Long>(120) // TODO: Suspicious that this is computing a running average. Chagnes too fast
+    private var lastN =
+        arrayListOf<Long>(120) // TODO: Suspicious that this is computing a running average. Chagnes too fast
 
     private var initTime = 0L
 
     private var numberOfDraws = 0L
     private var screenWidthDp = 0
     private var screenHeightDp = 0
-    private var focusSize = 0 // the area where we put stars and planets in the lower half of the screen (left for landscape?)
+    private var focusSize =
+        0 // the area where we put stars and planets in the lower half of the screen (left for landscape?)
     public var zoomLevelStar = 0f
     public var zoomLevelPlanet = 0f
     private var pinnedUidPlanet: Int? = null
@@ -195,10 +197,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         if (normScale > zoomLevelStar) {
             unpinPlanet()
-        }
-
-        if (normScale < zoomLevelPlanet && pinnedUidPlanet == null) {
-            // pin closest planet
         }
 
         visibleFileRect(vr)
@@ -369,7 +367,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             r.getHome().star.loc.getLoc().y * uToSf
                         )
                     ) {
-                        sP1.set(r.getHome().star.loc.getLoc().x * uToSf + 50, r.getHome().star.loc.getLoc().y * uToSf)
+                        sP1.set(
+                            r.getHome().star.loc.getLoc().x * uToSf + 50,
+                            r.getHome().star.loc.getLoc().y * uToSf
+                        )
                         sourceToViewCoord(sP1, vP1)
                         canvas.drawBitmap(r.getBitmap(), vP1.x, vP1.y, null)
                     }
@@ -393,13 +394,21 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                         pointVisible(shot.to.x * uToSf, shot.to.y * uToSf)
                     ) {
                         shotPaint.color =
-                            vm.race(shot.uidRace).getColor() // TODO PERFORMANCE add color when making shots as an int
+                            vm.race(shot.uidRace)
+                                .getColor() // TODO PERFORMANCE add color when making shots as an int
                         val shotduration = 333
                         val distance = shot.from.distance(shot.to) * uToS * scale * 2f
                         val milis = currentTimeMillis().rem(shotduration).toFloat()
                         val shotFront = milis * distance / shotduration
                         if (milis < 50f) {
-                            shotPaint.setPathEffect(DashPathEffect(floatArrayOf(shotFront, Float.MAX_VALUE), 0f))
+                            shotPaint.setPathEffect(
+                                DashPathEffect(
+                                    floatArrayOf(
+                                        shotFront,
+                                        Float.MAX_VALUE
+                                    ), 0f
+                                )
+                            )
                         } else {
                             val shotend = (milis - 50f) * distance / shotduration
                             val shotlength = 50f * distance / shotduration
@@ -476,11 +485,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                         for (uidP in s.starUidPlanets) { // PERF only draw one...
                             val p = vm.planet(uidP)
-                            if (planetVisible(
-                                    p.loc.getLoc().x * uToSf,
-                                    p.loc.getLoc().y * uToSf
-                                )
-                            ) { // FIXME do this in Float
+                            if (planetVisible(p.loc.getLoc().x * uToSf, p.loc.getLoc().y * uToSf)) {
+                                // FIXME do this (what?) in Float
+
+                                // we are drawing a planet, consider pinning it.
+                                if (pinnedUidPlanet == null) {
+                                    pinPlanet(uidP);
+                                }
+
 
                                 sP1.set(p.loc.getLoc().x * uToS, p.loc.getLoc().y * uToS)
                                 sourceToViewCoord(sP1, vP1)
@@ -540,7 +552,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                             sourceToViewCoord(sP1, vP1)
                             if (normScale > 2) {
                                 val planetBitmap = p.getBitmap()
-                                val planetSize = 1.6f * uToSf * scale // FIXME - move outside loops...
+                                val planetSize =
+                                    1.6f * uToSf * scale // FIXME - move outside loops...
                                 canvas.drawBitmap(
                                     planetBitmap,
                                     null,
@@ -583,7 +596,13 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                                 paint.color = circleColor
                                 paint.strokeWidth = strokeWidth.toFloat()
                                 val o = (PlanetOrbit * 0.4f) * uToS * scale
-                                canvas.drawRect(vP1.x - 2 * o, vP1.y - o, vP1.x + 2 * o, vP1.y + o, paint)
+                                canvas.drawRect(
+                                    vP1.x - 2 * o,
+                                    vP1.y - o,
+                                    vP1.x + 2 * o,
+                                    vP1.y + o,
+                                    paint
+                                )
 
                             }
                         } // if scale
@@ -693,7 +712,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                 if (sh.idxtype == BATTLESTAR) {
                     r = r * 1.5f
                 }
-                val theta: Float = currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
+                val theta: Float =
+                    currentTimeMillis().rem(1000).toFloat() * 2f * PI.toFloat() / 1000
                 canvas.drawCircle(
                     vP1.x + cos(theta) * r,
                     vP1.y + sin(theta) * r,
@@ -710,7 +730,13 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     canvas.drawCircle(vP1.x, vP1.y, radius * 1.5f, shipPaint)
                 }
                 FACTORY, RESEARCH, HEADQUARTERS -> {
-                    canvas.drawRect(vP1.x - radius, vP1.y - radius, vP1.x + radius, vP1.y + radius, shipPaint)
+                    canvas.drawRect(
+                        vP1.x - radius,
+                        vP1.y - radius,
+                        vP1.x + radius,
+                        vP1.y + radius,
+                        shipPaint
+                    )
                 }
             }
 
@@ -856,7 +882,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         paint.style = Style.STROKE // FIXME use dedicated paint
         val starBitmap = otherBitmap(R.drawable.star)
-        val halfSize = 20 // FIXME PERFORMANCE if we have fixed size, we only need to scale bitmap once, not 60/s
+        val halfSize =
+            20 // FIXME PERFORMANCE if we have fixed size, we only need to scale bitmap once, not 60/s
         for ((_, s) in vm.stars) {
             if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
                 sP1.set(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)
