@@ -41,8 +41,8 @@ class ARViewModel {
         var showContButton = false
         var superSensors = false
 
-        var missionResultsString = "999,-1,-1,-1,-1,-1" // Turn when mission success was achieved
-        var missionResults = listOf(0)
+//        var missionResultsString = "999,-1,-1,-1,-1,-1" // Turn when mission success was achieved
+//        var missionResults = listOf(0)
 
         var uidActivePlayer = 0
         val actionsTaken by lazy { MutableLiveData<Int>() }

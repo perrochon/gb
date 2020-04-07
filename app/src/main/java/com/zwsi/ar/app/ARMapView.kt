@@ -809,6 +809,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         }
     }
 
+    // TODO make it an option
     fun drawGrids(canvas: Canvas) {
         // Draw universe grid lines at 250 Universe Coordinates
         if ((90 < normScale) && (normScale > 80)) {
