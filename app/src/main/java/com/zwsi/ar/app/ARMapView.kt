@@ -43,7 +43,7 @@ fun Bitmap.rotate(degrees: Float): Bitmap {
     return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
 }
 
-class GBClickTarget(var center: PointF, var any: Any) {} // FIXME PERSISTENCE: Should pass in uid. And a type...
+class GBClickTarget(var center: PointF, var any: Any)  // FIXME PERSISTENCE: Should pass in uid. And a type...
 
 class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
     SubsamplingScaleImageView(context, attr) {

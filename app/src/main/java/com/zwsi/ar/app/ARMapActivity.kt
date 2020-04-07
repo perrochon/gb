@@ -62,7 +62,7 @@ class ARMapActivity : AppCompatActivity() {
         val turnObserver = Observer<Int> { newTurn ->
             setActionBar()
             layout_status_bar.invalidate()
-            map_view.turn = newTurn;
+            map_view.turn = newTurn
             map_view.shiftToPinnedPlanet()
             map_view.invalidate()
         }  // TODO why is newTurn nullable?
@@ -72,11 +72,7 @@ class ARMapActivity : AppCompatActivity() {
             setActionBar()
             layout_status_bar.invalidate()
 
-            if (!vm.secondPlayer || vm.playerTurns[1 - uidActivePlayer] < 0) {
-                button_do.isEnabled = true
-            } else {
-                button_do.isEnabled = false
-            }
+            button_do.isEnabled = !vm.secondPlayer || vm.playerTurns[1 - uidActivePlayer] < 0
 
             if (showContButton) {
                 button_continuous.visibility = View.VISIBLE
@@ -133,29 +129,29 @@ class ARMapActivity : AppCompatActivity() {
                 if (map_view.isReady) {
                     val any = map_view.clickTarget(e)
                     if (any is GBPlanet) {
-                        val ft = getSupportFragmentManager().beginTransaction()
+                        val ft = supportFragmentManager.beginTransaction()
                         val fragment = ARPlanetFragment.newInstance(any.uid.toString())
                         //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.layout_do, fragment, any.uid.toString())
                         ft.commit()
 
                     } else if (any is GBStar) {
-                        val ft = getSupportFragmentManager().beginTransaction()
+                        val ft = supportFragmentManager.beginTransaction()
                         val fragment = ARStarFragment.newInstance(any.uid.toString())
                         //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.layout_do, fragment, any.uid.toString())
                         ft.commit()
 
                     } else if (any is GBShip) {
-                        val ft = getSupportFragmentManager().beginTransaction()
+                        val ft = supportFragmentManager.beginTransaction()
                         val fragment = ARShipFragment.newInstance(any.uid.toString())
                         //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         ft.replace(R.id.layout_do, fragment, any.uid.toString())
                         ft.commit()
                     } else {
-                        val fragment = getSupportFragmentManager().findFragmentById(R.id.layout_do)
+                        val fragment = supportFragmentManager.findFragmentById(R.id.layout_do)
                         if (fragment != null) {
-                            val ft = getSupportFragmentManager().beginTransaction()
+                            val ft = supportFragmentManager.beginTransaction()
                             //ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                             ft.remove(fragment)
                             ft.commit()
