@@ -78,65 +78,65 @@ class ARShipFragment : Fragment() {
         // FIXME Make this a loop with programmatically created buttons, instead of copy paste
         button_pod.tag = sh.uid
         shipButtons.add(button_pod)
-        button_pod.setOnClickListener(View.OnClickListener {
+        button_pod.setOnClickListener {
             GlobalStuff.makeShip(it, POD)
             vm.race(uidActivePlayer).money -= GBData.shipsData[POD]!!.cost
             setDetails()
             view.invalidate()
-        })
+        }
 
         button_cruiser.tag = sh.uid
         shipButtons.add(button_cruiser)
-        button_cruiser.setOnClickListener(View.OnClickListener {
+        button_cruiser.setOnClickListener {
             GlobalStuff.makeShip(it, CRUISER)
             vm.race(uidActivePlayer).money -= GBData.shipsData[CRUISER]!!.cost
             setDetails()
             view.invalidate()
-        })
+        }
 
         button_shuttle.tag = sh.uid
         shipButtons.add(button_shuttle)
-        button_shuttle.setOnClickListener(View.OnClickListener {
+        button_shuttle.setOnClickListener {
             GlobalStuff.makeShip(it, SHUTTLE)
             vm.race(uidActivePlayer).money -= GBData.shipsData[SHUTTLE]!!.cost
             setDetails()
             view.invalidate()
-        })
+        }
         button_battlestar.tag = sh.uid
         shipButtons.add(button_battlestar)
-        button_battlestar.setOnClickListener(View.OnClickListener {
+        button_battlestar.setOnClickListener {
             GlobalStuff.makeShip(it, BATTLESTAR)
             vm.race(uidActivePlayer).money -= GBData.shipsData[BATTLESTAR]!!.cost
             setDetails()
             view.invalidate()
-        })
+        }
         button_station.tag = sh.uid
         shipButtons.add(button_station)
-        button_station.setOnClickListener(View.OnClickListener {
+        button_station.setOnClickListener {
             GlobalStuff.makeShip(it, STATION)
             vm.race(uidActivePlayer).money -= GBData.shipsData[STATION]!!.cost
             setDetails()
             view.invalidate()
-        })
+        }
         button_research.tag = sh.uid
         shipButtons.add(button_research)
-        button_research.setOnClickListener(View.OnClickListener {
+        button_research.setOnClickListener {
             GlobalStuff.makeShip(it, RESEARCH)
             vm.race(uidActivePlayer).money -= GBData.shipsData[RESEARCH]!!.cost
             setDetails()
             view.invalidate()
-        })
+        }
 
         button_to_ship.tag = sh.uid
-        button_to_ship.setOnClickListener(View.OnClickListener {
+        button_to_ship.setOnClickListener {
             GlobalStuff.panZoomToShip(it)
-        })
+        }
 
-        button_destinations.setOnClickListener(View.OnClickListener {
+        button_destinations.setOnClickListener {
             val intent = Intent(this.context, ARDestinationActivity::class.java)
             intent.putExtra("uidShip", sh.uid)
             startActivity(intent)
-        })
+        }
 
         // TODO FIX is at the end because it relies on shipButtons arraylist hack
         setDetails()

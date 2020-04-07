@@ -25,78 +25,78 @@ class ARLoadActivity : AppCompatActivity() {
 
         // TODO Reduce the code duplication below
         buttons.add(button_1_random)
-        button_1_random.setOnClickListener(View.OnClickListener {
+        button_1_random.setOnClickListener {
             lastSelection = 10
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_2_random)
-        button_2_random.setOnClickListener(View.OnClickListener {
+        button_2_random.setOnClickListener {
             lastSelection = 20
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_1_1)
-        button_1_1.setOnClickListener(View.OnClickListener {
+        button_1_1.setOnClickListener {
             lastSelection = 11
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_1_2)
-        button_1_2.setOnClickListener(View.OnClickListener {
+        button_1_2.setOnClickListener {
             lastSelection = 12
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_1_3)
-        button_1_3.setOnClickListener(View.OnClickListener {
+        button_1_3.setOnClickListener {
             lastSelection = 13
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_1_4)
-        button_1_4.setOnClickListener(View.OnClickListener {
+        button_1_4.setOnClickListener {
             lastSelection = 14
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_1_5)
-        button_1_5.setOnClickListener(View.OnClickListener {
+        button_1_5.setOnClickListener {
             lastSelection = 15
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_1_6)
-        button_1_6.setOnClickListener(View.OnClickListener {
+        button_1_6.setOnClickListener {
             lastSelection = 16
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_1_demo)
-        button_1_demo.setOnClickListener(View.OnClickListener {
+        button_1_demo.setOnClickListener {
             lastSelection = 31
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_2_1)
-        button_2_1.setOnClickListener(View.OnClickListener {
+        button_2_1.setOnClickListener {
             lastSelection = 21
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_2_2)
-        button_2_2.setOnClickListener(View.OnClickListener {
+        button_2_2.setOnClickListener {
             lastSelection = 22
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
         buttons.add(button_2_3)
-        button_2_3.setOnClickListener(View.OnClickListener {
+        button_2_3.setOnClickListener {
             lastSelection = 23
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
-        })
+        }
 
-        button_help.setOnClickListener(View.OnClickListener {
+        button_help.setOnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 val intent = Intent(this, ARHelpActivity::class.java)
                 val b = Bundle()
@@ -104,10 +104,10 @@ class ARLoadActivity : AppCompatActivity() {
                 intent.putExtras(b)
                 startActivity(intent)
             }
-        })
+        }
 
 
-        button_done.setOnClickListener(View.OnClickListener {
+        button_done.setOnClickListener {
 
             when (lastSelection) {
                 10 -> makeUniverse(it, false)
@@ -115,11 +115,11 @@ class ARLoadActivity : AppCompatActivity() {
                 in 11..16, in 21..23, 31 -> loadUniverse(it, lastSelection)
             }
             finish()
-        })
+        }
 
-        button_cancel.setOnClickListener(View.OnClickListener {
+        button_cancel.setOnClickListener {
             finish()
-        })
+        }
     }
 
     fun makeUniverse(@Suppress("UNUSED_PARAMETER") view: View, secondPlayer: Boolean) {

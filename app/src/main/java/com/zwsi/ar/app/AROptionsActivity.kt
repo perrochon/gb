@@ -24,7 +24,7 @@ class AROptionsActivity : AppCompatActivity() {
 
         text_version.text=BuildConfig.VERSIONNAME
 
-        HelpButtonOptions.setOnClickListener(View.OnClickListener {
+        HelpButtonOptions.setOnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 val intent = Intent(this, ARHelpActivity::class.java)
                 val b = Bundle()
@@ -32,11 +32,11 @@ class AROptionsActivity : AppCompatActivity() {
                 intent.putExtras(b)
                 startActivity(intent)
             }
-        })
+        }
 
-        button_done.setOnClickListener(View.OnClickListener {
+        button_done.setOnClickListener {
             finish()
-        })
+        }
 
         val sharedPref = this.getSharedPreferences("options", Context.MODE_PRIVATE)
 

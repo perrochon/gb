@@ -59,11 +59,11 @@ class ARDestinationActivity : AppCompatActivity() {
                 if (uidSelectedPlanet == p.uid) {
                     button.background.colorFilter = LightingColorFilter(0x55555, 0x774400)
                 }
-                button.setOnClickListener(View.OnClickListener {
+                button.setOnClickListener {
                     handleClickInSelectionActivity(it, destinationsList)
                     uidSelectedPlanet = p.uid
                     uidSelectedStar = -1
-                })
+                }
 
                 layout_destinations.addView(button, lp)
                 destinationsList.add(button)
@@ -84,18 +84,18 @@ class ARDestinationActivity : AppCompatActivity() {
             if (uidSelectedStar == star.uid) {
                 button.background.colorFilter = LightingColorFilter(0x55555, 0x774400)
             }
-            button.setOnClickListener(View.OnClickListener {
+            button.setOnClickListener {
                 handleClickInSelectionActivity(it, destinationsList)
                 uidSelectedPlanet = -1
                 uidSelectedStar = star.uid
 
-            })
+            }
 
             layout_destinations.addView(button, lp)
             destinationsList.add(button)
         }
 
-        button_set.setOnClickListener(View.OnClickListener {
+        button_set.setOnClickListener {
             if (uidSelectedPlanet != -1) {
 
                 val planet = vm.planet(uidSelectedPlanet)
@@ -121,11 +121,11 @@ class ARDestinationActivity : AppCompatActivity() {
             }
             GlobalStuff.updateActions(it)
             finish()
-        })
+        }
 
-        button_cancel.setOnClickListener(View.OnClickListener {
+        button_cancel.setOnClickListener {
             finish()
-        })
+        }
 
     }
 

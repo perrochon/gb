@@ -40,49 +40,49 @@ class ARMainActivity : AppCompatActivity() {
 
         button_player1.isEnabled = false
         button_player1.text = "Play"
-        button_player1.setOnClickListener(View.OnClickListener {
+        button_player1.setOnClickListener {
             uidActivePlayer = 0
             gotoMap(it)
-        })
+        }
 
         space_player2.visibility = View.GONE
         button_player2.isEnabled = false
         button_player2.visibility = View.GONE
-        button_player2.setOnClickListener(View.OnClickListener {
+        button_player2.setOnClickListener {
             uidActivePlayer = 1
             gotoMap(it)
-        })
+        }
 
-        button_options.setOnClickListener(View.OnClickListener {
+        button_options.setOnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 val intent = Intent(this, AROptionsActivity::class.java)
                 startActivity(intent)
             }
-        })
+        }
 
-        button_stats.setOnClickListener(View.OnClickListener {
+        button_stats.setOnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 val intent = Intent(this, ARPlayerActivity::class.java)
                 startActivity(intent)
             }
-        })
+        }
 
         button_save.isEnabled = false
-        button_save.setOnClickListener(View.OnClickListener {
+        button_save.setOnClickListener {
             // FIXME TODO Implement Save Game
-        })
+        }
 
-        button_load.setOnClickListener(View.OnClickListener {
+        button_load.setOnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 GlobalStuff.autoDo = false
                 val intent = Intent(this, ARLoadActivity::class.java)
                 startActivity(intent)
             }
-        })
+        }
 
-        button_do.setOnClickListener(View.OnClickListener {
+        button_do.setOnClickListener {
             GlobalStuff.doUniverse(it)
-        })
+        }
 
         if (showContButton) {
             button_continuous.visibility = View.VISIBLE
@@ -91,16 +91,16 @@ class ARMainActivity : AppCompatActivity() {
             button_continuous.visibility = View.GONE
             space_continuous.visibility = View.GONE
         }
-        button_continuous.setOnClickListener(View.OnClickListener {
+        button_continuous.setOnClickListener {
             GlobalStuff.toggleContinuous(it)
-        })
+        }
 
-        button_help.setOnClickListener(View.OnClickListener {
+        button_help.setOnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 val intent = Intent(this, ARHelpActivity::class.java)
                 startActivity(intent)
             }
-        })
+        }
 
         val turnObserver = Observer<Int> { newTurn ->
             // TODO This is a bit overkill, as it enables on every new turn

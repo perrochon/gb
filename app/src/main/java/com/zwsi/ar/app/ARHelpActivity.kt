@@ -15,9 +15,9 @@ class ARHelpActivity : AppCompatActivity() {
 
         text_version.text=BuildConfig.VERSIONNAME
 
-        button_done.setOnClickListener(View.OnClickListener {
+        button_done.setOnClickListener {
             finish()
-        })
+        }
 
         val b = intent.extras
         val helpUrl = b?.getString("url") ?: "file:///android_asset/mainHelp.html"

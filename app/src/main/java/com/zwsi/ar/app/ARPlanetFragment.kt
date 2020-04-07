@@ -45,19 +45,19 @@ class ARPlanetFragment : Fragment() {
         ARViewModel.actionsTaken.observe(this, actionObserver)
 
         button_factory.tag = tag!!.toInt()
-        button_factory.setOnClickListener(View.OnClickListener {
+        button_factory.setOnClickListener {
             GlobalStuff.makeStructure(it, FACTORY)
-        })
+        }
 
         button_to_system_star.tag = vm.planet(tag!!.toInt()).star.uid
-        button_to_system_star.setOnClickListener(View.OnClickListener {
+        button_to_system_star.setOnClickListener {
             GlobalStuff.panZoomToStar(it)
-        })
+        }
 
         button_to_planet.tag = tag!!.toInt()
-        button_to_planet.setOnClickListener(View.OnClickListener {
+        button_to_planet.setOnClickListener {
             GlobalStuff.panZoomToPlanet(it)
-        })
+        }
 
     }
 

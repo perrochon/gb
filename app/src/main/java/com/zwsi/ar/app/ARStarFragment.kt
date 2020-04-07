@@ -35,9 +35,9 @@ class ARStarFragment : Fragment() {
         ARViewModel.currentTurn.observe(this, turnObserver)
 
         button_to_star.tag = tag!!.toInt()
-        button_to_star.setOnClickListener(View.OnClickListener {
+        button_to_star.setOnClickListener {
             GlobalStuff.panZoomToStar(it)
-        })
+        }
     }
 
     private fun setDetails() {

@@ -19,9 +19,9 @@ class ARPlayerActivity : AppCompatActivity() {
 
         text_version.text=BuildConfig.VERSIONNAME
 
-        button_done.setOnClickListener(View.OnClickListener {
+        button_done.setOnClickListener {
             finish()
-        })
+        }
 
         missionResults.text = "";
         val sharedPref = this.getSharedPreferences("playerstats", MODE_PRIVATE)
