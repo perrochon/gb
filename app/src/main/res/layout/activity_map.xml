@@ -8,7 +8,7 @@
         android:orientation="vertical"
         >
 
-    <com.zwsi.ar.app.MapView android:id="@+id/mapView"
+    <com.zwsi.ar.app.MapView android:id="@+id/map_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:padding="0dp"
             >
-        <Button android:id="@+id/HelpButtonMap"
+        <Button android:id="@+id/button_help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_message"
@@ -41,7 +41,7 @@
                 android:layout_height="1dp"
                 android:layout_weight="1"
                 />
-        <Button android:id="@+id/ContinuousButton"
+        <Button android:id="@+id/button_continuous"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginEnd="8dp"
@@ -55,10 +55,10 @@
                 android:textColor="@android:color/holo_orange_light"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/DoButton"
+                app:layout_constraintEnd_toStartOf="@+id/button_do"
                 tools:visibility="visible"
                 />
-        <Button android:id="@+id/DoButton"
+        <Button android:id="@+id/button_do"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_message"
@@ -69,7 +69,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
     </LinearLayout>
-    <LinearLayout android:id="@+id/actionBar"
+    <LinearLayout android:id="@+id/layout_status_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -91,7 +91,7 @@
                 tools:padding="0dp"
                 tools:visibility="visible"
                 >
-            <TextView android:id="@+id/money1"
+            <TextView android:id="@+id/text_money1"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:background="@drawable/border_xeno"
@@ -105,7 +105,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
-            <TextView android:id="@+id/money1Text"
+            <TextView android:id="@+id/text_money1label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -126,7 +126,7 @@
                 tools:padding="0dp"
                 tools:visibility="visible"
                 >
-            <TextView android:id="@+id/action1"
+            <TextView android:id="@+id/text_action1"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:background="@drawable/border_xeno"
@@ -140,7 +140,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
-            <TextView android:id="@+id/action1Text"
+            <TextView android:id="@+id/text_action1label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -165,7 +165,7 @@
                 tools:padding="0dp"
                 tools:visibility="visible"
                 >
-            <TextView android:id="@+id/turns"
+            <TextView android:id="@+id/text_turns"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:fontFamily="@font/roboto_medium"
@@ -178,7 +178,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
-            <TextView android:id="@+id/turnsText"
+            <TextView android:id="@+id/text_turnslabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -203,7 +203,7 @@
                 tools:padding="0dp"
                 tools:visibility="visible"
                 >
-            <TextView android:id="@+id/action2"
+            <TextView android:id="@+id/text_action2"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:background="@drawable/border_impi"
@@ -217,7 +217,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
-            <TextView android:id="@+id/action2Text"
+            <TextView android:id="@+id/text_action2label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -238,7 +238,7 @@
                 tools:padding="0dp"
                 tools:visibility="visible"
                 >
-            <TextView android:id="@+id/money2"
+            <TextView android:id="@+id/text_money2"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:background="@drawable/border_impi"
@@ -252,7 +252,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
-            <TextView android:id="@+id/mone2Text"
+            <TextView android:id="@+id/text_money2label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -268,21 +268,21 @@
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 
-    <ImageView android:id="@+id/image1"
+    <ImageView android:id="@+id/image_player1"
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/actionBar"
+            app:layout_constraintTop_toBottomOf="@+id/layout_status_bar"
             app:srcCompat="@drawable/race_xenos"
             />
-    <ImageView android:id="@+id/image2"
+    <ImageView android:id="@+id/image_player2"
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:layout_constraintEnd_toEndOf="@+id/mapView"
-            app:layout_constraintTop_toBottomOf="@+id/actionBar"
+            app:layout_constraintTop_toBottomOf="@+id/layout_status_bar"
             app:srcCompat="@drawable/race_impi"
             />
-    <FrameLayout android:id="@+id/details"
+    <FrameLayout android:id="@+id/layout_do"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -293,7 +293,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-    <TextView android:id="@+id/version"
+    <TextView android:id="@+id/text_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Version"

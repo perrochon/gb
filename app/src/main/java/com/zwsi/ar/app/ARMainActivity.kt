@@ -4,17 +4,9 @@ package com.zwsi.ar.app
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v4.text.HtmlCompat
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.text.method.LinkMovementMethod
 import android.text.method.ScrollingMovementMethod
 import android.view.View
-import android.widget.Button
-import android.widget.ScrollView
-import android.widget.Space
-import android.widget.TextView
 import com.zwsi.ar.app.ARViewModel.Companion.newsHistory
 import com.zwsi.ar.app.ARViewModel.Companion.ready
 import com.zwsi.ar.app.ARViewModel.Companion.showContButton
@@ -23,6 +15,7 @@ import com.zwsi.ar.app.ARViewModel.Companion.uidActivePlayer
 import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 class ARMainActivity : AppCompatActivity() {
@@ -41,57 +34,45 @@ class ARMainActivity : AppCompatActivity() {
 
         GBController.currentFilePath = filesDir // Tell the controller where to save games
 
-        // Version TextView
-        val version = findViewById<TextView>(R.id.version)
-        version.setText(BuildConfig.VERSIONNAME)
+        text_version.text=BuildConfig.VERSIONNAME
 
-        // Set up the MessageBox View to listen to news
-        val messageBox: TextView = findViewById<TextView>(R.id.messageBox)!!
-        messageBox.movementMethod = ScrollingMovementMethod();
-        messageBox.setText("Welcome to Andromeda Rising!\nA game of galactic domination.\n\n")
+        text_messageBox.movementMethod = ScrollingMovementMethod();
 
-        val play1Button: Button = findViewById(R.id.Play1Button)
-        play1Button.isEnabled = false
-        play1Button.text = "Play"
-        play1Button.setOnClickListener(View.OnClickListener {
+        button_player1.isEnabled = false
+        button_player1.text = "Play"
+        button_player1.setOnClickListener(View.OnClickListener {
             uidActivePlayer = 0
             gotoMap(it)
         })
 
-        val play2Button: Button = findViewById(R.id.Play2Button)
-        play2Button.isEnabled = false
-        val play2Space: Space = findViewById(R.id.Play2Space)
-        play2Button.visibility = View.GONE
-        play2Space.visibility = View.GONE
-        play2Button.setOnClickListener(View.OnClickListener {
+        space_player2.visibility = View.GONE
+        button_player2.isEnabled = false
+        button_player2.visibility = View.GONE
+        button_player2.setOnClickListener(View.OnClickListener {
             uidActivePlayer = 1
             gotoMap(it)
         })
 
-        val optionsButton: Button = findViewById(R.id.OptionsButton)
-        optionsButton.setOnClickListener(View.OnClickListener {
+        button_options.setOnClickListener(View.OnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 val intent = Intent(this, AROptionsActivity::class.java)
                 startActivity(intent)
             }
         })
 
-        val statsButton: Button = findViewById(R.id.StatsButton)
-        statsButton.setOnClickListener(View.OnClickListener {
+        button_stats.setOnClickListener(View.OnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 val intent = Intent(this, ARPlayerActivity::class.java)
                 startActivity(intent)
             }
         })
 
-        val saveButton: Button = findViewById(R.id.SaveButton)
-        saveButton.isEnabled = false
-        saveButton.setOnClickListener(View.OnClickListener {
+        button_save.isEnabled = false
+        button_save.setOnClickListener(View.OnClickListener {
             // FIXME TODO Implement Save Game
         })
 
-        val loadButton: Button = findViewById(R.id.LoadButton)
-        loadButton.setOnClickListener(View.OnClickListener {
+        button_load.setOnClickListener(View.OnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 GlobalStuff.autoDo = false
                 val intent = Intent(this, ARLoadActivity::class.java)
@@ -99,26 +80,22 @@ class ARMainActivity : AppCompatActivity() {
             }
         })
 
-        val doButton: Button = findViewById(R.id.DoButton)
-        doButton.setOnClickListener(View.OnClickListener {
+        button_do.setOnClickListener(View.OnClickListener {
             GlobalStuff.doUniverse(it)
         })
 
-        val contButton: Button = findViewById(R.id.ContinuousButton)
-        val contSpace: Space = findViewById(R.id.ContinuousSpace)
         if (showContButton) {
-            contButton.visibility = View.VISIBLE
-            contSpace.visibility = View.VISIBLE
+            button_continuous.visibility = View.VISIBLE
+            space_continuous.visibility = View.VISIBLE
         } else {
-            contButton.visibility = View.GONE
-            contSpace.visibility = View.GONE
+            button_continuous.visibility = View.GONE
+            space_continuous.visibility = View.GONE
         }
-        contButton.setOnClickListener(View.OnClickListener {
+        button_continuous.setOnClickListener(View.OnClickListener {
             GlobalStuff.toggleContinuous(it)
         })
 
-        val helpButton: Button = findViewById(R.id.HelpButtonMain)
-        helpButton.setOnClickListener(View.OnClickListener {
+        button_help.setOnClickListener(View.OnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 val intent = Intent(this, ARHelpActivity::class.java)
                 startActivity(intent)
@@ -127,25 +104,25 @@ class ARMainActivity : AppCompatActivity() {
 
         val turnObserver = Observer<Int> { newTurn ->
             // TODO This is a bit overkill, as it enables on every new turn
-            play1Button.isEnabled = true
-            play2Button.isEnabled = true
-            messageBox.text = ""
+            button_player1.isEnabled = true
+            button_player2.isEnabled = true
+            text_messageBox.text = ""
             if (superSensors || !vm.secondPlayer) {
                 for (article in newsHistory) {
-                    messageBox.append(article)
+                    text_messageBox.append(article)
                 }
             }
-            messageBox.append("\nTurn: ${newTurn.toString()}\n")
-            messageBox.invalidate()
+            text_messageBox.append("\nTurn: ${newTurn.toString()}\n")
+            text_messageBox.invalidate()
 
             if (vm.secondPlayer) {
-                play2Button.visibility = View.VISIBLE
-                play2Space.visibility = View.VISIBLE
-                play1Button.text = "Player 1"
+                button_player2.visibility = View.VISIBLE
+                space_player2.visibility = View.VISIBLE
+                button_player1.text = "Player 1"
             } else {
-                play2Button.visibility = View.GONE
-                play2Space.visibility = View.GONE
-                play1Button.text = "Play"
+                button_player2.visibility = View.GONE
+                space_player2.visibility = View.GONE
+                button_player1.text = "Play"
             }
 
         }  // TODO why is newTurn nullable?
@@ -153,15 +130,14 @@ class ARMainActivity : AppCompatActivity() {
 
         val actionObserver = Observer<Int> { _ ->
             if (showContButton) {
-                contButton.visibility = View.VISIBLE
-                contSpace.visibility = View.VISIBLE
+                button_continuous.visibility = View.VISIBLE
+                space_continuous.visibility = View.VISIBLE
             } else {
-                contButton.visibility = View.GONE
-                contSpace.visibility = View.GONE
+                button_continuous.visibility = View.GONE
+                space_continuous.visibility = View.GONE
             }
         }
         ARViewModel.actionsTaken.observe(this, actionObserver)
-
 
         // Get a head start on bitmap loading
         if (!ARBitmaps.ready) {
@@ -174,19 +150,19 @@ class ARMainActivity : AppCompatActivity() {
         if (filesDir.isDirectory) {
             val current = File(filesDir, GBData.currentGameFileName)
             if (current.exists()) {
-                messageBox.append("Found current game")
+                text_messageBox.append("Found current game")
                 val json = current.readText()
                 if (json != "") {
-                    messageBox.append(" and attempting to load it.\n\n")
+                    text_messageBox.append(" and attempting to load it.\n\n")
                     Thread(Runnable {
                         GBController.loadUniverseFromJSON(json)
                         GlobalStuff.processGameInfo(json, true)
                     }).start()
                 } else {
-                    messageBox.append(", but file is empty")
+                    text_messageBox.append(", but file is empty")
                 }
             } else {
-                messageBox.append("Couldn't find any current game. Click LOAD GAME to load a mission or HELP to learn more.")
+                text_messageBox.append("Couldn't find any current game. Click LOAD GAME to load a mission or HELP to learn more.")
             }
         }
     }
@@ -194,18 +170,14 @@ class ARMainActivity : AppCompatActivity() {
     public override fun onResume() {  // After a pause OR at startup
         super.onResume()
 
-        val play1Button: Button = findViewById(R.id.Play1Button)
-        val play2Button: Button = findViewById(R.id.Play2Button)
-        val play2Space: Space = findViewById(R.id.Play2Space)
-
         if (ready && vm.secondPlayer) {
-            play2Button.visibility = View.VISIBLE
-            play2Space.visibility = View.VISIBLE
-            play1Button.text = "Player 1"
+            button_player2.visibility = View.VISIBLE
+            space_player2.visibility = View.VISIBLE
+            button_player1.text = "Player 1"
         } else {
-            play2Button.visibility = View.GONE
-            play2Space.visibility = View.GONE
-            play1Button.text = "Play"
+            button_player2.visibility = View.GONE
+            space_player2.visibility = View.GONE
+            button_player1.text = "Play"
         }
     }
 

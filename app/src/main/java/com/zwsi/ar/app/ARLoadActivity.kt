@@ -6,10 +6,10 @@ import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import com.zwsi.gblib.GBController
 import com.zwsi.gblib.GBData
+import kotlinx.android.synthetic.main.activity_load.*
 import java.io.File
 
 class ARLoadActivity : AppCompatActivity() {
@@ -18,100 +18,85 @@ class ARLoadActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_load)
 
-        // Set up the Version View
-        val version = findViewById<TextView>(R.id.version)
-        version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+        text_version.text=BuildConfig.VERSIONNAME
 
         var lastSelection = 0 // FIXME: Use resource IDs, and tag the button...
         val buttons = arrayListOf<Button>()
 
         // TODO Reduce the code duplication below
-        val new1Button: Button = findViewById(R.id.New1Button)
-        buttons.add(new1Button)
-        new1Button.setOnClickListener(View.OnClickListener {
+        buttons.add(button_1_random)
+        button_1_random.setOnClickListener(View.OnClickListener {
             lastSelection = 10
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val new2Button: Button = findViewById(R.id.New2Button)
-        buttons.add(new2Button)
-        new2Button.setOnClickListener(View.OnClickListener {
+        buttons.add(button_2_random)
+        button_2_random.setOnClickListener(View.OnClickListener {
             lastSelection = 20
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val load1Button1: Button = findViewById(R.id.Load1Button1)
-        buttons.add(load1Button1)
-        load1Button1.setOnClickListener(View.OnClickListener {
+        buttons.add(button_1_1)
+        button_1_1.setOnClickListener(View.OnClickListener {
             lastSelection = 11
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val load1Button2: Button = findViewById(R.id.Load1Button2)
-        buttons.add(load1Button2)
-        load1Button2.setOnClickListener(View.OnClickListener {
+        buttons.add(button_1_2)
+        button_1_2.setOnClickListener(View.OnClickListener {
             lastSelection = 12
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val load1Button3: Button = findViewById(R.id.Load1Button3)
-        buttons.add(load1Button3)
-        load1Button3.setOnClickListener(View.OnClickListener {
+        buttons.add(button_1_3)
+        button_1_3.setOnClickListener(View.OnClickListener {
             lastSelection = 13
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val load1Button4: Button = findViewById(R.id.Load1Button4)
-        buttons.add(load1Button4)
-        load1Button4.setOnClickListener(View.OnClickListener {
+        buttons.add(button_1_4)
+        button_1_4.setOnClickListener(View.OnClickListener {
             lastSelection = 14
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val load1Button5: Button = findViewById(R.id.Load1Button5)
-        buttons.add(load1Button5)
-        load1Button5.setOnClickListener(View.OnClickListener {
+        buttons.add(button_1_5)
+        button_1_5.setOnClickListener(View.OnClickListener {
             lastSelection = 15
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val load1Button6: Button = findViewById(R.id.Load1Button6)
-        buttons.add(load1Button6)
-        load1Button6.setOnClickListener(View.OnClickListener {
+        buttons.add(button_1_6)
+        button_1_6.setOnClickListener(View.OnClickListener {
             lastSelection = 16
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val demo1Button: Button = findViewById(R.id.DemoButton)
-        buttons.add(demo1Button)
-        demo1Button.setOnClickListener(View.OnClickListener {
+        buttons.add(button_1_demo)
+        button_1_demo.setOnClickListener(View.OnClickListener {
             lastSelection = 31
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val load2Button1: Button = findViewById(R.id.Load2Button1)
-        buttons.add(load2Button1)
-        load2Button1.setOnClickListener(View.OnClickListener {
+        buttons.add(button_2_1)
+        button_2_1.setOnClickListener(View.OnClickListener {
             lastSelection = 21
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val load2Button2: Button = findViewById(R.id.Load2Button2)
-        buttons.add(load2Button2)
-        load2Button2.setOnClickListener(View.OnClickListener {
+        buttons.add(button_2_2)
+        button_2_2.setOnClickListener(View.OnClickListener {
             lastSelection = 22
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val load2Button3: Button = findViewById(R.id.Load2Button3)
-        buttons.add(load2Button3)
-        load2Button3.setOnClickListener(View.OnClickListener {
+        buttons.add(button_2_3)
+        button_2_3.setOnClickListener(View.OnClickListener {
             lastSelection = 23
             GlobalStuff.handleClickInSelectionActivity(it, buttons)
         })
 
-        val helpButton: Button = findViewById(R.id.HelpButtonLoad)
-        helpButton.setOnClickListener(View.OnClickListener {
+        button_help.setOnClickListener(View.OnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 val intent = Intent(this, ARHelpActivity::class.java)
                 val b = Bundle()
@@ -122,8 +107,7 @@ class ARLoadActivity : AppCompatActivity() {
         })
 
 
-        val doneButton: Button = findViewById(R.id.DoneButton)
-        doneButton.setOnClickListener(View.OnClickListener {
+        button_done.setOnClickListener(View.OnClickListener {
 
             when (lastSelection) {
                 10 -> makeUniverse(it, false)
@@ -133,9 +117,7 @@ class ARLoadActivity : AppCompatActivity() {
             finish()
         })
 
-        val buttonCancel = findViewById<Button>(R.id.cancelDestination)
-
-        buttonCancel.setOnClickListener(View.OnClickListener {
+        button_cancel.setOnClickListener(View.OnClickListener {
             finish()
         })
     }

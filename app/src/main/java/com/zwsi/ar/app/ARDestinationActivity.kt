@@ -16,6 +16,7 @@ import com.zwsi.gblib.*
 import com.zwsi.gblib.GBLocation.Companion.LANDED
 import com.zwsi.gblib.GBLocation.Companion.ORBIT
 import com.zwsi.gblib.GBLocation.Companion.PATROL
+import kotlinx.android.synthetic.main.activity_destination.*
 
 
 class ARDestinationActivity : AppCompatActivity() {
@@ -25,14 +26,10 @@ class ARDestinationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destination)
 
-        // Set up the Version View
-        val version = findViewById<TextView>(R.id.version)
-        version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
+        text_version.setText(BuildConfig.VERSIONNAME) // for now: 0.0.0.~ #commits...
 
         val uidShip = intent.extras!!.getInt("uidShip")
         val ship = vm.ship(uidShip)
-
-        val linearLayout = findViewById<LinearLayout>(R.id.Destinations)
 
         val lp = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         lp.setMargins(8, 8, 8, 8)
@@ -68,7 +65,7 @@ class ARDestinationActivity : AppCompatActivity() {
                     uidSelectedStar = -1
                 })
 
-                linearLayout.addView(button, lp)
+                layout_destinations.addView(button, lp)
                 destinationsList.add(button)
             }
 
@@ -94,13 +91,11 @@ class ARDestinationActivity : AppCompatActivity() {
 
             })
 
-            linearLayout.addView(button, lp)
+            layout_destinations.addView(button, lp)
             destinationsList.add(button)
         }
 
-        val buttonOK = findViewById<Button>(R.id.okDestination)
-
-        buttonOK.setOnClickListener(View.OnClickListener {
+        button_set.setOnClickListener(View.OnClickListener {
             if (uidSelectedPlanet != -1) {
 
                 val planet = vm.planet(uidSelectedPlanet)
@@ -128,9 +123,7 @@ class ARDestinationActivity : AppCompatActivity() {
             finish()
         })
 
-        val buttonCancel = findViewById<Button>(R.id.cancelDestination)
-
-        buttonCancel.setOnClickListener(View.OnClickListener {
+        button_cancel.setOnClickListener(View.OnClickListener {
             finish()
         })
 

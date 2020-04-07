@@ -7,6 +7,12 @@ game play, or prevent game play are second priority. Here are a few examples
 * Fleshed out missions: Missions keep changing, so they are bare bones, and only described in the tutorial.
 * Placeholder graphics: Things are very much in flux, so there are no final creative assets anywhere.
 
+# Coding Standards
+* Refactor to guidelines: https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md
+XML resources (e.g. text_version) are in snake case, like most Android code. This looks weird in Kotlin when
+accessed as variables (e.g. text_version.text = "1.1.1"), but it also makes it clear this is not a regular variable,
+but an XML layout element.
+
 ## Short Term Small Items
 * DO button crashes app when no game loaded. Grey it out.
 * Disable Demo mode option for PvP maps.

@@ -63,7 +63,6 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     // FIXME Do all calculations in Float, and only change to Integer before drawing calls where needed
 
-
     // Object creation outside onDraw. These are only used in onDraw, but here for performance reasons?
     private val paint = Paint()
     private val debugTextColor = Color.parseColor("#FFffbb33")
@@ -75,8 +74,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private val circleColor = Color.parseColor("#20FF6015")
     private val shotColor = Color.parseColor("#FFFF0000")
 
-    val vr = Rect()
-    val rect = Rect()
+    private val vr = Rect()
+    private val rect = Rect()
 
     private val sP1 = PointF()
     private val vP1 = PointF()
@@ -90,25 +89,25 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var clickTargets = arrayListOf<GBClickTarget>()
 
 
-    var drawTimes = mutableMapOf<String, Long>()
-    var drawStartTimeNanos = 0L
-    var drawStartTimeSec = -1
-    var lastSec = -1
-    var framesThisSec = 0
-    var framesLastSec = 0
-    var framesMissedThisSec = 0
-    var framesMissedLastSec = 0
-    var drawUntilStats = 0L
-    var lastN = arrayListOf<Long>(120) // TODO: Suspicious that this is computing a running average. Chagnes too fast
+    private var drawTimes = mutableMapOf<String, Long>()
+    private var drawStartTimeNanos = 0L
+    private var drawStartTimeSec = -1
+    private var lastSec = -1
+    private var framesThisSec = 0
+    private var framesLastSec = 0
+    private var framesMissedThisSec = 0
+    private var framesMissedLastSec = 0
+    private var drawUntilStats = 0L
+    private var lastN = arrayListOf<Long>(120) // TODO: Suspicious that this is computing a running average. Chagnes too fast
 
-    var initTime = 0L
+    private var initTime = 0L
 
-    var numberOfDraws = 0L
-    var screenWidthDp = 0
-    var screenHeightDp = 0
-    var focusSize = 0 // the area where we put stars and planets in the lower half of the screen (left for landscape?)
-    var zoomLevelStar = 0f
-    var zoomLevelPlanet = 0f
+    private var numberOfDraws = 0L
+    private var screenWidthDp = 0
+    private var screenHeightDp = 0
+    private var focusSize = 0 // the area where we put stars and planets in the lower half of the screen (left for landscape?)
+    public var zoomLevelStar = 0f
+    public var zoomLevelPlanet = 0f
     private var pinnedUidPlanet: Int? = null
     private var pinnedPlanetX = 0f
     private var pinnedPlanetY = 0f
@@ -156,6 +155,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             )
         )
 
+        pinPlanet(vm.race(uidActivePlayer).uidHomePlanet)
+
         // TODO reset this after recreating the universe
 
     }
@@ -194,6 +195,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
         if (normScale > zoomLevelStar) {
             unpinPlanet()
+        }
+
+        if (normScale < zoomLevelPlanet && pinnedUidPlanet == null) {
+            // pin closest planet
         }
 
         visibleFileRect(vr)
@@ -251,50 +256,50 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
     private fun drawRacesStats(canvas: Canvas) {
-        var l = 4f
-        val h = 50
+        var l = 6 // line number
+        val h = 50f // line height
+        val x = 8f // indent
 
         for ((i, r) in vm.races) {
             canvas.drawText(
                 "${r.idx}${r.name[0]}:$${r.money.f(5)}|S${r.raceUidShips.size.f(4)}" +
                         "|P${r.population.f(2)}|S ${r.raceVisibleStars.size.f(2)}" +
                         "|H${(vm.ships[r.uidHeadquarters]?.health ?: 0).f(4)}",
-                8f, l++ * h, statsNamesPaint
+                x, l++ * h, statsNamesPaint
             )
 
         }
-
     }
 
     private fun drawStats(canvas: Canvas) {
-
-        var l = 4f
-        val h = 50
+        var l = 10 // line number
+        val h = 50f // line height
+        val x = 8f // indent
 
         canvas.drawText(
             "MS:${maxScale.toInt()}|mS:${minScale.f(3)}|DY:${density.toInt()}" +
-                    "|NS:${normScale.f(2)}|SC:${scale.f(2)}", 8f, l++ * h, statsNamesPaint
+                    "|NS:${normScale.f(2)}|SC:${scale.f(2)}", x, l++ * h, statsNamesPaint
         )
 //            canvas.drawText(
 //                "UCenter: ${center!!.x.toInt() / uToS}, ${center!!.y.toInt() / uToS} / "
-//                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", 8f, l++ * h, statsNamesPaint
+//                        + "SCenter: ${center!!.x.toInt()}, ${center!!.y.toInt()}", x, l++ * h, statsNamesPaint
 //            )
 //            canvas.drawText(
 //                "Uvisible: ${(vr.right - vr.left) / uToS}x${(vr.bottom - vr.top) / uToS}",
-//                8f,
+//                x,
 //                l++ * h,
 //                statsNamesPaint
 //            )
 //            canvas.drawText(
 //                "Svisible: ${(vr.right - vr.left)}x${(vr.bottom - vr.top)}" + " at " + vr,
-//                8f,
+//                x,
 //                l++ * h,
 //                statsNamesPaint
 //            )
-//            canvas.drawText("Screen Click: ($xClick, $yClick)", 8f, l++ * h, statsNamesPaint)
-//            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", 8f, l++ * h, statsNamesPaint)
+//            canvas.drawText("Screen Click: ($xClick, $yClick)", x, l++ * h, statsNamesPaint)
+//            canvas.drawText("Source Click: (${sClick.x},${sClick.y})", x, l++ * h, statsNamesPaint)
 //            canvas.drawText(
-//                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", 8f, l++ * h, statsNamesPaint
+//                "Universe Click: (${sClick.x / uToS},${sClick.y / uToS})", x, l++ * h, statsNamesPaint
 //            )
         // Turn Stats
         canvas.drawText(
@@ -302,7 +307,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     "|As:${vm.ships.size.f(4)}" +
                     "|Ds:${vm.deepSpaceUidShips.size.f(4)}" +
                     "|sh:${vm.shots.size.f(3)}",
-            8f,
+            x,
             l++ * h,
             statsNamesPaint
         )
@@ -312,7 +317,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //                        "|TM:${(Runtime.getRuntime().totalMemory() / 1048576).f(3)}" +
 //                        "|UM:${((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576).f(3)}" +
 //                        "|FM:${(Runtime.getRuntime().freeMemory() / 1048576).f(3)}",
-//                8f,
+//                x,
 //                l++ * h,
 //                statsNamesPaint
 //            )
@@ -324,7 +329,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     "|LL:${(ARViewModel.timeLastLoad / 1000000L).f(2)}" + // Rare event. We don't care so much
                     "|FJ:${(ARViewModel.timeFromJson / 1000000L).f(2)}" +
                     "|MU:${(ARViewModel.timeModelUpdate / 1000000L).f(2)}",
-            8f,
+            x,
             l++ * h,
             statsNamesPaint
         )
@@ -334,7 +339,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
                     "|fps:${framesLastSec.f(3)}" +
                     "|fms:${framesMissedLastSec.f(3)}" +
                     "|init:${initTime.f(5)}ms",
-            8f,
+            x,
             l++ * h,
             statsNamesPaint
         )
@@ -342,15 +347,14 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 //            GBViewModel.drawTimes.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint) }
 
         drawTimes.forEach { t, u ->
-            canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint)
+            canvas.drawText("$t:${(u / 1000L).f(4)}μs", x, l++ * h, statsNamesPaint)
         }
 
         ARBitmaps.initTimes.forEach { t, u ->
-            canvas.drawText("$t:${(u / 1000000L).f(5)}ms", 8f, l++ * h, statsNamesPaint)
+            canvas.drawText("$t:${(u / 1000000L).f(5)}ms", x, l++ * h, statsNamesPaint)
         }
 
     }
-
 
     private fun drawRaces(canvas: Canvas) {
         // Timing Info:  no race 200μs, 1 race 400μs, more ?μs
@@ -825,6 +829,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     }
 
     fun shiftToPinnedPlanet() {
+
+        if (!isReady) {
+            return
+        }
+
         if (pinnedUidPlanet != null) {
             val p = vm.planets[pinnedUidPlanet!!]!!
             val dx = (p.loc.getLoc().x - pinnedPlanetX) * uToS
@@ -832,8 +841,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
             setScaleAndCenter(
                 getScale(),
                 PointF(
-                    center!!.x + dx,
-                    center!!.y + dy
+                    this.center!!.x + dx,
+                    this.center!!.y + dy
                 )
             )
             pinnedPlanetX = p.loc.getLoc().x

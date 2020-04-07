@@ -7,20 +7,21 @@
                                              tools:context=".ARMainActivity"
                                              tools:layout_editor_absoluteY="25dp"
         >
-    <LinearLayout android:id="@+id/linearLayout2"
+    <LinearLayout android:id="@+id/layout_destinations"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/border_message"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/DoneButton"
+            app:layout_constraintBottom_toTopOf="@+id/button_done"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             >
-        <TextView android:layout_width="match_parent"
+        <TextView android:id="@+id/text_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/black_ops_one"
                 android:padding="16dp"
@@ -30,18 +31,7 @@
                 android:textSize="24sp"
                 />
 
-        <TextView android:id="@+id/helptext"
-                android:layout_width="wrap_content"
-                android:layout_height="250dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text=""
-                android:textColor="@android:color/holo_orange_light"
-                android:textSize="18sp"
-                android:visibility="gone"
-                tools:text="@string/mainhelp"
-                tools:visibility="gone"
-                />
-        <WebView android:id="@+id/helpweb"
+        <WebView android:id="@+id/webview_help"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#00000000"
@@ -51,7 +41,7 @@
 
     </LinearLayout>
 
-    <Button android:id="@+id/DoneButton"
+    <Button android:id="@+id/button_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -66,7 +56,7 @@
             app:layout_constraintStart_toStartOf="parent"
             />
 
-    <TextView android:id="@+id/version"
+    <TextView android:id="@+id/text_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_medium"

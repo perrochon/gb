@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
 import android.widget.Switch
-import android.widget.TextView
 import com.zwsi.ar.app.ARViewModel.Companion.showClickTargets
 import com.zwsi.ar.app.ARViewModel.Companion.showContButton
 import com.zwsi.ar.app.ARViewModel.Companion.showRaceStats
@@ -15,6 +14,7 @@ import com.zwsi.ar.app.ARViewModel.Companion.showStats
 import com.zwsi.ar.app.ARViewModel.Companion.superSensors
 import com.zwsi.ar.app.ARViewModel.Companion.vm
 import com.zwsi.gblib.GBController
+import kotlinx.android.synthetic.main.activity_options.*
 
 class AROptionsActivity : AppCompatActivity() {
 
@@ -22,12 +22,9 @@ class AROptionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
 
-        // Version TextView
-        val version = findViewById<TextView>(R.id.version)
-        version.setText(BuildConfig.VERSIONNAME)
+        text_version.text=BuildConfig.VERSIONNAME
 
-        val helpButton: Button = findViewById(R.id.HelpButtonOptions)
-        helpButton.setOnClickListener(View.OnClickListener {
+        HelpButtonOptions.setOnClickListener(View.OnClickListener {
             if (!GlobalStuff.doubleClick()) {
                 val intent = Intent(this, ARHelpActivity::class.java)
                 val b = Bundle()
@@ -37,17 +34,14 @@ class AROptionsActivity : AppCompatActivity() {
             }
         })
 
-        // Done Button
-        val doneButton: Button = findViewById(R.id.DoneButton)
-        doneButton.setOnClickListener(View.OnClickListener {
+        button_done.setOnClickListener(View.OnClickListener {
             finish()
         })
 
         val sharedPref = this.getSharedPreferences("options", Context.MODE_PRIVATE)
 
-        val superSensorsButton: Switch = findViewById(R.id.SuperSensors)
-        superSensorsButton.isChecked = superSensors
-        superSensorsButton.setOnCheckedChangeListener { _, isChecked ->
+        switch_hyper_sensors.isChecked = superSensors
+        switch_hyper_sensors.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("superSensors", isChecked)
                 apply()
@@ -55,9 +49,8 @@ class AROptionsActivity : AppCompatActivity() {
             ARViewModel.updatePrefs()
         }
 
-        val showStatsButton: Switch = findViewById(R.id.ShowStats)
-        showStatsButton.isChecked = showStats
-        showStatsButton.setOnCheckedChangeListener { _, isChecked ->
+        switch_perf_stats.isChecked = showStats
+        switch_perf_stats.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("showStats", isChecked)
                 apply()
@@ -65,9 +58,8 @@ class AROptionsActivity : AppCompatActivity() {
             ARViewModel.updatePrefs()
         }
 
-        val showRaceStatsButton: Switch = findViewById(R.id.ShowRaceStats)
-        showRaceStatsButton.isChecked = showRaceStats
-        showRaceStatsButton.setOnCheckedChangeListener { _, isChecked ->
+        switch_race_stats.isChecked = showRaceStats
+        switch_race_stats.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("showRaceStats", isChecked)
                 apply()
@@ -75,9 +67,8 @@ class AROptionsActivity : AppCompatActivity() {
             ARViewModel.updatePrefs()
         }
 
-        val showClickTargetsButton: Switch = findViewById(R.id.ShowClickTargets)
-        showClickTargetsButton.isChecked = showClickTargets
-        showClickTargetsButton.setOnCheckedChangeListener { _, isChecked ->
+        switch_click_targets.isChecked = showClickTargets
+        switch_click_targets.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("showClickTargets", isChecked)
                 apply()
@@ -85,9 +76,8 @@ class AROptionsActivity : AppCompatActivity() {
             ARViewModel.updatePrefs()
         }
 
-        val showContButtonButton: Switch = findViewById(R.id.ShowContButton)
-        showContButtonButton.isChecked = showContButton
-        showContButtonButton.setOnCheckedChangeListener { _, isChecked ->
+        switch_continuous.isChecked = showContButton
+        switch_continuous.setOnCheckedChangeListener { _, isChecked ->
             with(sharedPref.edit()) {
                 putBoolean("showContButton", isChecked)
                 apply()
@@ -97,9 +87,8 @@ class AROptionsActivity : AppCompatActivity() {
 
         }
 
-        val DemoModeButton: Switch = findViewById(R.id.DemoModeButton)
-        DemoModeButton.isChecked
-        DemoModeButton.setOnCheckedChangeListener { _, isChecked ->
+        switch_demo_mode.isChecked
+        switch_demo_mode.setOnCheckedChangeListener { _, isChecked ->
             vm.demoMode = isChecked
             GBController.setDemoMode(isChecked)
             ARViewModel.actionsTaken.value = System.currentTimeMillis().toInt()
