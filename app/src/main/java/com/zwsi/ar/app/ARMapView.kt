@@ -344,11 +344,11 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
 //            GBViewModel.drawTimes.forEach { t, u -> canvas.drawText("$t:${(u / 1000L).f(4)}μs", 8f, l++ * h, statsNamesPaint) }
 
-        drawTimes.forEach { t, u ->
+        drawTimes.forEach { (t, u) ->
             canvas.drawText("$t:${(u / 1000L).f(4)}μs", x, l++ * h, statsNamesPaint)
         }
 
-        ARBitmaps.initTimes.forEach { t, u ->
+        ARBitmaps.initTimes.forEach { (t, u) ->
             canvas.drawText("$t:${(u / 1000000L).f(5)}ms", x, l++ * h, statsNamesPaint)
         }
 
