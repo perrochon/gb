@@ -34,7 +34,8 @@ class ARViewModel {
         lateinit var vm: GBUniverse
         var newsHistory = mutableListOf<String>()
 
-        var context: Context? = null // Keeping the Application Context in a singleton in case we need it.
+        var context: Context? =
+            null // Keeping the Application Context in a singleton in case we need it.
         var showStats = false
         var showRaceStats = true
         var showClickTargets = false
@@ -73,9 +74,14 @@ class ARViewModel {
                     newsHistory.removeAt(0)
                 }
 
-                if (vm.missionCompletedTurns > 0 ) {
-                    val sharedPref = context?.getSharedPreferences("playerstats", Context.MODE_PRIVATE)
-                    if (sharedPref != null && vm.missionCompletedTurns < sharedPref.getInt(vm.id, 99999)) {
+                if (vm.missionCompletedTurns > 0) {
+                    val sharedPref =
+                        context?.getSharedPreferences("playerstats", Context.MODE_PRIVATE)
+                    if (sharedPref != null && vm.missionCompletedTurns < sharedPref.getInt(
+                            vm.id,
+                            99999
+                        )
+                    ) {
                         with(sharedPref.edit()) {
                             putInt(vm.id, vm.missionCompletedTurns)
                             apply()

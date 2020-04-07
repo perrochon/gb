@@ -17,7 +17,7 @@ class ARPlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
 
-        text_version.text=BuildConfig.VERSIONNAME
+        text_version.text = BuildConfig.VERSIONNAME
 
         button_done.setOnClickListener {
             finish()

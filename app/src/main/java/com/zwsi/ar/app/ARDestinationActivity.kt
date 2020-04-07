@@ -24,12 +24,15 @@ class ARDestinationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destination)
 
-        text_version.text=BuildConfig.VERSIONNAME
+        text_version.text = BuildConfig.VERSIONNAME
 
         val uidShip = intent.extras!!.getInt("uidShip")
         val ship = vm.ship(uidShip)
 
-        val lp = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        val lp = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         lp.setMargins(8, 8, 8, 8)
 
         val destinationsList = arrayListOf<Button>()

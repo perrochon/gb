@@ -18,7 +18,7 @@ class ARLoadActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_load)
 
-        text_version.text=BuildConfig.VERSIONNAME
+        text_version.text = BuildConfig.VERSIONNAME
 
         var lastSelection = 0 // FIXME: Use resource IDs, and tag the button...
         val buttons = arrayListOf<Button>()
@@ -165,7 +165,6 @@ class ARLoadActivity : AppCompatActivity() {
             // But Not needed as long as we set secondPlayer from the LoadActivity
         }).start()
     }
-
 
 
 }

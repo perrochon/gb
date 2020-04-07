@@ -54,7 +54,14 @@ class ARShipFragment : Fragment() {
         if (sh.idxtype == STATION) {
             // TODO Animate Station in ShipDetail. Redraw the image view on every vsync postInvalidateOnAnimation()
 
-            val anim = RotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+            val anim = RotateAnimation(
+                0f,
+                359f,
+                Animation.RELATIVE_TO_SELF,
+                0.5f,
+                Animation.RELATIVE_TO_SELF,
+                0.5f
+            )
             anim.interpolator = LinearInterpolator()
             anim.repeatCount = Animation.INFINITE
             anim.duration = 10000
@@ -161,7 +168,7 @@ class ARShipFragment : Fragment() {
         paint.textSize = 40f
 
         if (sh == null) {
-            text_ship_stats.text="Boom! This ship no longer exists."
+            text_ship_stats.text = "Boom! This ship no longer exists."
         } else {
 
             text_ship_stats.text = "Name: " + sh.name + "\n"

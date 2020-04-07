@@ -19,7 +19,7 @@ class AROptionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
 
-        text_version.text=BuildConfig.VERSIONNAME
+        text_version.text = BuildConfig.VERSIONNAME
 
         HelpButtonOptions.setOnClickListener {
             if (!GlobalStuff.doubleClick()) {

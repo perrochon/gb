@@ -34,7 +34,7 @@ class ARMainActivity : AppCompatActivity() {
 
         GBController.currentFilePath = filesDir // Tell the controller where to save games
 
-        text_version.text=BuildConfig.VERSIONNAME
+        text_version.text = BuildConfig.VERSIONNAME
 
         text_messageBox.movementMethod = ScrollingMovementMethod()
 
