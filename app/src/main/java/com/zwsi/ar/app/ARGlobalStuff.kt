@@ -85,7 +85,7 @@ class GlobalStuff {
     companion object {
 
         var lastClickTime = 0L
-        val clickDelay = 300L
+        const val clickDelay: Long = 300
 
         private val moshi = Moshi.Builder().build()
         private val jsonAdapter: JsonAdapter<GBUniverse> =

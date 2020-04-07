@@ -115,7 +115,7 @@ class ARBitmaps {
         private val defaultBitMap =
             BitmapFactory.decodeResource(ARViewModel.context!!.resources, R.drawable.missing)
 
-        val numberOfFrames =
+        const val numberOfFrames: Int =
             150 // 10s rotation, 30fps -> up to 300 different angles/shipBitmaps! 600 @60fps
         private var wheelBitmaps = arrayOfNulls<Bitmap>(numberOfFrames)
 

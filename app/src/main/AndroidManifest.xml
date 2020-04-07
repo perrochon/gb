@@ -20,8 +20,8 @@
                 android:resource="@array/preloaded_fonts"
                 />
 
-        <activity android:name="com.zwsi.ar.app.ARPlayerActivity"></activity>
-        <activity android:name="com.zwsi.ar.app.ARHelpActivity"></activity>
+        <activity android:name="com.zwsi.ar.app.ARPlayerActivity" />
+        <activity android:name="com.zwsi.ar.app.ARHelpActivity" />
         <activity
                 android:name="com.zwsi.ar.app.ARLoadActivity"
                 android:label="Load"
