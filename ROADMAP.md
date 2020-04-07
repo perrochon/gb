@@ -41,7 +41,6 @@ game play, or prevent game play are second priority. Here are a few examples
 XML resources (e.g. text_version) are in snake case, like most Android code. This looks weird in Kotlin when
 accessed as variables (e.g. text_version.text = "1.1.1"), but it also makes it clear this is not a regular variable,
 but an XML layout element.
-* Get rid of FindViewById in Fragments and global stuff
 
 ## Code Quality
 * Turn colors to proper resource strings. Then parse them once.
@@ -52,7 +51,8 @@ but an XML layout element.
 * Refactor to use resources for strings for Missions
 * Strings to resources. What to do about library strings?
 * Clean up logging. Get rid of GBDebug?
-* Get Rid of Feature Module? Or move image into app feature? Then we may not need to upload/download the image each time?
+* Download image as on-demand media
+* Can we get rid of FindViewById in global stuff. Why do we have to go find the map?
 
 ### Not Gating
 * Different layouts for landscape/tablet
