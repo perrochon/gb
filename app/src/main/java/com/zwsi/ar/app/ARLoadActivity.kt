@@ -142,7 +142,7 @@ class ARLoadActivity : AppCompatActivity() {
         }
         GlobalStuff.lastClickTime = SystemClock.elapsedRealtime();
 
-        Toast.makeText(view.context, "Loading Universe ${number}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(view.context, "Loading Universe $number", Toast.LENGTH_SHORT).show()
 
         val json = when (number) {
             11 -> view.context.resources.openRawResource(R.raw.mission1).reader().readText()

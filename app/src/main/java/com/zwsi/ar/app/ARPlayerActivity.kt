@@ -29,7 +29,7 @@ class ARPlayerActivity : AppCompatActivity() {
         for (i in arrayOf(Mission1, Mission2, Mission3, Mission4, Mission5, Mission6)) {
             val days = sharedPref!!.getInt(i, -1)
             if (days > 0) {
-                missionResults.append("${i}: Achieved in ${days} turns.\n\n")
+                missionResults.append("${i}: Achieved in $days turns.\n\n")
             } else {
                 missionResults.append("${i}: Not achieved yet.\n\n")
             }

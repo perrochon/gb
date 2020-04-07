@@ -195,13 +195,13 @@ class GlobalStuff {
             // Stars don't go away, so the below !! should be safe
             val star = vm.star(view.tag as Int)  // FIXME direct way?
 
-            val map_view = activity.findViewById<MapView>(R.id.map_view)!!
+            val mapView = activity.findViewById<MapView>(R.id.map_view)!!
 
-            map_view.unpinPlanet()
-            map_view.animateScaleAndCenter(
-                map_view.zoomLevelStar, PointF(
-                    star.loc.getLoc().x * map_view.uToS,
-                    (star.loc.getLoc().y - 17f) * map_view.uToS
+            mapView.unpinPlanet()
+            mapView.animateScaleAndCenter(
+                mapView.zoomLevelStar, PointF(
+                    star.loc.getLoc().x * mapView.uToS,
+                    (star.loc.getLoc().y - 17f) * mapView.uToS
                 )
             )!!
                 .withDuration(1000)

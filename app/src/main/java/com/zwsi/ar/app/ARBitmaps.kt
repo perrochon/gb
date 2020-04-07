@@ -13,7 +13,7 @@ import com.zwsi.gblib.GBRace
 import com.zwsi.gblib.GBShip
 import kotlin.system.measureNanoTime
 
-const val NumberOfRacesWithBitmaps = 6
+const val NumberOfRacesWithBitmaps: Int = 6
 
 val race_colors = longArrayOf(0xffe34234, 0xff009e73, 0xffcc79a7, 0xff56b4e9, 0xff0072b2, 0xffF0E442)
 

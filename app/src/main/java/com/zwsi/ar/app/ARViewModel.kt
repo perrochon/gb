@@ -75,7 +75,7 @@ class ARViewModel {
 
                 if (vm.missionCompletedTurns > 0 ) {
                     val sharedPref = context?.getSharedPreferences("playerstats", Context.MODE_PRIVATE)
-                    if (sharedPref != null && vm.missionCompletedTurns < sharedPref!!.getInt(vm.id, 99999)) {
+                    if (sharedPref != null && vm.missionCompletedTurns < sharedPref.getInt(vm.id, 99999)) {
                         with(sharedPref.edit()) {
                             putInt(vm.id, vm.missionCompletedTurns)
                             apply()
@@ -101,10 +101,10 @@ class ARViewModel {
             if (context != null) {
                 val sharedPref = context!!.getSharedPreferences("options", Context.MODE_PRIVATE)
                 showStats = sharedPref!!.getBoolean("showStats", false)
-                showRaceStats = sharedPref!!.getBoolean("showRaceStats", false)
-                showClickTargets = sharedPref!!.getBoolean("showClickTargets", false)
-                showContButton = sharedPref!!.getBoolean("showContButton", false)
-                superSensors = sharedPref!!.getBoolean("superSensors", false)
+                showRaceStats = sharedPref.getBoolean("showRaceStats", false)
+                showClickTargets = sharedPref.getBoolean("showClickTargets", false)
+                showContButton = sharedPref.getBoolean("showContButton", false)
+                superSensors = sharedPref.getBoolean("superSensors", false)
             }
 
         }
