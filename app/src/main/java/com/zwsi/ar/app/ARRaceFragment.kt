@@ -71,7 +71,7 @@ class ARRaceFragment : Fragment() {
 
         val ships = r.raceUidShips.map { vm.race(it) }
         if (ships.isNotEmpty()) {
-            text_race_ships.text = ("Ships (${ships.size.toString()}): ")
+            text_race_ships.text = ("Ships (${ships.size}): ")
             for (sh in ships) {
                 text_race_ships.append(sh.name + " ")
             }

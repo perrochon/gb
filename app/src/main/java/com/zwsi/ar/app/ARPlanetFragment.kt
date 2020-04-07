@@ -97,7 +97,7 @@ class ARPlanetFragment : Fragment() {
         }
 
         if (p.landedUidShips.isNotEmpty()) {
-            text_planet_stats.append("Ships landed (${p.landedUidShips.size.toString()}): ")
+            text_planet_stats.append("Ships landed (${p.landedUidShips.size}): ")
             for (uidS in p.landedUidShips) {
                 text_planet_stats.append(vm.ship(uidS).name + " ")
             }
@@ -105,7 +105,7 @@ class ARPlanetFragment : Fragment() {
         }
 
         if (p.orbitUidShips.isNotEmpty()) {
-            text_planet_stats.append("Ships in orbit (${p.orbitUidShips.size.toString()}): ")
+            text_planet_stats.append("Ships in orbit (${p.orbitUidShips.size}): ")
             for (uidS in p.orbitUidShips) {
                 text_planet_stats.append(vm.ship(uidS).name + " ")
             }

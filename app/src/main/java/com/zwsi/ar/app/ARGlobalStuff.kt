@@ -90,7 +90,7 @@ class GlobalStuff {
         private val moshi = Moshi.Builder().build()
         private val jsonAdapter: JsonAdapter<GBUniverse> =
             moshi.adapter(GBUniverse::class.java).indent("  ")
-        public var autoDo = false
+        var autoDo = false
 
         // Common code once we have a JSON, from makeUniverse, do Universe, and eventually load
         fun processGameInfo(json: String, fresh: Boolean) {

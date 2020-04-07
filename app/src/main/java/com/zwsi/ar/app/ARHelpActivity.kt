@@ -2,9 +2,6 @@ package com.zwsi.ar.app
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import android.webkit.WebView
-import android.widget.Button
 import kotlinx.android.synthetic.main.activity_help.*
 
 class ARHelpActivity : AppCompatActivity() {

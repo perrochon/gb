@@ -63,7 +63,7 @@ class ARStarFragment : Fragment() {
                 uidShips += vm.patrolPoint(uidPP).orbitUidShips
             }
             if (uidShips.isNotEmpty()) {
-                text_star_stats.append("Ships (${uidShips.size.toString()}): ")
+                text_star_stats.append("Ships (${uidShips.size}): ")
                 for (s in uidShips) {
                     text_star_stats.append(vm.ship(s).name + " ")
                 }

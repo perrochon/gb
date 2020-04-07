@@ -108,8 +108,8 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
     private var screenHeightDp = 0
     private var focusSize =
         0 // the area where we put stars and planets in the lower half of the screen (left for landscape?)
-    public var zoomLevelStar = 0f
-    public var zoomLevelPlanet = 0f
+    var zoomLevelStar = 0f
+    var zoomLevelPlanet = 0f
     private var pinnedUidPlanet: Int? = null
     private var pinnedPlanetX = 0f
     private var pinnedPlanetY = 0f
@@ -659,10 +659,10 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
 
     fun pointVisible(x: Float, y: Float): Boolean {
         rect.set(
-            (x - sSystemSize.toFloat()).toInt(),
-            (y - sSystemSize.toFloat()).toInt(),
-            (x + sSystemSize.toFloat()).toInt(),
-            (y + sSystemSize.toFloat()).toInt()
+            (x - sSystemSize).toInt(),
+            (y - sSystemSize).toInt(),
+            (x + sSystemSize).toInt(),
+            (y + sSystemSize).toInt()
         )
         return intersects(rect, vr)
     }
@@ -907,7 +907,7 @@ class MapView @JvmOverloads constructor(context: Context, attr: AttributeSet? = 
         paint.style = Style.STROKE
         paint.color = circleColor
         paint.strokeWidth = strokeWidth.toFloat()
-        val radius = sSystemSize.toFloat() * scale
+        val radius = sSystemSize * scale
 
         for ((_, s) in vm.stars) {
             if (pointVisible(s.loc.getLoc().x * uToSf, s.loc.getLoc().y * uToSf)) {
